@@ -94,6 +94,8 @@
   .collrow .collname { display: block; font-size: 16px; }
   .collrow .collmeta { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.4; }
   .secondary.important { background: var(--accent); border-color: var(--accent); color: var(--accent-bg); font-weight: 500; }
+  /* Quitter et revenir plus tard : contour bleu, pour le distinguer des autres boutons */
+  .secondary.quit { border-color: var(--accent-line); color: var(--accent); }
   .secondary.bad { border-color: var(--danger); }
   .kpslot:empty { display: none; }
   .kpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
@@ -271,6 +273,16 @@
   .accamt { font-size: 15px; font-variant-numeric: tabular-nums; }
   .primary:disabled { opacity: .4; cursor: default; }
   .grp-actions { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+  /* Cadeau à plusieurs (gestion) : participations et envoi, chacun dans son encadré ; montants alignés à droite */
+  .partbox, .sendbox { margin-top: 22px; padding: 16px 18px; border-radius: 14px; background: #19191D; border: 1px solid var(--line); }
+  .sendbox .ztitle { margin-bottom: 4px; }
+  .partrow { padding: 12px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; }
+  .partrow:last-child { border-bottom: 0; }
+  .pmain { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .pname { min-width: 0; overflow-wrap: anywhere; }
+  .pamt { flex: 0 0 auto; min-width: 84px; text-align: right; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+  .psub { display: flex; gap: 14px; margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .psub .linkbtn { display: inline; padding: 0; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -378,6 +390,8 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* stockage indisponible */ } },
 };
+/* Liste des cartes reçues : une donnée locale d'une autre forme est ignorée, sans erreur */
+const receivedList = () => { const v = store.get(KEY_RECEIVED, []); return Array.isArray(v) ? v : []; };
 
 const initialState = () => ({
   step: 'create',
@@ -433,7 +447,8 @@ const GROUP_KEY = 'ckdo.collections';
 const GROUP_ID = new URLSearchParams(location.search).get('g');
 const MANAGE_KEY = new URLSearchParams(location.search).get('m');
 let myPartId = '';                   /* participation ajoutée depuis cet appareil */
-const collections = () => store.get(GROUP_KEY, {});
+/* Tolère une donnée locale ancienne ou incomplète : seules les valeurs de la bonne forme sont lues */
+const collections = () => { const v = store.get(GROUP_KEY, {}); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; };
 const getCollection = (id) => (id ? collections()[id] || null : null);
 function updateCollection(id, fn) {
   const all = collections();
@@ -803,7 +818,7 @@ function hdr(step, title, back) {
 /* ---------- écrans créateur ---------- */
 /* Mes cadeaux à plusieurs : les collectes créées sur cet appareil. Le lien de gestion mène à chacune. */
 function myCollectionsHtml() {
-  const list = Object.values(collections()).reverse();
+  const list = Object.values(collections()).filter((c) => c && Array.isArray(c.participants)).reverse();
   if (!list.length) return '';
   const rows = list.map((c) => {
     const statut = c.status === 'envoyee' ? 'Carte envoyée' : c.status === 'annulee' ? 'Annulée' : 'En collecte';
@@ -1222,8 +1237,10 @@ function screenCollect() {
   const me = c.participants.find((p) => p.creator);
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
   const rows = c.participants.map((p) => `
-    <div class="rowline"><span>${esc(p.name)}${p.creator ? ' <small>(vous)</small>' : ''}</span>
-    <span class="grp-actions">${eur(p.amount)} ${p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`} <button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button></span></div>`).join('');
+    <div class="partrow">
+      <div class="pmain"><span class="pname">${esc(p.name)}${p.creator ? ' <small>(vous)</small>' : ''}</span><span class="pamt">${eur(p.amount)}</span></div>
+      <div class="psub">${p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`}<button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button></div>
+    </div>`).join('');
   const enough = total >= MIN_AMOUNT;
   const payLine = enough
     ? `<div class="paytotal"><span>Total des participations</span><span>${eur(total)}</span></div>
@@ -1234,7 +1251,7 @@ function screenCollect() {
     <button class="linkbtn" data-act="keepgrp">Garder la collecte</button>`
     : `<button class="linkbtn" data-act="cancelgrp">Annuler la collecte</button>`;
   return `
-  <header class="hdr"><a class="back" href="${esc(homeHref())}" aria-label="Quitter et revenir plus tard">${ICON_BACK}</a><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
+  <header class="hdr"><button class="back" data-act="home" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
   <div class="section">
     ${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}
     <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
@@ -1247,9 +1264,11 @@ function screenCollect() {
     <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
     <div class="hint">Vos amis voient la carte et ajoutent leur part, sans payer. Vous réglez le total à l’envoi.</div>
 
-    <div class="ztitle">Participations · ${eur(total)}</div>
-    <div class="hint">${esc(deadlineText(c))}</div>
-    ${rows}
+    <div class="partbox">
+      <div class="ztitle">Participations · ${eur(total)}</div>
+      <div class="hint">${esc(deadlineText(c))}</div>
+      ${rows}
+    </div>
     <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
     <input id="mineAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me ? me.amount : ''}" placeholder="${MIN_PART}">
     <div class="kpslot" data-slot="mineAmount"></div>
@@ -1260,13 +1279,15 @@ function screenCollect() {
     <div class="error" id="payErr"></div>
     <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
 
-    <div class="zsep"></div>
-    ${payLine}
+    <div class="sendbox">
+      <div class="ztitle">Envoi de la carte</div>
+      ${payLine}
+    </div>
     <div class="label">Lien de gestion (gardez-le)</div>
     <div class="linkbox">${esc(manageLink(c))}</div>
     <button class="secondary important" data-act="copygrp" data-val="${esc(manageLink(c))}">Copier le lien de gestion</button>
     <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Ne le partagez pas à vos amis.</div>
-    <a class="secondary" href="${esc(homeHref())}">Quitter et revenir plus tard</a>
+    <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
     <div class="hint">La collecte reste ouverte. Gardez le lien de gestion pour la retrouver.</div>
 
     <div class="zsep"></div>
@@ -1361,7 +1382,13 @@ let lastStep = '';
 function render() {
   const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, pay: screenPay, done: screenDone };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
-  app.innerHTML = banner + screens[S.step]();
+  /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
+  try {
+    app.innerHTML = banner + screens[S.step]();
+  } catch (err) {
+    console.error(err);
+    app.innerHTML = `${banner}<div class="section"><div class="error">Un problème est survenu sur cette page.</div><button class="primary" style="margin-top:12px" data-act="reset">Recommencer</button></div>`;
+  }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
   ensureMsgThumb();
@@ -1723,6 +1750,11 @@ app.addEventListener('click', (e) => {
       S.splitIndex = cardIndex() + 1; S.step = 'recap';
       S.link = ''; S.error = ''; S.showErrors = false; S.touched = new Set();
       break;
+    case 'home':
+      /* Retour à l'accueil dans l'application : on retire les paramètres de la collecte de l'adresse, sans recharger la page */
+      try { history.replaceState(null, '', location.pathname); } catch (err) { /* aperçu sans adresse modifiable : on continue */ }
+      Object.assign(S, initialState());
+      break;
     case 'reset':
       if (S.recording) stopVoice();
       Object.assign(S, initialState());
@@ -1809,7 +1841,7 @@ function toSaved(row) {
   };
 }
 function rememberCard(row) {
-  const list = store.get(KEY_RECEIVED, []);
+  const list = receivedList();
   const saved = toSaved(row);
   const i = list.findIndex((c) => c.id === row.id);
   if (i >= 0) list[i] = saved; else list.unshift(saved);
@@ -1940,7 +1972,7 @@ function accountRow(c) {
 }
 
 function renderRecvAccount() {
-  const list = store.get(KEY_RECEIVED, []);
+  const list = receivedList();
   const total = list.reduce((sum, c) => sum + (Number(c.amount) || 0), 0);
   const rows = list.length
     ? list.map(accountRow).join('')
@@ -1960,8 +1992,8 @@ async function refreshAccount() {
   if (!sb || accountBusy) return;
   accountBusy = true;
   try {
-    const list = store.get(KEY_RECEIVED, []);
-    const fresh = await Promise.all(list.map((c) => fetchCard(c.id).catch(() => null)));
+    const list = receivedList();
+    const fresh =await Promise.all(list.map((c) => fetchCard(c.id).catch(() => null)));
     const next = list.map((c, i) => (fresh[i] ? toSaved(fresh[i]) : c));
     if (JSON.stringify(next) !== JSON.stringify(list)) {
       store.set(KEY_RECEIVED, next);
