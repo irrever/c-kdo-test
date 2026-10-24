@@ -1,0 +1,2056 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="c.kdo">
+<meta name="theme-color" content="#111113">
+<title>c.kdo</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #111113;
+    --line: #2A2A2E;
+    --line-soft: #222226;
+    --text: #F4F4F5;
+    --muted: #8E8E93;
+    --accent: #9CC6FF;
+    --accent-bg: #14233A;
+    --accent-line: #2B4A74;
+    --danger: #FF6B6B;
+    --danger-text: #FF9A9A;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  #app { max-width: 390px; min-height: 100vh; margin: 0 auto; }
+
+  /* En-tête */
+  .hdr { display: flex; align-items: center; gap: 14px; padding: 28px 24px 0; }
+  .back { display: flex; background: none; border: 0; padding: 0; color: var(--text); cursor: pointer; }
+  .step { font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+  .title { font-size: 22px; font-weight: 500; letter-spacing: -.01em; margin-top: 2px; }
+
+  /* Mise en page */
+  .section { padding: 0 24px 24px; }
+  .label { margin-top: 24px; font-size: 13px; color: var(--muted); }
+  .hint { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .error { margin-top: 12px; font-size: 14px; color: var(--danger-text); line-height: 1.5; }
+  .blockErr { margin-top: 8px; font-size: 13px; color: var(--danger-text); }
+  .banner { margin: 16px 24px 0; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; color: #B4B4B8; line-height: 1.5; }
+  .notice { margin-top: 14px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; color: #B4B4B8; line-height: 1.5; }
+
+  /* Champs */
+  .field { display: block; width: 100%; height: 44px; margin-top: 8px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); padding: 0 14px; font: inherit; font-size: 16px; outline: none; }
+  .field:focus { border-color: #4A4A52; }
+  textarea.field { height: auto; padding: 12px 14px; line-height: 1.5; resize: none; }
+  .field.bad { border-color: var(--danger); }
+
+  /* Choix : grille de 2 colonnes, boutons fins */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .opt { height: 44px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 15px; cursor: pointer; }
+  .opt[aria-pressed="true"] { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
+
+  /* Choix de l'effet : menu horizontal qui défile */
+  /* Effets du thème : grille de 4 colonnes qui passe à la ligne, sans défilement horizontal */
+  .fxrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
+  .fxrow::-webkit-scrollbar { display: none; }
+  .fxthemes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px; }
+  .fxtheme { height: 38px; padding: 0 2px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 12px; white-space: nowrap; cursor: pointer; }
+  .fxtheme[aria-pressed="true"] { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
+  .fxopt { height: 44px; padding: 2px 4px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 12px; line-height: 1.15; cursor: pointer; }
+  .fxopt[aria-pressed="true"] { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
+  .fxopt.is-extra { border-color: #C9A44C; color: #E8C878; }
+  .fxtheme.is-browse { border-color: #C9A44C; color: #E8C878; }
+  .card[data-act] { cursor: pointer; }
+  /* Effets supplémentaires : bouton à part, doré, avec son prix */
+  .fxadd { margin-top: 10px; }
+  .fxaddbtn { width: 100%; height: 44px; border-radius: var(--radius); border: 1px solid #C9A44C; background: rgba(201,164,76,.1); color: #E8C878; font: inherit; font-size: 14px; cursor: pointer; }
+  .fxaddbtn[aria-pressed="true"] { background: #C9A44C; color: #15110A; }
+  .fxaddbtn:disabled { border-color: var(--line); background: transparent; color: var(--muted); cursor: default; }
+  .fxchips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .fxchip { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px 0 12px; border-radius: 16px; border: 1px solid #C9A44C; color: #E8C878; font-size: 13px; }
+  .fxchip button { width: 26px; height: 26px; border: 0; border-radius: 13px; background: transparent; color: #E8C878; font-size: 16px; line-height: 1; cursor: pointer; }
+
+  /* Sélecteur de type de message */
+  .seg { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 8px; padding: 3px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .seg button { height: 36px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: #222226; color: var(--text); }
+
+  /* Boutons secondaires */
+  .btn2 { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 44px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 15px; cursor: pointer; }
+  .btn2:disabled { color: #5A5A60; cursor: default; }
+  .btn2[aria-pressed="true"] { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
+  .btn2 input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+  .btn2.bad { border-color: var(--danger); }
+  .btn2.wallet { flex-direction: column; height: 52px; gap: 2px; }
+  .btn2.wallet small { font-size: 12px; color: var(--muted); }
+  .btn2.wallet[aria-pressed="true"] small { color: var(--accent); }
+  .secondary { display: flex; align-items: center; justify-content: center; width: 100%; height: 44px; margin-top: 10px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 15px; cursor: pointer; text-decoration: none; }
+  .secondary.rec { color: var(--danger-text); border-color: #5A2B2B; }
+  .collrow { display: block; margin-top: 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); text-decoration: none; }
+  .collrow .collname { display: block; font-size: 16px; }
+  .collrow .collmeta { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .secondary.important { background: var(--accent); border-color: var(--accent); color: var(--accent-bg); font-weight: 500; }
+  .secondary.bad { border-color: var(--danger); }
+  .kpslot:empty { display: none; }
+  .kpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .kpkey { height: 48px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 22px; cursor: pointer; }
+  .kpkey.kpok { background: var(--text); color: var(--bg); font-size: 16px; font-weight: 500; border: 0; }
+  .kpkey.kpfn { font-size: 18px; }
+  .linkfile { position: relative; display: inline-block; margin-top: 12px; font-size: 14px; color: var(--accent); cursor: pointer; }
+  .linkfile input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+  .linkbtn { display: block; background: none; border: 0; padding: 12px 0 0; color: var(--accent); font: inherit; font-size: 14px; cursor: pointer; }
+
+  /* Bouton principal */
+  .primary { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: 12px; border: 0; background: var(--text); color: var(--bg); font: inherit; font-size: 16px; font-weight: 500; cursor: pointer; text-decoration: none; }
+
+  /* Pied d'écran fixe */
+  .foot { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--line-soft); padding: 14px 24px 72px; }
+  .foot .primary { margin-top: 0; }
+  .foot .error { margin: 0 0 10px; }
+
+  /* Carte cadeau : même format sur tous les écrans */
+  /* Carte en plastique : fond éclairé par le haut, bord biseauté, ombre portée */
+  .card { position: relative; overflow: hidden; margin-top: 16px; aspect-ratio: 1.9 / 1; border-radius: 18px; background: radial-gradient(120% 100% at 22% 0%, #b4507a 0%, #8c3158 42%, #5c1d3a 100%); box-shadow: 0 12px 26px rgba(0,0,0,.45), 0 2px 5px rgba(0,0,0,.3); }
+  .card .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Reflet diagonal permanent, comme sur une carte vernie, par-dessus l'assombrissement du bas */
+  .card .shade { position: absolute; inset: 0; background: linear-gradient(112deg, rgba(255,255,255,0) 26%, rgba(255,255,255,.17) 40%, rgba(255,255,255,.04) 50%, rgba(255,255,255,0) 60%), linear-gradient(to bottom, rgba(0,0,0,.34) 0%, rgba(0,0,0,.24) 45%, rgba(0,0,0,.6) 100%); }
+  /* Bord biseauté et grain de l'impression, au-dessus de tout le reste */
+  .card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), inset 0 1.5px 0 rgba(255,255,255,.3), inset 0 -2px 0 rgba(0,0,0,.25); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); opacity: .7; }
+  .card .overlay { position: absolute; inset: 0; padding: 18px 20px; color: #fff; pointer-events: none; text-shadow: 0 1px 14px rgba(0,0,0,.6); }
+  .card .top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; letter-spacing: .04em; }
+  .card .top svg { display: block; }
+  /* La marque : une vague noire passe sous les lettres, de temps en temps */
+  .card .brand { display: inline-block; color: #fff; font-size: 14px; font-weight: 700; letter-spacing: .04em; text-shadow: none; filter: drop-shadow(0 1px 8px rgba(0,0,0,.5)); background: linear-gradient(105deg, #fff 0%, #fff 40%, #000 50%, #fff 60%, #fff 100%) 100% 0 / 250% 100% no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: brandWave 5s ease-in-out infinite; }
+  @keyframes brandWave {
+    0% { background-position: 100% 0; }
+    22% { background-position: 0% 0; }
+    100% { background-position: 0% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card .brand { animation: none; } }
+  .card .top .amt { font-size: 24px; font-weight: 500; line-height: 1; letter-spacing: 0; }
+  .card .text { position: absolute; left: 20px; right: 20px; top: 58%; font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -.01em; }
+  .card .text.long { font-size: 18px; }
+  .card .bottom { position: absolute; left: 20px; right: 20px; bottom: 16px; display: flex; justify-content: flex-start; align-items: flex-end; }
+  .card .amt { font-size: 28px; font-weight: 500; line-height: 1; }
+  .card .small { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; opacity: .9; }
+  /* Puce de carte bancaire : à gauche, au tiers haut de la carte, au-dessus du titre */
+  .card .chip { position: absolute; left: 20px; top: 36%; width: 44px; height: 34px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.35)); }
+
+  /* Effets à l'ouverture de la carte : une seule fois, puis la carte redevient propre */
+  .card .fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .card .fx.top { z-index: 3; }
+  /* Seconde vague : retardée d’une seconde, avec le même départ caché que la première */
+  .card .fx * { animation-delay: calc(var(--d, 0s) + var(--off, 0s)) !important; }
+  .card .fx.fx-w2 * { animation-delay: calc(var(--d, 0s) + var(--off, 0s) + 1s) !important; }
+  .card .fx svg { display: block; }
+  .card .fx .rise { position: absolute; bottom: -50px; opacity: 0; animation: fxRise var(--t, 3.2s) ease-out var(--d, 0s) forwards; }
+  .card .fx .fall { position: absolute; top: -18px; opacity: 0; animation: fxFall var(--t, 4s) linear var(--d, 0s) forwards; }
+  .card .fx .bd { position: absolute; width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%; background: var(--c); box-shadow: 0 0 6px var(--c); opacity: 0; animation: fxBurst 1.8s ease-out var(--d, 0s) forwards; }
+  .card .fx .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 2.6s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
+  .card .fx .flash { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: radial-gradient(circle, rgba(255,250,225,1) 0%, rgba(255,226,150,.6) 35%, rgba(255,226,150,0) 70%); opacity: 0; animation: fxFlash 2.4s ease-out var(--d, 0s) forwards; }
+  .card .fx .flash2 { position: absolute; inset: 0; background: radial-gradient(circle at 50% 44%, rgba(255,246,220,.85), rgba(255,226,150,.25) 45%, rgba(255,226,150,0) 75%); opacity: 0; animation: fxFlash2 2.6s ease-out forwards; }
+  .card .fx .ring { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 2px solid rgba(255,226,150,.9); box-shadow: 0 0 12px rgba(255,220,130,.6); opacity: 0; animation: fxRing 2.2s ease-out var(--d, 0s) forwards; }
+  .card .fx .sheen { position: absolute; top: -20%; bottom: -20%; width: 46%; left: -60%; opacity: 0; background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,232,170,.5) 50%, rgba(255,255,255,0) 100%); transform: skewX(-18deg); animation: fxSheen 2.6s ease-in-out forwards; }
+  .card .fx .serp { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .card .fx .draw { fill: none; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: fxDraw 3.4s ease-in-out var(--d, 0s) forwards; }
+  .card .fx .tw { position: absolute; opacity: 0; line-height: 0; animation: fxTwinkle 2.2s ease-in-out var(--d, 0s) forwards; }
+  .card .fx .pop { position: absolute; opacity: 0; animation: fxPop 2.4s ease-out var(--d, 0s) forwards; }
+  .card .fx .bigheart { position: absolute; left: 50%; top: 44%; width: 96px; height: 88px; margin: -44px 0 0 -48px; opacity: 0; animation: fxHeart 2.6s ease-out forwards; }
+  .card .fx .halo2 { position: absolute; left: 50%; top: 44%; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; background: radial-gradient(circle, rgba(255,210,140,.55), rgba(255,210,140,0) 70%); opacity: 0; animation: fxHalo2 2.6s ease-out forwards; }
+  .card .fx .bounce { position: absolute; font-size: 26px; line-height: 1; margin: -13px 0 0 -13px; opacity: 0; animation: fxBounce 2.6s ease-in-out var(--d, 0s) forwards; }
+  .card .fx .wink { position: absolute; right: 26px; top: 26%; font-size: 48px; line-height: 1; opacity: 0; animation: fxWink 2.6s ease-in-out forwards; }
+  .card .fx .seal { position: absolute; left: 70%; top: 36%; width: 72px; height: 72px; margin: -36px 0 0 -36px; opacity: 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,.35)); animation: fxSeal 3s ease-out forwards; }
+  .card.fx-bam { animation: fxShake 2.6s linear forwards; }
+  .card.fx-pastille { animation: fxShake 3s linear forwards; }
+  .card .fx .cake { position: absolute; right: 14px; bottom: 14px; width: 124px; height: 110px; overflow: visible; animation: fxFade 3.6s ease-in forwards; }
+  .card .fx .cglow { animation: fxGlow 3.6s ease-in-out forwards; }
+  .card .fx .fw { transform-box: fill-box; transform-origin: 50% 100%; animation: fxFlame 3.6s ease-in-out var(--d, 0s) forwards; }
+  .card .fx .flick { transform-box: fill-box; transform-origin: 50% 100%; animation: fxFlick .45s ease-in-out infinite alternate; }
+  .card .fx .smoke { opacity: 0; animation: fxSmoke 3.6s ease-out var(--d, 0s) forwards; }
+  .card .fx .gift { position: absolute; right: 16px; top: 34%; width: 92px; height: 92px; overflow: visible; animation: fxFade 3.4s ease-in forwards; }
+  .card .fx .lid { transform-box: fill-box; transform-origin: 50% 100%; animation: fxLid 3s ease-in-out forwards; }
+  .card .fx .ghalo { transform-box: fill-box; transform-origin: 50% 50%; animation: fxGHalo 3s ease-in-out forwards; }
+  .card .fx .sp { opacity: 0; animation: fxSp 3s ease-out var(--d, 0s) forwards; }
+  .card .fx .fade { position: absolute; inset: 0; animation: fxFade var(--t, 3.4s) ease-in forwards; }
+  .card .fx .cuts path { fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .card .fx .scratch { position: absolute; inset: 0; width: 100%; height: 100%; animation: fxScrFade 4.6s linear forwards; }
+  @keyframes fxRise { 0% { opacity: 0; transform: translate(0, 0) rotate(var(--r, 0deg)); } 12% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--sx, 0px), -200px) rotate(var(--r, 0deg)); } }
+  @keyframes fxFall { 0% { opacity: 0; transform: translate(0, 0) rotate(0deg); } 8% { opacity: 1; } 50% { transform: translate(var(--sx, 0px), 95px) rotate(180deg); } 92% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(var(--sx, 0px) * -.5), 200px) rotate(360deg); } }
+  @keyframes fxBurst { 0% { opacity: 1; transform: translate(0, 0) scale(.4); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1); } }
+  @keyframes fxPiece { 0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(.2); } 5% { opacity: 1; } 45% { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); } 100% { opacity: 0; transform: translate(calc(var(--dx) * 1.05), calc(var(--dy) + 110px)) rotate(calc(var(--rot) * 1.6)) scale(.9); } }
+  @keyframes fxFlash { 0% { opacity: 0; transform: scale(.2); } 5% { opacity: 1; transform: scale(1); } 25% { opacity: 0; transform: scale(2.2); } 100% { opacity: 0; } }
+  @keyframes fxFlash2 { 0% { opacity: 0; } 2% { opacity: 1; } 12% { opacity: 0; } 100% { opacity: 0; } }
+  @keyframes fxRing { 0% { opacity: 1; transform: scale(.1); } 100% { opacity: 0; transform: scale(3.4); } }
+  @keyframes fxSheen { 0% { left: -60%; opacity: 0; } 10% { opacity: 1; } 60% { left: 120%; opacity: 1; } 100% { left: 120%; opacity: 0; } }
+  @keyframes fxDraw { 0% { stroke-dashoffset: 100; opacity: 1; } 55% { stroke-dashoffset: 0; opacity: 1; } 80% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes fxTwinkle { 0% { opacity: 0; transform: scale(.4) rotate(0deg); } 40% { opacity: 1; transform: scale(1) rotate(25deg); } 100% { opacity: 0; transform: scale(.6) rotate(50deg); } }
+  @keyframes fxPop { 0% { opacity: 0; transform: scale(0) rotate(-30deg); } 12% { opacity: 1; transform: scale(1.2) rotate(8deg); } 22% { transform: scale(1) rotate(0deg); } 70% { opacity: 1; } 90%, 100% { opacity: 0; transform: scale(.6) rotate(10deg); } }
+  @keyframes fxHeart { 0% { opacity: 0; transform: scale(0); } 12% { opacity: 1; transform: scale(1.18); } 20% { transform: scale(1); } 28% { transform: scale(1.08); } 36% { transform: scale(1); } 80% { opacity: 1; } 95%, 100% { opacity: 0; transform: scale(.9); } }
+  @keyframes fxHalo2 { 0% { opacity: 0; transform: scale(.4); } 15% { opacity: 1; transform: scale(1); } 80% { opacity: .6; } 100% { opacity: 0; transform: scale(1.2); } }
+  @keyframes fxBounce { 0% { opacity: 0; transform: translateY(12px) rotate(-4deg); } 10% { opacity: 1; } 20%, 60% { transform: translateY(-16px) rotate(4deg); } 35%, 75% { transform: translateY(0) rotate(-4deg); } 90% { opacity: 1; } 100% { opacity: 0; transform: translateY(0); } }
+  @keyframes fxWink { 0% { transform: scale(0) rotate(-25deg); opacity: 0; } 15% { transform: scale(1.08) rotate(0deg); opacity: 1; } 25% { transform: scale(1); } 70% { opacity: 1; } 85%, 100% { opacity: 0; transform: scale(.8); } }
+  @keyframes fxSeal { 0% { opacity: 0; transform: scale(1.9) rotate(-14deg); } 2% { opacity: 1; transform: scale(1) rotate(-6deg); } 4% { opacity: 1; transform: scale(.96) rotate(-6deg); } 6% { opacity: 1; transform: scale(1) rotate(-6deg); } 75% { opacity: 1; transform: scale(1) rotate(-6deg); } 90%, 100% { opacity: 0; transform: scale(1.04) rotate(-6deg); } }
+  @keyframes fxShake { 0% { transform: translate(0, 0); } 2% { transform: translate(-7px, 3px); } 4% { transform: translate(7px, -4px); } 6% { transform: translate(-5px, 2px); } 8% { transform: translate(4px, -2px); } 10%, 100% { transform: translate(0, 0); } }
+  @keyframes fxFade { 0%, 80% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes fxGlow { 0%, 58% { opacity: .8; } 66%, 84% { opacity: .05; } 92%, 100% { opacity: .8; } }
+  @keyframes fxFlame { 0%, 58% { opacity: 1; transform: scale(1); } 64%, 84% { opacity: 0; transform: scale(.2); } 90%, 100% { opacity: 1; transform: scale(1); } }
+  @keyframes fxFlick { 0% { transform: scale(1, 1) skewX(0deg); } 100% { transform: scale(.9, 1.08) skewX(-3deg); } }
+  @keyframes fxSmoke { 0%, 62% { opacity: 0; transform: translate(0, 0); } 66% { opacity: .85; transform: translate(0, -2px); } 84%, 100% { opacity: 0; transform: translate(2px, -12px); } }
+  @keyframes fxLid { 0%, 25% { transform: translate(0, 0) rotate(0deg); } 45%, 75% { transform: translate(-6px, -16px) rotate(-16deg); } 100% { transform: translate(0, 0) rotate(0deg); } }
+  @keyframes fxGHalo { 0%, 25% { opacity: .25; transform: scale(.8); } 45%, 75% { opacity: 1; transform: scale(1.08); } 100% { opacity: .25; transform: scale(.8); } }
+  @keyframes fxSp { 0%, 38% { opacity: 0; transform: translate(0, 0) scale(.3); } 47% { opacity: 1; transform: translate(0, 0) scale(1.2); } 66% { opacity: 1; transform: translate(calc(var(--bx) * .6), calc(var(--by) * .6)) scale(1); } 90%, 100% { opacity: 0; transform: translate(var(--bx), var(--by)) scale(.6); } }
+  @keyframes fxScrFade { 0%, 85% { opacity: 1; } 95%, 100% { opacity: 0; } }
+  /* Réduire les mouvements : masqué pour le destinataire seulement ; l'aperçu du client joue toujours */
+  @media (prefers-reduced-motion: reduce) {
+    .recv .card .fx { display: none; }
+  }
+
+  /* Récapitulatif et compte */
+  .rows { margin-top: 12px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; }
+  .row.total { border-bottom: 0; font-weight: 500; font-size: 16px; padding-top: 16px; }
+  .row small { color: var(--muted); font-size: 13px; }
+  .rowline { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; }
+  .rowline span:last-child { letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  .bigtotal { margin-top: 6px; font-size: 30px; font-weight: 500; letter-spacing: -.01em; }
+  .cgu { margin-top: 20px; }
+  .cgu summary { font-size: 14px; color: var(--accent); cursor: pointer; }
+  .cgubody { margin-top: 10px; font-size: 13px; color: #B4B4B8; line-height: 1.55; }
+  .cgubody p { margin: 0 0 8px; }
+  .cgubody p:last-child { margin-bottom: 0; }
+  .check { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; font-size: 14px; line-height: 1.45; color: #C8C8CC; }
+  .check input { width: 18px; height: 18px; margin: 1px 0 0; flex-shrink: 0; accent-color: var(--accent); }
+  .check.bad { color: var(--danger-text); }
+  .check.bad input { outline: 1px solid var(--danger); outline-offset: 3px; border-radius: 4px; }
+  /* Erreur de photo ou vidéo : juste sous le bouton */
+  .mediaErr { margin-top: 10px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--danger); font-size: 14px; line-height: 1.5; color: var(--danger-text); }
+  /* Récapitulatif : message et paiement séparés */
+  .zone { margin-top: 18px; padding: 16px 18px; border-radius: 14px; background: #19191D; border: 1px solid var(--line); }
+  .ztitle { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .zvalue { margin-top: 6px; font-size: 16px; color: var(--text); }
+  /* Aperçu du message dans le récapitulatif : image fixe, icône ou extrait, jamais de lecture */
+  .mrow { display: flex; gap: 14px; align-items: center; margin-top: 8px; }
+  .mrow .zvalue { margin-top: 0; }
+  .mthumb { flex: 0 0 96px; height: 54px; border-radius: 8px; overflow: hidden; background: #26262C; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--muted); }
+  .mthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mtext { margin-top: 6px; font-size: 14px; line-height: 1.45; color: #C8C8CC; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .zsep { height: 1px; margin: 24px 0 20px; background: #3A3A40; }
+  .payline { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 15px; color: #C8C8CC; }
+  .payline small { display: block; margin-top: 3px; font-size: 12px; color: var(--muted); }
+  .paytotal { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 6px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .paytotal span:first-child { font-size: 15px; color: #C8C8CC; }
+  .paytotal span:last-child { font-size: 26px; font-weight: 500; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .footnote { margin: 0 0 12px; font-size: 14px; line-height: 1.5; color: #C8C8CC; text-align: center; }
+  /* Message vide : confirmation avant de continuer */
+  .nomsg { margin: 0 0 12px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: #19191D; }
+  .nmTitle { font-size: 15px; font-weight: 500; }
+  .nomsg p { margin: 6px 0 12px; font-size: 14px; line-height: 1.5; color: #C8C8CC; }
+  .nomsgBtns { display: grid; gap: 10px; }
+  .nomsgBtns .secondary, .nomsgBtns .primary { margin-top: 0; }
+
+  /* Lien et message reçu */
+  .linkbox { margin-top: 8px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; word-break: break-all; color: #B4B4B8; }
+  .message { margin-top: 12px; font-size: 17px; line-height: 1.6; white-space: pre-wrap; color: #E4E4E7; }
+  .player { display: block; width: 100%; margin-top: 12px; border-radius: 12px; background: #000; }
+  /* Vidéo du message : taille réduite et centrée, plein écran toujours possible */
+  .player.vid { width: auto; max-width: 100%; max-height: 45vh; margin: 12px auto 0; border-radius: 18px; }
+  /* Écran message : texte plus grand et plus aéré */
+  .message.big { margin-top: 14px; font-size: 21px; line-height: 1.55; color: #F0F0F2; }
+
+  /* Mon compte : une ligne par carte, avec sa vignette */
+  .accrow { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 0; background: none; border: 0; border-bottom: 1px solid var(--line-soft); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+  .mini { position: relative; display: block; flex: 0 0 116px; aspect-ratio: 1.9 / 1; border-radius: 10px; overflow: hidden; background: #9A3556; }
+  .mini img, .mini video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .accmeta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .accname { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .accmeta small { font-size: 13px; color: var(--muted); }
+  .accamt { font-size: 15px; font-variant-numeric: tabular-nums; }
+  .primary:disabled { opacity: .4; cursor: default; }
+  .grp-actions { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="gGold" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff7d6"/><stop offset=".35" stop-color="#f2c46d"/><stop offset="1" stop-color="#a86f2c"/></radialGradient>
+  <radialGradient id="gRose" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffe3ea"/><stop offset=".35" stop-color="#ee8ca0"/><stop offset="1" stop-color="#9c3d5c"/></radialGradient>
+  <radialGradient id="gCream" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#f6ead8"/><stop offset="1" stop-color="#b59a7a"/></radialGradient>
+  <radialGradient id="gBlue" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f0fbff"/><stop offset=".35" stop-color="#8acbea"/><stop offset="1" stop-color="#3c7fa3"/></radialGradient>
+  <radialGradient id="gHeart" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ffd6df"/><stop offset=".4" stop-color="#f0879e"/><stop offset="1" stop-color="#a23b5e"/></radialGradient>
+  <radialGradient id="gBubble" cx="50%" cy="50%" r="50%"><stop offset=".6" stop-color="#ffffff" stop-opacity="0"/><stop offset=".9" stop-color="#d8f0ff" stop-opacity=".35"/><stop offset="1" stop-color="#ffffff" stop-opacity=".7"/></radialGradient>
+  <linearGradient id="gPetal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd0da"/><stop offset="1" stop-color="#e0607f"/></linearGradient>
+  <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff9a3c"/><stop offset=".5" stop-color="#ffd76a"/><stop offset="1" stop-color="#fff6d8"/></linearGradient>
+  <linearGradient id="gRibbon" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff1b8"/><stop offset=".5" stop-color="#f0c75e"/><stop offset="1" stop-color="#fff1b8"/></linearGradient>
+  <linearGradient id="gCandleStripe" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7a8bd"/><stop offset=".5" stop-color="#fff8f0"/><stop offset="1" stop-color="#f7a8bd"/></linearGradient>
+  <linearGradient id="gCreamCake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf2"/><stop offset="1" stop-color="#ecd3b6"/></linearGradient>
+  <linearGradient id="gFrost" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6e0"/><stop offset="1" stop-color="#f08aa6"/></linearGradient>
+  <linearGradient id="gPlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4eef0"/><stop offset="1" stop-color="#c8bcc2"/></linearGradient>
+  <radialGradient id="gGlowWarm" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd98a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gSpark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffbe8"/><stop offset="1" stop-color="#e8b84a"/></linearGradient>
+  <linearGradient id="gSerp" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd1dc"/><stop offset=".5" stop-color="#f6c85f"/><stop offset="1" stop-color="#9fd8f2"/></linearGradient>
+  <linearGradient id="gBoxFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b6c6"/><stop offset="1" stop-color="#c95b7a"/></linearGradient>
+  <linearGradient id="gBoxSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b0466a"/><stop offset="1" stop-color="#7d2a48"/></linearGradient>
+  <linearGradient id="gBoxLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd3dd"/><stop offset="1" stop-color="#e07b96"/></linearGradient>
+  <linearGradient id="gBoxTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6ec"/><stop offset="1" stop-color="#f5a9bd"/></linearGradient>
+  <radialGradient id="gHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff0b8" stop-opacity="1"/><stop offset=".45" stop-color="#ffe49a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe49a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gGoldC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4c8"/><stop offset=".5" stop-color="#e6b95a"/><stop offset="1" stop-color="#9a6a25"/></linearGradient>
+</defs></svg>
+<div id="app"></div>
+
+<script>
+/* ==========================================================
+   c.kdo — v0.21 (test)
+   Création réelle : carte, message texte, vocal ou vidéo.
+   Aucun paiement réel dans cette version.
+   ========================================================== */
+const CONFIG = {
+  SUPABASE_URL: 'https://kkboaehuflmizikcicjg.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrYm9hZWh1ZmxtaXppa2NpY2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MDUwODQsImV4cCI6MjEwODI4MTA4NH0.PfrArPGyVdNuZmg4y0T_c5W43403bOSrfY3bv-WYNtI',
+  PUBLIC_URL: '',
+};
+
+const BUCKET = 'medias';
+const OCCASIONS = [
+  ['Anniversaire', 'Joyeux anniversaire'],
+  ['Fêtes', 'Joyeuses fêtes'],
+  ['Naissance', 'Bienvenue au monde'],
+  ['Autre', ''],
+];
+const AMOUNTS = [15, 20, 50, 100];
+/* Effets à l'ouverture de la carte : choisis par thème, sinon liés à l'occasion */
+const FX_THEMES = [
+  ['Fête', ['balloons', 'fireworks', 'streamers', 'gift', 'cake']],
+  ['Douceur', ['hearts', 'petals', 'bubbles', 'bigheart']],
+  ['Magie', ['sheen', 'explosion', 'shockwave', 'bam', 'pastille', 'scratch', 'stars', 'flakes']],
+  ['Drôle', ['emojis', 'wink']],
+];
+const FX_LABEL = { balloons: 'Ballons', fireworks: 'Feux d’artifice', streamers: 'Serpentins', gift: 'Boîte cadeau', cake: 'Gâteau', hearts: 'Cœurs', petals: 'Pétales', bubbles: 'Bulles', bigheart: 'Cœur géant', sheen: 'Reflet doré', explosion: 'Confettis', shockwave: 'Onde de choc', bam: 'Bam', pastille: 'Pastille', scratch: 'Grattage', stars: 'Étoiles', flakes: 'Flocons', emojis: 'Émojis', wink: 'Clin d’œil' };
+const OCC_FX = { 'Anniversaire': 'balloons', 'Fêtes': 'fireworks', 'Naissance': 'stars', 'Autre': 'none' };
+const recvEffect = (row) => (row.effect ?? OCC_FX[row.occasion] ?? 'none');
+const themeOf = (k) => (FX_THEMES.find(([, list]) => list.includes(k)) || FX_THEMES[0])[0];
+/* Menu : « Aucun », puis les thèmes, puis les effets du thème choisi (défilement horizontal) */
+function fxMenuHtml() {
+  const list = (FX_THEMES.find(([t]) => t === S.fxTheme) || FX_THEMES[0])[1];
+  /* Un seul bouton allumé : « Aucun » quand il n'y a pas d'effet, sinon le thème choisi */
+  const themes = FX_THEMES.map(([t]) => `<button class="fxtheme${S.addingFx && S.fx !== 'none' && S.fxTheme === t && themeOf(S.fx) !== t ? ' is-browse' : ''}" data-act="theme" data-val="${t}" aria-pressed="${S.fx !== 'none' && themeOf(S.fx) === t}">${t}</button>`).join('');
+  const effects = list.map((k) => `<button class="fxopt${S.fxExtra.includes(k) ? ' is-extra' : ''}" data-act="fx" data-val="${k}" aria-pressed="${S.fx === k}">${FX_LABEL[k]}</button>`).join('');
+  return `<div class="fxthemes"><button class="fxtheme" data-act="fx" data-val="none" aria-pressed="${S.fx === 'none'}">Aucun</button>${themes}</div><div class="fxrow">${effects}</div>`;
+}
+const MIN_AMOUNT = 15;
+const MAX_AMOUNT = 500;
+const MAX_TOTAL = 2000;         /* montant total offert en plusieurs cartes (provisoire, à valider avec la banque) */
+const FEE_RATE = 0.07;
+const FEE_MIN = 2;
+const EXTRA_CARD_FEE = 2;
+const SCHEDULE_PRICE = 1;       /* envoi programmé : ouverture le jour choisi */
+const EFFECT_EXTRA_PRICE = 0.5;   /* chaque effet après le premier */
+const EFFECT_MAX = 3;            /* trois effets au maximum */
+const EFFECT_OFFSET = 0.6;       /* petit décalage entre deux effets enchaînés */
+const MAX_CARD_VIDEO_SECONDS = 10;
+const MAX_VOICE_SECONDS = 60;
+const MAX_MSG_VIDEO_SECONDS = 30;
+const MAX_FILE_BYTES = 50 * 1024 * 1024;
+const DEFAULT_MSG = 'Coucou mon chéri, tu vas bien ? C’est ton anniversaire, bon anniversaire ! Je t’ai envoyé un cadeau. Tout simplement.';
+const MIME_EXT = {
+  'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/heic': 'heic', 'image/heif': 'heif',
+  'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm',
+  'audio/webm': 'webm', 'audio/mp4': 'm4a', 'audio/x-m4a': 'm4a', 'audio/mpeg': 'mp3', 'audio/ogg': 'ogg',
+  'audio/wav': 'wav', 'audio/aac': 'aac',
+};
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const TEST_NUMBER = 'TEST 0000 0000 0000 0000';
+const KEY_CREATED = 'ckdo.cardsCreated';
+const KEY_RECEIVED = 'ckdo.received';
+
+const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+const ICON_GIFT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
+
+const configured = !CONFIG.SUPABASE_URL.startsWith('REMPLACER') && !!window.supabase;
+const sb = configured ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY) : null;
+const RECIPIENT_ID = new URLSearchParams(location.search).get('c');
+const app = document.getElementById('app');
+
+/* Mémoire locale de l'appareil (test) : tolère un stockage indisponible */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* stockage indisponible */ } },
+};
+
+const initialState = () => ({
+  step: 'create',
+  occasion: 'Anniversaire', cardText: 'Joyeux anniversaire', fx: OCC_FX['Anniversaire'], fxTheme: themeOf(OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
+  amount: 50, customRaw: '',
+  mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '',
+  msgType: 'text', message: DEFAULT_MSG,
+  voiceBlob: null, voiceUrl: '', voiceSecs: 0, recording: false,
+  msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0,
+  recipient: '', terms: false, busy: false, error: '', link: '',
+  schedule: false, openDate: '',
+  group: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
+  splitIndex: 0, links: [],
+  showErrors: false, touched: new Set(), textTouched: false, askNoMsg: false,
+});
+const S = initialState();
+
+/* ---------- utilitaires ---------- */
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const eur = (n) => n.toFixed(2).replace('.', ',') + ' €';
+const fmt = (n) => Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
+const baseType = (t) => (t || '').split(';')[0];
+const extOf = (t) => MIME_EXT[baseType(t)] || 'bin';
+const amountOk = () => Number.isInteger(S.amount) && S.amount >= MIN_AMOUNT && S.amount <= MAX_TOTAL;
+const euros = (n) => n.toLocaleString('fr-FR') + ' €';
+/* Au-delà de 500 €, le montant est offert en plusieurs cartes égales (500 € maximum chacune) */
+const splitAmounts = (total) => {
+  if (!(total > MAX_AMOUNT)) return [total];
+  const n = Math.ceil(total / MAX_AMOUNT);
+  const base = Math.floor(total / n);
+  return [...Array(n - 1).fill(base), total - base * (n - 1)];
+};
+const splitCount = () => (amountOk() ? splitAmounts(S.amount).length : 1);
+const cardIndex = () => Math.min(S.splitIndex || 0, splitCount() - 1);
+const cardAmount = () => (amountOk() ? splitAmounts(S.amount)[cardIndex()] : S.amount);
+const amountText = () => (amountOk() ? cardAmount() + ' €' : '— €');
+const fee = () => Math.max(Math.round(cardAmount() * FEE_RATE * 100) / 100, FEE_MIN);
+/* Dès qu'une carte est créée, le montant total est verrouillé */
+const setStarted = () => S.links.length > 0;
+const isSecondCard = () => store.get(KEY_CREATED, 0) >= 1;
+
+/* Dates au format AAAA-MM-JJ, en heure de Paris */
+const parisToday = () => new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+const addDays = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toLocaleDateString('sv-SE'); };
+const openMin = () => addDays(parisToday(), 1);
+const openMax = () => addDays(parisToday(), 365);
+const openDateOk = () => /^\d{4}-\d{2}-\d{2}$/.test(S.openDate) && S.openDate >= openMin() && S.openDate <= openMax();
+const longDateFr = (iso) => new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+/* ---------- cadeau à plusieurs (simulation locale, pas encore la base) ---------- */
+const MIN_PART = 5;                  /* participation minimum */
+const GROUP_KEY = 'ckdo.collections';
+const GROUP_ID = new URLSearchParams(location.search).get('g');
+const MANAGE_KEY = new URLSearchParams(location.search).get('m');
+let myPartId = '';                   /* participation ajoutée depuis cet appareil */
+const collections = () => store.get(GROUP_KEY, {});
+const getCollection = (id) => (id ? collections()[id] || null : null);
+function updateCollection(id, fn) {
+  const all = collections();
+  const c = all[id];
+  if (!c) return null;
+  fn(c);
+  all[id] = c;
+  store.set(GROUP_KEY, all);
+  return c;
+}
+const collTotal = (c) => c.participants.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+const feeOf = (a) => Math.max(Math.round(a * FEE_RATE * 100) / 100, FEE_MIN);
+/* Un seul paiement, à l'envoi : total + frais sur le total + options */
+function closeTotalOf(c) {
+  const total = collTotal(c);
+  const extra = c.card.second ? EXTRA_CARD_FEE : 0;
+  const effets = c.card.fxExtra.length * EFFECT_EXTRA_PRICE;
+  const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
+  return total + feeOf(total) + extra + effets + sched;
+}
+const httpsOk = (u) => /^https:\/\/\S+$/.test(u);
+const DEADLINE_MS = { none: null, '48h': 48 * 3600 * 1000, '7j': 7 * 24 * 3600 * 1000 };
+const frDateTime = (ms) => new Date(ms).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+function remainingText(ms) {
+  const left = ms - Date.now();
+  const d = Math.floor(left / 86400000);
+  const h = Math.floor((left % 86400000) / 3600000);
+  const m = Math.floor((left % 3600000) / 60000);
+  return d > 0 ? `${d} j ${h} h` : h > 0 ? `${h} h ${m} min` : `${m} min`;
+}
+function deadlineText(c) {
+  if (!c.deadline) return 'Participations ouvertes, sans limite de temps.';
+  return Date.now() < c.deadline
+    ? `Participations ouvertes jusqu’au ${frDateTime(c.deadline)}.`
+    : 'Participations closes. Vous pouvez toujours envoyer la carte.';
+}
+const NO_MESSAGE_TEXT = 'Un cadeau pour toi.';
+/* Pas de message : texte vide, ou vocal / vidéo non enregistré ou non choisi */
+function hasNoMessage() {
+  if (S.msgType === 'voice') return !S.voiceBlob;
+  if (S.msgType === 'video') return !S.msgVideoFile;
+  return S.message.trim().length === 0;
+}
+const msgLabel = () => (hasNoMessage() ? 'Sans message'
+  : S.msgType === 'voice' ? 'Vocal · ' + fmt(S.voiceSecs)
+  : S.msgType === 'video' ? 'Vidéo · ' + fmt(S.msgVideoSecs) : 'Message écrit');
+const ICON_MIC_SVG = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+
+/* Aperçu du message dans le récapitulatif : sans lecture */
+function msgPreviewHtml() {
+  if (hasNoMessage()) return '<div class="zvalue">Sans message</div>';
+  if (S.msgType === 'voice') {
+    return `<div class="mrow"><div class="mthumb" aria-hidden="true">${ICON_MIC_SVG}</div><div class="zvalue">${esc(msgLabel())}</div></div>`;
+  }
+  if (S.msgType === 'video') {
+    const img = S.msgThumbFor === S.msgVideoUrl && S.msgThumb ? `<img src="${S.msgThumb}" alt="">` : '';
+    return `<div class="mrow"><div class="mthumb" aria-hidden="true">${img}</div><div class="zvalue">${esc(msgLabel())}</div></div>`;
+  }
+  /* Texte écrit : les trois premiers mots, suivis de trois points s'il y en a davantage */
+  const mots = S.message.trim().split(/\s+/);
+  const extrait = mots.length > 3 ? mots.slice(0, 3).join(' ') + '...' : mots.join(' ');
+  return `<div class="zvalue">${esc(msgLabel())}</div><div class="mtext">« ${esc(extrait)} »</div>`;
+}
+
+/* Première image de la vidéo, générée hors écran (la vidéo n'est jamais lue) */
+function ensureMsgThumb() {
+  if (S.step !== 'recap' || S.msgType !== 'video' || !S.msgVideoUrl) return;
+  const url = S.msgVideoUrl;
+  if (S.msgThumbFor === url || S.msgThumbBusy === url) return;
+  S.msgThumbBusy = url;
+  const v = document.createElement('video');
+  v.muted = true; v.playsInline = true; v.preload = 'auto';
+  const done = (data) => {
+    if (S.msgThumbBusy === url) S.msgThumbBusy = '';
+    v.removeAttribute('src'); v.load();
+    if (S.msgVideoUrl === url) { S.msgThumb = data || ''; S.msgThumbFor = url; }
+    if (S.step === 'recap') render();
+  };
+  v.addEventListener('loadeddata', () => { try { v.currentTime = 0.05; } catch (e) { done(''); } }, { once: true });
+  v.addEventListener('seeked', () => {
+    try {
+      const c = document.createElement('canvas');
+      c.width = 192; c.height = Math.round(192 * (v.videoHeight || 9) / (v.videoWidth || 16));
+      c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+      done(c.toDataURL('image/jpeg', 0.85));
+    } catch (e) { done(''); }
+  }, { once: true });
+  v.addEventListener('error', () => done(''), { once: true });
+  v.src = url;
+}
+
+/* Champs à compléter à l'étape en cours */
+function missingFields() {
+  const m = new Set();
+  if (S.step === 'amount') {
+    if (!amountOk()) m.add('customAmount');
+  } else if (S.step === 'message') {
+    if (S.recipient.trim().length === 0) m.add('recipient');
+  } else if (S.step === 'recap') {
+    if (!S.terms) m.add('terms');
+    if (S.schedule && !openDateOk()) m.add('openDate');
+    if (S.group && S.creatorName.trim().length === 0) m.add('creatorName');
+  }
+  return m;
+}
+/* Classe « bad » : seulement après avoir quitté le champ ou tenté de continuer */
+function bad(id) {
+  return (S.showErrors || S.touched.has(id)) && missingFields().has(id) ? ' bad' : '';
+}
+function footErr() {
+  return S.showErrors && missingFields().size > 0
+    ? '<div class="error" id="formErr">Complétez les éléments en rouge pour continuer.</div>'
+    : '';
+}
+function liveCheck(t) {
+  if (!t.id) return;
+  t.classList.toggle('bad', missingFields().has(t.id) && (S.showErrors || S.touched.has(t.id)));
+  const e = document.getElementById('formErr');
+  if (e && missingFields().size === 0) e.remove();
+}
+function syncAmountChips() {
+  document.querySelectorAll('[data-act="amount"]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(Number(b.dataset.val) === S.amount));
+  });
+}
+function syncOccasionChips() {
+  document.querySelectorAll('[data-act="occasion"]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.val === S.occasion));
+  });
+}
+function syncCardTextField() {
+  const f = document.getElementById('cardText');
+  if (!f) return;
+  f.value = S.cardText;
+  const c = document.getElementById('cardCount');
+  if (c) c.textContent = S.cardText.length;
+  syncRappel();
+  liveCheck(f);
+}
+/* Rappel affiché seulement quand la carte n'a pas de texte. Il n'empêche jamais de continuer. */
+function syncRappel() {
+  const r = document.getElementById('cardRappel');
+  if (r) r.style.display = S.cardText.trim() ? 'none' : '';
+}
+/* Redessine le menu des effets (thèmes, effets du thème, « Aucun ») sans toucher à la carte */
+function syncFxChips() {
+  const m = document.getElementById('fxMenu');
+  if (m) m.innerHTML = fxMenuHtml();
+}
+/* Rejoue l'effet choisi sur les cartes affichées, sans reconstruire la photo */
+function playCardFx() {
+  const f = fxParts(fxKeys());
+  document.querySelectorAll('.card').forEach((c) => {
+    c.className = 'card';
+    void c.offsetWidth;
+    c.querySelectorAll('.fx').forEach((e) => e.remove());
+    c.className = 'card' + f.cls;
+    if (f.html) c.querySelector('.shade').insertAdjacentHTML('afterend', f.html);
+  });
+}
+function updatePreview() {
+  const t = document.querySelector('[data-pv="text"]');
+  const a = document.querySelector('[data-pv="amt"]');
+  if (t) { t.textContent = S.cardText; t.classList.toggle('long', S.cardText.length > 22); }
+  if (a) a.textContent = amountText();
+}
+function clearCardMedia() {
+  if (S.mediaUrl) URL.revokeObjectURL(S.mediaUrl);
+  S.mediaFile = null; S.mediaUrl = ''; S.mediaIsVideo = false; S.mediaError = '';
+}
+function mediaDuration(url, tag) {
+  return new Promise((resolve) => {
+    const el = document.createElement(tag);
+    el.preload = 'metadata';
+    const timer = setTimeout(() => resolve(NaN), 6000);
+    const done = (d) => { clearTimeout(timer); resolve(d); };
+    el.onerror = () => done(NaN);
+    el.onloadedmetadata = () => {
+      if (el.duration !== Infinity) return done(el.duration);
+      /* Certains fichiers n’annoncent pas leur durée : on force le calcul */
+      el.ondurationchange = () => {
+        if (el.duration !== Infinity) { el.ondurationchange = null; done(el.duration); }
+      };
+      el.currentTime = 1e101;
+    };
+    el.src = url;
+  });
+}
+
+/* ---------- rendu ---------- */
+/* Effets d'ouverture : mêmes formes que l'aperçu validé, une seule fois (forwards : la carte reste propre à la fin) */
+const rnd = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+const FX_BALLOON_G = ['gGold', 'gRose', 'gCream', 'gBlue', 'gGold', 'gRose'];
+const FX_HEART = 'M12 21C4 15 1 11.2 1 6.9 1 3.7 3.4 1.2 6.5 1.2 8.5 1.2 10.6 2.3 12 4.3 13.4 2.3 15.5 1.2 17.5 1.2 20.6 1.2 23 3.7 23 6.9 23 11.2 20 15 12 21Z';
+const FX_SPARK = (w, d, x, y) => `<svg class="tw" style="left:${x}%;top:${y}%;--d:${d}s" width="${w}" height="${w}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.8 8.4 15.6 11.2 24 12 15.6 12.8 12.8 15.6 12 24 11.2 15.6 8.4 12.8 0 12 8.4 11.2 11.2 8.4 12 0Z" fill="url(#gSpark)"/></svg>`;
+const FX_BUILD = {
+  balloons() {
+    const N = 16, xs = Array.from({ length: N }, (_, i) => 3 + i * 5.8 + rnd(i, 1) * 3), ds = Array.from({ length: N }, (_, i) => +(rnd(i, 2) * 1.2).toFixed(2)), sx = Array.from({ length: N }, (_, i) => Math.round((i % 2 ? 1 : -1) * (4 + rnd(i, 3) * 6))), rr = Array.from({ length: N }, (_, i) => (i % 2 ? 1 : -1) * (2 + Math.round(rnd(i, 4) * 3)));
+    return { items: xs.map((x, i) => `<svg class="rise" style="left:${x}%;--d:${ds[i]}s;--sx:${sx[i]}px;--r:${rr[i]}deg;--t:3.4s" width="26" height="46" viewBox="0 0 24 42" aria-hidden="true"><path d="M12 1C19.5 1 23 7 23 13.5 23 21 17.5 26.5 12 26.5S1 21 1 13.5C1 7 4.5 1 12 1Z" fill="url(#${FX_BALLOON_G[i % FX_BALLOON_G.length]})"/><path d="M10.6 26.5h2.8l-1.4 2.6z" fill="url(#${FX_BALLOON_G[i % FX_BALLOON_G.length]})"/><path d="M12 29.2Q9 33 12 37T12 41" fill="none" stroke="rgba(255,255,255,.6)" stroke-width=".7"/><ellipse cx="7.4" cy="8.2" rx="2" ry="3.2" fill="#fff" opacity=".55" transform="rotate(22 7.4 8.2)"/></svg>`).join('') };
+  },
+  fireworks() {
+    const cols = ['#F4D58D', '#FFF6E6', '#F2A6B3', '#A8D8EE'];
+    let h = '';
+    [[26, 36, 0], [72, 30, .3], [50, 56, .6], [18, 64, .9], [82, 60, 1.2], [46, 26, 1.5]].forEach(([x, y, d], bi) => {
+      for (let k = 0; k < 20; k++) {
+        const a = k * 18 * Math.PI / 180;
+        h += `<span class="bd" style="left:${x}%;top:${y}%;--dx:${Math.round(Math.cos(a) * 54)}px;--dy:${Math.round(Math.sin(a) * 54)}px;--d:${d}s;--c:${cols[(k + bi) % cols.length]}"></span>`;
+      }
+    });
+    return { items: h };
+  },
+  streamers() {
+    const p = (d, dl) => `<path class="draw" pathLength="100" style="--d:${dl}s" stroke="url(#gSerp)" d="${d}"/>`;
+    return { items: `<svg class="serp" viewBox="0 0 342 180" preserveAspectRatio="none" aria-hidden="true">${p('M30 -4C62 40 2 70 42 112S20 162 52 184', 0)}${p('M300 -4C268 52 330 84 298 124S282 164 312 184', .5)}${p('M176 -4C152 36 204 62 172 104S142 152 180 184', 1)}</svg>` };
+  },
+  gift() {
+    const rays = [[-30, -30, 0], [-12, -40, .05], [8, -42, .1], [26, -34, .15], [38, -16, .2], [-40, -12, .12], [-24, -8, .25], [20, -6, .22], [40, -36, .3], [-4, -28, .08], [-42, -30, .18], [30, -46, .28]];
+    const sparks = rays.map(([bx, by, d]) => `<g transform="translate(40 26)"><path class="sp" style="--bx:${bx}px;--by:${by}px;--d:${d}s" d="M0-8C1-2 2-1 8 0 2 1 1 2 0 8-1 2-2 1-8 0-2-1-1-2 0-8Z" fill="url(#gSpark)"/></g>`).join('');
+    /* Seconde vague : seulement les étincelles, pour que la boîte ne s'ouvre pas deux fois */
+    const wave2 = `<svg class="gift" viewBox="0 0 80 80" aria-hidden="true">${sparks}</svg>`;
+    return { wave2, items: `<svg class="gift" viewBox="0 0 80 80" aria-hidden="true"><circle class="ghalo" cx="40" cy="44" r="36" fill="url(#gHalo)"/><ellipse cx="40" cy="73" rx="28" ry="3.5" fill="rgba(0,0,0,.28)"/><path d="M58 38L70 31V61L58 70Z" fill="url(#gBoxSide)"/><rect x="13" y="38" width="45" height="32" rx="2" fill="url(#gBoxFront)"/><rect x="33.5" y="38" width="6" height="32" fill="url(#gRibbon)"/><g class="lid"><path d="M62 26L70 19V31L62 38Z" fill="url(#gBoxSide)"/><path d="M10 26L18 19H70L62 26Z" fill="url(#gBoxTop)"/><rect x="9" y="26" width="53" height="12" rx="2" fill="url(#gBoxLid)"/><rect x="33.5" y="26" width="6" height="12" fill="url(#gRibbon)"/><path d="M36 20C28 8 17 10 21 17 23 21 32 21 36 20Z" fill="url(#gRibbon)"/><path d="M44 20C52 8 63 10 59 17 57 21 48 21 44 20Z" fill="url(#gRibbon)"/><circle cx="40" cy="20" r="3.4" fill="url(#gRibbon)"/></g>${sparks}</svg>` };
+  },
+  cake() {
+    const candles = [[40, 0], [55, .5], [70, 1]];
+    const flames = candles.map(([x, d]) => `<rect x="${x - 2}" y="18" width="4" height="16" rx=".8" fill="url(#gCandleStripe)"/><line x1="${x}" y1="16" x2="${x}" y2="18" stroke="#3a2a22" stroke-width=".8"/><path class="smoke" style="--d:${d}s" d="M${x} 3 C${x + 2.5} -.5 ${x - 2.5} -3 ${x + .5} -7" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="1.1" stroke-linecap="round"/><g class="fw" style="--d:${d}s"><path class="flick" d="M${x} 4 C${x + 3.2} 8 ${x + 3.2} 12 ${x} 16 C${x - 3.2} 12 ${x - 3.2} 8 ${x} 4Z" fill="url(#gFlame)"/></g>`).join('');
+    return { items: `<svg class="cake" viewBox="0 -8 110 98" aria-hidden="true"><circle class="cglow" cx="55" cy="6" r="26" fill="url(#gGlowWarm)"/><ellipse cx="55" cy="86" rx="52" ry="5" fill="rgba(0,0,0,.25)"/><ellipse cx="55" cy="83" rx="50" ry="4.5" fill="url(#gPlate)"/><rect x="14" y="54" width="82" height="26" rx="3" fill="url(#gCreamCake)"/><path d="M14 54H96V59Q92 65 88 59Q84 68 78 59Q72 65 66 59Q60 68 54 59Q48 65 42 59Q36 68 30 59Q24 65 20 59Q16 64 14 59Z" fill="url(#gFrost)"/><rect x="28" y="34" width="54" height="22" rx="3" fill="url(#gCreamCake)"/><path d="M28 34H82V39Q79 45 76 39Q72 47 68 39Q64 45 59 39Q55 47 51 39Q47 45 43 39Q38 47 34 39Q31 45 28 39Z" fill="url(#gFrost)"/><circle cx="22" cy="66" r="1.2" fill="#ffd24d"/><circle cx="34" cy="72" r="1.2" fill="#9fd8f2"/><circle cx="48" cy="68" r="1.2" fill="#ffd24d"/><circle cx="62" cy="71" r="1.2" fill="#f7a8bd"/><circle cx="76" cy="66" r="1.2" fill="#9fd8f2"/><circle cx="90" cy="72" r="1.2" fill="#ffd24d"/><circle cx="38" cy="46" r="1.1" fill="#ffd24d"/><circle cx="52" cy="48" r="1.1" fill="#9fd8f2"/><circle cx="66" cy="45" r="1.1" fill="#f7a8bd"/><circle cx="78" cy="48" r="1.1" fill="#ffd24d"/>${flames}</svg>` };
+  },
+  hearts() {
+    const N = 20, xs = Array.from({ length: N }, (_, i) => 2 + i * 4.9 + rnd(i, 1) * 2), ds = Array.from({ length: N }, (_, i) => +(rnd(i, 2) * 1.4).toFixed(2)), sx = Array.from({ length: N }, (_, i) => Math.round((rnd(i, 3) * 2 - 1) * 9));
+    return { items: xs.map((x, i) => `<svg class="rise" style="left:${x}%;--d:${ds[i]}s;--sx:${sx[i]}px;--r:${i % 2 ? 6 : -6}deg;--t:3.2s" width="22" height="20" viewBox="0 0 24 22" aria-hidden="true"><path d="${FX_HEART}" fill="url(#gHeart)"/><ellipse cx="7" cy="6" rx="2" ry="1.2" fill="#fff" opacity=".6" transform="rotate(-25 7 6)"/></svg>`).join('') };
+  },
+  petals() {
+    return { items: Array.from({ length: 48 }, (_, i) => `<svg class="fall" style="left:${(rnd(i, 5) * 96).toFixed(1)}%;--d:${(rnd(i, 6) * 1.8).toFixed(2)}s;--sx:${(rnd(i, 7) * 40 - 20).toFixed(0)}px;--t:${(4.2 + rnd(i, 8) * 1.8).toFixed(2)}s" width="13" height="21" viewBox="0 0 14 22" aria-hidden="true"><path d="M7 0C12 5 13.5 12 7 22 .5 12 2 5 7 0Z" fill="url(#gPetal)"/></svg>`).join('') };
+  },
+  bubbles() {
+    const N = 16, xs = Array.from({ length: N }, (_, i) => 3 + i * 5.8 + rnd(i, 1) * 3), ds = Array.from({ length: N }, (_, i) => +(rnd(i, 2) * 1.6).toFixed(2)), sx = Array.from({ length: N }, (_, i) => Math.round((rnd(i, 3) * 2 - 1) * 8));
+    return { items: xs.map((x, i) => `<svg class="rise" style="left:${x}%;--d:${ds[i]}s;--sx:${sx[i]}px;--t:5.2s" width="${26 + (i % 3) * 6}" height="${26 + (i % 3) * 6}" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="url(#gBubble)" stroke="rgba(255,255,255,.55)" stroke-width=".9"/><path d="M8.5 16Q10 8 18 6.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/><ellipse cx="27" cy="28" rx="2.4" ry="1.4" fill="#fff" opacity=".45" transform="rotate(-30 27 28)"/></svg>`).join('') };
+  },
+  bigheart() {
+    const small = [[18, 26, 0], [78, 30, .2], [26, 64, .35], [74, 60, .5], [46, 18, .6], [88, 48, .8], [8, 50, .9], [56, 74, 1]].map(([x, y, d]) => `<svg class="pop" style="left:${x}%;top:${y}%;--d:${d}s" width="18" height="16" viewBox="0 0 24 22" aria-hidden="true"><path d="${FX_HEART}" fill="url(#gHeart)"/></svg>`).join('');
+    return { items: `<div class="halo2"></div><svg class="bigheart" viewBox="0 0 24 22" aria-hidden="true"><path d="${FX_HEART}" fill="url(#gHeart)"/><ellipse cx="7" cy="6" rx="2" ry="1.2" fill="#fff" opacity=".6" transform="rotate(-25 7 6)"/></svg>${small}` };
+  },
+  sheen() { return { items: '<div class="sheen"></div>' }; },
+  explosion() {
+    const cols = ['#fff3c4', '#f6c95c', '#f2a6b3', '#ffffff', '#8fd3f0', '#e4b85c', '#ee8ca0'];
+    const pieces = Array.from({ length: 250 }, (_, i) => {
+      const a = rnd(i, 41) * Math.PI * 2, dist = 70 + rnd(i, 42) * 120;
+      const dx = Math.round(Math.cos(a) * dist), dy = Math.round(Math.sin(a) * dist * 0.8);
+      const rot = Math.round(rnd(i, 43) * 720 - 360);
+      const w = (5 + rnd(i, 44) * 5).toFixed(1), h = (3 + rnd(i, 45) * 2.5).toFixed(1);
+      return `<span class="pc" style="--dx:${dx}px;--dy:${dy}px;--rot:${rot}deg;--d:${(rnd(i, 46) * 0.15).toFixed(2)}s;width:${w}px;height:${h}px;background:${cols[i % cols.length]}"></span>`;
+    }).join('');
+    return { items: `<div class="flash"></div>${pieces}` };
+  },
+  shockwave() {
+    return { items: '<div class="flash"></div>' + [0, .45, .9].map((d) => `<span class="ring" style="--d:${d}s"></span>`).join('') };
+  },
+  bam() { return { items: '<div class="flash2"></div>' }; },
+  pastille() {
+    return { items: `<svg class="seal" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="38" fill="url(#gGoldC)"/><circle cx="40" cy="40" r="31" fill="none" stroke="rgba(92,42,70,.35)" stroke-width="1.2"/><rect x="23" y="37" width="34" height="24" rx="2.5" fill="#5c2a46"/><rect x="19" y="30" width="42" height="9" rx="2.5" fill="#5c2a46"/><rect x="37.2" y="30" width="5.6" height="31" fill="#f6d787"/><path d="M40 30C34 20 25 21 28 27 30 30 36 30 40 30ZM40 30C46 20 55 21 52 27 50 30 44 30 40 30Z" fill="#5c2a46"/><circle cx="40" cy="30" r="3" fill="#f6d787"/></svg>` };
+  },
+  scratch() {
+    const T = 4.6, O = [14, 166], L = 380, n = 10;
+    let css = '', paths = '';
+    for (let k = 0; k < 22; k++) {
+      const a = (20 - k * 123 / 21) * Math.PI / 180;
+      const dx = Math.cos(a), dy = Math.sin(a), px = -dy, py = dx, amp = 4 + rnd(k, 71) * 4;
+      const pts = Array.from({ length: n + 1 }, (_, i) => { const b = L * i / n, o = i % 2 ? amp : -amp; return `${(O[0] + dx * b + px * o).toFixed(1)} ${(O[1] + dy * b + py * o).toFixed(1)}`; });
+      const start = 0.4 + k * 0.15, end = start + 0.35;
+      css += `@keyframes fxS${k} { 0%, ${(start / T * 100).toFixed(2)}% { stroke-dashoffset: 100; } ${(end / T * 100).toFixed(2)}%, 100% { stroke-dashoffset: 0; } }`;
+      paths += `<path pathLength="100" stroke-width="${(50 + rnd(k, 72) * 8).toFixed(1)}" d="M${pts.join('L')}" style="animation:fxS${k} ${T}s linear forwards"/>`;
+    }
+    const marks = Array.from({ length: 10 }, (_, i) => {
+      const x = rnd(i, 61) * 330 - 10, y = rnd(i, 62) * 190 - 10, l = 30 + rnd(i, 63) * 60;
+      const a = (rnd(i, 64) * 50 + 10) * Math.PI / 180;
+      const stroke = i % 3 ? 'rgba(255,255,255,.5)' : 'rgba(60,66,74,.2)';
+      return `<path d="M${x.toFixed(1)} ${y.toFixed(1)}L${(x + Math.cos(a) * l).toFixed(1)} ${(y + Math.sin(a) * l).toFixed(1)}" stroke="${stroke}" stroke-width="0.8" stroke-linecap="round"/>`;
+    }).join('');
+    return { top: true, items: `<style>${css}</style>
+      <svg class="scratch" viewBox="0 0 342 180" preserveAspectRatio="none" aria-hidden="true"><defs>
+        <linearGradient id="gCoat" x1="0" y1="0" x2="1" y2=".4"><stop offset="0" stop-color="#aeb5bd"/><stop offset=".2" stop-color="#e8ecf0"/><stop offset=".38" stop-color="#9ea6af"/><stop offset=".56" stop-color="#dde2e7"/><stop offset=".74" stop-color="#a9b1b9"/><stop offset="1" stop-color="#e2e6ea"/></linearGradient>
+        <filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter>
+        <mask id="mScr" maskUnits="userSpaceOnUse" x="0" y="0" width="342" height="180"><rect width="342" height="180" fill="#fff"/><g class="cuts" filter="url(#rough)">${paths}</g></mask>
+      </defs><g mask="url(#mScr)"><rect width="342" height="180" fill="url(#gCoat)"/>${marks}</g></svg>
+      <div class="flash" style="--d:4s;width:240px;height:240px;margin:-120px 0 0 -120px"></div><span class="ring" style="--d:4s"></span>` };
+  },
+  stars() {
+    const pts = Array.from({ length: 24 }, (_, i) => [Math.round(10 + rnd(i, 81) * 80), Math.round(14 + rnd(i, 82) * 66)]);
+    return { items: pts.map(([x, y], i) => FX_SPARK(12 + (i % 3) * 5, (rnd(i, 83) * 1.6).toFixed(2), x, y)).join('') };
+  },
+  flakes() {
+    const g = '<g stroke="#fff" stroke-width="1.1" stroke-linecap="round" fill="none"><path d="M12 1.5v21M2.9 6.75l18.2 10.5M21.1 6.75 2.9 17.25"/><path d="M9.5 3.6 12 5.6l2.5-2M9.5 20.4 12 18.4l2.5 2M4.6 9.6l.6 3 2.7-1.2M19.4 14.4l-.6-3-2.7 1.2M4.6 14.4l.6-3 2.7 1.2M19.4 9.6l-.6 3-2.7-1.2"/></g>';
+    return { items: Array.from({ length: 48 }, (_, i) => `<svg class="fall" style="left:${(rnd(i, 9) * 96).toFixed(1)}%;--d:${(rnd(i, 10) * 1.8).toFixed(2)}s;--sx:${(rnd(i, 11) * 30 - 15).toFixed(0)}px;--t:${(4.5 + rnd(i, 12) * 2).toFixed(2)}s" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">${g}</svg>`).join('') };
+  },
+  emojis() {
+    const e = ['😝', '😂', '😍', '🥳', '🤩', '😜', '😎', '🤣', '😘', '🙃'];
+    const N = 24;
+    return { items: Array.from({ length: N }, (_, i) => `<span class="bounce" style="left:${(4 + rnd(i, 91) * 88).toFixed(1)}%;top:${(14 + rnd(i, 92) * 66).toFixed(1)}%;--d:${(rnd(i, 93) * 1.2).toFixed(2)}s">${e[i % e.length]}</span>`).join('') };
+  },
+  wink() { return { items: '<span class="wink">😉</span>' }; },
+};
+/* Couche d'effet pour une carte : vide si « Aucun » ou effet inconnu */
+function fxLayer(key, index = 0) {
+  const build = FX_BUILD[key];
+  if (!build) return { cls: '', html: '' };
+  const { items, top, wave2 } = build();
+  const topCls = top ? ' top' : '';
+  const vague1 = `<div class="fx${topCls}" style="--off:${index * EFFECT_OFFSET}s" aria-hidden="true">${items}</div>`;
+  /* Seconde vague : le même effet, rejoué une seconde plus tard. Pas pour le grattage ni le reflet, qui ne se répètent pas */
+  const vague2 = (key === 'scratch' || key === 'sheen') ? '' : `<div class="fx fx-w2${topCls}" style="--off:${index * EFFECT_OFFSET}s" aria-hidden="true">${wave2 ?? items}</div>`;
+  return { cls: ' fx-' + key, html: vague1 + vague2 };
+}
+/* Effets empilés : le premier est offert, les suivants s'enchaînent avec un petit décalage */
+function fxKeys() { return [S.fx, ...S.fxExtra].filter((k) => k && k !== 'none'); }
+function fxParts(keys) {
+  const parts = keys.filter((k) => k && k !== 'none').map((k, i) => fxLayer(k, i)).filter((p) => p.html);
+  return { cls: parts.map((p) => p.cls).join(''), html: parts.map((p) => p.html).join('') };
+}
+function effectsCost() { return S.fxExtra.length * EFFECT_EXTRA_PRICE; }
+function fxAddHtml() {
+  const n = S.fxExtra.length;
+  let label = `+ Ajouter un effet · ${eur(EFFECT_EXTRA_PRICE)}`;
+  let disabled = false;
+  if (S.fx === 'none') { label = 'Choisissez d’abord un premier effet'; disabled = true; }
+  else if (n >= EFFECT_MAX - 1) { label = `Maximum ${EFFECT_MAX - 1} effets supplémentaires`; disabled = true; }
+  else if (S.fxDup) label = `« ${FX_LABEL[S.fxDup]} » est déjà sur la carte. Touchez un autre effet.`;
+  else if (S.addingFx) label = 'Touchez l’effet à ajouter ci-dessus';
+  const chips = S.fxExtra.map((k) => `<span class="fxchip">${FX_LABEL[k]}<button data-act="rmfx" data-val="${k}" aria-label="Retirer ${FX_LABEL[k]}">×</button></span>`).join('');
+  return `<button class="fxaddbtn" data-act="addfx" aria-pressed="${S.addingFx}"${disabled ? ' disabled' : ''}>${label}</button>${chips ? `<div class="fxchips">${chips}</div>` : ''}<div class="hint">Le premier effet est offert. Chaque effet supplémentaire coûte ${eur(EFFECT_EXTRA_PRICE)}. Maximum ${EFFECT_MAX - 1} effets supplémentaires.</div>`;
+}
+/* Ajoute le nouvel effet sur les cartes, sans relancer ceux qui jouent déjà */
+function addCardFx(key) {
+  const f = fxLayer(key, fxKeys().indexOf(key));
+  if (!f.html) return;
+  document.querySelectorAll('.card').forEach((c) => {
+    const fxs = c.querySelectorAll('.fx');
+    const ref = fxs.length ? fxs[fxs.length - 1] : c.querySelector('.shade');
+    ref.insertAdjacentHTML('afterend', f.html);
+    c.classList.add(key.startsWith('fx-') ? key : 'fx-' + key);
+  });
+}
+function syncFxAdd() { const a = document.getElementById('fxAdd'); if (a) a.innerHTML = fxAddHtml(); }
+
+function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false }) {
+  const media = !mediaUrl ? '' : isVideo
+    ? `<video class="media" src="${esc(mediaUrl)}" autoplay muted loop playsinline${controls ? ' controls' : ''}></video>`
+    : `<img class="media" src="${esc(mediaUrl)}" alt="">`;
+  const f = fxParts(Array.isArray(fx) ? fx : [fx]);
+  const longCls = (text || '').length > 22 ? ' long' : '';
+  return `
+    <div class="card${f.cls}"${tap ? ' data-act="fxreplay" role="button" aria-label="Revoir les effets"' : ''}>
+      ${media}
+      <div class="shade"></div>
+      ${f.html}
+      <div class="overlay">
+        <div class="top"><span class="brand">c.kdo</span><span class="amt" ${pv ? 'data-pv="amt"' : ''}>${esc(amt)}</span></div>
+        <svg class="chip" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="gChipGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeec0"/><stop offset=".28" stop-color="#d7ad5c"/><stop offset=".52" stop-color="#8f6225"/><stop offset=".74" stop-color="#eccd86"/><stop offset="1" stop-color="#b88a40"/></linearGradient><linearGradient id="gChipPad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc92"/><stop offset=".5" stop-color="#c49748"/><stop offset="1" stop-color="#ecca7e"/></linearGradient><linearGradient id="gChipGlint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="gChipClip"><rect x=".5" y=".5" width="43" height="33" rx="5"/></clipPath></defs><rect x=".5" y=".5" width="43" height="33" rx="5" fill="url(#gChipGold)" stroke="rgba(70,42,8,.8)" stroke-width=".8"/><rect x="8" y="7" width="28" height="20" rx="2.5" fill="url(#gChipPad)" stroke="rgba(70,42,8,.85)" stroke-width=".7"/><path d="M8 13.5H36M8 20.5H36M16 7V27M28 7V27" stroke="rgba(70,42,8,.7)" stroke-width=".7"/><path d="M8 14.3H36M8 21.3H36M16.6 7V27M28.6 7V27" stroke="rgba(255,248,220,.5)" stroke-width=".4"/><g clip-path="url(#gChipClip)"><path d="M-2 36L14-2H24L8 36Z" fill="url(#gChipGlint)"/></g><rect x=".5" y=".5" width="43" height="33" rx="5" fill="none" stroke="rgba(255,240,200,.6)" stroke-width=".6"/></svg>
+        <div class="text${longCls}" ${pv ? 'data-pv="text"' : ''}>${esc(text)}</div>
+        <div class="bottom"><span class="small">Carte cadeau virtuelle</span></div>
+      </div>
+    </div>`;
+}
+function hdr(step, title, back) {
+  return `<header class="hdr">${back ? `<button class="back" data-act="go" data-val="${back}" aria-label="Retour">${ICON_BACK}</button>` : ''}<div><div class="step">${esc(step)}</div><div class="title">${esc(title)}</div></div></header>`;
+}
+
+/* ---------- écrans créateur ---------- */
+/* Mes cadeaux à plusieurs : les collectes créées sur cet appareil. Le lien de gestion mène à chacune. */
+function myCollectionsHtml() {
+  const list = Object.values(collections()).reverse();
+  if (!list.length) return '';
+  const rows = list.map((c) => {
+    const statut = c.status === 'envoyee' ? 'Carte envoyée' : c.status === 'annulee' ? 'Annulée' : 'En collecte';
+    const limite = c.status !== 'collecte' ? ''
+      : !c.deadline ? 'Sans limite de temps'
+      : Date.now() < c.deadline ? `Participations jusqu’au ${frDateTime(c.deadline)}` : 'Participations closes';
+    const n = c.participants.length;
+    return `<a class="collrow" href="${esc(manageLink(c))}">
+      <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
+      <span class="collmeta">${statut} · ${eur(collTotal(c))} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
+      ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
+    </a>`;
+  }).join('');
+  return `<div class="label" style="margin-top:28px">Mes cadeaux à plusieurs</div>${rows}
+    <div class="hint">Ces cadeaux sont enregistrés sur cet appareil seulement. Pour les retrouver ailleurs, gardez le lien de gestion.</div>`;
+}
+
+function screenCreate() {
+  return `
+  ${hdr('Étape 1 sur 4', 'Personnalisez votre carte')}
+  <div class="section">
+    ${S.mediaUrl
+      ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
+      : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
+    ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
+    <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
+
+    <!-- La carte suit la photo ou la vidéo ; le texte est juste en dessous, puis occasion et effets -->
+    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true })}
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
+
+    <div class="label">Votre dédicace</div>
+    <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
+    <div class="hint"><span id="cardCount">${S.cardText.length}</span> / 40 caractères</div>
+    <div class="hint" id="cardRappel" style="${S.cardText.trim() ? 'display:none' : ''}">« Attention, il n’y a rien d’écrit sur la carte. Vous pouvez tout de même continuer si vous le souhaitez. »</div>
+
+    <div class="label">Pour quelle occasion ?</div>
+    <div class="grid2">${OCCASIONS.map(([n]) => `<button class="opt" data-act="occasion" data-val="${n}" aria-pressed="${S.occasion === n}">${n}</button>`).join('')}</div>
+
+    <div class="label">Effet à l’ouverture</div>
+    <div id="fxMenu">${fxMenuHtml()}</div>
+    <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
+    <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    ${myCollectionsHtml()}
+  </div>
+  <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button></div>`;
+}
+
+/* Clavier maison pour les montants : pas de clavier iPhone, donc une touche « Valider » dans le clavier */
+function keypadHtml(id) {
+  const cell = (k) => `<button class="kpkey" data-act="kp" data-val="${k}" data-target="${id}">${k}</button>`;
+  return `<div class="kpad" role="group" aria-label="Clavier des montants">
+    ${['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(cell).join('')}
+    <button class="kpkey kpfn" data-act="kp" data-val="back" data-target="${id}" aria-label="Effacer">⌫</button>
+    ${cell('0')}
+    <button class="kpkey kpok" data-act="kpok">Valider</button>
+  </div>`;
+}
+function openKp(id) {
+  document.querySelectorAll('.kpslot').forEach((x) => { x.innerHTML = ''; });
+  const el = document.getElementById(id);
+  if (el) el.dataset.fresh = '1';   /* le premier chiffre remplace la valeur déjà affichée */
+  const slot = document.querySelector(`.kpslot[data-slot="${id}"]`);
+  if (slot) slot.innerHTML = keypadHtml(id);
+}
+function closeKp() {
+  document.querySelectorAll('.kpslot').forEach((x) => { x.innerHTML = ''; });
+  const a = document.activeElement;
+  if (a && a.matches && a.matches('input[data-kp]')) a.blur();
+}
+function kpPress(id, key) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const max = Number(el.dataset.maxlen) || 3;
+  let v = el.value;
+  if (key !== 'back' && el.dataset.fresh) { v = ''; }
+  delete el.dataset.fresh;
+  if (key === 'back') v = v.slice(0, -1);
+  else if (v === '0') v = key;
+  else if (v.length < max) v += key;
+  el.value = v;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+/* Montant au-delà de 500 € : offert en plusieurs cartes, créées une à une */
+function splitHint() {
+  if (setStarted()) return '<div class="hint">Montant verrouillé : des cartes sont déjà créées.</div>';
+  if (S.amount > MAX_TOTAL) return `<div class="blockErr">Montant maximum : ${euros(MAX_TOTAL)}.</div>`;
+  if (amountOk() && S.amount > MAX_AMOUNT) return `<div class="hint">Au-delà de ${MAX_AMOUNT} €, le montant est offert en ${splitCount()} cartes, chacune de ${MAX_AMOUNT} € maximum. Vous créez chaque carte, avec son lien.</div>`;
+  return '';
+}
+
+function screenAmount() {
+  return `
+  ${hdr('Étape 2 sur 4', 'Combien souhaitez-vous offrir ?', 'create')}
+  <div class="section">
+    <div class="label">Montant</div>
+    <div class="grid2">${AMOUNTS.map((a) => `<button class="opt" data-act="amount" data-val="${a}" aria-pressed="${S.amount === a}"${setStarted() ? ' disabled' : ''}>${a} €</button>`).join('')}</div>
+    <input id="customAmount" class="field${bad('customAmount')}" type="text" inputmode="none" readonly data-kp data-maxlen="4" placeholder="Autre montant, ${MIN_AMOUNT} € minimum" value="${esc(S.customRaw)}"${setStarted() ? ' disabled' : ''}>
+    <div class="kpslot" data-slot="customAmount"></div>
+    <div id="splitHint">${splitHint()}</div>
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+
+    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true })}
+  </div>
+  <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="message">Continuer</button></div>`;
+}
+
+function voiceBlock() {
+  const b = bad('voiceBlock');
+  return `
+    <button class="secondary${S.recording ? ' rec' : ''}${b}" data-act="recvoice">${S.recording
+      ? 'Arrêter · <span id="recTimer">0:00</span>'
+      : (S.voiceUrl ? 'Refaire le vocal' : 'Enregistrer le vocal')}</button>
+    <label class="linkfile">Choisir un fichier audio<input id="voiceFile" type="file" accept="audio/*"></label>
+    <div class="hint">60 secondes maximum.</div>
+    ${b ? '<div class="blockErr">Enregistrez ou choisissez un vocal.</div>' : ''}
+    ${S.voiceUrl && !S.recording ? `<audio class="player" controls src="${esc(S.voiceUrl)}"></audio>` : ''}`;
+}
+
+function videoBlock() {
+  const b = bad('videoBlock');
+  return `
+    <div class="grid2">
+      <label class="btn2${b}">Filmer<input id="vidCam" type="file" accept="video/*" capture="user"></label>
+      <label class="btn2${b}">Choisir une vidéo<input id="vidFile" type="file" accept="video/*"></label>
+    </div>
+    <div class="hint">30 secondes maximum.</div>
+    ${b ? '<div class="blockErr">Filmez ou choisissez une vidéo.</div>' : ''}
+    ${S.msgVideoUrl ? `<video class="player" controls playsinline src="${esc(S.msgVideoUrl)}"></video>` : ''}`;
+}
+
+function msgBodyHtml() {
+  return S.msgType === 'voice' ? voiceBlock()
+    : S.msgType === 'video' ? videoBlock()
+    : `<textarea id="message" class="field${bad('message')}" maxlength="500" rows="5">${esc(S.message)}</textarea>
+       <div class="hint"><span id="msgCount">${S.message.length}</span> / 500 caractères</div>`;
+}
+/* Mises à jour ciblées de l'écran message : la carte n'est pas reconstruite */
+function updateMsgBody() { const b = document.getElementById('msgBody'); if (b) b.innerHTML = msgBodyHtml(); }
+function syncMsgTabs() {
+  document.querySelectorAll('[data-act="msgtype"]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.val === S.msgType)));
+}
+function msgFootHtml() {
+  if (S.askNoMsg && hasNoMessage()) {
+    return `${footErr()}<div class="nomsg">
+      <div class="nmTitle">Votre message est vide</div>
+      <p>Le destinataire verra seulement sa carte, avec la phrase « ${NO_MESSAGE_TEXT} »</p>
+      <div class="nomsgBtns">
+        <button class="secondary" data-act="writemsg">Écrire un message</button>
+        <button class="primary" data-act="nomsg">Continuer sans message</button>
+      </div>
+    </div>`;
+  }
+  return `${footErr()}<button class="primary" data-cta data-act="go" data-val="recap">Continuer</button>`;
+}
+function refreshMsgFoot() { const f = document.getElementById('msgFoot'); if (f) f.innerHTML = msgFootHtml(); }
+
+function screenMessage() {
+  const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
+  return `
+  ${hdr('Étape 3 sur 4', 'Écrivez votre message', 'amount')}
+  <div class="section">
+    <div class="label">Prénom du destinataire</div>
+    <input id="recipient" class="field${bad('recipient')}" maxlength="40" placeholder="Par exemple : Théo" value="${esc(S.recipient)}">
+
+    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo })}
+
+    <div class="label">Type de message</div>
+    <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
+
+    <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot" id="msgFoot">${msgFootHtml()}</div>`;
+}
+
+function screenRecap() {
+  const f = fee();
+  const second = isSecondCard();
+  const extra = second ? EXTRA_CARD_FEE : 0;
+  const effets = effectsCost();
+  const sched = S.schedule ? SCHEDULE_PRICE : 0;
+  const total = cardAmount() + f + extra + effets + sched;
+  const payBlock = S.group ? `
+    <div class="ztitle">Facturation</div>
+    <div class="payline"><span>Votre part</span><span>${eur(S.amount)}</span></div>
+    <div class="paytotal"><span>Maintenant</span><span>0,00 €</span></div>
+    <div class="hint">Vos amis ajoutent leur part. Le total, avec les frais, est réglé quand vous envoyez la carte.</div>` : `
+    <div class="ztitle">Facturation</div>
+    <div class="payline"><span>Carte cadeau pour ${esc(S.recipient)}</span><span>${eur(cardAmount())}</span></div>
+    <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(f)}</span></div>
+    ${second ? `<div class="payline"><span>Supplément 2e carte</span><span>${eur(extra)}</span></div>` : ''}
+    ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
+    ${S.schedule ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(SCHEDULE_PRICE)}</span></div>` : ''}
+    <div class="paytotal"><span>Vous payez</span><span>${eur(total)}</span></div>
+    ${second ? '<div class="notice">Votre 2e carte : supplément de 2 €, appliqué automatiquement.</div>' : ''}`;
+  return `
+  ${hdr('Étape 4 sur 4', 'Récapitulatif', 'message')}
+  <div class="section">
+    ${splitCount() > 1 ? `<div class="notice">Carte ${cardIndex() + 1} sur ${splitCount()} : ${euros(S.amount)} sont offerts en ${splitCount()} cartes, créées une à une. Chaque carte a son lien et ses frais.</div>` : ''}
+    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), tap: true })}
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
+
+    <div class="zone">
+      <div class="ztitle">Votre message</div>
+      ${msgPreviewHtml()}
+    </div>
+
+    <div class="zsep"></div>
+
+    ${payBlock}
+    <div class="zsep"></div>
+
+    <div class="ztitle">Qui paie ?</div>
+    <div class="grid2">
+      <button class="btn2" data-act="grp" data-val="solo" aria-pressed="${!S.group}">Je paie seul</button>
+      <button class="btn2" data-act="grp" data-val="group" aria-pressed="${S.group}">Avec mes amis</button>
+    </div>
+    ${S.group ? `<div class="label">Votre prénom</div>
+    <input id="creatorName" class="field${bad('creatorName')}" maxlength="30" placeholder="Par exemple : Léa" value="${esc(S.creatorName)}">
+    <div class="hint">Vos amis verront ce prénom dans la liste des participations.</div>
+    <div class="label">Limite pour participer</div>
+    <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
+      <button class="btn2" data-act="deadline" data-val="none" aria-pressed="${S.deadlineKey === 'none'}">Aucune</button>
+      <button class="btn2" data-act="deadline" data-val="48h" aria-pressed="${S.deadlineKey === '48h'}">48 h</button>
+      <button class="btn2" data-act="deadline" data-val="7j" aria-pressed="${S.deadlineKey === '7j'}">7 jours</button>
+    </div>
+    <div class="hint" style="margin-bottom:16px">Vous êtes la personne qui envoie la carte. Vous réglez le total à l’envoi.</div>` : ''}
+
+    <div class="ztitle" style="margin-top:18px">Ouverture de la carte</div>
+    <div class="grid2">
+      <button class="btn2" data-act="sched" data-val="now" aria-pressed="${!S.schedule}">Tout de suite</button>
+      <button class="btn2" data-act="sched" data-val="later" aria-pressed="${S.schedule}">Le jour J · 1 €</button>
+    </div>
+    ${S.schedule ? `<input id="openDate" class="field${bad('openDate')}" type="date" min="${openMin()}" max="${openMax()}" value="${esc(S.openDate)}">
+    <div class="hint" style="margin-bottom:16px">La carte s’ouvre ce jour-là. Avant, le destinataire ne voit que la date.</div>` : ''}
+
+    <div class="hint">Carte valable 12 mois · non rechargeable.</div>
+
+    <details class="cgu">
+      <summary>Lire les conditions d’utilisation</summary>
+      <div class="cgubody">
+        <p>Version de test. Le texte définitif des conditions d’utilisation reste à rédiger et à faire valider avant toute mise en ligne.</p>
+        <p>La carte cadeau est une carte virtuelle prépayée, valable 12 mois et non rechargeable.</p>
+        <p>Le solde pourra être transféré sur le compte bancaire du destinataire, selon les modalités du partenaire de paiement choisi.</p>
+        <p>Les frais de service s’ajoutent au montant de la carte : 7 % du montant, avec un minimum de 2 €. Une deuxième carte ajoute un supplément de 2 €.</p>
+        <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € (version de test).</p>
+        <p>Pendant ce test, aucun paiement réel n’est effectué.</p>
+      </div>
+    </details>
+
+    <label class="check${bad('terms')}"><input id="terms" type="checkbox" ${S.terms ? 'checked' : ''}> <span>J’accepte les conditions d’utilisation</span></label>
+    <div class="hint">Version de test : aucun paiement réel, aucun argent n’est prélevé.</div>
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot">${footErr()}${S.group
+    ? '<p class="footnote">Vous ne payez rien maintenant. Vos amis ajoutent leur part, puis vous réglez le total.</p><button class="primary" data-cta data-act="submit">Créer le lien à partager</button>'
+    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} recevra une carte de ${eur(cardAmount())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Valider et créer le lien (' + eur(total) + ')'}</button>`}</div>`;
+}
+
+function screenDone() {
+  const n = splitCount(); const i = cardIndex(); const last = i >= n - 1; const more = n > 1 && !last;
+  return `
+  ${hdr('Terminé', n > 1 ? (last ? 'Vos cartes sont prêtes' : `Carte ${i + 1} sur ${n} prête`) : 'Votre carte est prête')}
+  <div class="section">
+    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}
+
+    <div class="label">${n > 1 ? 'Lien de la carte ' + (i + 1) : 'Lien à partager'}</div>
+    <div class="linkbox">${esc(S.link)}</div>
+    <button class="secondary" data-act="copy">Copier le lien</button>
+    <a class="primary" style="margin-top:10px" href="${esc(S.link)}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
+    ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
+    ${more ? `<button class="primary" data-act="nextcard">Créer la carte ${i + 2} sur ${n} · ${eur(splitAmounts(S.amount)[i + 1])}</button>` : ''}
+    ${n > 1 && last ? `<div class="label">Vos ${n} cartes</div>${S.links.map((l, k) => `<div class="linkbox">Carte ${k + 1} : ${esc(l)}</div>`).join('')}` : ''}
+    <button class="secondary" data-act="reset">Créer un autre cadeau</button>
+  </div>`;
+}
+
+/* ---------- cadeau à plusieurs : créateur ---------- */
+function createCollection() {
+  const id = crypto.randomUUID();
+  const none = hasNoMessage();
+  const msgType = none ? 'text' : S.msgType;
+  const msgText = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim() : '';
+  const label = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim()
+    : S.msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
+  const hasMsgFile = (S.msgType === 'voice' && !!S.voiceBlob) || (S.msgType === 'video' && !!S.msgVideoFile);
+  const dl = DEADLINE_MS[S.deadlineKey];
+  const all = collections();
+  all[id] = {
+    id, status: 'collecte', manageKey: crypto.randomUUID(), recipientName: S.recipient.trim(), creatorName: S.creatorName.trim(), payLink: '',
+    deadline: dl ? Date.now() + dl : null,
+    card: {
+      cardText: S.cardText.trim(), fx: S.fx, fxExtra: [...S.fxExtra],
+      mediaUrl: S.mediaUrl, mediaIsVideo: S.mediaIsVideo, hasMedia: !!S.mediaFile,
+      msgType, msgText, hasMsgFile, message: label,
+      schedule: S.schedule, openDate: S.openDate, second: isSecondCard(),
+    },
+    participants: [{ id: crypto.randomUUID(), name: S.creatorName.trim(), amount: S.amount, phone: '', paid: false, creator: true }],
+  };
+  store.set(GROUP_KEY, all);
+  S.collectionId = id;
+  S.step = 'collect';
+  S.error = '';
+}
+
+function copyGroupLink(btn, link) {
+  navigator.clipboard.writeText(link)
+    .then(() => { btn.textContent = 'Lien copié'; })
+    .catch(() => { btn.textContent = 'Copiez le lien ci-dessus'; });
+}
+
+function groupLink(c) {
+  return `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?g=${c.id}`;
+}
+function manageLink(c) {
+  return `${groupLink(c)}&m=${c.manageKey}`;
+}
+
+/* Texte envoyé aux amis : le petit mot du créateur, puis la demande de participation */
+function shareTextOf(c) {
+  const link = groupLink(c);
+  const pay = httpsOk(c.payLink || '') ? `\nPour me rembourser : ${c.payLink}` : '';
+  const limit = c.deadline && Date.now() < c.deadline ? ` Ajoutez votre part avant le ${frDateTime(c.deadline)}.` : '';
+  const mot = (c.note || '').trim() ? `${c.note.trim()}\n\n` : '';
+  return `${mot}Je prépare un cadeau pour ${c.recipientName}.${limit} Ajoute ta part ici : ${link}${pay}`;
+}
+/* Ouvre la feuille de partage du téléphone (Messages, WhatsApp, Mail…) avec un texte prêt à envoyer */
+function shareGroup(btn) {
+  const c = getCollection(S.collectionId);
+  if (!c) return;
+  const link = groupLink(c);
+  const text = shareTextOf(c);
+  if (navigator.share) {
+    navigator.share({ title: `Cadeau pour ${c.recipientName}`, text }).catch(() => {});
+    return;
+  }
+  copyGroupLink(btn, link);
+}
+
+function savePayLink(t) {
+  const v = t.value.trim();
+  const err = document.getElementById('payErr');
+  if (v && !httpsOk(v)) { t.classList.add('bad'); if (err) err.textContent = 'Le lien doit commencer par https://'; return; }
+  t.classList.remove('bad');
+  if (err) err.textContent = '';
+  updateCollection(S.collectionId, (c) => { c.payLink = v; });
+}
+
+/* Un seul paiement : le total est réglé par le créateur, à l'envoi */
+async function closeGroup() {
+  const c = getCollection(S.collectionId);
+  if (!c || c.status !== 'collecte') return render();
+  const total = collTotal(c);
+  if (total < MIN_AMOUNT) { S.error = `Le total doit atteindre ${MIN_AMOUNT} € pour envoyer la carte.`; return render(); }
+  if ((c.card.hasMedia && !S.mediaFile) || (c.card.hasMsgFile && !S.voiceBlob && !S.msgVideoFile)) {
+    S.error = 'Dans cette simulation, les fichiers photo ou vidéo ne survivent pas à un rechargement. Refaites la carte. Avec la base, ils seront conservés.';
+    return render();
+  }
+  Object.assign(S, {
+    amount: total, group: false, error: '', recipient: c.recipientName, cardText: c.card.cardText,
+    fx: c.card.fx, fxExtra: [...c.card.fxExtra], schedule: c.card.schedule, openDate: c.card.openDate,
+    msgType: c.card.msgType, message: c.card.msgText,
+  });
+  await submit();
+  if (S.step === 'done') updateCollection(c.id, (x) => { x.status = 'envoyee'; x.cardLink = S.link; });
+}
+
+/* Détail des sommes, montré seulement au moment de payer : les frais se calculent à l'envoi */
+function sendSummaryHtml(c) {
+  const total = collTotal(c);
+  const second = c.card.second ? EXTRA_CARD_FEE : 0;
+  const effets = c.card.fxExtra.length * EFFECT_EXTRA_PRICE;
+  const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
+  return `<div class="zone"><div class="ztitle">Détail du paiement</div>
+    <div class="payline"><span>Participations</span><span>${eur(total)}</span></div>
+    <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(feeOf(total))}</span></div>
+    ${second ? `<div class="payline"><span>Supplément 2e carte</span><span>${eur(second)}</span></div>` : ''}
+    ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
+    ${sched ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(sched)}</span></div>` : ''}
+    <div class="paytotal"><span>Vous payez</span><span>${eur(closeTotalOf(c))}</span></div>
+    <div class="hint">Une seule fois. Vos amis ne paient rien. Après paiement, la carte est envoyée et ne peut plus être modifiée.</div></div>`;
+}
+
+function homeHref() { return location.href.split('?')[0]; }
+
+/* Page dédiée au paiement : plus rien à partager ici, un seul bouton pour payer */
+function screenPay() {
+  const c = getCollection(S.collectionId);
+  if (!c || c.status !== 'collecte') return `${hdr('Cadeau à plusieurs', 'Clôturer et payer')}<div class="section"><div class="message">Cette collecte n’est plus ouverte.</div></div>`;
+  const enough = collTotal(c) >= MIN_AMOUNT;
+  return `
+  ${hdr('Cadeau à plusieurs', 'Clôturer et payer', 'collect')}
+  <div class="section">
+    <div class="message">Vos amis ne pourront plus participer. La carte part tout de suite après le paiement.</div>
+    ${sendSummaryHtml(c)}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    ${S.busy ? '' : '<button class="secondary" data-act="go" data-val="collect">Revenir au partage</button>'}
+  </div>
+  <div class="foot"><button class="primary" data-act="closegrp" ${enough && !S.busy ? '' : 'disabled'}>${S.busy ? 'Paiement en cours…' : 'Payer ' + eur(closeTotalOf(c)) + ' et envoyer'}</button></div>`;
+}
+
+function screenCollect() {
+  const c = getCollection(S.collectionId);
+  if (!c) return `${hdr('Cadeau à plusieurs', 'Carte introuvable')}<div class="section"><div class="error">Cette carte n’existe plus dans cette session.</div></div>`;
+  if (c.status === 'annulee') {
+    return `${hdr('Cadeau à plusieurs', 'Collecte annulée')}<div class="section"><div class="message">Vous avez annulé cette collecte. Aucun paiement n’a été pris, donc rien à rembourser. Les amis qui ouvrent le lien voient qu’elle est annulée.</div></div>`;
+  }
+  if (c.status === 'envoyee') {
+    return `${hdr('Cadeau à plusieurs', 'Carte envoyée')}<div class="section"><div class="message">La carte a été envoyée. La collecte est terminée et ne peut plus être modifiée.</div></div>`;
+  }
+  const total = collTotal(c);
+  const link = groupLink(c);
+  const me = c.participants.find((p) => p.creator);
+  const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
+  const rows = c.participants.map((p) => `
+    <div class="rowline"><span>${esc(p.name)}${p.creator ? ' <small>(vous)</small>' : ''}</span>
+    <span class="grp-actions">${eur(p.amount)} ${p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`} <button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button></span></div>`).join('');
+  const enough = total >= MIN_AMOUNT;
+  const payLine = enough
+    ? `<div class="paytotal"><span>Total des participations</span><span>${eur(total)}</span></div>
+    <div class="hint">Vous ne réglez qu’une fois, à l’envoi. Les frais de service et les options s’ajoutent alors, selon le montant final. Une fois envoyée, la carte ne peut plus être modifiée.</div>`
+    : `<div class="error">Il faut au moins ${MIN_AMOUNT} € de participations pour envoyer la carte.</div>`;
+  const cancelBtn = S.cancelAsk
+    ? `<button class="secondary" data-act="cancelgrp">Confirmer l’annulation</button>
+    <button class="linkbtn" data-act="keepgrp">Garder la collecte</button>`
+    : `<button class="linkbtn" data-act="cancelgrp">Annuler la collecte</button>`;
+  return `
+  <header class="hdr"><a class="back" href="${esc(homeHref())}" aria-label="Quitter et revenir plus tard">${ICON_BACK}</a><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
+  <div class="section">
+    ${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}
+    <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
+    <div class="label">Petit mot pour vos amis (facultatif)</div>
+    <textarea id="groupNote" class="field" maxlength="200" rows="2" placeholder="Par exemple : Coucou ! On lui offre un cadeau ensemble.">${esc(c.note || '')}</textarea>
+    <div class="hint"><span id="noteCount">${(c.note || '').length}</span> / 200 caractères. Il part avec le lien d’invitation.</div>
+    <div class="label">Lien à partager</div>
+    <div class="linkbox">${esc(link)}</div>
+    <button class="primary" data-act="sharegrp">Partager le lien à mes amis</button>
+    <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
+    <div class="hint">Vos amis voient la carte et ajoutent leur part, sans payer. Vous réglez le total à l’envoi.</div>
+
+    <div class="ztitle">Participations · ${eur(total)}</div>
+    <div class="hint">${esc(deadlineText(c))}</div>
+    ${rows}
+    <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
+    <input id="mineAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me ? me.amount : ''}" placeholder="${MIN_PART}">
+    <div class="kpslot" data-slot="mineAmount"></div>
+    <button class="secondary" data-act="setmine">${me ? 'Enregistrer ma part' : 'Ajouter ma part'}</button>
+    <div class="hint">Vous pouvez modifier votre part tant que la carte n’est pas envoyée.</div>
+    <div class="label">Lien pour vous régler (facultatif)</div>
+    <input id="payLink" class="field" maxlength="300" placeholder="https://…" value="${esc(c.payLink)}">
+    <div class="error" id="payErr"></div>
+    <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
+
+    <div class="zsep"></div>
+    ${payLine}
+    <div class="label">Lien de gestion (gardez-le)</div>
+    <div class="linkbox">${esc(manageLink(c))}</div>
+    <button class="secondary important" data-act="copygrp" data-val="${esc(manageLink(c))}">Copier le lien de gestion</button>
+    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Ne le partagez pas à vos amis.</div>
+    <a class="secondary" href="${esc(homeHref())}">Quitter et revenir plus tard</a>
+    <div class="hint">La collecte reste ouverte. Gardez le lien de gestion pour la retrouver.</div>
+
+    <div class="zsep"></div>
+    ${cancelBtn}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot">${enough ? '<p class="footnote">Vos amis ne pourront plus participer. Vous réglez maintenant et la carte part tout de suite.</p>' : ''}<button class="primary" data-act="gopay" ${enough ? '' : 'disabled'}>Clôturer et envoyer la carte à ${esc(c.recipientName)}</button></div>`;
+}
+
+/* ---------- cadeau à plusieurs : participant ---------- */
+function renderGroupView() {
+  const c = getCollection(GROUP_ID);
+  const back = homeBackHtml();
+  if (!c) return `${recvHeader('Cadeau à plusieurs', 'Participer', back)}<div class="section"><div class="error">Ce lien n’est pas valide ou la carte n’existe plus.</div></div>`;
+  const total = collTotal(c);
+  const creator = c.participants.find((p) => p.creator);
+  const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
+  const head = recvHeader('Cadeau à plusieurs', `Pour ${c.recipientName}`, back);
+  const preview = `
+    ${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}
+    <div class="hint" style="text-align:center">Aperçu : la carte n’est pas encore envoyée. Touchez-la pour revoir les effets.</div>
+    <div class="zone"><div class="ztitle">Message</div><div class="message">${esc(c.card.message)}</div></div>
+    ${c.note ? `<div class="zone"><div class="ztitle">Petit mot de ${esc(c.creatorName || 'votre ami')}</div><div class="message">${esc(c.note)}</div></div>` : ''}`;
+  if (c.status === 'annulee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">Cette collecte a été annulée par le créateur. Aucun paiement n’a été pris.</div></div>`;
+  if (c.status === 'envoyee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">La carte a déjà été envoyée. Les participations sont fermées.</div></div>`;
+  const rows = c.participants.map((p) => `<div class="rowline"><span>${esc(p.name)}</span><span>${eur(p.amount)}</span></div>`).join('');
+  const list = `<div class="ztitle" style="margin-top:18px">Participations · ${eur(total)}</div>${rows}`;
+  const me = c.participants.find((p) => p.id === myPartId);
+  let action;
+  if (me) {
+    action = `<div class="notice">Merci ! Votre part de ${eur(me.amount)} est ajoutée.</div>`
+      + (creator && httpsOk(c.payLink || '') ? `<a class="primary" style="margin-top:10px" href="${esc(c.payLink)}" target="_blank" rel="noopener">Régler ${esc(creator.name)}</a>` : '');
+  } else if (c.deadline && Date.now() >= c.deadline) {
+    action = `<div class="message" style="margin-top:18px">Les participations sont closes. Le créateur va envoyer la carte.</div>`;
+  } else {
+    action = `
+      ${c.deadline ? `<div class="hint" style="margin-top:18px">Encore ${remainingText(c.deadline)} pour participer.</div>` : ''}
+      <div class="ztitle" style="margin-top:18px">Ajouter ma part</div>
+      <div class="label">Votre prénom</div>
+      <input id="gName" class="field" maxlength="30" placeholder="Par exemple : Marc">
+      <div class="label">Votre part (€)</div>
+      <input id="gAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" placeholder="${MIN_PART}">
+      <div class="kpslot" data-slot="gAmount"></div>
+      <div class="label">Votre numéro de téléphone</div>
+      <input id="gPhone" class="field" type="tel" inputmode="tel" placeholder="06 12 34 56 78">
+      <label class="check"><input id="gConsent" type="checkbox"> <span>Votre prénom et votre numéro serviront uniquement à vous prévenir par SMS de l’envoi de la carte, et à vous transmettre le mot de remerciement du destinataire s’il le souhaite.</span></label>
+      <div class="hint">Aucun paiement maintenant. Le créateur réglera le total à l’envoi de la carte.</div>
+      <div class="error" id="gErr"></div>
+      <button class="primary" data-act="gadd">Ajouter ma part</button>`;
+  }
+  return `${head}<div class="section">${preview}${list}${action}</div>`;
+}
+
+function redrawGroup() { app.innerHTML = renderGroupView(); }
+
+/* Lien de gestion : le créateur retrouve sa collecte, sans compte */
+function startManage() {
+  const c = getCollection(GROUP_ID);
+  if (!c || c.manageKey !== MANAGE_KEY) return startGroup();
+  S.collectionId = c.id; S.step = 'collect'; S.group = false;
+  render();
+}
+
+function groupClick(e) {
+  const el = e.target.closest('[data-act="gadd"]');
+  if (!el) return;
+  const c = getCollection(GROUP_ID);
+  if (!c || c.status !== 'collecte' || (c.deadline && Date.now() >= c.deadline)) return redrawGroup();
+  const err = document.getElementById('gErr');
+  const say = (m) => { if (err) err.textContent = m; };
+  const name = document.getElementById('gName').value.trim();
+  const amount = Math.round(Number(document.getElementById('gAmount').value));
+  const phone = document.getElementById('gPhone').value.replace(/[\s.-]/g, '');
+  const consent = document.getElementById('gConsent').checked;
+  if (!name) return say('Indiquez votre prénom.');
+  if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) return say(`Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`);
+  if (collTotal(c) + amount > MAX_AMOUNT) return say(`Le total ne peut pas dépasser ${MAX_AMOUNT} €.`);
+  if (!/^(0[1-9]\d{8}|\+\d{8,14})$/.test(phone)) return say('Indiquez un numéro de téléphone valide.');
+  if (!consent) return say('Cochez la case pour que nous puissions vous prévenir.');
+  const id = crypto.randomUUID();
+  updateCollection(c.id, (x) => { x.participants.push({ id, name, amount, phone, paid: false, creator: false }); });
+  myPartId = id;
+  redrawGroup();
+}
+
+function startGroup() {
+  app.addEventListener('click', groupClick);
+  redrawGroup();
+}
+
+let lastStep = '';
+function render() {
+  const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, pay: screenPay, done: screenDone };
+  const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
+  app.innerHTML = banner + screens[S.step]();
+  /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
+  if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
+  ensureMsgThumb();
+}
+
+/* ---------- média de la carte ---------- */
+async function handleCardFile(file) {
+  if (!file) return;
+  S.error = ''; S.mediaError = '';
+  if (file.size > MAX_FILE_BYTES) { S.mediaError = 'Fichier trop lourd (50 Mo maximum).'; return showMediaError(); }
+  const isVideo = file.type.startsWith('video/');
+  const url = URL.createObjectURL(file);
+  if (isVideo) {
+    const dur = await mediaDuration(url, 'video');
+    if (!(dur > 0)) { URL.revokeObjectURL(url); S.mediaError = 'Cette vidéo ne peut pas être lue par ce navigateur. Choisissez une autre vidéo, de 10 secondes maximum, ou une photo.'; return showMediaError(); }
+    if (dur > MAX_CARD_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.mediaError = `Cette vidéo dure ${Math.round(dur)} secondes. La vidéo de la carte doit durer ${MAX_CARD_VIDEO_SECONDS} secondes maximum : choisissez une vidéo plus courte ou une photo.`; return showMediaError(); }
+  }
+  if (S.mediaUrl) URL.revokeObjectURL(S.mediaUrl);
+  Object.assign(S, { mediaFile: file, mediaIsVideo: isVideo, mediaUrl: url, mediaError: '' });
+  render();
+}
+
+/* Affiche le refus juste sous le bouton photo, à l'écran */
+function showMediaError() {
+  render();
+  const e = document.querySelector('.mediaErr');
+  if (e) e.scrollIntoView({ block: 'center' });
+}
+
+/* ---------- message vocal ---------- */
+let recorder = null;
+let recTimerId = null;
+let recStartedAt = 0;
+
+function stopVoice() {
+  if (recorder && recorder.state !== 'inactive') recorder.stop();
+}
+
+async function startVoice() {
+  S.error = '';
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (err) {
+    S.error = `Micro refusé (${err.name}). Choisissez un fichier audio à la place.`;
+    return render();
+  }
+  let rec;
+  try {
+    rec = new MediaRecorder(stream);
+  } catch (err) {
+    stream.getTracks().forEach((t) => t.stop());
+    S.error = 'Enregistrement non disponible sur ce navigateur. Choisissez un fichier audio.';
+    return render();
+  }
+  const chunks = [];
+  rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+  rec.onstop = () => {
+    clearTimeout(recTimerId);
+    stream.getTracks().forEach((t) => t.stop());
+    const blob = new Blob(chunks, { type: rec.mimeType || 'audio/mp4' });
+    if (S.voiceUrl) URL.revokeObjectURL(S.voiceUrl);
+    Object.assign(S, {
+      voiceBlob: blob,
+      voiceUrl: URL.createObjectURL(blob),
+      voiceSecs: Math.max(1, Math.round((Date.now() - recStartedAt) / 1000)),
+      recording: false,
+    });
+    recorder = null;
+    render();
+  };
+  recorder = rec;
+  recStartedAt = Date.now();
+  rec.start();
+  S.recording = true;
+  recTimerId = setTimeout(stopVoice, MAX_VOICE_SECONDS * 1000);
+  render();
+  const tick = setInterval(() => {
+    const el = document.getElementById('recTimer');
+    if (!S.recording) { clearInterval(tick); return; }
+    if (el) el.textContent = fmt(Math.floor((Date.now() - recStartedAt) / 1000));
+  }, 250);
+}
+
+async function handleVoiceFile(file) {
+  if (!file) return;
+  S.error = '';
+  if (file.size > MAX_FILE_BYTES) { S.error = 'Fichier trop lourd (50 Mo maximum).'; return render(); }
+  const url = URL.createObjectURL(file);
+  const dur = await mediaDuration(url, 'audio');
+  if (!(dur > 0)) { URL.revokeObjectURL(url); S.error = 'Ce format audio n’est pas lu par ce navigateur.'; return render(); }
+  if (isFinite(dur) && dur > MAX_VOICE_SECONDS + 0.5) { URL.revokeObjectURL(url); S.error = `Le vocal dure ${Math.round(dur)} secondes. Maximum : ${MAX_VOICE_SECONDS} secondes.`; return render(); }
+  if (S.voiceUrl) URL.revokeObjectURL(S.voiceUrl);
+  Object.assign(S, { voiceBlob: file, voiceUrl: url, voiceSecs: isFinite(dur) ? Math.round(dur) : 0 });
+  render();
+}
+
+/* ---------- message vidéo (fichier filmé ou choisi) ---------- */
+async function handleMsgVideo(file) {
+  if (!file) return;
+  S.error = '';
+  if (file.size > MAX_FILE_BYTES) { S.error = 'Fichier trop lourd (50 Mo maximum).'; return render(); }
+  const url = URL.createObjectURL(file);
+  const dur = await mediaDuration(url, 'video');
+  if (!(dur > 0)) { URL.revokeObjectURL(url); S.error = 'Ce format de vidéo n’est pas lu par ce navigateur.'; return render(); }
+  if (isFinite(dur) && dur > MAX_MSG_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.error = `La vidéo dure ${Math.round(dur)} secondes. Maximum : ${MAX_MSG_VIDEO_SECONDS} secondes.`; return render(); }
+  if (S.msgVideoUrl) URL.revokeObjectURL(S.msgVideoUrl);
+  Object.assign(S, { msgVideoFile: file, msgVideoUrl: url, msgVideoSecs: isFinite(dur) ? Math.round(dur) : 0 });
+  render();
+}
+
+/* ---------- envoi ---------- */
+function copyLink(btn) {
+  navigator.clipboard.writeText(S.link)
+    .then(() => { btn.textContent = 'Lien copié'; })
+    .catch(() => { btn.textContent = 'Copiez le lien ci-dessus'; });
+}
+
+async function upload(path, blob) {
+  const { error } = await sb.storage.from(BUCKET).upload(path, blob, { contentType: baseType(blob.type), upsert: false });
+  if (error) throw error;
+}
+
+async function submit() {
+  if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
+  S.busy = true; S.error = ''; render();
+  const id = crypto.randomUUID();
+  try {
+    let mediaPath = null;
+    if (S.mediaFile) {
+      mediaPath = `${id}/media.${extOf(S.mediaFile.type)}`;
+      await upload(mediaPath, S.mediaFile);
+    }
+    let msgPath = null;
+    if (S.msgType === 'voice' && S.voiceBlob) {
+      msgPath = `${id}/voice.${extOf(S.voiceBlob.type)}`;
+      await upload(msgPath, S.voiceBlob);
+    }
+    if (S.msgType === 'video' && S.msgVideoFile) {
+      msgPath = `${id}/msg-video.${extOf(S.msgVideoFile.type)}`;
+      await upload(msgPath, S.msgVideoFile);
+    }
+    const none = hasNoMessage();
+    const message = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim()
+      : S.msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
+    const { error } = await sb.from('cards').insert({
+      id,
+      occasion: S.occasion,
+      card_text: S.cardText.trim(),
+      amount: cardAmount(),
+      media_type: S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none',
+      media_path: mediaPath,
+      msg_type: none ? 'text' : S.msgType,
+      msg_media_path: msgPath,
+      message,
+      recipient_name: S.recipient.trim(),
+      effect: S.fx,
+      ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
+      ...(S.schedule ? { open_at: S.openDate } : {}),
+    });
+    if (error) throw error;
+    store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
+    S.link = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=${id}`;
+    S.links = [...S.links, S.link];
+    S.step = 'done';
+  } catch (err) {
+    S.error = 'Une erreur est survenue, réessayez. (' + (err.message || err) + ')';
+  } finally {
+    S.busy = false;
+    render();
+  }
+}
+
+/* ---------- écouteurs créateur ---------- */
+app.addEventListener('click', (e) => {
+  /* Un clic en dehors du menu et du bouton d'ajout annule le mode ajout */
+  if (S.addingFx && !e.target.closest('#fxMenu, #fxAdd')) {
+    S.addingFx = false; S.fxDup = '';
+    syncFxChips(); syncFxAdd();
+  }
+  /* Champ de montant : un toucher ouvre le clavier maison, à la place du clavier iPhone */
+  if (e.target.matches && e.target.matches('input[data-kp]:not([disabled])')) { openKp(e.target.id); return; }
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const v = el.dataset.val;
+  const act = el.dataset.act;
+  if (S.busy) return;
+  if (el.hasAttribute('data-cta')) {
+    if (missingFields().size > 0) {
+      S.showErrors = true; S.error = '';
+      render();
+      const first = document.querySelector('.field.bad, .btn2.bad, .secondary.bad, .check.bad');
+      if (first) first.scrollIntoView({ block: 'center' });
+      return;
+    }
+    if (S.step === 'message' && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
+    S.showErrors = false;
+  }
+  if (act === 'kp') { kpPress(el.dataset.target, v); return; }
+  if (act === 'kpok') { closeKp(); return; }
+  if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
+  if (act === 'submit') {
+    if (S.group && S.amount > MAX_AMOUNT) { S.error = 'Le cadeau à plusieurs est limité à 500 € pour l’instant. Revenez au montant, ou choisissez « Je paie seul ».'; return render(); }
+    if (S.group) { createCollection(); return render(); }
+    return submit();
+  }
+  if (act === 'copy') return copyLink(el);
+  if (act === 'copygrp') return copyGroupLink(el, v);
+  if (act === 'sharegrp') return shareGroup(el);
+  if (act === 'gopay') {
+    const cg = getCollection(S.collectionId);
+    if (!cg || cg.status !== 'collecte' || collTotal(cg) < MIN_AMOUNT) return render();
+    S.step = 'pay'; S.error = '';
+    return render();
+  }
+  if (act === 'closegrp') return closeGroup();
+  if (S.recording && act !== 'msgtype') stopVoice();
+  switch (act) {
+    case 'grp':
+      S.group = v === 'group';
+      break;
+    case 'paidpart':
+      updateCollection(S.collectionId, (c) => { const p = c.participants.find((x) => x.id === v); if (p) p.paid = !p.paid; });
+      break;
+    case 'rmpart':
+      updateCollection(S.collectionId, (c) => { c.participants = c.participants.filter((x) => x.id !== v); });
+      break;
+    case 'setmine': {
+      const c = getCollection(S.collectionId);
+      if (!c || c.status !== 'collecte') break;
+      const raw = document.getElementById('mineAmount');
+      const amount = Math.round(Number(raw && raw.value));
+      const others = c.participants.filter((p) => !p.creator).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+      if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) { S.error = `Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`; break; }
+      if (others + amount > MAX_AMOUNT) { S.error = `Le total ne peut pas dépasser ${MAX_AMOUNT} €.`; break; }
+      updateCollection(c.id, (x) => {
+        const me = x.participants.find((p) => p.creator);
+        if (me) me.amount = amount;
+        else x.participants.unshift({ id: crypto.randomUUID(), name: x.creatorName || 'Moi', amount, phone: '', paid: false, creator: true });
+      });
+      S.error = '';
+      break;
+    }
+    case 'keepgrp':
+      S.cancelAsk = false;
+      break;
+    case 'cancelgrp':
+      if (!S.cancelAsk) { S.cancelAsk = true; break; }
+      updateCollection(S.collectionId, (x) => { x.status = 'annulee'; });
+      S.cancelAsk = false;
+      break;
+    case 'deadline':
+      S.deadlineKey = v;
+      break;
+    case 'sched':
+      S.schedule = v === 'later';
+      break;
+    case 'occasion':
+      S.occasion = v;
+      /* Le texte suggéré par l'occasion ne remplace pas un texte écrit à la main */
+      if (!S.textTouched) S.cardText = OCCASIONS.find(([n]) => n === v)[1];
+      /* Mise à jour ciblée : la carte et sa photo ne sont pas reconstruites */
+      syncOccasionChips(); syncCardTextField(); updatePreview();
+      /* Sans effet choisi à la main, l'occasion propose son effet. Si l'expéditeur a déjà choisi, son effet reste
+         et s'affiche de nouveau, pour qu'il voie le résultat à chaque clic. */
+      if (!S.fxTouched) {
+        S.fx = OCC_FX[v];
+        S.fxTheme = themeOf(S.fx);
+        S.fxExtra = S.fx === 'none' ? [] : S.fxExtra.filter((k) => k !== S.fx);
+        syncFxChips(); syncFxAdd();
+      }
+      playCardFx();
+      /* « Autre » : le champ reçoit le curseur clignotant, pour inviter à écrire sa propre dédicace */
+      if (v === 'Autre') { const f = document.getElementById('cardText'); if (f) { f.focus(); f.setSelectionRange(0, 0); } }
+      return;
+    case 'amount': {
+      if (setStarted()) return;
+      S.amount = Number(v); S.customRaw = '';
+      syncAmountChips();
+      const ci = document.getElementById('customAmount');
+      if (ci) { ci.value = ''; liveCheck(ci); }
+      updatePreview();
+      return;
+    }
+    case 'removemedia':
+      clearCardMedia();
+      break;
+    case 'fx': {
+      /* Avec un effet gratuit et au moins un supplémentaire, un effet touché s'ajoute : le gratuit ne bouge plus */
+      const ajouter = v !== 'none' && S.fx !== 'none' && (S.addingFx || S.fxExtra.length > 0);
+      if (ajouter) {
+        if (v === S.fx || S.fxExtra.includes(v)) {
+          S.fxDup = v;                 /* déjà sur la carte */
+          syncFxChips(); syncFxAdd();
+          return;
+        }
+        S.addingFx = false; S.fxDup = '';
+        if (S.fxExtra.length >= EFFECT_MAX - 1) { syncFxAdd(); return; }   /* trois effets au maximum, gratuit compris */
+        S.fxExtra = [...S.fxExtra, v];
+        syncFxChips(); syncFxAdd(); addCardFx(v);
+        return;
+      }
+      /* Pas encore d'effet supplémentaire : toucher un effet choisit l'effet gratuit */
+      S.addingFx = false; S.fxDup = '';
+      S.fx = v; S.fxTouched = true;
+      if (v === 'none') S.fxExtra = []; else S.fxTheme = themeOf(v);
+      syncFxChips(); syncFxAdd(); playCardFx();
+      return;
+    }
+    case 'addfx':
+      S.addingFx = !S.addingFx; S.fxDup = '';
+      syncFxAdd();
+      return;
+    case 'rmfx':
+      S.fxExtra = S.fxExtra.filter((k) => k !== v);
+      syncFxAdd(); playCardFx();
+      return;
+    case 'theme':
+      if (S.addingFx || (S.fx !== 'none' && S.fxExtra.length)) { S.fxTheme = v; syncFxChips(); return; }
+      /* Choisir un thème, c'est choisir son premier effet : le résultat s'affiche tout de suite sur la carte.
+         Retaper le thème déjà ouvert ne change pas l'effet choisi. */
+      if (v !== S.fxTheme || S.fx === 'none') {
+        S.fxTheme = v;
+        S.fx = FX_THEMES.find(([t]) => t === v)[1][0];
+        S.fxTouched = true;
+        syncFxChips(); syncFxAdd(); playCardFx();
+      }
+      return;
+    case 'fxreplaybtn': {
+      /* Remonte l'écran jusqu'à la carte, pour la voir pendant les effets */
+      const c = document.querySelector('.card');
+      if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      playCardFx();
+      return;
+    }
+    case 'fxreplay':
+      playCardFx();
+      return;
+    case 'msgtype':
+      if (S.recording) stopVoice();
+      S.msgType = v; S.askNoMsg = false;
+      syncMsgTabs(); updateMsgBody(); refreshMsgFoot();
+      return;
+    case 'writemsg': {
+      S.askNoMsg = false; refreshMsgFoot();
+      const ta = document.getElementById('message');
+      if (ta) ta.focus();
+      return;
+    }
+    case 'nomsg':
+      S.askNoMsg = false; S.showErrors = false;
+      S.step = 'recap';
+      break;
+    case 'go':
+      S.error = ''; S.step = v;
+      S.showErrors = false; S.touched = new Set(); S.askNoMsg = false;
+      break;
+    case 'nextcard':
+      S.splitIndex = cardIndex() + 1; S.step = 'recap';
+      S.link = ''; S.error = ''; S.showErrors = false; S.touched = new Set();
+      break;
+    case 'reset':
+      if (S.recording) stopVoice();
+      Object.assign(S, initialState());
+      break;
+    default:
+      return;
+  }
+  render();
+});
+
+app.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.id === 'groupNote') {
+    updateCollection(S.collectionId, (c) => { c.note = t.value.slice(0, 200); });
+    const n = document.getElementById('noteCount'); if (n) n.textContent = t.value.length;
+    return;
+  }
+  if (t.id === 'cardText') { S.cardText = t.value; S.textTouched = t.value.trim() !== ''; updatePreview(); const c = document.getElementById('cardCount'); if (c) c.textContent = t.value.length; syncRappel(); }
+  else if (t.id === 'customAmount') { S.customRaw = t.value; S.amount = parseInt(t.value, 10); syncAmountChips(); updatePreview(); const sh = document.getElementById('splitHint'); if (sh) sh.innerHTML = splitHint(); }
+  else if (t.id === 'recipient') { S.recipient = t.value; }
+  else if (t.id === 'openDate') { S.openDate = t.value; }
+  else if (t.id === 'creatorName') { S.creatorName = t.value; }
+  else if (t.id === 'message') {
+    S.message = t.value;
+    const c = document.getElementById('msgCount'); if (c) c.textContent = t.value.length;
+    if (S.askNoMsg && !hasNoMessage()) { S.askNoMsg = false; refreshMsgFoot(); }
+  }
+  else return;
+  liveCheck(t);
+});
+
+/* Quitter un champ vide le signale en rouge */
+app.addEventListener('focusout', (e) => {
+  const t = e.target;
+  if (!['cardText', 'customAmount', 'recipient', 'message', 'creatorName'].includes(t.id)) return;
+  S.touched.add(t.id);
+  liveCheck(t);
+});
+
+app.addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.id === 'payLink') return savePayLink(t);
+  if (t.id === 'fileCard') return handleCardFile(t.files[0]);
+  if (t.id === 'voiceFile') return handleVoiceFile(t.files[0]);
+  if (t.id === 'vidCam' || t.id === 'vidFile') return handleMsgVideo(t.files[0]);
+  if (t.id === 'terms') {
+    S.terms = t.checked;
+    const lbl = t.closest('.check');
+    if (lbl) lbl.classList.toggle('bad', missingFields().has('terms') && (S.showErrors || S.touched.has('terms')));
+    const e = document.getElementById('formErr');
+    if (e && missingFields().size === 0) e.remove();
+  }
+});
+
+/* ---------- vue destinataire : carte, wallets, numéro, mon compte ---------- */
+let RECV = null;              // carte affichée : { row, mediaUrl, msgBlock, fromAccount }
+let recvView = 'card';        // 'card' ou 'account'
+let walletState = { apple: false, google: false };
+let showNumber = false;
+let accountBusy = false;
+
+const publicUrl = (p) => (p && sb ? sb.storage.from(BUCKET).getPublicUrl(p).data.publicUrl : '');
+const homeBackHtml = () => `<a class="back" href="${esc(location.href.split('?')[0])}" aria-label="Retour à c.kdo">${ICON_BACK}</a>`;
+
+function recvHeader(step, title, backHtml) {
+  return `<header class="hdr">${backHtml}<div><div class="step">${esc(step)}</div><div class="title">${esc(title)}</div></div></header>`;
+}
+
+async function fetchCard(id) {
+  const { data, error } = await sb.rpc('get_card', { card_id: id });
+  if (error) throw error;
+  return Array.isArray(data) ? (data[0] || null) : (data || null);
+}
+
+/* Ce que l'appareil garde de chaque carte ouverte, pour « Mon compte » */
+function toSaved(row) {
+  return {
+    id: row.id,
+    card_text: row.card_text,
+    amount: Number(row.amount),
+    recipient_name: row.recipient_name,
+    media_type: row.media_type,
+    media_path: row.media_path,
+  };
+}
+function rememberCard(row) {
+  const list = store.get(KEY_RECEIVED, []);
+  const saved = toSaved(row);
+  const i = list.findIndex((c) => c.id === row.id);
+  if (i >= 0) list[i] = saved; else list.unshift(saved);
+  store.set(KEY_RECEIVED, list);
+}
+
+/* Charge une carte et prépare l'écran destinataire */
+async function openCard(id, fromAccount) {
+  if (!sb) throw new Error('Le serveur n’est pas encore branché.');
+  if (!UUID_RE.test(id)) throw new Error('Ce lien n’est pas valide.');
+  const row = await fetchCard(id);
+  if (!row) throw new Error('Cette carte n’existe pas ou son lien est incorrect.');
+  /* Carte programmée : rien d’autre que la date n’est montré avant le jour choisi */
+  if (row.open_at && row.open_at > parisToday()) { RECV = { row, locked: true, fromAccount }; recvView = 'locked'; return; }
+  const msgUrl = publicUrl(row.msg_media_path);
+  const msgBlock = row.msg_type === 'voice' && msgUrl
+    ? `<audio class="player" controls src="${esc(msgUrl)}"></audio>`
+    : row.msg_type === 'video' && msgUrl
+      ? `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`
+      : `<div class="message big">${esc(row.message)}</div>`;
+  RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true };
+  rememberCard(row);
+  walletState = { apple: false, google: false };
+  showNumber = false;
+  recvView = fromAccount ? 'card' : 'message';
+}
+
+/* Premier écran du destinataire : le message reçu, puis « Voir ma carte » */
+function renderRecvMessage() {
+  const { row, msgBlock } = RECV;
+  return `
+    ${recvHeader('Cadeau reçu', 'Un instant rien que pour vous', homeBackHtml())}
+    <div class="section">
+      <div class="label">Pour ${esc(row.recipient_name)}</div>
+      ${msgBlock}
+    </div>
+    <div class="foot"><button class="primary" data-act="showcard">Découvrir votre carte</button></div>`;
+}
+
+/* Date de fin de validité : 12 mois après la création de la carte */
+function expiryText(row) {
+  if (!row.created_at) return 'Valable 12 mois.';
+  const d = new Date(row.created_at);
+  d.setMonth(d.getMonth() + 12);
+  return 'Valable jusqu’au ' + d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '.';
+}
+
+/* Écran « Recevoir sur mon compte » : explication seulement, aucune donnée bancaire demandée */
+function renderRecvTransfer() {
+  const back = `<button class="back" data-act="cardback" aria-label="Retour à la carte">${ICON_BACK}</button>`;
+  return `
+    ${recvHeader('Mon argent', 'Recevoir sur mon compte', back)}
+    <div class="section">
+      <div class="message">Vous pourrez transférer le solde de votre carte vers votre compte bancaire. Cette fonction sera disponible une fois le partenaire de paiement choisi.</div>
+      <div class="hint">Version de test : aucune donnée bancaire n’est demandée et aucun virement n’est effectué.</div>
+      <button class="secondary" data-act="cardback">Retour à la carte</button>
+    </div>`;
+}
+
+/* Carte programmée : seule la date d’ouverture est affichée */
+function renderRecvLocked() {
+  const { row } = RECV;
+  return `
+    ${recvHeader('Cadeau programmé', 'Pas encore ouverte', homeBackHtml())}
+    <div class="section">
+      <div class="message">Cette carte pour ${esc(row.recipient_name)} s’ouvrira le ${esc(longDateFr(row.open_at))}.</div>
+      <div class="hint">Revenez ce jour-là, avec le même lien.</div>
+    </div>`;
+}
+
+function renderRecvCard() {
+  const { row, mediaUrl, fromAccount } = RECV;
+  /* Les effets ne jouent qu'à l'ouverture de la carte, pas aux clics suivants */
+  const play = !!RECV.playFx;
+  RECV.playFx = false;
+  const back = fromAccount
+    ? `<button class="back" data-act="acc" aria-label="Retour à mon compte">${ICON_BACK}</button>`
+    : `<button class="back" data-act="msg" aria-label="Retour au message">${ICON_BACK}</button>`;
+  return `
+    ${recvHeader('Cadeau reçu', 'Votre carte', back)}
+    <div class="section">
+      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: row.amount + ' €', mediaUrl, isVideo: row.media_type === 'video', controls: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [] })}</div>
+      <div id="recvRest">${recvRestHtml()}</div>
+    </div>`;
+}
+
+/* Tout ce qui se trouve sous la carte : redessiné sans toucher à la carte */
+function recvRestHtml() {
+  const { row } = RECV;
+  return `
+      <a class="primary" href="${esc(location.href.split('?')[0])}" style="margin-top:12px">Rendre la pareille</a>
+      <div class="hint">Créez une carte pour quelqu’un, en quelques secondes.</div>
+      <div class="rowline"><span>Solde disponible</span><span>${eur(Number(row.amount))}</span></div>
+      <div class="hint">${expiryText(row)} Carte non rechargeable.</div>
+
+      <div class="label">Ma carte</div>
+      <div class="grid2">
+        <button class="btn2 wallet" data-act="wallet" data-val="apple" aria-pressed="${walletState.apple}"><span>Apple Wallet</span><small>${walletState.apple ? 'Ajouté' : 'Ajouter'}</small></button>
+        <button class="btn2 wallet" data-act="wallet" data-val="google" aria-pressed="${walletState.google}"><span>Google Wallet</span><small>${walletState.google ? 'Ajouté' : 'Ajouter'}</small></button>
+      </div>
+      <div class="hint">Version de test : aucun pass n’est créé.</div>
+
+      <div class="rowline"><span>Numéro</span><span>${showNumber ? TEST_NUMBER : '•••• •••• •••• ••••'}</span></div>
+      <button class="linkbtn" data-act="numtoggle">${showNumber ? 'Masquer le numéro et le code' : 'Afficher le numéro et le code'}</button>
+      ${showNumber ? '<div class="hint">Valeur de test, pas un vrai numéro : aucun paiement possible.</div>' : ''}
+
+      <button class="secondary" data-act="transfer">Recevoir sur mon compte</button>
+      <button class="secondary" data-act="acc">Mes cartes reçues</button>`;
+}
+
+function refreshRecvRest() {
+  const r = document.getElementById('recvRest');
+  if (r) r.innerHTML = recvRestHtml();
+}
+
+/* Une ligne de « Mon compte » : vignette de la carte, texte, montant */
+function accountRow(c) {
+  const url = publicUrl(c.media_path);
+  const media = !url ? '' : c.media_type === 'video'
+    ? `<video src="${esc(url)}#t=0.1" muted playsinline preload="metadata"></video>`
+    : `<img src="${esc(url)}" alt="" loading="lazy">`;
+  return `
+    <button class="accrow" data-act="openrecv" data-val="${esc(c.id)}">
+      <span class="mini">${media}</span>
+      <span class="accmeta"><span class="accname">${esc(c.card_text)}</span><small>Pour ${esc(c.recipient_name)}</small></span>
+      <span class="accamt">${eur(Number(c.amount) || 0)}</span>
+    </button>`;
+}
+
+function renderRecvAccount() {
+  const list = store.get(KEY_RECEIVED, []);
+  const total = list.reduce((sum, c) => sum + (Number(c.amount) || 0), 0);
+  const rows = list.length
+    ? list.map(accountRow).join('')
+    : '<div class="hint">Aucune carte ouverte sur cet appareil.</div>';
+  return `
+    ${recvHeader('Mon compte', 'Mes cartes', homeBackHtml())}
+    <div class="section">
+      <div class="label">Total de mes cartes</div>
+      <div class="bigtotal">${eur(total)}</div>
+      <div class="rows">${rows}</div>
+      <div class="hint">Version de test : cartes ouvertes sur cet appareil uniquement.</div>
+    </div>`;
+}
+
+/* Met à jour les cartes de la liste depuis le serveur (médias, texte, montant) */
+async function refreshAccount() {
+  if (!sb || accountBusy) return;
+  accountBusy = true;
+  try {
+    const list = store.get(KEY_RECEIVED, []);
+    const fresh = await Promise.all(list.map((c) => fetchCard(c.id).catch(() => null)));
+    const next = list.map((c, i) => (fresh[i] ? toSaved(fresh[i]) : c));
+    if (JSON.stringify(next) !== JSON.stringify(list)) {
+      store.set(KEY_RECEIVED, next);
+      if (recvView === 'account') drawRecv();
+    }
+  } finally {
+    accountBusy = false;
+  }
+}
+
+function drawRecv() {
+  if (recvView === 'account') app.innerHTML = renderRecvAccount();
+  else if (recvView === 'message') app.innerHTML = renderRecvMessage();
+  else if (recvView === 'transfer') app.innerHTML = renderRecvTransfer();
+  else if (recvView === 'locked') app.innerHTML = renderRecvLocked();
+  else app.innerHTML = renderRecvCard();
+}
+
+async function openFromAccount(id) {
+  app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', `<button class="back" data-act="acc" aria-label="Retour à mon compte">${ICON_BACK}</button>`)}<div class="section"><div class="hint">Chargement…</div></div>`;
+  try {
+    await openCard(id, true);
+    drawRecv();
+    window.scrollTo(0, 0);
+  } catch (err) {
+    app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="error">${esc(err.message || err)}</div></div>`;
+  }
+}
+
+function recvClick(e) {
+  const el = e.target.closest('[data-act]');
+  if (!el || !RECV) return;
+  switch (el.dataset.act) {
+    case 'wallet':
+      walletState[el.dataset.val] = !walletState[el.dataset.val];
+      refreshRecvRest();
+      return;
+    case 'numtoggle':
+      showNumber = !showNumber;
+      refreshRecvRest();
+      return;
+    case 'acc':
+      recvView = 'account';
+      drawRecv();
+      window.scrollTo(0, 0);
+      refreshAccount();
+      return;
+    case 'cardback':
+      recvView = 'card';
+      drawRecv();
+      window.scrollTo(0, 0);
+      return;
+    case 'transfer':
+      recvView = 'transfer';
+      drawRecv();
+      window.scrollTo(0, 0);
+      return;
+    case 'showcard':
+      recvView = 'card';
+      drawRecv();
+      window.scrollTo(0, 0);
+      return;
+    case 'msg':
+      recvView = 'message';
+      drawRecv();
+      window.scrollTo(0, 0);
+      return;
+    case 'openrecv':
+      openFromAccount(el.dataset.val);
+      return;
+    default:
+      return;
+  }
+}
+
+async function startRecipient() {
+  document.documentElement.classList.add('recv');
+  app.addEventListener('click', recvClick);
+  app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="hint">Chargement…</div></div>`;
+  try {
+    await openCard(RECIPIENT_ID, false);
+    drawRecv();
+  } catch (err) {
+    app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="error">${esc(err.message || 'Impossible de charger la carte.')}</div></div>`;
+  }
+}
+
+if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else render();
+
+</script>
+</body>
+</html>
