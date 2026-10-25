@@ -500,23 +500,107 @@ function syncOpenDate() {
 }
 const longDateFr = (iso) => new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-/* ---------- cadeau à plusieurs (simulation locale, pas encore la base) ---------- */
+/* ---------- cadeau à plusieurs : collectes sur le serveur ---------- */
 const MIN_PART = 5;                  /* participation minimum */
-const GROUP_KEY = 'ckdo.collections';
+const GROUP_KEY = 'ckdo.collectes';  /* liste de cet appareil : résumé et clé de gestion seulement */
+const PARTS_KEY = 'ckdo.participes'; /* participations faites depuis cet appareil : identifiant et montant */
 const GROUP_ID = new URLSearchParams(location.search).get('g');
 const MANAGE_KEY = new URLSearchParams(location.search).get('m');
-let myPartId = '';                   /* participation ajoutée depuis cet appareil */
-/* Tolère une donnée locale ancienne ou incomplète : seules les valeurs de la bonne forme sont lues */
-const collections = () => { const v = store.get(GROUP_KEY, {}); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; };
-const getCollection = (id) => (id ? collections()[id] || null : null);
-function updateCollection(id, fn) {
-  const all = collections();
-  const c = all[id];
-  if (!c) return null;
-  fn(c);
-  all[id] = c;
-  store.set(GROUP_KEY, all);
-  return c;
+const REMOTE = {};                   /* collectes lues sur le serveur, par identifiant (mémoire de la page) */
+/* Messages des contrôles faits sur le serveur */
+const RPC_MSG = {
+  consentement_requis: 'Cochez la case pour que nous puissions vous prévenir.',
+  part_invalide: `Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`,
+  total_depasse: `Le total ne peut pas dépasser ${MAX_AMOUNT} €.`,
+  telephone_invalide: 'Indiquez un numéro de téléphone valide.',
+  collecte_fermee: 'Cette collecte n’est plus ouverte.',
+  limite_depassee: 'Le délai pour participer est dépassé.',
+  limite_passee: 'La date limite doit être dans le futur.',
+  trop_d_effets: 'Trop d’effets supplémentaires.',
+  cle_invalide: 'Ce lien de gestion n’est pas valide.',
+  part_introuvable: 'Cette participation n’existe plus.',
+  lien_invalide: 'Le lien doit commencer par https://',
+  note_trop_longue: 'Le petit mot ne peut pas dépasser 200 caractères.',
+};
+function rpcMsg(err) {
+  const m = String((err && err.message) || '');
+  const k = Object.keys(RPC_MSG).find((key) => m.includes(key));
+  return k ? RPC_MSG[k] : 'Une erreur est survenue, réessayez.';
+}
+const myParts = () => { const v = store.get(PARTS_KEY, {}); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; };
+/* Liste de cet appareil : un résumé par collecte, pour « Mes cadeaux à plusieurs » */
+const localList = () => { const v = store.get(GROUP_KEY, []); return Array.isArray(v) ? v.filter((x) => x && x.id && x.manageKey) : []; };
+const saveLocalList = (list) => store.set(GROUP_KEY, list);
+function syncLocal(c) {
+  const list = localList().filter((x) => x.id !== c.id);
+  list.push({ id: c.id, manageKey: c.manageKey, recipientName: c.recipientName, status: c.status,
+    deadline: c.deadline || null, total: collTotal(c), count: c.participants.length });
+  saveLocalList(list);
+}
+const getCollection = (id) => (id && REMOTE[id]) || null;
+/* Forme commune : la lecture publique et la gestion donnent la même collecte à l'écran */
+function fromRow(r) {
+  const card = r.card || {};
+  const msgType = card.msg_type || 'text';
+  const label = msgType === 'voice' ? 'Message vocal' : msgType === 'video' ? 'Message vidéo' : (card.message || '');
+  return {
+    id: r.id, status: r.status, deadline: r.deadline ? Date.parse(r.deadline) : null,
+    recipientName: r.recipient_name || '', creatorName: r.creator_name || '', occasion: r.occasion || '',
+    payLink: r.pay_link || '', note: r.note || '',
+    card: {
+      cardText: card.card_text || '', fx: card.effect || 'none',
+      fxExtra: Array.isArray(card.extra_effects) ? card.extra_effects : [],
+      mediaUrl: publicUrl(card.media_path), mediaIsVideo: card.media_type === 'video', hasMedia: !!card.media_path,
+      mediaPath: card.media_path || null, msgType, msgText: msgType === 'text' ? (card.message || '') : '',
+      msgMediaPath: card.msg_media_path || null, hasMsgFile: !!card.msg_media_path, message: label,
+      schedule: !!card.open_at, openDate: card.open_at || '', second: !!card.second_card,
+    },
+    participants: (r.participants || []).map((p) => ({ id: p.id, name: p.name, amount: Number(p.amount) || 0,
+      phone: p.phone || '', paid: !!p.paid, creator: !!p.is_creator })),
+  };
+}
+async function loadPublic(id) {
+  if (!sb) throw new Error('Le serveur n’est pas encore branché.');
+  const { data, error } = await sb.rpc('get_collection', { p_id: id });
+  if (error) throw error;
+  if (!data) { delete REMOTE[id]; return null; }
+  REMOTE[id] = fromRow(data);
+  return REMOTE[id];
+}
+async function loadManage(id, key) {
+  if (!sb) throw new Error('Le serveur n’est pas encore branché.');
+  const { data, error } = await sb.rpc('manage_collection', { p_id: id, p_key: key });
+  if (error) throw error;
+  REMOTE[id] = { ...fromRow(data), manageKey: key };
+  syncLocal(REMOTE[id]);
+  return REMOTE[id];
+}
+/* Action de gestion : le serveur vérifie la clé, puis la collecte est relue */
+async function manageAct(name, args) {
+  const c = getCollection(S.collectionId);
+  if (!c) return render();
+  S.busy = true; S.error = ''; render();
+  try {
+    const { error } = await sb.rpc(name, { p_id: c.id, p_key: c.manageKey, ...args });
+    if (error) throw error;
+    await loadManage(c.id, c.manageKey);
+  } catch (err) {
+    S.error = rpcMsg(err);
+  } finally {
+    S.busy = false;
+    render();
+  }
+}
+/* Petit mot et lien de paiement : enregistrés peu après la dernière frappe */
+let textsTimer = null;
+function queueTexts() { clearTimeout(textsTimer); textsTimer = setTimeout(saveTexts, 700); }
+async function saveTexts() {
+  clearTimeout(textsTimer);
+  const c = getCollection(S.collectionId);
+  if (!c || c.status !== 'collecte' || !sb) return;
+  const { error } = await sb.rpc('manage_update_texts', { p_id: c.id, p_key: c.manageKey, p_note: c.note || '', p_pay_link: c.payLink || '' });
+  const err = document.getElementById('payErr');
+  if (error && err) err.textContent = rpcMsg(error);
 }
 const collTotal = (c) => c.participants.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
 const feeOf = (a) => Math.max(Math.round(a * FEE_RATE * 100) / 100, FEE_MIN);
@@ -896,7 +980,7 @@ function hdr(step, title, back) {
 /* ---------- écrans créateur ---------- */
 /* Mes cadeaux à plusieurs : les collectes créées sur cet appareil. Le lien de gestion mène à chacune. */
 function myCollectionsHtml() {
-  const list = Object.values(collections()).filter((c) => c && Array.isArray(c.participants)).reverse();
+  const list = localList().slice().reverse();
   if (!list.length) return '';
   const rows = list.map((c) => {
     const live = c.status === 'collecte';
@@ -906,7 +990,7 @@ function myCollectionsHtml() {
     const limite = !live ? ''
       : !c.deadline ? 'Sans limite de temps'
       : Date.now() < c.deadline ? `Participations jusqu’au ${frDateTime(c.deadline)}` : 'Participations closes';
-    const n = c.participants.length;
+    const n = c.count;
     const id = esc(c.id);
     const note = c.status === 'envoyee' ? 'La carte reste envoyée au destinataire.' : 'La collecte annulée reste visible ici jusqu’au retrait.';
     let action;
@@ -926,7 +1010,7 @@ function myCollectionsHtml() {
         <a class="collrow ${etat.cls}" href="${esc(manageLink(c))}">
           <span class="collpill ${etat.cls}">${etat.txt}</span>
           <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
-          <span class="collmeta">${eur(collTotal(c))} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
+          <span class="collmeta">${eur(c.total)} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
           ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
         </a>
       </div>
@@ -936,7 +1020,7 @@ function myCollectionsHtml() {
   const finished = list.some((c) => c.status !== 'collecte');
   return `<div class="label" style="margin-top:28px">Mes cadeaux à plusieurs</div>${rows}
     ${finished ? '<div class="hint">Glissez une carte terminée vers la gauche pour la retirer.</div>' : ''}
-    <div class="hint">Ces cadeaux sont enregistrés sur cet appareil seulement. Le lien de gestion ne fonctionne que dans ce même navigateur.</div>`;
+    <div class="hint">La liste est enregistrée sur cet appareil. Le lien de gestion fonctionne sur tous vos appareils.</div>`;
 }
 
 function screenCreate() {
@@ -966,7 +1050,7 @@ function screenCreate() {
     <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
-    ${myCollectionsHtml()}
+    <div id="mesCollectes">${myCollectionsHtml()}</div>
   </div>
   <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button></div>`;
 }
@@ -1213,7 +1297,8 @@ function smsLinkFor(link) {
 }
 function screenDone() {
   const n = splitCount(); const i = cardIndex(); const last = i >= n - 1; const more = n > 1 && !last;
-  const sms = S.group ? '' : smsLinkFor(S.link);
+  /* Pas de SMS tant que le numéro du destinataire n'est pas demandé (cadeau à plusieurs : étape suivante) */
+  const sms = S.group || !phoneOk(S.recipientPhone) ? '' : smsLinkFor(S.link);
   return `
   ${hdr('Terminé', n > 1 ? (last ? 'Vos cartes sont prêtes' : `Carte ${i + 1} sur ${n} prête`) : 'Votre carte est prête')}
   <div class="section">
@@ -1232,31 +1317,52 @@ function screenDone() {
 }
 
 /* ---------- cadeau à plusieurs : créateur ---------- */
-function createCollection() {
+async function createCollection() {
+  if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
+  S.busy = true; S.error = ''; render();
   const id = crypto.randomUUID();
-  const none = hasNoMessage();
-  const msgType = none ? 'text' : S.msgType;
-  const msgText = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim() : '';
-  const label = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim()
-    : S.msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
-  const hasMsgFile = (S.msgType === 'voice' && !!S.voiceBlob) || (S.msgType === 'video' && !!S.msgVideoFile);
-  const dl = DEADLINE_MS[S.deadlineKey];
-  const all = collections();
-  all[id] = {
-    id, status: 'collecte', manageKey: crypto.randomUUID(), recipientName: S.recipient.trim(), creatorName: S.creatorName.trim(), payLink: '',
-    deadline: dl ? Date.now() + dl : null,
-    card: {
-      cardText: S.cardText.trim(), fx: S.fx, fxExtra: [...S.fxExtra],
-      mediaUrl: S.mediaUrl, mediaIsVideo: S.mediaIsVideo, hasMedia: !!S.mediaFile,
-      msgType, msgText, hasMsgFile, message: label,
-      schedule: S.schedule, openDate: S.openDate, second: isSecondCard(),
-    },
-    participants: [{ id: crypto.randomUUID(), name: S.creatorName.trim(), amount: S.amount, phone: '', paid: false, creator: true }],
-  };
-  store.set(GROUP_KEY, all);
-  S.collectionId = id;
-  S.step = 'collect';
-  S.error = '';
+  const manageKey = crypto.randomUUID();
+  try {
+    let mediaPath = null;
+    if (S.mediaFile) {
+      mediaPath = `${id}/media.${extOf(S.mediaFile.type)}`;
+      await upload(mediaPath, S.mediaFile);
+    }
+    let msgPath = null;
+    if (S.msgType === 'voice' && S.voiceBlob) {
+      msgPath = `${id}/voice.${extOf(S.voiceBlob.type)}`;
+      await upload(msgPath, S.voiceBlob);
+    }
+    if (S.msgType === 'video' && S.msgVideoFile) {
+      msgPath = `${id}/msg-video.${extOf(S.msgVideoFile.type)}`;
+      await upload(msgPath, S.msgVideoFile);
+    }
+    const none = hasNoMessage();
+    const message = none ? NO_MESSAGE_TEXT : S.msgType === 'text' ? S.message.trim()
+      : S.msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
+    const dl = DEADLINE_MS[S.deadlineKey];
+    const { error } = await sb.rpc('create_collection', {
+      p_id: id, p_manage_key: manageKey, p_recipient: S.recipient.trim(), p_creator: S.creatorName.trim(),
+      p_deadline: dl ? new Date(Date.now() + dl).toISOString() : null,
+      p_card_text: S.cardText.trim(), p_effect: S.fx, p_extra_effects: [...S.fxExtra],
+      p_media_type: S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none', p_media_path: mediaPath,
+      p_msg_type: none ? 'text' : S.msgType, p_msg_media_path: msgPath, p_message: message,
+      p_note: '', p_pay_link: '', p_open_at: S.schedule ? S.openDate : null,
+      p_creator_part_id: crypto.randomUUID(), p_creator_amount: Math.round(S.amount),
+      p_occasion: S.occasion, p_second_card: isSecondCard(),
+    });
+    if (error) throw error;
+    /* La collecte existe : elle entre dans la liste de cet appareil, même si la relecture échoue */
+    saveLocalList([...localList().filter((x) => x.id !== id), { id, manageKey, recipientName: S.recipient.trim(),
+      status: 'collecte', deadline: dl ? Date.now() + dl : null, total: Math.round(S.amount), count: 1 }]);
+    await loadManage(id, manageKey);
+    S.collectionId = id; S.step = 'collect'; S.error = '';
+  } catch (err) {
+    S.error = rpcMsg(err);
+  } finally {
+    S.busy = false;
+    render();
+  }
 }
 
 function copyGroupLink(btn, link) {
@@ -1299,7 +1405,10 @@ function savePayLink(t) {
   if (v && !httpsOk(v)) { t.classList.add('bad'); if (err) err.textContent = 'Le lien doit commencer par https://'; return; }
   t.classList.remove('bad');
   if (err) err.textContent = '';
-  updateCollection(S.collectionId, (c) => { c.payLink = v; });
+  const c = getCollection(S.collectionId);
+  if (!c) return;
+  c.payLink = v;
+  saveTexts();
 }
 
 /* Un seul paiement : le total est réglé par le créateur, à l'envoi */
@@ -1308,17 +1417,36 @@ async function closeGroup() {
   if (!c || c.status !== 'collecte') return render();
   const total = collTotal(c);
   if (total < MIN_AMOUNT) { S.error = `Le total doit atteindre ${MIN_AMOUNT} € pour envoyer la carte.`; return render(); }
-  if ((c.card.hasMedia && !S.mediaFile) || (c.card.hasMsgFile && !S.voiceBlob && !S.msgVideoFile)) {
-    S.error = 'Dans cette simulation, les fichiers photo ou vidéo ne survivent pas à un rechargement. Refaites la carte. Avec la base, ils seront conservés.';
-    return render();
-  }
   Object.assign(S, {
     amount: total, group: false, error: '', recipient: c.recipientName, cardText: c.card.cardText,
     fx: c.card.fx, fxExtra: [...c.card.fxExtra], schedule: c.card.schedule, openDate: c.card.openDate,
-    msgType: c.card.msgType, message: c.card.msgText,
+    msgType: c.card.msgType, message: c.card.msgText, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo,
   });
-  await submit();
-  if (S.step === 'done') updateCollection(c.id, (x) => { x.status = 'envoyee'; x.cardLink = S.link; });
+  S.busy = true; render();
+  try {
+    const { error } = await sb.from('cards').insert({
+      id: c.id, occasion: c.occasion, card_text: c.card.cardText, amount: total,
+      media_type: c.card.hasMedia ? (c.card.mediaIsVideo ? 'video' : 'photo') : 'none', media_path: c.card.mediaPath,
+      msg_type: c.card.msgType, msg_media_path: c.card.msgMediaPath, message: c.card.message,
+      recipient_name: c.recipientName, effect: c.card.fx,
+      ...(c.card.fxExtra.length ? { extra_effects: c.card.fxExtra } : {}),
+      ...(c.card.schedule ? { open_at: c.card.openDate } : {}),
+    });
+    /* 23505 : la carte existe déjà (essai précédent interrompu) : on continue sans la recréer */
+    if (error && error.code !== '23505') throw error;
+    if (!error) store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
+    const { error: e2 } = await sb.rpc('manage_mark_sent', { p_id: c.id, p_key: c.manageKey });
+    if (e2) throw e2;
+    await loadManage(c.id, c.manageKey);
+    S.link = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=${c.id}`;
+    S.links = [...S.links, S.link];
+    S.step = 'done';
+  } catch (err) {
+    S.error = 'Une erreur est survenue, réessayez. (' + (err.message || err) + ')';
+  } finally {
+    S.busy = false;
+    render();
+  }
 }
 
 /* Détail des sommes, montré seulement au moment de payer : les frais se calculent à l'envoi */
@@ -1357,7 +1485,9 @@ function screenPay() {
 
 function screenCollect() {
   const c = getCollection(S.collectionId);
-  if (!c) return `${hdr('Cadeau à plusieurs', 'Carte introuvable')}<div class="section"><div class="error">Cette carte n’existe plus dans cette session.</div></div>`;
+  if (!c) return S.loading
+    ? `${hdr('Cadeau à plusieurs', 'Chargement')}<div class="section"><div class="hint">Chargement de la collecte…</div></div>`
+    : `${hdr('Cadeau à plusieurs', 'Collecte introuvable')}<div class="section"><div class="error">Cette collecte n’est pas accessible.</div></div>`;
   if (c.status === 'annulee') {
     return `${hdr('Cadeau à plusieurs', 'Collecte annulée')}<div class="section"><div class="message">Vous avez annulé cette collecte. Aucun paiement n’a été pris, donc rien à rembourser. Les amis qui ouvrent le lien voient qu’elle est annulée.</div></div>`;
   }
@@ -1422,10 +1552,10 @@ function screenCollect() {
     <div class="error" id="payErr"></div>
     <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
 
-    <div class="label">Lien de gestion (valable dans ce navigateur seulement)</div>
+    <div class="label">Lien de gestion</div>
     <div class="linkbox">${esc(manageLink(c))}</div>
     <button class="secondary important" data-act="copygrp" data-val="${esc(manageLink(c))}">Copier le lien de gestion</button>
-    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Il ne fonctionne que dans ce navigateur. Ne le partagez pas à vos amis.</div>
+    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Il fonctionne sur tous vos appareils. Ne le partagez pas à vos amis.</div>
     <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
     <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
 
@@ -1440,7 +1570,7 @@ function screenCollect() {
 function renderGroupView() {
   const c = getCollection(GROUP_ID);
   const back = homeBackHtml();
-  if (!c) return `${recvHeader('Cadeau à plusieurs', 'Participer', back)}<div class="section"><div class="error">Ce lien n’est pas valide ou la carte n’existe plus.</div></div>`;
+  if (!c) return `${recvHeader('Cadeau à plusieurs', 'Participer', back)}<div class="section">${S.loading ? '<div class="hint">Chargement…</div>' : '<div class="error">Ce lien n’est pas valide ou la carte n’existe plus.</div>'}</div>`;
   const total = collTotal(c);
   const creator = c.participants.find((p) => p.creator);
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
@@ -1454,7 +1584,8 @@ function renderGroupView() {
   if (c.status === 'envoyee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">La carte a déjà été envoyée. Les participations sont fermées.</div></div>`;
   const rows = c.participants.map((p) => `<div class="rowline"><span>${esc(p.name)}</span><span>${eur(p.amount)}</span></div>`).join('');
   const list = `<div class="ztitle" style="margin-top:18px">Participations · ${eur(total)}</div>${rows}`;
-  const me = c.participants.find((p) => p.id === myPartId);
+  const mine = myParts()[c.id];
+  const me = mine ? { amount: mine.amount } : null;
   let action;
   if (me) {
     action = `<div class="stephead" style="margin-top:18px">2. C’est noté</div>
@@ -1487,16 +1618,39 @@ function renderGroupView() {
 function redrawGroup() { app.innerHTML = renderGroupView(); }
 
 /* Lien de gestion : le créateur retrouve sa collecte, sans compte */
-function startManage() {
-  const c = getCollection(GROUP_ID);
-  if (!c || c.manageKey !== MANAGE_KEY) return startGroup();
-  S.collectionId = c.id; S.step = 'collect'; S.group = false;
+async function startManage() {
+  S.collectionId = GROUP_ID; S.step = 'collect'; S.group = false; S.loading = true; S.error = '';
   render();
+  try {
+    await loadManage(GROUP_ID, MANAGE_KEY);
+    S.loading = false;
+    render();
+  } catch (err) {
+    /* Lien de gestion non valable : on montre la page publique de la collecte, si elle existe */
+    S.loading = false;
+    S.step = 'create';
+    startGroup();
+  }
 }
 
-function groupClick(e) {
+/* Résumés de « Mes cadeaux à plusieurs » relus sur le serveur ; une collecte disparue sort de la liste */
+async function refreshLocalList() {
+  if (!sb) return;
+  await Promise.all(localList().map(async (x) => {
+    try {
+      await loadManage(x.id, x.manageKey);
+    } catch (err) {
+      if (String((err && err.message) || '').includes('cle_invalide')) saveLocalList(localList().filter((y) => y.id !== x.id));
+    }
+  }));
+  /* Seule la liste est redessinée : le formulaire de l'accueil garde son texte et son focus */
+  const el = document.getElementById('mesCollectes');
+  if (el && S.step === 'create') el.innerHTML = myCollectionsHtml();
+}
+
+async function groupClick(e) {
   const el = e.target.closest('[data-act="gadd"]');
-  if (!el) return;
+  if (!el || S.busy) return;
   const c = getCollection(GROUP_ID);
   if (!c || c.status !== 'collecte' || (c.deadline && Date.now() >= c.deadline)) return redrawGroup();
   const err = document.getElementById('gErr');
@@ -1510,14 +1664,26 @@ function groupClick(e) {
   if (collTotal(c) + amount > MAX_AMOUNT) return say(`Le total ne peut pas dépasser ${MAX_AMOUNT} €.`);
   if (!/^(0[1-9]\d{8}|\+\d{8,14})$/.test(phone)) return say('Indiquez un numéro de téléphone valide.');
   if (!consent) return say('Cochez la case pour que nous puissions vous prévenir.');
-  const id = crypto.randomUUID();
-  updateCollection(c.id, (x) => { x.participants.push({ id, name, amount, phone, paid: false, creator: false }); });
-  myPartId = id;
-  redrawGroup();
+  const partId = crypto.randomUUID();
+  S.busy = true; say('Envoi…');
+  try {
+    const { error } = await sb.rpc('join_collection', { p_id: c.id, p_part_id: partId, p_name: name, p_amount: amount, p_phone: phone, p_consent: true });
+    if (error) throw error;
+    const parts = myParts(); parts[c.id] = { partId, amount }; store.set(PARTS_KEY, parts);
+    await loadPublic(c.id);
+    S.busy = false;
+    redrawGroup();
+  } catch (e2) {
+    S.busy = false;
+    say(rpcMsg(e2));
+  }
 }
 
-function startGroup() {
+async function startGroup() {
   app.addEventListener('click', groupClick);
+  S.loading = true; redrawGroup();
+  try { await loadPublic(GROUP_ID); } catch (err) { /* lien non lisible : l'écran le signale */ }
+  S.loading = false;
   redrawGroup();
 }
 
@@ -1748,7 +1914,7 @@ app.addEventListener('click', (e) => {
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
   if (act === 'submit') {
     if (S.group && S.amount > MAX_AMOUNT) { S.error = 'Le cadeau à plusieurs est limité à 500 € pour l’instant. Revenez au montant, ou choisissez « Je paie seul ».'; return render(); }
-    if (S.group) { createCollection(); return render(); }
+    if (S.group) return createCollection();
     return submit();
   }
   if (act === 'copy') return copyLink(el);
@@ -1766,12 +1932,14 @@ app.addEventListener('click', (e) => {
     case 'grp':
       S.group = v === 'group';
       break;
-    case 'paidpart':
-      updateCollection(S.collectionId, (c) => { const p = c.participants.find((x) => x.id === v); if (p) p.paid = !p.paid; });
+    case 'paidpart': {
+      const cp = getCollection(S.collectionId);
+      const p = cp && cp.participants.find((x) => x.id === v);
+      if (p) return manageAct('manage_set_paid', { p_part_id: v, p_paid: !p.paid });
       break;
+    }
     case 'rmpart':
-      updateCollection(S.collectionId, (c) => { c.participants = c.participants.filter((x) => x.id !== v); });
-      break;
+      return manageAct('manage_remove_part', { p_part_id: v });
     case 'setmine': {
       const c = getCollection(S.collectionId);
       if (!c || c.status !== 'collecte') break;
@@ -1780,13 +1948,9 @@ app.addEventListener('click', (e) => {
       const others = c.participants.filter((p) => !p.creator).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
       if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) { S.error = `Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`; break; }
       if (others + amount > MAX_AMOUNT) { S.error = `Le total ne peut pas dépasser ${MAX_AMOUNT} €.`; break; }
-      updateCollection(c.id, (x) => {
-        const me = x.participants.find((p) => p.creator);
-        if (me) me.amount = amount;
-        else x.participants.unshift({ id: crypto.randomUUID(), name: x.creatorName || 'Moi', amount, phone: '', paid: false, creator: true });
-      });
-      S.error = '';
-      break;
+      const me = c.participants.find((p) => p.creator);
+      if (!me) break;
+      return manageAct('manage_set_part', { p_part_id: me.id, p_amount: amount });
     }
     case 'rmcoll':
       S.removeAsk = v;
@@ -1796,8 +1960,7 @@ app.addEventListener('click', (e) => {
       break;
     case 'rmcollok': {
       /* Retire la collecte de la liste de cet appareil seulement. Une collecte en cours ne se retire pas. */
-      const all = collections();
-      if (all[v] && all[v].status !== 'collecte') { delete all[v]; store.set(GROUP_KEY, all); }
+      saveLocalList(localList().filter((x) => !(x.id === v && x.status !== 'collecte')));
       S.removeAsk = '';
       break;
     }
@@ -1806,9 +1969,8 @@ app.addEventListener('click', (e) => {
       break;
     case 'cancelgrp':
       if (!S.cancelAsk) { S.cancelAsk = true; break; }
-      updateCollection(S.collectionId, (x) => { x.status = 'annulee'; });
       S.cancelAsk = false;
-      break;
+      return manageAct('manage_cancel', {});
     case 'deadline':
       S.deadlineKey = v;
       break;
@@ -1942,7 +2104,8 @@ app.addEventListener('click', (e) => {
 app.addEventListener('input', (e) => {
   const t = e.target;
   if (t.id === 'groupNote') {
-    updateCollection(S.collectionId, (c) => { c.note = t.value.slice(0, 200); });
+    const c = getCollection(S.collectionId);
+    if (c) { c.note = t.value.slice(0, 200); queueTexts(); }
     const n = document.getElementById('noteCount'); if (n) n.textContent = t.value.length;
     return;
   }
@@ -2303,7 +2466,7 @@ async function startRecipient() {
   }
 }
 
-if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else render();
+if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else { render(); refreshLocalList(); }
 
 </script>
 </body>
