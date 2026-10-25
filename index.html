@@ -66,6 +66,8 @@
   .fxtheme.is-browse { border-color: #C9A44C; color: #E8C878; }
   .card[data-act] { cursor: pointer; }
   /* Carte collée en haut de l'écran de création : le formulaire défile dessous, et la carte se réduit une fois collée */
+  /* Sections avec carte collante : pas de recalage automatique du défilement quand la carte change de taille */
+  .section:has(.stickycard) { overflow-anchor: none; }
   .stickycard { position: sticky; top: 0; z-index: 6; margin: 0 -24px; padding: 16px 24px 10px; background: var(--bg); transition: padding .2s ease; }
   .stickycard .card { margin-top: 0; transition: scale .2s ease, margin .2s ease; }
   .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
@@ -109,6 +111,22 @@
   .collrow { display: block; margin-top: 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); text-decoration: none; }
   .collrow .collname { display: block; font-size: 16px; }
   .collrow .collmeta { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+  /* Mes cadeaux à plusieurs : couleur selon l’état (en cours / envoyé / annulé) */
+  .collwrap { margin-top: 10px; }
+  .collwrap .collrow { margin-top: 0; border-left-width: 4px; }
+  .collrow.is-live { border-left-color: var(--accent); }
+  .collrow.is-sent { border-left-color: #5FB37A; }
+  .collrow.is-cancelled { border-left-color: #6E6E76; }
+  .collpill { display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .collpill.is-live { background: var(--accent-bg); color: var(--accent); }
+  .collpill.is-sent { background: #14301F; color: #9FD8AE; }
+  .collpill.is-cancelled { background: #26262B; color: #A8A8AE; }
+  .collrm { padding: 6px 4px 0; }
+  .collrm .hint { margin-bottom: 8px; }
+  /* Glisser vers la gauche : révèle « Retirer » derrière la carte */
+  .collslide { position: relative; overflow: hidden; border-radius: 12px; }
+  .collslide .collrow { position: relative; margin-top: 0; background: var(--bg); border-radius: 12px; transition: transform .2s ease; }
+  .collswipe { position: absolute; top: 0; right: 0; bottom: 0; width: 96px; border: 0; border-radius: 0 12px 12px 0; background: #8A2E2E; color: #FFE3E3; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
   .secondary.important { background: var(--accent); border-color: var(--accent); color: var(--accent-bg); font-weight: 500; }
   /* Quitter et revenir plus tard : contour bleu, pour le distinguer des autres boutons */
   .secondary.quit { border-color: var(--accent-line); color: var(--accent); }
@@ -632,14 +650,26 @@ function syncFxChips() {
 }
 /* Rejoue l'effet choisi sur les cartes affichées, sans reconstruire la photo */
 function playCardFx() {
-  const f = fxParts(fxKeys());
+  const keys = fxKeys();
+  const f = fxParts(keys);
   document.querySelectorAll('.card').forEach((c) => {
+    if (c.dataset.fx !== undefined) c.dataset.fx = keys.join(',');
     c.className = 'card';
     void c.offsetWidth;
     c.querySelectorAll('.fx').forEach((e) => e.remove());
     c.className = 'card' + f.cls;
     if (f.html) c.querySelector('.shade').insertAdjacentHTML('afterend', f.html);
   });
+}
+/* Rejoue les effets d'UNE carte, ceux qu'elle affiche (data-fx), et non ceux de l'écran de création */
+function replayCard(card) {
+  if (!card) return;
+  const f = fxParts((card.dataset.fx || '').split(',').filter(Boolean));
+  card.className = 'card';
+  void card.offsetWidth;
+  card.querySelectorAll('.fx').forEach((e) => e.remove());
+  card.className = 'card' + f.cls;
+  if (f.html) card.querySelector('.shade').insertAdjacentHTML('afterend', f.html);
 }
 function updatePreview() {
   const t = document.querySelector('[data-pv="text"]');
@@ -818,6 +848,7 @@ function addCardFx(key) {
   const f = fxLayer(key, fxKeys().indexOf(key));
   if (!f.html) return;
   document.querySelectorAll('.card').forEach((c) => {
+    if (c.dataset.fx !== undefined) c.dataset.fx = fxKeys().join(',');
     const fxs = c.querySelectorAll('.fx');
     const ref = fxs.length ? fxs[fxs.length - 1] : c.querySelector('.shade');
     ref.insertAdjacentHTML('afterend', f.html);
@@ -833,7 +864,7 @@ function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, con
   const f = fxParts(Array.isArray(fx) ? fx : [fx]);
   const longCls = (text || '').length > 22 ? ' long' : '';
   return `
-    <div class="card${f.cls}"${tap ? ' data-act="fxreplay" role="button" aria-label="Revoir les effets"' : ''}>
+    <div class="card${f.cls}"${tap ? ` data-act="fxreplay" data-fx="${esc([].concat(fx).filter(Boolean).join(','))}" role="button" aria-label="Revoir les effets"` : ''}>
       ${media}
       <div class="shade"></div>
       ${f.html}
@@ -856,19 +887,44 @@ function myCollectionsHtml() {
   const list = Object.values(collections()).filter((c) => c && Array.isArray(c.participants)).reverse();
   if (!list.length) return '';
   const rows = list.map((c) => {
-    const statut = c.status === 'envoyee' ? 'Carte envoyée' : c.status === 'annulee' ? 'Annulée' : 'En collecte';
-    const limite = c.status !== 'collecte' ? ''
+    const live = c.status === 'collecte';
+    const etat = c.status === 'envoyee' ? { txt: 'Carte envoyée', cls: 'is-sent' }
+      : c.status === 'annulee' ? { txt: 'Annulée', cls: 'is-cancelled' }
+      : { txt: 'En collecte', cls: 'is-live' };
+    const limite = !live ? ''
       : !c.deadline ? 'Sans limite de temps'
       : Date.now() < c.deadline ? `Participations jusqu’au ${frDateTime(c.deadline)}` : 'Participations closes';
     const n = c.participants.length;
-    return `<a class="collrow" href="${esc(manageLink(c))}">
-      <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
-      <span class="collmeta">${statut} · ${eur(collTotal(c))} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
-      ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
-    </a>`;
+    const id = esc(c.id);
+    const note = c.status === 'envoyee' ? 'La carte reste envoyée au destinataire.' : 'La collecte annulée reste visible ici jusqu’au retrait.';
+    let action;
+    if (live) {
+      action = '<div class="collrm"><div class="hint">En cours : pour la retirer, annulez-la d’abord.</div></div>';
+    } else if (S.removeAsk === c.id) {
+      action = `<div class="collrm"><div class="hint">${note} Seule la liste change sur cet appareil.</div>
+        <button class="secondary rec" data-act="rmcollok" data-val="${id}">Confirmer le retrait</button>
+        <button class="linkbtn" data-act="rmcollno">Garder</button></div>`;
+    } else {
+      action = `<div class="collrm"><button class="linkbtn" data-act="rmcoll" data-val="${id}">Retirer de ma liste</button></div>`;
+    }
+    const swipeBtn = live ? '' : `<button class="collswipe" data-act="rmcoll" data-val="${id}">Retirer</button>`;
+    return `<div class="collwrap">
+      <div class="collslide"${live ? '' : ' data-swipe'}>
+        ${swipeBtn}
+        <a class="collrow ${etat.cls}" href="${esc(manageLink(c))}">
+          <span class="collpill ${etat.cls}">${etat.txt}</span>
+          <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
+          <span class="collmeta">${eur(collTotal(c))} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
+          ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
+        </a>
+      </div>
+      ${action}
+    </div>`;
   }).join('');
+  const finished = list.some((c) => c.status !== 'collecte');
   return `<div class="label" style="margin-top:28px">Mes cadeaux à plusieurs</div>${rows}
-    <div class="hint">Ces cadeaux sont enregistrés sur cet appareil seulement. Pour les retrouver ailleurs, gardez le lien de gestion.</div>`;
+    ${finished ? '<div class="hint">Glissez une carte terminée vers la gauche pour la retirer.</div>' : ''}
+    <div class="hint">Ces cadeaux sont enregistrés sur cet appareil seulement. Le lien de gestion ne fonctionne que dans ce même navigateur.</div>`;
 }
 
 function screenCreate() {
@@ -1021,7 +1077,7 @@ function screenMessage() {
     <div class="label">Prénom du destinataire</div>
     <input id="recipient" class="field${bad('recipient')}" maxlength="40" placeholder="Par exemple : Théo" value="${esc(S.recipient)}">
 
-    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo })}</div>
+    <div class="stickycard fixed-full">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo })}</div>
 
     <div class="label">Type de message</div>
     <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
@@ -1328,12 +1384,12 @@ function screenCollect() {
     <div class="error" id="payErr"></div>
     <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
 
-    <div class="label">Lien de gestion (gardez-le)</div>
+    <div class="label">Lien de gestion (valable dans ce navigateur seulement)</div>
     <div class="linkbox">${esc(manageLink(c))}</div>
     <button class="secondary important" data-act="copygrp" data-val="${esc(manageLink(c))}">Copier le lien de gestion</button>
-    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Ne le partagez pas à vos amis.</div>
+    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Il ne fonctionne que dans ce navigateur. Ne le partagez pas à vos amis.</div>
     <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
-    <div class="hint">La collecte reste ouverte. Gardez le lien de gestion pour la retrouver.</div>
+    <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
 
     ${cancelBtn}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
@@ -1425,8 +1481,15 @@ function startGroup() {
 
 let lastStep = '';
 /* Carte collée : une fois arrivée en haut de l'écran, elle se réduit pour laisser la place au formulaire */
+/* La carte se réduit en se collant. Elle ne regrandit qu'après avoir remonté de 40 px (seuil à deux niveaux),
+   pour ne pas basculer en boucle au seuil. L'étape 3 garde toujours la carte en taille normale. */
 function updateStickyCard() {
-  document.querySelectorAll('.stickycard').forEach((s) => s.classList.toggle('is-small', s.getBoundingClientRect().top <= 0.5));
+  document.querySelectorAll('.stickycard').forEach((s) => {
+    if (s.classList.contains('fixed-full')) { s.classList.remove('is-small'); return; }
+    const top = s.getBoundingClientRect().top;
+    if (s.classList.contains('is-small')) { if (top > 40) s.classList.remove('is-small'); }
+    else if (top <= 0.5) s.classList.add('is-small');
+  });
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
@@ -1683,6 +1746,19 @@ app.addEventListener('click', (e) => {
       S.error = '';
       break;
     }
+    case 'rmcoll':
+      S.removeAsk = v;
+      break;
+    case 'rmcollno':
+      S.removeAsk = '';
+      break;
+    case 'rmcollok': {
+      /* Retire la collecte de la liste de cet appareil seulement. Une collecte en cours ne se retire pas. */
+      const all = collections();
+      if (all[v] && all[v].status !== 'collecte') { delete all[v]; store.set(GROUP_KEY, all); }
+      S.removeAsk = '';
+      break;
+    }
     case 'keepgrp':
       S.cancelAsk = false;
       break;
@@ -1781,7 +1857,7 @@ app.addEventListener('click', (e) => {
       return;
     }
     case 'fxreplay':
-      playCardFx();
+      replayCard(el.closest('.card'));
       return;
     case 'msgtype':
       if (S.recording) stopVoice();
@@ -1841,6 +1917,53 @@ app.addEventListener('input', (e) => {
   else return;
   liveCheck(t);
 });
+
+/* Glisser une carte terminée vers la gauche : révèle « Retirer » (la confirmation reste dans la liste) */
+const SWIPE_W = 96;
+let swipeDrag = null;
+function setSwipe(el, open) {
+  el.classList.toggle('is-open', open);
+  el.querySelector('.collrow').style.transform = open ? `translateX(-${SWIPE_W}px)` : '';
+}
+app.addEventListener('touchstart', (e) => {
+  const el = e.target.closest('.collslide[data-swipe]');
+  if (!el || e.touches.length !== 1) { swipeDrag = null; return; }
+  swipeDrag = { el, row: el.querySelector('.collrow'), x0: e.touches[0].clientX, y0: e.touches[0].clientY,
+    base: el.classList.contains('is-open') ? -SWIPE_W : 0, dx: 0, moving: false };
+}, { passive: true });
+app.addEventListener('touchmove', (e) => {
+  const s = swipeDrag;
+  if (!s || !e.touches.length) return;
+  const dx = e.touches[0].clientX - s.x0;
+  const dy = e.touches[0].clientY - s.y0;
+  if (!s.moving) {
+    const adx = Math.abs(dx), ady = Math.abs(dy);
+    if (ady > 8 && ady > adx) { swipeDrag = null; return; }   /* défilement vertical : on ne touche à rien */
+    if (adx < 8) return;
+    s.moving = true;
+  }
+  s.dx = dx;
+  const x = Math.max(-SWIPE_W, Math.min(0, s.base + dx));
+  s.row.style.transition = 'none';
+  s.row.style.transform = `translateX(${x}px)`;
+}, { passive: true });
+function endSwipe() {
+  const s = swipeDrag;
+  swipeDrag = null;
+  if (!s || !s.moving) return;
+  const open = s.base + s.dx < -SWIPE_W / 2;
+  s.row.style.transition = '';
+  setSwipe(s.el, open);
+}
+app.addEventListener('touchend', endSwipe, { passive: true });
+app.addEventListener('touchcancel', endSwipe, { passive: true });
+/* Une carte ouverte se referme au toucher, sans ouvrir la collecte */
+app.addEventListener('click', (e) => {
+  const open = e.target.closest('.collslide.is-open');
+  if (!open || e.target.closest('.collswipe')) return;
+  e.preventDefault(); e.stopPropagation();
+  setSwipe(open, false);
+}, true);
 
 /* Quitter un champ vide le signale en rouge */
 app.addEventListener('focusout', (e) => {
