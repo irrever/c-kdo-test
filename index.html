@@ -70,6 +70,8 @@
   .stickycard .card { margin-top: 0; transition: transform .2s ease, margin .2s ease; }
   .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
   .stickycard.is-small .card { transform: scale(.7); transform-origin: 50% 0; margin-bottom: -15.8%; }
+  /* Bouton de son sur la carte vidéo (la vidéo démarre en silence, le toucher active le son) */
+  .card .sndbtn { position: absolute; right: 12px; bottom: 12px; z-index: 5; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); color: #fff; font: inherit; font-size: 12px; letter-spacing: .02em; cursor: pointer; pointer-events: auto; }
   /* Effets supplémentaires : bouton à part, doré, avec son prix */
   .fxadd { margin-top: 10px; }
   .fxaddbtn { width: 100%; height: 44px; border-radius: var(--radius); border: 1px solid #C9A44C; background: rgba(201,164,76,.1); color: #E8C878; font: inherit; font-size: 14px; cursor: pointer; }
@@ -817,6 +819,7 @@ function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, con
       ${media}
       <div class="shade"></div>
       ${f.html}
+      ${isVideo && mediaUrl ? '<button class="sndbtn" type="button" data-act="sound">Activer le son</button>' : ''}
       <div class="overlay">
         <div class="top"><span class="brand">c.kdo</span><span class="amt" ${pv ? 'data-pv="amt"' : ''}>${esc(amt)}</span></div>
         <svg class="chip" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="gChipGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeec0"/><stop offset=".28" stop-color="#d7ad5c"/><stop offset=".52" stop-color="#8f6225"/><stop offset=".74" stop-color="#eccd86"/><stop offset="1" stop-color="#b88a40"/></linearGradient><linearGradient id="gChipPad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc92"/><stop offset=".5" stop-color="#c49748"/><stop offset="1" stop-color="#ecca7e"/></linearGradient><linearGradient id="gChipGlint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="gChipClip"><rect x=".5" y=".5" width="43" height="33" rx="5"/></clipPath></defs><rect x=".5" y=".5" width="43" height="33" rx="5" fill="url(#gChipGold)" stroke="rgba(70,42,8,.8)" stroke-width=".8"/><rect x="8" y="7" width="28" height="20" rx="2.5" fill="url(#gChipPad)" stroke="rgba(70,42,8,.85)" stroke-width=".7"/><path d="M8 13.5H36M8 20.5H36M16 7V27M28 7V27" stroke="rgba(70,42,8,.7)" stroke-width=".7"/><path d="M8 14.3H36M8 21.3H36M16.6 7V27M28.6 7V27" stroke="rgba(255,248,220,.5)" stroke-width=".4"/><g clip-path="url(#gChipClip)"><path d="M-2 36L14-2H24L8 36Z" fill="url(#gChipGlint)"/></g><rect x=".5" y=".5" width="43" height="33" rx="5" fill="none" stroke="rgba(255,240,200,.6)" stroke-width=".6"/></svg>
@@ -1747,6 +1750,13 @@ app.addEventListener('click', (e) => {
     case 'fxreplaybtn': {
       /* La carte reste collée en haut : inutile de remonter l'écran */
       playCardFx();
+      return;
+    }
+    case 'sound': {
+      /* Son de la vidéo de la carte : le toucher autorise la lecture avec le son */
+      const card = el.closest('.card');
+      const v = card && card.querySelector('video.media');
+      if (v) { v.muted = !v.muted; if (v.paused) v.play().catch(() => {}); el.textContent = v.muted ? 'Activer le son' : 'Couper le son'; }
       return;
     }
     case 'fxreplay':
