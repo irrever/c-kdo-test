@@ -103,6 +103,15 @@
   .datepick input { -webkit-appearance: none; appearance: none; min-width: 0; max-width: 100%; }
   @keyframes dpblink { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201,164,76,0); } 50% { opacity: .7; box-shadow: 0 0 0 3px rgba(201,164,76,.22); } }
   @media (prefers-reduced-motion: reduce) { .datepick.is-empty { animation: none; } }
+  /* Numéro du destinataire : bloc bleu bien visible, pastille « Obligatoire » puis « Valide » */
+  .phonebox { margin-top: 16px; padding: 14px; border: 1px solid var(--accent-line); border-left: 4px solid var(--accent); border-radius: 12px; background: var(--accent-bg); }
+  .phonebox.is-ok { border-left-color: #5FB37A; }
+  .phonebox.bad { border-color: var(--danger); border-left-color: var(--danger); }
+  .phonehead { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 600; color: var(--accent); }
+  .phonetag { flex: none; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #3A2A12; color: #FFC977; }
+  .phonebox.is-ok .phonetag { background: #14313F; color: #9FD8AE; }
+  .phonebox .field { background: var(--bg); margin-top: 10px; }
+  .phonebox .hint { margin-top: 8px; }
   .btn2.wallet { flex-direction: column; height: 52px; gap: 2px; }
   .btn2.wallet small { font-size: 12px; color: var(--muted); }
   .btn2.wallet[aria-pressed="true"] small { color: var(--accent); }
@@ -442,7 +451,7 @@ const initialState = () => ({
   msgType: 'text', message: DEFAULT_MSG,
   voiceBlob: null, voiceUrl: '', voiceSecs: 0, recording: false,
   msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0,
-  recipient: '', terms: false, busy: false, error: '', link: '',
+  recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
   schedule: false, openDate: '',
   group: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
   splitIndex: 0, links: [],
@@ -591,6 +600,8 @@ function ensureMsgThumb() {
 }
 
 /* Champs à compléter à l'étape en cours */
+/* Numéro français (06…) ou international (+…), même règle que pour les participations */
+const phoneOk = (p) => /^(0[1-9]\d{8}|\+\d{8,14})$/.test(String(p || '').replace(/[\s.-]/g, ''));
 function missingFields() {
   const m = new Set();
   if (S.step === 'amount') {
@@ -601,6 +612,7 @@ function missingFields() {
     if (!S.terms) m.add('terms');
     if (S.schedule && !openDateOk()) m.add('openDate');
     if (S.group && S.creatorName.trim().length === 0) m.add('creatorName');
+    if (!S.group && !phoneOk(S.recipientPhone)) m.add('recipientPhone');
   }
   return m;
 }
@@ -1123,6 +1135,11 @@ function screenRecap() {
     <div class="zsep"></div>
 
     ${payBlock}
+    ${S.group ? '' : `<div class="phonebox${bad('recipientPhone')}${phoneOk(S.recipientPhone) ? ' is-ok' : ''}" id="phoneBox">
+      <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${phoneOk(S.recipientPhone) ? 'Valide' : 'Obligatoire'}</span></div>
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
+    </div>`}
     <div class="zsep"></div>
 
     <div class="ztitle">Qui paie ?</div>
@@ -1172,11 +1189,31 @@ function screenRecap() {
   </div>
   <div class="foot">${footErr()}${S.group
     ? '<p class="footnote">Vous ne payez rien maintenant. Vos amis ajoutent leur part, puis vous réglez le total.</p><button class="primary" data-cta data-act="submit">Créer le lien à partager</button>'
-    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} recevra une carte de ${eur(cardAmount())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Valider et créer le lien (' + eur(total) + ')'}</button>`}</div>`;
+    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} recevra une carte de ${eur(cardAmount())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer à ' + esc(S.recipient) + ' (' + eur(total) + ')'}</button>`}</div>`;
 }
 
+/* Met à jour le bloc du numéro pendant la saisie : couleur et pastille */
+function syncPhoneBox() {
+  const b = document.getElementById('phoneBox');
+  if (!b) return;
+  const ok = phoneOk(S.recipientPhone);
+  b.classList.toggle('is-ok', ok);
+  b.classList.toggle('bad', bad('recipientPhone') !== '');
+  const t = document.getElementById('phoneTag');
+  if (t) t.textContent = ok ? 'Valide' : 'Obligatoire';
+}
+/* Lien SMS prérempli, ouvert dans Messages depuis le téléphone du créateur. Le numéro n'est pas enregistré sur le serveur. */
+function smsLinkFor(link) {
+  const p = String(S.recipientPhone || '').replace(/[\s.-]/g, '');
+  if (!phoneOk(p)) return '';
+  const e164 = p.startsWith('+') ? p : '+33' + p.slice(1);
+  const body = `Bonjour ${S.recipient}, je t’offre une carte cadeau c.kdo : ${link}`;
+  const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?';
+  return `sms:${e164}${sep}body=${encodeURIComponent(body)}`;
+}
 function screenDone() {
   const n = splitCount(); const i = cardIndex(); const last = i >= n - 1; const more = n > 1 && !last;
+  const sms = S.group ? '' : smsLinkFor(S.link);
   return `
   ${hdr('Terminé', n > 1 ? (last ? 'Vos cartes sont prêtes' : `Carte ${i + 1} sur ${n} prête`) : 'Votre carte est prête')}
   <div class="section">
@@ -1185,7 +1222,8 @@ function screenDone() {
     <div class="label">${n > 1 ? 'Lien de la carte ' + (i + 1) : 'Lien à partager'}</div>
     <div class="linkbox">${esc(S.link)}</div>
     <button class="secondary" data-act="copy">Copier le lien</button>
-    <a class="primary" style="margin-top:10px" href="${esc(S.link)}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
+    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}">Envoyer par SMS à ${esc(S.recipient)}</a>` : ''}
+    <a class="${sms ? 'secondary' : 'primary'}" style="margin-top:10px" href="${esc(S.link)}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
     ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
     ${more ? `<button class="primary" data-act="nextcard">Créer la carte ${i + 2} sur ${n} · ${eur(splitAmounts(S.amount)[i + 1])}</button>` : ''}
     ${n > 1 && last ? `<div class="label">Vos ${n} cartes</div>${S.links.map((l, k) => `<div class="linkbox">Carte ${k + 1} : ${esc(l)}</div>`).join('')}` : ''}
@@ -1911,6 +1949,7 @@ app.addEventListener('input', (e) => {
   if (t.id === 'cardText') { S.cardText = t.value; S.textTouched = t.value.trim() !== ''; updatePreview(); const c = document.getElementById('cardCount'); if (c) c.textContent = t.value.length; syncRappel(); }
   else if (t.id === 'customAmount') { S.customRaw = t.value; S.amount = parseInt(t.value, 10); syncAmountChips(); updatePreview(); const sh = document.getElementById('splitHint'); if (sh) sh.innerHTML = splitHint(); }
   else if (t.id === 'recipient') { S.recipient = t.value; }
+  else if (t.id === 'recipientPhone') { S.recipientPhone = t.value; syncPhoneBox(); }
   else if (t.id === 'openDate') { S.openDate = t.value; syncOpenDate(); }
   else if (t.id === 'creatorName') { S.creatorName = t.value; }
   else if (t.id === 'message') {
@@ -1972,7 +2011,7 @@ app.addEventListener('click', (e) => {
 /* Quitter un champ vide le signale en rouge */
 app.addEventListener('focusout', (e) => {
   const t = e.target;
-  if (!['cardText', 'customAmount', 'recipient', 'message', 'creatorName'].includes(t.id)) return;
+  if (!['cardText', 'customAmount', 'recipient', 'recipientPhone', 'message', 'creatorName'].includes(t.id)) return;
   S.touched.add(t.id);
   liveCheck(t);
 });
