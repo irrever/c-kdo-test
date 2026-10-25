@@ -65,6 +65,11 @@
   .fxopt.is-extra { border-color: #C9A44C; color: #E8C878; }
   .fxtheme.is-browse { border-color: #C9A44C; color: #E8C878; }
   .card[data-act] { cursor: pointer; }
+  /* Carte collée en haut de l'écran de création : le formulaire défile dessous, et la carte se réduit une fois collée */
+  .stickycard { position: sticky; top: 0; z-index: 6; margin: 0 -24px; padding: 16px 24px 10px; background: var(--bg); transition: padding .2s ease; }
+  .stickycard .card { margin-top: 0; transition: transform .2s ease, margin .2s ease; }
+  .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
+  .stickycard.is-small .card { transform: scale(.7); transform-origin: 50% 0; margin-bottom: -15.8%; }
   /* Effets supplémentaires : bouton à part, doré, avec son prix */
   .fxadd { margin-top: 10px; }
   .fxaddbtn { width: 100%; height: 44px; border-radius: var(--radius); border: 1px solid #C9A44C; background: rgba(201,164,76,.1); color: #E8C878; font: inherit; font-size: 14px; cursor: pointer; }
@@ -630,6 +635,8 @@ function mediaDuration(url, tag) {
   return new Promise((resolve) => {
     const el = document.createElement(tag);
     el.preload = 'metadata';
+    el.muted = true;
+    el.playsInline = true;
     const timer = setTimeout(() => resolve(NaN), 6000);
     const done = (d) => { clearTimeout(timer); resolve(d); };
     el.onerror = () => done(NaN);
@@ -853,8 +860,8 @@ function screenCreate() {
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
-    <!-- La carte suit la photo ou la vidéo ; le texte est juste en dessous, puis occasion et effets -->
-    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true })}
+    <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true })}</div>
     <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
 
     <div class="label">Votre dédicace</div>
@@ -993,7 +1000,7 @@ function screenMessage() {
     <div class="label">Prénom du destinataire</div>
     <input id="recipient" class="field${bad('recipient')}" maxlength="40" placeholder="Par exemple : Théo" value="${esc(S.recipient)}">
 
-    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo })}
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo })}</div>
 
     <div class="label">Type de message</div>
     <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
@@ -1028,7 +1035,7 @@ function screenRecap() {
   ${hdr('Étape 4 sur 4', 'Récapitulatif', 'message')}
   <div class="section">
     ${splitCount() > 1 ? `<div class="notice">Carte ${cardIndex() + 1} sur ${splitCount()} : ${euros(S.amount)} sont offerts en ${splitCount()} cartes, créées une à une. Chaque carte a son lien et ses frais.</div>` : ''}
-    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), tap: true })}
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), tap: true })}</div>
     <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
 
     <div class="zone">
@@ -1093,7 +1100,7 @@ function screenDone() {
   return `
   ${hdr('Terminé', n > 1 ? (last ? 'Vos cartes sont prêtes' : `Carte ${i + 1} sur ${n} prête`) : 'Votre carte est prête')}
   <div class="section">
-    ${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}</div>
 
     <div class="label">${n > 1 ? 'Lien de la carte ' + (i + 1) : 'Lien à partager'}</div>
     <div class="linkbox">${esc(S.link)}</div>
@@ -1260,7 +1267,7 @@ function screenCollect() {
   return `
   <header class="hdr"><button class="back" data-act="home" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
   <div class="section">
-    ${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}
+    <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
     <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
     <div class="gstep">
       <div class="stephead">1. Inviter vos amis</div>
@@ -1321,7 +1328,7 @@ function renderGroupView() {
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
   const head = recvHeader('Cadeau à plusieurs', `Pour ${c.recipientName}`, back);
   const preview = `
-    ${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}
+    <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
     <div class="hint" style="text-align:center">Aperçu : la carte n’est pas encore envoyée. Touchez-la pour revoir les effets.</div>
     <div class="zone"><div class="ztitle">Message</div><div class="message">${esc(c.card.message)}</div></div>
     ${c.note ? `<div class="zone"><div class="ztitle">Petit mot de ${esc(c.creatorName || 'votre ami')}</div><div class="message">${esc(c.note)}</div></div>` : ''}`;
@@ -1393,6 +1400,11 @@ function startGroup() {
 }
 
 let lastStep = '';
+/* Carte collée : une fois arrivée en haut de l'écran, elle se réduit pour laisser la place au formulaire */
+function updateStickyCard() {
+  document.querySelectorAll('.stickycard').forEach((s) => s.classList.toggle('is-small', s.getBoundingClientRect().top <= 0.5));
+}
+window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
   const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, pay: screenPay, done: screenDone };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
@@ -1405,6 +1417,7 @@ function render() {
   }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
+  updateStickyCard();
   ensureMsgThumb();
 }
 
@@ -1732,9 +1745,7 @@ app.addEventListener('click', (e) => {
       }
       return;
     case 'fxreplaybtn': {
-      /* Remonte l'écran jusqu'à la carte, pour la voir pendant les effets */
-      const c = document.querySelector('.card');
-      if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      /* La carte reste collée en haut : inutile de remonter l'écran */
       playCardFx();
       return;
     }
