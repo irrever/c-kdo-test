@@ -93,6 +93,14 @@
   .btn2[aria-pressed="true"] { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
   .btn2 input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
   .btn2.bad { border-color: var(--danger); }
+  /* Date d’ouverture : même hauteur que les boutons, clignote tant qu’elle est vide */
+  .datepick { margin-top: 8px; color: #E8C878; }
+  .datepick.is-empty { border-color: #C9A44C; animation: dpblink 1.6s ease-in-out infinite; }
+  .datepick:not(.is-empty) { background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); }
+  .datepick.bad { animation: none; border-color: var(--danger); color: var(--danger-text); }
+  .datepick input { -webkit-appearance: none; appearance: none; min-width: 0; max-width: 100%; }
+  @keyframes dpblink { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201,164,76,0); } 50% { opacity: .7; box-shadow: 0 0 0 3px rgba(201,164,76,.22); } }
+  @media (prefers-reduced-motion: reduce) { .datepick.is-empty { animation: none; } }
   .btn2.wallet { flex-direction: column; height: 52px; gap: 2px; }
   .btn2.wallet small { font-size: 12px; color: var(--muted); }
   .btn2.wallet[aria-pressed="true"] small { color: var(--accent); }
@@ -454,6 +462,15 @@ const addDays = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d
 const openMin = () => addDays(parisToday(), 1);
 const openMax = () => addDays(parisToday(), 365);
 const openDateOk = () => /^\d{4}-\d{2}-\d{2}$/.test(S.openDate) && S.openDate >= openMin() && S.openDate <= openMax();
+const openDateLabel = () => (openDateOk() ? 'Ouverture le ' + longDateFr(S.openDate) : 'Choisir le jour d’ouverture');
+function syncOpenDate() {
+  const w = document.getElementById('openDateWrap');
+  if (!w) return;
+  w.classList.toggle('is-empty', !openDateOk());
+  w.classList.toggle('bad', bad('openDate') !== '');
+  const l = document.getElementById('openDateLabel');
+  if (l) l.textContent = openDateLabel();
+}
 const longDateFr = (iso) => new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
 /* ---------- cadeau à plusieurs (simulation locale, pas encore la base) ---------- */
@@ -1073,7 +1090,10 @@ function screenRecap() {
       <button class="btn2" data-act="sched" data-val="now" aria-pressed="${!S.schedule}">Tout de suite</button>
       <button class="btn2" data-act="sched" data-val="later" aria-pressed="${S.schedule}">Le jour J · 1 €</button>
     </div>
-    ${S.schedule ? `<input id="openDate" class="field${bad('openDate')}" type="date" min="${openMin()}" max="${openMax()}" value="${esc(S.openDate)}">
+    ${S.schedule ? `<label class="btn2 datepick${bad('openDate')}${openDateOk() ? '' : ' is-empty'}" id="openDateWrap">
+      <span id="openDateLabel">${openDateLabel()}</span>
+      <input id="openDate" type="date" min="${openMin()}" max="${openMax()}" value="${esc(S.openDate)}" aria-label="Date d’ouverture de la carte">
+    </label>
     <div class="hint" style="margin-bottom:16px">La carte s’ouvre ce jour-là. Avant, le destinataire ne voit que la date.</div>` : ''}
 
     <div class="hint">Carte valable 12 mois · non rechargeable.</div>
@@ -1735,7 +1755,7 @@ app.addEventListener('click', (e) => {
       return;
     case 'rmfx':
       S.fxExtra = S.fxExtra.filter((k) => k !== v);
-      syncFxAdd(); playCardFx();
+      syncFxChips(); syncFxAdd(); playCardFx();
       return;
     case 'theme':
       if (S.addingFx || (S.fx !== 'none' && S.fxExtra.length)) { S.fxTheme = v; syncFxChips(); return; }
@@ -1811,7 +1831,7 @@ app.addEventListener('input', (e) => {
   if (t.id === 'cardText') { S.cardText = t.value; S.textTouched = t.value.trim() !== ''; updatePreview(); const c = document.getElementById('cardCount'); if (c) c.textContent = t.value.length; syncRappel(); }
   else if (t.id === 'customAmount') { S.customRaw = t.value; S.amount = parseInt(t.value, 10); syncAmountChips(); updatePreview(); const sh = document.getElementById('splitHint'); if (sh) sh.innerHTML = splitHint(); }
   else if (t.id === 'recipient') { S.recipient = t.value; }
-  else if (t.id === 'openDate') { S.openDate = t.value; }
+  else if (t.id === 'openDate') { S.openDate = t.value; syncOpenDate(); }
   else if (t.id === 'creatorName') { S.creatorName = t.value; }
   else if (t.id === 'message') {
     S.message = t.value;
