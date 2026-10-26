@@ -24,7 +24,7 @@
     --radius: 10px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; overscroll-behavior-y: none; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
   #app { max-width: 390px; min-height: 100vh; margin: 0 auto; }
 
   /* En-tête */
@@ -212,7 +212,7 @@
   .card.fx-bam { animation: fxShake 2.6s linear forwards; }
   .card.fx-pastille { animation: fxShake 3s linear forwards; }
   /* Annonce « Cadeau ! » à l'arrivée sur le message : plein écran, une seule fois, sans bloquer les boutons */
-  .annonce { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: #0d0a12; pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
+  .annonce { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 60; display: flex; align-items: center; justify-content: center; background: #0d0a12; pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
   .annonce.out { opacity: 0; }
   .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 3.4s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
   .annonce .bd { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); opacity: 0; animation: fxBurst 2.8s ease-out var(--d, 0s) forwards; }
@@ -748,7 +748,10 @@ function bad(id) {
   return (S.showErrors || S.touched.has(id)) && missingFields().has(id) ? ' bad' : '';
 }
 function footErr() {
-  return S.showErrors && missingFields().size > 0
+  const miss = missingFields();
+  /* Seul « Qui paie ? » manque : le message rouge est déjà juste au-dessus des boutons */
+  if (S.step === 'create' && miss.size > 0 && [...miss].every((f) => f === 'payer')) return '';
+  return S.showErrors && miss.size > 0
     ? '<div class="error" id="formErr">Complétez les éléments en rouge pour continuer.</div>'
     : '';
 }
@@ -1093,6 +1096,14 @@ function screenCreate() {
     <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    <div id="payBlock">${payBlockInner()}</div>
+    <div id="mesCollectes">${myCollectionsHtml()}</div>
+  </div>
+  <div class="foot" id="createFoot">${createFootInner()}</div>`;
+}
+/* Bloc « Qui paie ? » : redessiné seul, sans toucher à la carte ni à la page */
+function payBlockInner() {
+  return `
     <div class="zsep"></div>
     <div class="ztitle">Qui paie ?</div>
     <div class="grid2">
@@ -1100,10 +1111,26 @@ function screenCreate() {
       <button class="btn2${bad('payer')}" data-act="grp" data-val="group" aria-pressed="${S.payChosen && S.group}">Avec mes amis</button>
     </div>
     ${S.payChosen ? `<div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}
-    ${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}
-    <div id="mesCollectes">${myCollectionsHtml()}</div>
-  </div>
-  <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button></div>`;
+    ${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}`;
+}
+function createFootInner() {
+  return `${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button>`;
+}
+function refreshCreateChoice() {
+  const pb = document.getElementById('payBlock');
+  const cf = document.getElementById('createFoot');
+  if (!pb || !cf) return render();
+  pb.innerHTML = payBlockInner();
+  cf.innerHTML = createFootInner();
+}
+/* Fait défiler la page seulement si l'élément n'est pas déjà visible au-dessus du bas de page */
+function bringIntoView(el) {
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  const foot = document.querySelector('.foot');
+  const limit = foot ? foot.getBoundingClientRect().top : innerHeight;
+  if (r.top >= 0 && r.bottom <= limit - 8) return;
+  window.scrollBy(0, r.top < 0 ? r.top - 16 : r.bottom - (limit - 16));
 }
 
 /* Clavier maison pour les montants : pas de clavier iPhone, donc une touche « Valider » dans le clavier */
@@ -2097,9 +2124,9 @@ app.addEventListener('click', (e) => {
   if (el.hasAttribute('data-cta')) {
     if (missingFields().size > 0) {
       S.showErrors = true; S.error = '';
-      render();
-      const first = document.querySelector('.field.bad, .btn2.bad, .secondary.bad, .check.bad');
-      if (first) first.scrollIntoView({ block: 'center' });
+      const onlyPayer = S.step === 'create' && [...missingFields()].every((f) => f === 'payer');
+      if (onlyPayer) refreshCreateChoice(); else render();
+      bringIntoView(document.querySelector('.field.bad, .btn2.bad, .secondary.bad, .check.bad'));
       return;
     }
     if (S.step === 'message' && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
@@ -2133,6 +2160,7 @@ app.addEventListener('click', (e) => {
   switch (act) {
     case 'grp':
       S.group = v === 'group'; S.payChosen = true;
+      if (S.step === 'create') return refreshCreateChoice();
       break;
     case 'paidpart': {
       const cp = getCollection(S.collectionId);
