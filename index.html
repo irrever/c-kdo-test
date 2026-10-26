@@ -86,8 +86,8 @@
   /* Carte collée en haut de l'écran de création : le formulaire défile dessous, et la carte se réduit une fois collée */
   /* Sections avec carte collante : pas de recalage automatique du défilement quand la carte change de taille */
   .section:has(.stickycard) { overflow-anchor: none; }
-  .stickycard { position: sticky; top: 0; z-index: 6; margin: 0 -24px; padding: 16px 24px 10px; background: var(--bg); transition: padding .2s ease; }
-  .stickycard .card { margin-top: 0; transition: scale .2s ease, margin .2s ease; }
+  .stickycard { position: sticky; top: 0; z-index: 6; margin: 0 -24px; padding: 16px 24px 10px; background: var(--bg); }
+  .stickycard .card { margin-top: 0; transition: scale .2s ease; }
   .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
   /* « scale » et non « transform » : les effets qui secouent la carte utilisent « transform » et ne doivent pas annuler la réduction */
   .stickycard.is-small .card { scale: .7; transform-origin: 50% 0; margin-bottom: -15.8%; }
@@ -1932,12 +1932,29 @@ let lastStep = '';
 /* Carte collée : une fois arrivée en haut de l'écran, elle se réduit pour laisser la place au formulaire */
 /* La carte se réduit en se collant. Elle ne regrandit qu'après avoir remonté de 40 px (seuil à deux niveaux),
    pour ne pas basculer en boucle au seuil. L'étape 3 garde toujours la carte en taille normale. */
+/* La réduction ne doit pas faire bouger le formulaire : la marge du dessous compense la hauteur libérée,
+   donc la hauteur totale de la section reste la même dans les deux tailles. */
+function setStickySmall(s, on) {
+  if (on) {
+    s.style.marginBottom = '0px';
+    const grande = s.offsetHeight;
+    s.classList.add('is-small');
+    const petite = s.offsetHeight;
+    /* La marge se combine avec la marge du haut de l'élément suivant : on ajoute celle-ci pour garder le même écart */
+    const suivant = s.nextElementSibling;
+    const margeSuivant = suivant ? Math.max(0, parseFloat(getComputedStyle(suivant).marginTop) || 0) : 0;
+    s.style.marginBottom = (margeSuivant + Math.max(0, grande - petite)) + 'px';
+  } else {
+    s.classList.remove('is-small');
+    s.style.marginBottom = '';
+  }
+}
 function updateStickyCard() {
   document.querySelectorAll('.stickycard').forEach((s) => {
-    if (s.classList.contains('fixed-full')) { s.classList.remove('is-small'); return; }
+    if (s.classList.contains('fixed-full')) { if (s.classList.contains('is-small')) setStickySmall(s, false); return; }
     const top = s.getBoundingClientRect().top;
-    if (s.classList.contains('is-small')) { if (top > 40) s.classList.remove('is-small'); }
-    else if (top <= 0.5) s.classList.add('is-small');
+    if (s.classList.contains('is-small')) { if (top > 40) setStickySmall(s, false); }
+    else if (top <= 0.5) setStickySmall(s, true);
   });
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
