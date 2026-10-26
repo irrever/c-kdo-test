@@ -211,6 +211,14 @@
   .card .fx .seal { position: absolute; left: 70%; top: 36%; width: 72px; height: 72px; margin: -36px 0 0 -36px; opacity: 0; filter: drop-shadow(0 3px 4px rgba(0,0,0,.35)); animation: fxSeal 3s ease-out forwards; }
   .card.fx-bam { animation: fxShake 2.6s linear forwards; }
   .card.fx-pastille { animation: fxShake 3s linear forwards; }
+  /* Annonce « Cadeau ! » à l'arrivée sur le message : plein écran, une seule fois, sans bloquer les boutons */
+  .annonce { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(22,16,30,.82); pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
+  .annonce.out { opacity: 0; }
+  .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 2.6s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
+  .annonce .flash { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: radial-gradient(circle, rgba(255,250,225,1) 0%, rgba(255,226,150,.6) 35%, rgba(255,226,150,0) 70%); opacity: 0; animation: fxFlash 2.4s ease-out var(--d, 0s) forwards; }
+  .annonce .mot { position: relative; font-size: 46px; font-weight: 600; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); animation: annMot 2.3s ease both; }
+  @keyframes annMot { 0% { opacity: 0; transform: scale(.6); } 18% { opacity: 1; transform: scale(1.08); } 30% { transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .annonce .mot { animation: none; opacity: 1; } }
   .card .fx .cake { position: absolute; right: 14px; bottom: 14px; width: 124px; height: 110px; overflow: visible; animation: fxFade 3.6s ease-in forwards; }
   .card .fx .cglow { animation: fxGlow 3.6s ease-in-out forwards; }
   .card .fx .fw { transform-box: fill-box; transform-origin: 50% 100%; animation: fxFlame 3.6s ease-in-out var(--d, 0s) forwards; }
@@ -2434,7 +2442,7 @@ async function openCard(id, fromAccount) {
     : row.msg_type === 'video' && msgUrl
       ? `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`
       : `<div class="message big">${esc(row.message)}</div>`;
-  RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true };
+  RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true, annonce: true };
   rememberCard(row);
   walletState = { apple: false, google: false };
   showNumber = false;
@@ -2576,6 +2584,20 @@ async function refreshAccount() {
   }
 }
 
+/* Annonce « Cadeau ! » à l'arrivée sur le message : une seule fois, plein écran, sans bloquer les boutons */
+function playAnnonce() {
+  if (!RECV || !RECV.annonce || recvView !== 'message') return;
+  RECV.annonce = false;
+  const calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = document.createElement('div');
+  el.className = 'annonce';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = `${calme ? '' : FX_BUILD.explosion().items}<div class="mot">Cadeau !</div>`;
+  document.body.appendChild(el);
+  setTimeout(() => el.classList.add('out'), 2300);
+  setTimeout(() => el.remove(), 2900);
+}
+
 function drawRecv() {
   if (recvView === 'account') app.innerHTML = renderRecvAccount();
   else if (recvView === 'message') app.innerHTML = renderRecvMessage();
@@ -2648,6 +2670,7 @@ async function startRecipient() {
   try {
     await openCard(RECIPIENT_ID, false);
     drawRecv();
+    playAnnonce();
   } catch (err) {
     app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="error">${esc(err.message || 'Impossible de charger la carte.')}</div></div>`;
   }
