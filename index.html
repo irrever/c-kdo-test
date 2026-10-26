@@ -2653,8 +2653,9 @@ function playAnnonce(done) {
   el.setAttribute('aria-hidden', 'true');
   el.innerHTML = `${calme ? '' : FX_BUILD.explosion().items + [0, .45, .9].map((d) => `<span class="ring" style="--d:${d}s"></span>`).join('')}<div class="mot">Cadeau\u00a0!</div>`;
   document.body.appendChild(el);
-  setTimeout(() => { el.classList.add('out'); after(); }, 4000);
-  setTimeout(() => el.remove(), 4600);
+  /* Le message n'est dessiné qu'une fois le voile retiré (pas pendant son fondu) */
+  setTimeout(() => el.classList.add('out'), 4000);
+  setTimeout(() => { el.remove(); after(); }, 4600);
 }
 
 function drawRecv() {
