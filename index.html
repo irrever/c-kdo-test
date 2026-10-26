@@ -1196,8 +1196,8 @@ function kpPress(id, key) {
 function splitHint() {
   if (setStarted()) return '<div class="hint">Montant verrouillé : des cartes sont déjà créées.</div>';
   if (S.group) {
-    if (S.amount > MAX_AMOUNT) return `<div class="blockErr">Votre part est de ${MAX_AMOUNT} € maximum. Vos amis ajoutent la leur.</div>`;
-    return '<div class="hint">Vous donnez votre part, vos amis ajoutent la leur. Pas de plafond sur le total : au-delà de 500 €, il est réparti en cartes de 500 € maximum chacune.</div>';
+    if (S.amount > MAX_AMOUNT) return `<div class="blockErr">Votre part est de ${MAX_AMOUNT} € maximum. Le reste de la carte viendra de vos amis.</div>`;
+    return `<div class="hint">Votre part : ${MAX_AMOUNT} € maximum. Vos amis ajoutent la leur, librement. Au-delà de ${MAX_AMOUNT} €, la carte est répartie en plusieurs cartes de ${MAX_AMOUNT} € maximum.</div>`;
   }
   if (S.amount > MAX_TOTAL) return `<div class="blockErr">Montant maximum : ${euros(MAX_TOTAL)}.</div>`;
   if (amountOk() && S.amount > MAX_AMOUNT) return `<div class="hint">Au-delà de ${MAX_AMOUNT} €, le montant est offert en ${splitCount()} cartes, chacune de ${MAX_AMOUNT} € maximum. Vous créez chaque carte, avec son lien.</div>`;
@@ -1921,6 +1921,7 @@ function groupBodyHtml(c) {
       <div class="label">Votre part (€)</div>
       <input id="gAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" placeholder="${MIN_PART}">
       <div class="kpslot" data-slot="gAmount"></div>
+      <div class="hint">De ${MIN_PART} € à ${MAX_AMOUNT} €.</div>
       <div class="label">Votre numéro de téléphone</div>
       <input id="gPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78">
       <label class="check"><input id="gConsent" type="checkbox"> <span>Votre prénom et votre numéro serviront uniquement à vous prévenir par SMS de l’envoi de la carte, et à vous transmettre le mot de remerciement du destinataire s’il le souhaite.</span></label>
