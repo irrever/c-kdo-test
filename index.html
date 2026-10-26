@@ -2,6 +2,16 @@
 <html lang="fr" style="background:#111113">
 <head>
 <meta charset="utf-8">
+<script>
+/* Lien destinataire : écran noir dès le premier affichage, avant le chargement du reste */
+(function () {
+  var p = new URLSearchParams(location.search);
+  if (p.get('c') && !p.get('g')) {
+    document.documentElement.classList.add('recv-pre');
+    setTimeout(function () { document.documentElement.classList.remove('recv-pre'); }, 8000);
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="c.kdo">
@@ -14,7 +24,7 @@
 <meta property="og:image" content="https://irrever.github.io/c-kdo-test/apercu-carte.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <style>
   :root {
     color-scheme: dark;
@@ -220,6 +230,7 @@
   .card.fx-bam { animation: fxShake 2.6s linear forwards; }
   .card.fx-pastille { animation: fxShake 3s linear forwards; }
   /* Annonce « Cadeau ! » à l'arrivée sur le message : plein écran, une seule fois, sans bloquer les boutons */
+  html.recv-pre body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 100; background: #0d0a12; }
   .annonce { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 60; display: flex; align-items: center; justify-content: center; background: #0d0a12; pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
   .annonce.out { opacity: 0; }
   .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 3.4s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
@@ -387,7 +398,7 @@
 </defs></svg>
 <div id="app"></div>
 
-<script>
+<script type="module">
 /* ==========================================================
    c.kdo — v0.21 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
@@ -2720,6 +2731,7 @@ async function startRecipient() {
   fond.className = 'annonce';
   fond.setAttribute('aria-hidden', 'true');
   document.body.appendChild(fond);
+  document.documentElement.classList.remove('recv-pre');
   try {
     await openCard(RECIPIENT_ID, false);
     /* Rien sous l'annonce : le message est dessiné quand le fond noir commence à disparaître */
