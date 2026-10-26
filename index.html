@@ -453,7 +453,7 @@ const initialState = () => ({
   msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0,
   recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
   schedule: false, openDate: '',
-  group: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
+  group: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
   splitIndex: 0, links: [],
   showErrors: false, touched: new Set(), textTouched: false, askNoMsg: false,
 });
@@ -465,15 +465,40 @@ const eur = (n) => n.toFixed(2).replace('.', ',') + ' €';
 const fmt = (n) => Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
 const baseType = (t) => (t || '').split(';')[0];
 const extOf = (t) => MIME_EXT[baseType(t)] || 'bin';
-const amountOk = () => Number.isInteger(S.amount) && S.amount >= MIN_AMOUNT && S.amount <= MAX_TOTAL;
+/* Plafond : cadeau seul 2 000 € (provisoire). Cadeau à plusieurs : 500 € par part, sans plafond sur le total (une fois clôturé, le total est réparti en cartes) */
+const amountCap = () => (S.closedGroup ? Infinity : S.group ? MAX_AMOUNT : MAX_TOTAL);
+const amountOk = () => Number.isInteger(S.amount) && S.amount >= MIN_AMOUNT && S.amount <= amountCap();
 const euros = (n) => n.toLocaleString('fr-FR') + ' €';
 /* Au-delà de 500 €, le montant est offert en plusieurs cartes égales (500 € maximum chacune) */
+const REBALANCE_MIN = 100;      /* reste plus petit que ça : les deux dernières cartes se partagent à parts égales */
 const splitAmounts = (total) => {
   if (!(total > MAX_AMOUNT)) return [total];
-  const n = Math.ceil(total / MAX_AMOUNT);
-  const base = Math.floor(total / n);
-  return [...Array(n - 1).fill(base), total - base * (n - 1)];
+  const k = Math.floor(total / MAX_AMOUNT);
+  const r = total - k * MAX_AMOUNT;
+  if (r === 0) return Array(k).fill(MAX_AMOUNT);
+  if (r >= REBALANCE_MIN) return [...Array(k).fill(MAX_AMOUNT), r];
+  const paire = MAX_AMOUNT + r;
+  return [...Array(k - 1).fill(MAX_AMOUNT), Math.ceil(paire / 2), Math.floor(paire / 2)];
 };
+/* Cartes suivantes d'un cadeau à plusieurs : personnalisation facultative (dédicace, média, effets). Le message reste commun. */
+function groupCardsReset(n) {
+  const old = S.groupCards || [];
+  S.groupCards = Array.from({ length: n }, (_, k) => (k === 0 ? null : (old[k] || null)));
+}
+/* Effets supplémentaires facturés pour chaque carte qui les porte (0,50 € chacun) */
+function groupEffectsCount(c) {
+  const n = splitAmounts(collTotal(c)).length;
+  let count = c.card.fxExtra.length;
+  for (let k = 1; k < n; k++) {
+    const e = (S.groupCards || [])[k];
+    count += e && e.custom ? e.fxExtra.length : c.card.fxExtra.length;
+  }
+  return count;
+}
+/* Cadeau à plusieurs : nombre de cartes du total, et frais de 2 € par carte au-delà de la première */
+const cardsHint = (total) => (total > MAX_AMOUNT ? `<div class="hint">Ce cadeau sera réparti en ${splitAmounts(total).length} cartes, de ${MAX_AMOUNT} € maximum chacune.</div>` : '');
+const extraCardsFee = (total) => (splitAmounts(total).length - 1) * EXTRA_CARD_FEE;
+
 const splitCount = () => (amountOk() ? splitAmounts(S.amount).length : 1);
 const cardIndex = () => Math.min(S.splitIndex || 0, splitCount() - 1);
 const cardAmount = () => (amountOk() ? splitAmounts(S.amount)[cardIndex()] : S.amount);
@@ -607,8 +632,8 @@ const feeOf = (a) => Math.max(Math.round(a * FEE_RATE * 100) / 100, FEE_MIN);
 /* Un seul paiement, à l'envoi : total + frais sur le total + options */
 function closeTotalOf(c) {
   const total = collTotal(c);
-  const extra = c.card.second ? EXTRA_CARD_FEE : 0;
-  const effets = c.card.fxExtra.length * EFFECT_EXTRA_PRICE;
+  const extra = (c.card.second ? EXTRA_CARD_FEE : 0) + extraCardsFee(total);
+  const effets = groupEffectsCount(c) * EFFECT_EXTRA_PRICE;
   const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
   return total + feeOf(total) + extra + effets + sched;
 }
@@ -1027,6 +1052,12 @@ function screenCreate() {
   return `
   ${hdr('Étape 1 sur 4', 'Personnalisez votre carte')}
   <div class="section">
+    <div class="ztitle">Qui paie ?</div>
+    <div class="grid2">
+      <button class="btn2" data-act="grp" data-val="solo" aria-pressed="${!S.group}">Je paie seul</button>
+      <button class="btn2" data-act="grp" data-val="group" aria-pressed="${S.group}">Avec mes amis</button>
+    </div>
+    <div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
       : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
@@ -1094,6 +1125,10 @@ function kpPress(id, key) {
 /* Montant au-delà de 500 € : offert en plusieurs cartes, créées une à une */
 function splitHint() {
   if (setStarted()) return '<div class="hint">Montant verrouillé : des cartes sont déjà créées.</div>';
+  if (S.group) {
+    if (S.amount > MAX_AMOUNT) return `<div class="blockErr">Votre part est de ${MAX_AMOUNT} € maximum. Vos amis ajoutent la leur.</div>`;
+    return '<div class="hint">Vous donnez votre part, vos amis ajoutent la leur. Pas de plafond sur le total : au-delà de 500 €, il est réparti en cartes de 500 € maximum chacune.</div>';
+  }
   if (S.amount > MAX_TOTAL) return `<div class="blockErr">Montant maximum : ${euros(MAX_TOTAL)}.</div>`;
   if (amountOk() && S.amount > MAX_AMOUNT) return `<div class="hint">Au-delà de ${MAX_AMOUNT} €, le montant est offert en ${splitCount()} cartes, chacune de ${MAX_AMOUNT} € maximum. Vous créez chaque carte, avec son lien.</div>`;
   return '';
@@ -1101,7 +1136,7 @@ function splitHint() {
 
 function screenAmount() {
   return `
-  ${hdr('Étape 2 sur 4', 'Combien souhaitez-vous offrir ?', 'create')}
+  ${hdr('Étape 2 sur 4', S.group ? 'Votre part' : 'Combien souhaitez-vous offrir ?', 'create')}
   <div class="section">
     <div class="label">Montant</div>
     <div class="grid2">${AMOUNTS.map((a) => `<button class="opt" data-act="amount" data-val="${a}" aria-pressed="${S.amount === a}"${setStarted() ? ' disabled' : ''}>${a} €</button>`).join('')}</div>
@@ -1226,12 +1261,8 @@ function screenRecap() {
     </div>`}
     <div class="zsep"></div>
 
-    <div class="ztitle">Qui paie ?</div>
-    <div class="grid2">
-      <button class="btn2" data-act="grp" data-val="solo" aria-pressed="${!S.group}">Je paie seul</button>
-      <button class="btn2" data-act="grp" data-val="group" aria-pressed="${S.group}">Avec mes amis</button>
-    </div>
-    ${S.group ? `<div class="label">Votre prénom</div>
+    ${S.group ? `<div class="ztitle">Cadeau à plusieurs</div>
+    <div class="label">Votre prénom</div>
     <input id="creatorName" class="field${bad('creatorName')}" maxlength="30" placeholder="Par exemple : Léa" value="${esc(S.creatorName)}">
     <div class="hint">Vos amis verront ce prénom dans la liste des participations.</div>
     <div class="label">Limite pour participer</div>
@@ -1262,7 +1293,7 @@ function screenRecap() {
         <p>La carte cadeau est une carte virtuelle prépayée, valable 12 mois et non rechargeable.</p>
         <p>Le solde pourra être transféré sur le compte bancaire du destinataire, selon les modalités du partenaire de paiement choisi.</p>
         <p>Les frais de service s’ajoutent au montant de la carte : 7 % du montant, avec un minimum de 2 €. Une deuxième carte ajoute un supplément de 2 €.</p>
-        <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € (version de test).</p>
+        <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € pour une carte seule (version de test). Pour un cadeau à plusieurs, il n’y a pas de plafond sur le total ; chaque part est de 500 € maximum.</p>
         <p>Pendant ce test, aucun paiement réel n’est effectué.</p>
       </div>
     </details>
@@ -1295,7 +1326,116 @@ function smsLinkFor(link) {
   const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?';
   return `sms:${e164}${sep}body=${encodeURIComponent(body)}`;
 }
+/* Cadeau à plusieurs clôturé : une carte par tranche de 500 € au plus, chacune avec son lien */
+function screenDoneGroup() {
+  const parts = splitAmounts(S.amount);
+  const n = parts.length;
+  return `
+  ${hdr('Terminé', n > 1 ? `Vos ${n} cartes sont prêtes` : 'Votre carte est prête')}
+  <div class="section">
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: parts[0] + ' €', mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}</div>
+    <div class="notice">${n > 1 ? `${eur(S.amount)} sont offerts en ${n} cartes. Chaque carte a son lien.` : 'La carte est prête. Elle a son lien.'}</div>
+    ${S.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}${S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? ' · personnalisée' : ''}</div>
+    <div class="linkbox">${esc(l)}</div>
+    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>`).join('')}
+    <button class="secondary" data-act="reset">Créer un autre cadeau</button>
+  </div>`;
+}
+/* Écran « Vos cartes » : chaque carte après la première peut être personnalisée (2 € par carte, déjà compris) */
+function screenCards() {
+  const c = getCollection(S.collectionId);
+  if (!c) return `${hdr('Cadeau à plusieurs', 'Vos cartes', 'collect')}<div class="section"><div class="error">Cette collecte n’est pas accessible.</div></div>`;
+  const parts = splitAmounts(collTotal(c));
+  const rows = parts.map((amt, k) => {
+    if (k === 0) return `<div class="rowline"><span>Carte 1 · la carte de base</span><span>${eur(amt)}</span></div>`;
+    const e = (S.groupCards || [])[k];
+    const custom = !!(e && e.custom);
+    return `<div class="zone">
+      <div class="payline"><span>Carte ${k + 1}<small>${custom ? 'Personnalisée' : 'Identique à la carte 1'}</small></span><span>${eur(amt)}</span></div>
+      <div class="psub"><button class="linkbtn" data-act="editcard" data-val="${k}">${custom ? 'Modifier' : 'Personnaliser'}</button>${custom ? `<button class="linkbtn" data-act="samecard" data-val="${k}">Reprendre la carte 1</button>` : ''}</div>
+    </div>`;
+  }).join('');
+  return `
+  ${hdr('Cadeau à plusieurs', 'Vos cartes', 'collect')}
+  <div class="section">
+    <div class="message">Le total est réparti en ${parts.length} cartes. Chaque carte après la première coûte 2 €. Vous pouvez la personnaliser : dédicace, photo ou vidéo, effets (0,50 € par effet supplémentaire). Le message, l’occasion et le jour d’ouverture restent les mêmes.</div>
+    ${rows}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot"><p class="footnote">Vous payerez ${eur(closeTotalOf(c))} à l’étape suivante.</p><button class="primary" data-act="paynext">Continuer vers le paiement</button></div>`;
+}
+
+/* Édition d'une carte suivante : mêmes commandes que la création, sans occasion ni message */
+function screenCardEdit() {
+  const c = getCollection(S.collectionId);
+  const k = S.editCard;
+  const amt = c && k != null ? splitAmounts(collTotal(c))[k] : 0;
+  return `
+  ${hdr('Carte ' + (k != null ? k + 1 : ''), 'Personnaliser cette carte', 'cards')}
+  <div class="section">
+    ${S.mediaUrl
+      ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
+      : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
+    ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
+    <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
+
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amt + ' €', mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
+
+    <div class="label">Votre dédicace</div>
+    <input id="cardText" class="field" maxlength="40" value="${esc(S.cardText)}">
+    <div class="hint"><span id="cardCount">${S.cardText.length}</span> / 40 caractères</div>
+
+    <div class="label">Effet à l’ouverture</div>
+    <div id="fxMenu">${fxMenuHtml()}</div>
+    <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
+    <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
+    <div class="hint">Chaque effet supplémentaire coûte ${eur(EFFECT_EXTRA_PRICE)} sur cette carte.</div>
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot"><button class="primary" data-act="savecard">Enregistrer cette carte</button><button class="linkbtn" data-act="go" data-val="cards">Annuler</button></div>`;
+}
+
+/* Enregistre la carte en cours d'édition, puis revient à « Vos cartes » */
+function saveCardEdit() {
+  const c = getCollection(S.collectionId);
+  const k = S.editCard;
+  if (!c || k == null) return render();
+  const prev = (S.groupCards || [])[k];
+  const basePath = prev && prev.custom ? prev.mediaPath : c.card.mediaPath;
+  groupCardsReset(splitAmounts(collTotal(c)).length);
+  S.groupCards[k] = {
+    custom: true,
+    cardText: S.cardText.trim(),
+    fx: S.fx,
+    fxExtra: [...S.fxExtra],
+    mediaFile: S.mediaFile,
+    mediaUrl: S.mediaUrl,
+    mediaIsVideo: S.mediaIsVideo,
+    mediaPath: S.mediaFile ? null : (S.mediaUrl ? basePath : null),
+  };
+  S.editCard = null; S.error = ''; S.step = 'cards';
+  render();
+}
+
+/* Ouvre l'édition de la carte k, avec sa personnalisation ou la carte 1 comme point de départ */
+function enterCardEdit(k) {
+  const c = getCollection(S.collectionId);
+  if (!c) return render();
+  const e = (S.groupCards || [])[k];
+  const src = e && e.custom ? e : { cardText: c.card.cardText, fx: c.card.fx, fxExtra: c.card.fxExtra,
+    mediaFile: null, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo };
+  Object.assign(S, {
+    editCard: k, step: 'cardedit', error: '',
+    cardText: src.cardText, fx: src.fx, fxTheme: themeOf(src.fx), fxExtra: [...src.fxExtra],
+    addingFx: false, fxDup: '', mediaFile: src.mediaFile || null, mediaUrl: src.mediaUrl || '',
+    mediaIsVideo: !!src.mediaIsVideo, mediaError: '',
+  });
+  render();
+}
+
 function screenDone() {
+  if (S.closedGroup) return screenDoneGroup();
   const n = splitCount(); const i = cardIndex(); const last = i >= n - 1; const more = n > 1 && !last;
   /* Pas de SMS tant que le numéro du destinataire n'est pas demandé (cadeau à plusieurs : étape suivante) */
   const sms = S.group || !phoneOk(S.recipientPhone) ? '' : smsLinkFor(S.link);
@@ -1411,35 +1551,64 @@ function savePayLink(t) {
   saveTexts();
 }
 
-/* Un seul paiement : le total est réglé par le créateur, à l'envoi */
+/* Envoi d'un média : un nouvel essai ne renvoie pas un fichier déjà envoyé */
+async function uploadOnce(path, blob) {
+  const { error } = await sb.storage.from(BUCKET).upload(path, blob, { contentType: baseType(blob.type), upsert: false });
+  if (error && !/exist|duplicate|409/i.test(`${error.message || ''} ${error.statusCode || ''}`)) throw error;
+}
+
+/* Un seul paiement : le total est réglé par le créateur, à l'envoi. Au-delà de 500 €, le total est réparti en cartes égales (500 € maximum chacune), chacune avec son lien. */
 async function closeGroup() {
   const c = getCollection(S.collectionId);
   if (!c || c.status !== 'collecte') return render();
   const total = collTotal(c);
   if (total < MIN_AMOUNT) { S.error = `Le total doit atteindre ${MIN_AMOUNT} € pour envoyer la carte.`; return render(); }
+  const parts = splitAmounts(total);
+  /* Identifiants des cartes : gardés pendant la clôture, pour qu'un nouvel essai reprenne les mêmes cartes */
+  if (!c.cardIds || c.cardIds.length !== parts.length) c.cardIds = parts.map((_, k) => (k === 0 ? c.id : crypto.randomUUID()));
   Object.assign(S, {
-    amount: total, group: false, error: '', recipient: c.recipientName, cardText: c.card.cardText,
+    amount: total, group: true, closedGroup: true, error: '', recipient: c.recipientName, cardText: c.card.cardText,
     fx: c.card.fx, fxExtra: [...c.card.fxExtra], schedule: c.card.schedule, openDate: c.card.openDate,
     msgType: c.card.msgType, message: c.card.msgText, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo,
   });
   S.busy = true; render();
   try {
-    const { error } = await sb.from('cards').insert({
-      id: c.id, occasion: c.occasion, card_text: c.card.cardText, amount: total,
-      media_type: c.card.hasMedia ? (c.card.mediaIsVideo ? 'video' : 'photo') : 'none', media_path: c.card.mediaPath,
-      msg_type: c.card.msgType, msg_media_path: c.card.msgMediaPath, message: c.card.message,
-      recipient_name: c.recipientName, effect: c.card.fx,
-      ...(c.card.fxExtra.length ? { extra_effects: c.card.fxExtra } : {}),
-      ...(c.card.schedule ? { open_at: c.card.openDate } : {}),
-    });
-    /* 23505 : la carte existe déjà (essai précédent interrompu) : on continue sans la recréer */
-    if (error && error.code !== '23505') throw error;
-    if (!error) store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
+    for (let k = 0; k < parts.length; k++) {
+      const own = k > 0 && S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? S.groupCards[k] : null;
+      let mediaPath = own ? own.mediaPath : c.card.mediaPath;
+      if (own && own.mediaFile) {
+        mediaPath = `${c.id}/carte-${k + 1}/media.${extOf(own.mediaFile.type)}`;
+        await uploadOnce(mediaPath, own.mediaFile);
+      }
+      const mediaType = own ? (own.mediaUrl ? (own.mediaIsVideo ? 'video' : 'photo') : 'none')
+        : (c.card.hasMedia ? (c.card.mediaIsVideo ? 'video' : 'photo') : 'none');
+      const fxExtra = own ? own.fxExtra : c.card.fxExtra;
+      const { error } = await sb.from('cards').insert({
+        id: c.cardIds[k],
+        occasion: c.occasion,
+        card_text: own ? own.cardText : c.card.cardText,
+        amount: parts[k],
+        media_type: mediaType,
+        media_path: mediaPath,
+        msg_type: c.card.msgType,
+        msg_media_path: c.card.msgMediaPath,
+        message: c.card.message,
+        recipient_name: c.recipientName,
+        effect: own ? own.fx : c.card.fx,
+        ...(fxExtra.length ? { extra_effects: fxExtra } : {}),
+        ...(c.card.schedule ? { open_at: c.card.openDate } : {}),
+      });
+      /* 23505 : la carte existe déjà (essai précédent interrompu) : on continue sans la recréer */
+      if (error && error.code !== '23505') throw error;
+      if (!error) store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
+    }
     const { error: e2 } = await sb.rpc('manage_mark_sent', { p_id: c.id, p_key: c.manageKey });
     if (e2) throw e2;
     await loadManage(c.id, c.manageKey);
-    S.link = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=${c.id}`;
-    S.links = [...S.links, S.link];
+    const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
+    S.links = c.cardIds.map((id) => base + id);
+    S.link = S.links[S.links.length - 1];
+    S.splitIndex = parts.length - 1;
     S.step = 'done';
   } catch (err) {
     S.error = 'Une erreur est survenue, réessayez. (' + (err.message || err) + ')';
@@ -1453,12 +1622,13 @@ async function closeGroup() {
 function sendSummaryHtml(c) {
   const total = collTotal(c);
   const second = c.card.second ? EXTRA_CARD_FEE : 0;
-  const effets = c.card.fxExtra.length * EFFECT_EXTRA_PRICE;
+  const effets = groupEffectsCount(c) * EFFECT_EXTRA_PRICE;
   const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
   return `<div class="zone"><div class="ztitle">Détail du paiement</div>
     <div class="payline"><span>Participations</span><span>${eur(total)}</span></div>
     <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(feeOf(total))}</span></div>
     ${second ? `<div class="payline"><span>Supplément 2e carte</span><span>${eur(second)}</span></div>` : ''}
+    ${extraCardsFee(total) ? `<div class="payline"><span>Cartes supplémentaires<small>${splitAmounts(total).length - 1} × ${EXTRA_CARD_FEE} €</small></span><span>${eur(extraCardsFee(total))}</span></div>` : ''}
     ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
     ${sched ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(sched)}</span></div>` : ''}
     <div class="paytotal"><span>Vous payez</span><span>${eur(closeTotalOf(c))}</span></div>
@@ -1498,11 +1668,20 @@ function screenCollect() {
   const link = groupLink(c);
   const me = c.participants.find((p) => p.creator);
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
-  const rows = c.participants.map((p) => `
+  const rows = c.participants.map((p) => {
+    const paid = p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`;
+    const asking = !p.creator && S.rmPartAsk === p.id;
+    const actions = asking
+      ? `<div class="collrm"><div class="hint">Retirer la part de ${esc(p.name)} (${eur(p.amount)}) ?</div>
+        <button class="secondary rec" data-act="rmpartok" data-val="${esc(p.id)}">Confirmer le retrait</button>
+        <button class="linkbtn" data-act="rmpartno">Garder</button></div>`
+      : `<div class="psub">${paid}${p.creator ? '' : `<button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button>`}</div>`;
+    return `
     <div class="partrow">
       <div class="pmain"><span class="pname">${esc(p.name)}${p.creator ? ' <small>(vous)</small>' : ''}</span><span class="pamt">${eur(p.amount)}</span></div>
-      <div class="psub">${p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`}<button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button></div>
-    </div>`).join('');
+      ${actions}
+    </div>`;
+  }).join('');
   const enough = total >= MIN_AMOUNT;
   const payLine = enough
     ? `<div class="paytotal"><span>Total des participations</span><span>${eur(total)}</span></div>
@@ -1522,15 +1701,17 @@ function screenCollect() {
       <div class="label">Petit mot pour vos amis (facultatif)</div>
       <textarea id="groupNote" class="field" maxlength="200" rows="2" placeholder="Par exemple : Coucou ! On lui offre un cadeau ensemble.">${esc(c.note || '')}</textarea>
       <div class="hint"><span id="noteCount">${(c.note || '').length}</span> / 200 caractères. Il part avec le lien d’invitation.</div>
-    <div class="label">Lien à partager</div>
-    <div class="linkbox">${esc(link)}</div>
     <button class="primary" data-act="sharegrp">Partager le lien à mes amis</button>
-    <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
+    <details class="morelink"><summary class="linkbtn" style="display:block;text-align:center;cursor:pointer;margin-top:10px">Voir ou copier le lien</summary>
+      <div class="linkbox">${esc(link)}</div>
+      <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
+    </details>
     <div class="hint">Vos amis ajoutent leur part, sans payer.</div>
     </div>
 
     <div class="gstep">
       <div class="stephead">2. Participations · ${eur(total)}</div>
+      ${cardsHint(total)}
       <div class="${c.deadline ? 'deadline' : 'deadline none'}">${esc(deadlineText(c))}</div>
       ${rows}
     <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
@@ -1552,10 +1733,6 @@ function screenCollect() {
     <div class="error" id="payErr"></div>
     <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
 
-    <div class="label">Lien de gestion</div>
-    <div class="linkbox">${esc(manageLink(c))}</div>
-    <button class="secondary important" data-act="copygrp" data-val="${esc(manageLink(c))}">Copier le lien de gestion</button>
-    <div class="hint">Il vous permet de revoir la liste, retirer une part et envoyer la carte. Il fonctionne sur tous vos appareils. Ne le partagez pas à vos amis.</div>
     <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
     <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
 
@@ -1583,7 +1760,7 @@ function renderGroupView() {
   if (c.status === 'annulee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">Cette collecte a été annulée par le créateur. Aucun paiement n’a été pris.</div></div>`;
   if (c.status === 'envoyee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">La carte a déjà été envoyée. Les participations sont fermées.</div></div>`;
   const rows = c.participants.map((p) => `<div class="rowline"><span>${esc(p.name)}</span><span>${eur(p.amount)}</span></div>`).join('');
-  const list = `<div class="ztitle" style="margin-top:18px">Participations · ${eur(total)}</div>${rows}`;
+  const list = `<div class="ztitle" style="margin-top:18px">Participations · ${eur(total)}</div>${cardsHint(total)}${rows}`;
   const mine = myParts()[c.id];
   const me = mine ? { amount: mine.amount } : null;
   let action;
@@ -1661,7 +1838,6 @@ async function groupClick(e) {
   const consent = document.getElementById('gConsent').checked;
   if (!name) return say('Indiquez votre prénom.');
   if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) return say(`Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`);
-  if (collTotal(c) + amount > MAX_AMOUNT) return say(`Le total ne peut pas dépasser ${MAX_AMOUNT} €.`);
   if (!/^(0[1-9]\d{8}|\+\d{8,14})$/.test(phone)) return say('Indiquez un numéro de téléphone valide.');
   if (!consent) return say('Cochez la case pour que nous puissions vous prévenir.');
   const partId = crypto.randomUUID();
@@ -1701,7 +1877,7 @@ function updateStickyCard() {
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
-  const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, pay: screenPay, done: screenDone };
+  const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
   /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
   try {
@@ -1913,7 +2089,7 @@ app.addEventListener('click', (e) => {
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
   if (act === 'submit') {
-    if (S.group && S.amount > MAX_AMOUNT) { S.error = 'Le cadeau à plusieurs est limité à 500 € pour l’instant. Revenez au montant, ou choisissez « Je paie seul ».'; return render(); }
+    if (S.group && !amountOk()) { S.error = `Votre part doit être entre ${MIN_AMOUNT} € et ${MAX_AMOUNT} €.`; return render(); }
     if (S.group) return createCollection();
     return submit();
   }
@@ -1923,9 +2099,15 @@ app.addEventListener('click', (e) => {
   if (act === 'gopay') {
     const cg = getCollection(S.collectionId);
     if (!cg || cg.status !== 'collecte' || collTotal(cg) < MIN_AMOUNT) return render();
-    S.step = 'pay'; S.error = '';
+    const n = splitAmounts(collTotal(cg)).length;
+    groupCardsReset(n);
+    S.step = n > 1 ? 'cards' : 'pay'; S.error = '';
     return render();
   }
+  if (act === 'paynext') { S.step = 'pay'; S.error = ''; return render(); }
+  if (act === 'editcard') return enterCardEdit(Number(v));
+  if (act === 'savecard') return saveCardEdit();
+  if (act === 'samecard') { if (S.groupCards) S.groupCards[Number(v)] = null; S.error = ''; return render(); }
   if (act === 'closegrp') return closeGroup();
   if (S.recording && act !== 'msgtype') stopVoice();
   switch (act) {
@@ -1939,15 +2121,20 @@ app.addEventListener('click', (e) => {
       break;
     }
     case 'rmpart':
+      S.rmPartAsk = v;
+      break;
+    case 'rmpartno':
+      S.rmPartAsk = '';
+      break;
+    case 'rmpartok':
+      S.rmPartAsk = '';
       return manageAct('manage_remove_part', { p_part_id: v });
     case 'setmine': {
       const c = getCollection(S.collectionId);
       if (!c || c.status !== 'collecte') break;
       const raw = document.getElementById('mineAmount');
       const amount = Math.round(Number(raw && raw.value));
-      const others = c.participants.filter((p) => !p.creator).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
       if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) { S.error = `Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`; break; }
-      if (others + amount > MAX_AMOUNT) { S.error = `Le total ne peut pas dépasser ${MAX_AMOUNT} €.`; break; }
       const me = c.participants.find((p) => p.creator);
       if (!me) break;
       return manageAct('manage_set_part', { p_part_id: me.id, p_amount: amount });
@@ -2079,7 +2266,7 @@ app.addEventListener('click', (e) => {
       S.step = 'recap';
       break;
     case 'go':
-      S.error = ''; S.step = v;
+      S.error = ''; S.editCard = null; S.step = v;
       S.showErrors = false; S.touched = new Set(); S.askNoMsg = false;
       break;
     case 'nextcard':
