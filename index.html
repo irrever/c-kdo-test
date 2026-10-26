@@ -159,8 +159,6 @@
   .secondary.quit { border-color: var(--accent-line); color: var(--accent); }
   .secondary.bad { border-color: var(--danger); }
   .kpslot:empty { display: none; }
-  /* Écran de création : pas de rebond en fin de page (le fond sombre apparaissait sous le bouton) */
-  html.no-bounce { overscroll-behavior-y: none; }
   .kpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
   .kpkey { height: 48px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 22px; cursor: pointer; }
   .kpkey.kpok { background: var(--text); color: var(--bg); font-size: 16px; font-weight: 500; border: 0; }
@@ -671,7 +669,8 @@ const feeOf = (a) => Math.max(Math.round(a * FEE_RATE * 100) / 100, FEE_MIN);
 /* Un seul paiement, à l'envoi : total + frais sur le total + options */
 function closeTotalOf(c) {
   const total = collTotal(c);
-  const extra = (c.card.second ? EXTRA_CARD_FEE : 0) + extraCardsFee(total);
+  /* Cadeau à plusieurs : seulement 2 € par carte au-delà de la première (pas de supplément « 2e carte » en plus) */
+  const extra = extraCardsFee(total);
   const effets = groupEffectsCount(c) * EFFECT_EXTRA_PRICE;
   const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
   return total + feeOf(total) + extra + effets + sched;
@@ -1410,7 +1409,17 @@ function syncGroupSms() {
   const n = S.links.length;
   document.querySelectorAll('.smsslot').forEach((el) => { const k = Number(el.dataset.k); el.innerHTML = smsSlotHtml(S.links[k], k, n); });
 }
-/* Cadeau à plusieurs clôturé : une carte par tranche de 500 € au plus, chacune avec son lien */
+/* Carte k telle qu'elle est envoyée : sa personnalisation si elle en a une, sinon la carte de base */
+function groupCardView(k, amount) {
+  const e = (S.groupCards || [])[k];
+  const own = k > 0 && e && e.custom ? e : null;
+  const text = own ? own.cardText : S.cardText;
+  const mediaUrl = own ? own.mediaUrl : S.mediaUrl;
+  const isVideo = own ? own.mediaIsVideo : S.mediaIsVideo;
+  const fx = own ? [own.fx, ...own.fxExtra].filter((x) => x && x !== 'none') : fxKeys();
+  return `<div style="margin-top:14px">${cardMarkup({ text, amountText: amount + ' €', mediaUrl, isVideo, fx, tap: true })}</div>`;
+}
+/* Cadeau à plusieurs clôturé : une carte par tranche de 500 € au plus, chacune avec sa personnalisation et son lien */
 function screenDoneGroup() {
   const parts = splitAmounts(S.amount);
   const n = parts.length;
@@ -1418,7 +1427,6 @@ function screenDoneGroup() {
   return `
   ${hdr('Terminé', n > 1 ? `Vos ${n} cartes sont prêtes` : 'Votre carte est prête')}
   <div class="section">
-    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: parts[0] + ' €', mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}</div>
     <div class="notice">${n > 1 ? `${eur(S.amount)} sont offerts en ${n} cartes. Chaque carte a son lien.` : 'La carte est prête. Elle a son lien.'}</div>
     <div class="phonebox${ok ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${ok ? 'Valide' : 'Obligatoire'}</span></div>
@@ -1426,6 +1434,7 @@ function screenDoneGroup() {
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>
     ${S.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}${S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? ' · personnalisée' : ''}</div>
+    ${groupCardView(k, parts[k])}
     <div class="linkbox">${esc(l)}</div>
     <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
     <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>`).join('')}
@@ -1444,13 +1453,13 @@ function screenCards() {
     const custom = !!(e && e.custom);
     return `<div class="zone">
       <div class="payline"><span>Carte ${k + 1}<small>${custom ? 'Personnalisée' : 'Identique à la carte 1'}</small></span><span>${eur(amt)}</span></div>
-      <div class="psub"><button class="linkbtn" data-act="editcard" data-val="${k}">${custom ? 'Modifier' : 'Personnaliser'}</button>${custom ? `<button class="linkbtn" data-act="samecard" data-val="${k}">Reprendre la carte 1</button>` : ''}</div>
+      <div class="psub"><button class="linkbtn" data-act="editcard" data-val="${k}">${custom ? 'Modifier' : 'Personnaliser'}</button>${custom ? `<button class="linkbtn" data-act="samecard" data-val="${k}">Annuler la personnalisation</button>` : ''}</div>
     </div>`;
   }).join('');
   return `
   ${hdr('Cadeau à plusieurs', 'Vos cartes', 'collect')}
   <div class="section">
-    <div class="message">Le total est réparti en ${parts.length} cartes. Chaque carte après la première coûte 2 €. Vous pouvez la personnaliser : dédicace, photo ou vidéo, effets (0,50 € par effet supplémentaire). Le message, l’occasion et le jour d’ouverture restent les mêmes.</div>
+    <div class="message" style="font-size:15px;line-height:1.55;color:#C8C8CC">Le total est réparti en ${parts.length} cartes. Chaque carte après la première coûte 2 €. Une carte que vous ne modifiez pas est identique à la carte 1. Vous pouvez modifier chacune d’elles (dédicace, photo ou vidéo, effets). Le message reste le même sur toutes les cartes.</div>
     ${rows}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
@@ -1581,7 +1590,7 @@ async function createCollection() {
       p_msg_type: none ? 'text' : S.msgType, p_msg_media_path: msgPath, p_message: message,
       p_note: '', p_pay_link: '', p_open_at: S.schedule ? S.openDate : null,
       p_creator_part_id: crypto.randomUUID(), p_creator_amount: Math.round(S.amount),
-      p_occasion: S.occasion, p_second_card: isSecondCard(),
+      p_occasion: S.occasion, p_second_card: false,
     });
     if (error) throw error;
     /* La collecte existe : elle entre dans la liste de cet appareil, même si la relecture échoue */
@@ -1713,13 +1722,11 @@ async function closeGroup() {
 /* Détail des sommes, montré seulement au moment de payer : les frais se calculent à l'envoi */
 function sendSummaryHtml(c) {
   const total = collTotal(c);
-  const second = c.card.second ? EXTRA_CARD_FEE : 0;
   const effets = groupEffectsCount(c) * EFFECT_EXTRA_PRICE;
   const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
   return `<div class="zone"><div class="ztitle">Détail du paiement</div>
     <div class="payline"><span>Participations</span><span>${eur(total)}</span></div>
     <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(feeOf(total))}</span></div>
-    ${second ? `<div class="payline"><span>Supplément 2e carte</span><span>${eur(second)}</span></div>` : ''}
     ${extraCardsFee(total) ? `<div class="payline"><span>Cartes supplémentaires<small>${splitAmounts(total).length - 1} × ${EXTRA_CARD_FEE} €</small></span><span>${eur(extraCardsFee(total))}</span></div>` : ''}
     ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
     ${sched ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(sched)}</span></div>` : ''}
@@ -1859,6 +1866,14 @@ function setCardAmounts(text) {
 }
 
 /* ---------- cadeau à plusieurs : participant ---------- */
+/* Message tel que le destinataire le verra : texte, vocal ou vidéo. Les participants y ont accès comme le créateur. */
+function groupMessageHtml(c) {
+  const url = publicUrl(c.card.msgMediaPath);
+  if (c.card.msgType === 'voice' && url) return `<audio class="player" controls src="${esc(url)}"></audio>`;
+  if (c.card.msgType === 'video' && url) return `<video class="player vid" controls playsinline src="${esc(url)}"></video>`;
+  return `<div class="message">${esc(c.card.message)}</div>`;
+}
+
 function renderGroupView() {
   const c = getCollection(GROUP_ID);
   const back = homeBackHtml();
@@ -1869,7 +1884,7 @@ function renderGroupView() {
   const preview = `
     <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
     <div class="hint" style="text-align:center">Aperçu : la carte n’est pas encore envoyée. Touchez-la pour revoir les effets.</div>
-    <div class="zone"><div class="ztitle">Message</div><div class="message">${esc(c.card.message)}</div></div>
+    <div class="zone"><div class="ztitle">Message</div>${groupMessageHtml(c)}</div>
     ${c.note ? `<div class="zone"><div class="ztitle">Petit mot de ${esc(c.creatorName || 'votre ami')}</div><div class="message">${esc(c.note)}</div></div>` : ''}`;
   if (c.status === 'annulee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">Cette collecte a été annulée par le créateur. Aucun paiement n’a été pris.</div></div>`;
   if (c.status === 'envoyee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">La carte a déjà été envoyée. Les participations sont fermées.</div></div>`;
@@ -2096,7 +2111,6 @@ function render() {
   }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
-  document.documentElement.classList.toggle('no-bounce', S.step === 'create');
   updateStickyCard();
   ensureMsgThumb();
 }
