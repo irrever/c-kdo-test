@@ -38,6 +38,7 @@
   .label { margin-top: 24px; font-size: 13px; color: var(--muted); }
   .hint { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
   .error { margin-top: 12px; font-size: 14px; color: var(--danger-text); line-height: 1.5; }
+  .paynote { display: flow-root; height: 60px; margin-bottom: 16px; }
   .blockErr { margin-top: 8px; font-size: 13px; color: var(--danger-text); }
   .banner { margin: 16px 24px 0; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; color: #B4B4B8; line-height: 1.5; }
   .notice { margin-top: 14px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; color: #B4B4B8; line-height: 1.5; }
@@ -1110,8 +1111,7 @@ function payBlockInner() {
       <button class="btn2${bad('payer')}" data-act="grp" data-val="solo" aria-pressed="${S.payChosen && !S.group}">Je paie seul</button>
       <button class="btn2${bad('payer')}" data-act="grp" data-val="group" aria-pressed="${S.payChosen && S.group}">Avec mes amis</button>
     </div>
-    ${S.payChosen ? `<div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}
-    ${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}`;
+    <div class="paynote">${S.payChosen ? `<div class="hint">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}</div>`;
 }
 function createFootInner() {
   return `${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button>`;
@@ -1303,7 +1303,7 @@ function screenRecap() {
     ${payBlock}
     ${S.group ? '' : `<div class="phonebox${bad('recipientPhone')}${phoneOk(S.recipientPhone) ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${phoneOk(S.recipientPhone) ? 'Valide' : 'Obligatoire'}</span></div>
-      <input id="recipientPhone" class="field" type="tel" inputmode="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>`}
     <div class="zsep"></div>
@@ -1829,7 +1829,7 @@ function renderGroupView() {
       <input id="gAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" placeholder="${MIN_PART}">
       <div class="kpslot" data-slot="gAmount"></div>
       <div class="label">Votre numéro de téléphone</div>
-      <input id="gPhone" class="field" type="tel" inputmode="tel" placeholder="06 12 34 56 78">
+      <input id="gPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78">
       <label class="check"><input id="gConsent" type="checkbox"> <span>Votre prénom et votre numéro serviront uniquement à vous prévenir par SMS de l’envoi de la carte, et à vous transmettre le mot de remerciement du destinataire s’il le souhaite.</span></label>
       <div class="hint">Aucun paiement maintenant. Le créateur réglera le total à l’envoi de la carte.</div>
       <div class="error" id="gErr"></div>
