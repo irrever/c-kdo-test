@@ -2714,13 +2714,20 @@ function recvClick(e) {
 async function startRecipient() {
   document.documentElement.classList.add('recv');
   app.addEventListener('click', recvClick);
-  app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="hint">Chargement…</div></div>`;
+  /* Pendant le chargement : fond noir uni, sans titre ni texte (même couleur que l'annonce) */
+  app.innerHTML = '';
+  const fond = document.createElement('div');
+  fond.className = 'annonce';
+  fond.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(fond);
   try {
     await openCard(RECIPIENT_ID, false);
     /* Rien sous l'annonce : le message est dessiné quand le fond noir commence à disparaître */
+    fond.remove();
     app.innerHTML = '';
     playAnnonce(drawRecv);
   } catch (err) {
+    fond.remove();
     app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="error">${esc(err.message || 'Impossible de charger la carte.')}</div></div>`;
   }
 }
