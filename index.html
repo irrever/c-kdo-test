@@ -214,10 +214,11 @@
   /* Annonce « Cadeau ! » à l'arrivée sur le message : plein écran, une seule fois, sans bloquer les boutons */
   .annonce { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(22,16,30,.82); pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
   .annonce.out { opacity: 0; }
-  .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 2.6s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
+  .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 3.4s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
+  .annonce .bd { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); opacity: 0; animation: fxBurst 2.8s ease-out var(--d, 0s) forwards; }
   .annonce .flash { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: radial-gradient(circle, rgba(255,250,225,1) 0%, rgba(255,226,150,.6) 35%, rgba(255,226,150,0) 70%); opacity: 0; animation: fxFlash 2.4s ease-out var(--d, 0s) forwards; }
-  .annonce .mot { position: relative; font-size: 46px; font-weight: 600; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); animation: annMot 2.3s ease both; }
-  @keyframes annMot { 0% { opacity: 0; transform: scale(.6); } 18% { opacity: 1; transform: scale(1.08); } 30% { transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; } }
+  .annonce .mot { position: relative; font-size: 46px; font-weight: 600; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); animation: annMot 4s ease both; }
+  @keyframes annMot { 0% { opacity: 0; transform: scale(.6); } 10% { opacity: 1; transform: scale(1.1); } 16% { transform: scale(1); } 85% { opacity: 1; } 100% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .annonce .mot { animation: none; opacity: 1; } }
   .card .fx .cake { position: absolute; right: 14px; bottom: 14px; width: 124px; height: 110px; overflow: visible; animation: fxFade 3.6s ease-in forwards; }
   .card .fx .cglow { animation: fxGlow 3.6s ease-in-out forwards; }
@@ -311,6 +312,13 @@
   .player { display: block; width: 100%; margin-top: 12px; border-radius: 12px; background: #000; }
   /* Vidéo du message : taille réduite et centrée, plein écran toujours possible */
   .player.vid { width: auto; max-width: 100%; max-height: 45vh; margin: 12px auto 0; border-radius: 18px; }
+  /* Message reçu avant la carte : cadre calme, texte à taille de lecture */
+  .recvwrap { padding-top: 18px; }
+  .recvfor { font-size: 13px; color: #9B9AA6; letter-spacing: .02em; }
+  .recvbox { margin-top: 12px; padding: 22px 20px; border-radius: 18px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); }
+  .recvbox .message.big { margin-top: 0; font-size: 17px; line-height: 1.6; max-width: 34ch; color: #ECECF1; }
+  .recvbox .player { margin-top: 0; }
+  .recvbox .player.vid { margin: 0 auto; }
   /* Écran message : texte plus grand et plus aéré */
   .message.big { margin-top: 14px; font-size: 21px; line-height: 1.55; color: #F0F0F2; }
 
@@ -461,7 +469,7 @@ const initialState = () => ({
   msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0,
   recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
   schedule: false, openDate: '',
-  group: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
+  group: false, payChosen: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
   splitIndex: 0, links: [],
   showErrors: false, touched: new Set(), textTouched: false, askNoMsg: false,
 });
@@ -721,6 +729,7 @@ function ensureMsgThumb() {
 const phoneOk = (p) => /^(0[1-9]\d{8}|\+\d{8,14})$/.test(String(p || '').replace(/[\s.-]/g, ''));
 function missingFields() {
   const m = new Set();
+  if (S.step === 'create' && !S.payChosen) m.add('payer');
   if (S.step === 'amount') {
     if (!amountOk()) m.add('customAmount');
   } else if (S.step === 'message') {
@@ -1060,12 +1069,6 @@ function screenCreate() {
   return `
   ${hdr('Étape 1 sur 4', 'Personnalisez votre carte')}
   <div class="section">
-    <div class="ztitle">Qui paie ?</div>
-    <div class="grid2">
-      <button class="btn2" data-act="grp" data-val="solo" aria-pressed="${!S.group}">Je paie seul</button>
-      <button class="btn2" data-act="grp" data-val="group" aria-pressed="${S.group}">Avec mes amis</button>
-    </div>
-    <div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
       : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
@@ -1090,6 +1093,15 @@ function screenCreate() {
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     <div id="mesCollectes">${myCollectionsHtml()}</div>
+
+    <div class="zsep"></div>
+    <div class="ztitle">Qui paie ?</div>
+    <div class="grid2">
+      <button class="btn2${bad('payer')}" data-act="grp" data-val="solo" aria-pressed="${S.payChosen && !S.group}">Je paie seul</button>
+      <button class="btn2${bad('payer')}" data-act="grp" data-val="group" aria-pressed="${S.payChosen && S.group}">Avec mes amis</button>
+    </div>
+    ${S.payChosen ? `<div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}
+    ${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}
   </div>
   <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button></div>`;
 }
@@ -2120,7 +2132,7 @@ app.addEventListener('click', (e) => {
   if (S.recording && act !== 'msgtype') stopVoice();
   switch (act) {
     case 'grp':
-      S.group = v === 'group';
+      S.group = v === 'group'; S.payChosen = true;
       break;
     case 'paidpart': {
       const cp = getCollection(S.collectionId);
@@ -2453,10 +2465,10 @@ async function openCard(id, fromAccount) {
 function renderRecvMessage() {
   const { row, msgBlock } = RECV;
   return `
-    ${recvHeader('Cadeau reçu', 'Un instant rien que pour vous', homeBackHtml())}
-    <div class="section">
-      <div class="label">Pour ${esc(row.recipient_name)}</div>
-      ${msgBlock}
+    <header class="hdr">${homeBackHtml()}<div><div class="step">Cadeau reçu</div></div></header>
+    <div class="section recvwrap">
+      <div class="recvfor">Pour ${esc(row.recipient_name)}</div>
+      <div class="recvbox">${msgBlock}</div>
     </div>
     <div class="foot"><button class="primary" data-act="showcard">Découvrir votre carte</button></div>`;
 }
@@ -2592,10 +2604,10 @@ function playAnnonce() {
   const el = document.createElement('div');
   el.className = 'annonce';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = `${calme ? '' : FX_BUILD.explosion().items}<div class="mot">Cadeau !</div>`;
+  el.innerHTML = `${calme ? '' : FX_BUILD.fireworks().items + FX_BUILD.explosion().items}<div class="mot">Cadeau\u00a0!</div>`;
   document.body.appendChild(el);
-  setTimeout(() => el.classList.add('out'), 2300);
-  setTimeout(() => el.remove(), 2900);
+  setTimeout(() => el.classList.add('out'), 4000);
+  setTimeout(() => el.remove(), 4600);
 }
 
 function drawRecv() {
