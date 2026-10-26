@@ -24,7 +24,7 @@
     --radius: 10px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; overscroll-behavior-y: none; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
   #app { max-width: 390px; min-height: 100vh; margin: 0 auto; }
 
   /* En-tête */
@@ -212,14 +212,15 @@
   .card.fx-bam { animation: fxShake 2.6s linear forwards; }
   .card.fx-pastille { animation: fxShake 3s linear forwards; }
   /* Annonce « Cadeau ! » à l'arrivée sur le message : plein écran, une seule fois, sans bloquer les boutons */
-  .annonce { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(22,16,30,.82); pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
+  .annonce { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: #0d0a12; pointer-events: none; overflow: hidden; transition: opacity .5s ease; }
   .annonce.out { opacity: 0; }
   .annonce .pc { position: absolute; left: 50%; top: 44%; border-radius: 1px; opacity: 0; animation: fxPiece 3.4s cubic-bezier(.15,.7,.3,1) var(--d, 0s) forwards; }
   .annonce .bd { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); opacity: 0; animation: fxBurst 2.8s ease-out var(--d, 0s) forwards; }
+  .annonce .ring { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 2px solid rgba(255,226,150,.9); box-shadow: 0 0 12px rgba(255,220,130,.6); opacity: 0; animation: fxRing 2.2s ease-out var(--d, 0s) forwards; }
   .annonce .flash { position: absolute; left: 50%; top: 44%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: radial-gradient(circle, rgba(255,250,225,1) 0%, rgba(255,226,150,.6) 35%, rgba(255,226,150,0) 70%); opacity: 0; animation: fxFlash 2.4s ease-out var(--d, 0s) forwards; }
-  .annonce .mot { position: relative; font-size: 46px; font-weight: 600; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); animation: annMot 4s ease both; }
-  @keyframes annMot { 0% { opacity: 0; transform: scale(.6); } 10% { opacity: 1; transform: scale(1.1); } 16% { transform: scale(1); } 85% { opacity: 1; } 100% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .annonce .mot { animation: none; opacity: 1; } }
+  .annonce .mot { position: absolute; left: 50%; top: 44%; white-space: nowrap; transform: translate(-50%, -50%); font-size: 46px; font-weight: 600; letter-spacing: -.02em; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); animation: annMot 4s ease both; }
+  @keyframes annMot { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.05); animation-timing-function: cubic-bezier(.4,0,.2,1); } 2% { opacity: 1; } 30% { transform: translate(-50%, -50%) scale(1); } 85% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .annonce .mot { animation: none; opacity: 1; transform: translate(-50%, -50%); } }
   .card .fx .cake { position: absolute; right: 14px; bottom: 14px; width: 124px; height: 110px; overflow: visible; animation: fxFade 3.6s ease-in forwards; }
   .card .fx .cglow { animation: fxGlow 3.6s ease-in-out forwards; }
   .card .fx .fw { transform-box: fill-box; transform-origin: 50% 100%; animation: fxFlame 3.6s ease-in-out var(--d, 0s) forwards; }
@@ -1092,8 +1093,6 @@ function screenCreate() {
     <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
-    <div id="mesCollectes">${myCollectionsHtml()}</div>
-
     <div class="zsep"></div>
     <div class="ztitle">Qui paie ?</div>
     <div class="grid2">
@@ -1102,6 +1101,7 @@ function screenCreate() {
     </div>
     ${S.payChosen ? `<div class="hint" style="margin-bottom:16px">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}
     ${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}
+    <div id="mesCollectes">${myCollectionsHtml()}</div>
   </div>
   <div class="foot">${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button></div>`;
 }
@@ -2604,7 +2604,7 @@ function playAnnonce() {
   const el = document.createElement('div');
   el.className = 'annonce';
   el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = `${calme ? '' : FX_BUILD.fireworks().items + FX_BUILD.explosion().items}<div class="mot">Cadeau\u00a0!</div>`;
+  el.innerHTML = `${calme ? '' : FX_BUILD.explosion().items + [0, .45, .9].map((d) => `<span class="ring" style="--d:${d}s"></span>`).join('')}<div class="mot">Cadeau\u00a0!</div>`;
   document.body.appendChild(el);
   setTimeout(() => el.classList.add('out'), 4000);
   setTimeout(() => el.remove(), 4600);
