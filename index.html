@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" style="background:#111113">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="c.kdo">
 <meta name="theme-color" content="#111113">
+<meta name="color-scheme" content="dark">
 <title>c.kdo</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="c.kdo : une bonne nouvelle pour vous">
+<meta property="og:description" content="Découvrez-la ici.">
+<meta property="og:image" content="https://irrever.github.io/c-kdo-test/apercu-carte.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <style>
   :root {
@@ -1369,7 +1376,7 @@ function smsLinkFor(link) {
   const p = String(S.recipientPhone || '').replace(/[\s.-]/g, '');
   if (!phoneOk(p)) return '';
   const e164 = p.startsWith('+') ? p : '+33' + p.slice(1);
-  const body = `Bonjour ${S.recipient}, je t’offre une carte cadeau c.kdo : ${link}`;
+  const body = `Bonjour ${S.recipient}, c.kdo a une bonne nouvelle pour vous. Découvrez-la ici : ${link}`;
   const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?';
   return `sms:${e164}${sep}body=${encodeURIComponent(body)}`;
 }
@@ -2625,8 +2632,9 @@ async function refreshAccount() {
 }
 
 /* Annonce « Cadeau ! » à l'arrivée sur le message : une seule fois, plein écran, sans bloquer les boutons */
-function playAnnonce() {
-  if (!RECV || !RECV.annonce || recvView !== 'message') return;
+function playAnnonce(done) {
+  const after = typeof done === 'function' ? done : () => {};
+  if (!RECV || !RECV.annonce || recvView !== 'message') return after();
   RECV.annonce = false;
   const calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const el = document.createElement('div');
@@ -2634,7 +2642,7 @@ function playAnnonce() {
   el.setAttribute('aria-hidden', 'true');
   el.innerHTML = `${calme ? '' : FX_BUILD.explosion().items + [0, .45, .9].map((d) => `<span class="ring" style="--d:${d}s"></span>`).join('')}<div class="mot">Cadeau\u00a0!</div>`;
   document.body.appendChild(el);
-  setTimeout(() => el.classList.add('out'), 4000);
+  setTimeout(() => { el.classList.add('out'); after(); }, 4000);
   setTimeout(() => el.remove(), 4600);
 }
 
@@ -2709,8 +2717,9 @@ async function startRecipient() {
   app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="hint">Chargement…</div></div>`;
   try {
     await openCard(RECIPIENT_ID, false);
-    drawRecv();
-    playAnnonce();
+    /* Rien sous l'annonce : le message est dessiné quand le fond noir commence à disparaître */
+    app.innerHTML = '';
+    playAnnonce(drawRecv);
   } catch (err) {
     app.innerHTML = `${recvHeader('Cadeau reçu', 'Votre carte', homeBackHtml())}<div class="section"><div class="error">${esc(err.message || 'Impossible de charger la carte.')}</div></div>`;
   }
