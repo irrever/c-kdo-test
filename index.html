@@ -148,7 +148,7 @@
   .collpill.is-live { background: var(--accent-bg); color: var(--accent); }
   .collpill.is-sent { background: #14301F; color: #9FD8AE; }
   .collpill.is-cancelled { background: #26262B; color: #A8A8AE; }
-  .collrm { padding: 6px 4px 0; }
+  .collrm { padding: 6px 0 0; }
   .collrm .hint { margin-bottom: 8px; }
   /* Glisser vers la gauche : révèle « Retirer » derrière la carte */
   .collslide { position: relative; overflow: hidden; border-radius: 12px; }
@@ -159,6 +159,8 @@
   .secondary.quit { border-color: var(--accent-line); color: var(--accent); }
   .secondary.bad { border-color: var(--danger); }
   .kpslot:empty { display: none; }
+  /* Écran de création : pas de rebond en fin de page (le fond sombre apparaissait sous le bouton) */
+  html.no-bounce { overscroll-behavior-y: none; }
   .kpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
   .kpkey { height: 48px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 22px; cursor: pointer; }
   .kpkey.kpok { background: var(--text); color: var(--bg); font-size: 16px; font-weight: 500; border: 0; }
@@ -582,6 +584,7 @@ const RPC_MSG = {
   part_introuvable: 'Cette participation n’existe plus.',
   lien_invalide: 'Le lien doit commencer par https://',
   note_trop_longue: 'Le petit mot ne peut pas dépasser 200 caractères.',
+  deja_regle: 'Votre part est réglée. Pour la modifier, contactez le créateur.',
 };
 function rpcMsg(err) {
   const m = String((err && err.message) || '');
@@ -640,7 +643,7 @@ async function loadManage(id, key) {
 async function manageAct(name, args) {
   const c = getCollection(S.collectionId);
   if (!c) return render();
-  S.busy = true; S.error = ''; render();
+  S.busy = true; S.error = ''; refreshCollect();
   try {
     const { error } = await sb.rpc(name, { p_id: c.id, p_key: c.manageKey, ...args });
     if (error) throw error;
@@ -649,7 +652,7 @@ async function manageAct(name, args) {
     S.error = rpcMsg(err);
   } finally {
     S.busy = false;
-    render();
+    refreshCollect();
   }
 }
 /* Petit mot et lien de paiement : enregistrés peu après la dernière frappe */
@@ -676,6 +679,8 @@ function closeTotalOf(c) {
 const httpsOk = (u) => /^https:\/\/\S+$/.test(u);
 const DEADLINE_MS = { none: null, '48h': 48 * 3600 * 1000, '7j': 7 * 24 * 3600 * 1000 };
 const frDateTime = (ms) => new Date(ms).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+/* Espace insécable entre « à » et l'heure : la ligne ne coupe plus entre les deux */
+const frDateNb = (ms) => frDateTime(ms).replace(/ à (\d)/, ' à $1');
 function remainingText(ms) {
   const left = ms - Date.now();
   const d = Math.floor(left / 86400000);
@@ -1054,7 +1059,7 @@ function myCollectionsHtml() {
       : { txt: 'En collecte', cls: 'is-live' };
     const limite = !live ? ''
       : !c.deadline ? 'Sans limite de temps'
-      : Date.now() < c.deadline ? `Participations jusqu’au ${frDateTime(c.deadline)}` : 'Participations closes';
+      : Date.now() < c.deadline ? `Participations jusqu’au ${frDateNb(c.deadline)}` : 'Participations closes';
     const n = c.count;
     const id = esc(c.id);
     const note = c.status === 'envoyee' ? 'La carte reste envoyée au destinataire.' : 'La collecte annulée reste visible ici jusqu’au retrait.';
@@ -1381,6 +1386,7 @@ function syncPhoneBox() {
   b.classList.toggle('bad', bad('recipientPhone') !== '');
   const t = document.getElementById('phoneTag');
   if (t) t.textContent = ok ? 'Valide' : 'Obligatoire';
+  if (S.closedGroup && S.step === 'done') syncGroupSms();
 }
 /* Lien SMS prérempli, ouvert dans Messages depuis le téléphone du créateur. Le numéro n'est pas enregistré sur le serveur. */
 function smsLinkFor(link) {
@@ -1391,21 +1397,42 @@ function smsLinkFor(link) {
   const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?';
   return `sms:${e164}${sep}body=${encodeURIComponent(body)}`;
 }
+/* Bouton d'envoi par SMS pour une carte : désactivé tant que le numéro du destinataire n'est pas valide */
+function smsSlotHtml(link, k, n) {
+  const label = n > 1 ? `Envoyer la carte ${k + 1} par SMS` : `Envoyer par SMS à ${esc(S.recipient)}`;
+  const href = smsLinkFor(link);
+  return href
+    ? `<a class="primary" style="margin-top:10px" href="${esc(href)}">${label}</a>`
+    : `<button class="primary" style="margin-top:10px" disabled>${label}</button>`;
+}
+/* Mise à jour des boutons SMS pendant la saisie du numéro */
+function syncGroupSms() {
+  const n = S.links.length;
+  document.querySelectorAll('.smsslot').forEach((el) => { const k = Number(el.dataset.k); el.innerHTML = smsSlotHtml(S.links[k], k, n); });
+}
 /* Cadeau à plusieurs clôturé : une carte par tranche de 500 € au plus, chacune avec son lien */
 function screenDoneGroup() {
   const parts = splitAmounts(S.amount);
   const n = parts.length;
+  const ok = phoneOk(S.recipientPhone);
   return `
   ${hdr('Terminé', n > 1 ? `Vos ${n} cartes sont prêtes` : 'Votre carte est prête')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: parts[0] + ' €', mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys() })}</div>
     <div class="notice">${n > 1 ? `${eur(S.amount)} sont offerts en ${n} cartes. Chaque carte a son lien.` : 'La carte est prête. Elle a son lien.'}</div>
+    <div class="phonebox${ok ? ' is-ok' : ''}" id="phoneBox">
+      <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${ok ? 'Valide' : 'Obligatoire'}</span></div>
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
+    </div>
     ${S.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}${S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? ' · personnalisée' : ''}</div>
     <div class="linkbox">${esc(l)}</div>
-    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>`).join('')}
+    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
+    <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>`).join('')}
     <button class="secondary" data-act="reset">Créer un autre cadeau</button>
   </div>`;
 }
+
 /* Écran « Vos cartes » : chaque carte après la première peut être personnalisée (2 € par carte, déjà compris) */
 function screenCards() {
   const c = getCollection(S.collectionId);
@@ -1586,10 +1613,10 @@ function manageLink(c) {
 /* Texte envoyé aux amis : le petit mot du créateur, puis la demande de participation */
 function shareTextOf(c) {
   const link = groupLink(c);
-  const pay = httpsOk(c.payLink || '') ? `\nPour me rembourser : ${c.payLink}` : '';
-  const limit = c.deadline && Date.now() < c.deadline ? ` Ajoutez votre part avant le ${frDateTime(c.deadline)}.` : '';
+  /* Un seul lien dans le message : l'aperçu s'affiche, et le remboursement reste sur la page du groupe */
+  const limit = c.deadline && Date.now() < c.deadline ? ` avant le ${frDateNb(c.deadline)}` : '';
   const mot = (c.note || '').trim() ? `${c.note.trim()}\n\n` : '';
-  return `${mot}Je prépare un cadeau pour ${c.recipientName}.${limit} Ajoute ta part ici : ${link}${pay}`;
+  return `${mot}Je prépare un cadeau pour ${c.recipientName}. Ajoute ta part${limit} : ${link}`;
 }
 /* Ouvre la feuille de partage du téléphone (Messages, WhatsApp, Mail…) avec un texte prêt à envoyer */
 function shareGroup(btn) {
@@ -1729,10 +1756,22 @@ function screenCollect() {
   if (c.status === 'envoyee') {
     return `${hdr('Cadeau à plusieurs', 'Carte envoyée')}<div class="section"><div class="message">La carte a été envoyée. La collecte est terminée et ne peut plus être modifiée.</div></div>`;
   }
+  const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
+  return `
+  <header class="hdr"><button class="back" data-act="home" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
+  <div class="section">
+    <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: collTotal(c) + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
+    <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
+    <div id="collectBody">${collectBodyHtml(c)}</div>
+  </div>
+  <div class="foot" id="collectFoot">${collectFootInner(c)}</div>`;
+}
+
+/* Partie sous la carte : redessinée seule après chaque action, pour que la carte garde ses effets */
+function collectBodyHtml(c) {
   const total = collTotal(c);
   const link = groupLink(c);
   const me = c.participants.find((p) => p.creator);
-  const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
   const rows = c.participants.map((p) => {
     const paid = p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`;
     const asking = !p.creator && S.rmPartAsk === p.id;
@@ -1757,25 +1796,21 @@ function screenCollect() {
     <button class="linkbtn" data-act="keepgrp">Garder la collecte</button>`
     : `<button class="linkbtn" data-act="cancelgrp">Annuler la collecte</button>`;
   return `
-  <header class="hdr"><button class="back" data-act="home" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
-  <div class="section">
-    <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: total + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
-    <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
     <div class="gstep">
       <div class="stephead">1. Inviter vos amis</div>
       <div class="label">Petit mot pour vos amis (facultatif)</div>
       <textarea id="groupNote" class="field" maxlength="200" rows="2" placeholder="Par exemple : Coucou ! On lui offre un cadeau ensemble.">${esc(c.note || '')}</textarea>
       <div class="hint"><span id="noteCount">${(c.note || '').length}</span> / 200 caractères. Il part avec le lien d’invitation.</div>
       <div class="label">Lien pour vous régler (facultatif)</div>
-    <input id="payLink" class="field" maxlength="300" placeholder="https://…" value="${esc(c.payLink)}">
-    <div class="error" id="payErr"></div>
-    <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
-    <button class="primary" data-act="sharegrp">Partager le lien à mes amis</button>
-    <details class="morelink"><summary class="linkbtn" style="display:block;text-align:center;cursor:pointer;margin-top:10px">Voir ou copier le lien</summary>
-      <div class="linkbox">${esc(link)}</div>
-      <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
-    </details>
-    <div class="hint">Vos amis ajoutent leur part, sans payer.</div>
+      <input id="payLink" class="field" maxlength="300" placeholder="https://…" value="${esc(c.payLink)}">
+      <div class="error" id="payErr"></div>
+      <div class="hint">Exemple : https://paypal.me/votrepseudo. Vos amis peuvent vous rembourser directement à ce lien. La plateforme ne vérifie pas les paiements. Seuls les liens https sont acceptés.</div>
+      <button class="primary" data-act="sharegrp">Partager le lien à mes amis</button>
+      <details class="morelink"><summary class="linkbtn" style="display:block;text-align:center;cursor:pointer;margin-top:10px">Voir ou copier le lien</summary>
+        <div class="linkbox">${esc(link)}</div>
+        <button class="secondary" data-act="copygrp" data-val="${esc(link)}">Copier le lien</button>
+      </details>
+      <div class="hint">Vos amis ajoutent leur part, sans payer.</div>
     </div>
 
     <div class="gstep">
@@ -1783,11 +1818,11 @@ function screenCollect() {
       ${cardsHint(total)}
       <div class="${c.deadline ? 'deadline' : 'deadline none'}">${esc(deadlineText(c))}</div>
       ${rows}
-    <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
-    <input id="mineAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me ? me.amount : ''}" placeholder="${MIN_PART}">
-    <div class="kpslot" data-slot="mineAmount"></div>
-    <button class="secondary" data-act="setmine">${me ? 'Enregistrer ma part' : 'Ajouter ma part'}</button>
-    <div class="hint">Vous pouvez modifier votre part tant que la carte n’est pas envoyée.</div>
+      <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
+      <input id="mineAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me ? me.amount : ''}" placeholder="${MIN_PART}">
+      <div class="kpslot" data-slot="mineAmount"></div>
+      <button class="secondary" data-act="setmine">${me ? 'Enregistrer ma part' : 'Ajouter ma part'}</button>
+      <div class="hint">Vous pouvez modifier votre part tant que la carte n’est pas envoyée.</div>
     </div>
 
     <div class="gstep">
@@ -1797,15 +1832,30 @@ function screenCollect() {
 
     <div class="others">
       <div class="stephead">Autres actions</div>
-
-    <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
-    <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
-
-    ${cancelBtn}
-    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
-    </div>
-  </div>
-  <div class="foot">${enough ? '<p class="footnote">Vos amis ne pourront plus participer. Vous réglez maintenant et la carte part tout de suite.</p>' : ''}<button class="primary" data-act="gopay" ${enough ? '' : 'disabled'}>Clôturer et envoyer la carte à ${esc(c.recipientName)}</button></div>`;
+      <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
+      <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
+      ${cancelBtn}
+      ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    </div>`;
+}
+function collectFootInner(c) {
+  const enough = collTotal(c) >= MIN_AMOUNT;
+  return `${enough ? '<p class="footnote">Vos amis ne pourront plus participer. Vous réglez maintenant et la carte part tout de suite.</p>' : ''}<button class="primary" data-act="gopay" ${enough ? '' : 'disabled'}>Clôturer et envoyer la carte à ${esc(c.recipientName)}</button>`;
+}
+/* Redessine seulement la partie sous la carte : la carte, ses effets et son son ne sont pas touchés */
+function refreshCollect() {
+  const c = getCollection(S.collectionId);
+  const body = document.getElementById('collectBody');
+  const foot = document.getElementById('collectFoot');
+  if (S.step !== 'collect' || !c || c.status !== 'collecte' || !body || !foot) return render();
+  body.innerHTML = collectBodyHtml(c);
+  foot.innerHTML = collectFootInner(c);
+  setCardAmounts(collTotal(c) + ' €');
+  updateStickyCard();
+}
+/* Montant affiché sur la carte, mis à jour sans redessiner la carte */
+function setCardAmounts(text) {
+  document.querySelectorAll('.stickycard .card .amt').forEach((e) => { e.textContent = text; });
 }
 
 /* ---------- cadeau à plusieurs : participant ---------- */
@@ -1814,7 +1864,6 @@ function renderGroupView() {
   const back = homeBackHtml();
   if (!c) return `${recvHeader('Cadeau à plusieurs', 'Participer', back)}<div class="section">${S.loading ? '<div class="hint">Chargement…</div>' : '<div class="error">Ce lien n’est pas valide ou la carte n’existe plus.</div>'}</div>`;
   const total = collTotal(c);
-  const creator = c.participants.find((p) => p.creator);
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
   const head = recvHeader('Cadeau à plusieurs', `Pour ${c.recipientName}`, back);
   const preview = `
@@ -1824,16 +1873,42 @@ function renderGroupView() {
     ${c.note ? `<div class="zone"><div class="ztitle">Petit mot de ${esc(c.creatorName || 'votre ami')}</div><div class="message">${esc(c.note)}</div></div>` : ''}`;
   if (c.status === 'annulee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">Cette collecte a été annulée par le créateur. Aucun paiement n’a été pris.</div></div>`;
   if (c.status === 'envoyee') return `${head}<div class="section">${preview}<div class="message" style="margin-top:14px">La carte a déjà été envoyée. Les participations sont fermées.</div></div>`;
+  return `${head}<div class="section">${preview}<div id="groupBody">${groupBodyHtml(c)}</div></div>`;
+}
+
+/* Liste des participations et actions sous la carte : redessinées seules, la carte garde ses effets */
+function groupBodyHtml(c) {
+  const total = collTotal(c);
+  const creator = c.participants.find((p) => p.creator);
   const rows = c.participants.map((p) => `<div class="rowline"><span>${esc(p.name)}</span><span>${eur(p.amount)}</span></div>`).join('');
   const list = `<div class="ztitle" style="margin-top:18px">Participations · ${eur(total)}</div>${cardsHint(total)}${rows}`;
   const mine = myParts()[c.id];
   const me = mine ? { amount: mine.amount } : null;
   let action;
   if (me) {
+    const payer = !!(creator && httpsOk(c.payLink || ''));
+    const ouverte = !c.deadline || Date.now() < c.deadline;
+    const nomCreateur = creator ? esc(creator.name) : 'le créateur';
+    let apres;
+    if (S.editMine) {
+      /* Modification de sa part : même clavier que pour l'ajout */
+      apres = `<div class="label" style="margin-top:18px">Votre nouvelle part (€)</div>
+        <input id="editAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me.amount}">
+        <div class="kpslot" data-slot="editAmount"></div>
+        <div class="error" id="editErr"></div>
+        <button class="primary" style="margin-top:12px" data-act="savemine">Enregistrer ma part</button>
+        <button class="linkbtn" style="margin-top:10px;text-align:center;text-decoration:none" data-act="cancelmine">Annuler</button>`;
+    } else if (S.myPaid === true) {
+      /* Part réglée : plus de modification ni de remboursement depuis l'application */
+      apres = `<div class="message" style="margin-top:18px">Votre part est réglée. Pour la modifier, contactez ${nomCreateur}.</div>`;
+    } else {
+      apres = (payer ? `<div class="message" style="margin-top:18px">Voulez-vous rembourser ${nomCreateur} directement ?</div><a class="primary" style="margin-top:12px" href="${esc(c.payLink)}" target="_blank" rel="noopener">Rembourser directement</a>` : '')
+        + (ouverte ? `<button class="secondary" style="margin-top:12px" data-act="editmine">Modifier ma part</button>` : '');
+    }
     action = `<div class="stephead" style="margin-top:18px">2. C’est noté</div>
       <div class="notice">Merci ! Votre part de ${eur(me.amount)} est ajoutée.</div>
       <div class="hint">Le créateur réglera le total et enverra la carte. Vous serez prévenu par SMS.</div>`
-      + (creator && httpsOk(c.payLink || '') ? `<a class="primary" style="margin-top:10px" href="${esc(c.payLink)}" target="_blank" rel="noopener">Régler ${esc(creator.name)}</a>` : '')
+      + apres
       + `<a class="secondary" style="margin-top:14px" href="${esc(homeHref())}">Quitter</a>`;
   } else if (c.deadline && Date.now() >= c.deadline) {
     action = `<div class="message" style="margin-top:18px">Les participations sont closes. Le créateur va envoyer la carte.</div>`;
@@ -1854,7 +1929,16 @@ function renderGroupView() {
       <button class="primary" data-act="gadd">Ajouter ma part</button>
       <a class="linkbtn" style="text-align:center;text-decoration:none" href="${esc(homeHref())}">Quitter sans participer</a>`;
   }
-  return `${head}<div class="section">${preview}${list}${action}</div>`;
+  return list + action;
+}
+
+/* Redessine la liste et les actions seules : la carte n'est pas touchée */
+function refreshGroupBody() {
+  const c = getCollection(GROUP_ID);
+  const body = document.getElementById('groupBody');
+  if (!c || !body || c.status !== 'collecte') return redrawGroup();
+  body.innerHTML = groupBodyHtml(c);
+  setCardAmounts(collTotal(c) + ' €');
 }
 
 function redrawGroup() { app.innerHTML = renderGroupView(); }
@@ -1890,7 +1974,48 @@ async function refreshLocalList() {
   if (el && S.step === 'create') el.innerHTML = myCollectionsHtml();
 }
 
+/* Part réglée ou non : demandée au serveur pour l'identifiant gardé sur cet appareil. Inconnue (null) si la demande échoue. */
+async function loadMyPaid(id) {
+  const mine = myParts()[id];
+  if (!mine || !sb) { S.myPaid = null; return; }
+  try {
+    const { data, error } = await sb.rpc('my_part_status', { p_id: id, p_part_id: mine.partId });
+    S.myPaid = (error || !data) ? null : !!data.paid;
+  } catch (e) { S.myPaid = null; }
+}
+
+/* Modifier sa part, tant que le créateur n'a pas marqué « Réglé » */
+async function groupEditClick(act) {
+  if (act === 'editmine') { S.editMine = true; return refreshGroupBody(); }
+  if (act === 'cancelmine') { S.editMine = false; return refreshGroupBody(); }
+  const c = getCollection(GROUP_ID);
+  if (!c || S.busy) return;
+  const err = document.getElementById('editErr');
+  const say = (m) => { if (err) err.textContent = m; };
+  const amount = Math.round(Number((document.getElementById('editAmount') || {}).value));
+  if (!(amount >= MIN_PART && amount <= MAX_AMOUNT)) return say(`Votre part doit être entre ${MIN_PART} € et ${MAX_AMOUNT} €.`);
+  const mine = myParts()[c.id];
+  if (!mine) return say('Cette participation n’est plus disponible sur cet appareil.');
+  if (c.deadline && Date.now() >= c.deadline) return say(RPC_MSG.limite_depassee);
+  S.busy = true; say('Enregistrement…');
+  try {
+    const { error } = await sb.rpc('update_my_part', { p_id: c.id, p_part_id: mine.partId, p_amount: amount });
+    if (error) throw error;
+    const parts = myParts(); parts[c.id] = { ...mine, amount }; store.set(PARTS_KEY, parts);
+    S.editMine = false; S.busy = false;
+    try { await loadPublic(c.id); await loadMyPaid(c.id); } catch (e3) { /* l'écran garde le montant enregistré */ }
+    refreshGroupBody();
+  } catch (e2) {
+    S.busy = false;
+    /* Réglée entre-temps : on affiche l'état réglé, sans message d'erreur */
+    if (String((e2 && e2.message) || '').includes('deja_regle')) { S.editMine = false; S.myPaid = true; return refreshGroupBody(); }
+    say(rpcMsg(e2));
+  }
+}
+
 async function groupClick(e) {
+  const edit = e.target.closest('[data-act="editmine"], [data-act="savemine"], [data-act="cancelmine"]');
+  if (edit) return groupEditClick(edit.dataset.act);
   const el = e.target.closest('[data-act="gadd"]');
   if (!el || S.busy) return;
   const c = getCollection(GROUP_ID);
@@ -1913,7 +2038,7 @@ async function groupClick(e) {
     const parts = myParts(); parts[c.id] = { partId, amount }; store.set(PARTS_KEY, parts);
     await loadPublic(c.id);
     S.busy = false;
-    redrawGroup();
+    refreshGroupBody();
   } catch (e2) {
     S.busy = false;
     say(rpcMsg(e2));
@@ -1922,8 +2047,8 @@ async function groupClick(e) {
 
 async function startGroup() {
   app.addEventListener('click', groupClick);
-  S.loading = true; redrawGroup();
-  try { await loadPublic(GROUP_ID); } catch (err) { /* lien non lisible : l'écran le signale */ }
+  S.loading = true; S.editMine = false; redrawGroup();
+  try { await loadPublic(GROUP_ID); await loadMyPaid(GROUP_ID); } catch (err) { /* lien non lisible : l'écran le signale */ }
   S.loading = false;
   redrawGroup();
 }
@@ -1970,6 +2095,7 @@ function render() {
   }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
+  document.documentElement.classList.toggle('no-bounce', S.step === 'create');
   updateStickyCard();
   ensureMsgThumb();
 }
@@ -2368,7 +2494,8 @@ app.addEventListener('click', (e) => {
     default:
       return;
   }
-  render();
+  /* Sur l'écran de la collecte, seule la partie sous la carte est redessinée */
+  if (S.step === 'collect') refreshCollect(); else render();
 });
 
 app.addEventListener('input', (e) => {
