@@ -2746,6 +2746,8 @@ app.addEventListener('click', (e) => {
     case 'accueil':
       /* Retour à l'accueil depuis une collecte : elle reste dans « Mes cadeaux à plusieurs ». Rien de la création n'est effacé. */
       try { history.replaceState(null, '', location.pathname); } catch (err) { /* aperçu sans adresse modifiable : on continue */ }
+      /* Une carte déjà créée est gardée dans la liste : la suivante repart d’une création vide (montant, mode, destinataire) */
+      if (S.links.length) Object.assign(S, initialState());
       S.collectionId = ''; S.step = 'create'; S.loading = false; S.editMine = false; S.error = ''; S.busy = false;
       break;
     case 'reset':
