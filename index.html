@@ -122,10 +122,10 @@
   @keyframes dpblink { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201,164,76,0); } 50% { opacity: .7; box-shadow: 0 0 0 3px rgba(201,164,76,.22); } }
   @media (prefers-reduced-motion: reduce) { .datepick.is-empty { animation: none; } }
   /* Numéro du destinataire : bloc bleu bien visible, pastille « Obligatoire » puis « Valide » */
-  .phonebox { margin-top: 16px; padding: 14px; border: 1px solid var(--accent-line); border-left: 4px solid var(--accent); border-radius: 12px; background: var(--accent-bg); }
+  .phonebox { margin-top: 16px; padding: 14px; border: 1px solid var(--line); border-left: 4px solid #6E6E76; border-radius: 12px; background: #19191D; }
   .phonebox.is-ok { border-left-color: #5FB37A; }
   .phonebox.bad { border-color: var(--danger); border-left-color: var(--danger); }
-  .phonehead { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 600; color: var(--accent); }
+  .phonehead { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 600; color: var(--text); }
   .phonetag { flex: none; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #3A2A12; color: #FFC977; }
   .phonebox.is-ok .phonetag { background: #14313F; color: #9FD8AE; }
   .phonebox .field { background: var(--bg); margin-top: 10px; }
@@ -141,11 +141,11 @@
   /* Mes cadeaux à plusieurs : couleur selon l’état (en cours / envoyé / annulé) */
   .collwrap { margin-top: 10px; }
   .collwrap .collrow { margin-top: 0; border-left-width: 4px; }
-  .collrow.is-live { border-left-color: var(--accent); }
+  .collrow.is-live { border-left-color: #8E8E93; }
   .collrow.is-sent { border-left-color: #5FB37A; }
   .collrow.is-cancelled { border-left-color: #6E6E76; }
   .collpill { display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; }
-  .collpill.is-live { background: var(--accent-bg); color: var(--accent); }
+  .collpill.is-live { background: #26262B; color: #C8C8CC; }
   .collpill.is-sent { background: #14301F; color: #9FD8AE; }
   .collpill.is-cancelled { background: #26262B; color: #A8A8AE; }
   /* Type de cadeau : étiquette écrite, distincte des états (couleur d’état sur la bordure gauche) */
@@ -160,7 +160,7 @@
   .collswipe { position: absolute; top: 0; right: 0; bottom: 0; width: 96px; border: 0; border-radius: 0 12px 12px 0; background: #8A2E2E; color: #FFE3E3; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
   .secondary.important { background: var(--accent); border-color: var(--accent); color: var(--accent-bg); font-weight: 500; }
   /* Quitter et revenir plus tard : contour bleu, pour le distinguer des autres boutons */
-  .secondary.quit { border-color: var(--accent-line); color: var(--accent); }
+  .secondary.quit { border-color: var(--line); color: var(--text); }
   .secondary.bad { border-color: var(--danger); }
   .kpslot:empty { display: none; }
   .kpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
@@ -169,7 +169,7 @@
   .kpkey.kpfn { font-size: 18px; }
   .linkfile { position: relative; display: inline-block; margin-top: 12px; font-size: 14px; color: var(--accent); cursor: pointer; }
   .linkfile input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-  .linkbtn { display: block; background: none; border: 0; padding: 12px 0 0; color: var(--accent); font: inherit; font-size: 14px; cursor: pointer; }
+  .linkbtn { display: block; background: none; border: 0; padding: 12px 0 0; color: #C8C8CC; font: inherit; font-size: 14px; cursor: pointer; }
 
   /* Bouton principal */
   .primary { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: 12px; border: 0; background: var(--text); color: var(--bg); font: inherit; font-size: 16px; font-weight: 500; cursor: pointer; text-decoration: none; }
@@ -296,7 +296,7 @@
   .rowline span:last-child { letter-spacing: .04em; font-variant-numeric: tabular-nums; }
   .bigtotal { margin-top: 6px; font-size: 30px; font-weight: 500; letter-spacing: -.01em; }
   .cgu { margin-top: 20px; }
-  .cgu summary { font-size: 14px; color: var(--accent); cursor: pointer; }
+  .cgu summary { font-size: 14px; color: #C8C8CC; cursor: pointer; }
   .cgubody { margin-top: 10px; font-size: 13px; color: #B4B4B8; line-height: 1.55; }
   .cgubody p { margin: 0 0 8px; }
   .cgubody p:last-child { margin-bottom: 0; }
@@ -358,6 +358,15 @@
   .accmeta small { font-size: 13px; color: var(--muted); }
   .accamt { font-size: 15px; font-variant-numeric: tabular-nums; }
   .primary:disabled { opacity: .4; cursor: default; }
+  /* Couleurs d’action : bleu seulement pour envoyer ou payer ; vert en contour une fois la carte envoyée ; neutre pour l’information ; or pour les alertes */
+  .btn-envoi, .btn-renvoi { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 500; cursor: pointer; text-decoration: none; }
+  .btn-envoi { border: 0; background: var(--accent); color: var(--accent-bg); }
+  .btn-envoi:disabled { opacity: .4; cursor: default; }
+  .btn-renvoi { border: 1px solid #5FB37A; background: transparent; color: #9FD8AE; }
+  /* Boutons lisibles pour les actions de ligne (Réglé, Non réglé, Retirer) */
+  .minibtn { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid #4A4A52; background: transparent; color: var(--text); font: inherit; font-size: 14px; cursor: pointer; }
+  .minibtn.warn { border-color: #C9A44C; background: rgba(201,164,76,.1); color: #E8C878; }
+  .minibtn.ok { border-color: #5FB37A; color: #9FD8AE; }
   .grp-actions { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
   /* Cadeau à plusieurs (gestion) : participations et envoi, chacun dans son encadré ; montants alignés à droite */
   .partbox, .sendbox { margin-top: 22px; padding: 16px 18px; border-radius: 14px; background: #19191D; border: 1px solid var(--line); }
@@ -367,11 +376,11 @@
   .pmain { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .pname { min-width: 0; overflow-wrap: anywhere; }
   .pamt { flex: 0 0 auto; min-width: 84px; text-align: right; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
-  .psub { display: flex; gap: 14px; margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .psub { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); }
   .psub .linkbtn { display: inline; padding: 0; font-size: 13px; }
   /* Écran de gestion : trois étapes séparées par un trait bleu ; date limite en orange */
-  .gstep { margin-top: 26px; padding-top: 16px; border-top: 2px solid var(--accent-line); }
-  .stephead { font-size: 15px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+  .gstep { margin-top: 26px; padding-top: 16px; border-top: 2px solid var(--line); }
+  .stephead { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
   .deadline { margin: 4px 0 14px; padding: 10px 14px; border-radius: 12px; background: #3A2A12; border: 1px solid #A8741F; color: #FFC977; font-size: 15px; font-weight: 500; line-height: 1.4; }
   .deadline.none { background: #19191D; border-color: var(--line); color: #B4B4B8; font-weight: 400; }
   .others { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line); }
@@ -1145,7 +1154,10 @@ function myCollectionsHtml() {
     const envoyee = c.status === 'envoyee' && Array.isArray(c.links) && c.links.length > 0;
     const pending = envoyee && !allRead(c);
     const lecture = pending && allSent(c) && nRead(c) > 0 ? `Lues : ${nRead(c)} sur ${c.links.length}` : '';
-    const etat = pending && !allSent(c) ? { txt: 'Payée, à envoyer', cls: 'is-live' }
+    /* Une partie seulement envoyée : même formulation que pour une carte seule (« Envoyées : 1 sur 3 ») */
+    const nEnvoyees = envoyee ? c.links.filter((_, k) => !!sentAt(c, k)).length : 0;
+    const etat = pending && !allSent(c) && nEnvoyees > 0 ? { txt: `Envoyées : ${nEnvoyees} sur ${c.links.length}`, cls: 'is-live' }
+      : pending && !allSent(c) ? { txt: 'Payée, à envoyer', cls: 'is-live' }
       : pending ? { txt: `Envoyée le ${frDateNb(Date.parse(firstSent(c)))}`, cls: 'is-sent' }
       : envoyee ? { txt: `Lue le ${frDateNb(Date.parse(lastRead(c)))}`, cls: 'is-sent' }
       : c.status === 'envoyee' ? { txt: 'Carte envoyée', cls: 'is-sent' }
@@ -1165,7 +1177,7 @@ function myCollectionsHtml() {
         <button class="secondary rec" data-act="rmcollok" data-val="${id}">Confirmer le retrait</button>
         <button class="linkbtn" data-act="rmcollno">Garder</button></div>`;
     } else if (pending) {
-      action = `<div class="collrm"><button class="primary" data-act="resend" data-val="${id}">Envoyer les cartes</button></div>`;
+      action = `<div class="collrm">${boutonEnvoi(c, splitAmounts(c.total).length, id)}</div>`;
     } else {
       action = `<div class="collrm"><button class="linkbtn" data-act="rmcoll" data-val="${id}">Retirer de ma liste</button></div>`;
     }
@@ -1205,7 +1217,7 @@ function myCollectionsHtml() {
     } else if (lu) {
       action = `<div class="collrm"><button class="linkbtn" data-act="rmcoll" data-val="${id}">Retirer de ma liste</button></div>`;
     } else {
-      action = `<div class="collrm"><button class="primary" data-act="resend" data-val="${id}">${n > 1 ? 'Envoyer les cartes' : 'Envoyer la carte'}</button></div>`;
+      action = `<div class="collrm">${boutonEnvoi(c, n, id)}</div>`;
     }
     return `<div class="collwrap">
       <div class="collslide"${lu ? ' data-swipe' : ''}>
@@ -1227,10 +1239,47 @@ function myCollectionsHtml() {
     <div class="hint">La liste est enregistrée sur cet appareil. Le lien de gestion fonctionne sur tous vos appareils.</div>`;
 }
 
+/* Libellé d’envoi : « Envoyer » tant qu’aucune carte n’est partie, « Renvoyer » ensuite. Le nombre compte les cartes, pas les participants. */
+function envoiLabel(item, nCartes) {
+  const deja = (item.links || []).some((_, k) => !!sentAt(item, k));
+  return `${deja ? 'Renvoyer' : 'Envoyer'} ${nCartes > 1 ? 'les cartes' : 'la carte'}`;
+}
+/* Bouton de la liste : bleu avant l’envoi, vert en contour une fois envoyé */
+function boutonEnvoi(item, nCartes, id) {
+  const deja = (item.links || []).some((_, k) => !!sentAt(item, k));
+  return `<button class="${deja ? 'btn-renvoi' : 'btn-envoi'}" data-act="resend" data-val="${id}">${envoiLabel(item, nCartes)}</button>`;
+}
+/* Une ligne sous chaque carte : envoyée ou non, lue ou non */
+function statutCarteHtml(item, k) {
+  const env = sentAt(item, k);
+  const lu = readAt(item, k);
+  const txt = !env ? 'Pas encore envoyée · Pas encore lue'
+    : !lu ? 'Envoyée. Pas encore lue. Vous pouvez la renvoyer, le lien reste le même.'
+    : `Envoyée le ${dateHeure(env)} · Lue le ${dateHeure(lu)}`;
+  return `<div class="hint" style="text-align:center;margin-top:10px">${esc(txt)}</div>`;
+}
+/* Explication en bas de l’écran de la carte */
+function explicationLienHtml() {
+  return '<div class="hint" style="text-align:center;margin-top:18px">Le lien ouvre la carte pour votre destinataire. Copiez-le si vous voulez l’envoyer par une autre application ou le garder pour plus tard.</div>';
+}
+/* Bouton « Mes cartes (N) » en haut de l’accueil : ouvre la liste sur son propre écran */
+function mesBlockHtml() {
+  const n = localList().length + envoisList().length;
+  return `<div id="mesBlock">${n ? `<button class="btn2" style="margin-top:12px;width:100%" data-act="mes">Mes cartes (${n})</button>` : ''}</div>`;
+}
+/* Écran « Mes cartes » : cadeaux à plusieurs et cartes seules, les plus récents d’abord. Pas de bouton Continuer ici. */
+function screenMes() {
+  const liste = myCollectionsHtml();
+  return `
+  <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Accueil</div><div class="title">Mes cartes</div></div></header>
+  <div class="section"><div id="mesList">${liste || '<div class="message">Aucune carte pour l’instant.</div>'}</div></div>`;
+}
+
 function screenCreate() {
   return `
   ${hdr('Étape 1 sur 4', 'Personnalisez votre carte')}
   <div class="section">
+    ${mesBlockHtml()}
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
       : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
@@ -1255,7 +1304,6 @@ function screenCreate() {
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     <div id="payBlock">${payBlockInner()}</div>
-    <div id="mesCollectes">${myCollectionsHtml()}</div>
   </div>
   <div class="foot" id="createFoot">${createFootInner()}</div>`;
 }
@@ -1271,7 +1319,7 @@ function payBlockInner() {
     <div class="paynote">${S.payChosen ? `<div class="hint">${S.group ? 'Vos amis ajoutent leur part, sans payer. Vous réglez le total à l’envoi.' : 'Vous payez la carte, le destinataire la reçoit.'}</div>` : ''}${bad('payer') ? '<div class="blockErr">Choisissez qui paie avant de continuer.</div>' : ''}</div>`;
 }
 function createFootInner() {
-  return `${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Continuer</button>`;
+  return `${footErr()}<button class="primary" data-cta data-act="go" data-val="amount">Choisir le montant</button>`;
 }
 function refreshCreateChoice() {
   const pb = document.getElementById('payBlock');
@@ -1463,7 +1511,7 @@ function recapFootHtml() {
   if (soloMultiNow()) return `${footErr()}<p class="footnote">Pour l’instant, le total est de ${eur(total)}, frais compris. Vous personnalisez les cartes à l’étape suivante, puis vous payez une seule fois.</p><button class="primary" data-cta data-act="tocards">Continuer vers vos cartes</button>`;
   return `${footErr()}${S.group
     ? '<p class="footnote">Vous ne payez rien maintenant. Vos amis ajoutent leur part, puis vous réglez le total.</p><button class="primary" data-cta data-act="submit">Créer le lien à partager</button>'
-    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} ${splitCount() > 1 ? `recevra ${splitCount()} cartes, pour ${eur(S.amount)} au total` : `recevra une carte de ${eur(cardAmount())}`}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer à ' + esc(S.recipient) + ' (' + eur(total) + ')'}</button>`}`;
+    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} ${splitCount() > 1 ? `recevra ${splitCount()} cartes, pour ${eur(S.amount)} au total` : `recevra une carte de ${eur(cardAmount())}`}.</p><button class="btn-envoi" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer à ' + esc(S.recipient) + ' (' + eur(total) + ')'}</button>`}`;
 }
 /* Met à jour seulement les montants et le pied, pendant la saisie du numéro */
 function refreshRecapFees() {
@@ -1491,7 +1539,7 @@ function screenRecap() {
     <div id="recapFees">${payBlock}</div>
     ${S.group ? '' : `<div class="phonebox${bad('recipientPhone')}${phoneOk(S.recipientPhone) ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${phoneOk(S.recipientPhone) ? 'Valide' : 'Obligatoire'}</span></div>
-      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ex. 06 12 34 56 78" value="${esc(S.recipientPhone)}">
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>`}
     <div class="zsep"></div>
@@ -1568,9 +1616,12 @@ function smsSlotHtml(link, k, n) {
     ? (n > 1 ? `Renvoyer la carte ${k + 1} par SMS` : `Renvoyer par SMS à ${esc(S.recipient)}`)
     : (n > 1 ? `Envoyer la carte ${k + 1} par SMS` : `Envoyer par SMS à ${esc(S.recipient)}`);
   const href = smsLinkFor(link);
+  /* Bleu avant l’envoi, vert en contour une fois la carte envoyée */
+  const cls = deja ? 'btn-renvoi' : 'btn-envoi';
+  /* Tant qu’aucun numéro valide n’est saisi, le bouton reste désactivé et une ligne l’explique */
   return href
-    ? `<a class="primary" style="margin-top:10px" href="${esc(href)}">${label}</a>`
-    : `<button class="primary" style="margin-top:10px" disabled>${label}</button>`;
+    ? `<a class="${cls}" style="margin-top:10px" href="${esc(href)}">${label}</a>`
+    : `<button class="${cls}" style="margin-top:10px" disabled>${label}</button><div class="hint" style="text-align:center;margin-top:8px">Saisissez le numéro ci-dessus pour activer l’envoi.</div>`;
 }
 /* Mise à jour des boutons SMS pendant la saisie du numéro */
 function syncGroupSms() {
@@ -1635,19 +1686,11 @@ async function refreshReads() {
     } catch (err) { /* lecture indisponible : on garde la dernière date connue */ }
   }));
 }
-function sentHtml(item, k) {
-  const v = sentAt(item, k);
-  return `<div class="hint" style="text-align:center;margin-top:10px">${v ? `Envoyée le ${esc(dateHeure(v))} · le lien reste le même` : 'Pas encore envoyée'}</div>`;
-}
-function openedHtml(item, k) {
-  const v = readAt(item, k);
-  return `<div class="hint" style="text-align:center;margin-top:6px">${v ? `Lue le ${esc(dateHeure(v))}` : 'Pas encore lue'}</div>`;
-}
 function phoneBoxHtml() {
   const ok = phoneOk(S.recipientPhone);
   return `<div class="phonebox${ok ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${ok ? 'Valide' : 'Obligatoire'}</span></div>
-      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ex. 06 12 34 56 78" value="${esc(S.recipientPhone)}">
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>`;
 }
@@ -1664,13 +1707,13 @@ function screenDoneGroup() {
     ${S.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}${S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? ' · personnalisée' : ''}</div>
     ${groupCardView(k, parts[k])}
     <div class="linkbox">${esc(l)}</div>
-    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
     <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>
-    ${sentHtml(item, k)}
-    ${openedHtml(item, k)}`).join('')}
+    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
+    ${statutCarteHtml(item, k)}`).join('')}
     ${sent ? '' : '<div class="hint" style="text-align:center">Envoyez chaque carte par SMS pour en créer une autre.</div>'}
     <button class="secondary" data-act="reset" ${sent ? '' : 'disabled'}>Créer un autre cadeau</button>
     ${sent ? '' : '<button class="linkbtn" data-act="accueil">Envoyer plus tard</button>'}
+    ${explicationLienHtml()}
   </div>`;
 }
 
@@ -1678,7 +1721,7 @@ function screenDoneGroup() {
 function screenResend() {
   const item = anyList().find((x) => x.id === S.collectionId);
   const solo = !!(item && item.solo);
-  const head = `<header class="hdr"><button class="back" data-act="accueil" aria-label="Retour">${ICON_BACK}</button><div><div class="step">${solo ? 'Carte' : 'Cadeau à plusieurs'}</div><div class="title">${solo && item.links.length === 1 ? 'Envoyer la carte' : 'Envoyer les cartes'}</div></div></header>`;
+  const head = `<header class="hdr"><button class="back" data-act="accueil" aria-label="Retour">${ICON_BACK}</button><div><div class="step">${solo ? 'Carte' : 'Cadeau à plusieurs'}</div><div class="title">${item && Array.isArray(item.links) && item.links.length ? envoiLabel(item, item.links.length) : 'Envoyer la carte'}</div></div></header>`;
   if (!item || !Array.isArray(item.links) || !item.links.length) return `${head}<div class="section"><div class="error">Ces cartes ne sont plus disponibles sur cet appareil.</div></div>`;
   const parts = splitAmounts(item.total);
   const n = item.links.length;
@@ -1689,10 +1732,9 @@ function screenResend() {
     ${phoneBoxHtml()}
     ${item.links.map((l, k) => `<div class="label">${n > 1 ? `Carte ${k + 1} · ` : ''}${eur(parts[k])}</div>
     <div class="linkbox">${esc(l)}</div>
-    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
     <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>
-    ${sentHtml(item, k)}
-    ${openedHtml(item, k)}`).join('')}
+    <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
+    ${statutCarteHtml(item, k)}`).join('')}
   </div>`;
 }
 
@@ -1741,7 +1783,7 @@ function screenSoloCards() {
     ${recapPayHtml()}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
-  <div class="foot"><p class="footnote">Vous payez ${eur(total)}, une seule fois. Ensuite, vous envoyez chaque carte par SMS.</p><button class="primary" data-act="submit">${S.busy ? 'Paiement en cours…' : 'Payer ' + eur(total) + ' et créer les cartes'}</button></div>`;
+  <div class="foot"><p class="footnote">Vous payez ${eur(total)}, une seule fois. Ensuite, vous envoyez chaque carte par SMS.</p><button class="btn-envoi" data-act="submit">${S.busy ? 'Paiement en cours…' : 'Payer ' + eur(total) + ' et créer les cartes'}</button></div>`;
 }
 
 /* Édition d'une carte suivante : mêmes commandes que la création, sans occasion ni message */
@@ -1848,14 +1890,15 @@ function screenDone() {
 
     <div class="label">Lien à partager</div>
     <div class="linkbox">${esc(S.link)}</div>
+    ${sms ? `<a class="${curSent && cur ? 'btn-renvoi' : 'btn-envoi'}" style="margin-top:10px" href="${esc(sms)}" data-sendid="${esc(S.collectionId)}">${curSent && cur ? 'Renvoyer par SMS' : 'Envoyer par SMS'} à ${esc(S.recipient)}</a>` : ''}
     <button class="secondary" data-act="copy">Copier le lien</button>
-    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}" data-sendid="${esc(S.collectionId)}">${curSent && cur ? 'Renvoyer par SMS' : 'Envoyer par SMS'} à ${esc(S.recipient)}</a>` : ''}
     <a class="${sms ? 'secondary' : 'primary'}" style="margin-top:10px" href="${esc(S.link + '&apercu=1')}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
     ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
-    ${cur ? sentHtml(cur, 0) + openedHtml(cur, 0) : ''}
+    ${cur ? statutCarteHtml(cur, 0) : ''}
     ${curSent ? '' : '<div class="hint" style="text-align:center">Envoyez la carte par SMS pour en créer une autre.</div>'}
     <button class="secondary" data-act="reset" ${curSent ? '' : 'disabled'}>Créer un autre cadeau</button>
     ${curSent ? '' : '<button class="linkbtn" data-act="accueil">Envoyer plus tard</button>'}
+    ${explicationLienHtml()}
   </div>`;
 }
 
@@ -2024,18 +2067,18 @@ async function closeGroup() {
 }
 
 /* Détail des sommes, montré seulement au moment de payer : les frais se calculent à l'envoi */
-function sendSummaryHtml(c) {
+function sendSummaryHtml(c, titre = 'Détail du paiement', pied = '') {
   const total = collTotal(c);
   const effets = groupEffectsCount(c) * EFFECT_EXTRA_PRICE;
   const sched = c.card.schedule ? SCHEDULE_PRICE : 0;
-  return `<div class="zone"><div class="ztitle">Détail du paiement</div>
+  return `<div class="zone"><div class="ztitle">${titre}</div>
     <div class="payline"><span>Participations</span><span>${eur(total)}</span></div>
     <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(feeOf(total))}</span></div>
     ${extraCardsFee(total) ? `<div class="payline"><span>Cartes supplémentaires<small>${splitAmounts(total).length - 1} × ${EXTRA_CARD_FEE} €</small></span><span>${eur(extraCardsFee(total))}</span></div>` : ''}
     ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
     ${sched ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(sched)}</span></div>` : ''}
     <div class="paytotal"><span>Vous payez</span><span>${eur(closeTotalOf(c))}</span></div>
-    <div class="hint">Une seule fois. Vos amis ne paient rien. Après paiement, la carte est envoyée et ne peut plus être modifiée.</div></div>`;
+    <div class="hint">Une seule fois. Vos amis ne paient rien. Après paiement, la carte est envoyée et ne peut plus être modifiée.</div>${pied}</div>`;
 }
 
 function homeHref() { return location.href.split('?')[0]; }
@@ -2053,7 +2096,7 @@ function screenPay() {
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     ${S.busy ? '' : '<button class="secondary" data-act="go" data-val="collect">Revenir au partage</button>'}
   </div>
-  <div class="foot"><button class="primary" data-act="closegrp" ${enough && !S.busy ? '' : 'disabled'}>${S.busy ? 'Paiement en cours…' : 'Payer ' + eur(closeTotalOf(c)) + ' et envoyer'}</button></div>`;
+  <div class="foot"><button class="btn-envoi" data-act="closegrp" ${enough && !S.busy ? '' : 'disabled'}>${S.busy ? 'Paiement en cours…' : 'Payer ' + eur(closeTotalOf(c)) + ' et envoyer'}</button></div>`;
 }
 
 function screenCollect() {
@@ -2074,8 +2117,7 @@ function screenCollect() {
     <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: collTotal(c) + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
     <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
     <div id="collectBody">${collectBodyHtml(c)}</div>
-  </div>
-  <div class="foot" id="collectFoot">${collectFootInner(c)}</div>`;
+  </div>`;
 }
 
 /* Partie sous la carte : redessinée seule après chaque action, pour que la carte garde ses effets */
@@ -2084,13 +2126,13 @@ function collectBodyHtml(c) {
   const link = groupLink(c);
   const me = c.participants.find((p) => p.creator);
   const rows = c.participants.map((p) => {
-    const paid = p.creator ? '' : `<button class="linkbtn" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`;
+    const paid = p.creator ? '' : `<button class="minibtn ${p.paid ? 'ok' : 'warn'}" data-act="paidpart" data-val="${esc(p.id)}" aria-pressed="${p.paid}">${p.paid ? 'Réglé' : 'Non réglé'}</button>`;
     const asking = !p.creator && S.rmPartAsk === p.id;
     const actions = asking
       ? `<div class="collrm"><div class="hint">Retirer la part de ${esc(p.name)} (${eur(p.amount)}) ?</div>
         <button class="secondary rec" data-act="rmpartok" data-val="${esc(p.id)}">Confirmer le retrait</button>
         <button class="linkbtn" data-act="rmpartno">Garder</button></div>`
-      : `<div class="psub">${paid}${p.creator ? '' : `<button class="linkbtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button>`}</div>`;
+      : `<div class="psub">${paid}${p.creator ? '' : `<button class="minibtn" data-act="rmpart" data-val="${esc(p.id)}">Retirer</button>`}</div>`;
     return `
     <div class="partrow">
       <div class="pmain"><span class="pname">${esc(p.name)}${p.creator ? ' <small>(vous)</small>' : ''}</span><span class="pamt">${eur(p.amount)}</span></div>
@@ -2098,10 +2140,9 @@ function collectBodyHtml(c) {
     </div>`;
   }).join('');
   const enough = total >= MIN_AMOUNT;
-  const payLine = enough
-    ? `<div class="paytotal"><span>Total des participations</span><span>${eur(total)}</span></div>
-    <div class="hint">Vous ne réglez qu’une fois, à l’envoi. Les frais s’ajoutent alors. Une fois envoyée, la carte ne peut plus être modifiée.</div>`
-    : `<div class="error">Il faut au moins ${MIN_AMOUNT} € de participations pour envoyer la carte.</div>`;
+  /* Un seul bouton de paiement, dans la zone d’envoi : le pied de page ne le répète plus */
+  const pied = `${enough ? '<p class="footnote" style="margin-top:14px">Vos amis ne pourront plus participer. Vous réglez maintenant et la carte part tout de suite.</p>' : `<div class="error">Il faut au moins ${MIN_AMOUNT} € de participations pour envoyer la carte.</div>`}
+    <button class="btn-envoi" style="margin-top:12px" data-act="gopay" ${enough ? '' : 'disabled'}>Clôturer et envoyer la carte à ${esc(c.recipientName)}</button>`;
   const cancelBtn = S.cancelAsk
     ? `<button class="secondary" data-act="cancelgrp">Confirmer l’annulation</button>
     <button class="linkbtn" data-act="keepgrp">Garder la collecte</button>`
@@ -2124,22 +2165,23 @@ function collectBodyHtml(c) {
       <div class="hint">Vos amis ajoutent leur part, sans payer.</div>
     </div>
 
-    <div class="gstep">
-      <div class="stephead">2. Participations · ${eur(total)}</div>
+    <div class="zone">
+      <div class="ztitle">Participants (${c.participants.length})</div>
       ${cardsHint(total)}
       <div class="${c.deadline ? 'deadline' : 'deadline none'}">${esc(deadlineText(c))}</div>
       ${rows}
-      <div class="label">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
+      <div class="paytotal"><span>Total des participations</span><span>${eur(total)}</span></div>
+    </div>
+
+    <div class="zone">
+      <div class="ztitle">${me ? 'Ma part' : 'Rejoindre la collecte'}</div>
       <input id="mineAmount" class="field" type="text" inputmode="none" readonly data-kp data-maxlen="3" value="${me ? me.amount : ''}" placeholder="${MIN_PART}">
       <div class="kpslot" data-slot="mineAmount"></div>
       <button class="secondary" data-act="setmine">${me ? 'Enregistrer ma part' : 'Ajouter ma part'}</button>
       <div class="hint">Vous pouvez modifier votre part tant que la carte n’est pas envoyée.</div>
     </div>
 
-    <div class="gstep">
-      <div class="stephead">3. Envoyer la carte</div>
-      ${payLine}
-    </div>
+    ${sendSummaryHtml(c, 'Envoyer la carte', pied)}
 
     <div class="others">
       <div class="stephead">Autres actions</div>
@@ -2149,18 +2191,12 @@ function collectBodyHtml(c) {
       ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     </div>`;
 }
-function collectFootInner(c) {
-  const enough = collTotal(c) >= MIN_AMOUNT;
-  return `${enough ? '<p class="footnote">Vos amis ne pourront plus participer. Vous réglez maintenant et la carte part tout de suite.</p>' : ''}<button class="primary" data-act="gopay" ${enough ? '' : 'disabled'}>Clôturer et envoyer la carte à ${esc(c.recipientName)}</button>`;
-}
 /* Redessine seulement la partie sous la carte : la carte, ses effets et son son ne sont pas touchés */
 function refreshCollect() {
   const c = getCollection(S.collectionId);
   const body = document.getElementById('collectBody');
-  const foot = document.getElementById('collectFoot');
-  if (S.step !== 'collect' || !c || c.status !== 'collecte' || !body || !foot) return render();
+  if (S.step !== 'collect' || !c || c.status !== 'collecte' || !body) return render();
   body.innerHTML = collectBodyHtml(c);
-  foot.innerHTML = collectFootInner(c);
   setCardAmounts(collTotal(c) + ' €');
   updateStickyCard();
 }
@@ -2292,8 +2328,10 @@ async function refreshLocalList() {
   /* Lecture des cartes relue à chaque retour sur l’accueil (collectes et cartes solo) */
   await refreshReads();
   /* Seule la liste est redessinée : le formulaire de l'accueil garde son texte et son focus */
-  const el = document.getElementById('mesCollectes');
-  if (el && S.step === 'create') el.innerHTML = myCollectionsHtml();
+  const bloc = document.getElementById('mesBlock');
+  if (bloc && S.step === 'create') bloc.outerHTML = mesBlockHtml();
+  const liste = document.getElementById('mesList');
+  if (liste && S.step === 'mes') liste.innerHTML = myCollectionsHtml() || '<div class="message">Aucune carte pour l’instant.</div>';
 }
 
 /* Part réglée ou non : demandée au serveur pour l'identifiant gardé sur cet appareil. Inconnue (null) si la demande échoue. */
@@ -2406,7 +2444,7 @@ function updateStickyCard() {
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
-  const screens = { create: screenCreate, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
+  const screens = { create: screenCreate, mes: screenMes, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
   /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
   try {
@@ -2844,6 +2882,13 @@ app.addEventListener('click', (e) => {
       restoreBase();
       S.error = ''; S.editCard = null; S.step = v;
       S.showErrors = false; S.touched = new Set(); S.askNoMsg = false;
+      break;
+    case 'mes':
+      /* « Mes cartes » : écran dédié, la création en cours n’est pas touchée */
+      S.step = 'mes'; S.error = '';
+      break;
+    case 'mesback':
+      S.step = 'create'; S.error = '';
       break;
     case 'home':
       /* Retour à l'accueil dans l'application : on retire les paramètres de la collecte de l'adresse, sans recharger la page */
