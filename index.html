@@ -1527,7 +1527,11 @@ function smsLinkFor(link) {
 }
 /* Bouton d'envoi par SMS pour une carte : désactivé tant que le numéro du destinataire n'est pas valide */
 function smsSlotHtml(link, k, n) {
-  const label = n > 1 ? `Envoyer la carte ${k + 1} par SMS` : `Envoyer par SMS à ${esc(S.recipient)}`;
+  /* Carte déjà envoyée une fois : le bouton propose de la renvoyer (même lien, même carte) */
+  const deja = !!sentAt(anyList().find((x) => x.id === S.collectionId), k);
+  const label = deja
+    ? (n > 1 ? `Renvoyer la carte ${k + 1} par SMS` : `Renvoyer par SMS à ${esc(S.recipient)}`)
+    : (n > 1 ? `Envoyer la carte ${k + 1} par SMS` : `Envoyer par SMS à ${esc(S.recipient)}`);
   const href = smsLinkFor(link);
   return href
     ? `<a class="primary" style="margin-top:10px" href="${esc(href)}">${label}</a>`
@@ -1598,7 +1602,7 @@ async function refreshReads() {
 }
 function sentHtml(item, k) {
   const v = sentAt(item, k);
-  return `<div class="hint" style="text-align:center;margin-top:10px">${v ? `Envoyée le ${esc(dateHeure(v))}` : 'Pas encore envoyée'}</div>`;
+  return `<div class="hint" style="text-align:center;margin-top:10px">${v ? `Envoyée le ${esc(dateHeure(v))} · le lien reste le même` : 'Pas encore envoyée'}</div>`;
 }
 function openedHtml(item, k) {
   const v = readAt(item, k);
@@ -1765,7 +1769,7 @@ function screenDone() {
     <div class="label">${n > 1 ? 'Lien de la carte ' + (i + 1) : 'Lien à partager'}</div>
     <div class="linkbox">${esc(S.link)}</div>
     <button class="secondary" data-act="copy">Copier le lien</button>
-    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}" data-sendid="${esc(S.collectionId)}">Envoyer par SMS à ${esc(S.recipient)}</a>` : ''}
+    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}" data-sendid="${esc(S.collectionId)}">${curSent && cur ? 'Renvoyer par SMS' : 'Envoyer par SMS'} à ${esc(S.recipient)}</a>` : ''}
     <a class="${sms ? 'secondary' : 'primary'}" style="margin-top:10px" href="${esc(S.link + '&apercu=1')}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
     ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
     ${cur ? sentHtml(cur, 0) + openedHtml(cur, 0) : ''}
