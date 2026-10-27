@@ -643,12 +643,51 @@ function fromRow(r) {
       phone: p.phone || '', paid: !!p.paid, creator: !!p.is_creator })),
   };
 }
+/* Photo ou vidéo de la carte : chargée avant d'afficher la carte. Sinon, le temps du chargement, la carte revient à sa couleur de base.
+   Une copie locale de la photo (dans la mémoire de la page) évite de la redemander au serveur à chaque affichage. */
+const mediaBlobs = new Map();  /* adresse du serveur -> adresse locale, une fois la photo chargée */
+function preloadMedia(url, isVideo) {
+  return new Promise((resolve) => {
+    let finished = false;
+    let timer = null;
+    const finish = (ok) => { if (finished) return; finished = true; clearTimeout(timer); resolve(ok); };
+    timer = setTimeout(() => finish(false), 6000);
+    if (isVideo) {
+      const v = document.createElement('video');
+      v.preload = 'auto'; v.muted = true; v.playsInline = true;
+      v.onloadeddata = () => finish(true);
+      v.onerror = () => finish(false);
+      v.src = url;
+    } else {
+      const img = new Image();
+      img.onload = () => { (img.decode ? img.decode() : Promise.resolve()).then(() => finish(true), () => finish(true)); };
+      img.onerror = () => finish(false);
+      img.src = url;
+    }
+  });
+}
+async function localMedia(url, isVideo) {
+  if (!url) return url;
+  if (mediaBlobs.has(url)) return mediaBlobs.get(url);
+  const ok = await preloadMedia(url, isVideo);
+  if (!ok || isVideo) return url;
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return url;
+    const local = URL.createObjectURL(await r.blob());
+    mediaBlobs.set(url, local);
+    return local;
+  } catch (e) {
+    return url;   /* copie impossible : la photo reste chargée par le navigateur */
+  }
+}
 async function loadPublic(id) {
   if (!sb) throw new Error('Le serveur n’est pas encore branché.');
   const { data, error } = await sb.rpc('get_collection', { p_id: id });
   if (error) throw error;
   if (!data) { delete REMOTE[id]; return null; }
   REMOTE[id] = fromRow(data);
+  REMOTE[id].card.mediaUrl = await localMedia(REMOTE[id].card.mediaUrl, REMOTE[id].card.mediaIsVideo);
   return REMOTE[id];
 }
 async function loadManage(id, key) {
@@ -657,6 +696,7 @@ async function loadManage(id, key) {
   if (error) throw error;
   REMOTE[id] = { ...fromRow(data), manageKey: key };
   syncLocal(REMOTE[id]);
+  REMOTE[id].card.mediaUrl = await localMedia(REMOTE[id].card.mediaUrl, REMOTE[id].card.mediaIsVideo);
   return REMOTE[id];
 }
 /* Action de gestion : le serveur vérifie la clé, puis la collecte est relue */
@@ -1807,7 +1847,7 @@ function screenCollect() {
   }
   const keys = [c.card.fx, ...c.card.fxExtra].filter((k) => k && k !== 'none');
   return `
-  <header class="hdr"><button class="back" data-act="home" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
+  <header class="hdr"><button class="back" data-act="accueil" aria-label="Quitter et revenir plus tard">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Invitez vos amis</div></div></header>
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: c.card.cardText, amountText: collTotal(c) + ' €', mediaUrl: c.card.mediaUrl, isVideo: c.card.mediaIsVideo, fx: keys, tap: true })}</div>
     <div class="hint" style="text-align:center">Touchez la carte pour revoir les effets.</div>
@@ -1881,7 +1921,7 @@ function collectBodyHtml(c) {
 
     <div class="others">
       <div class="stephead">Autres actions</div>
-      <button class="secondary quit" data-act="home">Quitter et revenir plus tard</button>
+      <button class="secondary quit" data-act="accueil">Quitter et revenir plus tard</button>
       <div class="hint">La collecte reste ouverte. Retrouvez-la dans « Mes cadeaux à plusieurs », sur cet appareil.</div>
       ${cancelBtn}
       ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
@@ -2155,6 +2195,7 @@ function render() {
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
   updateStickyCard();
   ensureMsgThumb();
+  saveDraft();
 }
 
 /* ---------- média de la carte ---------- */
@@ -2543,6 +2584,11 @@ app.addEventListener('click', (e) => {
       /* Retour à l'accueil dans l'application : on retire les paramètres de la collecte de l'adresse, sans recharger la page */
       try { history.replaceState(null, '', location.pathname); } catch (err) { /* aperçu sans adresse modifiable : on continue */ }
       Object.assign(S, initialState());
+      break;
+    case 'accueil':
+      /* Retour à l'accueil depuis une collecte : elle reste dans « Mes cadeaux à plusieurs ». Rien de la création n'est effacé. */
+      try { history.replaceState(null, '', location.pathname); } catch (err) { /* aperçu sans adresse modifiable : on continue */ }
+      S.collectionId = ''; S.step = 'create'; S.loading = false; S.editMine = false; S.error = ''; S.busy = false;
       break;
     case 'reset':
       if (S.recording) stopVoice();
@@ -2948,7 +2994,71 @@ async function startRecipient() {
   }
 }
 
-if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else { render(); refreshLocalList(); }
+/* ---------- brouillon : la création en cours reste sur cet appareil ---------- */
+/* Gardée à chaque changement d'écran et pendant la frappe. Photos, vidéos et messages vocaux ne se gardent pas : il faut les choisir à nouveau. */
+const DRAFT_KEY = 'ckdo.brouillon';
+const DRAFT_STEPS = ['create', 'amount', 'message', 'recap', 'collect', 'cards', 'cardedit', 'pay'];
+const COLLECT_STEPS = ['collect', 'cards', 'cardedit', 'pay'];
+const DRAFT_FIELDS = ['step', 'occasion', 'cardText', 'fx', 'fxTheme', 'fxTouched', 'fxExtra', 'amount', 'customRaw',
+  'msgType', 'message', 'recipient', 'recipientPhone', 'terms', 'schedule', 'openDate', 'group', 'payChosen',
+  'creatorName', 'deadlineKey', 'collectionId', 'splitIndex', 'textTouched', 'links', 'link', 'editCard'];
+let draftTimer = null;
+function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* stockage indisponible */ } }
+function saveDraft() {
+  clearTimeout(draftTimer);
+  /* Pas de brouillon pendant qu'une adresse de collecte est ouverte (lien de gestion ou lien d'ami) */
+  if (GROUP_ID || MANAGE_KEY || RECIPIENT_ID) return;
+  if (S.step === 'done') return clearDraft();
+  if (!DRAFT_STEPS.includes(S.step)) return;
+  const d = {};
+  DRAFT_FIELDS.forEach((k) => { d[k] = S[k]; });
+  d.links = [...(S.links || [])];
+  d.fxExtra = [...(S.fxExtra || [])];
+  d.groupCards = (S.groupCards || []).map((e) => (e && e.custom
+    ? { custom: true, cardText: e.cardText, fx: e.fx, fxExtra: [...(e.fxExtra || [])], mediaPath: e.mediaPath || null, mediaIsVideo: !!e.mediaIsVideo }
+    : null));
+  store.set(DRAFT_KEY, d);
+}
+function queueDraft() { clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 400); }
+/* Reprise au démarrage (adresse d'accueil seulement). Une étape de collecte rouvre la collecte par sa clé de gestion. */
+function leaveCollectionStep() { S.step = 'create'; S.collectionId = ''; S.loading = false; S.error = ''; }
+async function restoreDraft() {
+  const d = store.get(DRAFT_KEY, null);
+  if (!d || typeof d !== 'object' || !DRAFT_STEPS.includes(d.step)) return;
+  DRAFT_FIELDS.forEach((k) => { if (k in d) S[k] = d[k]; });
+  S.links = Array.isArray(d.links) ? d.links : [];
+  S.fxExtra = Array.isArray(d.fxExtra) ? d.fxExtra : [];
+  S.groupCards = Array.isArray(d.groupCards)
+    ? d.groupCards.map((e) => (e && e.custom
+      ? { custom: true, cardText: e.cardText || '', fx: e.fx || 'none', fxExtra: Array.isArray(e.fxExtra) ? e.fxExtra : [],
+          mediaFile: null, mediaPath: e.mediaPath || null, mediaUrl: e.mediaPath ? publicUrl(e.mediaPath) : '', mediaIsVideo: !!e.mediaIsVideo }
+      : null))
+    : null;
+  /* Photo, vidéo et message vocal : non gardés, on revient au texte */
+  Object.assign(S, { mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', voiceBlob: null, voiceUrl: '', voiceSecs: 0,
+    recording: false, msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, closedGroup: false, error: '', busy: false,
+    showErrors: false, askNoMsg: false, addingFx: false, fxDup: '', touched: new Set() });
+  if (S.msgType !== 'text') S.msgType = 'text';
+  if (!COLLECT_STEPS.includes(S.step)) return;
+  const item = localList().find((x) => x.id === S.collectionId);
+  if (!item) { clearDraft(); return leaveCollectionStep(); }
+  S.loading = true;
+  render();
+  try {
+    const c = await loadManage(item.id, item.manageKey);
+    if (c.status !== 'collecte') { clearDraft(); return leaveCollectionStep(); }
+    S.loading = false;
+  } catch (err) {
+    /* Hors ligne ou erreur : la collecte reste dans « Mes cadeaux à plusieurs », on revient à l'accueil */
+    leaveCollectionStep();
+  }
+}
+app.addEventListener('input', queueDraft);
+window.addEventListener('pagehide', saveDraft);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveDraft(); });
+
+/* Au démarrage sans adresse particulière : le brouillon, s'il existe, est repris avant d'afficher l'accueil */
+if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else restoreDraft().then(() => { render(); refreshLocalList(); });
 
 </script>
 </body>
