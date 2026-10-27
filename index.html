@@ -148,6 +148,10 @@
   .collpill.is-live { background: var(--accent-bg); color: var(--accent); }
   .collpill.is-sent { background: #14301F; color: #9FD8AE; }
   .collpill.is-cancelled { background: #26262B; color: #A8A8AE; }
+  /* Type de cadeau : étiquette écrite, distincte des états (couleur d’état sur la bordure gauche) */
+  .typepill { display: inline-block; margin: 0 6px 6px 0; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; vertical-align: middle; }
+  .typepill.is-solo { border: 1px solid #3A3A40; color: var(--muted); }
+  .typepill.is-group { background: #241D3A; color: #C7B8FF; }
   .collrm { padding: 6px 0 0; }
   .collrm .hint { margin-bottom: 8px; }
   /* Glisser vers la gauche : révèle « Retirer » derrière la carte */
@@ -627,13 +631,18 @@ const myParts = () => { const v = store.get(PARTS_KEY, {}); return v && typeof v
 const localList = () => { const v = store.get(GROUP_KEY, []); return Array.isArray(v) ? v.filter((x) => x && x.id && x.manageKey) : []; };
 const saveLocalList = (list) => store.set(GROUP_KEY, list);
 function syncLocal(c) {
-  const old = localList().find((x) => x.id === c.id) || {};
-  const list = localList().filter((x) => x.id !== c.id);
-  list.push({ id: c.id, manageKey: c.manageKey, recipientName: c.recipientName, status: c.status,
+  const list = localList();
+  const i = list.findIndex((x) => x.id === c.id);
+  const old = i >= 0 ? list[i] : {};
+  const entry = { id: c.id, manageKey: c.manageKey, recipientName: c.recipientName, status: c.status,
     deadline: c.deadline || null, total: collTotal(c), count: c.participants.length,
-    links: old.links || null, sent: old.sent || null, opened: old.opened || null });
+    links: old.links || null, sent: old.sent || null, opened: old.opened || null, createdAt: old.createdAt || null };
+  /* La collecte garde sa place dans la liste : elle n’est pas remise à la fin à chaque rafraîchissement */
+  if (i >= 0) list[i] = entry; else list.push(entry);
   saveLocalList(list);
 }
+/* Plus récent en premier. Sans date connue, l’élément reste en bas, dans son ordre d’origine. */
+const byNewest = (a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
 const getCollection = (id) => (id && REMOTE[id]) || null;
 /* Forme commune : la lecture publique et la gestion donnent la même collecte à l'écran */
 function fromRow(r) {
@@ -1128,8 +1137,8 @@ function hdr(step, title, back) {
 /* ---------- écrans créateur ---------- */
 /* Mes cadeaux à plusieurs et mes cartes : ce qui a été créé sur cet appareil. Le lien de gestion mène à chaque collecte. */
 function myCollectionsHtml() {
-  const list = localList().slice().reverse();
-  const solos = envoisList().slice().reverse();
+  const list = localList().slice().sort(byNewest);
+  const solos = envoisList().slice().sort(byNewest);
   if (!list.length && !solos.length) return '';
   const rows = list.map((c) => {
     const live = c.status === 'collecte';
@@ -1165,7 +1174,7 @@ function myCollectionsHtml() {
       <div class="collslide"${live || pending ? '' : ' data-swipe'}>
         ${swipeBtn}
         <a class="collrow ${etat.cls}" href="${esc(manageLink(c))}">
-          <span class="collpill ${etat.cls}">${etat.txt}</span>
+          <span class="typepill is-group">À plusieurs</span><span class="collpill ${etat.cls}">${etat.txt}</span>
           <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
           <span class="collmeta">${eur(c.total)} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
           ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
@@ -1202,7 +1211,7 @@ function myCollectionsHtml() {
       <div class="collslide"${lu ? ' data-swipe' : ''}>
         ${lu ? `<button class="collswipe" data-act="rmcoll" data-val="${id}">Retirer</button>` : ''}
         <div class="collrow ${etat.cls}">
-          <span class="collpill ${etat.cls}">${etat.txt}</span>
+          <span class="typepill is-solo">Seul</span><span class="collpill ${etat.cls}">${etat.txt}</span>
           <span class="collname">${n > 1 ? 'Cadeau' : 'Carte'} pour ${esc(c.recipientName)}</span>
           <span class="collmeta">${eur(c.total)}${n > 1 ? ` · ${n} cartes` : ''}</span>
           ${lecture ? `<span class="collmeta">${esc(lecture)}</span>` : ''}
@@ -1416,7 +1425,9 @@ function screenMessage() {
 
 /* Montants de l'étape récapitulatif : le supplément dépend du numéro saisi (cadeau seul) */
 /* Cadeau seul au-delà de 500 € : un seul paiement, avec les mêmes frais que le cadeau à plusieurs (sur le total, 2 € par carte en plus) */
-const soloMultiNow = () => !S.group && splitCount() > 1;
+/* Cadeau seul : ni collecte ouverte, ni mode « cadeau à plusieurs ». La page de gestion d’une collecte ne fixe pas S.group. */
+const soloFlow = () => !S.group && !getCollection(S.collectionId);
+const soloMultiNow = () => soloFlow() && splitCount() > 1;
 function recapCalc() {
   const multi = soloMultiNow();
   const base = multi ? S.amount : cardAmount();
@@ -1703,7 +1714,7 @@ function cardsIntroHtml(n) {
 
 /* Écran « Vos cartes ». Cadeau à plusieurs : le paiement vient à l’étape suivante. Cadeau seul : voir screenSoloCards. */
 function screenCards() {
-  if (!S.group) return screenSoloCards();
+  if (soloFlow()) return screenSoloCards();
   const c = getCollection(S.collectionId);
   if (!c) return `${hdr('Cadeau à plusieurs', 'Vos cartes', 'collect')}<div class="section"><div class="error">Cette collecte n’est pas accessible.</div></div>`;
   const parts = splitAmounts(collTotal(c));
@@ -1736,8 +1747,8 @@ function screenSoloCards() {
 /* Édition d'une carte suivante : mêmes commandes que la création, sans occasion ni message */
 function screenCardEdit() {
   const k = S.editCard;
-  const c = S.group ? getCollection(S.collectionId) : null;
-  const amounts = S.group ? (c ? splitAmounts(collTotal(c)) : []) : splitAmounts(S.amount);
+  const c = soloFlow() ? null : getCollection(S.collectionId);
+  const amounts = soloFlow() ? splitAmounts(S.amount) : (c ? splitAmounts(collTotal(c)) : []);
   const amt = amounts[k] || 0;
   return `
   ${hdr('Carte ' + (k != null ? k + 1 : ''), 'Personnaliser cette carte', 'cards')}
@@ -1778,12 +1789,13 @@ function restoreBase() {
 
 /* Ouvre l’édition de la carte k : sa personnalisation, ou la carte de base comme point de départ */
 function enterCardEdit(k) {
-  const c = S.group ? getCollection(S.collectionId) : null;
-  if (S.group && !c) return render();
-  if (!S.group && !S.base) S.base = baseSnapshot();
-  const base = S.group
-    ? { cardText: c.card.cardText, fx: c.card.fx, fxExtra: c.card.fxExtra, mediaFile: null, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo }
-    : S.base;
+  const solo = soloFlow();
+  const c = solo ? null : getCollection(S.collectionId);
+  if (!solo && !c) return render();
+  if (solo && !S.base) S.base = baseSnapshot();
+  /* Carte de base : celle du cadeau seul (gardée à part), ou celle de la collecte */
+  const base = solo ? S.base
+    : { cardText: c.card.cardText, fx: c.card.fx, fxExtra: c.card.fxExtra, mediaFile: null, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo };
   const e = (S.groupCards || [])[k];
   const src = e && e.custom ? e : base;
   Object.assign(S, {
@@ -1798,13 +1810,14 @@ function enterCardEdit(k) {
 /* Enregistre la carte en cours d’édition, puis revient à « Vos cartes ». Cadeau seul : la carte de base est remise en place. */
 function saveCardEdit() {
   const k = S.editCard;
-  const c = S.group ? getCollection(S.collectionId) : null;
-  if (k == null || (S.group && !c)) return render();
+  const solo = soloFlow();
+  const c = solo ? null : getCollection(S.collectionId);
+  if (k == null || (!solo && !c)) return render();
   const text = S.cardText.trim();
   if (!text) { S.error = 'La dédicace ne peut pas être vide.'; return render(); }
   const prev = (S.groupCards || [])[k];
   const basePath = prev && prev.custom ? prev.mediaPath : (c ? c.card.mediaPath : null);
-  groupCardsReset(S.group ? splitAmounts(collTotal(c)).length : splitCount());
+  groupCardsReset(solo ? splitCount() : splitAmounts(collTotal(c)).length);
   S.groupCards[k] = {
     custom: true,
     cardText: text,
@@ -1884,7 +1897,7 @@ async function createCollection() {
     if (error) throw error;
     /* La collecte existe : elle entre dans la liste de cet appareil, même si la relecture échoue */
     saveLocalList([...localList().filter((x) => x.id !== id), { id, manageKey, recipientName: S.recipient.trim(),
-      status: 'collecte', deadline: dl ? Date.now() + dl : null, total: Math.round(S.amount), count: 1 }]);
+      status: 'collecte', deadline: dl ? Date.now() + dl : null, total: Math.round(S.amount), count: 1, createdAt: new Date().toISOString() }]);
     await loadManage(id, manageKey);
     S.collectionId = id; S.step = 'collect'; S.error = '';
   } catch (err) {
