@@ -622,7 +622,7 @@ function syncLocal(c) {
   const list = localList().filter((x) => x.id !== c.id);
   list.push({ id: c.id, manageKey: c.manageKey, recipientName: c.recipientName, status: c.status,
     deadline: c.deadline || null, total: collTotal(c), count: c.participants.length,
-    links: old.links || null, confirmed: old.confirmed || null, opened: old.opened || null });
+    links: old.links || null, sent: old.sent || null, opened: old.opened || null });
   saveLocalList(list);
 }
 const getCollection = (id) => (id && REMOTE[id]) || null;
@@ -1117,14 +1117,19 @@ function hdr(step, title, back) {
 }
 
 /* ---------- écrans créateur ---------- */
-/* Mes cadeaux à plusieurs : les collectes créées sur cet appareil. Le lien de gestion mène à chacune. */
+/* Mes cadeaux à plusieurs et mes cartes : ce qui a été créé sur cet appareil. Le lien de gestion mène à chaque collecte. */
 function myCollectionsHtml() {
   const list = localList().slice().reverse();
-  if (!list.length) return '';
+  const solos = envoisList().slice().reverse();
+  if (!list.length && !solos.length) return '';
   const rows = list.map((c) => {
     const live = c.status === 'collecte';
-    const pending = c.status === 'envoyee' && Array.isArray(c.links) && c.links.length > 0 && !allSent(c);
-    const etat = pending ? { txt: 'Payée, à envoyer', cls: 'is-live' }
+    const envoyee = c.status === 'envoyee' && Array.isArray(c.links) && c.links.length > 0;
+    const pending = envoyee && !allRead(c);
+    const lecture = pending && allSent(c) && nRead(c) > 0 ? `Lues : ${nRead(c)} sur ${c.links.length}` : '';
+    const etat = pending && !allSent(c) ? { txt: 'Payée, à envoyer', cls: 'is-live' }
+      : pending ? { txt: `Envoyée le ${frDateNb(Date.parse(firstSent(c)))}`, cls: 'is-sent' }
+      : envoyee ? { txt: `Lue le ${frDateNb(Date.parse(lastRead(c)))}`, cls: 'is-sent' }
       : c.status === 'envoyee' ? { txt: 'Carte envoyée', cls: 'is-sent' }
       : c.status === 'annulee' ? { txt: 'Annulée', cls: 'is-cancelled' }
       : { txt: 'En collecte', cls: 'is-live' };
@@ -1155,13 +1160,45 @@ function myCollectionsHtml() {
           <span class="collname">Cadeau pour ${esc(c.recipientName)}</span>
           <span class="collmeta">${eur(c.total)} · ${n} ${n > 1 ? 'participants' : 'participant'}</span>
           ${limite ? `<span class="collmeta">${esc(limite)}</span>` : ''}
+          ${lecture ? `<span class="collmeta">${esc(lecture)}</span>` : ''}
         </a>
       </div>
       ${action}
     </div>`;
   }).join('');
-  const finished = list.some((c) => c.status !== 'collecte');
-  return `<div class="label" style="margin-top:28px">Mes cadeaux à plusieurs</div>${rows}
+  /* Cartes solo : une par carte, avec son envoi puis sa lecture */
+  const soloRows = solos.map((c) => {
+    const sent = !!sentAt(c, 0);
+    const lu = allRead(c);
+    const id = esc(c.id);
+    const etat = lu ? { txt: `Lue le ${frDateNb(Date.parse(readAt(c, 0)))}`, cls: 'is-sent' }
+      : sent ? { txt: `Envoyée le ${frDateNb(Date.parse(sentAt(c, 0)))}`, cls: 'is-sent' }
+      : { txt: 'À envoyer', cls: 'is-live' };
+    let action;
+    if (S.removeAsk === c.id) {
+      action = `<div class="collrm"><div class="hint">La carte reste envoyée au destinataire. Seule la liste change sur cet appareil.</div>
+        <button class="secondary rec" data-act="rmcollok" data-val="${id}">Confirmer le retrait</button>
+        <button class="linkbtn" data-act="rmcollno">Garder</button></div>`;
+    } else if (lu) {
+      action = `<div class="collrm"><button class="linkbtn" data-act="rmcoll" data-val="${id}">Retirer de ma liste</button></div>`;
+    } else {
+      action = `<div class="collrm"><button class="primary" data-act="resend" data-val="${id}">Envoyer la carte</button></div>`;
+    }
+    return `<div class="collwrap">
+      <div class="collslide"${lu ? ' data-swipe' : ''}>
+        ${lu ? `<button class="collswipe" data-act="rmcoll" data-val="${id}">Retirer</button>` : ''}
+        <div class="collrow ${etat.cls}">
+          <span class="collpill ${etat.cls}">${etat.txt}</span>
+          <span class="collname">Carte pour ${esc(c.recipientName)}</span>
+          <span class="collmeta">${eur(c.total)}</span>
+        </div>
+      </div>
+      ${action}
+    </div>`;
+  }).join('');
+  const finished = list.some((c) => c.status !== 'collecte') || solos.some((c) => allRead(c));
+  return `${list.length ? `<div class="label" style="margin-top:28px">Mes cadeaux à plusieurs</div>${rows}` : ''}
+    ${solos.length ? `<div class="label" style="margin-top:28px">Mes cartes</div>${soloRows}` : ''}
     ${finished ? '<div class="hint">Glissez une carte terminée vers la gauche pour la retirer.</div>' : ''}
     <div class="hint">La liste est enregistrée sur cet appareil. Le lien de gestion fonctionne sur tous vos appareils.</div>`;
 }
@@ -1512,48 +1549,60 @@ function groupCardView(k, amount) {
   return `<div style="margin-top:14px">${cardMarkup({ text, amountText: amount + ' €', mediaUrl, isVideo, fx, tap: true })}</div>`;
 }
 /* Cadeau à plusieurs clôturé : une carte par tranche de 500 € au plus, chacune avec sa personnalisation et son lien */
-/* Envoi des cartes à plusieurs : une carte n'est « envoyée » que lorsque le créateur le confirme.
-   Tant que ce n'est pas confirmé, la carte peut être renvoyée (SMS, copie du lien). */
-const allSent = (item) => !!item && Array.isArray(item.links) && item.links.length > 0 && item.links.every((_, k) => !!(item.confirmed && item.confirmed[k]));
-function confirmHtml(k, sent) {
-  return sent
-    ? '<div class="hint" style="text-align:center;margin-top:10px">Envoi confirmé</div>'
-    : `<button class="secondary" style="margin-top:10px" data-act="confirmsent" data-val="${k}">J’ai envoyé cette carte</button>`;
+/* Envoi : une carte est envoyée quand le numéro est saisi et que le bouton SMS est touché. La date du premier envoi est gardée.
+   La lecture (« Lue le … ») vient du serveur : c’est la seule preuve de réception. */
+const sentAt = (item, k) => (item && Array.isArray(item.sent) && item.sent[k]) || null;
+const readAt = (item, k) => (item && Array.isArray(item.opened) && item.opened[k]) || null;
+const allSent = (item) => !!item && Array.isArray(item.links) && item.links.length > 0 && item.links.every((_, k) => !!sentAt(item, k));
+const allRead = (item) => allSent(item) && item.links.every((_, k) => !!readAt(item, k));
+const nRead = (item) => (Array.isArray(item.links) ? item.links.filter((_, k) => !!readAt(item, k)).length : 0);
+const firstSent = (item) => (item.sent || []).filter(Boolean).sort()[0] || null;
+const lastRead = (item) => (item.opened || []).filter(Boolean).sort().pop() || null;
+const dateHeure = (iso) => frDateNb(Date.parse(iso));
+
+/* Cartes solo : une entrée par carte, gardée sur cet appareil avec son lien (même forme qu’une collecte) */
+const KEY_ENVOIS = 'ckdo.envois';
+const envoisList = () => { const v = store.get(KEY_ENVOIS, []); return Array.isArray(v) ? v.filter((x) => x && x.id && x.solo && Array.isArray(x.links)) : []; };
+const saveEnvois = (list) => store.set(KEY_ENVOIS, list);
+const anyList = () => [...localList(), ...envoisList()];
+/* Mise à jour d’une carte ou d’une collecte, dans la liste où elle se trouve */
+function updateItem(id, patch) {
+  if (envoisList().some((x) => x.id === id)) return saveEnvois(envoisList().map((x) => (x.id === id ? { ...x, ...patch(x) } : x)));
+  saveLocalList(localList().map((x) => (x.id === id ? { ...x, ...patch(x) } : x)));
 }
-/* Ouverture des cartes : identifiant de la carte d’après son lien, puis état relevé sur le serveur */
+/* Bouton SMS touché : l’envoi de cette carte est noté, avec sa date (la première fois seulement) */
+function markSent(id, k) {
+  const now = new Date().toISOString();
+  updateItem(id, (x) => ({ sent: x.links.map((_, i) => sentAt(x, i) || (i === k ? now : null)) }));
+}
+
+/* Lecture : relue sur le serveur à chaque retour sur l’accueil. Collecte : par sa clé de gestion. Carte solo : par son lien. */
 const linkCardId = (l) => { const m = /[?&]c=([0-9a-f-]{36})/i.exec(String(l || '')); return m ? m[1].toLowerCase() : null; };
+async function fetchOpened(item) {
+  const ids = (item.links || []).map(linkCardId);
+  if (!sb || !ids.length || ids.some((x) => !x)) return null;
+  const { data, error } = item.solo
+    ? await sb.rpc('cards_status', { p_card_ids: ids })
+    : await sb.rpc('manage_cards_status', { p_id: item.id, p_key: item.manageKey, p_card_ids: ids });
+  if (error) throw error;
+  const rows = Array.isArray(data) ? data : [];
+  return ids.map((cid) => { const r = rows.find((x) => x && String(x.id).toLowerCase() === cid); return r && r.opened_at ? r.opened_at : null; });
+}
+async function refreshReads() {
+  await Promise.all(anyList().filter((x) => Array.isArray(x.links) && x.links.length).map(async (x) => {
+    try {
+      const opened = await fetchOpened(x);
+      if (opened) updateItem(x.id, () => ({ opened }));
+    } catch (err) { /* lecture indisponible : on garde la dernière date connue */ }
+  }));
+}
+function sentHtml(item, k) {
+  const v = sentAt(item, k);
+  return `<div class="hint" style="text-align:center;margin-top:10px">${v ? `Envoyée le ${esc(dateHeure(v))}` : 'Pas encore envoyée'}</div>`;
+}
 function openedHtml(item, k) {
-  const v = item && Array.isArray(item.opened) ? item.opened[k] : undefined;
-  if (v === undefined) return '<div class="hint" style="text-align:center;margin-top:10px">Ouverture non vérifiée</div>';
-  if (!v) return '<div class="hint" style="text-align:center;margin-top:10px">Pas encore ouverte</div>';
-  const d = new Date(v);
-  const quand = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris' })
-    + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' });
-  return `<div class="hint" style="text-align:center;margin-top:10px">Ouverte le ${esc(quand)}</div>`;
-}
-function openRefreshHtml() {
-  const label = S.openBusy ? 'Actualisation…' : 'Actualiser l’ouverture';
-  const note = S.openNote ? `<div class="hint" style="text-align:center;margin-top:10px">${esc(S.openNote)}</div>` : '';
-  return `<button class="secondary" style="margin-top:10px" data-act="refreshopen" ${S.openBusy ? 'disabled' : ''}>${label}</button>${note}`;
-}
-/* Relecture de l’ouverture des cartes d’une collecte, avec sa clé de gestion. Le serveur ne renvoie que la date d’ouverture. */
-async function refreshOpened(id) {
-  const item = localList().find((x) => x.id === id);
-  const ids = item && Array.isArray(item.links) ? item.links.map(linkCardId) : [];
-  if (!sb || !item || !ids.length || ids.some((x) => !x)) return render();
-  S.openBusy = true; S.openNote = ''; render();
-  try {
-    const { data, error } = await sb.rpc('manage_cards_status', { p_id: item.id, p_key: item.manageKey, p_card_ids: ids });
-    if (error) throw error;
-    const rows = Array.isArray(data) ? data : [];
-    const opened = ids.map((cid) => { const r = rows.find((x) => x && String(x.id).toLowerCase() === cid); return r && r.opened_at ? r.opened_at : null; });
-    saveLocalList(localList().map((x) => (x.id === id ? { ...x, opened } : x)));
-  } catch (err) {
-    S.openNote = 'Ouverture non disponible pour le moment. Réessayez plus tard.';
-  } finally {
-    S.openBusy = false;
-    render();
-  }
+  const v = readAt(item, k);
+  return `<div class="hint" style="text-align:center;margin-top:6px">${v ? `Lue le ${esc(dateHeure(v))}` : 'Pas encore lue'}</div>`;
 }
 function phoneBoxHtml() {
   const ok = phoneOk(S.recipientPhone);
@@ -1567,8 +1616,7 @@ function screenDoneGroup() {
   const parts = splitAmounts(S.amount);
   const n = parts.length;
   const item = localList().find((x) => x.id === S.collectionId);
-  const conf = (item && item.confirmed) || S.links.map(() => false);
-  const sent = S.links.length > 0 && S.links.every((_, k) => !!conf[k]);
+  const sent = allSent(item);
   return `
   ${hdr('Terminé', n > 1 ? `Vos ${n} cartes sont prêtes` : 'Votre carte est prête')}
   <div class="section">
@@ -1579,33 +1627,32 @@ function screenDoneGroup() {
     <div class="linkbox">${esc(l)}</div>
     <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
     <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>
-    ${openedHtml(item, k)}
-    ${confirmHtml(k, !!conf[k])}`).join('')}
-    ${openRefreshHtml()}
-    ${sent ? '' : '<div class="hint" style="text-align:center">Confirmez l’envoi de chaque carte pour en créer une autre.</div>'}
+    ${sentHtml(item, k)}
+    ${openedHtml(item, k)}`).join('')}
+    ${sent ? '' : '<div class="hint" style="text-align:center">Envoyez chaque carte par SMS pour en créer une autre.</div>'}
     <button class="secondary" data-act="reset" ${sent ? '' : 'disabled'}>Créer un autre cadeau</button>
     ${sent ? '' : '<button class="linkbtn" data-act="accueil">Envoyer plus tard</button>'}
   </div>`;
 }
-/* Renvoi d'une collecte envoyée mais pas encore confirmée : les liens sont gardés sur cet appareil */
+/* Renvoi : cadeau à plusieurs envoyé mais pas encore lu, ou carte solo : les liens sont gardés sur cet appareil */
 function screenResend() {
-  const item = localList().find((x) => x.id === S.collectionId);
-  const head = `<header class="hdr"><button class="back" data-act="accueil" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Cadeau à plusieurs</div><div class="title">Envoyer les cartes</div></div></header>`;
+  const item = anyList().find((x) => x.id === S.collectionId);
+  const solo = !!(item && item.solo);
+  const head = `<header class="hdr"><button class="back" data-act="accueil" aria-label="Retour">${ICON_BACK}</button><div><div class="step">${solo ? 'Carte' : 'Cadeau à plusieurs'}</div><div class="title">${solo ? 'Envoyer la carte' : 'Envoyer les cartes'}</div></div></header>`;
   if (!item || !Array.isArray(item.links) || !item.links.length) return `${head}<div class="section"><div class="error">Ces cartes ne sont plus disponibles sur cet appareil.</div></div>`;
   const parts = splitAmounts(item.total);
-  const conf = item.confirmed || item.links.map(() => false);
+  const n = item.links.length;
   return `
   ${head}
   <div class="section">
-    <div class="notice">Envoyez chaque carte à ${esc(item.recipientName)}. Tant que vous n’avez pas confirmé l’envoi, vous pouvez la renvoyer.</div>
+    <div class="notice">${n > 1 ? 'Envoyez chaque carte' : 'Envoyez la carte'} à ${esc(item.recipientName)} par SMS. ${n > 1 ? 'Tant qu’elles ne sont pas toutes lues, vous pouvez les renvoyer.' : 'Tant qu’elle n’est pas lue, vous pouvez la renvoyer.'}</div>
     ${phoneBoxHtml()}
-    ${item.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}</div>
+    ${item.links.map((l, k) => `<div class="label">${n > 1 ? `Carte ${k + 1} · ` : ''}${eur(parts[k])}</div>
     <div class="linkbox">${esc(l)}</div>
     <button class="secondary" data-act="copygrp" data-val="${esc(l)}">Copier le lien</button>
-    <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, item.links.length)}</div>
-    ${openedHtml(item, k)}
-    ${confirmHtml(k, !!conf[k])}`).join('')}
-    ${openRefreshHtml()}
+    <div class="smsslot" data-k="${k}">${smsSlotHtml(l, k, n)}</div>
+    ${sentHtml(item, k)}
+    ${openedHtml(item, k)}`).join('')}
   </div>`;
 }
 
@@ -1707,6 +1754,9 @@ function screenDone() {
   const n = splitCount(); const i = cardIndex(); const last = i >= n - 1; const more = n > 1 && !last;
   /* Pas de SMS tant que le numéro du destinataire n'est pas demandé (cadeau à plusieurs : étape suivante) */
   const sms = S.group || !phoneOk(S.recipientPhone) ? '' : smsLinkFor(S.link);
+  /* Carte solo : l’envoi par SMS la rend « envoyée ». Tant qu’elle ne l’est pas, on n’en crée pas une autre. */
+  const cur = envoisList().find((x) => x.id === S.collectionId);
+  const curSent = !cur || !!sentAt(cur, 0);
   return `
   ${hdr('Terminé', n > 1 ? (last ? 'Vos cartes sont prêtes' : `Carte ${i + 1} sur ${n} prête`) : 'Votre carte est prête')}
   <div class="section">
@@ -1715,12 +1765,15 @@ function screenDone() {
     <div class="label">${n > 1 ? 'Lien de la carte ' + (i + 1) : 'Lien à partager'}</div>
     <div class="linkbox">${esc(S.link)}</div>
     <button class="secondary" data-act="copy">Copier le lien</button>
-    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}">Envoyer par SMS à ${esc(S.recipient)}</a>` : ''}
+    ${sms ? `<a class="primary" style="margin-top:10px" href="${esc(sms)}" data-sendid="${esc(S.collectionId)}">Envoyer par SMS à ${esc(S.recipient)}</a>` : ''}
     <a class="${sms ? 'secondary' : 'primary'}" style="margin-top:10px" href="${esc(S.link + '&apercu=1')}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
     ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
-    ${more ? `<button class="primary" data-act="nextcard">Créer la carte ${i + 2} sur ${n} · ${eur(splitAmounts(S.amount)[i + 1])}</button>` : ''}
+    ${cur ? sentHtml(cur, 0) + openedHtml(cur, 0) : ''}
+    ${more ? `<button class="primary" data-act="nextcard" ${curSent ? '' : 'disabled'}>Créer la carte ${i + 2} sur ${n} · ${eur(splitAmounts(S.amount)[i + 1])}</button>` : ''}
     ${n > 1 && last ? `<div class="label">Vos ${n} cartes</div>${S.links.map((l, k) => `<div class="linkbox">Carte ${k + 1} : ${esc(l)}</div>`).join('')}` : ''}
-    <button class="secondary" data-act="reset">Créer un autre cadeau</button>
+    ${curSent ? '' : '<div class="hint" style="text-align:center">Envoyez la carte par SMS pour en créer une autre.</div>'}
+    <button class="secondary" data-act="reset" ${curSent ? '' : 'disabled'}>Créer un autre cadeau</button>
+    ${curSent ? '' : '<button class="linkbtn" data-act="accueil">Envoyer plus tard</button>'}
   </div>`;
 }
 
@@ -1835,7 +1888,7 @@ async function closeGroup() {
   /* Identifiants des cartes : gardés pendant la clôture, pour qu'un nouvel essai reprenne les mêmes cartes */
   if (!c.cardIds || c.cardIds.length !== parts.length) c.cardIds = parts.map((_, k) => (k === 0 ? c.id : crypto.randomUUID()));
   Object.assign(S, {
-    amount: total, group: true, closedGroup: true, error: '', openNote: '', recipient: c.recipientName, cardText: c.card.cardText,
+    amount: total, group: true, closedGroup: true, error: '', recipient: c.recipientName, cardText: c.card.cardText,
     fx: c.card.fx, fxExtra: [...c.card.fxExtra], schedule: c.card.schedule, openDate: c.card.openDate,
     msgType: c.card.msgType, message: c.card.msgText, mediaUrl: c.card.mediaUrl, mediaIsVideo: c.card.mediaIsVideo,
   });
@@ -1878,7 +1931,7 @@ async function closeGroup() {
     S.splitIndex = parts.length - 1;
     /* Liens gardés sur cet appareil : l'envoi peut être refait tant qu'il n'est pas confirmé */
     /* Juste après la création, aucune carte n’a pu être ouverte : le lien n’a pas encore été donné */
-    saveLocalList(localList().map((x) => (x.id === c.id ? { ...x, links: S.links, confirmed: S.links.map(() => false), opened: S.links.map(() => null) } : x)));
+    saveLocalList(localList().map((x) => (x.id === c.id ? { ...x, links: S.links, sent: S.links.map(() => null), opened: S.links.map(() => null) } : x)));
     S.step = 'done';
   } catch (err) {
     S.error = 'Une erreur est survenue, réessayez. (' + (err.message || err) + ')';
@@ -2154,6 +2207,8 @@ async function refreshLocalList() {
       if (String((err && err.message) || '').includes('cle_invalide')) saveLocalList(localList().filter((y) => y.id !== x.id));
     }
   }));
+  /* Lecture des cartes relue à chaque retour sur l’accueil (collectes et cartes solo) */
+  await refreshReads();
   /* Seule la liste est redessinée : le formulaire de l'accueil garde son texte et son focus */
   const el = document.getElementById('mesCollectes');
   if (el && S.step === 'create') el.innerHTML = myCollectionsHtml();
@@ -2444,6 +2499,9 @@ async function submit() {
     recordPhone();
     S.link = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=${id}`;
     S.links = [...S.links, S.link];
+    /* Carte gardée sur cet appareil : elle reste dans l’accueil tant qu’elle n’est pas lue */
+    saveEnvois([...envoisList(), { id, solo: true, recipientName: S.recipient.trim(), total: cardAmount(), links: [S.link], sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
+    S.collectionId = id;
     S.step = 'done';
   } catch (err) {
     S.error = 'Une erreur est survenue, réessayez. (' + (err.message || err) + ')';
@@ -2535,22 +2593,11 @@ app.addEventListener('click', (e) => {
     }
     case 'resend': {
       /* Renvoi : les liens et le nom sont gardés sur cet appareil ; le numéro est à saisir à nouveau */
-      const item = localList().find((x) => x.id === v);
+      const item = anyList().find((x) => x.id === v);
       if (!item || !Array.isArray(item.links) || !item.links.length) break;
-      Object.assign(S, { step: 'resend', collectionId: item.id, recipient: item.recipientName, recipientPhone: '', links: [...item.links], error: '', openNote: '' });
+      Object.assign(S, { step: 'resend', collectionId: item.id, recipient: item.recipientName, recipientPhone: '', links: [...item.links], error: '' });
       break;
     }
-    case 'confirmsent': {
-      /* Carte envoyée et confirmée par le créateur : seule cette confirmation compte */
-      const item = localList().find((x) => x.id === S.collectionId);
-      const k = Number(v);
-      if (!item || !Array.isArray(item.links) || !item.links[k]) break;
-      const conf = item.links.map((_, i) => !!(item.confirmed && item.confirmed[i]) || i === k);
-      saveLocalList(localList().map((x) => (x.id === item.id ? { ...x, confirmed: conf } : x)));
-      break;
-    }
-    case 'refreshopen':
-      return refreshOpened(S.collectionId);
     case 'rmcoll':
       S.removeAsk = v;
       break;
@@ -2560,6 +2607,8 @@ app.addEventListener('click', (e) => {
     case 'rmcollok': {
       /* Retire la collecte de la liste de cet appareil seulement. Une collecte en cours ne se retire pas. */
       saveLocalList(localList().filter((x) => !(x.id === v && x.status !== 'collecte')));
+      /* Carte solo : retirée seulement une fois lue */
+      saveEnvois(envoisList().filter((x) => !(x.id === v && allRead(x))));
       S.removeAsk = '';
       break;
     }
@@ -2706,9 +2755,18 @@ app.addEventListener('click', (e) => {
   if (S.step === 'collect') refreshCollect(); else render();
 });
 
-/* Envoi par SMS depuis l'écran « Terminé » (cadeau à plusieurs) : le numéro est noté sur cet appareil */
+/* Envoi par SMS (cadeau à plusieurs ou carte solo) : le numéro est noté, et la carte est marquée envoyée, avec sa date */
 document.addEventListener('click', (e) => {
-  if (e.target.closest && e.target.closest('.smsslot a')) recordPhone();
+  const a = e.target.closest && e.target.closest('.smsslot a, a[data-sendid]');
+  if (!a) return;
+  recordPhone();
+  if (a.dataset.sendid) markSent(a.dataset.sendid, 0);
+  else {
+    const slot = a.closest('.smsslot');
+    if (slot && S.collectionId) markSent(S.collectionId, Number(slot.dataset.k));
+  }
+  /* L’écran se redessine après l’ouverture de Messages : la carte affiche « Envoyée le … » */
+  setTimeout(() => { if (S.step === 'done' || S.step === 'resend') render(); }, 400);
 });
 app.addEventListener('input', (e) => {
   const t = e.target;
