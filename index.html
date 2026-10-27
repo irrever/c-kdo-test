@@ -344,8 +344,11 @@
 
   /* Mon compte : une ligne par carte, avec sa vignette */
   .accrow { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 0; background: none; border: 0; border-bottom: 1px solid var(--line-soft); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
-  .mini { position: relative; display: block; flex: 0 0 116px; aspect-ratio: 1.9 / 1; border-radius: 10px; overflow: hidden; background: #9A3556; }
+  .mini { position: relative; display: block; flex: 0 0 116px; aspect-ratio: 1.9 / 1; border-radius: 10px; overflow: hidden; background: var(--bg); }
   .mini img, .mini video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Vignette : la vraie carte, réduite à la taille de la ligne (sans animation) */
+  .minicard { position: absolute; left: 0; top: 0; width: 342px; transform: scale(.3392); transform-origin: 0 0; pointer-events: none; }
+  .minicard .card { margin-top: 0; box-shadow: none; }
   .accmeta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
   .accname { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .accmeta small { font-size: 13px; color: var(--muted); }
@@ -460,7 +463,6 @@ const MIME_EXT = {
 };
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const TEST_NUMBER = 'TEST 0000 0000 0000 0000';
-const KEY_CREATED = 'ckdo.cardsCreated';
 const KEY_RECEIVED = 'ckdo.received';
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
@@ -542,7 +544,27 @@ const amountText = () => (amountOk() ? cardAmount() + ' €' : '— €');
 const fee = () => Math.max(Math.round(cardAmount() * FEE_RATE * 100) / 100, FEE_MIN);
 /* Dès qu'une carte est créée, le montant total est verrouillé */
 const setStarted = () => S.links.length > 0;
-const isSecondCard = () => store.get(KEY_CREATED, 0) >= 1;
+/* Numéros déjà destinataires d'une carte envoyée depuis cet appareil : une empreinte par numéro, jamais le numéro lui-même */
+const KEY_NUMEROS = 'ckdo.numeros';
+/* Empreinte simple d'un texte (synchrone). Sert seulement à reconnaître un numéro déjà utilisé. */
+function cyrb53(str) {
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) { const ch = str.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+}
+/* Même numéro écrit de deux façons (06… ou +33…) : une seule empreinte */
+const phoneKey = (p) => { const n = String(p || '').replace(/[\s.-]/g, ''); return n.startsWith('0') ? '+33' + n.slice(1) : n; };
+const numeroList = () => { const v = store.get(KEY_NUMEROS, []); return Array.isArray(v) ? v : []; };
+const isRepeatPhone = () => phoneOk(S.recipientPhone) && numeroList().includes(cyrb53(phoneKey(S.recipientPhone)));
+/* Après un envoi : le numéro est noté sur cet appareil (empreinte seulement) */
+function recordPhone() {
+  if (!phoneOk(S.recipientPhone)) return;
+  const h = cyrb53(phoneKey(S.recipientPhone));
+  const list = numeroList();
+  if (!list.includes(h)) store.set(KEY_NUMEROS, [...list, h]);
+}
 
 /* Dates au format AAAA-MM-JJ, en heure de Paris */
 const parisToday = () => new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
@@ -1022,9 +1044,12 @@ function addCardFx(key) {
 }
 function syncFxAdd() { const a = document.getElementById('fxAdd'); if (a) a.innerHTML = fxAddHtml(); }
 
-function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false }) {
+function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false, still = false }) {
+  /* still : image fixe (vignette) : vidéo sans lecture automatique ni bouton de son */
   const media = !mediaUrl ? '' : isVideo
-    ? `<video class="media" src="${esc(mediaUrl)}" autoplay muted loop playsinline${controls ? ' controls' : ''}></video>`
+    ? (still
+      ? `<video class="media" src="${esc(mediaUrl)}#t=0.1" muted playsinline preload="metadata"></video>`
+      : `<video class="media" src="${esc(mediaUrl)}" autoplay muted loop playsinline${controls ? ' controls' : ''}></video>`)
     : `<img class="media" src="${esc(mediaUrl)}" alt="">`;
   const f = fxParts(Array.isArray(fx) ? fx : [fx]);
   const longCls = (text || '').length > 22 ? ' long' : '';
@@ -1033,7 +1058,7 @@ function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, con
       ${media}
       <div class="shade"></div>
       ${f.html}
-      ${isVideo && mediaUrl ? '<button class="sndbtn" type="button" data-act="sound">Activer le son</button>' : ''}
+      ${isVideo && mediaUrl && !still ? '<button class="sndbtn" type="button" data-act="sound">Activer le son</button>' : ''}
       <div class="overlay">
         <div class="top"><span class="brand">c.kdo</span><span class="amt" ${pv ? 'data-pv="amt"' : ''}>${esc(amt)}</span></div>
         <svg class="chip" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="gChipGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeec0"/><stop offset=".28" stop-color="#d7ad5c"/><stop offset=".52" stop-color="#8f6225"/><stop offset=".74" stop-color="#eccd86"/><stop offset="1" stop-color="#b88a40"/></linearGradient><linearGradient id="gChipPad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc92"/><stop offset=".5" stop-color="#c49748"/><stop offset="1" stop-color="#ecca7e"/></linearGradient><linearGradient id="gChipGlint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="gChipClip"><rect x=".5" y=".5" width="43" height="33" rx="5"/></clipPath></defs><rect x=".5" y=".5" width="43" height="33" rx="5" fill="url(#gChipGold)" stroke="rgba(70,42,8,.8)" stroke-width=".8"/><rect x="8" y="7" width="28" height="20" rx="2.5" fill="url(#gChipPad)" stroke="rgba(70,42,8,.85)" stroke-width=".7"/><path d="M8 13.5H36M8 20.5H36M16 7V27M28 7V27" stroke="rgba(70,42,8,.7)" stroke-width=".7"/><path d="M8 14.3H36M8 21.3H36M16.6 7V27M28.6 7V27" stroke="rgba(255,248,220,.5)" stroke-width=".4"/><g clip-path="url(#gChipClip)"><path d="M-2 36L14-2H24L8 36Z" fill="url(#gChipGlint)"/></g><rect x=".5" y=".5" width="43" height="33" rx="5" fill="none" stroke="rgba(255,240,200,.6)" stroke-width=".6"/></svg>
@@ -1288,14 +1313,17 @@ function screenMessage() {
   <div class="foot" id="msgFoot">${msgFootHtml()}</div>`;
 }
 
-function screenRecap() {
+/* Montants de l'étape récapitulatif : le supplément dépend du numéro saisi (cadeau seul) */
+function recapCalc() {
   const f = fee();
-  const second = isSecondCard();
-  const extra = second ? EXTRA_CARD_FEE : 0;
+  const second = !S.group && isRepeatPhone() ? EXTRA_CARD_FEE : 0;
   const effets = effectsCost();
   const sched = S.schedule ? SCHEDULE_PRICE : 0;
-  const total = cardAmount() + f + extra + effets + sched;
-  const payBlock = S.group ? `
+  return { f, second, effets, total: cardAmount() + f + second + effets + sched };
+}
+function recapPayHtml() {
+  const { f, second, effets, total } = recapCalc();
+  return S.group ? `
     <div class="ztitle">Facturation</div>
     <div class="payline"><span>Votre part</span><span>${eur(S.amount)}</span></div>
     <div class="paytotal"><span>Maintenant</span><span>0,00 €</span></div>
@@ -1303,11 +1331,28 @@ function screenRecap() {
     <div class="ztitle">Facturation</div>
     <div class="payline"><span>Carte cadeau pour ${esc(S.recipient)}</span><span>${eur(cardAmount())}</span></div>
     <div class="payline"><span>Frais de service<small>7 % du montant, 2 € minimum</small></span><span>${eur(f)}</span></div>
-    ${second ? `<div class="payline"><span>Supplément 2e carte</span><span>${eur(extra)}</span></div>` : ''}
+    ${second ? `<div class="payline"><span>Envoi répété à ce numéro</span><span>${eur(second)}</span></div>` : ''}
     ${effets ? `<div class="payline"><span>Effets supplémentaires<small>Hors frais de service</small></span><span>${eur(effets)}</span></div>` : ''}
     ${S.schedule ? `<div class="payline"><span>Ouverture le jour J<small>Envoi programmé</small></span><span>${eur(SCHEDULE_PRICE)}</span></div>` : ''}
     <div class="paytotal"><span>Vous payez</span><span>${eur(total)}</span></div>
-    ${second ? '<div class="notice">Votre 2e carte : supplément de 2 €, appliqué automatiquement.</div>' : ''}`;
+    ${second ? '<div class="notice">Ce numéro a déjà reçu une carte depuis cet appareil : supplément de 2 €, appliqué automatiquement.</div>' : ''}`;
+}
+/* Pied de l'étape récapitulatif : le total dépend du numéro saisi */
+function recapFootHtml() {
+  const { total } = recapCalc();
+  return `${footErr()}${S.group
+    ? '<p class="footnote">Vous ne payez rien maintenant. Vos amis ajoutent leur part, puis vous réglez le total.</p><button class="primary" data-cta data-act="submit">Créer le lien à partager</button>'
+    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} recevra une carte de ${eur(cardAmount())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer à ' + esc(S.recipient) + ' (' + eur(total) + ')'}</button>`}`;
+}
+/* Met à jour seulement les montants et le pied, pendant la saisie du numéro */
+function refreshRecapFees() {
+  const a = document.getElementById('recapFees');
+  const b = document.getElementById('recapFoot');
+  if (a) a.innerHTML = recapPayHtml();
+  if (b) b.innerHTML = recapFootHtml();
+}
+function screenRecap() {
+  const payBlock = recapPayHtml();
   return `
   ${hdr('Étape 4 sur 4', 'Récapitulatif', 'message')}
   <div class="section">
@@ -1322,10 +1367,10 @@ function screenRecap() {
 
     <div class="zsep"></div>
 
-    ${payBlock}
+    <div id="recapFees">${payBlock}</div>
     ${S.group ? '' : `<div class="phonebox${bad('recipientPhone')}${phoneOk(S.recipientPhone) ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${phoneOk(S.recipientPhone) ? 'Valide' : 'Obligatoire'}</span></div>
-      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>`}
     <div class="zsep"></div>
@@ -1361,7 +1406,7 @@ function screenRecap() {
         <p>Version de test. Le texte définitif des conditions d’utilisation reste à rédiger et à faire valider avant toute mise en ligne.</p>
         <p>La carte cadeau est une carte virtuelle prépayée, valable 12 mois et non rechargeable.</p>
         <p>Le solde pourra être transféré sur le compte bancaire du destinataire, selon les modalités du partenaire de paiement choisi.</p>
-        <p>Les frais de service s’ajoutent au montant de la carte : 7 % du montant, avec un minimum de 2 €. Une deuxième carte ajoute un supplément de 2 €.</p>
+        <p>Les frais de service s’ajoutent au montant de la carte : 7 % du montant, avec un minimum de 2 €. Un envoi répété au même numéro ajoute un supplément de 2 €.</p>
         <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € pour une carte seule (version de test). Pour un cadeau à plusieurs, il n’y a pas de plafond sur le total ; chaque part est de 500 € maximum.</p>
         <p>Pendant ce test, aucun paiement réel n’est effectué.</p>
       </div>
@@ -1371,9 +1416,7 @@ function screenRecap() {
     <div class="hint">Version de test : aucun paiement réel, aucun argent n’est prélevé.</div>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
-  <div class="foot">${footErr()}${S.group
-    ? '<p class="footnote">Vous ne payez rien maintenant. Vos amis ajoutent leur part, puis vous réglez le total.</p><button class="primary" data-cta data-act="submit">Créer le lien à partager</button>'
-    : `<p class="footnote">Vous payez ${eur(total)}. ${esc(S.recipient)} recevra une carte de ${eur(cardAmount())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer à ' + esc(S.recipient) + ' (' + eur(total) + ')'}</button>`}</div>`;
+  <div class="foot" id="recapFoot">${recapFootHtml()}</div>`;
 }
 
 /* Met à jour le bloc du numéro pendant la saisie : couleur et pastille */
@@ -1430,7 +1473,7 @@ function screenDoneGroup() {
     <div class="notice">${n > 1 ? `${eur(S.amount)} sont offerts en ${n} cartes. Chaque carte a son lien.` : 'La carte est prête. Elle a son lien.'}</div>
     <div class="phonebox${ok ? ' is-ok' : ''}" id="phoneBox">
       <div class="phonehead"><span>Numéro de ${esc(S.recipient)}</span><span class="phonetag" id="phoneTag">${ok ? 'Valide' : 'Obligatoire'}</span></div>
-      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
+      <input id="recipientPhone" class="field" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="06 12 34 56 78" value="${esc(S.recipientPhone)}">
       <div class="hint">Il sert seulement à ouvrir vos Messages avec le lien prêt à envoyer. Nous ne le gardons pas.</div>
     </div>
     ${S.links.map((l, k) => `<div class="label">Carte ${k + 1} · ${eur(parts[k])}${S.groupCards && S.groupCards[k] && S.groupCards[k].custom ? ' · personnalisée' : ''}</div>
@@ -1701,7 +1744,6 @@ async function closeGroup() {
       });
       /* 23505 : la carte existe déjà (essai précédent interrompu) : on continue sans la recréer */
       if (error && error.code !== '23505') throw error;
-      if (!error) store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
     }
     const { error: e2 } = await sb.rpc('manage_mark_sent', { p_id: c.id, p_key: c.manageKey });
     if (e2) throw e2;
@@ -2271,7 +2313,7 @@ async function submit() {
       ...(S.schedule ? { open_at: S.openDate } : {}),
     });
     if (error) throw error;
-    store.set(KEY_CREATED, store.get(KEY_CREATED, 0) + 1);
+    recordPhone();
     S.link = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=${id}`;
     S.links = [...S.links, S.link];
     S.step = 'done';
@@ -2513,6 +2555,10 @@ app.addEventListener('click', (e) => {
   if (S.step === 'collect') refreshCollect(); else render();
 });
 
+/* Envoi par SMS depuis l'écran « Terminé » (cadeau à plusieurs) : le numéro est noté sur cet appareil */
+document.addEventListener('click', (e) => {
+  if (e.target.closest && e.target.closest('.smsslot a')) recordPhone();
+});
 app.addEventListener('input', (e) => {
   const t = e.target;
   if (t.id === 'groupNote') {
@@ -2524,7 +2570,7 @@ app.addEventListener('input', (e) => {
   if (t.id === 'cardText') { S.cardText = t.value; S.textTouched = t.value.trim() !== ''; updatePreview(); const c = document.getElementById('cardCount'); if (c) c.textContent = t.value.length; syncRappel(); }
   else if (t.id === 'customAmount') { S.customRaw = t.value; S.amount = parseInt(t.value, 10); syncAmountChips(); updatePreview(); const sh = document.getElementById('splitHint'); if (sh) sh.innerHTML = splitHint(); }
   else if (t.id === 'recipient') { S.recipient = t.value; }
-  else if (t.id === 'recipientPhone') { S.recipientPhone = t.value; syncPhoneBox(); }
+  else if (t.id === 'recipientPhone') { S.recipientPhone = t.value; syncPhoneBox(); refreshRecapFees(); }
   else if (t.id === 'openDate') { S.openDate = t.value; syncOpenDate(); }
   else if (t.id === 'creatorName') { S.creatorName = t.value; }
   else if (t.id === 'message') {
@@ -2757,12 +2803,10 @@ function refreshRecvRest() {
 /* Une ligne de « Mon compte » : vignette de la carte, texte, montant */
 function accountRow(c) {
   const url = publicUrl(c.media_path);
-  const media = !url ? '' : c.media_type === 'video'
-    ? `<video src="${esc(url)}#t=0.1" muted playsinline preload="metadata"></video>`
-    : `<img src="${esc(url)}" alt="" loading="lazy">`;
+  const card = cardMarkup({ text: c.card_text, amountText: (Number(c.amount) || 0) + ' €', mediaUrl: url, isVideo: c.media_type === 'video', still: true });
   return `
     <button class="accrow" data-act="openrecv" data-val="${esc(c.id)}">
-      <span class="mini">${media}</span>
+      <span class="mini"><span class="minicard">${card}</span></span>
       <span class="accmeta"><span class="accname">${esc(c.card_text)}</span><small>Pour ${esc(c.recipient_name)}</small></span>
       <span class="accamt">${eur(Number(c.amount) || 0)}</span>
     </button>`;
