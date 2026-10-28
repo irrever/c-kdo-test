@@ -430,7 +430,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.26 (test)
+   c.kdo — v0.27 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1202,28 +1202,38 @@ function cropZMin(c) {
   const ch = 1 / CROP_CARD_RATIO;
   return Math.min(1 / ar, ch) / Math.max(1 / ar, ch);
 }
-/* Limites : zoom entre le minimum et 3. Sous 1, l’image est centrée. Au-dessus de 1, elle ne laisse aucun bord vide. */
+/* Taille de la photo ou de la vidéo dans la carte, en largeurs de carte : wd (largeur), hd (hauteur), ch (hauteur de la carte) */
+function cropGeom(c) {
+  const ch = 1 / CROP_CARD_RATIO;
+  const k = c.z * Math.max(1 / c.ar, ch);
+  return { wd: c.ar * k, hd: k, ch };
+}
+/* Limites : zoom entre le minimum et 3. Le déplacement va jusqu’au bord de l’image, dans les deux sens : jamais de bord vide.
+   Sans ratio connu (anciennes cartes), l’ancien calcul s’applique. */
 function cropClamp(c) {
   c.z = Math.min(CROP_MAX_ZOOM, Math.max(cropZMin(c), c.z));
-  if (c.z < 1) { c.cx = 0.5; c.cy = 0.5; return c; }
-  const lo = 0.5 / c.z, hi = 1 - 0.5 / c.z;
-  c.cx = Math.min(hi, Math.max(lo, c.cx));
-  c.cy = Math.min(hi, Math.max(lo, c.cy));
+  if (!c.ar) {
+    if (c.z < 1) { c.cx = 0.5; c.cy = 0.5; return c; }
+    const lo = 0.5 / c.z, hi = 1 - 0.5 / c.z;
+    c.cx = Math.min(hi, Math.max(lo, c.cx));
+    c.cy = Math.min(hi, Math.max(lo, c.cy));
+    return c;
+  }
+  const g = cropGeom(c);
+  if (g.wd > 1 + 1e-6) { const lo = 0.5 / g.wd; c.cx = Math.min(1 - lo, Math.max(lo, c.cx)); } else c.cx = 0.5;
+  if (g.hd > g.ch + 1e-6) { const lo = 0.5 * g.ch / g.hd; c.cy = Math.min(1 - lo, Math.max(lo, c.cy)); } else c.cy = 0.5;
   return c;
 }
 /* Style du média dans la carte (utilisé aussi par le destinataire) */
 function cropStyle(c) {
   if (!cropIsChanged(c)) return '';
-  if (c.z < 1 && c.ar) {
-    /* Image entière : taille et position en pourcentages de la carte, image centrée, proportions gardées */
-    const ch = 1 / CROP_CARD_RATIO;
-    const k = c.z * Math.max(1 / c.ar, ch);
-    const wd = c.ar * k, hd = k;
-    return `position:absolute;width:${(wd * 100).toFixed(2)}%;height:${((hd / ch) * 100).toFixed(2)}%;left:${((0.5 - wd / 2) * 100).toFixed(2)}%;top:${((0.5 - hd / (2 * ch)) * 100).toFixed(2)}%`;
+  if (!c.ar) {
+    const z = Math.max(1, c.z);
+    const w = (z * 100).toFixed(2);
+    return `position:absolute;width:${w}%;height:${w}%;left:${((0.5 - c.cx * z) * 100).toFixed(2)}%;top:${((0.5 - c.cy * z) * 100).toFixed(2)}%`;
   }
-  const z = Math.max(1, c.z);
-  const w = (z * 100).toFixed(2);
-  return `position:absolute;width:${w}%;height:${w}%;left:${((0.5 - c.cx * z) * 100).toFixed(2)}%;top:${((0.5 - c.cy * z) * 100).toFixed(2)}%`;
+  const g = cropGeom(c);
+  return `position:absolute;width:${(g.wd * 100).toFixed(2)}%;height:${((g.hd / g.ch) * 100).toFixed(2)}%;left:${((0.5 - c.cx * g.wd) * 100).toFixed(2)}%;top:${((0.5 - c.cy * g.hd / g.ch) * 100).toFixed(2)}%`;
 }
 /* Commandes du recadrage, sous la carte, dans l’écran de création : des boutons, plus de curseur */
 function cropControlsHtml() {
@@ -1269,6 +1279,7 @@ function cropDown(e) {
   if (e.button > 0 || !S.mediaUrl || S.step !== 'create' || RECV || S.cropLocked) return;
   if (!e.target.closest || !e.target.closest('.stickycard .card')) return;
   const c = cropOf();
+  cropEnsureAr(c);
   cropSkipClick = false;
   cropDrag = { x: e.clientX, y: e.clientY, cx: c.cx, cy: c.cy, moved: false };
 }
@@ -1280,9 +1291,11 @@ function cropMove(e) {
   if (!card) return;
   const c = cropOf();
   const r = card.getBoundingClientRect();
+  if (!cropEnsureAr(c)) return;   /* taille de l’image pas encore connue */
+  const g = cropGeom(c);
   cropDrag.moved = true;
-  c.cx = cropDrag.cx - dx / (c.z * r.width);
-  c.cy = cropDrag.cy - dy / (c.z * r.height);
+  c.cx = cropDrag.cx - dx / (g.wd * r.width);
+  c.cy = cropDrag.cy - dy / (g.hd * r.width);
   cropClamp(c);
   cropApply();
   e.preventDefault();
