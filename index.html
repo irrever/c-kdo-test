@@ -426,7 +426,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.24 (test)
+   c.kdo — v0.25 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -498,14 +498,15 @@ const TEST_NUMBER = 'TEST 0000 0000 0000 0000';
 const KEY_RECEIVED = 'ckdo.received';
 /* Mode gratuit : crédits fictifs, sans valeur en euros. Valeurs provisoires ; le serveur refait les mêmes calculs (credit_cost). */
 const CREDIT_REFILL = 100;         /* solde visé : sous 100, le compte à rebours tourne ; à son terme, le solde est ramené à 100 */
-const CREDIT_SIGNAL_H = 24;        /* durée du signal « Créditer » au début du compte à rebours */
 const CREDIT_COUNTDOWN_H = 48;     /* durée du compte à rebours avant la recharge à 100 */
+const CREDIT_LIFE_DAYS = 7;        /* durée de vie d’une carte depuis son envoi : ouverte ou non, elle expire avec ses Kdo */
+const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours : 10 Kdo, ou une carte de survie */
 const CREDIT_FX_PACK = 5;          /* pack d’effets supplémentaires : 5 Kdo pour deux effets, quel que soit le nombre choisi dans le pack */
 const CREDIT_MEDIA = { none: 5, photo: 10, video: 20 };
 const CREDIT_MSG = { text: 0, voice: 5, video: 15 };
 const KEY_COMPTE = 'ckdo.compte';  /* clé secrète du compte : sur cet appareil seulement, le serveur n’en garde que l’empreinte */
-/* État du compte affiché : solde, signal, recharge, cartes lues sur le serveur */
-const CRED = { key: '', id: '', balance: null, signal: null, recharge: null, cards: {}, busy: '', msg: '', error: '' };
+/* État du compte affiché : solde, recharge, stocks d’options, cartes lues sur le serveur */
+const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, survival: 0, cards: {}, busy: '', msg: '', error: '' };
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
 const ICON_GIFT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
@@ -528,7 +529,7 @@ const receivedList = () => { const v = store.get(KEY_RECEIVED, []); return Array
 const initialState = () => ({
   step: 'create',
   occasion: 'Anniversaire', cardText: 'Joyeux anniversaire', fx: OCC_FX['Anniversaire'], fxTheme: themeOf(OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
-  amount: FREE ? 0 : 50, customRaw: '', refCode: '',
+  amount: FREE ? 0 : 50, customRaw: '', refCode: '', credAmount: null, optionCard: false,
   mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', crop: cropDefault(),
   msgType: 'text', message: DEFAULT_MSG,
   voiceBlob: null, voiceUrl: '', voiceSecs: 0, recording: false,
@@ -546,6 +547,8 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const eur = (n) => n.toFixed(2).replace('.', ',') + ' €';
 /* Carte gratuite (mode gratuit) : aucun montant affiché, ni sur la carte, ni dans « Mes cartes » */
 const isFreeRow = (row) => !!row && (row.kind === 'gratuit' || row.kind === 'entrainement');
+/* Carte à crédits (mode gratuit) : envoyée avec des Kdo, ou carte d’option (0 Kdo) */
+const isCreditCard = (c) => !!c && (c.kind === 'entrainement' || Number(c.credits) > 0);
 const fmt = (n) => Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
 const baseType = (t) => (t || '').split(';')[0];
 const extOf = (t) => MIME_EXT[baseType(t)] || 'bin';
@@ -596,7 +599,8 @@ const splitCount = () => (amountOk() ? splitAmounts(S.amount).length : 1);
 const cardIndex = () => Math.min(S.splitIndex || 0, splitCount() - 1);
 const cardAmount = () => (amountOk() ? splitAmounts(S.amount)[cardIndex()] : S.amount);
 /* Mode gratuit : la carte affiche son coût en crédits. Mode réel : son montant en euros. */
-const amountText = () => (CREDITS ? credTxt(cardCredits()) : (amountOk() ? cardAmount() + ' €' : '— €'));
+/* Mode gratuit : montant choisi en Kdo (au moins le coût de la carte) ; carte d’option : sans Kdo. Mode réel : euros. */
+const amountText = () => (CREDITS ? (S.optionCard ? 'Sans Kdo' : Number.isInteger(credAmountOf()) ? credTxt(credAmountOf()) : '— Kdo') : (amountOk() ? cardAmount() + ' €' : '— €'));
 const fee = () => Math.max(Math.round(cardAmount() * FEE_RATE * 100) / 100, FEE_MIN);
 /* Dès qu'une carte est créée, le montant total est verrouillé */
 const setStarted = () => S.links.length > 0;
@@ -663,10 +667,13 @@ const RPC_MSG = {
   note_trop_longue: 'Le petit mot ne peut pas dépasser 200 caractères.',
   deja_regle: 'Votre part est réglée. Pour la modifier, contactez le créateur.',
   deja_encaisse: 'Ces Kdo ont déjà été encaissés.',
-  pas_recu: 'Vous ne pouvez créditer que le compte qui vous a envoyé une carte que vous avez encaissée.',
-  pas_de_signal: 'Ce compte n’est plus en compte à rebours : vous ne pouvez plus le créditer.',
+  pas_recu: 'Vous ne pouvez prolonger que les cartes que vous avez encaissées.',
   solde_insuffisant: 'Solde insuffisant.',
-  montant_invalide: 'Le montant doit être entre 1 et 100 Kdo.',
+  montant_insuffisant: 'Une carte ne peut pas être envoyée sous sa valeur.',
+  montant_invalide: 'Montant trop grand.',
+  carte_expiree: 'Cette carte a expiré.',
+  survie_insuffisante: 'Vous n’avez plus de carte de survie.',
+  option_insuffisante: 'Vous n’avez plus de carte d’option.',
   carte_invalide: 'Cette carte ne peut pas être utilisée ici.',
 };
 function rpcMsg(err) {
@@ -1160,6 +1167,7 @@ function addCardFx(key) {
 function syncFxAdd() {
   const a = document.getElementById('fxAdd'); if (a) a.innerHTML = fxAddHtml();
   const cc = document.getElementById('creditCost'); if (cc) cc.textContent = creditCostText();
+  syncCreditAmountInput();
 }
 
 /* Recadrage de la photo ou de la vidéo dans la carte : position (cx, cy, entre 0 et 1) et zoom (z, de 1 à 3).
@@ -1435,7 +1443,7 @@ function screenCreate() {
     <div id="fxMenu">${fxMenuHtml()}</div>
     <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
-    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    ${CREDITS ? creditAmountBlockHtml() : ''}${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     ${FREE ? '' : `<div id="payBlock">${payBlockInner()}</div>`}
   </div>
   <div class="foot" id="createFoot">${createFootInner()}</div>`;
@@ -1745,7 +1753,47 @@ function transferBlockHtml(ref) {
 /* ---------- mode entraînement : crédits fictifs (sans valeur en euros) ---------- */
 /* Un compte par appareil : une clé tirée au hasard, gardée ici. Le serveur ne garde que son empreinte. */
 const credTxt = (n) => `${n} Kdo`;
-const creditCostText = () => `Cette carte coûte ${credTxt(cardCredits())}.`;
+/* Montant de la carte en Kdo : choisi par l’expéditeur, jamais en dessous de son coût calculé. Carte d’option : 0 Kdo. */
+function credAmountOf() {
+  if (S.optionCard) return 0;
+  return S.credAmount === null ? cardCredits() : S.credAmount;
+}
+/* Texte sous la carte, à l’étape de création et au récapitulatif */
+const creditCostText = () => {
+  if (S.optionCard) return 'Carte d’option : elle ne contient aucun Kdo.';
+  const n = credAmountOf();
+  return `${Number.isInteger(n) ? `Cette carte contient ${credTxt(n)}.` : 'Montant à corriger.'} Coût minimum : ${credTxt(cardCredits())}.`;
+};
+/* Erreur sur le montant ou la carte d’option ; vide quand tout va */
+function creditAmountMsg() {
+  if (S.optionCard) return CRED.optionCards > 0 ? '' : 'Vous n’avez plus de carte d’option.';
+  const n = credAmountOf();
+  if (!Number.isInteger(n)) return 'Indiquez le montant en Kdo, en chiffres entiers.';
+  if (n < cardCredits()) return `Une carte ne peut pas être envoyée sous sa valeur : ${credTxt(cardCredits())} minimum.`;
+  return '';
+}
+/* Champ « Kdo envoyés » : suit le coût tant que l’expéditeur n’a pas tapé son propre montant (mode gratuit) */
+function syncCreditAmountInput() {
+  if (!CREDITS) return;
+  const i = document.getElementById('credAmount');
+  if (i && S.credAmount === null) { i.value = String(cardCredits()); i.min = String(cardCredits()); }
+  const ce = document.getElementById('creditAmountErr');
+  if (ce) { const m = creditAmountMsg(); ce.textContent = m; ce.style.display = m ? '' : 'none'; }
+  updatePreview();
+}
+/* Bloc « Kdo envoyés » de l’étape création : montant modifiable vers le haut, carte d’option si le lot le permet */
+function creditAmountBlockHtml() {
+  const cost = cardCredits();
+  const raw = S.credAmount === null ? cost : Number.isFinite(S.credAmount) ? S.credAmount : '';
+  const msg = creditAmountMsg();
+  const showOpt = CRED.optionCards > 0 || S.optionCard;
+  return `
+    <div class="label">Kdo envoyés</div>
+    <input id="credAmount" class="field" type="number" inputmode="numeric" step="1" min="${cost}" value="${esc(String(raw))}"${S.optionCard ? ' disabled' : ''}>
+    <div class="hint">Au moins ${esc(credTxt(cost))} pour cette carte. Vous pouvez en mettre davantage : le destinataire reçoit le montant choisi.</div>
+    ${showOpt ? `<label class="check"><input id="optionCard" type="checkbox" ${S.optionCard ? 'checked' : ''}> <span>Carte d’option, sans Kdo, pour répondre à une carte reçue. Il vous reste ${CRED.optionCards} carte(s) d’option.</span></label>` : ''}
+    <div class="blockErr" id="creditAmountErr" style="${msg ? '' : 'display:none'}">${esc(msg)}</div>`;
+}
 const balanceText = () => (CRED.balance === null ? '…' : credTxt(CRED.balance));
 const dureeTxt = (ms) => {
   const h = Math.floor(ms / 3600000);
@@ -1768,8 +1816,9 @@ function credKey() {
 function applyCredState(d) {
   CRED.id = String(d.id || CRED.id);
   CRED.balance = Number(d.balance);
-  CRED.signal = d.signal_until ? Date.parse(d.signal_until) : null;
   CRED.recharge = d.recharge_at ? Date.parse(d.recharge_at) : null;
+  CRED.optionCards = Number(d.option_cards) || 0;
+  CRED.survival = Number(d.survival_credits) || 0;
 }
 /* Ouvre le compte si besoin (solde 0 au premier usage, compte à rebours dès l’ouverture) et lit le solde, après recharge éventuelle */
 async function credLoad() {
@@ -1779,9 +1828,9 @@ async function credLoad() {
   if (error) throw error;
   applyCredState(data);
 }
-/* État des cartes liées au compte : crédits, encaissement, signal de l’expéditeur */
+/* État des cartes liées au compte : Kdo, encaissement, date d’expiration */
 async function credCardsLoad() {
-  const ids = [...new Set([...receivedList(), ...envoisList()].filter((c) => Number(c.credits) > 0).map((c) => c.id))];
+  const ids = [...new Set([...receivedList(), ...envoisList()].filter(isCreditCard).map((c) => c.id))];
   if (!ids.length) { CRED.cards = {}; return; }
   const { data, error } = await sb.rpc('credit_cards_status', { p_key: CRED.key, p_card_ids: ids });
   if (error) throw error;
@@ -1789,7 +1838,11 @@ async function credCardsLoad() {
 }
 /* Redessine l’écran de compte là où il est affiché : chez le destinataire, ou dans l’accueil du créateur */
 function redrawCredits() {
-  if (RECV) { if (recvView === 'account') drawRecv(); return; }
+  if (RECV) {
+    if (recvView === 'account') drawRecv();
+    else if (recvView === 'card') refreshRecvRest();
+    return;
+  }
   if (S.step === 'compte') render();
 }
 async function refreshCreditsView() {
@@ -1806,9 +1859,12 @@ async function refreshCreditsView() {
 /* Carte envoyée depuis cet appareil : les crédits sont débités par le serveur, puis la carte existe */
 async function submitCredits() {
   if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
-  const cost = cardCredits();
-  if (CRED.balance !== null && CRED.balance < cost) {
-    S.error = `Solde insuffisant : cette carte coûte ${credTxt(cost)}, et il vous en reste ${credTxt(CRED.balance)}.`;
+  const msgErr = creditAmountMsg();
+  if (msgErr) { S.error = msgErr; return render(); }
+  const option = !!S.optionCard;
+  const amount = credAmountOf();
+  if (!option && CRED.balance !== null && CRED.balance < amount) {
+    S.error = `Solde insuffisant : cette carte contient ${credTxt(amount)}, et il vous en reste ${credTxt(CRED.balance)}.`;
     return render();
   }
   S.busy = true; S.error = ''; render();
@@ -1834,14 +1890,16 @@ async function submitCredits() {
       msg_type: msgType, msg_media_path: msgPath, message, recipient_name: S.recipient.trim(),
       ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
       ...(cropSet() ? { media_crop: S.crop } : {}),
+      ...(option ? { option: true } : { credit_amount: amount }),
     };
     const { data, error } = await sb.rpc('credit_send_card', { p_key: CRED.key, p_card: row });
     if (error) throw error;
     CRED.balance = Number(data.balance);
+    CRED.optionCards = Number(data.option_cards) || 0;
     recordPhone();
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
     S.links = [base + id]; S.link = S.links[0]; S.soloMulti = false; S.collectionId = id;
-    saveEnvois([...envoisList(), { id, solo: true, free: true, credits: Number(data.credits), recipientName: S.recipient.trim(), total: 0,
+    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: S.recipient.trim(), total: 0,
       links: S.links, sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
     S.step = 'done';
   } catch (err) {
@@ -1860,7 +1918,7 @@ async function encaisserCarte(id) {
     const { data, error } = await sb.rpc('credit_collect', { p_key: CRED.key, p_card_id: id });
     if (error) throw error;
     CRED.balance = Number(data.balance);
-    CRED.msg = `Vous avez encaissé ${credTxt(Number(data.credits))}. Votre solde : ${credTxt(CRED.balance)}.`;
+    CRED.msg = creditDoneMsg(data);
   } catch (err) {
     CRED.msg = rpcMsg(err);
   } finally {
@@ -1868,59 +1926,97 @@ async function encaisserCarte(id) {
   }
   await refreshCreditsView();
 }
-/* Créditer : un compte sous 100 crédits, signalé 24 h au début de son compte à rebours, reçoit des crédits de quelqu’un qui a encaissé une de ses cartes */
-async function crediterCompte(cardId, n) {
+/* Message après encaissement : une carte d’option n’apporte aucun Kdo */
+function creditDoneMsg(data) {
+  if (!(Number(data.credits) > 0)) return 'Carte bien reçue.';
+  return `Vous avez encaissé ${credTxt(Number(data.credits))}. Votre solde : ${credTxt(CRED.balance)}.`;
+}
+/* Date de fin de validité, en français */
+const finTxt = (iso) => new Date(Date.parse(iso)).toLocaleString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+/* Prolongation : seul le destinataire qui a encaissé la carte peut la prolonger, avant son expiration (10 Kdo, ou une carte de survie) */
+function prolongBlockHtml(id, st) {
+  if (!st || !st.expires_at || st.collected_by !== CRED.id) return '';
+  if (Date.parse(st.expires_at) <= Date.now()) return '<div class="hint">Cette carte a expiré.</div>';
+  const kdoOk = CRED.balance !== null && CRED.balance >= CREDIT_PROLONG_KDO && !CRED.busy;
+  const survieBouton = CRED.survival > 0
+    ? `<button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="survie" data-val="${esc(id)}"${CRED.busy ? ' disabled' : ''}>Avec une carte de survie (il vous en reste ${CRED.survival})</button>`
+    : '';
+  const manque = CRED.balance !== null && CRED.balance < CREDIT_PROLONG_KDO;
+  return `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">
+      <button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="kdo" data-val="${esc(id)}"${kdoOk ? '' : ' disabled'}>Prolonger de ${CREDIT_LIFE_DAYS} jours · ${CREDIT_PROLONG_KDO} Kdo</button>
+      ${survieBouton}
+    </div>
+    ${manque ? `<div class="hint">Il vous faut ${CREDIT_PROLONG_KDO} Kdo pour prolonger de ${CREDIT_LIFE_DAYS} jours.</div>` : ''}`;
+}
+/* Prolonger une carte encaissée : mode « kdo » (10 Kdo) ou « survie » (une carte de survie du stock) */
+async function prolongerCarte(id, mode) {
   if (CRED.busy || !sb) return;
-  CRED.busy = cardId; CRED.msg = ''; redrawCredits();
+  CRED.busy = id; CRED.msg = ''; redrawCredits();
   try {
     await credLoad();
-    const { data, error } = await sb.rpc('credit_transfer', { p_key: CRED.key, p_card_id: cardId, p_amount: n });
+    const { data, error } = await sb.rpc('credit_prolong', { p_key: CRED.key, p_card_id: id, p_mode: mode });
     if (error) throw error;
     CRED.balance = Number(data.balance);
-    CRED.msg = `Vous avez crédité ${credTxt(n)}. Votre solde : ${credTxt(CRED.balance)}.`;
+    CRED.survival = Number(data.survival_credits) || 0;
+    CRED.msg = mode === 'survie'
+      ? `Carte prolongée de ${CREDIT_LIFE_DAYS} jours avec une carte de survie.`
+      : `Carte prolongée de ${CREDIT_LIFE_DAYS} jours. ${credTxt(CREDIT_PROLONG_KDO)} ont été débités.`;
   } catch (err) {
     CRED.msg = rpcMsg(err);
   } finally {
     CRED.busy = '';
   }
-  await refreshCreditsView();
+  try { await credCardsLoad(); } catch (err) { CRED.msg = rpcMsg(err); }
+  redrawCredits();
 }
-/* Boutons « Créditer » : affichés seulement si le compte qui a envoyé la carte est sous 100 crédits, pendant son compte à rebours */
-function crediterBlock(cardId) {
-  const bal = CRED.balance;
-  const boutons = [5, 10, 20].map((n) => `<button class="secondary" style="width:auto;margin:0" data-act="crediter" data-val="${esc(cardId)}" data-n="${n}"${bal === null || bal < n || CRED.busy ? ' disabled' : ''}>Créditer ${n}</button>`).join('');
-  return `<div class="hint">Le compte qui vous a envoyé cette carte est sous ${CREDIT_REFILL} Kdo. Vous pouvez lui en donner.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">${boutons}</div>`;
-}
-/* « Mon compte » : solde, cartes à encaisser, cartes envoyées. Même écran chez le destinataire et chez le créateur. */
+/* « Mon compte » : solde, options, cartes reçues, cartes envoyées. Même écran chez le destinataire et chez le créateur. */
 function renderCreditsAccount(backHtml) {
   const now = Date.now();
   const bal = CRED.balance;
   let etat = '';
   if (bal !== null && bal < CREDIT_REFILL) {
-    const signal = CRED.signal && CRED.signal > now;
-    etat = `<div class="message">Votre compte est sous ${CREDIT_REFILL} Kdo. Compte à rebours en cours.${signal ? ` Pendant ${CREDIT_SIGNAL_H} heures, les personnes qui ont encaissé une de vos cartes peuvent vous créditer.` : ''}</div>`;
+    etat = `<div class="message">Votre compte est sous ${CREDIT_REFILL} Kdo. Compte à rebours en cours.</div>`;
     if (CRED.recharge && CRED.recharge > now) etat += `<div class="hint">Recharge à ${CREDIT_REFILL} Kdo dans ${dureeTxt(CRED.recharge - now)}.</div>`;
   }
-  const recus = receivedList().filter((c) => Number(c.credits) > 0);
+  const recus = receivedList().filter(isCreditCard);
   const rowsRecus = recus.map((c) => {
     const st = CRED.cards[c.id];
-    const meta = `<span class="accmeta"><span class="accname">${esc(c.card_text)}</span><small>${esc(credTxt(Number(c.credits)))}</small></span>`;
+    const montant = c.option_card ? 'Carte d’option, sans Kdo' : credTxt(Number(c.credits));
+    const meta = `<span class="accmeta"><span class="accname">${esc(c.card_text)}</span><small>${esc(montant)}</small></span>`;
     let action = '<span class="accamt">…</span>';
     let extra = '';
     if (!st) action = '<span class="accamt">…</span>';
     else if (st.collected_by && st.collected_by === CRED.id) {
-      action = '<span class="accamt">Encaissés</span>';
-      if (st.sender_account !== CRED.id && st.sender_signal_until && Date.parse(st.sender_signal_until) > now) extra = crediterBlock(c.id);
-    } else if (st.collected_at) action = '<span class="accamt">Déjà encaissés</span>';
+      action = `<span class="accamt">${c.option_card ? 'Reçue' : 'Encaissés'}</span>`;
+      extra = prolongBlockHtml(c.id, st);
+    }
+    else if (st.collected_at) action = '<span class="accamt">Déjà encaissés</span>';
+    else if (st.expires_at && Date.parse(st.expires_at) <= now) action = '<span class="accamt">Expirée</span>';
     else if (st.sender_account === CRED.id) action = '<span class="accamt">Votre carte</span>';
     else action = `<button class="secondary" style="width:auto;margin:0" data-act="encaisser" data-val="${esc(c.id)}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === c.id ? 'Encaissement…' : 'Encaisser'}</button>`;
     return `<div class="accrow" style="flex-wrap:wrap">${meta}${action}${extra ? `<div style="width:100%">${extra}</div>` : ''}</div>`;
   }).join('');
-  const rowsEnv = envoisList().filter((x) => Number(x.credits) > 0).map((x) => {
+  const rowsEnv = envoisList().filter(isCreditCard).map((x) => {
     const st = CRED.cards[x.id];
-    const statut = !st ? '…' : st.collected_at ? `Encaissée le ${frDateNb(Date.parse(st.collected_at))}` : 'Pas encore encaissée';
-    return `<div class="accrow"><span class="accmeta"><span class="accname">Carte pour ${esc(x.recipientName)}</span><small>${esc(credTxt(Number(x.credits)))} · ${esc(statut)}</small></span></div>`;
+    let statut = '…';
+    if (st) {
+      if (st.collected_at) statut = `Encaissée le ${frDateNb(Date.parse(st.collected_at))}`;
+      else if (st.expires_at && Date.parse(st.expires_at) <= now) statut = 'Expirée, non encaissée';
+      else statut = `Pas encore encaissée${st.expires_at ? ` · valable jusqu’au ${finTxt(st.expires_at)}` : ''}`;
+    }
+    const montant = x.option_card ? 'Carte d’option, sans Kdo' : credTxt(Number(x.credits));
+    return `<div class="accrow"><span class="accmeta"><span class="accname">Carte pour ${esc(x.recipientName)}</span><small>${esc(montant)} · ${esc(statut)}</small></span></div>`;
   }).join('');
+  const options = `
+      <div class="label">Mes options</div>
+      <div class="rowline"><span>Cartes d’option</span><span>${CRED.optionCards}</span></div>
+      <div class="rowline"><span>Cartes de survie</span><span>${CRED.survival}</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+        <button class="secondary" style="width:auto;margin:0" disabled>3 cartes d’option · 1,90 €</button>
+        <button class="secondary" style="width:auto;margin:0" disabled>Carte de survie · 1,50 €</button>
+      </div>
+      <div class="hint">Paiement pas encore branché : ces options ne peuvent pas être achetées dans cette version de test.</div>`;
   const msg = CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
   const err = CRED.error ? `<div class="error">${esc(CRED.error)}</div>` : '';
   return `
@@ -1929,17 +2025,18 @@ function renderCreditsAccount(backHtml) {
       <div class="label">Mon solde</div>
       <div class="bigtotal">${esc(balanceText())}</div>
       ${etat}${msg}${err}
+      ${options}
       <div class="label">Cartes reçues</div>
       <div class="rows">${rowsRecus || '<div class="hint">Aucune carte reçue ouverte sur cet appareil.</div>'}</div>
       <div class="label">Cartes envoyées</div>
       <div class="rows">${rowsEnv || '<div class="hint">Aucune carte envoyée depuis cet appareil.</div>'}</div>
-      <div class="hint">Les Kdo ne s’achètent pas, ne se remboursent pas et n’ont aucune valeur en euros. Version de test : aucun paiement réel.</div>
+      <div class="hint">Les Kdo ne se vendent pas. Quelques options se paient en euros. Version de test : aucun paiement réel.</div>
     </div>`;
 }
 function screenCompte() {
   return renderCreditsAccount(`<button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button>`);
 }
-/* Actions du mode entraînement : ouvrir « Mon compte », encaisser, créditer. Écouteur propre, présent sur toutes les pages. */
+/* Actions du mode gratuit : ouvrir « Mon compte », encaisser, prolonger. Écouteur propre, présent sur toutes les pages. */
 function creditClick(e) {
   const el = e.target.closest && e.target.closest('[data-act]');
   if (!el || !CREDITS) return;
@@ -1950,20 +2047,30 @@ function creditClick(e) {
     return refreshCreditsView();
   }
   if (act === 'encaisser') return encaisserCarte(el.dataset.val);
-  if (act === 'crediter') return crediterCompte(el.dataset.val, Number(el.dataset.n));
+  if (act === 'prolong') return prolongerCarte(el.dataset.val, el.dataset.mode);
 }
 
+/* Montant affiché sur la carte destinataire : une carte d’option n’a pas de Kdo ; une carte encaissée n’en contient plus */
+function recvAmountText(row) {
+  if (row.option_card) return 'Sans Kdo';
+  const st = CRED.cards[row.id];
+  if (st && st.collected_at) return credTxt(0);
+  return row.credits ? credTxt(Number(row.credits)) : '';
+}
 /* Carte à crédits, vue du destinataire : ce qu’elle contient, et le bouton pour la récupérer sous la carte */
 function creditRecvHtml(row) {
+  const option = !!row.option_card;
   const n = credTxt(Number(row.credits));
+  const contenu = option ? 'Cette carte n’a aucune valeur en Kdo : elle signale que l’expéditeur n’a plus de Kdo.' : `Cette carte contient ${esc(n)}.`;
   const st = CRED.cards[row.id];
   const msg = CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
-  if (!st) return `<div class="notice">Cette carte contient ${esc(n)}.</div>`;
-  if (st.sender_account === CRED.id) return `<div class="notice">Vous avez envoyé cette carte : elle contient ${esc(n)}.</div>`;
-  if (st.collected_by === CRED.id) return `<div class="notice">Vous avez encaissé ${esc(n)}.</div>${msg}`;
+  if (!st) return `<div class="notice">${contenu}</div>`;
+  if (st.sender_account === CRED.id) return `<div class="notice">Vous avez envoyé cette carte${option ? '.' : `, elle contient ${esc(n)}.`}</div>`;
+  if (st.collected_by === CRED.id) return `<div class="notice">${option ? 'Carte bien reçue.' : `Vous avez encaissé ${esc(n)}.`}</div>${msg}${prolongBlockHtml(row.id, st)}`;
   if (st.collected_at) return `<div class="notice">Cette carte a déjà été encaissée.</div>`;
-  return `<div class="notice">Cette carte contient ${esc(n)}.</div>${msg}
-    <button class="primary" data-act="recvcollect" data-val="${esc(row.id)}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === row.id ? 'Encaissement…' : `Récupérer ${esc(n)}`}</button>`;
+  const validite = st.expires_at ? `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>` : '';
+  return `<div class="notice">${contenu}</div>${validite}${msg}
+    <button class="primary" data-act="recvcollect" data-val="${esc(row.id)}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === row.id ? 'Encaissement…' : option ? 'Récupérer la carte' : `Récupérer ${esc(n)}`}</button>`;
 }
 /* État d’une carte à crédits (encaissée, envoyée par ce compte, ou à récupérer), lu sur le serveur */
 async function credOneLoad(id) {
@@ -1976,7 +2083,7 @@ async function credOneLoad(id) {
 }
 /* Charge l’état de la carte ouverte, puis redessine la partie sous la carte */
 function loadRecvCredit() {
-  if (!CREDITS || !RECV || !isFreeRow(RECV.row) || !Number(RECV.row.credits)) return;
+  if (!CREDITS || !RECV || !isFreeRow(RECV.row) || !isCreditCard(RECV.row)) return;
   credOneLoad(RECV.row.id).then(refreshRecvRest).catch(() => {});
 }
 /* Encaissement depuis la carte du destinataire : les crédits passent sur son compte, une seule fois */
@@ -1988,7 +2095,7 @@ async function recvCollect(id) {
     const { data, error } = await sb.rpc('credit_collect', { p_key: CRED.key, p_card_id: id });
     if (error) throw error;
     CRED.balance = Number(data.balance);
-    CRED.msg = `Vous avez encaissé ${credTxt(Number(data.credits))}. Votre solde : ${credTxt(CRED.balance)}.`;
+    CRED.msg = creditDoneMsg(data);
   } catch (err) {
     CRED.msg = rpcMsg(err);
   } finally {
@@ -3394,6 +3501,14 @@ app.addEventListener('input', (e) => {
   }
   if (t.id === 'cardText') { S.cardText = t.value; S.textTouched = t.value.trim() !== ''; updatePreview(); const c = document.getElementById('cardCount'); if (c) c.textContent = t.value.length; syncRappel(); }
   else if (t.id === 'customAmount') { S.customRaw = t.value; S.amount = parseInt(t.value, 10); syncAmountChips(); updatePreview(); const sh = document.getElementById('splitHint'); if (sh) sh.innerHTML = splitHint(); }
+  else if (t.id === 'credAmount') {
+    S.credAmount = t.value.trim() === '' ? NaN : Number(t.value);
+    updatePreview();
+    const cc = document.getElementById('creditCost'); if (cc) cc.textContent = creditCostText();
+    const ce = document.getElementById('creditAmountErr');
+    if (ce) { const m = creditAmountMsg(); ce.textContent = m; ce.style.display = m ? '' : 'none'; }
+    return;
+  }
   else if (t.id === 'recipient') { S.recipient = t.value; }
   else if (t.id === 'recipientPhone') { S.recipientPhone = t.value; syncPhoneBox(); refreshRecapFees(); }
   else if (t.id === 'openDate') { S.openDate = t.value; syncOpenDate(); }
@@ -3465,6 +3580,7 @@ app.addEventListener('focusout', (e) => {
 app.addEventListener('change', (e) => {
   const t = e.target;
   if (t.id === 'payLink') return savePayLink(t);
+  if (t.id === 'optionCard') { S.optionCard = t.checked; S.error = ''; return render(); }
   if (t.id === 'fileCard') return handleCardFile(t.files[0]);
   if (t.id === 'voiceFile') return handleVoiceFile(t.files[0]);
   if (t.id === 'vidCam' || t.id === 'vidFile') return handleMsgVideo(t.files[0]);
@@ -3506,6 +3622,8 @@ function toSaved(row) {
     card_text: row.card_text,
     amount: Number(row.amount),
     free: isFreeRow(row),
+    kind: row.kind || null,
+    option_card: !!row.option_card,
     credits: Number(row.credits) || 0,
     media_crop: row.media_crop || null,
     recipient_name: row.recipient_name,
@@ -3526,7 +3644,7 @@ async function openCard(id, fromAccount) {
   if (!sb) throw new Error('Le serveur n’est pas encore branché.');
   if (!UUID_RE.test(id)) throw new Error('Ce lien n’est pas valide.');
   const row = await fetchCard(id);
-  if (!row) throw new Error('Cette carte n’existe pas ou son lien est incorrect.');
+  if (!row) throw new Error('Cette carte n’existe plus : elle a expiré, ou son lien est incorrect.');
   /* Carte programmée : rien d’autre que la date n’est montré avant le jour choisi */
   if (row.open_at && row.open_at > parisToday()) { RECV = { row, locked: true, fromAccount }; recvView = 'locked'; return; }
   const msgUrl = publicUrl(row.msg_media_path);
@@ -3596,7 +3714,7 @@ function renderRecvCard() {
   return `
     ${recvHeader('Cadeau reçu', 'Votre carte', back)}
     <div class="section">
-      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: isFreeRow(row) ? (row.credits ? credTxt(Number(row.credits)) : '') : row.amount + ' €', mediaUrl, isVideo: row.media_type === 'video', controls: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
+      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: isFreeRow(row) ? recvAmountText(row) : row.amount + ' €', mediaUrl, isVideo: row.media_type === 'video', controls: true, pv: CREDITS, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
       <div id="recvRest">${recvRestHtml()}</div>
     </div>`;
 }
@@ -3606,9 +3724,9 @@ function recvRestHtml() {
   const { row } = RECV;
   /* Carte gratuite : pas de solde, pas de transfert, pas de carte Wallet */
   if (isFreeRow(row)) return `
-      <a class="primary" href="${esc(location.href.split('?')[0])}" style="margin-top:12px">Rendre la pareille</a>
+      <a class="primary" href="${esc(location.href.split('?')[0])}" style="margin-top:12px">${CREDITS ? 'Renvoyer une carte' : 'Rendre la pareille'}</a>
       <div class="hint">Créez une carte pour quelqu’un, en quelques secondes.</div>
-      ${CREDITS && row.credits ? creditRecvHtml(row) : ''}
+      ${CREDITS && isCreditCard(row) ? creditRecvHtml(row) : ''}
       <button class="secondary" data-act="acc">${CREDITS ? 'Mon compte' : 'Mes cartes reçues'}</button>`;
   return `
       <a class="primary" href="${esc(location.href.split('?')[0])}" style="margin-top:12px">Rendre la pareille</a>
@@ -3634,6 +3752,12 @@ function recvRestHtml() {
 function refreshRecvRest() {
   const r = document.getElementById('recvRest');
   if (r) r.innerHTML = recvRestHtml();
+  syncRecvAmount();
+}
+/* Montant de la carte ouverte, mis à jour sans la redessiner (après encaissement ou prolongation) */
+function syncRecvAmount() {
+  const a = document.querySelector('#recvCard [data-pv="amt"]');
+  if (a && RECV) a.textContent = recvAmountText(RECV.row);
 }
 
 /* Une ligne de « Mon compte » : vignette de la carte, texte, montant */
