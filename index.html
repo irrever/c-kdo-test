@@ -488,9 +488,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const TEST_NUMBER = 'TEST 0000 0000 0000 0000';
 const KEY_RECEIVED = 'ckdo.received';
 /* Mode entraînement : crédits fictifs, sans valeur en euros. Valeurs provisoires ; le serveur refait les mêmes calculs (credit_cost). */
-const CREDIT_START = 100;          /* solde à l’ouverture d’un compte (côté serveur) */
 const CREDIT_REFILL = 100;         /* recharge après un solde à zéro */
-const CREDIT_REFILL_H = 48;        /* délai avant la recharge */
 const CREDIT_SIGNAL_H = 24;        /* durée du signal « compte à zéro » */
 const CREDIT_FX_EXTRA = 2;         /* chaque effet supplémentaire (le premier est inclus) */
 const CREDIT_MEDIA = { none: 5, photo: 10, video: 20 };
@@ -1327,8 +1325,7 @@ function screenCreate() {
 
     <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true })}</div>
-    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>
-    ${CREDITS ? `<div class="hint" id="creditCost" style="text-align:center">${esc(creditCostText())}</div>` : ''}
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${CREDITS ? `<div class="hint" id="creditCost" style="text-align:center">${esc(creditCostText())}</div>` : ''}
 
     <div class="label">Votre dédicace</div>
     <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
@@ -2209,8 +2206,7 @@ function screenDone() {
     <button class="secondary" data-act="copy">Copier le lien</button>
     <a class="${sms ? 'secondary' : 'primary'}" style="margin-top:10px" href="${esc(S.link + '&apercu=1')}" target="_blank" rel="noopener">Voir la carte comme ${esc(S.recipient)}</a>
     ${S.schedule ? `<div class="hint" style="text-align:center">Carte programmée : elle s’ouvrira le ${esc(longDateFr(S.openDate))}.</div>` : ''}
-    ${CREDITS && cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}
-    ${FREE && cur && cur.ref ? transferBlockHtml(cur.ref) : ''}${cur ? statutCarteHtml(cur, 0) : ''}
+    ${CREDITS && cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}${FREE && cur && cur.ref ? transferBlockHtml(cur.ref) : ''}${cur ? statutCarteHtml(cur, 0) : ''}
     ${curSent ? '' : '<div class="hint" style="text-align:center">Envoyez la carte par SMS pour en créer une autre.</div>'}
     <button class="secondary" data-act="reset" ${curSent ? '' : 'disabled'}>Créer un autre cadeau</button>
     ${curSent ? '' : '<button class="linkbtn" data-act="accueil">Envoyer plus tard</button>'}
