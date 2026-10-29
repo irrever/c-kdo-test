@@ -442,7 +442,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.34 (test)
+   c.kdo — v0.35 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -451,6 +451,8 @@ const CONFIG = {
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrYm9hZWh1ZmxtaXppa2NpY2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MDUwODQsImV4cCI6MjEwODI4MTA4NH0.PfrArPGyVdNuZmg4y0T_c5W43403bOSrfY3bv-WYNtI',
   PUBLIC_URL: 'https://irrever.github.io/c-kdo-test/',
 };
+/* Liens de paiement des formules d’options (mode gratuit). À renseigner ; vide = bouton désactivé. */
+const PAY_LINKS = { option3: '', option10: '' };
 
 const BUCKET = 'medias';
 /* Mode de l'application, choisi par le créateur (cinq appuis sur la carte, puis code) et gardé sur cet appareil :
@@ -1516,6 +1518,27 @@ function explicationLienHtml() {
   return '<div class="hint" style="text-align:center;margin-top:18px">Le lien ouvre la carte pour votre destinataire. Copiez-le si vous voulez l’envoyer par une autre application ou le garder pour plus tard.</div>';
 }
 /* Bouton « Mes cartes (N) » en haut de l’accueil : ouvre la liste sur son propre écran */
+/* Formules d’options (mode gratuit) : boutons avec lien de paiement, ou désactivés tant qu’il n’y a pas de lien */
+function optionButtonsHtml() {
+  const b = (label, link) => link
+    ? `<a class="secondary" style="width:auto;margin:0;text-decoration:none;display:inline-block;text-align:center" href="${esc(link)}" target="_blank" rel="noopener">${esc(label)}</a>`
+    : `<button class="secondary" style="width:auto;margin:0" disabled>${esc(label)}</button>`;
+  return `${b('3 cartes d’option · 1,90 €', PAY_LINKS.option3)} ${b('10 cartes d’option · 5 €', PAY_LINKS.option10)}`;
+}
+function payHintHtml() {
+  return PAY_LINKS.option3 || PAY_LINKS.option10
+    ? '<div class="hint">Paiement par lien.</div>'
+    : '<div class="hint">Paiement pas encore branché : aucun lien de paiement n’est renseigné.</div>';
+}
+/* Bloc de la première page : solde, cartes d’option, formules */
+function optionsBlockHtml() {
+  return `<div class="zone" style="margin-top:12px">
+    <div class="rowline"><span>Solde</span><span>${esc(balanceText())}</span></div>
+    <div class="rowline"><span>Cartes d’option</span><span>${CRED.optionCards}</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">${optionButtonsHtml()}</div>
+    ${payHintHtml()}
+  </div>`;
+}
 function mesBlockHtml() {
   const n = localList().length + envoisList().length;
   /* Mode entraînement : le compte et son solde sont toujours accessibles depuis l’accueil */
@@ -2296,11 +2319,10 @@ function renderCreditsAccount(backHtml) {
       <div class="rowline"><span>Cartes d’option</span><span>${CRED.optionCards}</span></div>
       
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
-        <button class="secondary" style="width:auto;margin:0" disabled>3 cartes d’option · 1,90 €</button>
-        <button class="secondary" style="width:auto;margin:0" disabled>10 cartes d’option · 5 €</button>
+        ${optionButtonsHtml()}
         
       </div>
-      <div class="hint">Paiement pas encore branché : ces options ne peuvent pas être achetées dans cette version de test.</div>`;
+      ${payHintHtml()}`;
   const msg = CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
   const err = CRED.error ? `<div class="error">${esc(CRED.error)}</div>` : '';
   return `
@@ -2730,6 +2752,7 @@ function screenCreateCredits() {
   ${S.codeAsk ? codeAskHtml() : ''}
   <div class="section">
     ${mesBlockHtml()}
+    ${optionsBlockHtml()}
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
       : cardMediaBlockHtml()}
@@ -2766,7 +2789,7 @@ function creditOptionHtml() {
 function screenDoneCredits() {
   const cur = envoisList().find((x) => x.id === S.collectionId);
   return `
-  ${hdr('', 'Votre carte est prête')}
+  ${hdr('', 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
     ${cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}
@@ -3707,6 +3730,8 @@ app.addEventListener('click', (e) => {
   /* TEST : appui simultané sur « Filmer » et « Prendre une photo » : pas de caméra, la demande de code s’ouvre */
   if ((act === 'cardfilm' || act === 'cardphoto') && Date.now() < comboUntil) return;
   if (act === 'codeok') return testCodeSubmit();
+  /* Retour depuis « Votre carte est prête » : même contenu, pas de remise à zéro */
+  if (act === 'backcreate') { S.step = 'create'; S.codeAsk = false; render(); window.scrollTo(0, 0); return; }
   if (act === 'codeno') { S.codeAsk = false; S.codeMsg = ''; S.codeBad = false; return render(); }
   if (act === 'camopen') return startLive();
   if (act === 'cardfilm') return startLive('card', 'video');
