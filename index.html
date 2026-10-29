@@ -465,7 +465,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.49 (test)
+   c.kdo — v0.50 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1768,9 +1768,10 @@ function liveFail(target, text) {
 function videoBlockCam(b) {
   if (S.liveCam && !liveStream) S.liveCam = false;
   if (S.liveCam) return liveBoxHtml('video', MAX_MSG_VIDEO_SECONDS);
+  /* Gratuit : aperçu sans #t=0.1 (lecture bloquée sur iPhone) ; réel inchangé */
   if (S.msgVideoUrl) return `
     <div class="vcrop" data-act="vidtap" data-role="msg">
-      <video class="vcropmedia" data-msgpreview src="${esc(S.msgVideoUrl)}#t=0.1" playsinline preload="metadata"${msgPosterAttr()} style="${cropStyle(S.msgCrop)}"></video>
+      <video class="vcropmedia" data-msgpreview src="${esc(S.msgVideoUrl)}${CREDITS ? '' : '#t=0.1'}" playsinline preload="metadata"${msgPosterAttr()} style="${cropStyle(S.msgCrop)}"></video>
     </div>
     ${cropControlsHtml('msg')}
     <button class="secondary" style="margin-top:10px" data-act="msgrefilm">Refaire la vidéo</button>`;
