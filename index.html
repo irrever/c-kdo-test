@@ -400,7 +400,7 @@
   .cropbar { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   .cropbtn { min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 16px; cursor: pointer; touch-action: manipulation; }
   .vcrop { position: relative; overflow: hidden; aspect-ratio: 1.9 / 1; border-radius: 18px; background: #000; margin-top: 12px; touch-action: none; }
-  .vcrop .vcropmedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .vcrop .vcropmedia, .vcrop .livemedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
   .vcrop .sndbtn { position: absolute; right: 12px; bottom: 12px; z-index: 5; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); color: #fff; font: inherit; font-size: 12px; letter-spacing: .02em; cursor: pointer; pointer-events: auto; }
   .vguide { position: absolute; inset: 7% 9%; border: 2px dashed rgba(255,255,255,.75); border-radius: 12px; pointer-events: none; }
   .vtimer { position: absolute; left: 12px; top: 10px; z-index: 5; padding: 4px 10px; border-radius: 12px; background: rgba(0,0,0,.5); color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; }
@@ -438,7 +438,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.31 (test)
+   c.kdo — v0.32 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1288,7 +1288,7 @@ function cropRefresh(which = 'card') {
 }
 /* L’image vient de se charger : on lit son ratio, puis on met les commandes à jour */
 function cropMediaReady(e) {
-  const which = e && e.target && e.target.closest && e.target.closest('.vcrop') ? 'msg' : 'card';
+  const which = e && e.target && e.target.closest && e.target.closest('.vcrop:not(.live)') ? 'msg' : 'card';
   const t = cropT(which);
   if (RECV || !t.ok || (!t.msg && S.step !== 'create')) return;
   if (!t.c.ar && cropEnsureAr(t.c)) { cropApply(which); cropRefresh(which); }
@@ -1298,7 +1298,7 @@ let cropDrag = null;
 let cropSkipClick = false;
 function cropDown(e) {
   if (e.button > 0 || RECV || !e.target.closest) return;
-  const which = e.target.closest('.vcrop') ? 'msg' : (e.target.closest('.stickycard .card') ? 'card' : '');
+  const which = e.target.closest('.vcrop:not(.live)') ? 'msg' : (e.target.closest('.stickycard .card') ? 'card' : '');
   if (!which) return;
   const t = cropT(which);
   if (!t.ok || t.locked || (!t.msg && S.step !== 'create')) return;
@@ -1680,11 +1680,16 @@ function videoBlock() {
     ${S.msgVideoUrl ? `<video class="player" controls playsinline src="${esc(S.msgVideoUrl)}"></video>` : ''}`;
 }
 
-/* ---------- mode gratuit : filmer dans la page avec le cadre, puis recadrer la vidéo ---------- */
+/* ---------- caméra dans la page (mode gratuit) : vidéo du message, vidéo ou photo de la carte, retournement ---------- */
 let liveStream = null, liveRecorder = null, liveTimerId = null, liveTick = null, liveStartedAt = 0, liveCancel = false;
+let liveTarget = 'msg', liveMode = 'video', liveFacing = 'user';
+function liveFail(target, text) {
+  if (target === 'card') S.mediaError = text; else S.error = text;
+  render();
+}
 function videoBlockFree(b) {
   if (S.liveCam && !liveStream) S.liveCam = false;
-  if (S.liveCam) return liveBlockHtml();
+  if (S.liveCam) return liveBoxHtml('video', MAX_MSG_VIDEO_SECONDS);
   if (S.msgVideoUrl) return `
     <div class="vcrop">
       <video class="vcropmedia" src="${esc(S.msgVideoUrl)}" autoplay muted loop playsinline style="${cropStyle(S.msgCrop)}"></video>
@@ -1700,19 +1705,37 @@ function videoBlockFree(b) {
     <div class="hint">30 secondes maximum. Le cadre vous aide à placer la scène.</div>
     ${b ? '<div class="blockErr">Filmez ou choisissez une vidéo.</div>' : ''}`;
 }
-function liveBlockHtml() {
+/* Carte, mode gratuit : filmer ou prendre une photo dans la page, ou choisir un fichier */
+function cardMediaBlockHtml() {
+  if (S.cardLiveMode && !liveStream) S.cardLiveMode = '';
+  if (S.cardLiveMode) return liveBoxHtml(S.cardLiveMode, MAX_CARD_VIDEO_SECONDS);
+  return `
+    <div class="grid2">
+      <button class="btn2" style="margin-top:8px" data-act="cardfilm">Filmer</button>
+      <button class="btn2" style="margin-top:8px" data-act="cardphoto">Prendre une photo</button>
+    </div>
+    <label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`;
+}
+/* Aperçu caméra (avec le cadre) et ses commandes : photo ou vidéo, selon le mode */
+function liveBoxHtml(mode, maxSec) {
   const rec = S.liveRecording;
+  const photo = mode === 'photo';
+  const main = photo
+    ? '<button class="btn2" data-act="camshot">Prendre la photo</button>'
+    : `<button class="btn2${rec ? ' rec' : ''}" data-act="camrec">${rec ? 'Arrêter' : 'Enregistrer'}</button>`;
+  const hint = photo ? 'Placez la scène dans le cadre, puis prenez la photo.' : `${maxSec} secondes maximum. Placez la scène dans le cadre.`;
   return `
     <div class="vcrop live">
-      <video id="liveVid" class="vcropmedia" autoplay muted playsinline></video>
+      <video id="liveVid" class="livemedia" autoplay muted playsinline></video>
       <div class="vguide" aria-hidden="true"></div>
-      <div class="vtimer">${rec ? '<span id="liveTimer">0:00</span>' : 'Prêt'}</div>
+      <div class="vtimer">${!photo && rec ? '<span id="liveTimer">0:00</span>' : 'Prêt'}</div>
     </div>
     <div class="grid2" style="margin-top:12px">
-      <button class="btn2${rec ? ' rec' : ''}" data-act="camrec">${rec ? 'Arrêter' : 'Enregistrer'}</button>
-      <button class="btn2" data-act="camcancel">Annuler</button>
+      ${main}
+      <button class="btn2" data-act="camflip"${rec ? ' disabled' : ''}>Retourner la caméra</button>
     </div>
-    <div class="hint">30 secondes maximum. Placez la scène dans le cadre.</div>`;
+    <button class="secondary" style="margin-top:10px" data-act="camcancel">Annuler</button>
+    <div class="hint">${hint}</div>`;
 }
 function attachLive() {
   const v = document.getElementById('liveVid');
@@ -1722,22 +1745,38 @@ function stopLiveStream() {
   if (liveStream) liveStream.getTracks().forEach((t) => t.stop());
   liveStream = null;
 }
-async function startLive() {
-  S.error = '';
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
-    S.error = 'Caméra dans la page non disponible sur ce navigateur. Choisissez une vidéo.';
-    return render();
+async function startLive(target = 'msg', mode = 'video') {
+  S.error = ''; S.mediaError = '';
+  const wantRec = mode === 'video';
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || (wantRec && typeof MediaRecorder === 'undefined')) {
+    return liveFail(target, 'Caméra dans la page non disponible sur ce navigateur. Choisissez un fichier à la place.');
   }
   let stream;
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: liveFacing } }, audio: wantRec });
   } catch (err) {
-    S.error = `Caméra ou micro refusé (${err.name}). Choisissez une vidéo à la place.`;
-    return render();
+    return liveFail(target, `Accès à la caméra${wantRec ? ' ou au micro' : ''} refusé (${err.name}). Choisissez un fichier à la place.`);
   }
   stopLiveStream();
-  liveStream = stream;
-  S.liveCam = true; S.liveRecording = false;
+  liveStream = stream; liveTarget = target; liveMode = mode;
+  S.liveRecording = false;
+  if (target === 'msg') { S.liveCam = true; S.cardLiveMode = ''; }
+  else { S.liveCam = false; S.cardLiveMode = mode; }
+  render(); attachLive();
+}
+/* Retourne la caméra avant ou après l’aperçu, jamais pendant un enregistrement */
+async function flipCamera() {
+  if (!liveStream || (liveRecorder && liveRecorder.state !== 'inactive')) return;
+  const next = liveFacing === 'user' ? 'environment' : 'user';
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: next } }, audio: liveMode === 'video' });
+    stopLiveStream();
+    liveStream = stream; liveFacing = next;
+    S.error = ''; S.mediaError = '';
+  } catch (err) {
+    liveFail(liveTarget, `Cette caméra n’est pas disponible (${err.name}).`);
+    return;
+  }
   render(); attachLive();
 }
 function liveMime() {
@@ -1747,9 +1786,14 @@ function liveMime() {
 function recLive() {
   if (!liveStream) return;
   const type = liveMime();
+  const target = liveTarget;
+  const maxSec = target === 'card' ? MAX_CARD_VIDEO_SECONDS : MAX_MSG_VIDEO_SECONDS;
   let rec;
   try { rec = type ? new MediaRecorder(liveStream, { mimeType: type }) : new MediaRecorder(liveStream); }
-  catch (err) { stopLiveStream(); S.liveCam = false; S.error = 'Enregistrement non disponible sur ce navigateur. Choisissez une vidéo.'; return render(); }
+  catch (err) {
+    stopLiveStream(); S.liveCam = false; S.cardLiveMode = '';
+    return liveFail(target, 'Enregistrement non disponible sur ce navigateur. Choisissez un fichier.');
+  }
   const chunks = [];
   rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
   rec.onstop = () => {
@@ -1758,16 +1802,17 @@ function recLive() {
     const cancelled = liveCancel; liveCancel = false;
     const blob = new Blob(chunks, { type: rec.mimeType || type || 'video/mp4' });
     stopLiveStream();
-    S.liveCam = false; S.liveRecording = false;
+    S.liveCam = false; S.liveRecording = false; S.cardLiveMode = '';
     if (cancelled) return render();
-    if (!blob.size) { S.error = 'La vidéo filmée est vide. Recommencez.'; return render(); }
-    handleMsgVideo(new File([blob], 'video-filmee', { type: blob.type }));
+    if (!blob.size) return liveFail(target, 'La vidéo filmée est vide. Recommencez.');
+    const file = new File([blob], target === 'card' ? 'video-carte' : 'video-filmee', { type: blob.type });
+    if (target === 'card') handleCardFile(file); else handleMsgVideo(file);
   };
   liveRecorder = rec;
   liveStartedAt = Date.now();
   rec.start();
   S.liveRecording = true;
-  liveTimerId = setTimeout(stopLive, MAX_MSG_VIDEO_SECONDS * 1000);
+  liveTimerId = setTimeout(stopLive, maxSec * 1000);
   render(); attachLive();
   liveTick = setInterval(() => {
     const el = document.getElementById('liveTimer');
@@ -1776,10 +1821,25 @@ function recLive() {
   }, 250);
 }
 function stopLive() { if (liveRecorder && liveRecorder.state !== 'inactive') liveRecorder.stop(); }
+/* Photo de la carte : image de l’aperçu, telle qu’elle est cadrée dans la page */
+function takePhoto() {
+  const v = document.getElementById('liveVid');
+  if (!v || !liveStream || !v.videoWidth) return liveFail('card', 'La caméra n’est pas encore prête. Réessayez dans un instant.');
+  const canvas = document.createElement('canvas');
+  canvas.width = v.videoWidth; canvas.height = v.videoHeight;
+  canvas.getContext('2d').drawImage(v, 0, 0, canvas.width, canvas.height);
+  canvas.toBlob((blob) => {
+    stopLiveStream();
+    S.cardLiveMode = '';
+    if (!blob) return liveFail('card', 'La photo n’a pas pu être enregistrée. Réessayez.');
+    handleCardFile(new File([blob], 'photo-prise.jpg', { type: 'image/jpeg' }));
+  }, 'image/jpeg', 0.92);
+}
 function cancelLive() {
   if (liveRecorder && liveRecorder.state !== 'inactive') { liveCancel = true; liveRecorder.stop(); return; }
-  stopLiveStream(); S.liveCam = false; S.liveRecording = false; render();
+  stopLiveStream(); S.liveCam = false; S.liveRecording = false; S.cardLiveMode = ''; render();
 }
+
 function refilmMsgVideo() {
   if (S.msgVideoUrl) URL.revokeObjectURL(S.msgVideoUrl);
   Object.assign(S, { msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, msgCrop: cropDefault(), msgCropLocked: false, error: '' });
@@ -2676,7 +2736,7 @@ function screenCreateCredits() {
     ${mesBlockHtml()}
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
-      : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
+      : cardMediaBlockHtml()}
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
@@ -3594,6 +3654,10 @@ app.addEventListener('click', (e) => {
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
   if (act === 'camopen') return startLive();
+  if (act === 'cardfilm') return startLive('card', 'video');
+  if (act === 'cardphoto') return startLive('card', 'photo');
+  if (act === 'camshot') return takePhoto();
+  if (act === 'camflip') return flipCamera();
   if (act === 'camrec') { if (S.liveRecording) stopLive(); else recLive(); return; }
   if (act === 'camcancel') return cancelLive();
   if (act === 'msgrefilm') return refilmMsgVideo();
