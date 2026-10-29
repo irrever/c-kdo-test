@@ -470,7 +470,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.51 (test)
+   c.kdo — v0.52 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1963,7 +1963,6 @@ function recLive() {
     liveRecorder = null;
     const cancelled = liveCancel; liveCancel = false;
     const blob = new Blob(chunks, { type: rec.mimeType || type || 'video/mp4' });
-    window.__recInfo = (blob.type || 'type vide') + ' · ' + Math.round(blob.size / 1024) + ' Ko · ' + chunks.length + ' morceau(x)';
     stopLiveStream();
     S.liveCam = false; S.liveRecording = false; S.cardLiveMode = '';
     if (cancelled) return render();
@@ -4766,34 +4765,6 @@ app.addEventListener('load', cropMediaReady, true);
 if (CREDITS) app.addEventListener('click', creditClick);
 if (GROUP_ID && MANAGE_KEY) startManage(); else if (GROUP_ID) startGroup(); else if (RECIPIENT_ID) startRecipient(); else restoreDraft().then(() => { render(); refreshLocalList(); if (CREDITS) credLoad().then(() => render()).catch(() => {}); });
 
-/* Repère de diagnostic (mode gratuit, test) : état de la vidéo du message, défilement et dernier élément touché.
-   Sans effet sur les appuis. À retirer avant la mise en production. */
-if (CREDITS) {
-  const diag = document.createElement('div');
-  diag.id = 'diag';
-  diag.setAttribute('aria-hidden', 'true');
-  diag.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:999;pointer-events:none;background:rgba(0,0,0,.82);color:#9f9;font:11px/1.35 monospace;padding:4px 6px;word-break:break-all;';
-  document.body.appendChild(diag);
-  let dernier = 'aucun';
-  const noteToucher = (e) => {
-    const t = e.target;
-    if (!t || !t.tagName) return;
-    const act = t.closest ? t.closest('[data-act]') : null;
-    const cls = typeof t.className === 'string' && t.className ? '.' + t.className.split(' ')[0] : '';
-    dernier = t.tagName.toLowerCase() + cls + (act ? ' data-act=' + act.getAttribute('data-act') : '') + ' (' + e.type + ')';
-  };
-  document.addEventListener('pointerdown', noteToucher, true);
-  document.addEventListener('click', noteToucher, true);
-  const majDiag = () => {
-    const v = document.querySelector('.vcrop video');
-    const etat = v
-      ? `vidéo : ${v.paused ? 'arrêt' : 'lecture'} · t=${v.currentTime.toFixed(1)} · prête=${v.readyState} · erreur=${v.error ? v.error.code : 'aucune'} · muet=${v.muted}`
-      : 'vidéo : aucune';
-    diag.textContent = `${etat} | défilement y=${Math.round(scrollY)} | dernier toucher : ${dernier} | fichier filmé : ${window.__recInfo || 'aucun'}`;
-  };
-  setInterval(majDiag, 300);
-  majDiag();
-}
 </script>
 </body>
 </html>
