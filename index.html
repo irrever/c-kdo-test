@@ -391,7 +391,7 @@
   .secretbox .field { width: 100%; margin: 8px 0; font-size: 22px; letter-spacing: .3em; text-align: center; }
   .secretbtns { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
   /* Recadrage : le glissement déplace la photo ou la vidéo, sans faire défiler la page */
-  .stickycard .card { touch-action: none; }
+  .stickycard.has-photo .card { touch-action: none; }
   .cropbox { margin-top: 12px; }
   .cropmsg { font-size: 16px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.4; }
   .cropbar { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
@@ -430,7 +430,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.27 (test)
+   c.kdo — v0.29 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -505,11 +505,9 @@ const CREDIT_REFILL = 100;         /* solde visé : sous 100, le compte à rebou
 const CREDIT_COUNTDOWN_H = 48;     /* durée du compte à rebours avant la recharge à 100 */
 const CREDIT_LIFE_DAYS = 7;        /* durée de vie d’une carte depuis son envoi : ouverte ou non, elle expire avec ses Kdo */
 const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours : 10 Kdo, ou une carte de survie */
-const CREDIT_FX_PACK = 5;          /* pack d’effets supplémentaires : 5 Kdo pour deux effets, quel que soit le nombre choisi dans le pack */
-const CREDIT_MEDIA = { none: 5, photo: 10, video: 20 };
-const CREDIT_MSG = { text: 0, voice: 5, video: 15 };
 const KEY_COMPTE = 'ckdo.compte';  /* clé secrète du compte : sur cet appareil seulement, le serveur n’en garde que l’empreinte */
 /* État du compte affiché : solde, recharge, stocks d’options, cartes lues sur le serveur */
+const CREDIT_CARD = 10;          /* une carte coûte 10 Kdo, quels que soient son message, son média ou ses effets */
 const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, survival: 0, cards: {}, busy: '', msg: '', error: '' };
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
@@ -1146,15 +1144,15 @@ function fxAddHtml() {
   if (FREE && !CREDITS) return '';
   const n = S.fxExtra.length;
   /* Mode gratuit : un pack de deux effets supplémentaires, payé une fois dès le premier choisi */
-  const prix = CREDITS ? credTxt(CREDIT_FX_PACK) : eur(EFFECT_EXTRA_PRICE);
-  let label = CREDITS && n >= 1 ? '+ Ajouter un effet · inclus dans le pack' : `+ Ajouter un effet · ${prix}`;
+  const prix = eur(EFFECT_EXTRA_PRICE);
+  let label = CREDITS ? '+ Ajouter un effet' : `+ Ajouter un effet · ${prix}`;
   let disabled = false;
   if (S.fx === 'none') { label = 'Choisissez d’abord un premier effet'; disabled = true; }
   else if (n >= EFFECT_MAX - 1) { label = `Maximum ${EFFECT_MAX - 1} effets supplémentaires. Retirez-en un (×) pour en choisir un autre.`; disabled = true; }
   else if (S.fxDup) label = `« ${FX_LABEL[S.fxDup]} » est déjà sur la carte. Touchez un autre effet.`;
   else if (S.addingFx) label = 'Touchez l’effet à ajouter ci-dessus';
   const chips = S.fxExtra.map((k) => `<span class="fxchip">${FX_LABEL[k]}<button data-act="rmfx" data-val="${k}" aria-label="Retirer ${FX_LABEL[k]}">×</button></span>`).join('');
-  return `<button class="fxaddbtn" data-act="addfx" aria-pressed="${S.addingFx}"${disabled ? ' disabled' : ''}>${label}</button>${chips ? `<div class="fxchips">${chips}</div>` : ''}<div class="hint">${CREDITS ? `Le premier effet est offert. Le pack de deux effets supplémentaires coûte ${prix}.` : `Le premier effet est offert. Chaque effet supplémentaire coûte ${prix}.`} Maximum ${EFFECT_MAX - 1} effets supplémentaires.</div>`;
+  return `<button class="fxaddbtn" data-act="addfx" aria-pressed="${S.addingFx}"${disabled ? ' disabled' : ''}>${label}</button>${chips ? `<div class="fxchips">${chips}</div>` : ''}<div class="hint">${CREDITS ? 'Les effets sont inclus dans la carte, sans supplément.' : `Le premier effet est offert. Chaque effet supplémentaire coûte ${prix}.`} Maximum ${EFFECT_MAX - 1} effets supplémentaires.</div>`;
 }
 /* Ajoute le nouvel effet sur les cartes, sans relancer ceux qui jouent déjà */
 function addCardFx(key) {
@@ -1512,8 +1510,8 @@ function screenCreate() {
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
     <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
-    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
-    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${CREDITS ? `<div class="hint" id="creditCost" style="text-align:center">${esc(creditCostText())}</div>` : ''}${cropControlsHtml()}
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
     <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
@@ -1527,7 +1525,7 @@ function screenCreate() {
     <div id="fxMenu">${fxMenuHtml()}</div>
     <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
-    ${CREDITS ? creditAmountBlockHtml() : ''}${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     ${FREE ? '' : `<div id="payBlock">${payBlockInner()}</div>`}
   </div>
   <div class="foot" id="createFoot">${createFootInner()}</div>`;
@@ -1659,7 +1657,7 @@ function msgBodyHtml() {
        <div class="hint"><span id="msgCount">${S.message.length}</span> / 500 caractères</div>`;
 }
 /* Mises à jour ciblées de l'écran message : la carte n'est pas reconstruite */
-function updateMsgBody() { const b = document.getElementById('msgBody'); if (b) b.innerHTML = msgBodyHtml(); }
+function updateMsgBody() { const b = document.getElementById('msgBody'); if (b) b.innerHTML = msgBodyHtml(); syncCreditAmountInput(); }
 function syncMsgTabs() {
   document.querySelectorAll('[data-act="msgtype"]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.val === S.msgType)));
 }
@@ -1674,6 +1672,7 @@ function msgFootHtml() {
       </div>
     </div>`;
   }
+  if (CREDITS) return `${footErr()}<button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer la carte'}</button>`;
   return `${footErr()}<button class="primary" data-cta data-act="go" data-val="recap">Continuer</button>`;
 }
 function refreshMsgFoot() { const f = document.getElementById('msgFoot'); if (f) f.innerHTML = msgFootHtml(); }
@@ -1686,12 +1685,12 @@ function screenMessage() {
     <div class="label">Prénom du destinataire</div>
     <input id="recipient" class="field${bad('recipient')}" maxlength="40" placeholder="Par exemple : Théo" value="${esc(S.recipient)}">
 
-    <div class="stickycard fixed-full">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, crop: S.crop })}</div>
+    <div class="stickycard fixed-full">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: CREDITS, crop: S.crop })}</div>
 
     <div class="label">Type de message</div>
     <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
 
-    <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
+    <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>${CREDITS ? creditAmountBlockHtml() : ''}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
   <div class="foot" id="msgFoot">${msgFootHtml()}</div>`;
@@ -1840,7 +1839,7 @@ const credTxt = (n) => `${n} Kdo`;
 /* Montant de la carte en Kdo : choisi par l’expéditeur, jamais en dessous de son coût calculé. Carte d’option : 0 Kdo. */
 function credAmountOf() {
   if (S.optionCard) return 0;
-  return S.credAmount === null ? cardCredits() : S.credAmount;
+  return CREDIT_CARD;
 }
 /* Texte sous la carte, à l’étape de création et au récapitulatif */
 const creditCostText = () => {
@@ -1859,14 +1858,27 @@ function creditAmountMsg() {
 /* Champ « Kdo envoyés » : suit le coût tant que l’expéditeur n’a pas tapé son propre montant (mode gratuit) */
 function syncCreditAmountInput() {
   if (!CREDITS) return;
+  creditRaiseToMin();
   const i = document.getElementById('credAmount');
-  if (i && S.credAmount === null) { i.value = String(cardCredits()); i.min = String(cardCredits()); }
+  if (i) {
+    i.min = String(cardCredits());
+    if (S.credAmount === null) i.value = String(cardCredits());
+    else if (Number.isFinite(S.credAmount) && document.activeElement !== i) i.value = String(S.credAmount);
+  }
   const ce = document.getElementById('creditAmountErr');
   if (ce) { const m = creditAmountMsg(); ce.textContent = m; ce.style.display = m ? '' : 'none'; }
   updatePreview();
 }
 /* Bloc « Kdo envoyés » de l’étape création : montant modifiable vers le haut, carte d’option si le lot le permet */
+/* Somme saisie à la main : elle monte au minimum quand le message ajoute un coût */
+function creditRaiseToMin() {
+  const cost = cardCredits();
+  const prev = S.credCostSeen === undefined ? cost : S.credCostSeen;
+  if (S.credAmount !== null && Number.isFinite(S.credAmount) && S.credAmount < cost && cost > prev) S.credAmount = cost;
+  S.credCostSeen = cost;
+}
 function creditAmountBlockHtml() {
+  creditRaiseToMin();
   const cost = cardCredits();
   const raw = S.credAmount === null ? cost : Number.isFinite(S.credAmount) ? S.credAmount : '';
   const msg = creditAmountMsg();
@@ -1886,9 +1898,7 @@ const dureeTxt = (ms) => {
 };
 /* Coût d’une carte selon son contenu : même règle que credit_cost() côté serveur */
 function cardCredits() {
-  const media = !S.mediaFile ? 'none' : S.mediaIsVideo ? 'video' : 'photo';
-  const msg = hasNoMessage() ? 'text' : S.msgType;
-  return CREDIT_MEDIA[media] + CREDIT_MSG[msg] + (S.fxExtra.length ? CREDIT_FX_PACK : 0);
+  return CREDIT_CARD;
 }
 function credKey() {
   const v = store.get(KEY_COMPTE, null);
@@ -1971,7 +1981,7 @@ async function submitCredits() {
     const row = {
       id, occasion: S.occasion, card_text: S.cardText.trim(), effect: S.fx,
       media_type: S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none', media_path: mediaPath,
-      msg_type: msgType, msg_media_path: msgPath, message, recipient_name: S.recipient.trim(),
+      msg_type: msgType, msg_media_path: msgPath, message, recipient_name: '',
       ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
       ...(cropSet() ? { media_crop: S.crop } : {}),
       ...(option ? { option: true } : { credit_amount: amount }),
@@ -1983,7 +1993,7 @@ async function submitCredits() {
     recordPhone();
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
     S.links = [base + id]; S.link = S.links[0]; S.soloMulti = false; S.collectionId = id;
-    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: S.recipient.trim(), total: 0,
+    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: '', total: 0,
       links: S.links, sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
     S.step = 'done';
   } catch (err) {
@@ -2022,14 +2032,11 @@ function prolongBlockHtml(id, st) {
   if (!st || !st.expires_at || st.collected_by !== CRED.id) return '';
   if (Date.parse(st.expires_at) <= Date.now()) return '<div class="hint">Cette carte a expiré.</div>';
   const kdoOk = CRED.balance !== null && CRED.balance >= CREDIT_PROLONG_KDO && !CRED.busy;
-  const survieBouton = CRED.survival > 0
-    ? `<button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="survie" data-val="${esc(id)}"${CRED.busy ? ' disabled' : ''}>Avec une carte de survie (il vous en reste ${CRED.survival})</button>`
-    : '';
   const manque = CRED.balance !== null && CRED.balance < CREDIT_PROLONG_KDO;
   return `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">
       <button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="kdo" data-val="${esc(id)}"${kdoOk ? '' : ' disabled'}>Prolonger de ${CREDIT_LIFE_DAYS} jours · ${CREDIT_PROLONG_KDO} Kdo</button>
-      ${survieBouton}
+
     </div>
     ${manque ? `<div class="hint">Il vous faut ${CREDIT_PROLONG_KDO} Kdo pour prolonger de ${CREDIT_LIFE_DAYS} jours.</div>` : ''}`;
 }
@@ -2090,15 +2097,15 @@ function renderCreditsAccount(backHtml) {
       else statut = `Pas encore encaissée${st.expires_at ? ` · valable jusqu’au ${finTxt(st.expires_at)}` : ''}`;
     }
     const montant = x.option_card ? 'Carte d’option, sans Kdo' : credTxt(Number(x.credits));
-    return `<div class="accrow"><span class="accmeta"><span class="accname">Carte pour ${esc(x.recipientName)}</span><small>${esc(montant)} · ${esc(statut)}</small></span></div>`;
+    return `<div class="accrow"><span class="accmeta"><span class="accname">${x.recipientName ? `Carte pour ${esc(x.recipientName)}` : 'Carte envoyée'}</span><small>${esc(montant)} · ${esc(statut)}</small></span></div>`;
   }).join('');
   const options = `
       <div class="label">Mes options</div>
       <div class="rowline"><span>Cartes d’option</span><span>${CRED.optionCards}</span></div>
-      <div class="rowline"><span>Cartes de survie</span><span>${CRED.survival}</span></div>
+      
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
         <button class="secondary" style="width:auto;margin:0" disabled>3 cartes d’option · 1,90 €</button>
-        <button class="secondary" style="width:auto;margin:0" disabled>Carte de survie · 1,50 €</button>
+        
       </div>
       <div class="hint">Paiement pas encore branché : ces options ne peuvent pas être achetées dans cette version de test.</div>`;
   const msg = CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
@@ -2229,7 +2236,7 @@ function screenRecapFree() {
   <div class="foot" id="recapFoot">${recapFreeFootHtml()}</div>`;
 }
 function recapFreeFootHtml() {
-  if (CREDITS) return `${footErr()}<p class="footnote">${esc(creditCostText())} Solde : ${esc(balanceText())}.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Créer la carte pour ' + esc(S.recipient)}</button>`;
+  if (CREDITS) return `${footErr()}<p class="footnote">${esc(creditCostText())} Solde : ${esc(balanceText())}.</p><button class="primary" data-cta data-act="submit"${creditAmountMsg() ? ' disabled' : ''}>${S.busy ? 'Création en cours…' : 'Créer la carte pour ' + esc(S.recipient)}</button>`;
   return `${footErr()}<p class="footnote">Gratuit. Aucun paiement.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Créer la carte pour ' + esc(S.recipient)}</button>`;
 }
 
@@ -2522,7 +2529,83 @@ function saveCardEdit() {
   render();
 }
 
+/* Mode gratuit, une seule page : la carte, le message, l’envoi. Pas d’occasion, pas de prénom, pas de récapitulatif. */
+function screenCreateCredits() {
+  const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
+  return `
+  ${hdr('', 'Créer une carte')}
+  <div class="section">
+    ${mesBlockHtml()}
+    ${S.mediaUrl
+      ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
+      : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
+    ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
+    <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
+
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
+
+    <div class="label">Votre dédicace</div>
+    <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
+    <div class="hint"><span id="cardCount">${S.cardText.length}</span> / 40 caractères</div>
+    <div class="hint" id="cardRappel" style="${S.cardText.trim() ? 'display:none' : ''}">« Attention, il n’y a rien d’écrit sur la carte. Vous pouvez tout de même continuer si vous le souhaitez. »</div>
+
+    <div class="label">Effet à l’ouverture</div>
+    <div id="fxMenu">${fxMenuHtml()}</div>
+    <div class="fxadd" id="fxAdd">${fxAddHtml()}</div>
+    <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
+
+    <div class="label">Votre message</div>
+    <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
+    <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
+    ${creditOptionHtml()}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+  </div>
+  <div class="foot" id="msgFoot">${msgFootHtml()}</div>`;
+}
+/* Carte d’option (0 Kdo) : proposée seulement si le compte en a en stock */
+function creditOptionHtml() {
+  if (!(CRED.optionCards > 0 || S.optionCard)) return '';
+  return `<label class="check"><input id="optionCard" type="checkbox" ${S.optionCard ? 'checked' : ''}> <span>Carte d’option, sans Kdo, pour répondre à une carte reçue. Il vous reste ${CRED.optionCards} carte(s) d’option.</span></label>`;
+}
+/* Écran final (mode gratuit) : la carte, puis le lien à partager par SMS, WhatsApp, etc. */
+function screenDoneCredits() {
+  const cur = envoisList().find((x) => x.id === S.collectionId);
+  return `
+  ${hdr('', 'Votre carte est prête')}
+  <div class="section">
+    <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
+    ${cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}
+    <button class="primary" style="margin-top:12px" data-act="sharelink">Envoyer la carte</button>
+    <button class="secondary" data-act="copy">Copier le lien</button>
+    <button class="secondary" data-act="reset">Créer une autre carte</button>
+  </div>`;
+}
+/* Partage du lien : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas */
+function shareCreditLink(btn) {
+  if (!S.link) return;
+  if (navigator.share) { navigator.share({ url: S.link, text: 'Une carte c.kdo pour toi !' }).catch(() => {}); return; }
+  copyLink(btn);
+}
+/* Destinataire (mode gratuit) : la carte en haut, le message en bas, rien d’autre */
+function renderRecvSimple() {
+  const { row, mediaUrl, msgBlock } = RECV;
+  const play = !!RECV.playFx;
+  RECV.playFx = false;
+  return `
+    <div class="section recvSimple">
+      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', controls: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
+      <div class="recvbox">${msgBlock}</div>
+    </div>`;
+}
+/* Les crédits de la carte passent sur le compte à l’ouverture, une seule fois */
+function autoCollectOnce() {
+  if (!RECV || RECV.autoDone || !CREDITS || !sb || !isCreditCard(RECV.row) || RECV.row.option_card) return;
+  RECV.autoDone = true;
+  encaisserCarte(RECV.row.id);
+}
 function screenDone() {
+  if (CREDITS) return screenDoneCredits();
   /* Cadeau seul au-delà de 500 € : même écran que le cadeau à plusieurs (une carte par lien, un envoi par carte) */
   if (S.closedGroup || S.soloMulti) return screenDoneGroup();
   /* Pas de SMS tant que le numéro du destinataire n'est pas saisi */
@@ -3091,7 +3174,7 @@ function updateStickyCard() {
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
-  const screens = { create: screenCreate, mes: screenMes, compte: screenCompte, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
+  const screens = { create: CREDITS ? screenCreateCredits : screenCreate, mes: screenMes, compte: screenCompte, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
   /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
   try {
@@ -3325,19 +3408,21 @@ app.addEventListener('click', (e) => {
       bringIntoView(document.querySelector('.field.bad, .btn2.bad, .secondary.bad, .check.bad'));
       return;
     }
-    if (S.step === 'message' && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
+    if ((S.step === 'message' || (CREDITS && S.step === 'create')) && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
     S.showErrors = false;
   }
   if (act === 'kp') { kpPress(el.dataset.target, v); return; }
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
   if (act === 'submit') {
+    if (CREDITS) return submitCredits();
     if (S.group && !amountOk()) { S.error = `Votre part doit être entre ${MIN_AMOUNT} € et ${MAX_AMOUNT} €.`; return render(); }
     if (S.group) return createCollection();
     /* Cadeau seul : le paiement attend des conditions acceptées et un numéro valide (retour au récapitulatif sinon) */
     if (!S.terms || !phoneOk(S.recipientPhone)) { S.step = 'recap'; S.showErrors = true; S.error = ''; return render(); }
     return CREDITS ? submitCredits() : submit();
   }
+  if (act === 'sharelink') return shareCreditLink(el);
   if (act === 'copy') return copyLink(el);
   if (act === 'copygrp') return copyGroupLink(el, v);
   if (act === 'sharegrp') return shareGroup(el);
@@ -3525,9 +3610,12 @@ app.addEventListener('click', (e) => {
     }
     case 'nomsg':
       S.askNoMsg = false; S.showErrors = false;
+      if (CREDITS) return submitCredits();
       S.step = 'recap';
       break;
     case 'go':
+      /* Somme (mode gratuit) : contrôlée avant le récapitulatif */
+      if (CREDITS && v === 'recap' && creditAmountMsg()) { S.showErrors = true; syncCreditAmountInput(); return; }
       /* Retour depuis l’édition d’une carte : la carte de base est remise en place */
       restoreBase();
       S.error = ''; S.editCard = null; S.step = v;
@@ -3742,7 +3830,7 @@ async function openCard(id, fromAccount) {
   rememberCard(row);
   walletState = { apple: false, google: false };
   showNumber = false;
-  recvView = fromAccount ? 'card' : 'message';
+  recvView = fromAccount ? 'card' : (CREDITS && isCreditCard(row) ? 'simple' : 'message');
 }
 
 /* Premier écran du destinataire : le message reçu, puis « Voir ma carte » */
@@ -3911,6 +3999,7 @@ function drawRecv() {
   else if (recvView === 'message') app.innerHTML = renderRecvMessage();
   else if (recvView === 'transfer') app.innerHTML = renderRecvTransfer();
   else if (recvView === 'locked') app.innerHTML = renderRecvLocked();
+  else if (recvView === 'simple') { app.innerHTML = renderRecvSimple(); autoCollectOnce(); }
   else { app.innerHTML = renderRecvCard(); loadRecvCredit(); }
 }
 
