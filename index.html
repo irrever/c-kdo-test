@@ -396,6 +396,11 @@
   .cropmsg { font-size: 16px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.4; }
   .cropbar { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   .cropbtn { min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 16px; cursor: pointer; touch-action: manipulation; }
+  .vcrop { position: relative; overflow: hidden; aspect-ratio: 1.9 / 1; border-radius: 18px; background: #000; margin-top: 12px; touch-action: none; }
+  .vcrop .vcropmedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .vcrop .sndbtn { position: absolute; right: 12px; bottom: 12px; z-index: 5; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); color: #fff; font: inherit; font-size: 12px; letter-spacing: .02em; cursor: pointer; pointer-events: auto; }
+  .vguide { position: absolute; inset: 7% 9%; border: 2px dashed rgba(255,255,255,.75); border-radius: 12px; pointer-events: none; }
+  .vtimer { position: absolute; left: 12px; top: 10px; z-index: 5; padding: 4px 10px; border-radius: 12px; background: rgba(0,0,0,.5); color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; }
   .cropbtn:disabled { opacity: .35; cursor: default; }
   .cropzoom { min-width: 120px; text-align: center; font-size: 16px; color: var(--text); font-variant-numeric: tabular-nums; }
   .cropbtn.cropvalid { display: block; width: 100%; min-height: 48px; margin-top: 12px; background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); font-weight: 600; }
@@ -430,7 +435,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.29 (test)
+   c.kdo — v0.30 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -535,7 +540,7 @@ const initialState = () => ({
   mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', crop: cropDefault(),
   msgType: 'text', message: DEFAULT_MSG,
   voiceBlob: null, voiceUrl: '', voiceSecs: 0, recording: false,
-  msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0,
+  msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, msgCrop: cropDefault(), msgCropLocked: false, liveCam: false, liveRecording: false,
   recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
   schedule: false, openDate: '',
   group: false, payChosen: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
@@ -1184,10 +1189,23 @@ function cropDefault() { return { cx: 0.5, cy: 0.5, z: 1 }; }
 function cropIsChanged(c) { return !!c && (c.z !== 1 || c.cx !== 0.5 || c.cy !== 0.5); }
 function cropOf() { if (!S.crop) S.crop = cropDefault(); return S.crop; }
 function cropSet() { return !!S.mediaUrl && cropIsChanged(S.crop); }
+/* Cadrage de la vidéo du message (mode gratuit) : même système que la carte, dans un cadre aux proportions de la carte */
+function msgCropActive() { return CREDITS && S.msgType === 'video' && !!S.msgVideoUrl && !S.liveCam && !RECV; }
+function msgCropSet() { return msgCropActive() && cropIsChanged(S.msgCrop); }
+/* Cible du recadrage : 'msg' (la vidéo du message) ou 'card' (la carte) */
+function cropT(which) {
+  if (which === 'msg') {
+    if (!S.msgCrop) S.msgCrop = cropDefault();
+    return { ok: msgCropActive(), msg: true, c: S.msgCrop, locked: !!S.msgCropLocked, box: '.vcrop', media: '.vcrop .vcropmedia', key: 'msg' };
+  }
+  return { ok: !!S.mediaUrl && !RECV, msg: false, c: cropOf(), locked: !!S.cropLocked, box: '.stickycard .card', media: '.stickycard .card .media', key: 'card' };
+}
+/* Média dont on lit le ratio : celui du cadrage du message si c’est son cadrage, sinon celui de la carte */
+function cropMediaSel(c) { return c === S.msgCrop && S.msgType === 'video' ? '.vcrop .vcropmedia' : '.stickycard .card .media'; }
 /* Ratio largeur / hauteur de la photo ou de la vidéo, lu dans l’écran une fois l’image chargée */
 function cropEnsureAr(c) {
   if (c.ar) return c.ar;
-  const m = document.querySelector('.stickycard .card .media');
+  const m = document.querySelector(cropMediaSel(c));
   const w = m ? (m.videoWidth || m.naturalWidth || 0) : 0;
   const h = m ? (m.videoHeight || m.naturalHeight || 0) : 0;
   if (w && h) c.ar = Math.round((w / h) * 10000) / 10000;
@@ -1234,18 +1252,19 @@ function cropStyle(c) {
   return `position:absolute;width:${(g.wd * 100).toFixed(2)}%;height:${((g.hd / g.ch) * 100).toFixed(2)}%;left:${((0.5 - c.cx * g.wd) * 100).toFixed(2)}%;top:${((0.5 - c.cy * g.hd / g.ch) * 100).toFixed(2)}%`;
 }
 /* Commandes du recadrage, sous la carte, dans l’écran de création : des boutons, plus de curseur */
-function cropControlsHtml() {
-  if (!S.mediaUrl) return '';
-  const c = cropOf();
-  const locked = !!S.cropLocked;
+function cropControlsHtml(which = 'card') {
+  const t = cropT(which);
+  if (!t.ok) return '';
+  const c = t.c;
+  const locked = !!t.locked;
   const zmin = cropZMin(c);
   const atMin = c.z <= zmin + 1e-6;
   const off = (cond) => (locked || cond ? ' disabled' : '');
   const zl = `Zoom ×${c.z.toFixed(2).replace('.', ',')}`;
   const msg = locked
     ? 'Cadrage validé : l’image ne bouge plus.'
-    : `Glissez ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte pour la placer, puis réglez le zoom.`;
-  return `<div class="cropbox">` +
+    : t.msg ? 'Glissez la vidéo dans le cadre, puis réglez le zoom.' : `Glissez ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte pour la placer, puis réglez le zoom.`;
+  return `<div class="cropbox" data-crop="${t.key}">` +
     `<div class="cropmsg">${msg}</div>` +
     `<div class="cropbar">` +
       `<button class="cropbtn" data-act="cropminus" aria-label="Dézoomer"${off(atMin)}>−</button>` +
@@ -1260,34 +1279,39 @@ function cropControlsHtml() {
   `</div>`;
 }
 /* Redessine seulement les commandes du recadrage */
-function cropRefresh() {
-  const box = document.querySelector('.cropbox');
-  if (box) box.outerHTML = cropControlsHtml();
+function cropRefresh(which = 'card') {
+  const box = document.querySelector(`.cropbox[data-crop="${which}"]`);
+  if (box) box.outerHTML = cropControlsHtml(which);
 }
 /* L’image vient de se charger : on lit son ratio, puis on met les commandes à jour */
-function cropMediaReady() {
-  if (RECV || S.step !== 'create' || !S.mediaUrl) return;
-  const c = cropOf();
-  if (!c.ar && cropEnsureAr(c)) { cropApply(); cropRefresh(); }
+function cropMediaReady(e) {
+  const which = e && e.target && e.target.closest && e.target.closest('.vcrop') ? 'msg' : 'card';
+  const t = cropT(which);
+  if (RECV || !t.ok || (!t.msg && S.step !== 'create')) return;
+  if (!t.c.ar && cropEnsureAr(t.c)) { cropApply(which); cropRefresh(which); }
 }
 /* Glisser sur la carte : déplace le média, sauf une fois le cadrage validé. Le clic qui suit un glissement ne rejoue pas l’effet. */
 let cropDrag = null;
 let cropSkipClick = false;
 function cropDown(e) {
-  if (e.button > 0 || !S.mediaUrl || S.step !== 'create' || RECV || S.cropLocked) return;
-  if (!e.target.closest || !e.target.closest('.stickycard .card')) return;
-  const c = cropOf();
+  if (e.button > 0 || RECV || !e.target.closest) return;
+  const which = e.target.closest('.vcrop') ? 'msg' : (e.target.closest('.stickycard .card') ? 'card' : '');
+  if (!which) return;
+  const t = cropT(which);
+  if (!t.ok || t.locked || (!t.msg && S.step !== 'create')) return;
+  const c = t.c;
   cropEnsureAr(c);
   cropSkipClick = false;
-  cropDrag = { x: e.clientX, y: e.clientY, cx: c.cx, cy: c.cy, moved: false };
+  cropDrag = { x: e.clientX, y: e.clientY, cx: c.cx, cy: c.cy, moved: false, which };
 }
 function cropMove(e) {
   if (!cropDrag) return;
   const dx = e.clientX - cropDrag.x, dy = e.clientY - cropDrag.y;
   if (!cropDrag.moved && Math.hypot(dx, dy) < 6) return;
-  const card = document.querySelector('.stickycard .card');
+  const t = cropT(cropDrag.which);
+  const card = document.querySelector(t.box);
   if (!card) return;
-  const c = cropOf();
+  const c = t.c;
   const r = card.getBoundingClientRect();
   if (!cropEnsureAr(c)) return;   /* taille de l’image pas encore connue */
   const g = cropGeom(c);
@@ -1295,7 +1319,7 @@ function cropMove(e) {
   c.cx = cropDrag.cx - dx / (g.wd * r.width);
   c.cy = cropDrag.cy - dy / (g.hd * r.width);
   cropClamp(c);
-  cropApply();
+  cropApply(cropDrag.which);
   e.preventDefault();
 }
 function cropUp() {
@@ -1310,28 +1334,30 @@ function cropClickGuard(e) {
   e.preventDefault();
 }
 /* Met à jour le média dans la carte, sans redessiner l’écran */
-function cropApply() {
-  const c = cropOf();
-  const m = document.querySelector('.stickycard .card .media');
-  if (m) { const s = cropStyle(c); if (s) m.setAttribute('style', s); else m.removeAttribute('style'); }
+function cropApply(which = 'card') {
+  const t = cropT(which);
+  const m = document.querySelector(t.media);
+  if (m) { const s = cropStyle(t.c); if (s) m.setAttribute('style', s); else m.removeAttribute('style'); }
 }
 /* Boutons du recadrage : zoom +/−, Image entière, Recentrer, Valider (qui verrouille le cadrage) */
 function cropClick(e) {
   const b = e.target.closest && e.target.closest('[data-act]');
   if (!b || b.disabled || !CROP_ACTS.includes(b.dataset.act)) return;
   const act = b.dataset.act;
-  if (act === 'cropvalid') { S.cropLocked = !S.cropLocked; cropRefresh(); return; }
-  if (S.cropLocked || !S.mediaUrl) return;
+  const which = b.closest('.cropbox') ? b.closest('.cropbox').dataset.crop : 'card';
+  const t = cropT(which);
+  if (act === 'cropvalid') { if (t.msg) S.msgCropLocked = !S.msgCropLocked; else S.cropLocked = !S.cropLocked; cropRefresh(which); return; }
+  if (t.locked || !t.ok) return;
   if (act === 'cropreset') {
-    S.crop = cropDefault();
+    if (t.msg) S.msgCrop = cropDefault(); else S.crop = cropDefault();
   } else {
-    const c = cropOf();
+    const c = t.c;
     if (act === 'cropfit') { c.z = cropZMin(c); c.cx = 0.5; c.cy = 0.5; }
     else c.z += act === 'cropplus' ? CROP_STEP : -CROP_STEP;
     cropClamp(c);
   }
-  cropApply();
-  cropRefresh();
+  cropApply(which);
+  cropRefresh(which);
 }
 function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false, still = false, crop = null }) {
   /* still : image fixe (vignette) : vidéo sans lecture automatique ni bouton de son */
@@ -1640,6 +1666,7 @@ function voiceBlock() {
 
 function videoBlock() {
   const b = bad('videoBlock');
+  if (CREDITS) return videoBlockFree(b);
   return `
     <div class="grid2">
       <label class="btn2${b}">Filmer<input id="vidCam" type="file" accept="video/*" capture="user"></label>
@@ -1650,6 +1677,112 @@ function videoBlock() {
     ${S.msgVideoUrl ? `<video class="player" controls playsinline src="${esc(S.msgVideoUrl)}"></video>` : ''}`;
 }
 
+/* ---------- mode gratuit : filmer dans la page avec le cadre, puis recadrer la vidéo ---------- */
+let liveStream = null, liveRecorder = null, liveTimerId = null, liveTick = null, liveStartedAt = 0, liveCancel = false;
+function videoBlockFree(b) {
+  if (S.liveCam && !liveStream) S.liveCam = false;
+  if (S.liveCam) return liveBlockHtml();
+  if (S.msgVideoUrl) return `
+    <div class="vcrop">
+      <video class="vcropmedia" src="${esc(S.msgVideoUrl)}" autoplay muted loop playsinline style="${cropStyle(S.msgCrop)}"></video>
+      <button class="sndbtn" type="button" data-act="sound">Activer le son</button>
+    </div>
+    ${cropControlsHtml('msg')}
+    <button class="secondary" style="margin-top:10px" data-act="msgrefilm">Refaire la vidéo</button>`;
+  return `
+    <div class="grid2">
+      <button class="btn2${b}" data-act="camopen">Filmer</button>
+      <label class="btn2${b}">Choisir une vidéo<input id="vidFile" type="file" accept="video/*"></label>
+    </div>
+    <div class="hint">30 secondes maximum. Le cadre vous aide à placer la scène.</div>
+    ${b ? '<div class="blockErr">Filmez ou choisissez une vidéo.</div>' : ''}`;
+}
+function liveBlockHtml() {
+  const rec = S.liveRecording;
+  return `
+    <div class="vcrop live">
+      <video id="liveVid" class="vcropmedia" autoplay muted playsinline></video>
+      <div class="vguide" aria-hidden="true"></div>
+      <div class="vtimer">${rec ? '<span id="liveTimer">0:00</span>' : 'Prêt'}</div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <button class="btn2${rec ? ' rec' : ''}" data-act="camrec">${rec ? 'Arrêter' : 'Enregistrer'}</button>
+      <button class="btn2" data-act="camcancel">Annuler</button>
+    </div>
+    <div class="hint">30 secondes maximum. Placez la scène dans le cadre.</div>`;
+}
+function attachLive() {
+  const v = document.getElementById('liveVid');
+  if (v && liveStream && v.srcObject !== liveStream) { v.srcObject = liveStream; v.play().catch(() => {}); }
+}
+function stopLiveStream() {
+  if (liveStream) liveStream.getTracks().forEach((t) => t.stop());
+  liveStream = null;
+}
+async function startLive() {
+  S.error = '';
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+    S.error = 'Caméra dans la page non disponible sur ce navigateur. Choisissez une vidéo.';
+    return render();
+  }
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+  } catch (err) {
+    S.error = `Caméra ou micro refusé (${err.name}). Choisissez une vidéo à la place.`;
+    return render();
+  }
+  stopLiveStream();
+  liveStream = stream;
+  S.liveCam = true; S.liveRecording = false;
+  render(); attachLive();
+}
+function liveMime() {
+  const types = ['video/mp4', 'video/webm;codecs=vp8,opus', 'video/webm'];
+  return types.find((t) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+}
+function recLive() {
+  if (!liveStream) return;
+  const type = liveMime();
+  let rec;
+  try { rec = type ? new MediaRecorder(liveStream, { mimeType: type }) : new MediaRecorder(liveStream); }
+  catch (err) { stopLiveStream(); S.liveCam = false; S.error = 'Enregistrement non disponible sur ce navigateur. Choisissez une vidéo.'; return render(); }
+  const chunks = [];
+  rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+  rec.onstop = () => {
+    clearTimeout(liveTimerId); clearInterval(liveTick);
+    liveRecorder = null;
+    const cancelled = liveCancel; liveCancel = false;
+    const blob = new Blob(chunks, { type: rec.mimeType || type || 'video/mp4' });
+    stopLiveStream();
+    S.liveCam = false; S.liveRecording = false;
+    if (cancelled) return render();
+    if (!blob.size) { S.error = 'La vidéo filmée est vide. Recommencez.'; return render(); }
+    handleMsgVideo(new File([blob], 'video-filmee', { type: blob.type }));
+  };
+  liveRecorder = rec;
+  liveStartedAt = Date.now();
+  rec.start();
+  S.liveRecording = true;
+  liveTimerId = setTimeout(stopLive, MAX_MSG_VIDEO_SECONDS * 1000);
+  render(); attachLive();
+  liveTick = setInterval(() => {
+    const el = document.getElementById('liveTimer');
+    if (!liveRecorder) { clearInterval(liveTick); return; }
+    if (el) el.textContent = fmt(Math.floor((Date.now() - liveStartedAt) / 1000));
+  }, 250);
+}
+function stopLive() { if (liveRecorder && liveRecorder.state !== 'inactive') liveRecorder.stop(); }
+function cancelLive() {
+  if (liveRecorder && liveRecorder.state !== 'inactive') { liveCancel = true; liveRecorder.stop(); return; }
+  stopLiveStream(); S.liveCam = false; S.liveRecording = false; render();
+}
+function refilmMsgVideo() {
+  if (S.msgVideoUrl) URL.revokeObjectURL(S.msgVideoUrl);
+  Object.assign(S, { msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, msgCrop: cropDefault(), msgCropLocked: false, error: '' });
+  render();
+}
+
 function msgBodyHtml() {
   return S.msgType === 'voice' ? voiceBlock()
     : S.msgType === 'video' ? videoBlock()
@@ -1657,7 +1790,7 @@ function msgBodyHtml() {
        <div class="hint"><span id="msgCount">${S.message.length}</span> / 500 caractères</div>`;
 }
 /* Mises à jour ciblées de l'écran message : la carte n'est pas reconstruite */
-function updateMsgBody() { const b = document.getElementById('msgBody'); if (b) b.innerHTML = msgBodyHtml(); syncCreditAmountInput(); }
+function updateMsgBody() { const b = document.getElementById('msgBody'); if (b) b.innerHTML = msgBodyHtml(); attachLive(); syncCreditAmountInput(); }
 function syncMsgTabs() {
   document.querySelectorAll('[data-act="msgtype"]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.val === S.msgType)));
 }
@@ -1984,6 +2117,7 @@ async function submitCredits() {
       msg_type: msgType, msg_media_path: msgPath, message, recipient_name: '',
       ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
       ...(cropSet() ? { media_crop: S.crop } : {}),
+      ...(msgCropSet() ? { msg_crop: S.msgCrop } : {}),
       ...(option ? { option: true } : { credit_amount: amount }),
     };
     const { data, error } = await sb.rpc('credit_send_card', { p_key: CRED.key, p_card: row });
@@ -2105,6 +2239,7 @@ function renderCreditsAccount(backHtml) {
       
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
         <button class="secondary" style="width:auto;margin:0" disabled>3 cartes d’option · 1,90 €</button>
+        <button class="secondary" style="width:auto;margin:0" disabled>10 cartes d’option · 5 €</button>
         
       </div>
       <div class="hint">Paiement pas encore branché : ces options ne peuvent pas être achetées dans cette version de test.</div>`;
@@ -3186,6 +3321,7 @@ function render() {
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
   updateStickyCard();
+  attachLive();
   ensureMsgThumb();
   saveDraft();
 }
@@ -3292,7 +3428,7 @@ async function handleMsgVideo(file) {
   if (!(dur > 0)) { URL.revokeObjectURL(url); S.error = 'Ce format de vidéo n’est pas lu par ce navigateur.'; return render(); }
   if (isFinite(dur) && dur > MAX_MSG_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.error = `La vidéo dure ${Math.round(dur)} secondes. Maximum : ${MAX_MSG_VIDEO_SECONDS} secondes.`; return render(); }
   if (S.msgVideoUrl) URL.revokeObjectURL(S.msgVideoUrl);
-  Object.assign(S, { msgVideoFile: file, msgVideoUrl: url, msgVideoSecs: isFinite(dur) ? Math.round(dur) : 0 });
+  Object.assign(S, { msgVideoFile: file, msgVideoUrl: url, msgVideoSecs: isFinite(dur) ? Math.round(dur) : 0, msgCrop: cropDefault(), msgCropLocked: false });
   render();
 }
 
@@ -3414,6 +3550,10 @@ app.addEventListener('click', (e) => {
   if (act === 'kp') { kpPress(el.dataset.target, v); return; }
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
+  if (act === 'camopen') return startLive();
+  if (act === 'camrec') { if (S.liveRecording) stopLive(); else recLive(); return; }
+  if (act === 'camcancel') return cancelLive();
+  if (act === 'msgrefilm') return refilmMsgVideo();
   if (act === 'submit') {
     if (CREDITS) return submitCredits();
     if (S.group && !amountOk()) { S.error = `Votre part doit être entre ${MIN_AMOUNT} € et ${MAX_AMOUNT} €.`; return render(); }
@@ -3589,8 +3729,8 @@ app.addEventListener('click', (e) => {
     }
     case 'sound': {
       /* Son de la vidéo de la carte : le toucher autorise la lecture avec le son */
-      const card = el.closest('.card');
-      const v = card && card.querySelector('video.media');
+      const card = el.closest('.card, .vcrop');
+      const v = card && card.querySelector('video');
       if (v) { v.muted = !v.muted; if (v.paused) v.play().catch(() => {}); el.textContent = v.muted ? 'Activer le son' : 'Couper le son'; }
       return;
     }
@@ -3824,7 +3964,9 @@ async function openCard(id, fromAccount) {
   const msgBlock = row.msg_type === 'voice' && msgUrl
     ? `<audio class="player" controls src="${esc(msgUrl)}"></audio>`
     : row.msg_type === 'video' && msgUrl
-      ? `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`
+      ? (isCreditCard(row)
+        ? `<div class="vcrop"><video class="vcropmedia" src="${esc(msgUrl)}" autoplay muted loop playsinline style="${cropStyle(row.msg_crop)}"></video><button class="sndbtn" type="button" data-act="sound">Activer le son</button></div>`
+        : `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`)
       : `<div class="message big">${esc(row.message)}</div>`;
   RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true, annonce: true };
   rememberCard(row);
@@ -4135,7 +4277,7 @@ async function restoreDraft() {
     : null;
   /* Photo, vidéo et message vocal : non gardés, on revient au texte */
   Object.assign(S, { mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', crop: cropDefault(), voiceBlob: null, voiceUrl: '', voiceSecs: 0,
-    recording: false, msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, closedGroup: false, error: '', busy: false,
+    recording: false, msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, msgCrop: cropDefault(), msgCropLocked: false, liveCam: false, liveRecording: false, closedGroup: false, error: '', busy: false,
     showErrors: false, askNoMsg: false, addingFx: false, fxDup: '', touched: new Set() });
   if (S.msgType !== 'text') S.msgType = 'text';
   if (!COLLECT_STEPS.includes(S.step) || !S.group) return;
@@ -4154,6 +4296,7 @@ async function restoreDraft() {
 }
 app.addEventListener('input', queueDraft);
 window.addEventListener('pagehide', saveDraft);
+window.addEventListener('pagehide', () => stopLiveStream());
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveDraft(); });
 
 /* Au démarrage sans adresse particulière : le brouillon, s'il existe, est repris avant d'afficher l'accueil */
