@@ -438,7 +438,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.32 (test)
+   c.kdo — v0.33 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1193,7 +1193,7 @@ function cropIsChanged(c) { return !!c && (c.z !== 1 || c.cx !== 0.5 || c.cy !==
 function cropOf() { if (!S.crop) S.crop = cropDefault(); return S.crop; }
 function cropSet() { return !!S.mediaUrl && cropIsChanged(S.crop); }
 /* Cadrage de la vidéo du message (mode gratuit) : même système que la carte, dans un cadre aux proportions de la carte */
-function msgCropActive() { return CREDITS && S.msgType === 'video' && !!S.msgVideoUrl && !S.liveCam && !RECV; }
+function msgCropActive() { return S.msgType === 'video' && !!S.msgVideoUrl && !S.liveCam && !RECV; }
 function msgCropSet() { return msgCropActive() && cropIsChanged(S.msgCrop); }
 /* Cible du recadrage : 'msg' (la vidéo du message) ou 'card' (la carte) */
 function cropT(which) {
@@ -1534,7 +1534,7 @@ function screenCreate() {
     ${MODE === 'cadeau' ? '<div class="hint" style="text-align:center">Mode 1 · réel</div>' : ''}${mesBlockHtml()}
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
-      : `<label class="btn2${S.mediaError ? ' bad' : ''}" style="margin-top:8px">Choisir une photo ou une vidéo<input id="fileCard" type="file" accept="image/*,video/*"></label>`}
+      : cardMediaBlockHtml()}
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
@@ -1668,16 +1668,7 @@ function voiceBlock() {
 }
 
 function videoBlock() {
-  const b = bad('videoBlock');
-  if (CREDITS) return videoBlockFree(b);
-  return `
-    <div class="grid2">
-      <label class="btn2${b}">Filmer<input id="vidCam" type="file" accept="video/*" capture="user"></label>
-      <label class="btn2${b}">Choisir une vidéo<input id="vidFile" type="file" accept="video/*"></label>
-    </div>
-    <div class="hint">30 secondes maximum.</div>
-    ${b ? '<div class="blockErr">Filmez ou choisissez une vidéo.</div>' : ''}
-    ${S.msgVideoUrl ? `<video class="player" controls playsinline src="${esc(S.msgVideoUrl)}"></video>` : ''}`;
+  return videoBlockCam(bad('videoBlock'));
 }
 
 /* ---------- caméra dans la page (mode gratuit) : vidéo du message, vidéo ou photo de la carte, retournement ---------- */
@@ -1687,7 +1678,7 @@ function liveFail(target, text) {
   if (target === 'card') S.mediaError = text; else S.error = text;
   render();
 }
-function videoBlockFree(b) {
+function videoBlockCam(b) {
   if (S.liveCam && !liveStream) S.liveCam = false;
   if (S.liveCam) return liveBoxHtml('video', MAX_MSG_VIDEO_SECONDS);
   if (S.msgVideoUrl) return `
@@ -1723,12 +1714,12 @@ function liveBoxHtml(mode, maxSec) {
   const main = photo
     ? '<button class="btn2" data-act="camshot">Prendre la photo</button>'
     : `<button class="btn2${rec ? ' rec' : ''}" data-act="camrec">${rec ? 'Arrêter' : 'Enregistrer'}</button>`;
-  const hint = photo ? 'Placez la scène dans le cadre, puis prenez la photo.' : `${maxSec} secondes maximum. Placez la scène dans le cadre.`;
+  const hint = photo ? 'Placez la scène dans le cadre, puis prenez la photo.' : `${maxSec} secondes maximum : la caméra s’arrête seule à zéro. Placez la scène dans le cadre.`;
   return `
     <div class="vcrop live">
       <video id="liveVid" class="livemedia" autoplay muted playsinline></video>
       <div class="vguide" aria-hidden="true"></div>
-      <div class="vtimer">${!photo && rec ? '<span id="liveTimer">0:00</span>' : 'Prêt'}</div>
+      <div class="vtimer">${!photo && rec ? `<span id="liveTimer">${maxSec} s</span>` : 'Prêt'}</div>
     </div>
     <div class="grid2" style="margin-top:12px">
       ${main}
@@ -1817,7 +1808,7 @@ function recLive() {
   liveTick = setInterval(() => {
     const el = document.getElementById('liveTimer');
     if (!liveRecorder) { clearInterval(liveTick); return; }
-    if (el) el.textContent = fmt(Math.floor((Date.now() - liveStartedAt) / 1000));
+    if (el) el.textContent = Math.max(0, Math.ceil(maxSec - (Date.now() - liveStartedAt) / 1000)) + ' s';
   }, 250);
 }
 function stopLive() { if (liveRecorder && liveRecorder.state !== 'inactive') liveRecorder.stop(); }
@@ -3600,6 +3591,7 @@ async function submit() {
         recipient_name: S.recipient.trim(),
         effect: own ? own.fx : S.fx,
         ...(media === baseMedia && cropSet() ? { media_crop: S.crop } : {}),
+        ...(!none && msgCropActive() ? { msg_crop: S.msgCrop } : {}),
         ...(fxExtra.length ? { extra_effects: fxExtra } : {}),
         ...(S.schedule ? { open_at: S.openDate } : {}),
         ...(FREE ? { kind: 'gratuit', ref_code: refCodeNow() } : {}),
@@ -4071,7 +4063,7 @@ async function openCard(id, fromAccount) {
   const msgBlock = row.msg_type === 'voice' && msgUrl
     ? `<audio class="player" controls src="${esc(msgUrl)}"></audio>`
     : row.msg_type === 'video' && msgUrl
-      ? (isCreditCard(row)
+      ? ((isCreditCard(row) || row.msg_crop)
         ? `<div class="vcrop"><video class="vcropmedia" src="${esc(msgUrl)}" autoplay muted loop playsinline style="${cropStyle(row.msg_crop)}"></video><button class="sndbtn" type="button" data-act="sound">Activer le son</button></div>`
         : `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`)
       : `<div class="message big">${esc(row.message)}</div>`;
