@@ -106,8 +106,8 @@
   .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
   /* « scale » et non « transform » : les effets qui secouent la carte utilisent « transform » et ne doivent pas annuler la réduction */
   .stickycard.is-small .card { scale: .7; transform-origin: 50% 0; margin-bottom: -15.8%; }
-  /* Première page de création : réduction de la carte sans transition, pas de pastille de son sur la carte, pied à 20 px */
-  .section.cr .stickycard .card { transition: none; }
+  /* Première page de création : carte réduite sans transition en écran réel, pas de pastille de son sur la carte, pied à 20 px */
+  .section.cr:not(.crf) .stickycard .card { transition: none; }
   .section.cr .stickycard .sndbtn { display: none; }
   .foot.cr { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
   /* Bouton de son sur la carte vidéo (la vidéo démarre en silence, le toucher active le son) */
@@ -465,7 +465,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.44 (test)
+   c.kdo — v0.45 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -2884,7 +2884,7 @@ function screenCreateCredits() {
   return `
   ${hdr('', 'Créer une carte')}
   ${S.codeAsk ? codeAskHtml() : ''}
-  <div class="section cr">
+  <div class="section cr crf">
     ${mesBlockHtml()}
     ${optionsBlockHtml()}
     ${S.mediaUrl
@@ -3597,7 +3597,7 @@ function setStickySmall(s, on) {
 }
 function updateStickyCard() {
   document.querySelectorAll('.stickycard').forEach((s) => {
-    if (s.closest('.section.cr')) return;
+    if (s.closest('.section.cr:not(.crf)')) return;
     if (s.classList.contains('fixed-full')) { if (s.classList.contains('is-small')) setStickySmall(s, false); return; }
     const top = s.getBoundingClientRect().top;
     if (s.classList.contains('is-small')) { if (top > 40) setStickySmall(s, false); }
@@ -3617,8 +3617,8 @@ function render() {
   }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
-  /* Première page : carte à taille fixe, réduite, qui ne change plus pendant le défilement */
-  document.querySelectorAll('.section.cr .stickycard').forEach((s) => { if (!s.classList.contains('is-small')) setStickySmall(s, true); });
+  /* Écran réel : carte à taille fixe, réduite */
+  document.querySelectorAll('.section.cr:not(.crf) .stickycard').forEach((s) => { if (!s.classList.contains('is-small')) setStickySmall(s, true); });
   updateStickyCard();
   attachLive();
   ensureMsgThumb();
