@@ -337,6 +337,7 @@
   .mrow .zvalue { margin-top: 0; }
   .mthumb { flex: 0 0 96px; height: 54px; border-radius: 8px; overflow: hidden; background: #26262C; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--muted); }
   .mthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .finalmsg { margin-top: 4px; }
   .mtext { margin-top: 6px; font-size: 14px; line-height: 1.45; color: #C8C8CC; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
   .zsep { height: 1px; margin: 24px 0 20px; background: #3A3A40; }
   .payline { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 15px; color: #C8C8CC; }
@@ -464,7 +465,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.41 (test)
+   c.kdo — v0.43 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -899,9 +900,13 @@ function msgPreviewHtml() {
   return `<div class="zvalue">${esc(msgLabel())}</div><div class="mtext">« ${esc(extrait)} »</div>`;
 }
 
+/* Première image de la vidéo, affichée avant la lecture (sinon l'aperçu reste noir sur iPhone) */
+function msgPosterAttr() { return S.msgThumbFor === S.msgVideoUrl && S.msgThumb ? ` poster="${esc(S.msgThumb)}"` : ''; }
+/* Dernière page : le message à envoyer, sous la carte (vidéo : première image ; texte : début ; vocal : icône et durée) */
+function finalMsgHtml() { return `<div class="label">Votre message</div><div class="finalmsg">${msgPreviewHtml()}</div>`; }
 /* Première image de la vidéo, générée hors écran (la vidéo n'est jamais lue) */
 function ensureMsgThumb() {
-  if (S.step !== 'recap' || S.msgType !== 'video' || !S.msgVideoUrl) return;
+  if (!['create', 'message', 'recap', 'done'].includes(S.step) || S.msgType !== 'video' || !S.msgVideoUrl) return;
   const url = S.msgVideoUrl;
   if (S.msgThumbFor === url || S.msgThumbBusy === url) return;
   S.msgThumbBusy = url;
@@ -911,7 +916,8 @@ function ensureMsgThumb() {
     if (S.msgThumbBusy === url) S.msgThumbBusy = '';
     v.removeAttribute('src'); v.load();
     if (S.msgVideoUrl === url) { S.msgThumb = data || ''; S.msgThumbFor = url; }
-    if (S.step === 'recap') render();
+    if (S.step === 'recap' || S.step === 'done') render();
+    else if (data && (S.step === 'create' || S.step === 'message')) { const pv = document.querySelector('video[data-msgpreview]'); if (pv) pv.setAttribute('poster', data); }
   };
   v.addEventListener('loadeddata', () => { try { v.currentTime = 0.05; } catch (e) { done(''); } }, { once: true });
   v.addEventListener('seeked', () => {
@@ -1764,7 +1770,7 @@ function videoBlockCam(b) {
   if (S.liveCam) return liveBoxHtml('video', MAX_MSG_VIDEO_SECONDS);
   if (S.msgVideoUrl) return `
     <div class="vcrop" data-act="vidtap" data-role="msg">
-      <video class="vcropmedia" src="${esc(S.msgVideoUrl)}" playsinline preload="metadata" style="${cropStyle(S.msgCrop)}"></video>
+      <video class="vcropmedia" data-msgpreview src="${esc(S.msgVideoUrl)}#t=0.1" playsinline preload="metadata"${msgPosterAttr()} style="${cropStyle(S.msgCrop)}"></video>
     </div>
     ${cropControlsHtml('msg')}
     <button class="secondary" style="margin-top:10px" data-act="msgrefilm">Refaire la vidéo</button>`;
@@ -2918,6 +2924,7 @@ function screenDoneCredits() {
   ${hdr('', 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
+    ${finalMsgHtml()}
     ${cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}
     <button class="primary" style="margin-top:12px" data-act="sharelink">Envoyer la carte</button>
     <button class="secondary" data-act="copy">Copier le lien</button>
@@ -3038,6 +3045,7 @@ function screenDone() {
   ${hdr('Terminé', 'Votre carte est prête')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
+    ${finalMsgHtml()}
 
     <div class="label">Lien à partager</div>
     <div class="linkbox">${esc(S.link)}</div>
@@ -3587,6 +3595,7 @@ function setStickySmall(s, on) {
 }
 function updateStickyCard() {
   document.querySelectorAll('.stickycard').forEach((s) => {
+    if (s.closest('.section.cr')) return;
     if (s.classList.contains('fixed-full')) { if (s.classList.contains('is-small')) setStickySmall(s, false); return; }
     const top = s.getBoundingClientRect().top;
     if (s.classList.contains('is-small')) { if (top > 40) setStickySmall(s, false); }
@@ -3606,6 +3615,8 @@ function render() {
   }
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
+  /* Première page : carte à taille fixe, réduite, qui ne change plus pendant le défilement */
+  document.querySelectorAll('.section.cr .stickycard').forEach((s) => { if (!s.classList.contains('is-small')) setStickySmall(s, true); });
   updateStickyCard();
   attachLive();
   ensureMsgThumb();
