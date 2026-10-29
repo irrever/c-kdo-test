@@ -108,7 +108,7 @@
   .stickycard.is-small .card { scale: .7; transform-origin: 50% 0; margin-bottom: -15.8%; }
   /* Première page de création : carte réduite sans transition en écran réel, pas de pastille de son sur la carte, pied à 20 px */
   .section.cr:not(.crf) .stickycard .card { transition: none; }
-  .section.cr .stickycard .sndbtn { display: none; }
+  .section.cr:not(.crf) .stickycard .sndbtn { display: none; }
   .foot.cr { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
   /* Bouton de son sur la carte vidéo (la vidéo démarre en silence, le toucher active le son) */
   .card .sndbtn { position: absolute; right: 12px; bottom: 12px; z-index: 5; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); color: #fff; font: inherit; font-size: 12px; letter-spacing: .02em; cursor: pointer; pointer-events: auto; }
@@ -465,7 +465,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.45 (test)
+   c.kdo — v0.46 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
