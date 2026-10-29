@@ -64,6 +64,10 @@
   .field { display: block; width: 100%; height: 44px; margin-top: 8px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); padding: 0 14px; font: inherit; font-size: 16px; outline: none; }
   .field:focus { border-color: #4A4A52; }
   textarea.field { height: auto; padding: 12px 14px; line-height: 1.5; resize: none; }
+  /* Curseur clignotant dans un champ vide (mode gratuit), tant que le champ n’a pas le focus */
+  .caretbox { position: relative; }
+  .caretbox:has(> .field:placeholder-shown:not(:focus))::after { content: ''; position: absolute; left: 15px; top: 13px; width: 2px; height: 18px; background: var(--text); pointer-events: none; animation: caretblink 1.1s steps(1) infinite; }
+  @keyframes caretblink { 50% { opacity: 0; } }
   .field.bad { border-color: var(--danger); }
 
   /* Choix : grille de 2 colonnes, boutons fins */
@@ -438,7 +442,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.33 (test)
+   c.kdo — v0.34 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -538,10 +542,10 @@ const receivedList = () => { const v = store.get(KEY_RECEIVED, []); return Array
 
 const initialState = () => ({
   step: 'create',
-  occasion: 'Anniversaire', cardText: 'Joyeux anniversaire', fx: OCC_FX['Anniversaire'], fxTheme: themeOf(OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
+  occasion: 'Anniversaire', cardText: CREDITS ? '' : 'Joyeux anniversaire', fx: OCC_FX['Anniversaire'], fxTheme: themeOf(OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
   amount: FREE ? 0 : 50, customRaw: '', refCode: '', credAmount: null, optionCard: false,
   mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', crop: cropDefault(),
-  msgType: 'text', message: DEFAULT_MSG,
+  msgType: 'text', message: CREDITS ? '' : DEFAULT_MSG,
   voiceBlob: null, voiceUrl: '', voiceSecs: 0, recording: false,
   msgVideoFile: null, msgVideoUrl: '', msgVideoSecs: 0, msgCrop: cropDefault(), msgCropLocked: false, liveCam: false, liveRecording: false,
   recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
@@ -1840,7 +1844,7 @@ function refilmMsgVideo() {
 function msgBodyHtml() {
   return S.msgType === 'voice' ? voiceBlock()
     : S.msgType === 'video' ? videoBlock()
-    : `<textarea id="message" class="field${bad('message')}" maxlength="500" rows="5">${esc(S.message)}</textarea>
+    : `${CREDITS ? '<div class="caretbox">' : ''}<textarea id="message" class="field${bad('message')}" maxlength="500" rows="5"${CREDITS ? ' placeholder=" "' : ''}>${esc(S.message)}</textarea>${CREDITS ? '</div>' : ''}
        <div class="hint"><span id="msgCount">${S.message.length}</span> / 500 caractères</div>`;
 }
 /* Mises à jour ciblées de l'écran message : la carte n'est pas reconstruite */
@@ -2723,6 +2727,7 @@ function screenCreateCredits() {
   const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
   return `
   ${hdr('', 'Créer une carte')}
+  ${S.codeAsk ? codeAskHtml() : ''}
   <div class="section">
     ${mesBlockHtml()}
     ${S.mediaUrl
@@ -2735,7 +2740,7 @@ function screenCreateCredits() {
     <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
-    <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
+    <div class="caretbox"><input id="cardText" class="field${bad('cardText')}" maxlength="40" placeholder=" " value="${esc(S.cardText)}"></div>
     <div class="hint"><span id="cardCount">${S.cardText.length}</span> / 40 caractères</div>
     <div class="hint" id="cardRappel" style="${S.cardText.trim() ? 'display:none' : ''}">« Attention, il n’y a rien d’écrit sur la carte. Vous pouvez tout de même continuer si vous le souhaitez. »</div>
 
@@ -3617,6 +3622,60 @@ async function submit() {
 }
 
 /* ---------- écouteurs créateur ---------- */
+/* ---------- code de test (mode gratuit) : appui simultané sur « Filmer » et « Prendre une photo » ---------- */
+/* TEST : à retirer avant la mise en production, avec la fonction credit_test_grant côté serveur */
+const pressAt = {};
+let comboUntil = 0;
+app.addEventListener('pointerdown', (e) => {
+  if (!CREDITS || S.step !== 'create') return;
+  const el = e.target.closest && e.target.closest('[data-act="cardfilm"], [data-act="cardphoto"]');
+  if (!el) return;
+  const act = el.dataset.act;
+  const other = act === 'cardfilm' ? 'cardphoto' : 'cardfilm';
+  const now = Date.now();
+  if (pressAt[other] && now - pressAt[other] < 400) {
+    comboUntil = now + 900; pressAt[other] = 0; pressAt[act] = 0;
+    return showCodeAsk();
+  }
+  pressAt[act] = now;
+}, true);
+function showCodeAsk() {
+  S.codeAsk = true; S.codeMsg = ''; S.codeBad = false;
+  render();
+  const f = document.getElementById('testCode'); if (f) f.focus();
+}
+function codeAskHtml() {
+  return `<div class="zone" style="margin-bottom:12px">
+    <div class="label">Code</div>
+    <input id="testCode" class="field${S.codeBad ? ' bad' : ''}" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <div class="grid2" style="margin-top:10px">
+      <button class="btn2" data-act="codeok">Valider</button>
+      <button class="secondary" data-act="codeno">Fermer</button>
+    </div>
+    ${S.codeMsg ? `<div class="hint" role="status">${esc(S.codeMsg)}</div>` : ''}
+  </div>`;
+}
+/* Vérification du code par le serveur (credit_test_grant) : le code n’est jamais dans ce fichier */
+async function testCodeSubmit() {
+  const f = document.getElementById('testCode');
+  const code = f ? f.value.trim() : '';
+  if (!code) { S.codeBad = true; S.codeMsg = 'Entrez le code.'; return render(); }
+  if (!sb || !CRED.key) { S.codeBad = true; S.codeMsg = 'Compte indisponible pour le moment.'; return render(); }
+  S.codeMsg = 'Vérification…'; S.codeBad = false;
+  render();
+  try {
+    const { error } = await sb.rpc('credit_test_grant', { p_key: CRED.key, p_code: code });
+    if (error) throw error;
+    await credLoad();
+    S.codeBad = false; S.codeMsg = `Compte crédité. Solde : ${balanceText()}.`;
+    render();
+  } catch (err) {
+    S.codeBad = true;
+    S.codeMsg = /Code incorrect/.test((err && err.message) || '') ? 'Code incorrect.' : 'Crédit impossible pour le moment. Réessayez.';
+    render();
+  }
+}
+
 app.addEventListener('click', (e) => {
   /* Un clic en dehors du menu et du bouton d'ajout annule le mode ajout */
   if (S.addingFx && !e.target.closest('#fxMenu, #fxAdd')) {
@@ -3645,6 +3704,10 @@ app.addEventListener('click', (e) => {
   if (act === 'kp') { kpPress(el.dataset.target, v); return; }
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
+  /* TEST : appui simultané sur « Filmer » et « Prendre une photo » : pas de caméra, la demande de code s’ouvre */
+  if ((act === 'cardfilm' || act === 'cardphoto') && Date.now() < comboUntil) return;
+  if (act === 'codeok') return testCodeSubmit();
+  if (act === 'codeno') { S.codeAsk = false; S.codeMsg = ''; S.codeBad = false; return render(); }
   if (act === 'camopen') return startLive();
   if (act === 'cardfilm') return startLive('card', 'video');
   if (act === 'cardphoto') return startLive('card', 'photo');
