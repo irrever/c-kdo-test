@@ -106,16 +106,10 @@
   .stickycard.is-small { padding-top: 8px; padding-bottom: 6px; }
   /* « scale » et non « transform » : les effets qui secouent la carte utilisent « transform » et ne doivent pas annuler la réduction */
   .stickycard.is-small .card { scale: .7; transform-origin: 50% 0; margin-bottom: -15.8%; }
-  /* Première page gratuite : carte fixée en haut, le reste défile dans une zone séparée dessous */
-  .cw { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-  .cw > .hdr { flex: none; }
-  .cw .cwtop { flex: none; padding: 0 24px; }
-  .cw .cwtop .stickycard { position: relative; }
-  .cw .cwtop .stickycard .card { transition: none; }
-  .cw .cwtop .sndbtn { display: none; }
-  .cw .zone { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
-  .cw .zone > .section { padding-top: 12px; }
-  .cw .foot { position: static; flex: none; padding: 14px 24px calc(20px + env(safe-area-inset-bottom, 0px)); }
+  /* Première page de création : réduction de la carte sans transition, pas de pastille de son sur la carte, pied à 20 px */
+  .section.cr .stickycard .card { transition: none; }
+  .section.cr .stickycard .sndbtn { display: none; }
+  .foot.cr { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
   /* Bouton de son sur la carte vidéo (la vidéo démarre en silence, le toucher active le son) */
   .card .sndbtn { position: absolute; right: 12px; bottom: 12px; z-index: 5; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); color: #fff; font: inherit; font-size: 12px; letter-spacing: .02em; cursor: pointer; pointer-events: auto; }
   /* Effets supplémentaires : bouton à part, doré, avec son prix */
@@ -470,7 +464,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.40 (test)
+   c.kdo — v0.41 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1599,22 +1593,19 @@ function screenMes() {
 }
 
 function screenCreate() {
-  /* Carte fixée en haut ; le reste défile dans la zone dessous, qui fait réduire la carte en défilant */
   return `
-  <div class="cw">
   ${hdr(FREE ? 'Étape 1 sur 2' : 'Étape 1 sur 4', 'Personnalisez votre carte')}
-  <div class="cwtop">
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
-  </div>
-  <div class="zone"><div class="section">
-    <div class="hint" style="text-align:center">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
-
+  <div class="section cr">
     ${MODE === 'cadeau' ? '<div class="hint" style="text-align:center">Mode 1 · réel</div>' : ''}${mesBlockHtml()}
     ${S.mediaUrl
       ? `<button class="btn2" style="margin-top:8px;width:100%" data-act="removemedia">Supprimer</button>`
       : cardMediaBlockHtml()}
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
+
+    <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
     <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
@@ -1630,9 +1621,8 @@ function screenCreate() {
     <button class="linkbtn" data-act="fxreplaybtn">Revoir l’effet</button>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     ${FREE ? '' : `<div id="payBlock">${payBlockInner()}</div>`}
-  </div></div>
-  <div class="foot" id="createFoot">${createFootInner()}</div>
-  </div>`;
+  </div>
+  <div class="foot cr" id="createFoot">${createFootInner()}</div>`;
 }
 /* Bloc « Qui paie ? » : redessiné seul, sans toucher à la carte ni à la page */
 function payBlockInner() {
@@ -1657,41 +1647,23 @@ function refreshCreateChoice() {
   cf.innerHTML = createFootInner();
 }
 /* Fait défiler la page seulement si l'élément n'est pas déjà visible au-dessus du bas de page */
-/* Première page gratuite : la carte se réduit quand la zone défile, et reprend sa taille en remontant */
-function updateZoneCard() {
-  const z = document.querySelector('.cw .zone');
-  const s = document.querySelector('.cw .cwtop .stickycard');
-  if (!z || !s) return;
-  if (s.classList.contains('is-small')) { if (z.scrollTop <= 2) setStickySmall(s, false); }
-  else if (z.scrollTop > 40) setStickySmall(s, true);
-}
-document.addEventListener('scroll', (e) => {
-  if (e.target && e.target.classList && e.target.classList.contains('zone')) updateZoneCard();
-}, { passive: true, capture: true });
-/* Aperçu caméra : la zone défile pour que le cadre et son bouton soient visibles au-dessus du pied de page */
+/* Aperçu caméra : la page défile pour que le cadre et son bouton soient visibles au-dessus du pied de page */
 function revealLive() {
-  const z = document.querySelector('.cw .zone');
-  const box = z && z.querySelector('.vcrop.live');
+  const box = document.querySelector('.vcrop.live');
   if (!box) return;
-  const fin = z.querySelector('.live-end') || box;
-  const place = () => ({ zr: z.getBoundingClientRect(), haut: box.getBoundingClientRect().top, bas: fin.getBoundingClientRect().bottom });
-  let p = place();
-  if (p.haut >= p.zr.top + 8 && p.bas <= p.zr.bottom - 8) return;
-  z.scrollTop += p.haut - (p.zr.top + 8);
-  updateZoneCard();
-  p = place();
-  if (Math.abs(p.haut - (p.zr.top + 8)) > 2) z.scrollTop += p.haut - (p.zr.top + 8);
+  const fin = document.querySelector('.live-end') || box;
+  const foot = document.querySelector('.foot');
+  const card = document.querySelector('.stickycard');
+  const haut = () => (card && card.getBoundingClientRect().top <= 0.5 ? card.getBoundingClientRect().bottom : 0);
+  const pied = () => (foot ? foot.getBoundingClientRect().top : innerHeight);
+  if (box.getBoundingClientRect().top >= haut() + 8 && fin.getBoundingClientRect().bottom <= pied() - 8) return;
+  window.scrollBy(0, box.getBoundingClientRect().top - (haut() + 8));
+  updateStickyCard();
+  const reste = box.getBoundingClientRect().top - (haut() + 8);
+  if (Math.abs(reste) > 2) window.scrollBy(0, reste);
 }
 function bringIntoView(el) {
   if (!el) return;
-  const zone = el.closest('.zone');
-  if (zone) {
-    const zr = zone.getBoundingClientRect(); const r = el.getBoundingClientRect();
-    if (r.top < zr.top + 8) zone.scrollTop += r.top - zr.top - 16;
-    else if (r.bottom > zr.bottom - 8) zone.scrollTop += r.bottom - zr.bottom + 16;
-    updateZoneCard();
-    return;
-  }
   const r = el.getBoundingClientRect();
   const foot = document.querySelector('.foot');
   const limit = foot ? foot.getBoundingClientRect().top : innerHeight;
@@ -2901,17 +2873,10 @@ function saveCardEdit() {
 /* Mode gratuit, une seule page : la carte, le message, l’envoi. Pas d’occasion, pas de prénom, pas de récapitulatif. */
 function screenCreateCredits() {
   const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
-  /* Carte fixée en haut ; le reste défile dans la zone dessous, qui fait réduire la carte en défilant */
   return `
-  <div class="cw">
   ${hdr('', 'Créer une carte')}
-  <div class="cwtop">
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
-  </div>
-  <div class="zone"><div class="section">
-    ${S.codeAsk ? codeAskHtml() : ''}
-    <div class="hint" style="text-align:center">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
-
+  ${S.codeAsk ? codeAskHtml() : ''}
+  <div class="section cr">
     ${mesBlockHtml()}
     ${optionsBlockHtml()}
     ${S.mediaUrl
@@ -2919,6 +2884,9 @@ function screenCreateCredits() {
       : cardMediaBlockHtml()}
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
+
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
     <div class="caretbox"><input id="cardText" class="field${bad('cardText')}" maxlength="40" placeholder=" " value="${esc(S.cardText)}"></div>
@@ -2935,9 +2903,8 @@ function screenCreateCredits() {
     <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
     ${creditOptionHtml()}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
-  </div></div>
-  <div class="foot" id="msgFoot">${msgFootHtml()}</div>
-  </div>`;
+  </div>
+  <div class="foot cr" id="msgFoot">${msgFootHtml()}</div>`;
 }
 /* Carte d’option (0 Kdo) : proposée seulement si le compte en a en stock */
 function creditOptionHtml() {
@@ -3620,7 +3587,6 @@ function setStickySmall(s, on) {
 }
 function updateStickyCard() {
   document.querySelectorAll('.stickycard').forEach((s) => {
-    if (s.closest('.cw')) return;
     if (s.classList.contains('fixed-full')) { if (s.classList.contains('is-small')) setStickySmall(s, false); return; }
     const top = s.getBoundingClientRect().top;
     if (s.classList.contains('is-small')) { if (top > 40) setStickySmall(s, false); }
@@ -3631,9 +3597,6 @@ window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
   const screens = { create: CREDITS ? screenCreateCredits : screenCreate, mes: screenMes, compte: screenCompte, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
-  /* Première page gratuite : la zone garde sa position quand l'écran est redessiné */
-  const zoneAvant = app.querySelector('.zone');
-  const zoneTop = zoneAvant && S.step === lastStep ? zoneAvant.scrollTop : null;
   /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
   try {
     app.innerHTML = banner + screens[S.step]();
@@ -3641,8 +3604,6 @@ function render() {
     console.error(err);
     app.innerHTML = `${banner}<div class="section"><div class="error">Un problème est survenu sur cette page.</div><button class="primary" style="margin-top:12px" data-act="reset">Recommencer</button></div>`;
   }
-  if (zoneTop !== null) { const z = app.querySelector('.zone'); if (z) z.scrollTop = zoneTop; }
-  updateZoneCard();
   /* Changement d'écran : on remonte en haut, pour voir le début du nouvel écran */
   if (S.step !== lastStep) { lastStep = S.step; window.scrollTo(0, 0); }
   updateStickyCard();
