@@ -343,6 +343,9 @@
   .recvbox .message.big { margin-top: 0; font-size: 17px; line-height: 1.6; max-width: 34ch; color: #ECECF1; }
   .recvbox .player { margin-top: 0; }
   .recvbox .player.vid { margin: 0 auto; }
+  .recvbottom { margin-top: 16px; display: grid; gap: 12px; }
+  .recvbottom .notice { text-align: center; }
+  .recvbottom .hint { text-align: center; margin: 0; }
   /* Écran message : texte plus grand et plus aéré */
   .message.big { margin-top: 14px; font-size: 21px; line-height: 1.55; color: #F0F0F2; }
 
@@ -435,7 +438,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.30 (test)
+   c.kdo — v0.31 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -2731,13 +2734,53 @@ function renderRecvSimple() {
     <div class="section recvSimple">
       <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', controls: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
       <div class="recvbox">${msgBlock}</div>
+      <div class="recvbottom" id="recvBottom">${simpleBottomHtml()}</div>
     </div>`;
+}
+/* Bas de la carte reçue (vue simple) : état des Kdo, puis le bouton pour répondre */
+function simpleBottomHtml() {
+  const row = RECV.row;
+  const id = row.id;
+  const st = CRED.cards[id];
+  let statut = '';
+  if (row.option_card) {
+    statut = '<div class="notice">Carte d’option reçue : elle ne contient aucun Kdo.</div>';
+  } else if (CREDITS && sb && isCreditCard(row)) {
+    const n = credTxt(Number(row.credits));
+    if (CRED.busy === id) statut = '<div class="notice">Encaissement…</div>';
+    else if (!st) statut = '<div class="notice">Vérification de votre compte…</div>';
+    else if (st.sender_account === CRED.id) statut = '<div class="notice">Vous avez envoyé cette carte.</div>';
+    else if (st.collected_by === CRED.id) statut = `<div class="notice">${esc(n)} ajoutés à votre compte.${CRED.balance !== null ? ` Solde : ${esc(credTxt(CRED.balance))}.` : ''}</div>`;
+    else if (st.collected_at) statut = '<div class="notice">Cette carte a déjà été encaissée.</div>';
+    else statut = `<div class="notice">${esc(n)} à récupérer.</div><button class="secondary" data-act="recvcollect" data-val="${esc(id)}">Récupérer ${esc(n)}</button>`;
+  }
+  const msg = CRED.msg && !(st && (st.collected_by === CRED.id || st.sender_account === CRED.id)) ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
+  const cout = CRED.optionCards > 0
+    ? 'Votre réponse part avec une carte d’option : elle ne coûte aucun Kdo.'
+    : `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}.`;
+  return `${statut}${msg}
+    <button class="primary" data-act="reply">Répondre avec une carte</button>
+    <div class="hint">${cout}</div>`;
+}
+function refreshSimpleBottom() {
+  const b = document.getElementById('recvBottom');
+  if (b && RECV && recvView === 'simple') b.innerHTML = simpleBottomHtml();
+}
+/* Répondre : nouvelle carte, avec la carte d’option si le compte en a une (sans Kdo) */
+function replyToCard() {
+  RECV = null;
+  recvView = 'card';
+  Object.assign(S, initialState(), { optionCard: CRED.optionCards > 0 });
+  history.replaceState(null, '', location.href.split('?')[0]);
+  render();
+  window.scrollTo(0, 0);
 }
 /* Les crédits de la carte passent sur le compte à l’ouverture, une seule fois */
 function autoCollectOnce() {
   if (!RECV || RECV.autoDone || !CREDITS || !sb || !isCreditCard(RECV.row) || RECV.row.option_card) return;
   RECV.autoDone = true;
-  encaisserCarte(RECV.row.id);
+  const id = RECV.row.id;
+  encaisserCarte(id).then(() => credOneLoad(id)).catch(() => {}).then(refreshSimpleBottom);
 }
 function screenDone() {
   if (CREDITS) return screenDoneCredits();
@@ -4068,6 +4111,7 @@ function refreshRecvRest() {
   const r = document.getElementById('recvRest');
   if (r) r.innerHTML = recvRestHtml();
   syncRecvAmount();
+  refreshSimpleBottom();
 }
 /* Montant de la carte ouverte, mis à jour sans la redessiner (après encaissement ou prolongation) */
 function syncRecvAmount() {
@@ -4198,6 +4242,9 @@ function recvClick(e) {
       return;
     case 'openrecv':
       openFromAccount(el.dataset.val);
+      return;
+    case 'reply':
+      replyToCard();
       return;
     case 'recvcollect':
       recvCollect(el.dataset.val);
