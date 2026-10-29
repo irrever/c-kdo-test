@@ -465,7 +465,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.43 (test)
+   c.kdo — v0.44 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -2349,6 +2349,8 @@ async function submitCredits() {
     S.step = 'done';
   } catch (err) {
     S.error = rpcMsg(err);
+    /* Erreur inconnue : on affiche aussi l'erreur reçue du serveur, entre parenthèses */
+    if (S.error === 'Une erreur est survenue, réessayez.') S.error += ' (' + ((err && err.message) || err) + ')';
   } finally {
     S.busy = false;
     render();
