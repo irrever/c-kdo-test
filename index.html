@@ -416,13 +416,18 @@
   .secretbox { width: min(340px, 100%); background: #19191D; color: #F2F2F4; border-radius: 16px; padding: 20px; font-size: 17px; }
   .secretbox .field { width: 100%; margin: 8px 0; font-size: 22px; letter-spacing: .3em; text-align: center; }
   .secretbtns { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-  /* Glissement vertical : fait défiler la page ; pincement et glissement horizontal restent à l'application */
-  .stickycard.has-photo .card { touch-action: pan-y; }
+  /* Mode gratuit : défilement au doigt par défaut ; en mode Recadrer (classe cropping), le glissement déplace l’image. Mode réel : inchangé. */
+  .stickycard.has-photo .card { touch-action: none; }
+  .mode-gratuit .stickycard.has-photo:not(.cropping) .card { touch-action: pan-y; }
   .cropbox { margin-top: 12px; }
   .cropmsg { font-size: 16px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.4; }
   .cropbar { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
   .cropbtn { min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: var(--radius); border: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; font-size: 16px; cursor: pointer; touch-action: manipulation; }
-  .vcrop { position: relative; overflow: hidden; aspect-ratio: 1.9 / 1; border-radius: 18px; background: #000; margin-top: 12px; touch-action: pan-y; }
+  .vcrop { position: relative; overflow: hidden; aspect-ratio: 1.9 / 1; border-radius: 18px; background: #000; margin-top: 12px; touch-action: none; }
+  .mode-gratuit .vcrop:not(.cropping) { touch-action: pan-y; }
+  .vcrop .playov { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(0,0,0,.55); border: 2px solid #fff; pointer-events: none; }
+  .vcrop .playov::after { content: ''; position: absolute; left: 23px; top: 19px; border-style: solid; border-width: 13px 0 13px 21px; border-color: transparent transparent transparent #fff; }
+  .vcrop.playing .playov, .vcrop.cropping .playov { display: none; }
   .vcrop .vcropmedia, .vcrop .livemedia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
   /* Caméra : la vidéo source reste cachée ; l'aperçu affiché est le canevas (même image que l'enregistrement) */
   .vcrop .liveSrc { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
@@ -465,7 +470,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.50 (test)
+   c.kdo — v0.51 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -484,6 +489,7 @@ const BUCKET = 'medias';
 const KEY_MODE = 'ckdo.mode';
 const MODE = (() => { try { return localStorage.getItem(KEY_MODE) === 'cadeau' ? 'cadeau' : 'gratuit'; } catch (e) { return 'gratuit'; } })();
 const CREDITS = MODE !== 'cadeau';   /* crédits : le mode gratuit */
+document.documentElement.classList.toggle('mode-gratuit', CREDITS);
 const FREE = MODE !== 'cadeau';      /* aucun paiement à la création (mode gratuit) */
 /* Virement optionnel, hors application : le bloc n'apparaît qu'une fois l'IBAN renseigné ici */
 const TRANSFER = { iban: '', titulaire: '' };
@@ -1298,12 +1304,7 @@ function cropControlsHtml(which = 'card') {
   const atMin = c.z <= zmin + 1e-6;
   const off = (cond) => (locked || cond ? ' disabled' : '');
   const zl = `Zoom ×${c.z.toFixed(2).replace('.', ',')}`;
-  const msg = locked
-    ? 'Cadrage validé : l’image ne bouge plus.'
-    : t.msg ? 'Glissez la vidéo dans le cadre, puis réglez le zoom.' : `Glissez ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte pour la placer, puis réglez le zoom.`;
-  return `<div class="cropbox" data-crop="${t.key}">` +
-    `<div class="cropmsg">${msg}</div>` +
-    `<div class="cropbar">` +
+  const bars = `<div class="cropbar">` +
       `<button class="cropbtn" data-act="cropminus" aria-label="Dézoomer"${off(atMin)}>−</button>` +
       `<span class="cropzoom">${zl}</span>` +
       `<button class="cropbtn" data-act="cropplus" aria-label="Zoomer"${off(c.z >= CROP_MAX_ZOOM)}>+</button>` +
@@ -1311,7 +1312,25 @@ function cropControlsHtml(which = 'card') {
     `<div class="cropbar">` +
       `<button class="cropbtn" data-act="cropfit"${off(atMin)}>Image entière</button>` +
       `<button class="cropbtn" data-act="cropreset"${off(!cropIsChanged(c))}>Recentrer</button>` +
-    `</div>` +
+    `</div>`;
+  /* Mode gratuit : « Recadrer » / « Valider le cadrage » juste sous le cadre, puis le texte d’aide et le zoom */
+  if (CREDITS) {
+    const msg = locked
+      ? (t.msg ? 'Appuyez sur Recadrer pour déplacer la vidéo dans le cadre.' : `Appuyez sur Recadrer pour placer ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte.`)
+      : t.msg ? 'Glissez la vidéo dans le cadre, puis réglez le zoom.' : `Glissez ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte pour la placer, puis réglez le zoom.`;
+    return `<div class="cropbox" data-crop="${t.key}">` +
+      `<button class="cropbtn cropvalid" data-act="cropvalid">${locked ? 'Recadrer' : 'Valider le cadrage'}</button>` +
+      `<div class="cropmsg">${msg}</div>` +
+      bars +
+    `</div>`;
+  }
+  /* Mode réel : présentation inchangée */
+  const msgReel = locked
+    ? 'Cadrage validé : l’image ne bouge plus.'
+    : t.msg ? 'Glissez la vidéo dans le cadre, puis réglez le zoom.' : `Glissez ${S.mediaIsVideo ? 'la vidéo' : 'la photo'} sur la carte pour la placer, puis réglez le zoom.`;
+  return `<div class="cropbox" data-crop="${t.key}">` +
+    `<div class="cropmsg">${msgReel}</div>` +
+    bars +
     `<button class="cropbtn cropvalid" data-act="cropvalid">${locked ? 'Modifier le cadrage' : 'Valider le cadrage'}</button>` +
   `</div>`;
 }
@@ -1319,6 +1338,13 @@ function cropControlsHtml(which = 'card') {
 function cropRefresh(which = 'card') {
   const box = document.querySelector(`.cropbox[data-crop="${which}"]`);
   if (box) box.outerHTML = cropControlsHtml(which);
+}
+/* Mode Recadrer : le glissement déplace l’image seulement quand le cadrage est ouvert ; sinon la page défile */
+function cropModeSync() {
+  const v = document.querySelector('.vcrop');
+  if (v) v.classList.toggle('cropping', !S.msgCropLocked);
+  const c = document.querySelector('.stickycard.has-photo');
+  if (c) c.classList.toggle('cropping', !S.cropLocked);
 }
 /* L’image vient de se charger : on lit son ratio, puis on met les commandes à jour */
 function cropMediaReady(e) {
@@ -1383,7 +1409,7 @@ function cropClick(e) {
   const act = b.dataset.act;
   const which = b.closest('.cropbox') ? b.closest('.cropbox').dataset.crop : 'card';
   const t = cropT(which);
-  if (act === 'cropvalid') { if (t.msg) S.msgCropLocked = !S.msgCropLocked; else S.cropLocked = !S.cropLocked; cropRefresh(which); return; }
+  if (act === 'cropvalid') { if (t.msg) S.msgCropLocked = !S.msgCropLocked; else S.cropLocked = !S.cropLocked; cropRefresh(which); cropModeSync(); return; }
   if (t.locked || !t.ok) return;
   if (act === 'cropreset') {
     if (t.msg) S.msgCrop = cropDefault(); else S.crop = cropDefault();
@@ -1610,7 +1636,7 @@ function screenCreate() {
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
     <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
     <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
@@ -1770,8 +1796,9 @@ function videoBlockCam(b) {
   if (S.liveCam) return liveBoxHtml('video', MAX_MSG_VIDEO_SECONDS);
   /* Gratuit : aperçu sans #t=0.1 (lecture bloquée sur iPhone) ; réel inchangé */
   if (S.msgVideoUrl) return `
-    <div class="vcrop" data-act="vidtap" data-role="msg">
+    <div class="vcrop${S.msgCropLocked ? '' : ' cropping'}" data-act="vidtap" data-role="msg">
       <video class="vcropmedia" data-msgpreview src="${esc(S.msgVideoUrl)}${CREDITS ? '' : '#t=0.1'}" playsinline preload="metadata"${msgPosterAttr()} style="${cropStyle(S.msgCrop)}"></video>
+      ${CREDITS ? '<span class="playov" aria-hidden="true"></span>' : ''}
     </div>
     ${cropControlsHtml('msg')}
     <button class="secondary" style="margin-top:10px" data-act="msgrefilm">Refaire la vidéo</button>`;
@@ -2895,7 +2922,7 @@ function screenCreateCredits() {
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
     <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
 
     <div class="label">Votre dédicace</div>
@@ -2966,6 +2993,11 @@ function recvVideoTap(el) {
   }
   if (v.paused) { v.muted = true; v.play().catch(() => {}); } else v.pause();
 }
+/* Bouton Play de la vidéo du message : visible tant qu’elle ne joue pas */
+['play', 'pause', 'ended'].forEach((ev) => document.addEventListener(ev, (e) => {
+  const f = e.target && e.target.closest ? e.target.closest('.vcrop') : null;
+  if (f) f.classList.toggle('playing', ev === 'play');
+}, true));
 function wireRecvSimple() {
   const card = document.querySelector('#recvCard .card');
   const cv = card && card.querySelector('video');
@@ -3640,7 +3672,7 @@ async function handleCardFile(file) {
     if (dur > MAX_CARD_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.mediaError = `Cette vidéo dure ${Math.round(dur)} secondes. La vidéo de la carte doit durer ${MAX_CARD_VIDEO_SECONDS} secondes maximum : choisissez une vidéo plus courte ou une photo.`; return showMediaError(); }
   }
   if (S.mediaUrl && !(S.base && S.base.mediaUrl === S.mediaUrl)) URL.revokeObjectURL(S.mediaUrl);
-  Object.assign(S, { mediaFile: file, mediaIsVideo: isVideo, mediaUrl: url, mediaError: '', crop: cropDefault() });
+  Object.assign(S, { mediaFile: file, mediaIsVideo: isVideo, mediaUrl: url, mediaError: '', crop: cropDefault(), cropLocked: CREDITS });
   render();
 }
 
@@ -3729,7 +3761,7 @@ async function handleMsgVideo(file) {
   if (!(dur > 0)) { URL.revokeObjectURL(url); S.error = 'Ce format de vidéo n’est pas lu par ce navigateur.'; return render(); }
   if (isFinite(dur) && dur > MAX_MSG_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.error = `La vidéo dure ${Math.round(dur)} secondes. Maximum : ${MAX_MSG_VIDEO_SECONDS} secondes.`; return render(); }
   if (S.msgVideoUrl) URL.revokeObjectURL(S.msgVideoUrl);
-  Object.assign(S, { msgVideoFile: file, msgVideoUrl: url, msgVideoSecs: isFinite(dur) ? Math.round(dur) : 0, msgCrop: cropDefault(), msgCropLocked: false });
+  Object.assign(S, { msgVideoFile: file, msgVideoUrl: url, msgVideoSecs: isFinite(dur) ? Math.round(dur) : 0, msgCrop: cropDefault(), msgCropLocked: CREDITS });
   render();
 }
 
