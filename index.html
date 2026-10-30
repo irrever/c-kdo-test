@@ -459,11 +459,6 @@
   .deadline.none { background: #19191D; border-color: var(--line); color: #B4B4B8; font-weight: 400; }
   .others { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line); }
   .others .stephead { color: var(--muted); font-weight: 500; }
-  /* Changement de mode (créateur) : code à quatre chiffres */
-  .secretveil { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.65); display: flex; align-items: center; justify-content: center; padding: 16px; }
-  .secretbox { width: min(340px, 100%); background: #19191D; color: #F2F2F4; border-radius: 16px; padding: 20px; font-size: 17px; }
-  .secretbox .field { width: 100%; margin: 8px 0; font-size: 22px; letter-spacing: .3em; text-align: center; }
-  .secretbtns { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
   /* Mode gratuit : défilement au doigt par défaut ; en mode Recadrer (classe cropping), le glissement déplace l’image. Mode réel : inchangé. */
   .stickycard.has-photo .card { touch-action: none; }
   .mode-gratuit .stickycard.has-photo:not(.cropping) .card { touch-action: pan-y; }
@@ -542,7 +537,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.60 (test)
+   c.kdo — v1.0
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -555,11 +550,9 @@ const CONFIG = {
 const PAY_LINKS = { option3: '', option10: '', option25: '', option50: '' };
 
 const BUCKET = 'medias';
-/* Mode de l'application, choisi par le créateur (cinq appuis sur la carte, puis code) et gardé sur cet appareil :
-   « gratuit » (mode 2, par défaut) : carte, message et effets, payés en crédits fictifs (sans valeur en euros), sans paiement.
-   « cadeau » (mode 1, réel) : cadeau payant en euros, désactivé pour le public tant qu'un partenaire de paiement n'a pas confirmé. */
-const KEY_MODE = 'ckdo.mode';
-const MODE = (() => { try { return localStorage.getItem(KEY_MODE) === 'cadeau' ? 'cadeau' : 'gratuit'; } catch (e) { return 'gratuit'; } })();
+/* Mode de l'application : « gratuit » (crédits en Kdo, sans valeur en euros, sans paiement). Seul mode de cette version.
+   Le mode « cadeau » (réel, en euros) reste dans le code, sans accès : il n'est pas ouvert au public. */
+const MODE = 'gratuit';
 const CREDITS = MODE !== 'cadeau';   /* crédits : le mode gratuit */
 document.documentElement.classList.toggle('mode-gratuit', CREDITS);
 const FREE = MODE !== 'cadeau';      /* aucun paiement à la création (mode gratuit) */
@@ -613,7 +606,6 @@ const MIME_EXT = {
   'audio/wav': 'wav', 'audio/aac': 'aac',
 };
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const TEST_NUMBER = 'TEST 0000 0000 0000 0000';
 const KEY_RECEIVED = 'ckdo.received';
 /* Mode gratuit : crédits fictifs, sans valeur en euros. Valeurs provisoires ; le serveur refait les mêmes calculs (credit_cost). */
 const CREDIT_REFILL = 100;         /* solde visé : sous 100, le compte à rebours tourne ; à son terme, le solde est ramené à 100 */
@@ -636,7 +628,7 @@ const RECIPIENT_ID = new URLSearchParams(location.search).get('c');
 const PREVIEW = new URLSearchParams(location.search).get('apercu') === '1';
 const app = document.getElementById('app');
 
-/* Mémoire locale de l'appareil (test) : tolère un stockage indisponible */
+/* Mémoire locale de l'appareil : tolère un stockage indisponible */
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* stockage indisponible */ } },
@@ -2363,17 +2355,15 @@ function screenRecap() {
     <details class="cgu">
       <summary>Lire les conditions d’utilisation</summary>
       <div class="cgubody">
-        <p>Version de test. Le texte définitif des conditions d’utilisation reste à rédiger et à faire valider avant toute mise en ligne.</p>
         <p>La carte cadeau est une carte virtuelle prépayée, valable 12 mois et non rechargeable.</p>
         <p>Le solde pourra être transféré sur le compte bancaire du destinataire, selon les modalités du partenaire de paiement choisi.</p>
         <p>Les frais de service s’ajoutent au montant de la carte : 7 % du montant, avec un minimum de 2 €. Un envoi répété au même numéro ajoute un supplément de 2 €. Quand un montant est réparti en plusieurs cartes, les frais se calculent sur le total, et 2 € sont ajoutés pour chaque carte au-delà de la première. Chaque carte peut être personnalisée avant le paiement ; un effet supplémentaire coûte 0,50 € sur chaque carte qui le porte.</p>
-        <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € pour une carte seule (version de test). Pour un cadeau à plusieurs, il n’y a pas de plafond sur le total ; chaque part est de 500 € maximum.</p>
-        <p>Pendant ce test, aucun paiement réel n’est effectué.</p>
+        <p>Un montant supérieur à 500 € est offert en plusieurs cartes de 500 € maximum chacune, dans la limite de 2 000 € pour une carte seule. Pour un cadeau à plusieurs, il n’y a pas de plafond sur le total ; chaque part est de 500 € maximum.</p>
       </div>
     </details>
 
     <label class="check${bad('terms')}"><input id="terms" type="checkbox" ${S.terms ? 'checked' : ''}> <span>J’accepte les conditions d’utilisation</span></label>
-    <div class="hint">Version de test : aucun paiement réel, aucun argent n’est prélevé.</div>
+    <div class="hint">Aucun paiement réel, aucun argent n’est prélevé.</div>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
   <div class="foot" id="recapFoot">${recapFootHtml()}</div>`;
@@ -2606,8 +2596,6 @@ async function submitCredits() {
     S.step = 'done';
   } catch (err) {
     S.error = rpcMsg(err);
-    /* Erreur inconnue : on affiche aussi l'erreur reçue du serveur, entre parenthèses */
-    if (S.error === 'Une erreur est survenue, réessayez.') S.error += ' (' + ((err && err.message) || err) + ')';
   } finally {
     S.busy = false;
     render();
@@ -2728,7 +2716,7 @@ function renderCreditsAccount(backHtml) {
       <div class="rows">${rowsRecus || '<div class="hint">Aucune carte reçue ouverte sur cet appareil.</div>'}</div>
       <div class="label">Cartes envoyées</div>
       <div class="rows">${rowsEnv || '<div class="hint">Aucune carte envoyée depuis cet appareil.</div>'}</div>
-      <div class="hint">Les Kdo ne se vendent pas. Les cartes sans Kdo se paient en euros. Version de test : aucun paiement réel.</div>
+      <div class="hint">Les Kdo ne se vendent pas. Les cartes sans Kdo se paient en euros.</div>
     </div>`;
 }
 function screenCompte() {
@@ -2830,16 +2818,14 @@ function screenRecapFree() {
     <details class="cgu">
       <summary>Lire les conditions d’utilisation</summary>
       <div class="cgubody">
-        <p>Version de test. Le texte définitif des conditions d’utilisation reste à rédiger et à faire valider avant toute mise en ligne.</p>
         <p>${CREDITS ? 'La carte c.kdo se paie en Kdo fictifs. Elle transmet au destinataire votre message, votre photo ou votre vidéo, par un lien.' : 'La carte c.kdo est gratuite. Elle transmet au destinataire votre message, votre photo ou votre vidéo, par un lien.'}</p>
         <p>Le lien est envoyé par SMS depuis votre téléphone. Le numéro du destinataire n’est pas gardé sur nos serveurs.</p>
         ${CREDITS ? '' : '<p>Un virement est facultatif. Il se fait hors de l’application, avec le code de référence. L’application ne prélève rien.</p>'}
-        <p>Pendant ce test, aucun paiement réel n’est effectué.</p>
       </div>
     </details>
 
     <label class="check${bad('terms')}"><input id="terms" type="checkbox" ${S.terms ? 'checked' : ''}> <span>J’accepte les conditions d’utilisation</span></label>
-    <div class="hint">Version de test : rien n’est payé dans l’application.</div>
+    <div class="hint">Rien n’est payé dans l’application.</div>
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
   <div class="foot" id="recapFoot">${recapFreeFootHtml()}</div>`;
@@ -3143,7 +3129,6 @@ function screenCreateCredits() {
   const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
   return `
   ${hdr('', 'Créer une carte')}
-  ${S.codeAsk ? codeAskHtml() : ''}
   <div class="section cr crf">
     ${mesBlockHtml()}
     ${optionsBlockHtml()}
@@ -3169,9 +3154,7 @@ function screenCreateCredits() {
     <div class="label">Votre message</div>
     <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
     <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
-    ${peopleHtml()}
-    ${creditOptionHtml()}
-    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
+    <div id="peopleBlock">${peopleBlockInner()}</div>
   </div>
   <div class="foot cr" id="msgFoot">${msgFootHtml()}</div>`;
 }
@@ -3195,6 +3178,15 @@ function creditOptionHtml() {
     ${choix('kdo', !S.optionCard, people > 1 ? 'Cartes Kdo' : 'Carte Kdo', kdoOk ? `Il vous restera ${esc(credTxt(CRED.balance - need))}` : `Solde insuffisant : ${esc(credTxt(need))} nécessaires`, esc(credTxt(need)), false, !kdoOk)}
     ${choix('carte', !!S.optionCard, people > 1 ? 'Cartes sans Kdo' : 'Carte', restantTxt, '0 Kdo', true, false)}
     <div class="hint">C’est vous qui choisissez. Dans les deux cas, le compte à rebours continue.</div>`;
+}
+/* Zone « Nombre de personnes », choix de paiement et erreur : seule cette zone est redessinée au clic sur « + » ou « − »,
+   pour que la carte et la position de la page ne bougent pas */
+function peopleBlockInner() {
+  return `${peopleHtml()}${creditOptionHtml()}${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}`;
+}
+function refreshPeopleBlock() {
+  const b = document.getElementById('peopleBlock');
+  if (b) b.innerHTML = peopleBlockInner(); else render();
 }
 /* Nombre de personnes (mode gratuit) : une carte et un lien par personne, de 1 à 10 */
 function peopleHtml() {
@@ -4138,60 +4130,6 @@ async function submit() {
 }
 
 /* ---------- écouteurs créateur ---------- */
-/* ---------- code de test (mode gratuit) : appui simultané sur « Filmer » et « Prendre une photo » ---------- */
-/* TEST : à retirer avant la mise en production, avec la fonction credit_test_grant côté serveur */
-const pressAt = {};
-let comboUntil = 0;
-app.addEventListener('pointerdown', (e) => {
-  if (!CREDITS || S.step !== 'create') return;
-  const el = e.target.closest && e.target.closest('[data-act="cardfilm"], [data-act="cardphoto"]');
-  if (!el) return;
-  const act = el.dataset.act;
-  const other = act === 'cardfilm' ? 'cardphoto' : 'cardfilm';
-  const now = Date.now();
-  if (pressAt[other] && now - pressAt[other] < 400) {
-    comboUntil = now + 900; pressAt[other] = 0; pressAt[act] = 0;
-    return showCodeAsk();
-  }
-  pressAt[act] = now;
-}, true);
-function showCodeAsk() {
-  S.codeAsk = true; S.codeMsg = ''; S.codeBad = false;
-  render();
-  const f = document.getElementById('testCode'); if (f) f.focus();
-}
-function codeAskHtml() {
-  return `<div class="zone" style="margin-bottom:12px">
-    <div class="label">Code</div>
-    <input id="testCode" class="field${S.codeBad ? ' bad' : ''}" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-    <div class="grid2" style="margin-top:10px">
-      <button class="btn2" data-act="codeok">Valider</button>
-      <button class="secondary" data-act="codeno">Fermer</button>
-    </div>
-    ${S.codeMsg ? `<div class="hint" role="status">${esc(S.codeMsg)}</div>` : ''}
-  </div>`;
-}
-/* Vérification du code par le serveur (credit_test_grant) : le code n’est jamais dans ce fichier */
-async function testCodeSubmit() {
-  const f = document.getElementById('testCode');
-  const code = f ? f.value.trim() : '';
-  if (!code) { S.codeBad = true; S.codeMsg = 'Entrez le code.'; return render(); }
-  if (!sb || !CRED.key) { S.codeBad = true; S.codeMsg = 'Compte indisponible pour le moment.'; return render(); }
-  S.codeMsg = 'Vérification…'; S.codeBad = false;
-  render();
-  try {
-    const { error } = await sb.rpc('credit_test_grant', { p_key: CRED.key, p_code: code });
-    if (error) throw error;
-    await credLoad();
-    S.codeBad = false; S.codeMsg = `Compte crédité. Solde : ${balanceText()}.`;
-    render();
-  } catch (err) {
-    S.codeBad = true;
-    S.codeMsg = /Code incorrect/.test((err && err.message) || '') ? 'Code incorrect.' : 'Crédit impossible pour le moment. Réessayez.';
-    render();
-  }
-}
-
 app.addEventListener('click', (e) => {
   /* Un clic en dehors du menu et du bouton d'ajout annule le mode ajout */
   if (S.addingFx && !e.target.closest('#fxMenu, #fxAdd')) {
@@ -4220,8 +4158,6 @@ app.addEventListener('click', (e) => {
   if (act === 'kp') { kpPress(el.dataset.target, v); return; }
   if (act === 'kpok') { closeKp(); return; }
   if (act === 'recvoice') { if (S.recording) stopVoice(); else startVoice(); return; }
-  /* TEST : appui simultané sur « Filmer » et « Prendre une photo » : pas de caméra, la demande de code s’ouvre */
-  if ((act === 'cardfilm' || act === 'cardphoto') && Date.now() < comboUntil) return;
   /* « Mon compte » sur la première page : déplie ou replie le bloc sur place */
   if (act === 'vidtap') { recvVideoTap(el); return; }
   if (act === 'comptetoggle') {
@@ -4229,10 +4165,8 @@ app.addEventListener('click', (e) => {
     if (S.acctOpen) refreshCreditsView().then(() => { if (S.acctOpen && S.step === 'create') render(); });
     return;
   }
-  if (act === 'codeok') return testCodeSubmit();
   /* Retour depuis « Votre carte est prête » : même contenu, pas de remise à zéro */
   if (act === 'backcreate') { if (S.recording) stopVoice(); Object.assign(S, initialState()); render(); window.scrollTo(0, 0); return; }
-  if (act === 'codeno') { S.codeAsk = false; S.codeMsg = ''; S.codeBad = false; return render(); }
   if (act === 'camopen') return startLive();
   if (act === 'cardfilm') return startLive('card', 'video');
   if (act === 'cardphoto') return startLive('card', 'photo');
@@ -4244,7 +4178,7 @@ app.addEventListener('click', (e) => {
   if (act === 'peopledec' || act === 'peopleinc') {
     S.people = Math.min(MAX_PEOPLE, Math.max(1, creditPeople() + (act === 'peopleinc' ? 1 : -1)));
     S.error = '';
-    return render();
+    return refreshPeopleBlock();
   }
   if (act === 'submit') {
     if (CREDITS) return submitCredits();
@@ -4620,7 +4554,6 @@ let RECV = null;
 let carteErr = '';           // erreur à l’ouverture de « Votre carte »              // carte affichée : { row, mediaUrl, msgBlock, fromAccount }
 let recvView = 'card';        // 'card' ou 'account'
 let walletState = { apple: false, google: false };
-let showNumber = false;
 let accountBusy = false;
 
 const publicUrl = (p) => (p && sb ? sb.storage.from(BUCKET).getPublicUrl(p).data.publicUrl : '');
@@ -4684,7 +4617,6 @@ async function openCard(id, fromAccount, listOpts = null) {
   RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true, annonce: true };
   if (!listOpts) rememberCard(row);
   walletState = { apple: false, google: false };
-  showNumber = false;
   recvView = fromAccount ? 'card' : (CREDITS && isCreditCard(row) ? 'simple' : 'message');
 }
 
@@ -4715,7 +4647,7 @@ function renderRecvTransfer() {
     ${recvHeader('Mon argent', 'Recevoir sur mon compte', back)}
     <div class="section">
       <div class="message">Vous pourrez transférer le solde de votre carte vers votre compte bancaire. Cette fonction sera disponible une fois le partenaire de paiement choisi.</div>
-      <div class="hint">Version de test : aucune donnée bancaire n’est demandée et aucun virement n’est effectué.</div>
+      <div class="hint">Aucune donnée bancaire n’est demandée et aucun virement n’est effectué.</div>
       <button class="secondary" data-act="cardback">Retour à la carte</button>
     </div>`;
 }
@@ -4767,11 +4699,6 @@ function recvRestHtml() {
         <button class="btn2 wallet" data-act="wallet" data-val="apple" aria-pressed="${walletState.apple}"><span>Apple Wallet</span><small>${walletState.apple ? 'Ajouté' : 'Ajouter'}</small></button>
         <button class="btn2 wallet" data-act="wallet" data-val="google" aria-pressed="${walletState.google}"><span>Google Wallet</span><small>${walletState.google ? 'Ajouté' : 'Ajouter'}</small></button>
       </div>
-      <div class="hint">Version de test : aucun pass n’est créé.</div>
-
-      <div class="rowline"><span>Numéro</span><span>${showNumber ? TEST_NUMBER : '•••• •••• •••• ••••'}</span></div>
-      <button class="linkbtn" data-act="numtoggle">${showNumber ? 'Masquer le numéro et le code' : 'Afficher le numéro et le code'}</button>
-      ${showNumber ? '<div class="hint">Valeur de test, pas un vrai numéro : aucun paiement possible.</div>' : ''}
 
       <button class="secondary" data-act="transfer">Recevoir sur mon compte</button>
       <button class="secondary" data-act="acc">Mes cartes reçues</button>`;
@@ -4813,7 +4740,7 @@ function renderRecvAccount() {
       ${list.length && list.every((c) => c.free) ? '' : `<div class="label">Total de mes cartes</div>
       <div class="bigtotal">${eur(total)}</div>`}
       <div class="rows">${rows}</div>
-      <div class="hint">Version de test : cartes ouvertes sur cet appareil uniquement.</div>
+      <div class="hint">Cartes ouvertes sur cet appareil uniquement.</div>
     </div>`;
 }
 
@@ -4876,10 +4803,6 @@ function recvClick(e) {
   switch (el.dataset.act) {
     case 'wallet':
       walletState[el.dataset.val] = !walletState[el.dataset.val];
-      refreshRecvRest();
-      return;
-    case 'numtoggle':
-      showNumber = !showNumber;
       refreshRecvRest();
       return;
     case 'acc':
@@ -5022,48 +4945,6 @@ window.addEventListener('pagehide', () => stopLiveStream());
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveDraft(); });
 
 /* Au démarrage sans adresse particulière : le brouillon, s'il existe, est repris avant d'afficher l'accueil */
-/* Changement de mode (créateur) : cinq appuis rapides sur la carte de l’écran de création, puis le code à quatre chiffres */
-const SECRET_CODE = '1047';
-const SECRET_TAPS = 5;
-const SECRET_GAP_MS = 2000;   /* délai maximal entre deux appuis */
-let secretCount = 0;
-let secretLast = 0;
-function secretTap(e) {
-  if (RECV || S.step !== 'create' || !e.target.closest || !e.target.closest('.stickycard .card')) return;
-  const now = Date.now();
-  secretCount = now - secretLast <= SECRET_GAP_MS ? secretCount + 1 : 1;
-  secretLast = now;
-  if (secretCount >= SECRET_TAPS) { secretCount = 0; secretOpen(); }
-}
-function secretOpen() {
-  if (document.getElementById('secretVeil')) return;
-  const numero = MODE === 'cadeau' ? '2' : '1';
-  const cible = MODE === 'cadeau' ? 'gratuit' : 'réel';
-  const veil = document.createElement('div');
-  veil.id = 'secretVeil';
-  veil.className = 'secretveil';
-  veil.innerHTML = `<div class="secretbox" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
-      <div class="ztitle" id="secretTitle">Code</div>
-      <input id="secretCode" class="field" type="password" inputmode="numeric" autocomplete="off" maxlength="4" aria-label="Code à quatre chiffres">
-      <div class="error" id="secretErr" style="display:none">Code incorrect.</div>
-      <div class="secretbtns">
-        <button class="primary" id="secretOk" type="button">Passer au mode ${numero} (${cible})</button>
-        <button class="secondary" id="secretNo" type="button">Annuler</button>
-      </div>
-    </div>`;
-  document.body.appendChild(veil);
-  const input = veil.querySelector('#secretCode');
-  const err = veil.querySelector('#secretErr');
-  veil.querySelector('#secretNo').addEventListener('click', () => veil.remove());
-  veil.querySelector('#secretOk').addEventListener('click', () => {
-    if (input.value.trim() !== SECRET_CODE) { err.style.display = ''; input.value = ''; input.focus(); return; }
-    /* Le mode est gardé sur cet appareil ; la page est rechargée pour l’appliquer */
-    try { localStorage.setItem(KEY_MODE, MODE === 'cadeau' ? 'gratuit' : 'cadeau'); } catch (e) { /* stockage indisponible */ }
-    location.reload();
-  });
-  input.focus();
-}
-app.addEventListener('click', secretTap);
 /* Recadrage : glisser le média dans la carte, boutons de zoom, « Image entière », « Recentrer », « Valider » */
 app.addEventListener('pointerdown', cropDown);
 document.addEventListener('pointermove', cropMove, { passive: false });
