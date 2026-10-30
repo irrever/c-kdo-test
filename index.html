@@ -640,7 +640,7 @@ const receivedList = () => { const v = store.get(KEY_RECEIVED, []); return Array
 
 const initialState = () => ({
   step: 'create', acctOpen: false,
-  occasion: 'Anniversaire', cardText: CREDITS ? '' : 'Joyeux anniversaire', fx: OCC_FX['Anniversaire'], fxTheme: themeOf(OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
+  occasion: 'Anniversaire', cardText: CREDITS ? '' : 'Joyeux anniversaire', fx: CREDITS ? 'none' : OCC_FX['Anniversaire'], fxTheme: themeOf(CREDITS ? 'none' : OCC_FX['Anniversaire']), fxTouched: false, fxExtra: [], addingFx: false, fxDup: '',
   amount: FREE ? 0 : 50, customRaw: '', refCode: '', credAmount: null, optionCard: false, reply: false,
   mediaFile: null, mediaUrl: '', mediaIsVideo: false, mediaError: '', crop: cropDefault(),
   msgType: 'text', message: CREDITS ? '' : DEFAULT_MSG,
@@ -2221,14 +2221,6 @@ function syncMsgTabs() {
 }
 function msgFootHtml() {
   if (S.askNoMsg && hasNoMessage()) {
-    /* Mode gratuit : une carte sans message ne part pas. On demande une dédicace, sans bouton « Continuer ». */
-    if (CREDITS) return `${footErr()}<div class="nomsg">
-      <div class="nmTitle">Votre message est vide</div>
-      <p>Écrivez au moins une dédicace dans « Votre message » pour envoyer la carte.</p>
-      <div class="nomsgBtns">
-        <button class="primary" data-act="writemsg">Écrire un message</button>
-      </div>
-    </div>`;
     return `${footErr()}<div class="nomsg">
       <div class="nmTitle">Votre message est vide</div>
       <p>${CREDITS ? 'Le destinataire verra seulement sa carte.' : `Le destinataire verra seulement sa carte, avec la phrase « ${NO_MESSAGE_TEXT} »`}</p>
@@ -2544,11 +2536,16 @@ async function refreshCreditsView() {
   }
   redrawCredits();
 }
+/* Mode gratuit : une carte part dès qu’un de ses éléments a été modifié (dédicace, effet, photo, message, occasion) */
+function creditCardModified() {
+  return S.cardText.trim().length > 0 || S.occasion !== 'Anniversaire' || S.fx !== 'none' || S.fxExtra.length > 0
+    || !!S.mediaFile || !hasNoMessage();
+}
 /* Carte envoyée depuis cet appareil : les crédits sont débités par le serveur, puis la carte existe */
 async function submitCredits() {
   if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
-  /* Garde-fou : sans message écrit, la carte n’est pas envoyée (la base exige un message) */
-  if (hasNoMessage()) { S.askNoMsg = true; S.error = ''; return render(); }
+  /* Une carte part dès qu’un de ses éléments a été modifié ; une carte encore vierge reste à faire */
+  if (!creditCardModified()) { S.error = 'Modifiez la carte avant de l’envoyer : ajoutez au moins un élément.'; return render(); }
   const msgErr = creditAmountMsg();
   if (msgErr) { S.error = msgErr; return render(); }
   const option = !!S.optionCard;
@@ -2577,7 +2574,7 @@ async function submitCredits() {
     let msgPath = null;
     if (msgType === 'voice') { msgPath = `${ids[0]}/voice.${extOf(S.voiceBlob.type)}`; await uploadOnce(msgPath, S.voiceBlob); }
     if (msgType === 'video') { msgPath = `${ids[0]}/msg-video.${extOf(S.msgVideoFile.type)}`; await uploadOnce(msgPath, S.msgVideoFile); }
-    /* Le garde-fou plus haut empêche déjà l’envoi sans message : ce cas ne se produit plus ici */
+    /* Sans message écrit, le texte reste vide : la base l’accepte depuis supabase-v16-messages-vides.sql */
     const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
     const links = [];
@@ -4164,7 +4161,7 @@ app.addEventListener('click', (e) => {
       bringIntoView(document.querySelector('.field.bad, .btn2.bad, .secondary.bad, .check.bad'));
       return;
     }
-    if ((S.step === 'message' || (CREDITS && S.step === 'create')) && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
+    if (S.step === 'message' && hasNoMessage() && !S.askNoMsg) { S.askNoMsg = true; refreshMsgFoot(); return; }
     S.showErrors = false;
   }
   if (act === 'kp') { kpPress(el.dataset.target, v); return; }
@@ -4297,7 +4294,7 @@ app.addEventListener('click', (e) => {
       syncOccasionChips(); syncCardTextField(); updatePreview();
       /* Sans effet choisi à la main, l'occasion propose son effet. Si l'expéditeur a déjà choisi, son effet reste
          et s'affiche de nouveau, pour qu'il voie le résultat à chaque clic. */
-      if (!S.fxTouched) {
+      if (!S.fxTouched && !CREDITS) {
         S.fx = OCC_FX[v];
         S.fxTheme = themeOf(S.fx);
         S.fxExtra = S.fx === 'none' ? [] : S.fxExtra.filter((k) => k !== S.fx);
