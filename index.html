@@ -43,6 +43,8 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
   #app { max-width: 390px; min-height: 100vh; margin: 0 auto; }
+  /* Mode gratuit : le défilement s’arrête au bas de la page (pas de rebond sur le fond sombre) */
+  html.mode-gratuit, html.mode-gratuit body { overscroll-behavior-y: none; }
 
   /* En-tête */
   .hdr { display: flex; align-items: center; gap: 14px; padding: 28px 24px 0; }
@@ -2219,6 +2221,14 @@ function syncMsgTabs() {
 }
 function msgFootHtml() {
   if (S.askNoMsg && hasNoMessage()) {
+    /* Mode gratuit : une carte sans message ne part pas. On demande une dédicace, sans bouton « Continuer ». */
+    if (CREDITS) return `${footErr()}<div class="nomsg">
+      <div class="nmTitle">Votre message est vide</div>
+      <p>Écrivez au moins une dédicace dans « Votre message » pour envoyer la carte.</p>
+      <div class="nomsgBtns">
+        <button class="primary" data-act="writemsg">Écrire un message</button>
+      </div>
+    </div>`;
     return `${footErr()}<div class="nomsg">
       <div class="nmTitle">Votre message est vide</div>
       <p>${CREDITS ? 'Le destinataire verra seulement sa carte.' : `Le destinataire verra seulement sa carte, avec la phrase « ${NO_MESSAGE_TEXT} »`}</p>
@@ -2537,6 +2547,8 @@ async function refreshCreditsView() {
 /* Carte envoyée depuis cet appareil : les crédits sont débités par le serveur, puis la carte existe */
 async function submitCredits() {
   if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
+  /* Garde-fou : sans message écrit, la carte n’est pas envoyée (la base exige un message) */
+  if (hasNoMessage()) { S.askNoMsg = true; S.error = ''; return render(); }
   const msgErr = creditAmountMsg();
   if (msgErr) { S.error = msgErr; return render(); }
   const option = !!S.optionCard;
@@ -2565,7 +2577,7 @@ async function submitCredits() {
     let msgPath = null;
     if (msgType === 'voice') { msgPath = `${ids[0]}/voice.${extOf(S.voiceBlob.type)}`; await uploadOnce(msgPath, S.voiceBlob); }
     if (msgType === 'video') { msgPath = `${ids[0]}/msg-video.${extOf(S.msgVideoFile.type)}`; await uploadOnce(msgPath, S.msgVideoFile); }
-    /* Mode gratuit : sans message écrit, la carte reste sans phrase (aucun texte automatique) */
+    /* Le garde-fou plus haut empêche déjà l’envoi sans message : ce cas ne se produit plus ici */
     const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
     const links = [];
