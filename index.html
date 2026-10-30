@@ -389,6 +389,16 @@
   .nomsg p { margin: 6px 0 12px; font-size: 14px; line-height: 1.5; color: #C8C8CC; }
   .nomsgBtns { display: grid; gap: 10px; }
   .nomsgBtns .secondary, .nomsgBtns .primary { margin-top: 0; }
+  /* Nombre de personnes (mode gratuit) : − et + autour du nombre */
+  .peoplebox { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .peopleBtn { width: 52px; height: 44px; flex: 0 0 52px; padding: 0; font-size: 22px; }
+  .peopleBtn:disabled { opacity: .4; cursor: default; }
+  .peopleNum { min-width: 32px; text-align: center; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  /* Écran « Votre carte est prête » : une ligne par personne, avec son lien */
+  .linkrow { margin-top: 10px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: #19191D; }
+  .linkrow b { display: block; font-size: 15px; font-weight: 500; }
+  .linkbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .linkbtns .primary, .linkbtns .secondary { margin-top: 0; }
 
   /* Lien et message reçu */
   .linkbox { margin-top: 8px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; word-break: break-all; color: #B4B4B8; }
@@ -403,6 +413,7 @@
   .recvbox .message.big { margin-top: 0; font-size: 17px; line-height: 1.6; max-width: 34ch; color: #ECECF1; }
   .recvbox .player { margin-top: 0; }
   .recvbox .player.vid { margin: 0 auto; }
+  .recvbox:empty { display: none; }
   .recvbottom { margin-top: 16px; display: grid; gap: 12px; }
   .recvbottom .notice { text-align: center; }
   .recvbottom .hint { text-align: center; margin: 0; }
@@ -531,7 +542,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.58 (test)
+   c.kdo — v0.60 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -612,6 +623,7 @@ const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours 
 const KEY_COMPTE = 'ckdo.compte';  /* clé secrète du compte : sur cet appareil seulement, le serveur n’en garde que l’empreinte */
 /* État du compte affiché : solde, recharge, stocks d’options, cartes lues sur le serveur */
 const CREDIT_CARD = 10;          /* une carte coûte 10 Kdo, quels que soient son message, son média ou ses effets */
+const MAX_PEOPLE = 10;           /* mode gratuit : une carte et un lien par personne, 10 personnes au plus */
 const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, cards: {}, busy: '', msg: '', error: '' };
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
@@ -643,7 +655,7 @@ const initialState = () => ({
   recipient: '', recipientPhone: '', terms: false, busy: false, error: '', link: '',
   schedule: false, openDate: '',
   group: false, payChosen: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
-  splitIndex: 0, links: [], soloMulti: false, groupCards: null, base: null, soloIds: null,
+  splitIndex: 0, links: [], soloMulti: false, groupCards: null, base: null, soloIds: null, people: 1,
   showErrors: false, touched: new Set(), textTouched: false, askNoMsg: false,
 });
 const S = initialState();
@@ -779,6 +791,7 @@ const RPC_MSG = {
   montant_invalide: 'Montant trop grand.',
   carte_expiree: 'Cette carte a expiré.',
   option_insuffisante: 'Vous n’avez plus de carte sans Kdo.',
+  carte_existante: 'Cette carte existe déjà. Préparez une nouvelle carte.',
   carte_invalide: 'Cette carte ne peut pas être utilisée ici.',
 };
 function rpcMsg(err) {
@@ -2216,7 +2229,7 @@ function msgFootHtml() {
   if (S.askNoMsg && hasNoMessage()) {
     return `${footErr()}<div class="nomsg">
       <div class="nmTitle">Votre message est vide</div>
-      <p>Le destinataire verra seulement sa carte, avec la phrase « ${NO_MESSAGE_TEXT} »</p>
+      <p>${CREDITS ? 'Le destinataire verra seulement sa carte.' : `Le destinataire verra seulement sa carte, avec la phrase « ${NO_MESSAGE_TEXT} »`}</p>
       <div class="nomsgBtns">
         <button class="secondary" data-act="writemsg">Écrire un message</button>
         <button class="primary" data-act="nomsg">Continuer sans message</button>
@@ -2398,9 +2411,20 @@ const creditCostText = () => {
   const n = credAmountOf();
   return `${Number.isInteger(n) ? `Cette carte contient ${credTxt(n)}.` : 'Montant à corriger.'} Coût minimum : ${credTxt(cardCredits())}.`;
 };
+/* Nombre de personnes (mode gratuit) : une carte et un lien par personne, de 1 à MAX_PEOPLE */
+function creditPeople() {
+  const n = Number(S.people);
+  return Number.isInteger(n) ? Math.min(MAX_PEOPLE, Math.max(1, n)) : 1;
+}
 /* Erreur sur le montant ou la carte d’option ; vide quand tout va */
 function creditAmountMsg() {
-  if (S.optionCard) return CRED.optionCards > 0 ? '' : 'Vous n’avez plus de carte sans Kdo.';
+  if (S.optionCard) {
+    const people = creditPeople();
+    if (CRED.optionCards >= people) return '';
+    return CRED.optionCards > 0
+      ? `Vous n’avez que ${CRED.optionCards} carte(s) sans Kdo, pour ${people} personne(s).`
+      : 'Vous n’avez plus de carte sans Kdo.';
+  }
   const n = credAmountOf();
   if (!Number.isInteger(n)) return 'Indiquez le montant en Kdo, en chiffres entiers.';
   if (n < cardCredits()) return `Une carte ne peut pas être envoyée sous sa valeur : ${credTxt(cardCredits())} minimum.`;
@@ -2527,45 +2551,58 @@ async function submitCredits() {
   if (msgErr) { S.error = msgErr; return render(); }
   const option = !!S.optionCard;
   const amount = credAmountOf();
-  if (!option && CRED.balance !== null && CRED.balance < amount) {
-    S.error = `Solde insuffisant : cette carte contient ${credTxt(amount)}, et il vous en reste ${credTxt(CRED.balance)}.`;
+  const n = creditPeople();
+  if (!option && CRED.balance !== null && CRED.balance < amount * n) {
+    S.error = n > 1
+      ? `Solde insuffisant : ${n} cartes de ${credTxt(amount)} font ${credTxt(amount * n)}, et il vous en reste ${credTxt(CRED.balance)}.`
+      : `Solde insuffisant : cette carte contient ${credTxt(amount)}, et il vous en reste ${credTxt(CRED.balance)}.`;
     return render();
   }
   S.busy = true; S.error = ''; render();
-  /* Un nouvel essai reprend le même identifiant : le serveur ne débite pas deux fois */
-  const id = S.soloIds && S.soloIds.length === 1 ? S.soloIds[0] : crypto.randomUUID();
-  S.soloIds = [id];
+  /* Une carte par personne, chacune avec son identifiant. Un nouvel essai reprend les mêmes identifiants : le serveur ne débite pas deux fois */
+  const ids = Array.from({ length: n }, (_, i) => (S.soloIds && S.soloIds[i]) || crypto.randomUUID());
+  S.soloIds = ids;
   try {
     CRED.key = CRED.key || credKey();
+    /* Média et message : envoyés une seule fois, dans le dossier de la première carte */
     let mediaPath = null;
     if (S.mediaFile) {
-      mediaPath = `${id}/media.${extOf(S.mediaFile.type)}`;
+      mediaPath = `${ids[0]}/media.${extOf(S.mediaFile.type)}`;
       await uploadOnce(mediaPath, S.mediaFile);
     }
     const none = hasNoMessage();
     const msgType = none ? 'text' : S.msgType;
     let msgPath = null;
-    if (msgType === 'voice') { msgPath = `${id}/voice.${extOf(S.voiceBlob.type)}`; await uploadOnce(msgPath, S.voiceBlob); }
-    if (msgType === 'video') { msgPath = `${id}/msg-video.${extOf(S.msgVideoFile.type)}`; await uploadOnce(msgPath, S.msgVideoFile); }
-    const message = none ? NO_MESSAGE_TEXT : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
-    const row = {
-      id, occasion: S.occasion, card_text: S.cardText.trim(), effect: S.fx,
-      media_type: S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none', media_path: mediaPath,
-      msg_type: msgType, msg_media_path: msgPath, message, recipient_name: '',
-      ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
-      ...(cropSet() ? { media_crop: S.crop } : {}),
-      ...(msgCropSet() ? { msg_crop: S.msgCrop } : {}),
-      ...(option ? { option: true } : { credit_amount: amount }),
-    };
-    const { data, error } = await sb.rpc('credit_send_card', { p_key: CRED.key, p_card: row });
-    if (error) throw error;
-    CRED.balance = Number(data.balance);
-    CRED.optionCards = Number(data.option_cards) || 0;
-    recordPhone();
+    if (msgType === 'voice') { msgPath = `${ids[0]}/voice.${extOf(S.voiceBlob.type)}`; await uploadOnce(msgPath, S.voiceBlob); }
+    if (msgType === 'video') { msgPath = `${ids[0]}/msg-video.${extOf(S.msgVideoFile.type)}`; await uploadOnce(msgPath, S.msgVideoFile); }
+    /* Mode gratuit : sans message écrit, la carte reste sans phrase (aucun texte automatique) */
+    const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
-    S.links = [base + id]; S.link = S.links[0]; S.soloMulti = false; S.collectionId = id;
-    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: '', total: 0, card_text: row.card_text, media_type: row.media_type, media_path: row.media_path, media_crop: row.media_crop || null,
-      links: S.links, sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
+    const links = [];
+    for (const id of ids) {
+      const row = {
+        id, occasion: S.occasion, card_text: S.cardText.trim(), effect: S.fx,
+        media_type: S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none', media_path: mediaPath,
+        msg_type: msgType, msg_media_path: msgPath, message, recipient_name: '',
+        ...(S.fxExtra.length ? { extra_effects: S.fxExtra } : {}),
+        ...(cropSet() ? { media_crop: S.crop } : {}),
+        ...(msgCropSet() ? { msg_crop: S.msgCrop } : {}),
+        ...(option ? { option: true } : { credit_amount: amount }),
+      };
+      const { data, error } = await sb.rpc('credit_send_card', { p_key: CRED.key, p_card: row });
+      if (error) throw error;
+      CRED.balance = Number(data.balance);
+      CRED.optionCards = Number(data.option_cards) || 0;
+      const link = base + id;
+      links.push(link);
+      /* Carte gardée dans « Mes cartes » dès son envoi ; un nouvel essai ne crée pas de doublon */
+      if (!envoisList().some((x) => x.id === id)) {
+        saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: '', total: 0, card_text: row.card_text, media_type: row.media_type, media_path: row.media_path, media_crop: row.media_crop || null,
+          links: [link], sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
+      }
+    }
+    recordPhone();
+    S.links = links; S.link = links[0]; S.soloMulti = false; S.collectionId = ids[0]; S.soloIds = null;
     S.step = 'done';
   } catch (err) {
     S.error = rpcMsg(err);
@@ -3132,6 +3169,7 @@ function screenCreateCredits() {
     <div class="label">Votre message</div>
     <div class="seg">${tabs.map(([v, l]) => `<button data-act="msgtype" data-val="${v}" aria-pressed="${S.msgType === v}">${l}</button>`).join('')}</div>
     <div style="margin-top:12px" id="msgBody">${msgBodyHtml()}</div>
+    ${peopleHtml()}
     ${creditOptionHtml()}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
   </div>
@@ -3140,38 +3178,74 @@ function screenCreateCredits() {
 /* Payer la réponse ou la carte (mode gratuit) : carte Kdo (10 Kdo) ou carte sans Kdo, si le compte en a en stock. Le choix reste libre. */
 function creditOptionHtml() {
   if (!(CRED.optionCards > 0 || S.optionCard)) return '';
-  const kdoOk = CRED.balance !== null && CRED.balance >= CREDIT_CARD;
-  const restant = CRED.optionCards - 1;
+  const people = creditPeople();
+  const need = CREDIT_CARD * people;
+  const kdoOk = CRED.balance !== null && CRED.balance >= need;
+  const restant = CRED.optionCards - people;
   const choix = (val, on, nom, sous, prix, zero, off) => `<button class="pay-choix${on ? ' on' : ''}" type="button" data-act="paymode" data-val="${val}" aria-pressed="${on ? 'true' : 'false'}"${off ? ' disabled' : ''}>
       <span class="pay-radio"></span>
       <span class="pay-vis" aria-hidden="true"><b>c.kdo</b><i></i></span>
       <span><span class="pay-nom">${nom}</span><span class="pay-sous">${sous}</span></span>
       <span class="pay-prix${zero ? ' zero' : ''}">${prix}</span>
     </button>`;
-  return `<div class="label">${S.reply ? 'Payer votre réponse' : 'Payer cette carte'}</div>
-    ${choix('kdo', !S.optionCard, 'Carte Kdo', kdoOk ? `Il vous restera ${esc(credTxt(CRED.balance - CREDIT_CARD))}` : `Solde insuffisant : ${esc(credTxt(CREDIT_CARD))} nécessaires`, esc(credTxt(CREDIT_CARD)), false, !kdoOk)}
-    ${choix('carte', !!S.optionCard, 'Carte', `Sans Kdo · il vous restera ${restant} carte${restant > 1 ? 's' : ''}`, '0 Kdo', true, false)}
+  const restantTxt = restant >= 0
+    ? `Sans Kdo · il vous restera ${restant} carte${restant > 1 ? 's' : ''}`
+    : `Sans Kdo · il vous faut ${people} cartes, vous en avez ${CRED.optionCards}`;
+  return `<div class="label">${S.reply ? 'Payer votre réponse' : people > 1 ? 'Payer ces cartes' : 'Payer cette carte'}</div>
+    ${choix('kdo', !S.optionCard, people > 1 ? 'Cartes Kdo' : 'Carte Kdo', kdoOk ? `Il vous restera ${esc(credTxt(CRED.balance - need))}` : `Solde insuffisant : ${esc(credTxt(need))} nécessaires`, esc(credTxt(need)), false, !kdoOk)}
+    ${choix('carte', !!S.optionCard, people > 1 ? 'Cartes sans Kdo' : 'Carte', restantTxt, '0 Kdo', true, false)}
     <div class="hint">C’est vous qui choisissez. Dans les deux cas, le compte à rebours continue.</div>`;
 }
-/* Écran final (mode gratuit) : la carte, puis le lien à partager par SMS, WhatsApp, etc. */
+/* Nombre de personnes (mode gratuit) : une carte et un lien par personne, de 1 à 10 */
+function peopleHtml() {
+  const n = creditPeople();
+  const total = S.optionCard ? `${n} carte${n > 1 ? 's' : ''} sans Kdo` : credTxt(CREDIT_CARD * n);
+  return `<div class="label">Nombre de personnes</div>
+    <div class="peoplebox">
+      <button class="btn2 peopleBtn" type="button" data-act="peopledec" aria-label="Une personne de moins"${n <= 1 ? ' disabled' : ''}>−</button>
+      <span class="peopleNum" aria-live="polite">${n}</span>
+      <button class="btn2 peopleBtn" type="button" data-act="peopleinc" aria-label="Une personne de plus"${n >= MAX_PEOPLE ? ' disabled' : ''}>+</button>
+    </div>
+    <div class="hint">Une carte et un lien par personne${n > 1 ? `. Total : ${esc(total)}` : ''}. ${MAX_PEOPLE} personnes au maximum.</div>`;
+}
+/* Écran final (mode gratuit) : la carte, puis le lien à partager par SMS, WhatsApp, etc. Une ligne par personne si elles sont plusieurs. */
 function screenDoneCredits() {
   const cur = envoisList().find((x) => x.id === S.collectionId);
+  const links = S.links && S.links.length ? S.links : [S.link];
+  const n = links.length;
+  const per = cur && cur.credits ? Number(cur.credits) : 0;
+  const cout = per
+    ? (n > 1
+      ? `Coût total : ${esc(credTxt(per * n))}, soit ${n} cartes de ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`
+      : `Coût : ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`)
+    : '';
+  const actions = n > 1
+    ? links.map((_, i) => `<div class="linkrow">
+        <b>Carte ${i + 1}</b>
+        <div class="linkbtns">
+          <button class="primary" data-act="sharelink" data-val="${i}">Envoyer</button>
+          <button class="secondary" data-act="copy" data-val="${i}">Copier le lien</button>
+        </div>
+      </div>`).join('')
+    : `<button class="primary" style="margin-top:12px" data-act="sharelink">Envoyer la carte</button>
+    <button class="secondary" data-act="copy">Copier le lien</button>`;
   return `
-  ${hdr('', 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
+  ${hdr('', n > 1 ? 'Vos cartes sont prêtes' : 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
     ${finalMsgHtml()}
-    ${cur && cur.credits ? `<div class="hint" style="text-align:center">Coût : ${esc(credTxt(Number(cur.credits)))}. Solde : ${esc(balanceText())}.</div>` : ''}
-    <button class="primary" style="margin-top:12px" data-act="sharelink">Envoyer la carte</button>
-    <button class="secondary" data-act="copy">Copier le lien</button>
+    ${cout ? `<div class="hint" style="text-align:center">${cout}</div>` : ''}
+    ${actions}
     <button class="secondary" data-act="reset">Créer une autre carte</button>
   </div>`;
 }
-/* Partage du lien : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas */
-function shareCreditLink(btn) {
-  if (!S.link) return;
-  if (navigator.share) { navigator.share({ url: S.link, text: 'Une carte c.kdo pour toi !' }).catch(() => {}); return; }
-  copyLink(btn);
+/* Partage du lien : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas.
+   v : rang de la carte (plusieurs personnes) ; sans rang, le lien principal */
+function shareCreditLink(btn, v) {
+  const link = v === undefined ? S.link : S.links[Number(v)];
+  if (!link) return;
+  if (navigator.share) { navigator.share({ url: link, text: 'Une carte c.kdo pour toi !' }).catch(() => {}); return; }
+  copyLink(btn, link);
 }
 /* Destinataire (mode gratuit) : la carte en haut, le message en bas, rien d’autre */
 function renderRecvSimple() {
@@ -3249,6 +3323,9 @@ function simpleBottomHtml() {
   const cout = CRED.optionCards > 0
     ? `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}, ou une carte sans Kdo si vous en avez une.`
     : `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}.`;
+  /* Lien de l’expéditeur lui-même : pas de réponse à sa propre carte */
+  const mine = row.sender_account === CRED.id || (!!st && st.sender_account === CRED.id);
+  if (mine) return `${statut}${msg}`;
   return `${statut}${msg}
     <button class="primary" data-act="reply">Répondre avec une carte</button>
     <div class="hint">${cout}</div>`;
@@ -3971,8 +4048,8 @@ async function handleMsgVideo(file) {
 }
 
 /* ---------- envoi ---------- */
-function copyLink(btn) {
-  navigator.clipboard.writeText(S.link)
+function copyLink(btn, link = S.link) {
+  navigator.clipboard.writeText(link)
     .then(() => { btn.textContent = 'Lien copié'; })
     .catch(() => { btn.textContent = 'Copiez le lien ci-dessus'; });
 }
@@ -4154,7 +4231,7 @@ app.addEventListener('click', (e) => {
   }
   if (act === 'codeok') return testCodeSubmit();
   /* Retour depuis « Votre carte est prête » : même contenu, pas de remise à zéro */
-  if (act === 'backcreate') { S.step = 'create'; S.codeAsk = false; render(); window.scrollTo(0, 0); return; }
+  if (act === 'backcreate') { if (S.recording) stopVoice(); Object.assign(S, initialState()); render(); window.scrollTo(0, 0); return; }
   if (act === 'codeno') { S.codeAsk = false; S.codeMsg = ''; S.codeBad = false; return render(); }
   if (act === 'camopen') return startLive();
   if (act === 'cardfilm') return startLive('card', 'video');
@@ -4164,6 +4241,11 @@ app.addEventListener('click', (e) => {
   if (act === 'camrec') { if (S.liveRecording) stopLive(); else recLive(); return; }
   if (act === 'camcancel') return cancelLive();
   if (act === 'msgrefilm') return refilmMsgVideo();
+  if (act === 'peopledec' || act === 'peopleinc') {
+    S.people = Math.min(MAX_PEOPLE, Math.max(1, creditPeople() + (act === 'peopleinc' ? 1 : -1)));
+    S.error = '';
+    return render();
+  }
   if (act === 'submit') {
     if (CREDITS) return submitCredits();
     if (S.group && !amountOk()) { S.error = `Votre part doit être entre ${MIN_AMOUNT} € et ${MAX_AMOUNT} €.`; return render(); }
@@ -4172,8 +4254,8 @@ app.addEventListener('click', (e) => {
     if (!S.terms || !phoneOk(S.recipientPhone)) { S.step = 'recap'; S.showErrors = true; S.error = ''; return render(); }
     return CREDITS ? submitCredits() : submit();
   }
-  if (act === 'sharelink') return shareCreditLink(el);
-  if (act === 'copy') return copyLink(el);
+  if (act === 'sharelink') return shareCreditLink(el, v);
+  if (act === 'copy') return copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
   if (act === 'copygrp') return copyGroupLink(el, v);
   if (act === 'sharegrp') return shareGroup(el);
   if (act === 'gopay') {
@@ -4597,7 +4679,8 @@ async function openCard(id, fromAccount, listOpts = null) {
           ? `<div class="vcrop" data-act="vidtap" data-role="msg"><video class="vcropmedia" src="${esc(msgUrl)}#t=0.1" playsinline preload="metadata" style="${cropStyle(row.msg_crop)}"></video></div>`
           : `<div class="vcrop"><video class="vcropmedia" src="${esc(msgUrl)}" autoplay muted loop playsinline style="${cropStyle(row.msg_crop)}"></video><button class="sndbtn" type="button" data-act="sound">Activer le son</button></div>`)
         : `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`)
-      : `<div class="message big">${esc(row.message)}</div>`;
+      /* Mode gratuit : la phrase automatique « Un cadeau pour toi. » (cartes anciennes comprises) n’est plus montrée */
+      : (CREDITS && (!row.message || row.message === NO_MESSAGE_TEXT) ? '' : `<div class="message big">${esc(row.message)}</div>`);
   RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true, annonce: true };
   if (!listOpts) rememberCard(row);
   walletState = { apple: false, google: false };
