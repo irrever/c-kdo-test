@@ -476,6 +476,30 @@
   .cropbtn:disabled { opacity: .35; cursor: default; }
   .cropzoom { min-width: 120px; text-align: center; font-size: 16px; color: var(--text); font-variant-numeric: tabular-nums; }
   .cropbtn.cropvalid { display: block; width: 100%; min-height: 48px; margin-top: 12px; background: var(--accent-bg); border-color: var(--accent-line); color: var(--accent); font-weight: 600; }
+  /* v0.55 : texte de la carte vide (mode gratuit) ; « Mes cartes » avec la vraie vignette de chaque carte */
+  .mediaInfo { margin: 14px 0 2px; font-size: 15px; line-height: 1.45; color: var(--text); text-align: center; }
+  .mc-sec { margin-top: 22px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .mc-row { margin-top: 10px; padding: 12px; border-radius: 14px; border: 1px solid var(--line); background: #17171B; }
+  .mc-top { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .mc-thumb { position: relative; width: 72px; aspect-ratio: 1.586 / 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(135deg, #8a3d68, #5c1d3a 60%, #3a1227); }
+  .mc-thumb img, .mc-thumb video { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mc-marque { position: absolute; left: 6px; top: 5px; font-size: 8px; font-weight: 700; letter-spacing: .3px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+  .mc-puce { position: absolute; left: 6px; bottom: 6px; width: 10px; height: 8px; border-radius: 2px; background: linear-gradient(135deg, #f1d78a, #b8893a 55%, #f0d285); }
+  .mc-nom { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mc-ligne { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 5px; font-size: 14px; }
+  .mc-pill { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--line-soft); color: var(--muted); max-width: 100%; line-height: 1.35; }
+  .mc-pill.ok { background: var(--accent-bg); color: var(--accent); }
+  .mc-pill.att { background: #2A2110; color: #E8C272; }
+  .mc-action { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; }
+  .mc-legende { flex: 1 1 160px; min-width: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .mc-btns { display: flex; gap: 8px; flex: 0 0 auto; margin-left: auto; }
+  .mc-btn { height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid #4A4A52; background: transparent; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .mc-btn.primary { background: var(--text); border-color: var(--text); color: #15151A; }
+  .mc-btn.danger { color: var(--danger-text); border-color: #5A2A2A; }
+  .mc-btn:disabled { color: #5C5C66; border-color: var(--line); cursor: default; }
+  .mc-vide { margin-top: 12px; font-size: 14px; color: var(--muted); }
+  .mc-regle { margin-top: 18px; padding: 12px 14px; border-radius: 12px; border: 1px dashed #3A3A44; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .mc-regle b { color: var(--text); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -507,7 +531,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.54 (test)
+   c.kdo — v0.57 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -584,11 +608,11 @@ const KEY_RECEIVED = 'ckdo.received';
 const CREDIT_REFILL = 100;         /* solde visé : sous 100, le compte à rebours tourne ; à son terme, le solde est ramené à 100 */
 const CREDIT_COUNTDOWN_H = 48;     /* durée du compte à rebours avant la recharge à 100 */
 const CREDIT_LIFE_DAYS = 7;        /* durée de vie d’une carte depuis son envoi : ouverte ou non, elle expire avec ses Kdo */
-const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours : 10 Kdo, ou une carte de survie */
+const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours : 10 Kdo, ou une carte sans Kdo (même stock que les réponses) */
 const KEY_COMPTE = 'ckdo.compte';  /* clé secrète du compte : sur cet appareil seulement, le serveur n’en garde que l’empreinte */
 /* État du compte affiché : solde, recharge, stocks d’options, cartes lues sur le serveur */
 const CREDIT_CARD = 10;          /* une carte coûte 10 Kdo, quels que soient son message, son média ou ses effets */
-const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, survival: 0, cards: {}, busy: '', msg: '', error: '' };
+const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, cards: {}, busy: '', msg: '', error: '' };
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
 const ICON_GIFT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
@@ -754,7 +778,6 @@ const RPC_MSG = {
   montant_insuffisant: 'Une carte ne peut pas être envoyée sous sa valeur.',
   montant_invalide: 'Montant trop grand.',
   carte_expiree: 'Cette carte a expiré.',
-  survie_insuffisante: 'Vous n’avez plus de carte de survie.',
   option_insuffisante: 'Vous n’avez plus de carte sans Kdo.',
   carte_invalide: 'Cette carte ne peut pas être utilisée ici.',
 };
@@ -1641,7 +1664,7 @@ function optionButtonsHtml() {
 /* Explication sous les formules : ce que fait une carte achetée, et l’état du paiement */
 function payHintHtml() {
   const lien = FORMULES_CARTES.some((f) => PAY_LINKS[f.lien]);
-  return `<div class="hint">Chaque message reçu recrédite au moins 10 Kdo sur votre compte. Une carte achetée n’a aucune valeur en Kdo : elle permet seulement de répondre en attendant la recharge, sans changer le compte de celui qui la reçoit.</div>
+  return `<div class="hint">Chaque message reçu recrédite au moins 10 Kdo sur votre compte. Une carte sans Kdo n’a pas de valeur en Kdo sur votre compte : elle permet d’envoyer un message sans crédit, ou de prolonger une carte encaissée de 7 jours à la place de 10 Kdo.</div>
     <div class="hint">${lien ? 'Paiement par lien.' : 'Paiement pas encore branché : aucun lien de paiement n’est renseigné.'}</div>`;
 }
 /* Bloc de la première page : solde, cartes d’option, formules */
@@ -1654,18 +1677,79 @@ function optionsBlockHtml() {
     <div class="rowline"><span>Cartes sans Kdo</span><span>${CRED.optionCards}</span></div>
     ${optionButtonsHtml()}
     ${payHintHtml()}
-    <button class="secondary" style="margin-top:10px;width:100%" data-act="compte">Ouvrir mon compte</button>
+    ${creditCardsCount() ? `<button class="secondary" style="margin-top:10px;width:100%" data-act="mes">Mes cartes (${creditCardsCount()})</button>` : ''}
   </div>`;
 }
 function mesBlockHtml() {
-  const n = localList().length + envoisList().length;
+  const n = CREDITS ? creditCardsCount() : localList().length + envoisList().length;
   /* Mode entraînement : le compte et son solde sont toujours accessibles depuis l’accueil */
   const compte = CREDITS ? `<button class="btn2" style="margin-top:12px;width:100%" data-act="comptetoggle" aria-expanded="${S.acctOpen ? 'true' : 'false'}">Mon compte · ${esc(balanceText())} ${S.acctOpen ? '▴' : '▾'}</button>` : '';
-  const mes = n ? `<button class="btn2" style="margin-top:12px;width:100%" data-act="mes">Mes cartes (${n})</button>` : '';
+  const mes = n && !CREDITS ? `<button class="btn2" style="margin-top:12px;width:100%" data-act="mes">Mes cartes (${n})</button>` : '';
   return `<div id="mesBlock">${compte}${mes}</div>`;
+}
+/* Mode gratuit : nombre de cartes à crédits reçues et envoyées sur cet appareil */
+function creditCardsCount() { return receivedList().filter(isCreditCard).length + envoisList().filter(isCreditCard).length; }
+/* Vignette réelle d’une carte : sa photo, la première image de sa vidéo, ou le fond par défaut sans média */
+function creditThumbHtml(c) {
+  const marque = '<span class="mc-marque">c.kdo</span><i class="mc-puce"></i>';
+  const st = cropStyle(c.media_crop || null);
+  const style = st ? ` style="${esc(st)}"` : '';
+  if (c.media_path && c.media_type === 'photo') return `<div class="mc-thumb"><img src="${esc(publicUrl(c.media_path))}" alt=""${style}>${marque}</div>`;
+  if (c.media_path && c.media_type === 'video') return `<div class="mc-thumb"><video src="${esc(publicUrl(c.media_path))}#t=0.1" muted playsinline preload="metadata"${style}></video>${marque}</div>`;
+  return `<div class="mc-thumb">${marque}</div>`;
+}
+/* Une carte à crédits dans « Mes cartes » : son état, et ce qu’on peut en faire */
+function creditRowHtml(c, recu, now) {
+  const st = CRED.cards[c.id];
+  const id = esc(c.id);
+  const montant = c.option_card ? 'Carte sans Kdo' : credTxt(Number(c.credits));
+  const nom = c.card_text || (recu ? 'Carte reçue' : 'Carte envoyée');
+  const expiree = !!(st && st.expires_at && Date.parse(st.expires_at) <= now);
+  const valable = st && st.expires_at ? `Valable jusqu’au ${finTxt(st.expires_at)}` : '';
+  let pill = 'Chargement…', cls = '', legende = '', encaisser = '';
+  if (st && st.collected_at) { pill = `Encaissée le ${frDateNb(Date.parse(st.collected_at))}`; cls = 'ok'; }
+  else if (st && expiree) { pill = 'Expirée, non encaissée'; }
+  else if (st && recu && st.sender_account === CRED.id) { pill = 'Envoyée par vous'; legende = valable ? `${valable} : supprimable après` : ''; }
+  else if (st && recu) {
+    pill = 'À encaisser'; cls = 'att'; legende = valable ? `${valable} : supprimable après encaissement ou expiration` : 'Supprimable après encaissement ou expiration';
+    encaisser = `<button class="mc-btn primary" data-act="encaisser" data-val="${id}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === c.id ? 'Encaissement…' : 'Encaisser'}</button>`;
+  }
+  else if (st) { pill = 'Non encaissée'; legende = valable ? `${valable} : supprimable après` : ''; }
+  const retirable = !!st && (!!st.collected_at || expiree);
+  let rm;
+  if (!retirable) rm = '<button class="mc-btn" disabled>Supprimer</button>';
+  else if (S.credRmAsk === c.id) { legende = 'Seule la liste change sur cet appareil.'; rm = `<button class="mc-btn danger" data-act="credrmok" data-val="${id}">Confirmer</button><button class="mc-btn" data-act="credrmno">Garder</button>`; }
+  else { legende = legende || 'Retirable de la liste'; rm = `<button class="mc-btn" data-act="credrm" data-val="${id}">Supprimer</button>`; }
+  const prolong = recu && st && st.collected_by === CRED.id ? prolongBlockHtml(c.id, st) : '';
+  return `<div class="mc-row">
+    <div class="mc-top">${creditThumbHtml(c)}
+      <div style="min-width:0">
+        <div class="mc-nom">${esc(nom)}</div>
+        <div class="mc-ligne"><span>${esc(montant)}</span><span class="mc-pill${cls ? ' ' + cls : ''}">${esc(pill)}</span></div>
+      </div>
+    </div>
+    <div class="mc-action"><span class="mc-legende">${esc(legende)}</span><div class="mc-btns">${encaisser}${rm}</div></div>
+    ${prolong ? `<div style="margin-top:10px">${prolong}</div>` : ''}
+  </div>`;
+}
+/* Mode gratuit, écran « Mes cartes » : cartes reçues, puis cartes envoyées */
+function screenMesCredits() {
+  const now = Date.now();
+  const recus = receivedList().filter(isCreditCard);
+  const envois = envoisList().filter(isCreditCard).slice().sort(byNewest);
+  return `
+  <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Mon compte</div><div class="title">Mes cartes</div></div></header>
+  <div class="section">
+    <div class="mc-sec"><span>Reçues</span><span>${recus.length}</span></div>
+    ${recus.map((c) => creditRowHtml(c, true, now)).join('') || '<div class="mc-vide">Aucune carte reçue ouverte sur cet appareil.</div>'}
+    <div class="mc-sec"><span>Envoyées</span><span>${envois.length}</span></div>
+    ${envois.map((c) => creditRowHtml(c, false, now)).join('') || '<div class="mc-vide">Aucune carte envoyée depuis cet appareil.</div>'}
+    <div class="mc-regle"><b>Supprimer</b> reste bloqué tant que la carte n’est pas encaissée et qu’elle est encore valable. Une carte encaissée ou expirée se retire de la liste, sur cet appareil seulement.</div>
+  </div>`;
 }
 /* Écran « Mes cartes » : cadeaux à plusieurs et cartes seules, les plus récents d’abord. Pas de bouton Continuer ici. */
 function screenMes() {
+  if (CREDITS) return screenMesCredits();
   const liste = myCollectionsHtml();
   return `
   <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Accueil</div><div class="title">Mes cartes</div></div></header>
@@ -1863,6 +1947,7 @@ function cardMediaBlockHtml() {
   if (S.cardLiveMode && !liveStream) S.cardLiveMode = '';
   if (S.cardLiveMode) return liveBoxHtml(S.cardLiveMode, MAX_CARD_VIDEO_SECONDS);
   return `
+    ${CREDITS ? '<p class="mediaInfo"><b>Personnalisez votre carte :</b> ajoutez une photo ou une vidéo, votre dédicace et un effet.</p>' : ''}
     <div class="grid2">
       <button class="btn2" style="margin-top:8px" data-act="cardfilm">Filmer</button>
       <button class="btn2" style="margin-top:8px" data-act="cardphoto">Prendre une photo</button>
@@ -2338,7 +2423,6 @@ function applyCredState(d) {
   CRED.balance = Number(d.balance);
   CRED.recharge = d.recharge_at ? Date.parse(d.recharge_at) : null;
   CRED.optionCards = Number(d.option_cards) || 0;
-  CRED.survival = Number(d.survival_credits) || 0;
 }
 /* Ouvre le compte si besoin (solde 0 au premier usage, compte à rebours dès l’ouverture) et lit le solde, après recharge éventuelle */
 async function credLoad() {
@@ -2363,7 +2447,7 @@ function redrawCredits() {
     else if (recvView === 'card') refreshRecvRest();
     return;
   }
-  if (S.step === 'compte') render();
+  if (S.step === 'compte' || S.step === 'mes') render();
 }
 async function refreshCreditsView() {
   if (!CREDITS || !sb) return;
@@ -2420,7 +2504,7 @@ async function submitCredits() {
     recordPhone();
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
     S.links = [base + id]; S.link = S.links[0]; S.soloMulti = false; S.collectionId = id;
-    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: '', total: 0,
+    saveEnvois([...envoisList(), { id, solo: true, free: true, kind: 'entrainement', option_card: option, credits: Number(data.credits), recipientName: '', total: 0, card_text: row.card_text, media_type: row.media_type, media_path: row.media_path, media_crop: row.media_crop || null,
       links: S.links, sent: [null], opened: [null], createdAt: new Date().toISOString() }]);
     S.step = 'done';
   } catch (err) {
@@ -2456,20 +2540,21 @@ function creditDoneMsg(data) {
 }
 /* Date de fin de validité, en français */
 const finTxt = (iso) => new Date(Date.parse(iso)).toLocaleString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
-/* Prolongation : seul le destinataire qui a encaissé la carte peut la prolonger, avant son expiration (10 Kdo, ou une carte de survie) */
+/* Prolongation : seul le destinataire qui a encaissé la carte peut la prolonger, avant son expiration (10 Kdo, ou une carte sans Kdo) */
 function prolongBlockHtml(id, st) {
   if (!st || !st.expires_at || st.collected_by !== CRED.id) return '';
   if (Date.parse(st.expires_at) <= Date.now()) return '<div class="hint">Cette carte a expiré.</div>';
   const kdoOk = CRED.balance !== null && CRED.balance >= CREDIT_PROLONG_KDO && !CRED.busy;
-  const manque = CRED.balance !== null && CRED.balance < CREDIT_PROLONG_KDO;
+  const carteOk = CRED.optionCards > 0 && !CRED.busy;
+  const manque = CRED.balance !== null && !kdoOk && !carteOk && !CRED.busy;
   return `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">
       <button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="kdo" data-val="${esc(id)}"${kdoOk ? '' : ' disabled'}>Prolonger de ${CREDIT_LIFE_DAYS} jours · ${CREDIT_PROLONG_KDO} Kdo</button>
-
+      <button class="secondary" style="width:auto;margin:0" data-act="prolong" data-mode="carte" data-val="${esc(id)}"${carteOk ? '' : ' disabled'}>Prolonger de ${CREDIT_LIFE_DAYS} jours · 1 carte sans Kdo</button>
     </div>
-    ${manque ? `<div class="hint">Il vous faut ${CREDIT_PROLONG_KDO} Kdo pour prolonger de ${CREDIT_LIFE_DAYS} jours.</div>` : ''}`;
+    ${manque ? `<div class="hint">Il vous faut ${CREDIT_PROLONG_KDO} Kdo ou une carte sans Kdo pour prolonger de ${CREDIT_LIFE_DAYS} jours.</div>` : ''}`;
 }
-/* Prolonger une carte encaissée : mode « kdo » (10 Kdo) ou « survie » (une carte de survie du stock) */
+/* Prolonger une carte encaissée : mode « kdo » (10 Kdo) ou « carte » (une carte sans Kdo, même stock que les réponses) */
 async function prolongerCarte(id, mode) {
   if (CRED.busy || !sb) return;
   CRED.busy = id; CRED.msg = ''; redrawCredits();
@@ -2478,9 +2563,9 @@ async function prolongerCarte(id, mode) {
     const { data, error } = await sb.rpc('credit_prolong', { p_key: CRED.key, p_card_id: id, p_mode: mode });
     if (error) throw error;
     CRED.balance = Number(data.balance);
-    CRED.survival = Number(data.survival_credits) || 0;
-    CRED.msg = mode === 'survie'
-      ? `Carte prolongée de ${CREDIT_LIFE_DAYS} jours avec une carte de survie.`
+    CRED.optionCards = Number(data.option_cards) || 0;
+    CRED.msg = mode === 'carte'
+      ? `Carte prolongée de ${CREDIT_LIFE_DAYS} jours avec une carte sans Kdo.`
       : `Carte prolongée de ${CREDIT_LIFE_DAYS} jours. ${credTxt(CREDIT_PROLONG_KDO)} ont été débités.`;
   } catch (err) {
     CRED.msg = rpcMsg(err);
@@ -4229,7 +4314,21 @@ app.addEventListener('click', (e) => {
       break;
     case 'mes':
       /* « Mes cartes » : écran dédié, la création en cours n’est pas touchée */
-      S.step = 'mes'; S.error = '';
+      S.step = 'mes'; S.error = ''; S.credRmAsk = '';
+      /* Mode gratuit : les états des cartes sont relus sur le serveur à l’ouverture */
+      if (CREDITS) { CRED.error = ''; setTimeout(refreshCreditsView, 0); }
+      break;
+    case 'credrm':
+      S.credRmAsk = v;
+      break;
+    case 'credrmno':
+      S.credRmAsk = '';
+      break;
+    case 'credrmok':
+      /* Retire la carte de la liste de cet appareil seulement */
+      saveEnvois(envoisList().filter((x) => x.id !== v));
+      store.set(KEY_RECEIVED, receivedList().filter((c) => c.id !== v));
+      S.credRmAsk = '';
       break;
     case 'mesback':
       S.step = 'create'; S.error = '';
