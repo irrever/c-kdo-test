@@ -492,8 +492,8 @@
   .mc-pill.att { background: #2A2110; color: #E8C272; }
   .mc-action { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; }
   .mc-legende { flex: 1 1 160px; min-width: 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
-  .mc-btns { display: flex; gap: 8px; flex: 0 0 auto; margin-left: auto; }
-  .mc-btn { height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid #4A4A52; background: transparent; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .mc-btns { display: flex; flex-wrap: wrap; gap: 8px; flex: 0 0 auto; margin-left: auto; }
+  .mc-btn { height: 34px; padding: 0 14px; border-radius: 10px; border: 1px solid #4A4A52; background: transparent; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;  white-space: nowrap; }
   .mc-btn.primary { background: var(--text); border-color: var(--text); color: #15151A; }
   .mc-btn.danger { color: var(--danger-text); border-color: #5A2A2A; }
   .mc-btn:disabled { color: #5C5C66; border-color: var(--line); cursor: default; }
@@ -531,7 +531,7 @@
 
 <script type="module">
 /* ==========================================================
-   c.kdo — v0.57 (test)
+   c.kdo — v0.58 (test)
    Création réelle : carte, message texte, vocal ou vidéo.
    Aucun paiement réel dans cette version.
    ========================================================== */
@@ -1505,7 +1505,7 @@ function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, con
       ${media}
       <div class="shade"></div>
       ${f.html}
-      ${isVideo && mediaUrl && !still && !recv && !tapPause ? '<button class="sndbtn" type="button" data-act="sound">Activer le son</button>' : ''}
+      ${isVideo && mediaUrl && !still && !tapPause ? '<button class="sndbtn" type="button" data-act="sound">Activer le son</button>' : ''}
       <div class="overlay">
         <div class="top"><span class="brand">c.kdo</span><span class="amt" ${pv ? 'data-pv="amt"' : ''}>${esc(amt)}</span></div>
         <svg class="chip" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="gChipGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbeec0"/><stop offset=".28" stop-color="#d7ad5c"/><stop offset=".52" stop-color="#8f6225"/><stop offset=".74" stop-color="#eccd86"/><stop offset="1" stop-color="#b88a40"/></linearGradient><linearGradient id="gChipPad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc92"/><stop offset=".5" stop-color="#c49748"/><stop offset="1" stop-color="#ecca7e"/></linearGradient><linearGradient id="gChipGlint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="gChipClip"><rect x=".5" y=".5" width="43" height="33" rx="5"/></clipPath></defs><rect x=".5" y=".5" width="43" height="33" rx="5" fill="url(#gChipGold)" stroke="rgba(70,42,8,.8)" stroke-width=".8"/><rect x="8" y="7" width="28" height="20" rx="2.5" fill="url(#gChipPad)" stroke="rgba(70,42,8,.85)" stroke-width=".7"/><path d="M8 13.5H36M8 20.5H36M16 7V27M28 7V27" stroke="rgba(70,42,8,.7)" stroke-width=".7"/><path d="M8 14.3H36M8 21.3H36M16.6 7V27M28.6 7V27" stroke="rgba(255,248,220,.5)" stroke-width=".4"/><g clip-path="url(#gChipClip)"><path d="M-2 36L14-2H24L8 36Z" fill="url(#gChipGlint)"/></g><rect x=".5" y=".5" width="43" height="33" rx="5" fill="none" stroke="rgba(255,240,200,.6)" stroke-width=".6"/></svg>
@@ -1715,6 +1715,8 @@ function creditRowHtml(c, recu, now) {
     encaisser = `<button class="mc-btn primary" data-act="encaisser" data-val="${id}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === c.id ? 'Encaissement…' : 'Encaisser'}</button>`;
   }
   else if (st) { pill = 'Non encaissée'; legende = valable ? `${valable} : supprimable après` : ''; }
+  const voir = st && !expiree ? `<button class="mc-btn" data-act="voircarte" data-val="${id}">Voir la carte</button>` : '';
+  if (expiree) legende = 'Carte expirée, plus visible.';
   const retirable = !!st && (!!st.collected_at || expiree);
   let rm;
   if (!retirable) rm = '<button class="mc-btn" disabled>Supprimer</button>';
@@ -1728,9 +1730,66 @@ function creditRowHtml(c, recu, now) {
         <div class="mc-ligne"><span>${esc(montant)}</span><span class="mc-pill${cls ? ' ' + cls : ''}">${esc(pill)}</span></div>
       </div>
     </div>
-    <div class="mc-action"><span class="mc-legende">${esc(legende)}</span><div class="mc-btns">${encaisser}${rm}</div></div>
+    <div class="mc-action"><span class="mc-legende">${esc(legende)}</span><div class="mc-btns">${encaisser}${voir}${rm}</div></div>
     ${prolong ? `<div style="margin-top:10px">${prolong}</div>` : ''}
   </div>`;
+}
+/* « Voir la carte » depuis « Mes cartes » : la carte s’ouvre dans l’application, sans encaissement automatique */
+async function voirCarte(id) {
+  if (!CREDITS || !sb) return;
+  const envoi = envoisList().some((x) => x.id === id);
+  S.carteId = id; S.carteFrom = 'mes'; S.error = '';
+  carteErr = ''; RECV = null; S.step = 'carte';
+  render();
+  try {
+    await openCard(id, false, { preview: envoi });
+    await credOneLoad(id).catch(() => {});
+  } catch (err) {
+    carteErr = err.message || String(err);
+  }
+  if (S.step !== 'carte' || S.carteId !== id) { RECV = null; return; }
+  render();
+}
+function carteHeader() {
+  return `<header class="hdr"><button class="back" data-act="carteback" aria-label="Retour à mes cartes">${ICON_BACK}</button><div><div class="step">Mon compte</div><div class="title">Votre carte</div></div></header>`;
+}
+/* Écran « Votre carte » : la carte avec son son, son message, puis son état */
+function screenCarte() {
+  if (carteErr) return `${carteHeader()}<div class="section"><div class="error">${esc(carteErr)}</div></div>`;
+  if (!RECV || RECV.row.id !== S.carteId) return `${carteHeader()}<div class="section"><div class="hint">Chargement…</div></div>`;
+  if (RECV.locked) return `${carteHeader()}<div class="section"><div class="hint">Cette carte n’est pas encore ouvrable.</div></div>`;
+  const { row, mediaUrl, msgBlock } = RECV;
+  return `${carteHeader()}
+    <div class="section recvSimple">
+      <div id="carteCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', crop: row.media_crop })}</div>
+      <div class="recvbox">${msgBlock}</div>
+      <div class="recvbottom" id="carteBottom">${carteBottomHtml()}</div>
+    </div>`;
+}
+/* Bas de l’écran « Votre carte » : carte envoyée par ce compte (lecture seule), carte encaissée, ou carte à encaisser */
+function carteBottomHtml() {
+  const row = RECV.row;
+  const id = row.id;
+  const st = CRED.cards[id];
+  const n = credTxt(Number(row.credits));
+  const msg = CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
+  if (!st) return '<div class="notice">Chargement…</div>';
+  if (st.sender_account === CRED.id) {
+    const valable = st.expires_at && Date.parse(st.expires_at) > Date.now() ? `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>` : '';
+    return `<div class="notice">Vous avez envoyé cette carte. ${st.collected_at ? 'Elle a été encaissée.' : 'Elle n’est pas encore encaissée.'}</div>${valable}`;
+  }
+  if (st.collected_by === CRED.id) return `<div class="notice">${row.option_card ? 'Carte bien reçue.' : `Vous avez encaissé ${esc(n)}.`}</div>${msg}${prolongBlockHtml(id, st)}`;
+  if (st.collected_at) return `<div class="notice">Cette carte a déjà été encaissée.</div>${msg}`;
+  if (st.expires_at && Date.parse(st.expires_at) <= Date.now()) return '<div class="notice">Cette carte a expiré.</div>';
+  const validite = st.expires_at ? `<div class="hint">Valable jusqu’au ${esc(finTxt(st.expires_at))}.</div>` : '';
+  return `<div class="notice">${row.option_card ? 'Carte sans Kdo reçue : elle ne contient aucun Kdo.' : `Cette carte contient ${esc(n)}.`}</div>${validite}${msg}
+    <button class="primary" data-act="encaisser" data-val="${esc(id)}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === id ? 'Encaissement…' : 'Encaisser'}</button>`;
+}
+/* Redessine seulement le bas de « Votre carte » (après encaissement ou prolongation) */
+function refreshCarteBottom() {
+  const b = document.getElementById('carteBottom');
+  if (b && RECV && S.step === 'carte') { b.innerHTML = carteBottomHtml(); return; }
+  if (S.step === 'carte') render();
 }
 /* Mode gratuit, écran « Mes cartes » : cartes reçues, puis cartes envoyées */
 function screenMesCredits() {
@@ -2442,6 +2501,7 @@ async function credCardsLoad() {
 }
 /* Redessine l’écran de compte là où il est affiché : chez le destinataire, ou dans l’accueil du créateur */
 function redrawCredits() {
+  if (S.step === 'carte') return refreshCarteBottom();
   if (RECV) {
     if (recvView === 'account') drawRecv();
     else if (recvView === 'card') refreshRecvRest();
@@ -2649,6 +2709,8 @@ function creditClick(e) {
   }
   if (act === 'encaisser') return encaisserCarte(el.dataset.val);
   if (act === 'prolong') return prolongerCarte(el.dataset.val, el.dataset.mode);
+  if (act === 'voircarte') return voirCarte(el.dataset.val);
+  if (act === 'carteback') { S.step = S.carteFrom || 'mes'; S.error = ''; RECV = null; carteErr = ''; render(); return refreshCreditsView(); }
 }
 
 /* Montant affiché sur la carte destinataire : une carte d’option n’a pas de Kdo ; une carte encaissée n’en contient plus */
@@ -3134,7 +3196,7 @@ function recvVideoTap(el) {
     if (v.paused) { v.muted = false; v.play().catch(() => {}); } else v.pause();
     return;
   }
-  if (v.paused) { v.muted = true; v.play().catch(() => {}); } else v.pause();
+  if (v.paused) { v.play().catch(() => {}); } else v.pause();
 }
 /* Bouton Play de la vidéo du message : visible tant qu’elle ne joue pas */
 ['play', 'pause', 'ended'].forEach((ev) => document.addEventListener(ev, (e) => {
@@ -3783,7 +3845,7 @@ function updateStickyCard() {
 }
 window.addEventListener('scroll', updateStickyCard, { passive: true });
 function render() {
-  const screens = { create: CREDITS ? screenCreateCredits : screenCreate, mes: screenMes, compte: screenCompte, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
+  const screens = { create: CREDITS ? screenCreateCredits : screenCreate, mes: screenMes, carte: screenCarte, compte: screenCompte, amount: screenAmount, message: screenMessage, recap: screenRecap, collect: screenCollect, cards: screenCards, cardedit: screenCardEdit, pay: screenPay, done: screenDone, resend: screenResend };
   const banner = configured ? '' : '<div class="banner">Serveur non branché : la création de cartes est désactivée pour l’instant.</div>';
   /* Filet de sécurité : une erreur d'affichage ne laisse plus une page blanche */
   try {
@@ -4472,7 +4534,8 @@ app.addEventListener('change', (e) => {
 });
 
 /* ---------- vue destinataire : carte, wallets, numéro, mon compte ---------- */
-let RECV = null;              // carte affichée : { row, mediaUrl, msgBlock, fromAccount }
+let RECV = null;
+let carteErr = '';           // erreur à l’ouverture de « Votre carte »              // carte affichée : { row, mediaUrl, msgBlock, fromAccount }
 let recvView = 'card';        // 'card' ou 'account'
 let walletState = { apple: false, google: false };
 let showNumber = false;
@@ -4485,9 +4548,9 @@ function recvHeader(step, title, backHtml) {
   return `<header class="hdr">${backHtml}<div><div class="step">${esc(step)}</div><div class="title">${esc(title)}</div></div></header>`;
 }
 
-async function fetchCard(id) {
+async function fetchCard(id, preview = false) {
   /* Sans aperçu, la lecture est celle d’avant : elle marque seulement la première ouverture (version serveur 0.5) */
-  const args = PREVIEW ? { card_id: id, p_preview: true } : { card_id: id };
+  const args = (PREVIEW || preview) ? { card_id: id, p_preview: true } : { card_id: id };
   const { data, error } = await sb.rpc('get_card', args);
   if (error) throw error;
   return Array.isArray(data) ? (data[0] || null) : (data || null);
@@ -4518,10 +4581,10 @@ function rememberCard(row) {
 }
 
 /* Charge une carte et prépare l'écran destinataire */
-async function openCard(id, fromAccount) {
+async function openCard(id, fromAccount, listOpts = null) {
   if (!sb) throw new Error('Le serveur n’est pas encore branché.');
   if (!UUID_RE.test(id)) throw new Error('Ce lien n’est pas valide.');
-  const row = await fetchCard(id);
+  const row = await fetchCard(id, !!(listOpts && listOpts.preview));
   if (!row) throw new Error('Cette carte n’existe plus : elle a expiré, ou son lien est incorrect.');
   /* Carte programmée : rien d’autre que la date n’est montré avant le jour choisi */
   if (row.open_at && row.open_at > parisToday()) { RECV = { row, locked: true, fromAccount }; recvView = 'locked'; return; }
@@ -4536,7 +4599,7 @@ async function openCard(id, fromAccount) {
         : `<video class="player vid" controls playsinline src="${esc(msgUrl)}"></video>`)
       : `<div class="message big">${esc(row.message)}</div>`;
   RECV = { row, mediaUrl: publicUrl(row.media_path), msgBlock, fromAccount, playFx: true, annonce: true };
-  rememberCard(row);
+  if (!listOpts) rememberCard(row);
   walletState = { apple: false, google: false };
   showNumber = false;
   recvView = fromAccount ? 'card' : (CREDITS && isCreditCard(row) ? 'simple' : 'message');
@@ -4705,7 +4768,7 @@ function playAnnonce(done) {
 }
 
 function drawRecv() {
-  if (recvView === 'account') app.innerHTML = CREDITS ? renderCreditsAccount(homeBackHtml()) : renderRecvAccount();
+  if (recvView === 'account') app.innerHTML = CREDITS ? renderCreditsAccount(`<button class="back" data-act="recvcardback" aria-label="Retour à ma carte">${ICON_BACK}</button>`) : renderRecvAccount();
   else if (recvView === 'message') app.innerHTML = renderRecvMessage();
   else if (recvView === 'transfer') app.innerHTML = renderRecvTransfer();
   else if (recvView === 'locked') app.innerHTML = renderRecvLocked();
@@ -4766,6 +4829,11 @@ function recvClick(e) {
       return;
     case 'openrecv':
       openFromAccount(el.dataset.val);
+      return;
+    case 'recvcardback':
+      recvView = 'card';
+      drawRecv();
+      window.scrollTo(0, 0);
       return;
     case 'reply':
       replyToCard();
