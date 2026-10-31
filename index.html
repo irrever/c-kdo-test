@@ -1333,7 +1333,7 @@ function syncFxAdd() {
 const CROP_MAX_ZOOM = 3;
 const CROP_STEP = 0.25;
 const CROP_CARD_RATIO = 1.9;   /* largeur / hauteur de la carte (voir .card) */
-const CROP_ACTS = ['cropreset', 'cropplus', 'cropminus', 'cropfit', 'cropvalid'];
+const CROP_ACTS = ['cropreset', 'cropplus', 'cropminus', 'cropfit', 'cropvalid', 'vidpause'];
 function cropDefault() { return { cx: 0.5, cy: 0.5, z: 1 }; }
 function cropIsChanged(c) { return !!c && (c.z !== 1 || c.cx !== 0.5 || c.cy !== 0.5); }
 function cropOf() { if (!S.crop) S.crop = cropDefault(); return S.crop; }
@@ -1451,6 +1451,23 @@ function cropModeSync() {
   if (v) v.classList.toggle('cropping', !S.msgCropLocked);
   const c = document.querySelector('.stickycard.has-photo');
   if (c) c.classList.toggle('cropping', !S.cropLocked);
+  videoSync();
+}
+/* Vidéo de création (mode gratuit) : pause manuelle ; figée pendant le recadrage ; relancée après le cadrage si elle n’est pas en pause */
+function videoSync() {
+  if (!CREDITS) return;
+  const v = document.querySelector('.stickycard video.pausable');
+  const fige = !S.cropLocked;
+  if (v) { if (fige || S.vidPaused) v.pause(); else v.play().catch(() => {}); }
+  const b = document.querySelector('[data-act="vidpause"]');
+  if (b) { b.disabled = fige; b.textContent = fige ? 'Vidéo figée pendant le recadrage' : (S.vidPaused ? 'Lire la vidéo' : 'Mettre en pause'); }
+}
+/* Bouton de pause sous la carte, pour une vidéo (mode gratuit) */
+function videoPauseHtml() {
+  if (!CREDITS || !S.mediaUrl || !S.mediaIsVideo) return '';
+  const fige = !S.cropLocked;
+  const libelle = fige ? 'Vidéo figée pendant le recadrage' : (S.vidPaused ? 'Lire la vidéo' : 'Mettre en pause');
+  return `<div style="text-align:center;margin-top:8px"><button class="btn2" type="button" data-act="vidpause"${fige ? ' disabled' : ''}>${libelle}</button></div>`;
 }
 /* L’image vient de se charger : on lit son ratio, puis on met les commandes à jour */
 function cropMediaReady(e) {
@@ -1514,6 +1531,7 @@ function cropClick(e) {
   if (!b || b.disabled || !CROP_ACTS.includes(b.dataset.act)) return;
   const act = b.dataset.act;
   const which = b.closest('.cropbox') ? b.closest('.cropbox').dataset.crop : 'card';
+  if (act === 'vidpause') { S.vidPaused = !S.vidPaused; videoSync(); return; }
   const t = cropT(which);
   if (act === 'cropvalid') { if (t.msg) S.msgCropLocked = !S.msgCropLocked; else S.cropLocked = !S.cropLocked; cropRefresh(which); cropModeSync(); return; }
   if (t.locked || !t.ok) return;
@@ -1528,7 +1546,7 @@ function cropClick(e) {
   cropApply(which);
   cropRefresh(which);
 }
-function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false, still = false, crop = null, recv = false, tapPause = false }) {
+function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, controls = false, pv = false, fx = [], tap = false, still = false, crop = null, recv = false, tapPause = false, pausable = false, vidPaused = false }) {
   /* tapPause : vidéo de carte qui démarre seule (muette), mise en pause ou relancée au toucher */
   /* recv : carte du haut de la vue destinataire : vidéo sans lecture automatique, touchée pour pause, effets figés jusqu’au démarrage */
   /* still : image fixe (vignette) : vidéo sans lecture automatique ni bouton de son */
@@ -1542,7 +1560,7 @@ function cardMarkup({ text, amountText: amt, mediaUrl = '', isVideo = false, con
         ? `<video class="media" src="${esc(mediaUrl)}#t=0.1" muted loop playsinline preload="metadata" data-act="vidtap" data-role="card"${st}></video>`
         : tapPause
           ? `<video class="media" src="${esc(mediaUrl)}" autoplay muted loop playsinline data-act="vidtap" data-role="card"${st}></video>`
-          : `<video class="media" src="${esc(mediaUrl)}" autoplay muted loop playsinline${controls ? ' controls' : ''}${st}></video>`)
+          : `<video class="media${pausable ? ' pausable' : ''}" src="${esc(mediaUrl)}${pausable && vidPaused ? '#t=0.1' : ''}"${pausable && vidPaused ? '' : ' autoplay'} muted loop playsinline${controls ? ' controls' : ''}${st}></video>`)
     : `<img class="media" src="${esc(mediaUrl)}" alt=""${st}>`;
   const f = fxParts(Array.isArray(fx) ? fx : [fx]);
   const longCls = (text || '').length > 22 ? ' long' : '';
@@ -1744,8 +1762,9 @@ function optionsBlockHtml() {
   if (!S.acctOpen) return '';
   return `<div class="zone" style="margin-top:12px">
     ${soldeCartesHtml()}
-    ${rechargeHtml()}
     ${lotsHtml()}
+    ${rechargeHtml()}
+    <div class="label">Acheter des cartes sans Kdo</div>
     ${optionButtonsHtml()}
     ${payHintHtml()}
     ${creditCardsCount() ? `<button class="secondary" style="margin-top:10px;width:100%" data-act="mes">Mes cartes (${creditCardsCount()})</button>` : ''}
@@ -1902,8 +1921,8 @@ function screenCreate() {
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
     <!-- La carte suit la photo ou la vidéo ; elle reste collée en haut pendant qu'on fait défiler le formulaire -->
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
-    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop, pausable: CREDITS, vidPaused: CREDITS && (S.vidPaused || !S.cropLocked) })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}${videoPauseHtml()}
 
     <div class="label">Votre dédicace</div>
     <input id="cardText" class="field${bad('cardText')}" maxlength="40" value="${esc(S.cardText)}">
@@ -2785,8 +2804,7 @@ function renderCreditsAccount(backHtml) {
     return `<div class="accrow"><span class="accmeta"><span class="accname">${x.recipientName ? `Carte pour ${esc(x.recipientName)}` : 'Carte envoyée'}</span><small>${esc(montant)} · ${esc(statut)}</small></span></div>`;
   }).join('');
   const options = `
-      ${lotsHtml()}
-      
+      <div class="label">Acheter des cartes sans Kdo</div>
       <div>
         ${optionButtonsHtml()}
         
@@ -2798,6 +2816,7 @@ function renderCreditsAccount(backHtml) {
     ${recvHeader('Mon compte', 'Mes Kdo', backHtml)}
     <div class="section">
       ${soldeCartesHtml()}
+      ${lotsHtml()}
       ${etat}${msg}${err}
       ${options}
       <div class="label">Cartes reçues</div>
@@ -3226,8 +3245,8 @@ function screenCreateCredits() {
     ${S.mediaError ? `<div class="mediaErr" role="alert">${esc(S.mediaError)}</div>` : ''}
     <div class="hint">Photo, ou vidéo de 10 secondes maximum.</div>
 
-    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop })}</div>
-    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}
+    <div class="stickycard${S.mediaUrl ? ' has-photo' : ''}${S.mediaUrl && !S.cropLocked ? ' cropping' : ''}">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, pv: true, fx: fxKeys(), tap: true, crop: S.crop, pausable: CREDITS, vidPaused: CREDITS && (S.vidPaused || !S.cropLocked) })}</div>
+    <div class="hint" style="text-align:center;margin-top:8px">Touchez la carte pour revoir l’effet complet</div>${cropControlsHtml()}${videoPauseHtml()}
 
     <div class="label">Votre dédicace</div>
     <div class="caretbox"><input id="cardText" class="field${bad('cardText')}" maxlength="40" placeholder=" " value="${esc(S.cardText)}"></div>
@@ -4034,7 +4053,7 @@ async function handleCardFile(file) {
     if (dur > MAX_CARD_VIDEO_SECONDS + 0.5) { URL.revokeObjectURL(url); S.mediaError = `Cette vidéo dure ${Math.round(dur)} secondes. La vidéo de la carte doit durer ${MAX_CARD_VIDEO_SECONDS} secondes maximum : choisissez une vidéo plus courte ou une photo.`; return showMediaError(); }
   }
   if (S.mediaUrl && !(S.base && S.base.mediaUrl === S.mediaUrl)) URL.revokeObjectURL(S.mediaUrl);
-  Object.assign(S, { mediaFile: file, mediaIsVideo: isVideo, mediaUrl: url, mediaError: '', crop: cropDefault(), cropLocked: CREDITS });
+  Object.assign(S, { mediaFile: file, mediaIsVideo: isVideo, mediaUrl: url, mediaError: '', crop: cropDefault(), cropLocked: CREDITS, vidPaused: false });
   render();
 }
 
