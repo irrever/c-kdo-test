@@ -589,7 +589,7 @@ const CONFIG = {
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrYm9hZWh1ZmxtaXppa2NpY2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MDUwODQsImV4cCI6MjEwODI4MTA4NH0.PfrArPGyVdNuZmg4y0T_c5W43403bOSrfY3bv-WYNtI',
   PUBLIC_URL: 'https://irrever.github.io/c-kdo-test/',
   /* Adresse du lien partagé : la fonction « carte » (aperçu propre à chaque carte). Vide = adresse de l’application. */
-  SHARE_URL: 'https://kkboaehuflmizikcicjg.supabase.co/functions/v1/carte',
+  SHARE_URL: '',
 };
 /* Base des liens envoyés : la fonction « carte » si elle est branchée, sinon l’application */
 function shareBase() { return CONFIG.SHARE_URL || CONFIG.PUBLIC_URL || location.href.split('?')[0]; }
