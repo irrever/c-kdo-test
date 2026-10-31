@@ -635,6 +635,8 @@ const store = {
 };
 /* Liste des cartes reçues : une donnée locale d'une autre forme est ignorée, sans erreur */
 const receivedList = () => { const v = store.get(KEY_RECEIVED, []); return Array.isArray(v) ? v : []; };
+/* « Reçues » : une carte envoyée depuis cet appareil n’y figure jamais, même si elle a été ouverte ici comme destinataire */
+const recusSansEnvoyees = () => { const ids = new Set(envoisList().map((x) => x.id)); return receivedList().filter(isCreditCard).filter((c) => !ids.has(c.id)); };
 
 const initialState = () => ({
   step: 'create', acctOpen: false,
@@ -1799,7 +1801,7 @@ function refreshCarteBottom() {
 /* Mode gratuit, écran « Mes cartes » : cartes reçues, puis cartes envoyées */
 function screenMesCredits() {
   const now = Date.now();
-  const recus = receivedList().filter(isCreditCard);
+  const recus = recusSansEnvoyees();
   const envois = envoisList().filter(isCreditCard).slice().sort(byNewest);
   return `
   <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Mon compte</div><div class="title">Mes cartes</div></div></header>
@@ -2672,7 +2674,7 @@ function renderCreditsAccount(backHtml) {
   const now = Date.now();
   const bal = CRED.balance;
   const etat = rechargeHtml();
-  const recus = receivedList().filter(isCreditCard);
+  const recus = recusSansEnvoyees();
   const rowsRecus = recus.map((c) => {
     const st = CRED.cards[c.id];
     const montant = c.option_card ? 'Carte sans Kdo' : credTxt(Number(c.credits));
