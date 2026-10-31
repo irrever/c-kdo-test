@@ -545,6 +545,10 @@
   .lot.doree .lot-barre div { background: #D9A64E; }
   .lot.vert .lot-barre div { background: #3F8A64; }
   .lot.bordeaux .lot-barre div { background: #A4537D; }
+  .secretveil { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.65); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .secretbox { width: min(340px, 100%); background: #19191D; color: #F2F2F4; border-radius: 16px; padding: 20px; font-size: 17px; }
+  .secretbox .field { width: 100%; margin: 8px 0; font-size: 22px; letter-spacing: .3em; text-align: center; }
+  .secretbtns { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -589,9 +593,11 @@ const CONFIG = {
 const PAY_LINKS = { option3: '', option10: '', option25: '', option50: '' };
 
 const BUCKET = 'medias';
-/* Mode de l'application : « gratuit » (crédits en Kdo, sans valeur en euros, sans paiement). Seul mode de cette version.
-   Le mode « cadeau » (réel, en euros) reste dans le code, sans accès : il n'est pas ouvert au public. */
-const MODE = 'gratuit';
+/* Mode de l'application, choisi par le créateur (cinq appuis sur la carte, puis code) et gardé sur cet appareil :
+   « gratuit » (mode 2, par défaut) : carte, message et effets, payés en crédits fictifs (sans valeur en euros), sans paiement.
+   « cadeau » (mode 1, réel) : cadeau payant en euros, désactivé pour le public tant qu'un partenaire de paiement n'a pas confirmé. */
+const KEY_MODE = 'ckdo.mode';
+const MODE = (() => { try { return localStorage.getItem(KEY_MODE) === 'cadeau' ? 'cadeau' : 'gratuit'; } catch (e) { return 'gratuit'; } })();
 const CREDITS = MODE !== 'cadeau';   /* crédits : le mode gratuit */
 document.documentElement.classList.toggle('mode-gratuit', CREDITS);
 const FREE = MODE !== 'cadeau';      /* aucun paiement à la création (mode gratuit) */
@@ -682,6 +688,49 @@ const RECIPIENT_ID = new URLSearchParams(location.search).get('c');
 /* Aperçu du créateur (« Voir la carte comme ») : ce n’est pas une ouverture par le destinataire */
 const PREVIEW = new URLSearchParams(location.search).get('apercu') === '1';
 const app = document.getElementById('app');
+
+/* Changement de mode (créateur) : cinq appuis rapides sur la carte de l’écran de création, puis le code à quatre chiffres */
+const SECRET_CODE = '1047';
+const SECRET_TAPS = 5;
+const SECRET_GAP_MS = 2000;   /* délai maximal entre deux appuis */
+let secretCount = 0;
+let secretLast = 0;
+function secretTap(e) {
+  if (RECV || S.step !== 'create' || !e.target.closest || !e.target.closest('.stickycard .card')) return;
+  const now = Date.now();
+  secretCount = now - secretLast <= SECRET_GAP_MS ? secretCount + 1 : 1;
+  secretLast = now;
+  if (secretCount >= SECRET_TAPS) { secretCount = 0; secretOpen(); }
+}
+function secretOpen() {
+  if (document.getElementById('secretVeil')) return;
+  const numero = MODE === 'cadeau' ? '2' : '1';
+  const cible = MODE === 'cadeau' ? 'gratuit' : 'réel';
+  const veil = document.createElement('div');
+  veil.id = 'secretVeil';
+  veil.className = 'secretveil';
+  veil.innerHTML = `<div class="secretbox" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+      <div class="ztitle" id="secretTitle">Code</div>
+      <input id="secretCode" class="field" type="password" inputmode="numeric" autocomplete="off" maxlength="4" aria-label="Code à quatre chiffres">
+      <div class="error" id="secretErr" style="display:none">Code incorrect.</div>
+      <div class="secretbtns">
+        <button class="primary" id="secretOk" type="button">Passer au mode ${numero} (${cible})</button>
+        <button class="secondary" id="secretNo" type="button">Annuler</button>
+      </div>
+    </div>`;
+  document.body.appendChild(veil);
+  const input = veil.querySelector('#secretCode');
+  const err = veil.querySelector('#secretErr');
+  veil.querySelector('#secretNo').addEventListener('click', () => veil.remove());
+  veil.querySelector('#secretOk').addEventListener('click', () => {
+    if (input.value.trim() !== SECRET_CODE) { err.style.display = ''; input.value = ''; input.focus(); return; }
+    /* Le mode est gardé sur cet appareil ; la page est rechargée pour l’appliquer */
+    try { localStorage.setItem(KEY_MODE, MODE === 'cadeau' ? 'gratuit' : 'cadeau'); } catch (e) { /* stockage indisponible */ }
+    location.reload();
+  });
+  input.focus();
+}
+app.addEventListener('click', secretTap);
 
 /* Mémoire locale de l'appareil : tolère un stockage indisponible */
 const store = {
