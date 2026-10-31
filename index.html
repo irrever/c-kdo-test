@@ -1430,6 +1430,9 @@ function cropMediaSel(c) { return c === S.msgCrop && S.msgType === 'video' ? '.v
 function cropEnsureAr(c) {
   if (c.ar) return c.ar;
   const m = document.querySelector(cropMediaSel(c));
+  /* Seule la photo ou la vidéo choisie compte : pas l’exemple du carrousel, ni une image encore absente */
+  const url = cropMediaSel(c).startsWith('.vcrop') ? S.msgVideoUrl : S.mediaUrl;
+  if (!m || !url || !(m.getAttribute('src') || '').startsWith(url)) return 0;
   const w = m ? (m.videoWidth || m.naturalWidth || 0) : 0;
   const h = m ? (m.videoHeight || m.naturalHeight || 0) : 0;
   if (w && h) c.ar = Math.round((w / h) * 10000) / 10000;
