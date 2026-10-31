@@ -830,6 +830,9 @@ const RPC_MSG = {
   option_insuffisante: 'Vous n’avez plus de carte sans Kdo.',
   carte_existante: 'Cette carte existe déjà. Préparez une nouvelle carte.',
   carte_invalide: 'Cette carte ne peut pas être utilisée ici.',
+  carte_partagee: 'Un lien de cette carte est déjà parti : elle ne peut plus être annulée.',
+  carte_debitee: 'Cette carte a été débitée avant cette mise à jour : elle ne s’annule pas ici.',
+  annulation_trop_tardive: 'Le partage ne peut plus être annulé. Rien n’a été rendu.',
 };
 function rpcMsg(err) {
   const m = String((err && err.message) || '');
@@ -1811,11 +1814,15 @@ function creditRowHtml(c, recu, now) {
   else if (st) { pill = 'Non encaissée'; legende = valable ? `${valable} : supprimable après` : ''; }
   const voir = st && !expiree ? `<button class="mc-btn" data-act="voircarte" data-val="${id}">Voir la carte</button>` : '';
   if (expiree) legende = 'Carte expirée, plus visible.';
+  /* Carte envoyée depuis cet appareil, jamais partagée : rien n’est débité, elle s’annule sans rien payer */
+  const attente = !recu && !!st && !st.shared_at && !st.collected_at;
+  if (attente) { pill = 'Non partagée'; cls = ''; legende = 'Rien n’est débité tant que le lien n’est pas envoyé.'; }
   const retirable = !!st && (!!st.collected_at || expiree);
   let rm;
   if (!retirable) rm = '<button class="mc-btn" disabled>Supprimer</button>';
   else if (S.credRmAsk === c.id) { legende = 'Seule la liste change sur cet appareil.'; rm = `<button class="mc-btn danger" data-act="credrmok" data-val="${id}">Confirmer</button><button class="mc-btn" data-act="credrmno">Garder</button>`; }
   else { legende = legende || 'Retirable de la liste'; rm = `<button class="mc-btn" data-act="credrm" data-val="${id}">Supprimer</button>`; }
+  if (attente) rm = `<button class="mc-btn danger" data-act="credannul" data-val="${id}"${CRED.busy ? ' disabled' : ''}>${CRED.busy === c.id ? 'Annulation…' : 'Annuler'}</button>`;
   const prolong = recu && st && st.collected_by === CRED.id ? prolongBlockHtml(c.id, st) : '';
   /* Bandeau « Carte prolongée » juste au-dessus de la carte qui vient d’être prolongée, pendant 5 secondes */
   const bandeau = PROLONG_OK && PROLONG_OK.id === c.id
@@ -1897,11 +1904,12 @@ function screenMesCredits() {
   return `
   <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Mon compte</div><div class="title">Mes cartes</div></div></header>
   <div class="section">
+    ${CRED.msg ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : ''}
     <div class="mc-sec mc-recues"><span>Reçues</span><span class="mc-n">${recus.length}</span></div>
     ${recus.map((c) => creditRowHtml(c, true, now)).join('') || '<div class="mc-vide">Aucune carte reçue ouverte sur cet appareil.</div>'}
     <div class="mc-sec mc-envoyees"><span>Envoyées</span><span class="mc-n">${envois.length}</span></div>
     ${envois.map((c) => creditRowHtml(c, false, now)).join('') || '<div class="mc-vide">Aucune carte envoyée depuis cet appareil.</div>'}
-    <div class="mc-regle"><b>Supprimer</b> reste bloqué tant que la carte n’est pas encaissée et qu’elle est encore valable. Une carte encaissée ou expirée se retire de la liste, sur cet appareil seulement.</div>
+    <div class="mc-regle"><b>Annuler</b> sur une carte non partagée : rien n’a été débité. <b>Supprimer</b> reste bloqué tant que la carte n’est pas encaissée et qu’elle est encore valable. Une carte encaissée ou expirée se retire de la liste, sur cet appareil seulement.</div>
   </div>`;
 }
 /* Écran « Mes cartes » : cadeaux à plusieurs et cartes seules, les plus récents d’abord. Pas de bouton Continuer ici. */
@@ -2322,7 +2330,7 @@ function msgFootHtml() {
     </div>`;
   }
   if (CREDITS && S.created) return creditUpdateFootHtml();
-  if (CREDITS) return `${footErr()}<button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer la carte'}</button>`;
+  if (CREDITS) return `${footErr()}${S.note ? `<p class="footnote" style="color:#9fd4b5">${esc(S.note)}</p>` : ''}<button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer la carte'}</button>`;
   return `${footErr()}<button class="primary" data-cta data-act="go" data-val="recap">Continuer</button>`;
 }
 function refreshMsgFoot() { const f = document.getElementById('msgFoot'); if (f) f.innerHTML = msgFootHtml(); }
@@ -2500,13 +2508,19 @@ function creditPeople() {
   const n = Number(S.people);
   return Number.isInteger(n) ? Math.min(MAX_PEOPLE, Math.max(1, n)) : 1;
 }
+/* Cartes sans Kdo disponibles : le stock du serveur, moins les cartes créées et pas encore partagées (leur débit se fait au partage) */
+function cartesSansKdoLibres() {
+  const enAttente = envoisList().filter((x) => x.solo && x.option_card && !sentAt(x, 0)).length;
+  return Math.max(0, CRED.optionCards - enAttente);
+}
 /* Erreur sur le montant ou la carte d’option ; vide quand tout va */
 function creditAmountMsg() {
   if (S.optionCard) {
     const people = creditPeople();
-    if (CRED.optionCards >= people) return '';
-    return CRED.optionCards > 0
-      ? `Vous n’avez que ${CRED.optionCards} carte(s) sans Kdo, pour ${people} personne(s).`
+    const libres = cartesSansKdoLibres();
+    if (libres >= people) return '';
+    return libres > 0
+      ? `Vous n’avez que ${libres} carte(s) sans Kdo, pour ${people} personne(s).`
       : 'Vous n’avez plus de carte sans Kdo.';
   }
   const n = credAmountOf();
@@ -2541,12 +2555,13 @@ function creditAmountBlockHtml() {
   const cost = cardCredits();
   const raw = S.credAmount === null ? cost : Number.isFinite(S.credAmount) ? S.credAmount : '';
   const msg = creditAmountMsg();
-  const showOpt = CRED.optionCards > 0 || S.optionCard;
+  const libres = cartesSansKdoLibres();
+  const showOpt = libres > 0 || S.optionCard;
   return `
     <div class="label">Kdo envoyés</div>
     <input id="credAmount" class="field" type="number" inputmode="numeric" step="1" min="${cost}" value="${esc(String(raw))}"${S.optionCard ? ' disabled' : ''}>
     <div class="hint">Au moins ${esc(credTxt(cost))} pour cette carte. Vous pouvez en mettre davantage : le destinataire reçoit le montant choisi.</div>
-    ${showOpt ? `<label class="check"><input id="optionCard" type="checkbox" ${S.optionCard ? 'checked' : ''}> <span>Carte sans Kdo, pour répondre à une carte reçue. Il vous reste ${CRED.optionCards} carte(s) sans Kdo.</span></label>` : ''}
+    ${showOpt ? `<label class="check"><input id="optionCard" type="checkbox" ${S.optionCard ? 'checked' : ''}> <span>Carte sans Kdo, pour répondre à une carte reçue. Il vous reste ${libres} carte(s) sans Kdo.</span></label>` : ''}
     <div class="blockErr" id="creditAmountErr" style="${msg ? '' : 'display:none'}">${esc(msg)}</div>`;
 }
 const balanceText = () => (CRED.balance === null ? '…' : credTxt(CRED.balance));
@@ -2652,7 +2667,7 @@ async function submitCredits() {
       : `Solde insuffisant : cette carte contient ${credTxt(amount)}, et il vous en reste ${credTxt(CRED.balance)}.`;
     return render();
   }
-  S.busy = true; S.error = ''; render();
+  S.busy = true; S.error = ''; S.note = ''; render();
   /* Une carte par personne, chacune avec son identifiant. Un nouvel essai reprend les mêmes identifiants : le serveur ne débite pas deux fois */
   const ids = Array.from({ length: n }, (_, i) => (S.soloIds && S.soloIds[i]) || crypto.randomUUID());
   S.soloIds = ids;
@@ -3274,11 +3289,12 @@ function screenCreateCredits() {
 function creditOptionHtml() {
   /* Carte déjà créée : le paiement est fait, il ne se choisit plus */
   if (S.created) return '';
-  if (!(CRED.optionCards > 0 || S.optionCard)) return '';
+  const libres = cartesSansKdoLibres();
+  if (!(libres > 0 || S.optionCard)) return '';
   const people = creditPeople();
   const need = CREDIT_CARD * people;
   const kdoOk = CRED.balance !== null && CRED.balance >= need;
-  const restant = CRED.optionCards - people;
+  const restant = libres - people;
   const choix = (val, on, nom, sous, prix, zero, off) => `<button class="pay-choix${on ? ' on' : ''}" type="button" data-act="paymode" data-val="${val}" aria-pressed="${on ? 'true' : 'false'}"${off ? ' disabled' : ''}>
       <span class="pay-radio"></span>
       <span class="pay-vis" aria-hidden="true"><b>c.kdo</b><i></i></span>
@@ -3287,7 +3303,7 @@ function creditOptionHtml() {
     </button>`;
   const restantTxt = restant >= 0
     ? `Sans Kdo · il vous restera ${restant} carte${restant > 1 ? 's' : ''}`
-    : `Sans Kdo · il vous faut ${people} cartes, vous en avez ${CRED.optionCards}`;
+    : `Sans Kdo · il vous faut ${people} cartes, vous en avez ${libres}`;
   return `<div class="label">${S.reply ? 'Payer votre réponse' : people > 1 ? 'Payer ces cartes' : 'Payer cette carte'}</div>
     ${choix('kdo', !S.optionCard, people > 1 ? 'Cartes Kdo' : 'Carte Kdo', kdoOk ? `Il vous restera ${esc(credTxt(CRED.balance - need))}` : `Solde insuffisant : ${esc(credTxt(need))} nécessaires`, esc(credTxt(need)), false, !kdoOk)}
     ${choix('carte', !!S.optionCard, people > 1 ? 'Cartes sans Kdo' : 'Carte', restantTxt, '0 Kdo', true, false)}
@@ -3322,11 +3338,12 @@ function screenDoneCredits() {
   const links = S.links && S.links.length ? S.links : [S.link];
   const n = links.length;
   const per = cur && cur.credits ? Number(cur.credits) : 0;
+  /* Le débit se fait à l’envoi de chaque lien, pas à la création de la carte */
   const cout = per
     ? (n > 1
-      ? `Coût total : ${esc(credTxt(per * n))}, soit ${n} cartes de ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`
-      : `Coût : ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`)
-    : '';
+      ? `Coût total : ${esc(credTxt(per * n))}, soit ${n} cartes de ${esc(credTxt(per))}, débitées à l’envoi de chaque lien. Solde : ${esc(balanceText())}.`
+      : `Coût : ${esc(credTxt(per))}, débité à l’envoi du lien. Solde : ${esc(balanceText())}.`)
+    : (cur && cur.option_card ? 'Carte sans Kdo : prise sur votre stock à l’envoi du lien.' : '');
   /* État de chaque lien : « Envoyer » tant qu’il n’est pas parti, puis « Renvoyer » avec l’heure du premier envoi */
   const ids = S.soloIds || [];
   const bloc = (k) => {
@@ -3349,6 +3366,7 @@ function screenDoneCredits() {
     ${cout ? `<div class="hint" style="text-align:center">${cout}</div>` : ''}
     ${S.note ? `<div class="hint" style="text-align:center;color:#9fd4b5">${esc(S.note)}</div>` : ''}
     ${actions}
+    ${ids.some((id) => sentAt(envoisList().find((x) => x.id === id), 0)) ? '' : `<button class="secondary" data-act="annulerlot">Annuler ces cartes</button><div class="hint" style="text-align:center">Rien n’est débité tant que le lien n’est pas envoyé.</div>`}
     ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     <button class="secondary" data-act="reset">Créer une autre carte</button>
   </div>`;
@@ -3410,43 +3428,131 @@ function creditUpdateFootHtml() {
   if (creditLocked()) return `<p class="footnote">${esc(CARTE_FIGEE)}</p><button class="primary" data-cta data-act="go" data-val="done">Voir les liens</button>`;
   return `${footErr()}<p class="footnote">Modifier est gratuit : les Kdo de la carte ne changent pas, et le lien reste le même.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Enregistrement…' : 'Enregistrer les modifications'}</button>`;
 }
-/* Lien parti (partage réussi, ou lien copié) : le serveur garde la première date et fige la carte */
-async function marquerEnvoye(k) {
+/* Un seul envoi à la fois : un double toucher ne débite pas deux fois */
+let PARTAGE_EN_COURS = false;
+/* Lien parti et payé, ou copié : marqué sur cet appareil (la première date est gardée) */
+function marquerLocal(k, at) {
   const id = (S.soloIds || [])[k];
-  if (id && sb) {
-    try {
-      CRED.key = CRED.key || credKey();
-      const { data, error } = await sb.rpc('credit_mark_shared', { p_key: CRED.key, p_card_id: id });
-      if (error) throw error;
-      const at = (data && data.shared_at) || new Date().toISOString();
-      updateItem(id, (x) => ({ sent: [sentAt(x, 0) || at] }));
-      S.error = '';
-    } catch (err) {
-      S.error = `Le lien est parti, mais son envoi n’a pas pu être enregistré. ${rpcMsg(err)}`;
+  if (id) updateItem(id, (x) => ({ sent: [sentAt(x, 0) || at] }));
+}
+/* Débit au premier partage : le serveur débite la carte, et refuse si le solde ou le stock ne suffit plus.
+   Renvoie { debited, shared_at } : « debited » dit si ce passage a débité la carte, à rendre si le partage est annulé. */
+async function debiterPartage(k) {
+  CRED.key = CRED.key || credKey();
+  const { data, error } = await sb.rpc('credit_mark_shared', { p_key: CRED.key, p_card_id: (S.soloIds || [])[k] });
+  if (error) throw error;
+  CRED.balance = Number(data.balance);
+  CRED.optionCards = Number(data.option_cards) || 0;
+  return { debited: !!data.debited, shared_at: data.shared_at };
+}
+/* Partage annulé ou copie impossible, juste après un débit : le débit est rendu, la carte redevient modifiable */
+async function rendreDebit(k, debit) {
+  const { data, error } = await sb.rpc('credit_unmark_shared', { p_key: CRED.key, p_card_id: (S.soloIds || [])[k], p_shared_at: debit.shared_at });
+  if (error) throw error;
+  CRED.balance = Number(data.balance);
+  CRED.optionCards = Number(data.option_cards) || 0;
+}
+/* Fait sortir le lien k : feuille de partage du téléphone (SMS, WhatsApp…), ou copie.
+   Renvoie 'partage', 'copie', 'annule' ou 'echec'. Appelée au toucher même : le navigateur n’ouvre la feuille de partage que pendant le toucher. */
+async function sortirLien(k, copie) {
+  const link = S.links[k];
+  if (!copie && navigator.share) {
+    try { await navigator.share({ url: link, text: 'Une carte c.kdo pour toi !' }); return 'partage'; }
+    catch (err) { if (err && err.name === 'AbortError') return 'annule'; }
+  }
+  try { await navigator.clipboard.writeText(link); return 'copie'; }
+  catch (err) { return 'echec'; }
+}
+/* Supprime les cartes données, si elles ne sont pas parties (rien à rendre). Renvoie celles qui sont déjà parties, gardées. */
+async function supprimerCartes(ids) {
+  CRED.key = CRED.key || credKey();
+  const gardees = [];
+  for (const id of ids) {
+    const { error } = await sb.rpc('credit_delete_unshared', { p_key: CRED.key, p_card_id: id });
+    if (error) {
+      if (/carte_partagee/.test(String((error && error.message) || ''))) { gardees.push(id); continue; }
+      throw error;
+    }
+    saveEnvois(envoisList().filter((x) => x.id !== id));
+  }
+  return gardees;
+}
+/* Retour à l’éditeur, avec le contenu gardé : plus de carte créée, rien d’envoyé */
+function revenirEditeur(message) {
+  S.created = false; S.soloIds = []; S.links = []; S.link = ''; S.collectionId = '';
+  S.step = 'create'; S.error = ''; S.note = message || ''; S.lockedRemote = false;
+}
+/* Envoi du lien k, par partage ou par copie. Le débit se fait au moment où le lien sort. */
+async function envoyerLien(k, copie) {
+  if (PARTAGE_EN_COURS || !S.links[k] || !sb) return;
+  const cur = envoisList().find((x) => x.id === (S.soloIds || [])[k]);
+  /* Carte pas encore payée : solde ou stock vérifiés avant de faire sortir le lien */
+  if (cur && !sentAt(cur, 0)) {
+    const manque = cur.option_card ? CRED.optionCards < 1 : (CRED.balance !== null && CRED.balance < Number(cur.credits));
+    if (manque) {
+      S.error = cur.option_card ? 'Vous n’avez plus de carte sans Kdo.' : `Solde insuffisant : cette carte coûte ${credTxt(Number(cur.credits))}.`;
+      return render();
     }
   }
-  render();
-}
-/* Copie du lien k : le lien est considéré comme parti */
-function copyCreditLink(btn, k) {
-  const link = S.links[k];
-  if (!link) return;
-  return navigator.clipboard.writeText(link)
-    .then(() => { S.note = 'Lien copié.'; return marquerEnvoye(k); })
-    .catch(() => { btn.textContent = 'Copiez le lien ci-dessus'; });
-}
-/* Partage du lien k : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas.
-   Le lien n’est marqué parti que si le partage a abouti (annulé : rien ne change) */
-async function shareCreditLink(btn, v) {
-  const k = v === undefined ? 0 : Number(v);
-  if (!S.links[k]) return;
-  S.note = '';
-  if (navigator.share) {
-    try { await navigator.share({ url: S.links[k], text: 'Une carte c.kdo pour toi !' }); }
-    catch (err) { if (err && err.name === 'AbortError') return; return copyCreditLink(btn, k); }
-    return marquerEnvoye(k);
+  PARTAGE_EN_COURS = true;
+  S.error = ''; S.note = '';
+  /* Le débit part tout de suite ; son résultat est lu une fois le lien sorti */
+  const debit = debiterPartage(k).then((d) => ({ d }), (err) => ({ err }));
+  const sortie = await sortirLien(k, copie);
+  const r = await debit;
+  try {
+    if (r.err) {
+      if (sortie === 'partage' || sortie === 'copie') {
+        /* Le lien est sorti sans paiement : on coupe les cartes de cet envoi qui ne sont pas parties */
+        const gardees = await supprimerCartes(S.soloIds || []);
+        if (gardees.length) S.error = rpcMsg(r.err);
+        else revenirEditeur(`${rpcMsg(r.err)} Le lien a été coupé : rien n’a été débité.`);
+      } else {
+        S.error = rpcMsg(r.err);
+      }
+    } else if (sortie === 'partage' || sortie === 'copie') {
+      marquerLocal(k, new Date().toISOString());
+      if (sortie === 'copie') S.note = 'Lien copié.';
+    } else {
+      if (r.d.debited) await rendreDebit(k, r.d);
+      if (sortie === 'annule') S.note = r.d.debited ? 'Partage annulé. Rien n’a été débité.' : 'Partage annulé.';
+      else S.error = r.d.debited ? 'Le lien n’a pas pu être copié. Rien n’a été débité.' : 'Le lien n’a pas pu être copié.';
+    }
+  } catch (err) {
+    S.error = rpcMsg(err);
+  } finally {
+    PARTAGE_EN_COURS = false;
+    render();
   }
-  return copyCreditLink(btn, k);
+}
+/* « Annuler ces cartes » (écran « Votre carte est prête ») : les cartes non parties sont supprimées, sans débit */
+async function annulerLot() {
+  if (PARTAGE_EN_COURS || !sb) return;
+  S.error = ''; S.note = ''; S.busy = true; render();
+  try {
+    const gardees = await supprimerCartes(S.soloIds || []);
+    if (gardees.length) S.error = 'Un lien de cette carte est déjà parti : elle ne s’annule plus.';
+    else revenirEditeur('Cartes annulées. Rien n’a été débité.');
+  } catch (err) {
+    S.error = rpcMsg(err);
+  } finally {
+    S.busy = false;
+    render();
+  }
+}
+/* « Annuler » sur « Mes cartes » : carte non partagée, supprimée sans rien payer */
+async function annulerUneCarte(id) {
+  if (CRED.busy || !sb) return;
+  CRED.busy = id; CRED.msg = ''; redrawCredits();
+  try {
+    const gardees = await supprimerCartes([id]);
+    CRED.msg = gardees.length ? 'Un lien de cette carte est déjà parti : elle ne s’annule plus.' : 'Carte annulée. Rien n’a été débité.';
+  } catch (err) {
+    CRED.msg = rpcMsg(err);
+  } finally {
+    CRED.busy = '';
+  }
+  redrawCredits();
 }
 /* Destinataire (mode gratuit) : la carte en haut, le message en bas, rien d’autre */
 function renderRecvSimple() {
@@ -3521,7 +3627,7 @@ function simpleBottomHtml() {
     else statut = `<div class="notice">${esc(n)} à récupérer.</div><button class="secondary" data-act="recvcollect" data-val="${esc(id)}">Récupérer ${esc(n)}</button>`;
   }
   const msg = CRED.msg && !(st && (st.collected_by === CRED.id || st.sender_account === CRED.id)) ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
-  const cout = CRED.optionCards > 0
+  const cout = cartesSansKdoLibres() > 0
     ? `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}, ou une carte sans Kdo si vous en avez une.`
     : `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}.`;
   /* Lien de l’expéditeur lui-même : pas de réponse à sa propre carte */
@@ -3539,7 +3645,7 @@ function refreshSimpleBottom() {
 function replyToCard() {
   RECV = null;
   recvView = 'card';
-  Object.assign(S, initialState(), { reply: true, optionCard: CRED.optionCards > 0 && !(CRED.balance >= CREDIT_CARD) });
+  Object.assign(S, initialState(), { reply: true, optionCard: cartesSansKdoLibres() > 0 && !(CRED.balance >= CREDIT_CARD) });
   history.replaceState(null, '', location.href.split('?')[0]);
   render();
   window.scrollTo(0, 0);
@@ -4402,8 +4508,10 @@ app.addEventListener('click', (e) => {
     if (!S.terms || !phoneOk(S.recipientPhone)) { S.step = 'recap'; S.showErrors = true; S.error = ''; return render(); }
     return CREDITS ? submitCredits() : submit();
   }
-  if (act === 'sharelink') return shareCreditLink(el, v);
-  if (act === 'copy') return CREDITS ? copyCreditLink(el, v === undefined ? 0 : Number(v)) : copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
+  if (act === 'sharelink') return envoyerLien(v === undefined ? 0 : Number(v), false);
+  if (act === 'copy') return CREDITS ? envoyerLien(v === undefined ? 0 : Number(v), true) : copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
+  if (act === 'annulerlot') return annulerLot();
+  if (act === 'credannul') return annulerUneCarte(v);
   if (act === 'copygrp') return copyGroupLink(el, v);
   if (act === 'sharegrp') return shareGroup(el);
   if (act === 'gopay') {
