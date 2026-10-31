@@ -1712,7 +1712,7 @@ function creditRowHtml(c, recu, now) {
   const expiree = !!(st && st.expires_at && Date.parse(st.expires_at) <= now);
   const valable = st && st.expires_at ? `Valable jusqu’au ${finTxt(st.expires_at)}` : '';
   let pill = 'Chargement…', cls = '', legende = '', encaisser = '';
-  if (st && st.collected_at) { pill = `Encaissée le ${frDateNb(Date.parse(st.collected_at))}`; cls = 'ok'; }
+  if (st && st.collected_at) { pill = `Encaissée le ${frDateNb(Date.parse(st.collected_at))}`; cls = 'ok'; if (st.sender_account === CRED.id) legende = valable; }
   else if (st && expiree) { pill = 'Expirée, non encaissée'; }
   else if (st && recu && st.sender_account === CRED.id) { pill = 'Envoyée par vous'; legende = valable ? `${valable} : supprimable après` : ''; }
   else if (st && recu) {
