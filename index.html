@@ -395,6 +395,8 @@
   .peopleBtn:disabled { opacity: .4; cursor: default; }
   .peopleNum { min-width: 32px; text-align: center; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
   /* Écran « Votre carte est prête » : une ligne par personne, avec son lien */
+  /* Écran « Vos cartes sont prêtes » : la fin de la page remonte au-dessus de la barre du navigateur (Safari, bas de l’écran) */
+  .section.donePage { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
   .linkrow { margin-top: 10px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: #19191D; }
   .linkrow b { display: block; font-size: 15px; font-weight: 500; }
   .linkbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
@@ -3341,7 +3343,7 @@ function screenDoneCredits() {
     : `<div class="linkrow">${bloc(0)}</div>`;
   return `
   ${hdr('', n > 1 ? 'Vos cartes sont prêtes' : 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
-  <div class="section">
+  <div class="section donePage">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
     ${finalMsgHtml()}
     ${cout ? `<div class="hint" style="text-align:center">${cout}</div>` : ''}
