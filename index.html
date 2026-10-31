@@ -411,14 +411,6 @@
   /* Message reçu avant la carte : cadre calme, texte à taille de lecture */
   .recvwrap { padding-top: 18px; }
   .recvfor { font-size: 13px; color: #9B9AA6; letter-spacing: .02em; }
-  /* Mode gratuit : la carte reçue est petite, dans une bulle de message, avec le message qui l’accompagne */
-  .recvFree { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 78vh; padding-top: 24px; }
-  .recvFree .recvbubble { width: min(300px, 100%); box-sizing: border-box; padding: 8px 8px 14px; background: #26262B; border-radius: 18px 18px 18px 4px; }
-  .recvFree #recvCard { width: 100%; }
-  .recvFree #recvCard .card { margin-top: 0; width: 100%; border-radius: 12px; }
-  .recvFree .recvbox { margin-top: 0; padding: 10px 6px 0; background: none; border: 0; }
-  .recvFree .recvbox .message.big { margin-top: 0; font-size: 15px; line-height: 1.4; max-width: none; color: #ECECF1; }
-  .recvFree .recvbottom { width: min(300px, 100%); margin-top: 20px; }
   .recvbox { margin-top: 12px; padding: 22px 20px; border-radius: 18px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); }
   .recvbox .message.big { margin-top: 0; font-size: 17px; line-height: 1.6; max-width: 34ch; color: #ECECF1; }
   .recvbox .player { margin-top: 0; }
@@ -596,7 +588,11 @@ const CONFIG = {
   SUPABASE_URL: 'https://kkboaehuflmizikcicjg.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrYm9hZWh1ZmxtaXppa2NpY2pnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MDUwODQsImV4cCI6MjEwODI4MTA4NH0.PfrArPGyVdNuZmg4y0T_c5W43403bOSrfY3bv-WYNtI',
   PUBLIC_URL: 'https://irrever.github.io/c-kdo-test/',
+  /* Adresse du lien partagé : la fonction « carte » (aperçu propre à chaque carte). Vide = adresse de l’application. */
+  SHARE_URL: 'https://kkboaehuflmizikcicjg.supabase.co/functions/v1/carte',
 };
+/* Base des liens envoyés : la fonction « carte » si elle est branchée, sinon l’application */
+function shareBase() { return CONFIG.SHARE_URL || CONFIG.PUBLIC_URL || location.href.split('?')[0]; }
 /* Liens de paiement des formules d’options (mode gratuit). À renseigner ; vide = bouton désactivé. */
 const PAY_LINKS = { option3: '', option10: '', option25: '', option50: '' };
 
@@ -2755,7 +2751,7 @@ async function submitCredits() {
     if (msgType === 'video') msgPath = await envoyerFichier(S.msgVideoFile, `${ids[0]}/msg-video`);
     /* Sans message écrit, le texte reste vide : la base l’accepte depuis supabase-v16-messages-vides.sql */
     const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
-    const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
+    const base = `${shareBase()}?c=`;
     const links = [];
     for (const id of ids) {
       const row = {
@@ -3670,16 +3666,9 @@ function renderRecvSimple() {
   const { row, mediaUrl, msgBlock } = RECV;
   const play = !!RECV.playFx;
   RECV.playFx = false;
-  const carte = `<div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', recv: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>`;
-  /* Mode gratuit : la carte est petite, dans une bulle de message, avec le message qui l’accompagne (rien d’autre) */
-  if (CREDITS) return `
-    <div class="section recvSimple recvFree">
-      <div class="recvbubble">${carte}<div class="recvbox">${msgBlock}</div></div>
-      <div class="recvbottom" id="recvBottom">${simpleBottomHtml()}</div>
-    </div>`;
   return `
     <div class="section recvSimple">
-      ${carte}
+      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', recv: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
       <div class="recvbox">${msgBlock}</div>
       <div class="recvbottom" id="recvBottom">${simpleBottomHtml()}</div>
     </div>`;
@@ -3744,8 +3733,6 @@ function simpleBottomHtml() {
     else if (st.collected_at) statut = '<div class="notice">Cette carte a déjà été encaissée.</div>';
     else statut = `<div class="notice">${esc(n)} à récupérer.</div><button class="secondary" data-act="recvcollect" data-val="${esc(id)}">Récupérer ${esc(n)}</button>`;
   }
-  /* Mode gratuit : pas d’avis Kdo sur la carte reçue (la collecte se fait à l’ouverture) */
-  if (CREDITS) statut = '';
   const msg = CRED.msg && !(st && (st.collected_by === CRED.id || st.sender_account === CRED.id)) ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
   const cout = cartesSansKdoLibres() > 0
     ? `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}, ou une carte sans Kdo si vous en avez une.`
@@ -3954,7 +3941,7 @@ async function closeGroup() {
     const { error: e2 } = await sb.rpc('manage_mark_sent', { p_id: c.id, p_key: c.manageKey });
     if (e2) throw e2;
     await loadManage(c.id, c.manageKey);
-    const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
+    const base = `${shareBase()}?c=`;
     S.links = c.cardIds.map((id) => base + id);
     S.link = S.links[S.links.length - 1];
     S.splitIndex = parts.length - 1;
@@ -4548,7 +4535,7 @@ async function submit() {
       if (error && error.code !== '23505') throw error;
     }
     recordPhone();
-    const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
+    const base = `${shareBase()}?c=`;
     S.links = ids.map((cid) => base + cid);
     S.link = S.links[0];
     S.soloMulti = multi;
