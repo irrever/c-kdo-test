@@ -485,6 +485,13 @@
   /* v0.55 : texte de la carte vide (mode gratuit) ; « Mes cartes » avec la vraie vignette de chaque carte */
   .mediaInfo { margin: 14px 0 2px; font-size: 15px; line-height: 1.45; color: var(--text); text-align: center; }
   .mc-sec { margin-top: 22px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  /* Titres de section « Mes cartes » : plus gros, une couleur par section, nombre dans une pastille */
+  .mc-sec.mc-recues, .mc-sec.mc-envoyees { margin-top: 26px; align-items: center; font-size: 18px; font-weight: 700; letter-spacing: 0; text-transform: none; }
+  .mc-sec.mc-recues { color: var(--accent); }
+  .mc-sec.mc-envoyees { color: #E8C272; }
+  .mc-sec .mc-n { font-size: 14px; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
+  .mc-sec.mc-recues .mc-n { background: rgba(156, 198, 255, .16); }
+  .mc-sec.mc-envoyees .mc-n { background: rgba(232, 194, 114, .16); }
   .mc-row { margin-top: 10px; padding: 12px; border-radius: 14px; border: 1px solid var(--line); background: #17171B; }
   .mc-top { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; align-items: center; }
   .mc-thumb { position: relative; width: 72px; aspect-ratio: 1.586 / 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(135deg, #8a3d68, #5c1d3a 60%, #3a1227); }
@@ -506,6 +513,28 @@
   .mc-vide { margin-top: 12px; font-size: 14px; color: var(--muted); }
   .mc-regle { margin-top: 18px; padding: 12px 14px; border-radius: 12px; border: 1px dashed #3A3A44; font-size: 13px; line-height: 1.5; color: var(--muted); }
   .mc-regle b { color: var(--text); font-weight: 600; }
+  .mc-ok { margin-top: 12px; padding: 12px 14px; border-radius: 12px; border: 1px solid #2F6E4F; background: #123A28; }
+  .mc-ok b { display: block; font-size: 15px; font-weight: 600; color: #D4F2E0; }
+  .mc-ok span { display: block; margin-top: 3px; font-size: 13px; line-height: 1.5; color: #9FD4B5; }
+  .lot { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; align-items: center; margin-top: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: #1A1A1D; }
+  .lot.vide { opacity: .55; }
+  .lot-thumb { width: 56px; height: 40px; border-radius: 7px; }
+  .lot-thumb.bleue { background: linear-gradient(135deg, #2a4b63, #1d3346 45%, #0e1d2a); }
+  .lot-thumb.doree { background: linear-gradient(135deg, #f0cd7b, #b98a3a 60%, #d9a64e); }
+  .lot-thumb.vert { background: linear-gradient(135deg, #3f8a64, #2f6e4f 45%, #123a28); }
+  .lot-thumb.bordeaux { background: linear-gradient(135deg, #a4537d, #8a3d68 45%, #3a1227); }
+  .lot-nom { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+  .lot.bleue .lot-nom { color: #9CC6FF; }
+  .lot.doree .lot-nom { color: #E8C272; }
+  .lot.vert .lot-nom { color: #6FC39A; }
+  .lot.bordeaux .lot-nom { color: #D08AB0; }
+  .lot-chiffre { font-size: 26px; font-weight: 700; margin-top: 2px; }
+  .lot-chiffre span { font-size: 14px; font-weight: 400; color: var(--muted); }
+  .lot-barre { height: 6px; border-radius: 999px; background: #2A2A2E; margin-top: 8px; overflow: hidden; }
+  .lot-barre div { height: 6px; border-radius: 999px; background: var(--accent); }
+  .lot.doree .lot-barre div { background: #D9A64E; }
+  .lot.vert .lot-barre div { background: #3F8A64; }
+  .lot.bordeaux .lot-barre div { background: #A4537D; }
 </style>
 </head>
 <body>
@@ -612,11 +641,13 @@ const CREDIT_REFILL = 100;         /* solde visé : sous 100, le compte à rebou
 const CREDIT_COUNTDOWN_H = 48;     /* durée du compte à rebours avant la recharge à 100 */
 const CREDIT_LIFE_DAYS = 7;        /* durée de vie d’une carte depuis son envoi : ouverte ou non, elle expire avec ses Kdo */
 const CREDIT_PROLONG_KDO = 10;     /* prolonger une carte encaissée de 7 jours : 10 Kdo, ou une carte sans Kdo (même stock que les réponses) */
+let PROLONG_OK = null;             /* bandeau « Carte prolongée » sur « Mes cartes » : null, ou { fin, kdo } pendant 5 secondes */
+let PROLONG_TIMER = null;          /* minuterie qui retire le bandeau */
 const KEY_COMPTE = 'ckdo.compte';  /* clé secrète du compte : sur cet appareil seulement, le serveur n’en garde que l’empreinte */
 /* État du compte affiché : solde, recharge, stocks d’options, cartes lues sur le serveur */
 const CREDIT_CARD = 10;          /* une carte coûte 10 Kdo, quels que soient son message, son média ou ses effets */
 const MAX_PEOPLE = 10;           /* mode gratuit : une carte et un lien par personne, 10 personnes au plus */
-const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, cards: {}, busy: '', msg: '', error: '' };
+const CRED = { key: '', id: '', balance: null, recharge: null, optionCards: 0, lots: [], cards: {}, busy: '', msg: '', error: '' };
 
 const ICON_BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
 const ICON_GIFT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
@@ -1675,6 +1706,24 @@ function payHintHtml() {
     <div class="hint">${lien ? 'Paiement par lien.' : 'Paiement pas encore branché : aucun lien de paiement n’est renseigné.'}</div>`;
 }
 /* Bloc de la première page : solde, cartes d’option, formules */
+/* Cartes sans Kdo par lot : une ligne par achat, à la couleur de sa formule. Le lot le plus ancien part en premier. */
+function lotsHtml() {
+  if (!CRED.lots.length) return '';
+  const couleur = { 3: 'bleue', 10: 'doree', 25: 'vert', 50: 'bordeaux' };
+  return CRED.lots.map((l) => {
+    const c = couleur[l.pack] || 'bleue';
+    const reste = Math.max(0, Number(l.remaining) || 0);
+    const pct = Math.min(100, Math.round((reste / l.pack) * 100));
+    return `<div class="lot ${c}${reste === 0 ? ' vide' : ''}">
+      <div class="lot-thumb ${c}" aria-hidden="true"></div>
+      <div style="min-width:0">
+        <div class="lot-nom">Lot ×${l.pack}</div>
+        <div class="lot-chiffre">${reste} <span>${reste <= 1 ? 'restante' : 'restantes'} sur ${l.pack}${reste === 0 ? ' · épuisé' : ''}</span></div>
+        <div class="lot-barre"><div style="width:${pct}%"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
 /* Bloc « Mon compte » déplié sur la première page : solde, cartes d’option, formules, lien vers l’écran complet */
 function optionsBlockHtml() {
   if (!S.acctOpen) return '';
@@ -1682,6 +1731,7 @@ function optionsBlockHtml() {
     <div class="rowline"><span>Solde</span><span>${esc(balanceText())}</span></div>
     ${rechargeHtml()}
     <div class="rowline"><span>Cartes sans Kdo</span><span>${CRED.optionCards}</span></div>
+    ${lotsHtml()}
     ${optionButtonsHtml()}
     ${payHintHtml()}
     ${creditCardsCount() ? `<button class="secondary" style="margin-top:10px;width:100%" data-act="mes">Mes cartes (${creditCardsCount()})</button>` : ''}
@@ -1806,9 +1856,10 @@ function screenMesCredits() {
   return `
   <header class="hdr"><button class="back" data-act="mesback" aria-label="Retour">${ICON_BACK}</button><div><div class="step">Mon compte</div><div class="title">Mes cartes</div></div></header>
   <div class="section">
-    <div class="mc-sec"><span>Reçues</span><span>${recus.length}</span></div>
+    ${PROLONG_OK ? `<div class="mc-ok" role="status"><b>Carte prolongée de ${CREDIT_LIFE_DAYS} jours</b><span>${PROLONG_OK.kdo ? esc(credTxt(CREDIT_PROLONG_KDO)) + ' débités' : 'Une carte sans Kdo utilisée'} · valable jusqu’au ${esc(PROLONG_OK.fin)}</span></div>` : ''}
+    <div class="mc-sec mc-recues"><span>Reçues</span><span class="mc-n">${recus.length}</span></div>
     ${recus.map((c) => creditRowHtml(c, true, now)).join('') || '<div class="mc-vide">Aucune carte reçue ouverte sur cet appareil.</div>'}
-    <div class="mc-sec"><span>Envoyées</span><span>${envois.length}</span></div>
+    <div class="mc-sec mc-envoyees"><span>Envoyées</span><span class="mc-n">${envois.length}</span></div>
     ${envois.map((c) => creditRowHtml(c, false, now)).join('') || '<div class="mc-vide">Aucune carte envoyée depuis cet appareil.</div>'}
     <div class="mc-regle"><b>Supprimer</b> reste bloqué tant que la carte n’est pas encaissée et qu’elle est encore valable. Une carte encaissée ou expirée se retire de la liste, sur cet appareil seulement.</div>
   </div>`;
@@ -2498,6 +2549,7 @@ function applyCredState(d) {
   CRED.balance = Number(d.balance);
   CRED.recharge = d.recharge_at ? Date.parse(d.recharge_at) : null;
   CRED.optionCards = Number(d.option_cards) || 0;
+  CRED.lots = Array.isArray(d.lots) ? d.lots : [];
 }
 /* Ouvre le compte si besoin (solde 0 au premier usage, compte à rebours dès l’ouverture) et lit le solde, après recharge éventuelle */
 async function credLoad() {
@@ -2603,6 +2655,7 @@ async function submitCredits() {
     recordPhone();
     S.links = links; S.link = links[0]; S.soloMulti = false; S.collectionId = ids[0]; S.soloIds = null;
     S.step = 'done';
+    refreshCreditsView();
   } catch (err) {
     S.error = rpcMsg(err);
   } finally {
@@ -2649,9 +2702,17 @@ function prolongBlockHtml(id, st) {
     ${manque ? `<div class="hint">Il vous faut ${CREDIT_PROLONG_KDO} Kdo ou une carte sans Kdo pour prolonger de ${CREDIT_LIFE_DAYS} jours.</div>` : ''}`;
 }
 /* Prolonger une carte encaissée : mode « kdo » (10 Kdo) ou « carte » (une carte sans Kdo, même stock que les réponses) */
+/* Bandeau « Carte prolongée » sur « Mes cartes » : visible 5 secondes, puis retiré tout seul */
+function showProlongOk(id, mode) {
+  if (!CRED.cards[id] || !CRED.cards[id].expires_at) return;
+  PROLONG_OK = { fin: finTxt(CRED.cards[id].expires_at), kdo: mode !== 'carte' };
+  clearTimeout(PROLONG_TIMER);
+  PROLONG_TIMER = setTimeout(() => { PROLONG_OK = null; redrawCredits(); }, 5000);
+}
 async function prolongerCarte(id, mode) {
   if (CRED.busy || !sb) return;
   CRED.busy = id; CRED.msg = ''; redrawCredits();
+  let ok = false;
   try {
     await credLoad();
     const { data, error } = await sb.rpc('credit_prolong', { p_key: CRED.key, p_card_id: id, p_mode: mode });
@@ -2661,12 +2722,15 @@ async function prolongerCarte(id, mode) {
     CRED.msg = mode === 'carte'
       ? `Carte prolongée de ${CREDIT_LIFE_DAYS} jours avec une carte sans Kdo.`
       : `Carte prolongée de ${CREDIT_LIFE_DAYS} jours. ${credTxt(CREDIT_PROLONG_KDO)} ont été débités.`;
+    ok = true;
   } catch (err) {
     CRED.msg = rpcMsg(err);
   } finally {
     CRED.busy = '';
   }
-  try { await credCardsLoad(); } catch (err) { CRED.msg = rpcMsg(err); }
+  let loaded = false;
+  try { await credLoad(); await credCardsLoad(); loaded = true; } catch (err) { CRED.msg = rpcMsg(err); }
+  if (ok && loaded) showProlongOk(id, mode);
   redrawCredits();
 }
 /* « Mon compte » : solde, options, cartes reçues, cartes envoyées. Même écran chez le destinataire et chez le créateur. */
@@ -2706,6 +2770,7 @@ function renderCreditsAccount(backHtml) {
   const options = `
       <div class="label">Cartes</div>
       <div class="rowline"><span>Cartes sans Kdo</span><span>${CRED.optionCards}</span></div>
+      ${lotsHtml()}
       
       <div>
         ${optionButtonsHtml()}
