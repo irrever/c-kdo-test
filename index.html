@@ -19,8 +19,8 @@
 <meta name="color-scheme" content="dark">
 <title>c.kdo</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="c.kdo : une bonne nouvelle pour vous">
-<meta property="og:description" content="Découvrez-la ici.">
+<meta property="og:title" content="c.kdo">
+<meta property="og:description" content="Une carte vous a été envoyée.">
 <meta property="og:image" content="https://irrever.github.io/c-kdo-test/apercu-carte.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -411,6 +411,14 @@
   /* Message reçu avant la carte : cadre calme, texte à taille de lecture */
   .recvwrap { padding-top: 18px; }
   .recvfor { font-size: 13px; color: #9B9AA6; letter-spacing: .02em; }
+  /* Mode gratuit : la carte reçue est petite, dans une bulle de message, avec le message qui l’accompagne */
+  .recvFree { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 78vh; padding-top: 24px; }
+  .recvFree .recvbubble { width: min(300px, 100%); box-sizing: border-box; padding: 8px 8px 14px; background: #26262B; border-radius: 18px 18px 18px 4px; }
+  .recvFree #recvCard { width: 100%; }
+  .recvFree #recvCard .card { margin-top: 0; width: 100%; border-radius: 12px; }
+  .recvFree .recvbox { margin-top: 0; padding: 10px 6px 0; background: none; border: 0; }
+  .recvFree .recvbox .message.big { margin-top: 0; font-size: 15px; line-height: 1.4; max-width: none; color: #ECECF1; }
+  .recvFree .recvbottom { width: min(300px, 100%); margin-top: 20px; }
   .recvbox { margin-top: 12px; padding: 22px 20px; border-radius: 18px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); }
   .recvbox .message.big { margin-top: 0; font-size: 17px; line-height: 1.6; max-width: 34ch; color: #ECECF1; }
   .recvbox .player { margin-top: 0; }
@@ -3042,7 +3050,8 @@ function smsLinkFor(link) {
   const p = String(S.recipientPhone || '').replace(/[\s.-]/g, '');
   if (!phoneOk(p)) return '';
   const e164 = p.startsWith('+') ? p : '+33' + p.slice(1);
-  const body = `Bonjour ${S.recipient}, c.kdo a une bonne nouvelle pour vous. Découvrez-la ici : ${link}`;
+  /* Mode gratuit : le lien seul ; le message s’affiche avec la carte */
+  const body = CREDITS ? link : `Bonjour ${S.recipient}, c.kdo a une bonne nouvelle pour vous. Découvrez-la ici : ${link}`;
   const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? '&' : '?';
   return `sms:${e164}${sep}body=${encodeURIComponent(body)}`;
 }
@@ -3559,7 +3568,7 @@ async function rendreDebit(k, debit) {
 async function sortirLien(k, copie) {
   const link = S.links[k];
   if (!copie && navigator.share) {
-    try { await navigator.share({ url: link, text: 'Une carte c.kdo pour toi !' }); return 'partage'; }
+    try { await navigator.share(CREDITS ? { url: link } : { url: link, text: 'Une carte c.kdo pour toi !' }); return 'partage'; }
     catch (err) { if (err && err.name === 'AbortError') return 'annule'; }
   }
   try { await navigator.clipboard.writeText(link); return 'copie'; }
@@ -3661,9 +3670,16 @@ function renderRecvSimple() {
   const { row, mediaUrl, msgBlock } = RECV;
   const play = !!RECV.playFx;
   RECV.playFx = false;
+  const carte = `<div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', recv: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>`;
+  /* Mode gratuit : la carte est petite, dans une bulle de message, avec le message qui l’accompagne (rien d’autre) */
+  if (CREDITS) return `
+    <div class="section recvSimple recvFree">
+      <div class="recvbubble">${carte}<div class="recvbox">${msgBlock}</div></div>
+      <div class="recvbottom" id="recvBottom">${simpleBottomHtml()}</div>
+    </div>`;
   return `
     <div class="section recvSimple">
-      <div id="recvCard">${cardMarkup({ text: row.card_text, amountText: recvAmountText(row), mediaUrl, isVideo: row.media_type === 'video', recv: true, fx: play ? [recvEffect(row), ...(row.extra_effects || [])] : [], crop: row.media_crop })}</div>
+      ${carte}
       <div class="recvbox">${msgBlock}</div>
       <div class="recvbottom" id="recvBottom">${simpleBottomHtml()}</div>
     </div>`;
@@ -3728,6 +3744,8 @@ function simpleBottomHtml() {
     else if (st.collected_at) statut = '<div class="notice">Cette carte a déjà été encaissée.</div>';
     else statut = `<div class="notice">${esc(n)} à récupérer.</div><button class="secondary" data-act="recvcollect" data-val="${esc(id)}">Récupérer ${esc(n)}</button>`;
   }
+  /* Mode gratuit : pas d’avis Kdo sur la carte reçue (la collecte se fait à l’ouverture) */
+  if (CREDITS) statut = '';
   const msg = CRED.msg && !(st && (st.collected_by === CRED.id || st.sender_account === CRED.id)) ? `<div class="message" role="status">${esc(CRED.msg)}</div>` : '';
   const cout = cartesSansKdoLibres() > 0
     ? `Votre réponse coûte ${esc(credTxt(CREDIT_CARD))}, ou une carte sans Kdo si vous en avez une.`
