@@ -71,22 +71,22 @@
   /* Formules d’options : pile de cartes (même dessin que la carte) et bouton */
   /* Achat de cartes (mode gratuit) : quatre formules ; la pile de cartes et le bouton ont la même couleur */
   .offres { display: grid; gap: 12px; margin-top: 10px; }
-  .offre { position: relative; display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border-radius: 18px; border: 1px solid transparent; font: inherit; text-align: left; color: #f5f2ec; text-decoration: none; box-sizing: border-box; }
+  .offre { position: relative; display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; align-items: center; gap: 6px; width: 100%; padding: 14px 10px; border-radius: 18px; border: 1px solid transparent; font: inherit; text-align: left; color: #f5f2ec; text-decoration: none; box-sizing: border-box; }
   button.offre:disabled { cursor: default; }
   .offre.bleue { background: #1b2b38; border-color: #2e4a5f; }
   .offre.doree { background: #2a2110; border-color: #6d5526; }
   .offre.vert { background: #14251c; border-color: #2c5c42; }
   .offre.bordeaux { background: #24121d; border-color: #5a2d4a; }
-  .offre .nom { font-size: 16px; font-weight: 650; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .offre .x { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .offre .nom { font-size: 16px; font-weight: 650; display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+  .offre .x { font-size: 11px; font-weight: 700; padding: 2px 5px; border-radius: 999px; white-space: nowrap; }
   .offre.bleue .x { background: #6ea6c9; color: #0b1822; }
   .offre.doree .x { background: #e8c272; color: #2a1d08; }
   .offre.vert .x { background: #9ddaa9; color: #0b2014; }
   .offre.bordeaux .x { background: #e3a6c6; color: #2b0f1f; }
   .offre .detail { font-size: 13px; color: #9d9ca6; margin-top: 4px; }
   .offre .prix { text-align: right; }
-  .offre .prix strong { display: block; font-size: 20px; font-weight: 700; }
-  .offre .prix span { font-size: 12px; color: #9d9ca6; white-space: nowrap; }
+  .offre .prix strong { display: block; font-size: 17px; font-weight: 700; }
+  .offre .prix span { font-size: 11px; color: #9d9ca6; white-space: nowrap; }
   .offre .meilleur { position: absolute; top: -10px; right: 14px; font-size: 11px; font-weight: 700; color: #2a1d08; background: #e8c272; padding: 3px 8px; border-radius: 6px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,.35); }
   .pk-pile { position: relative; width: 76px; height: 56px; }
   .pk-carte { position: absolute; width: 74px; aspect-ratio: 1.586 / 1; padding: 6px 7px; border-radius: 8px; overflow: hidden; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.12); }
@@ -1657,7 +1657,7 @@ function pileHtml(couleur) {
 }
 function optionButtonsHtml() {
   const formule = (f) => {
-    const corps = `${pileHtml(f.couleur)}<div><div class="nom">Carte <span class="x">× ${f.n}</span></div><div class="detail">${f.mot} cartes sans Kdo</div></div><div class="prix"><strong>${f.prix}</strong><span>${f.unitaire} la carte</span></div>`;
+    const corps = `${pileHtml(f.couleur)}<div><div class="nom">Carte <span class="x">× ${f.n}</span></div><div class="detail">Cartes sans Kdo</div></div><div class="prix"><strong>${f.prix}</strong><span>${f.unitaire} la carte</span></div>`;
     const meilleur = f.meilleur ? '<span class="meilleur">Meilleur prix par carte</span>' : '';
     const lien = PAY_LINKS[f.lien];
     return lien
