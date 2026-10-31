@@ -597,14 +597,15 @@ function shareBase() { return CONFIG.SHARE_URL || CONFIG.PUBLIC_URL || location.
 const PAY_LINKS = { option3: '', option10: '', option25: '', option50: '' };
 
 const BUCKET = 'medias';
-/* Mode de l'application, choisi par le créateur (cinq appuis sur la carte, puis code) et gardé sur cet appareil :
-   « gratuit » (mode 2, par défaut) : carte, message et effets, payés en crédits fictifs (sans valeur en euros), sans paiement.
-   « cadeau » (mode 1, réel) : cadeau payant en euros, désactivé pour le public tant qu'un partenaire de paiement n'a pas confirmé. */
-const KEY_MODE = 'ckdo.mode';
-const MODE = (() => { try { return localStorage.getItem(KEY_MODE) === 'cadeau' ? 'cadeau' : 'gratuit'; } catch (e) { return 'gratuit'; } })();
+/* Mode de l'application. Interrupteur : true = mode réel (cadeau payant en euros), false = mode gratuit (crédits fictifs, sans paiement).
+   Le mode réel reste dans le code, désactivé tant qu'un partenaire de paiement n'a pas confirmé. Plus de changement de mode depuis l'écran. */
+const MODE_REEL_ACTIF = false;
+const MODE = MODE_REEL_ACTIF ? 'cadeau' : 'gratuit';
 const CREDITS = MODE !== 'cadeau';   /* crédits : le mode gratuit */
 document.documentElement.classList.toggle('mode-gratuit', CREDITS);
 const FREE = MODE !== 'cadeau';      /* aucun paiement à la création (mode gratuit) */
+/* Achats de cartes sans Kdo en euros : masqués en version gratuite (à valider avec les règles d'Apple). true pour les réactiver. */
+const ACHAT_CARTES_SANS_KDO = false;
 /* Virement optionnel, hors application : le bloc n'apparaît qu'une fois l'IBAN renseigné ici */
 const TRANSFER = { iban: '', titulaire: '' };
 const OCCASIONS = [
@@ -693,48 +694,6 @@ const RECIPIENT_ID = new URLSearchParams(location.search).get('c');
 const PREVIEW = new URLSearchParams(location.search).get('apercu') === '1';
 const app = document.getElementById('app');
 
-/* Changement de mode (créateur) : cinq appuis rapides sur la carte de l’écran de création, puis le code à quatre chiffres */
-const SECRET_CODE = '1047';
-const SECRET_TAPS = 5;
-const SECRET_GAP_MS = 2000;   /* délai maximal entre deux appuis */
-let secretCount = 0;
-let secretLast = 0;
-function secretTap(e) {
-  if (RECV || S.step !== 'create' || !e.target.closest || !e.target.closest('.stickycard .card')) return;
-  const now = Date.now();
-  secretCount = now - secretLast <= SECRET_GAP_MS ? secretCount + 1 : 1;
-  secretLast = now;
-  if (secretCount >= SECRET_TAPS) { secretCount = 0; secretOpen(); }
-}
-function secretOpen() {
-  if (document.getElementById('secretVeil')) return;
-  const numero = MODE === 'cadeau' ? '2' : '1';
-  const cible = MODE === 'cadeau' ? 'gratuit' : 'réel';
-  const veil = document.createElement('div');
-  veil.id = 'secretVeil';
-  veil.className = 'secretveil';
-  veil.innerHTML = `<div class="secretbox" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
-      <div class="ztitle" id="secretTitle">Code</div>
-      <input id="secretCode" class="field" type="password" inputmode="numeric" autocomplete="off" maxlength="4" aria-label="Code à quatre chiffres">
-      <div class="error" id="secretErr" style="display:none">Code incorrect.</div>
-      <div class="secretbtns">
-        <button class="primary" id="secretOk" type="button">Passer au mode ${numero} (${cible})</button>
-        <button class="secondary" id="secretNo" type="button">Annuler</button>
-      </div>
-    </div>`;
-  document.body.appendChild(veil);
-  const input = veil.querySelector('#secretCode');
-  const err = veil.querySelector('#secretErr');
-  veil.querySelector('#secretNo').addEventListener('click', () => veil.remove());
-  veil.querySelector('#secretOk').addEventListener('click', () => {
-    if (input.value.trim() !== SECRET_CODE) { err.style.display = ''; input.value = ''; input.focus(); return; }
-    /* Le mode est gardé sur cet appareil ; la page est rechargée pour l’appliquer */
-    try { localStorage.setItem(KEY_MODE, MODE === 'cadeau' ? 'gratuit' : 'cadeau'); } catch (e) { /* stockage indisponible */ }
-    location.reload();
-  });
-  input.focus();
-}
-app.addEventListener('click', secretTap);
 
 /* Mémoire locale de l'appareil : tolère un stockage indisponible */
 const store = {
@@ -1842,9 +1801,9 @@ function optionsBlockHtml() {
     ${soldeCartesHtml()}
     ${lotsHtml()}
     ${rechargeHtml()}
-    <div class="label">Acheter des cartes sans Kdo</div>
+    ${ACHAT_CARTES_SANS_KDO ? `<div class="label">Acheter des cartes sans Kdo</div>
     ${optionButtonsHtml()}
-    ${payHintHtml()}
+    ${payHintHtml()}` : ''}
     ${creditCardsCount() ? `<button class="secondary" style="margin-top:10px;width:100%" data-act="mes">Mes cartes (${creditCardsCount()})</button>` : ''}
   </div>`;
 }
@@ -2894,7 +2853,7 @@ function renderCreditsAccount(backHtml) {
     const montant = x.option_card ? 'Carte sans Kdo' : credTxt(Number(x.credits));
     return `<div class="accrow"><span class="accmeta"><span class="accname">${x.recipientName ? `Carte pour ${esc(x.recipientName)}` : 'Carte envoyée'}</span><small>${esc(montant)} · ${esc(statut)}</small></span></div>`;
   }).join('');
-  const options = `
+  const options = !ACHAT_CARTES_SANS_KDO ? '' : `
       <div class="label">Acheter des cartes sans Kdo</div>
       <div>
         ${optionButtonsHtml()}
@@ -5126,12 +5085,6 @@ function recvRestHtml() {
       <div class="rowline"><span>Solde disponible</span><span>${eur(Number(row.amount))}</span></div>
       <div class="hint">${expiryText(row)} Carte non rechargeable.</div>
 
-      <div class="label">Ma carte</div>
-      <div class="grid2">
-        <button class="btn2 wallet" data-act="wallet" data-val="apple" aria-pressed="${walletState.apple}"><span>Apple Wallet</span><small>${walletState.apple ? 'Ajouté' : 'Ajouter'}</small></button>
-        <button class="btn2 wallet" data-act="wallet" data-val="google" aria-pressed="${walletState.google}"><span>Google Wallet</span><small>${walletState.google ? 'Ajouté' : 'Ajouter'}</small></button>
-      </div>
-
       <button class="secondary" data-act="transfer">Recevoir sur mon compte</button>
       <button class="secondary" data-act="acc">Mes cartes reçues</button>`;
 }
@@ -5216,6 +5169,12 @@ function drawRecv() {
   else if (recvView === 'locked') app.innerHTML = renderRecvLocked();
   else if (recvView === 'simple') { app.innerHTML = renderRecvSimple(); wireRecvSimple(); autoCollectOnce(); }
   else { app.innerHTML = renderRecvCard(); wireCardPause(); loadRecvCredit(); }
+  if (RECV) app.insertAdjacentHTML('beforeend', signalerHtml());
+}
+/* Signalement d'un contenu (exigé par Apple) : courriel prérempli avec le lien de la carte */
+function signalerHtml() {
+  const corps = `Je signale cette carte : ${location.href}`;
+  return `<div style="text-align:center;margin:28px 0 12px"><a href="mailto:contact@ckdo.me?subject=${encodeURIComponent('Signalement c.kdo')}&body=${encodeURIComponent(corps)}" style="color:var(--muted);font-size:14px">Signaler cette carte</a></div>`;
 }
 
 async function openFromAccount(id) {
