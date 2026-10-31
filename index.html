@@ -689,6 +689,7 @@ const initialState = () => ({
   schedule: false, openDate: '',
   group: false, payChosen: false, closedGroup: false, creatorName: '', collectionId: '', deadlineKey: 'none', cancelAsk: false,
   splitIndex: 0, links: [], soloMulti: false, groupCards: null, base: null, soloIds: null, people: 1,
+  created: false, lockedRemote: false, note: '', uploaded: null,
   showErrors: false, touched: new Set(), textTouched: false, askNoMsg: false,
 });
 const S = initialState();
@@ -809,6 +810,7 @@ const RPC_MSG = {
   total_depasse: `Le total ne peut pas dépasser ${MAX_AMOUNT} €.`,
   telephone_invalide: 'Indiquez un numéro de téléphone valide.',
   collecte_fermee: 'Cette collecte n’est plus ouverte.',
+  carte_deja_envoyee: 'Un lien de cette carte est déjà parti : elle ne se modifie plus.',
   limite_depassee: 'Le délai pour participer est dépassé.',
   limite_passee: 'La date limite doit être dans le futur.',
   trop_d_effets: 'Trop d’effets supplémentaires.',
@@ -2317,6 +2319,7 @@ function msgFootHtml() {
       </div>
     </div>`;
   }
+  if (CREDITS && S.created) return creditUpdateFootHtml();
   if (CREDITS) return `${footErr()}<button class="primary" data-cta data-act="submit">${S.busy ? 'Création en cours…' : 'Envoyer la carte'}</button>`;
   return `${footErr()}<button class="primary" data-cta data-act="go" data-val="recap">Continuer</button>`;
 }
@@ -2631,6 +2634,8 @@ function creditCardModified() {
 }
 /* Carte envoyée depuis cet appareil : les crédits sont débités par le serveur, puis la carte existe */
 async function submitCredits() {
+  /* Carte déjà créée : on enregistre la modification, sans nouveau paiement */
+  if (S.created) return updateCreditCards();
   if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
   /* Une carte part dès qu’un de ses éléments a été modifié ; une carte encore vierge reste à faire */
   if (!creditCardModified()) { S.error = 'Modifiez la carte avant de l’envoyer : ajoutez au moins un élément.'; return render(); }
@@ -2653,15 +2658,12 @@ async function submitCredits() {
     CRED.key = CRED.key || credKey();
     /* Média et message : envoyés une seule fois, dans le dossier de la première carte */
     let mediaPath = null;
-    if (S.mediaFile) {
-      mediaPath = `${ids[0]}/media.${extOf(S.mediaFile.type)}`;
-      await uploadOnce(mediaPath, S.mediaFile);
-    }
+    if (S.mediaFile) mediaPath = await envoyerFichier(S.mediaFile, `${ids[0]}/media`);
     const none = hasNoMessage();
     const msgType = none ? 'text' : S.msgType;
     let msgPath = null;
-    if (msgType === 'voice') { msgPath = `${ids[0]}/voice.${extOf(S.voiceBlob.type)}`; await uploadOnce(msgPath, S.voiceBlob); }
-    if (msgType === 'video') { msgPath = `${ids[0]}/msg-video.${extOf(S.msgVideoFile.type)}`; await uploadOnce(msgPath, S.msgVideoFile); }
+    if (msgType === 'voice') msgPath = await envoyerFichier(S.voiceBlob, `${ids[0]}/voice`);
+    if (msgType === 'video') msgPath = await envoyerFichier(S.msgVideoFile, `${ids[0]}/msg-video`);
     /* Sans message écrit, le texte reste vide : la base l’accepte depuis supabase-v16-messages-vides.sql */
     const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
     const base = `${CONFIG.PUBLIC_URL || location.href.split('?')[0]}?c=`;
@@ -2689,7 +2691,8 @@ async function submitCredits() {
       }
     }
     recordPhone();
-    S.links = links; S.link = links[0]; S.soloMulti = false; S.collectionId = ids[0]; S.soloIds = null;
+    /* Cartes créées : on garde leurs identifiants, pour modifier (sans payer) tant qu’aucun lien n’est parti */
+    S.links = links; S.link = links[0]; S.soloMulti = false; S.collectionId = ids[0]; S.soloIds = ids; S.created = true; S.note = '';
     S.step = 'done';
     refreshCreditsView();
   } catch (err) {
@@ -3235,7 +3238,7 @@ function saveCardEdit() {
 function screenCreateCredits() {
   const tabs = [['text', 'Écrit'], ['voice', 'Vocal'], ['video', 'Vidéo']];
   return `
-  ${hdr('', 'Créer une carte')}
+  ${hdr('', S.created ? 'Modifier la carte' : 'Créer une carte', S.created ? 'done' : '')}
   <div class="section cr crf">
     ${mesBlockHtml()}
     ${optionsBlockHtml()}
@@ -3267,6 +3270,8 @@ function screenCreateCredits() {
 }
 /* Payer la réponse ou la carte (mode gratuit) : carte Kdo (10 Kdo) ou carte sans Kdo, si le compte en a en stock. Le choix reste libre. */
 function creditOptionHtml() {
+  /* Carte déjà créée : le paiement est fait, il ne se choisit plus */
+  if (S.created) return '';
   if (!(CRED.optionCards > 0 || S.optionCard)) return '';
   const people = creditPeople();
   const need = CREDIT_CARD * people;
@@ -3289,6 +3294,8 @@ function creditOptionHtml() {
 /* Zone « Nombre de personnes », choix de paiement et erreur : seule cette zone est redessinée au clic sur « + » ou « − »,
    pour que la carte et la position de la page ne bougent pas */
 function peopleBlockInner() {
+  /* Carte déjà créée : le nombre de personnes ne change plus (une carte et un lien par personne) */
+  if (S.created) return `<div class="label">Nombre de personnes</div><div class="hint">${creditPeople()}, figé après création.</div>${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}`;
   return `${peopleHtml()}${creditOptionHtml()}${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}`;
 }
 function refreshPeopleBlock() {
@@ -3318,33 +3325,126 @@ function screenDoneCredits() {
       ? `Coût total : ${esc(credTxt(per * n))}, soit ${n} cartes de ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`
       : `Coût : ${esc(credTxt(per))}. Solde : ${esc(balanceText())}.`)
     : '';
+  /* État de chaque lien : « Envoyer » tant qu’il n’est pas parti, puis « Renvoyer » avec l’heure du premier envoi */
+  const ids = S.soloIds || [];
+  const bloc = (k) => {
+    const at = sentAt(envoisList().find((x) => x.id === ids[k]), 0);
+    const hm = at ? new Date(at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
+    const etat = at ? `<div class="hint" style="color:#9fd4b5"><b>Envoyée à ${esc(hm)}.</b> Ce lien est déjà parti. Renvoyer envoie à nouveau ce même lien, sans nouvelle carte.</div>` : '';
+    const envoi = at
+      ? `<button class="secondary" data-act="sharelink" data-val="${k}">${n > 1 ? 'Renvoyer' : 'Renvoyer la carte'}</button>`
+      : `<button class="primary" data-act="sharelink" data-val="${k}">${n > 1 ? 'Envoyer' : 'Envoyer la carte'}</button>`;
+    return `${etat}<div class="linkbtns">${envoi}<button class="secondary" data-act="copy" data-val="${k}">Copier le lien</button></div>`;
+  };
   const actions = n > 1
-    ? links.map((_, i) => `<div class="linkrow">
-        <b>Carte ${i + 1}</b>
-        <div class="linkbtns">
-          <button class="primary" data-act="sharelink" data-val="${i}">Envoyer</button>
-          <button class="secondary" data-act="copy" data-val="${i}">Copier le lien</button>
-        </div>
-      </div>`).join('')
-    : `<button class="primary" style="margin-top:12px" data-act="sharelink">Envoyer la carte</button>
-    <button class="secondary" data-act="copy">Copier le lien</button>`;
+    ? links.map((_, k) => `<div class="linkrow"><b>Carte ${k + 1}</b>${bloc(k)}</div>`).join('')
+    : `<div class="linkrow">${bloc(0)}</div>`;
   return `
   ${hdr('', n > 1 ? 'Vos cartes sont prêtes' : 'Votre carte est prête', 'create').replace('data-act="go" data-val="create"', 'data-act="backcreate"')}
   <div class="section">
     <div class="stickycard">${cardMarkup({ text: S.cardText, amountText: amountText(), mediaUrl: S.mediaUrl, isVideo: S.mediaIsVideo, fx: fxKeys(), crop: S.crop })}</div>
     ${finalMsgHtml()}
     ${cout ? `<div class="hint" style="text-align:center">${cout}</div>` : ''}
+    ${S.note ? `<div class="hint" style="text-align:center;color:#9fd4b5">${esc(S.note)}</div>` : ''}
     ${actions}
+    ${S.error ? `<div class="error">${esc(S.error)}</div>` : ''}
     <button class="secondary" data-act="reset">Créer une autre carte</button>
   </div>`;
 }
-/* Partage du lien : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas.
-   v : rang de la carte (plusieurs personnes) ; sans rang, le lien principal */
-function shareCreditLink(btn, v) {
-  const link = v === undefined ? S.link : S.links[Number(v)];
+/* Carte déjà créée (mode gratuit) : modifiable sans rien payer, tant qu’aucun lien n’est parti. Les Kdo restent ceux payés. */
+const CARTE_FIGEE = 'Un lien de cette carte est déjà parti : elle ne se modifie plus. Pour un autre contenu, créez une autre carte.';
+/* Figée dès qu’un lien a été partagé ou copié (toutes les cartes d’un envoi sont figées ensemble, elles ont le même contenu) */
+function creditLocked() {
+  if (!S.created) return false;
+  if (S.lockedRemote) return true;
+  return (S.soloIds || []).some((id) => !!sentAt(envoisList().find((x) => x.id === id), 0));
+}
+/* Fichier envoyé une seule fois : un même fichier garde son chemin. Une modification envoie un fichier nouveau, sous un nouveau nom. */
+async function envoyerFichier(blob, base) {
+  if (!S.uploaded) S.uploaded = new Map();
+  if (S.uploaded.has(blob)) return S.uploaded.get(blob);
+  const path = `${base}.${extOf(blob.type)}`;
+  await uploadOnce(path, blob);
+  S.uploaded.set(blob, path);
+  return path;
+}
+/* Enregistrement d’une carte déjà créée : aucun débit. Le serveur refuse si un lien est déjà parti. */
+async function updateCreditCards() {
+  if (!sb) { S.error = 'Le serveur n’est pas encore branché.'; return render(); }
+  if (creditLocked()) { S.error = CARTE_FIGEE; return render(); }
+  if (!creditCardModified()) { S.error = 'Modifiez la carte avant de l’enregistrer : ajoutez au moins un élément.'; return render(); }
+  const ids = S.soloIds || [];
+  const stamp = Date.now();
+  S.busy = true; S.error = ''; S.note = ''; render();
+  try {
+    CRED.key = CRED.key || credKey();
+    const mediaPath = S.mediaFile ? await envoyerFichier(S.mediaFile, `${ids[0]}/media-${stamp}`) : null;
+    const none = hasNoMessage();
+    const msgType = none ? 'text' : S.msgType;
+    let msgPath = null;
+    if (msgType === 'voice') msgPath = await envoyerFichier(S.voiceBlob, `${ids[0]}/voice-${stamp}`);
+    if (msgType === 'video') msgPath = await envoyerFichier(S.msgVideoFile, `${ids[0]}/msg-video-${stamp}`);
+    const message = none ? '' : msgType === 'text' ? S.message.trim() : msgType === 'voice' ? 'Message vocal' : 'Message vidéo';
+    const mediaType = S.mediaFile ? (S.mediaIsVideo ? 'video' : 'photo') : 'none';
+    const cardText = S.cardText.trim();
+    const mediaCrop = cropSet() ? S.crop : null;
+    const rows = ids.map((id) => ({ id, occasion: S.occasion, card_text: cardText, effect: S.fx, extra_effects: S.fxExtra,
+      media_type: mediaType, media_path: mediaPath, media_crop: mediaCrop,
+      msg_type: msgType, msg_media_path: msgPath, msg_crop: msgCropSet() ? S.msgCrop : null, message }));
+    const { error } = await sb.rpc('credit_update_cards', { p_key: CRED.key, p_cards: rows });
+    if (error) throw error;
+    ids.forEach((id) => updateItem(id, () => ({ card_text: cardText, media_type: mediaType, media_path: mediaPath, media_crop: mediaCrop })));
+    S.step = 'done'; S.note = 'Carte mise à jour. Le lien ne change pas.';
+  } catch (err) {
+    if (/carte_deja_envoyee/.test(String((err && err.message) || ''))) S.lockedRemote = true;
+    S.error = rpcMsg(err);
+  } finally {
+    S.busy = false;
+    render();
+  }
+}
+/* Pied de l’écran de création, carte déjà créée : enregistrer (gratuit), ou voir les liens si un lien est déjà parti */
+function creditUpdateFootHtml() {
+  if (creditLocked()) return `<p class="footnote">${esc(CARTE_FIGEE)}</p><button class="primary" data-cta data-act="go" data-val="done">Voir les liens</button>`;
+  return `${footErr()}<p class="footnote">Modifier est gratuit : les Kdo de la carte ne changent pas, et le lien reste le même.</p><button class="primary" data-cta data-act="submit">${S.busy ? 'Enregistrement…' : 'Enregistrer les modifications'}</button>`;
+}
+/* Lien parti (partage réussi, ou lien copié) : le serveur garde la première date et fige la carte */
+async function marquerEnvoye(k) {
+  const id = (S.soloIds || [])[k];
+  if (id && sb) {
+    try {
+      CRED.key = CRED.key || credKey();
+      const { data, error } = await sb.rpc('credit_mark_shared', { p_key: CRED.key, p_card_id: id });
+      if (error) throw error;
+      const at = (data && data.shared_at) || new Date().toISOString();
+      updateItem(id, (x) => ({ sent: [sentAt(x, 0) || at] }));
+      S.error = '';
+    } catch (err) {
+      S.error = `Le lien est parti, mais son envoi n’a pas pu être enregistré. ${rpcMsg(err)}`;
+    }
+  }
+  render();
+}
+/* Copie du lien k : le lien est considéré comme parti */
+function copyCreditLink(btn, k) {
+  const link = S.links[k];
   if (!link) return;
-  if (navigator.share) { navigator.share({ url: link, text: 'Une carte c.kdo pour toi !' }).catch(() => {}); return; }
-  copyLink(btn, link);
+  return navigator.clipboard.writeText(link)
+    .then(() => { S.note = 'Lien copié.'; return marquerEnvoye(k); })
+    .catch(() => { btn.textContent = 'Copiez le lien ci-dessus'; });
+}
+/* Partage du lien k : feuille de partage du téléphone (SMS, WhatsApp…), ou copie si elle n’existe pas.
+   Le lien n’est marqué parti que si le partage a abouti (annulé : rien ne change) */
+async function shareCreditLink(btn, v) {
+  const k = v === undefined ? 0 : Number(v);
+  if (!S.links[k]) return;
+  S.note = '';
+  if (navigator.share) {
+    try { await navigator.share({ url: S.links[k], text: 'Une carte c.kdo pour toi !' }); }
+    catch (err) { if (err && err.name === 'AbortError') return; return copyCreditLink(btn, k); }
+    return marquerEnvoye(k);
+  }
+  return copyCreditLink(btn, k);
 }
 /* Destinataire (mode gratuit) : la carte en haut, le message en bas, rien d’autre */
 function renderRecvSimple() {
@@ -4272,8 +4372,13 @@ app.addEventListener('click', (e) => {
     if (S.acctOpen) refreshCreditsView().then(() => { if (S.acctOpen && S.step === 'create') render(); });
     return;
   }
-  /* Retour depuis « Votre carte est prête » : même contenu, pas de remise à zéro */
-  if (act === 'backcreate') { if (S.recording) stopVoice(); Object.assign(S, initialState()); render(); window.scrollTo(0, 0); return; }
+  /* Retour depuis « Votre carte est prête » : même contenu, rien n’est remis à zéro (la carte se modifie, si aucun lien n’est parti) */
+  if (act === 'backcreate') {
+    if (S.recording) stopVoice();
+    /* Carte figée (un lien est parti) : on reste sur les liens, avec l’explication */
+    if (creditLocked()) { S.error = CARTE_FIGEE; return render(); }
+    S.step = 'create'; S.error = ''; S.note = ''; render(); window.scrollTo(0, 0); return;
+  }
   if (act === 'camopen') return startLive();
   if (act === 'cardfilm') return startLive('card', 'video');
   if (act === 'cardphoto') return startLive('card', 'photo');
@@ -4296,7 +4401,7 @@ app.addEventListener('click', (e) => {
     return CREDITS ? submitCredits() : submit();
   }
   if (act === 'sharelink') return shareCreditLink(el, v);
-  if (act === 'copy') return copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
+  if (act === 'copy') return CREDITS ? copyCreditLink(el, v === undefined ? 0 : Number(v)) : copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
   if (act === 'copygrp') return copyGroupLink(el, v);
   if (act === 'sharegrp') return shareGroup(el);
   if (act === 'gopay') {
@@ -4995,7 +5100,8 @@ function saveDraft() {
   clearTimeout(draftTimer);
   /* Pas de brouillon pendant qu'une adresse de collecte est ouverte (lien de gestion ou lien d'ami) */
   if (GROUP_ID || MANAGE_KEY || RECIPIENT_ID) return;
-  if (S.step === 'done') return clearDraft();
+  /* Carte déjà créée : pas de brouillon (ses photos et messages ne seraient pas repris) */
+  if (S.step === 'done' || S.created) return clearDraft();
   if (!DRAFT_STEPS.includes(S.step)) return;
   /* Édition d'une carte suivante : le brouillon garde la carte de base et revient à la liste des cartes */
   const src = S.step === 'cardedit' && S.base ? { ...S, ...S.base, step: 'cards', editCard: null } : S;
