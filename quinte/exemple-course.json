@@ -1,0 +1,87 @@
+{
+  "_avertissement": "Données FICTIVES pour tester l'application. Ce ne sont pas de vrais partants ni de vrais résultats.",
+  "date": "2026-11-04",
+  "hippodrome": "Hippodrome Exemple",
+  "libelle": "Prix de démonstration (quinté fictif)",
+  "discipline": "plat",
+  "distance": 2100,
+  "terrain": "souple",
+  "corde": "droite",
+  "partants": [
+    {
+      "numero": 1,
+      "nom": "Alpha Fictif",
+      "historique": [
+        { "date": "2026-10-20", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 1, "partants": 9 },
+        { "date": "2026-09-28", "hippodrome": "Autre Hippodrome", "distance": 2400, "terrain": "bon", "corde": "gauche", "discipline": "plat", "place": 3, "partants": 10 },
+        { "date": "2026-09-08", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 2, "partants": 8 },
+        { "date": "2026-08-15", "hippodrome": "Autre Hippodrome", "distance": 1800, "terrain": "lourd", "corde": "droite", "discipline": "plat", "place": 6, "partants": 12 }
+      ]
+    },
+    {
+      "numero": 2,
+      "nom": "Bravo Fictif",
+      "historique": [
+        { "date": "2026-10-25", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "collant", "corde": "gauche", "discipline": "plat", "place": 2, "partants": 11 },
+        { "date": "2026-10-05", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "lourd", "corde": "droite", "discipline": "plat", "place": 1, "partants": 7 },
+        { "date": "2026-09-10", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "souple", "corde": "gauche", "discipline": "plat", "place": 4, "partants": 9 },
+        { "date": "2026-08-01", "hippodrome": "Autre Hippodrome", "distance": 2000, "terrain": "bon", "corde": "gauche", "discipline": "plat", "place": 5, "partants": 10 }
+      ]
+    },
+    {
+      "numero": 3,
+      "nom": "Charlie Fictif",
+      "historique": [
+        { "date": "2026-10-18", "hippodrome": "Hippodrome Exemple", "distance": 2400, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 4, "partants": 10 },
+        { "date": "2026-09-20", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "bon", "corde": "droite", "discipline": "plat", "place": 2, "partants": 9 },
+        { "date": "2026-08-22", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 3, "partants": 8 },
+        { "date": "2026-07-30", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "bon", "corde": "gauche", "discipline": "plat", "place": 9, "partants": 10 },
+        { "date": "2026-07-10", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 1, "partants": 8 }
+      ]
+    },
+    {
+      "numero": 4,
+      "nom": "Delta Fictif",
+      "historique": [
+        { "date": "2026-10-30", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": "D", "partants": 9 },
+        { "date": "2026-10-01", "hippodrome": "Autre Hippodrome", "distance": 1600, "terrain": "bon", "corde": "gauche", "discipline": "plat", "place": 1, "partants": 6 },
+        { "date": "2026-09-01", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "lourd", "corde": "gauche", "discipline": "plat", "place": 7, "partants": 11 }
+      ]
+    },
+    {
+      "numero": 5,
+      "nom": "Echo Fictif",
+      "historique": [
+        { "date": "2026-10-22", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 3, "partants": 10 },
+        { "date": "2026-09-30", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 2, "partants": 9 },
+        { "date": "2026-09-12", "hippodrome": "Hippodrome Exemple", "distance": 2000, "terrain": "bon", "corde": "droite", "discipline": "plat", "place": 1, "partants": 8 },
+        { "date": "2026-08-20", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "souple", "corde": "gauche", "discipline": "plat", "place": 5, "partants": 9 },
+        { "date": "2026-08-02", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 2, "partants": 10 }
+      ]
+    },
+    {
+      "numero": 6,
+      "nom": "Foxtrot Fictif",
+      "historique": [
+        { "date": "2026-10-10", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "lourd", "corde": "gauche", "discipline": "plat", "place": 1, "partants": 8 },
+        { "date": "2026-09-14", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "collant", "corde": "gauche", "discipline": "plat", "place": 2, "partants": 9 },
+        { "date": "2026-08-18", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "lourd", "corde": "gauche", "discipline": "plat", "place": 1, "partants": 10 }
+      ]
+    },
+    {
+      "numero": 7,
+      "nom": "Golf Fictif",
+      "historique": [
+        { "date": "2026-10-27", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 5, "partants": 9 },
+        { "date": "2026-09-22", "hippodrome": "Hippodrome Exemple", "distance": 2100, "terrain": "souple", "corde": "droite", "discipline": "plat", "place": 6, "partants": 10 },
+        { "date": "2026-08-30", "hippodrome": "Autre Hippodrome", "distance": 2400, "terrain": "bon", "corde": "gauche", "discipline": "plat", "place": 8, "partants": 11 },
+        { "date": "2026-07-25", "hippodrome": "Autre Hippodrome", "distance": 2100, "terrain": "souple", "corde": "gauche", "discipline": "plat", "place": 4, "partants": 9 }
+      ]
+    },
+    {
+      "numero": 8,
+      "nom": "Hotel Fictif",
+      "historique": []
+    }
+  ]
+}

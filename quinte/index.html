@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analyse quinté</title>
+<meta name="description" content="Analyse de performance du quinté du jour : forme, terrain, distance, corde. Sans tenir compte des cotes.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #F6F6F8;
+    --surface: #FFFFFF;
+    --line: #E2E2E7;
+    --text: #1C1C21;
+    --muted: #6B6B76;
+    --accent: #2F5DA8;
+    --accent-bg: #E6EEFA;
+    --good: #2E7D4F;
+    --warn: #A15C00;
+    --warn-bg: #FFF4E0;
+    --bad: #B42318;
+    --bar: #2F5DA8;
+    --bar-bg: #E2E2E7;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111113;
+      --surface: #1B1B20;
+      --line: #2A2A2E;
+      --text: #F4F4F5;
+      --muted: #8E8E93;
+      --accent: #9CC6FF;
+      --accent-bg: #14233A;
+      --good: #6FD39A;
+      --warn: #F5B452;
+      --warn-bg: #2E2410;
+      --bad: #FF8A80;
+      --bar: #9CC6FF;
+      --bar-bg: #2A2A2E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111113;
+    --surface: #1B1B20;
+    --line: #2A2A2E;
+    --text: #F4F4F5;
+    --muted: #8E8E93;
+    --accent: #9CC6FF;
+    --accent-bg: #14233A;
+    --good: #6FD39A;
+    --warn: #F5B452;
+    --warn-bg: #2E2410;
+    --bad: #FF8A80;
+    --bar: #9CC6FF;
+    --bar-bg: #2A2A2E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  label { font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px; }
+  textarea {
+    width: 100%; min-height: 180px; resize: vertical;
+    font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--text); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 8px; padding: 10px;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+  button, .btn {
+    font: inherit; font-size: 14px; font-weight: 600;
+    padding: 9px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) button.primary { color: #0B1A33; }
+  }
+  button:focus-visible, input[type=file]:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  input[type=file] { font-size: 14px; max-width: 100%; }
+  .error {
+    background: var(--warn-bg); color: var(--bad);
+    border-radius: 8px; padding: 10px 12px; margin-top: 12px; display: none;
+    font-size: 14px;
+  }
+  .error.show { display: block; }
+  .warnings { margin: 8px 0 0; padding-left: 18px; color: var(--warn); font-size: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .chip {
+    font-size: 13px; padding: 3px 10px; border-radius: 999px;
+    background: var(--accent-bg); color: var(--accent);
+  }
+  .pronos { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 640px) { .pronos { grid-template-columns: 1fr 1fr; } }
+  .label { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  .ordre { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }
+  .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 36px; height: 36px; padding: 0 8px; border-radius: 8px;
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .num { color: #0B1A33; }
+  }
+  :root[data-theme="dark"] .num { color: #0B1A33; }
+  .num.muted { background: var(--bar-bg); color: var(--text); }
+  .jeu-type { font-size: 18px; font-weight: 700; margin: 4px 0; }
+  .muted-text { color: var(--muted); font-size: 14px; }
+  .horse { border-top: 1px solid var(--line); }
+  .horse:first-of-type { border-top: none; }
+  .horse summary {
+    list-style: none; cursor: pointer; display: grid;
+    grid-template-columns: 34px 1fr; gap: 10px; padding: 12px 0;
+  }
+  .horse summary::-webkit-details-marker { display: none; }
+  .rang { font-weight: 700; color: var(--muted); font-size: 13px; padding-top: 2px; }
+  .hname { font-weight: 700; }
+  .hmeta { font-size: 13px; color: var(--muted); }
+  .bar { height: 8px; background: var(--bar-bg); border-radius: 999px; overflow: hidden; margin: 6px 0 4px; }
+  .bar > span { display: block; height: 100%; background: var(--bar); border-radius: 999px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; font-size: 12px; }
+  .tag { padding: 1px 7px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); }
+  .tag.good { color: var(--good); border-color: var(--good); }
+  .tag.bad { color: var(--bad); border-color: var(--bad); }
+  .details { padding: 0 0 14px 44px; font-size: 14px; }
+  .details table { width: 100%; border-collapse: collapse; }
+  .details td { padding: 5px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .details td:first-child { color: var(--muted); width: 45%; padding-right: 10px; }
+  .details td:last-child { font-variant-numeric: tabular-nums; }
+  .comment { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+  .foot { color: var(--muted); font-size: 13px; margin-top: 24px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Analyse du quinté</h1>
+  <p class="sub">Notation de la performance des chevaux : forme, terrain, distance, corde, hippodrome, fraîcheur. Les cotes ne sont pas prises en compte.</p>
+
+  <section class="card" aria-labelledby="h-data">
+    <h2 id="h-data">1. Données de la course</h2>
+    <label for="json">Coller le JSON de la course (format décrit dans le README)</label>
+    <textarea id="json" spellcheck="false" placeholder='{"date": "2026-11-04", "hippodrome": "...", "distance": 2100, "terrain": "souple", "corde": "droite", "partants": [ ... ]}'></textarea>
+    <div class="actions">
+      <button type="button" id="btn-exemple">Charger l'exemple fictif</button>
+      <label class="btn" for="file" style="margin:0;font-weight:600">Ouvrir un fichier .json</label>
+      <input type="file" id="file" accept=".json,application/json" class="hidden">
+      <button type="button" class="primary" id="btn-analyser">Analyser la course</button>
+    </div>
+    <div class="error" id="erreur" role="alert"></div>
+  </section>
+
+  <div id="resultats" class="hidden">
+    <section class="card" aria-labelledby="h-course">
+      <h2 id="h-course">Course</h2>
+      <div class="chips" id="chips"></div>
+      <ul class="warnings" id="avertissements"></ul>
+    </section>
+
+    <section class="card" aria-labelledby="h-prono">
+      <h2 id="h-prono">2. Pronostic et jeu conseillé</h2>
+      <div class="pronos">
+        <div>
+          <div class="label">Ordre d'arrivée probable</div>
+          <div class="ordre" id="ordre"></div>
+          <p class="muted-text" id="a-surveiller"></p>
+        </div>
+        <div>
+          <div class="label">Jeu conseillé</div>
+          <div class="jeu-type" id="jeu-type"></div>
+          <div class="ordre" id="jeu-sel"></div>
+          <p class="muted-text" id="jeu-just"></p>
+          <p class="muted-text" id="jeu-alt"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-analyse">
+      <h2 id="h-analyse">3. Analyse par cheval</h2>
+      <p class="muted-text" style="margin-top:-6px">Touchez un cheval pour voir le détail de sa note.</p>
+      <div id="chevaux"></div>
+    </section>
+
+    <p class="foot" id="note"></p>
+  </div>
+
+  <p class="foot">Outil d'aide à l'analyse, sans garantie de résultat. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+</main>
+
+<script src="engine.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var STORAGE_KEY = 'quinte-dernier-json';
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function pct(x) { return Math.round(x * 100); }
+
+  function montrerErreur(msg) {
+    var el = $('erreur');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+  function cacherErreur() { $('erreur').classList.remove('show'); }
+
+  function afficherChips(c) {
+    var items = [c.date, c.hippodrome, c.discipline, c.distance ? c.distance + ' m' : null,
+      c.terrain ? 'terrain ' + c.terrain : null, c.corde ? 'corde ' + c.corde : null];
+    $('chips').innerHTML = items.filter(Boolean).map(function (t) {
+      return '<span class="chip">' + esc(t) + '</span>';
+    }).join('');
+  }
+
+  function numeroPastille(n, muted) {
+    return '<span class="num' + (muted ? ' muted' : '') + '">' + esc(n) + '</span>';
+  }
+
+  function afficherPronos(r) {
+    $('ordre').innerHTML = r.ordreProbable.map(function (n) { return numeroPastille(n); }).join('');
+    var par = {};
+    r.chevaux.forEach(function (c) { par[c.numero] = c; });
+    $('a-surveiller').textContent = r.aSurveiller.length
+      ? 'À surveiller : ' + r.aSurveiller.map(function (n) { return 'n°' + n + ' ' + par[n].nom; }).join(', ') + '.'
+      : '';
+    $('jeu-type').textContent = r.jeu.type;
+    $('jeu-sel').innerHTML = r.jeu.selection.map(function (n) { return numeroPastille(n); }).join('');
+    $('jeu-just').textContent = r.jeu.justification;
+    $('jeu-alt').textContent = r.jeu.alternative ? 'Alternative : ' + r.jeu.alternative : '';
+  }
+
+  var LIB_TAGS = { forme: 'Forme', regularite: 'Régularité', terrain: 'Terrain', distance: 'Distance',
+    corde: 'Corde', hippodrome: 'Hippodrome', fraicheur: 'Fraîcheur' };
+
+  function afficherChevaux(r) {
+    $('chevaux').innerHTML = r.chevaux.map(function (c) {
+      var lignes = Object.keys(c.composantes).map(function (k) {
+        var v = c.composantes[k];
+        var note = v.valeur === null ? 'n.d.' : pct(v.valeur) + '/100';
+        return '<tr><td>' + esc(LIB_TAGS[k]) + '</td><td>' + esc(v.detail) + ' — <strong>' + note + '</strong></td></tr>';
+      }).join('');
+      var tags = c.forces.map(function (f) { return '<span class="tag good">+ ' + esc(f) + '</span>'; })
+        .concat(c.faiblesses.map(function (f) { return '<span class="tag bad">− ' + esc(f) + '</span>'; })).join('');
+      return '<details class="horse">' +
+        '<summary>' +
+          '<span class="rang">' + c.rang + '</span>' +
+          '<span>' +
+            '<span class="hname">n°' + esc(c.numero) + ' ' + esc(c.nom) + '</span> ' +
+            '<span class="hmeta">· note ' + pct(c.score) + '/100 · confiance ' + esc(c.confiance) + ' · ' + c.nbCourses + ' course(s)</span>' +
+            '<div class="bar" aria-hidden="true"><span style="width:' + pct(c.score) + '%"></span></div>' +
+            '<div class="tags">' + tags + '</div>' +
+          '</span>' +
+        '</summary>' +
+        '<div class="details">' +
+          '<table>' + lignes + '</table>' +
+          '<p class="comment">' + esc(c.commentaire) + '</p>' +
+        '</div>' +
+      '</details>';
+    }).join('');
+  }
+
+  function analyser(texte) {
+    cacherErreur();
+    var data;
+    try { data = JSON.parse(texte); }
+    catch (e) { montrerErreur('JSON invalide : ' + e.message); return null; }
+    try { return QuinteEngine.analyserCourse(data); }
+    catch (e) { montrerErreur(e.message); return null; }
+  }
+
+  function rendre(texte) {
+    var r = analyser(texte);
+    if (!r) return;
+    afficherChips(r.course);
+    $('avertissements').innerHTML = r.avertissements.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('');
+    afficherPronos(r);
+    afficherChevaux(r);
+    $('note').textContent = r.note;
+    $('resultats').classList.remove('hidden');
+    try { localStorage.setItem(STORAGE_KEY, texte); } catch (e) { /* stockage indisponible : on ignore */ }
+  }
+
+  $('btn-exemple').addEventListener('click', function () {
+    fetch('exemple-course.json').then(function (r) { return r.text(); }).then(function (t) {
+      $('json').value = t;
+      rendre(t);
+    }).catch(function () {
+      montrerErreur("Impossible de charger l'exemple. Ouvrez la page via un serveur web ou collez le JSON à la main.");
+    });
+  });
+
+  $('file').addEventListener('change', function (ev) {
+    var f = ev.target.files && ev.target.files[0];
+    if (!f) return;
+    var lecteur = new FileReader();
+    lecteur.onload = function () { $('json').value = lecteur.result; rendre(lecteur.result); };
+    lecteur.readAsText(f);
+  });
+
+  $('btn-analyser').addEventListener('click', function () {
+    var t = $('json').value.trim();
+    if (!t) { montrerErreur('Collez le JSON de la course ou chargez l\'exemple.'); return; }
+    rendre(t);
+  });
+
+  try {
+    var memo = localStorage.getItem(STORAGE_KEY);
+    if (memo) { $('json').value = memo; }
+  } catch (e) { /* ignore */ }
+})();
+</script>
+</body>
+</html>
