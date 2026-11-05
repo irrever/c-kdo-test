@@ -83,6 +83,13 @@ details li{margin-bottom:6px}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 
+.onglets{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.onglets button{font:inherit;font-size:13.5px;font-weight:600;padding:8px 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer}
+.onglets button[aria-selected="true"]{background:var(--bleu);border-color:var(--bleu);color:#ffffff}
+.onglets button:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}
+[hidden]{display:none!important}
+
+
 .partie{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 2px 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
 .partie.resultat{color:var(--bleu);border-bottom-color:var(--bleu)}
 .res-tab{width:100%;border-collapse:collapse;font-size:13.5px}
@@ -165,8 +172,9 @@ td,th{padding:8px 6px}
 }
 </style></head><body><main>
 
+@@onglets@@
 @@partie_resultat@@
-<div class="partie">Analyse avant la course</div>
+<div class="vue" data-vue="analyse">
 <section class="card accent-bleu">
   <div class="label">1 · Quinté+ : les 5 premiers</div>
   <h2>Ordre d'arrivée probable</h2>
@@ -255,7 +263,20 @@ td,th{padding:8px 6px}
 
 
 <p class="foot">Les cotes ne sont pas utilisées. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
-</main></body></html>
+</div>
+</main>
+<script>
+(function(){
+  var boutons=document.querySelectorAll(".onglets button");
+  boutons.forEach(function(b){
+    b.addEventListener("click",function(){
+      boutons.forEach(function(x){x.setAttribute("aria-selected", x===b ? "true" : "false");});
+      document.querySelectorAll("[data-vue]").forEach(function(v){ v.hidden = (v.getAttribute("data-vue") !== b.getAttribute("data-cible")); });
+    });
+  });
+})();
+</script>
+</body></html>
 """
 
 LIBELLES = {
@@ -647,8 +668,7 @@ def _resultat_html(course, lignes, date, chemin_page):
     """Partie résultat : arrivée, rapports, et comparaison avec le pronostic figé avant la course."""
     arrivee = _arrivee_page(course)
     if not arrivee:
-        return ("<div class='partie resultat'>Résultat et rapports</div>"
-                "<section class='card accent-bleu'><div class='label'>Résultat</div>"
+        return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
                 "<h2>Arrivée non encore connue</h2>"
                 "<p class='note'>Le résultat officiel et les rapports apparaîtront ici dès l'arrivée. "
                 "L'analyse ci-dessous reste celle faite avant la course.</p></section>")
@@ -705,8 +725,7 @@ def _resultat_html(course, lignes, date, chemin_page):
 
     rapports_bloc = ("<table class='res-tab'><thead><tr><th>Pari</th><th>Combinaison</th><th class='n'>Mises totales</th></tr></thead><tbody>%s</tbody></table>" % rap_html
                      if rap_html else "<p class='note'>Rapports officiels non disponibles dans la page.</p>")
-    return ("<div class='partie resultat'>Résultat et rapports</div>"
-            "<section class='card accent-bleu'><div class='label'>Résultat officiel</div>"
+    return ("<section class='card accent-bleu'><div class='label'>Résultat officiel</div>"
             "<h2>Arrivée</h2><p class='note'>%s</p>"
             "<h2 style='margin-top:14px'>Rapports</h2>%s"
             "<h2 style='margin-top:14px'>Comparaison avec l'analyse</h2>%s%s</section>") % (
@@ -797,11 +816,12 @@ def generer(chemin_page):
         "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
-        "partie_resultat": _resultat_html(course, lignes, date, chemin_page),
+        "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _resultat_html(course, lignes, date, chemin_page) + "</div>",
+        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button></div>",
         "analyses": analyses_html,
         "jeux": jeux_html,
     }
-    page = GABARIT.replace("@@partie_resultat@@", "@@partie_resultat@@")
+    page = GABARIT
     for cle, valeur in valeurs.items():
         page = page.replace("@@%s@@" % cle, str(valeur))
     return _ajouter_navigation(page)
