@@ -39,7 +39,7 @@ GABARIT = """<!doctype html>
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
   padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 main{max-width:960px;margin:0 auto;padding-top:20px}
-.hero{background:#2a5ca8;color:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:14px;border:1px solid #224d8f}
+.hero{background:#1f3a5f;color:#f2f4f8;border-radius:10px;padding:20px 22px;margin-bottom:14px;border:1px solid #16294a}
 .hero h1{font-size:22px;margin:0 0 6px}
 .hero p{margin:0;opacity:.92}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -58,8 +58,8 @@ h2{font-size:17px;margin:0 0 10px}
 .zones a{color:var(--bleu);text-decoration:none;font-size:13px;font-weight:600;padding:5px 10px;border-radius:6px}
 .zones a:hover{background:var(--bleu-bg)}
 section{scroll-margin-top:64px}
-.pastille.r1{background:#163d75}
-.pastille.r2{background:var(--bleu)}
+.pastille.r1{background:var(--or)}
+.pastille.r2{background:var(--vert)}
 .pastille.box{background:var(--violet)}
 .pastille.gris{background:var(--gris)}
 .jeu-titre{font-size:19px;font-weight:700;color:var(--text)}
