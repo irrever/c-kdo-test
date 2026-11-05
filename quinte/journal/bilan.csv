@@ -1,0 +1,2 @@
+date;hippodrome;partants;ordre_predit;ordre_reel;vainqueur_predit;p_vainqueur_reel;log_loss_gagnant;brier_top3;rappel_top3_predit;pronostic_fige;retroactif
+2026-11-04;NANTES;10;7-3-11-12-6;12-8-6-3-7;7;0.1139;2.1723;0.2103;0.0;2026-11-05T01:15:54;True

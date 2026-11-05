@@ -1,0 +1,296 @@
+{
+ "date": "2026-11-04",
+ "retroactif": true,
+ "fige_le": "2026-11-05T01:15:54",
+ "hippodrome": "NANTES",
+ "course": "R1C2",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.0,
+   "aptitudes": 0.25,
+   "forme_cheval": 0.25,
+   "chronos": 0.2,
+   "tandem": 0.1,
+   "conditions": 0.1,
+   "bruits_ecuries": 0.1
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 7,
+   "nom": "KARNAC WOOD",
+   "score": 0.8130000000000001,
+   "p_victoire": 0.21466,
+   "p_top3": 0.562575,
+   "p_top5": 0.802625
+  },
+  {
+   "numero": 3,
+   "nom": "HAPPY FACE",
+   "score": 0.6920000000000002,
+   "p_victoire": 0.132785,
+   "p_top3": 0.393465,
+   "p_top5": 0.637275
+  },
+  {
+   "numero": 11,
+   "nom": "HORATIUS D'ELA",
+   "score": 0.6630000000000001,
+   "p_victoire": 0.11869,
+   "p_top3": 0.357715,
+   "p_top5": 0.593805
+  },
+  {
+   "numero": 12,
+   "nom": "IBISCUS MAN",
+   "score": 0.6560000000000002,
+   "p_victoire": 0.11392,
+   "p_top3": 0.3485,
+   "p_top5": 0.583295
+  },
+  {
+   "numero": 6,
+   "nom": "JENTIL DIESCHOOT",
+   "score": 0.6335000000000001,
+   "p_victoire": 0.10527,
+   "p_top3": 0.32365,
+   "p_top5": 0.547815
+  },
+  {
+   "numero": 8,
+   "nom": "KELLE BEAUTE",
+   "score": 0.6115,
+   "p_victoire": 0.096415,
+   "p_top3": 0.299585,
+   "p_top5": 0.5161
+  },
+  {
+   "numero": 9,
+   "nom": "HARMONY LA NUIT",
+   "score": 0.5160000000000001,
+   "p_victoire": 0.06605,
+   "p_top3": 0.213955,
+   "p_top5": 0.38771
+  },
+  {
+   "numero": 2,
+   "nom": "IDOLE DE MEAT",
+   "score": 0.5060000000000001,
+   "p_victoire": 0.06413,
+   "p_top3": 0.20654,
+   "p_top5": 0.37532
+  },
+  {
+   "numero": 4,
+   "nom": "HAPPY DANOVER",
+   "score": 0.42800000000000005,
+   "p_victoire": 0.0453,
+   "p_top3": 0.15164,
+   "p_top5": 0.28611
+  },
+  {
+   "numero": 5,
+   "nom": "JANE AIMEE",
+   "score": 0.4110000000000001,
+   "p_victoire": 0.04278,
+   "p_top3": 0.142375,
+   "p_top5": 0.269945
+  }
+ ],
+ "ordre_predit": [
+  7,
+  3,
+  11,
+  12,
+  6
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     7,
+     3,
+     11
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.03515,
+    "par_combinaison": 0.03515
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.11502,
+    "par_combinaison": 0.028755
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.23912,
+    "par_combinaison": 0.023912
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.406195,
+    "par_combinaison": 0.020309749999999998
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.02772,
+    "par_combinaison": 0.02772
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.10712,
+    "par_combinaison": 0.021424000000000002
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.2538,
+    "par_combinaison": 0.01692
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8,
+     9
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.41113,
+    "par_combinaison": 0.01174657142857143
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.030125,
+    "par_combinaison": 0.030125
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.132235,
+    "par_combinaison": 0.022039166666666665
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8,
+     9
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.28029,
+    "par_combinaison": 0.013347142857142856
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8,
+     9,
+     2
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.502955,
+    "par_combinaison": 0.008981339285714287
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     7,
+     3,
+     11,
+     12,
+     6,
+     8,
+     9,
+     2,
+     4
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.730055,
+    "par_combinaison": 0.005794087301587302
+   }
+  ]
+ }
+}

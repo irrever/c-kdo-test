@@ -1,0 +1,352 @@
+{
+ "date": "2026-11-05",
+ "retroactif": false,
+ "fige_le": "2026-11-05T01:16:05",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C1",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.0,
+   "aptitudes": 0.25,
+   "forme_cheval": 0.25,
+   "chronos": 0.2,
+   "tandem": 0.1,
+   "conditions": 0.1,
+   "bruits_ecuries": 0.1
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 6,
+   "nom": "HUMANITY PELLINI",
+   "score": 0.9330000000000002,
+   "p_victoire": 0.1568,
+   "p_top3": 0.42437,
+   "p_top5": 0.631245
+  },
+  {
+   "numero": 4,
+   "nom": "JOKER DES CHALIERS",
+   "score": 0.7955,
+   "p_victoire": 0.09027,
+   "p_top3": 0.265815,
+   "p_top5": 0.43388
+  },
+  {
+   "numero": 5,
+   "nom": "EVERY TIME WINNER",
+   "score": 0.7715,
+   "p_victoire": 0.082795,
+   "p_top3": 0.244525,
+   "p_top5": 0.403135
+  },
+  {
+   "numero": 9,
+   "nom": "READY STAR",
+   "score": 0.7615000000000002,
+   "p_victoire": 0.079735,
+   "p_top3": 0.237935,
+   "p_top5": 0.39134
+  },
+  {
+   "numero": 12,
+   "nom": "KAXIG IN",
+   "score": 0.7465000000000003,
+   "p_victoire": 0.074295,
+   "p_top3": 0.22332,
+   "p_top5": 0.371955
+  },
+  {
+   "numero": 17,
+   "nom": "NIAGARA RIVER",
+   "score": 0.7380000000000002,
+   "p_victoire": 0.07128,
+   "p_top3": 0.21727,
+   "p_top5": 0.36338
+  },
+  {
+   "numero": 14,
+   "nom": "KNOCKONWOOD",
+   "score": 0.6540000000000001,
+   "p_victoire": 0.05132,
+   "p_top3": 0.158415,
+   "p_top5": 0.272325
+  },
+  {
+   "numero": 7,
+   "nom": "JUSSEO",
+   "score": 0.6465000000000002,
+   "p_victoire": 0.04998,
+   "p_top3": 0.154385,
+   "p_top5": 0.26319
+  },
+  {
+   "numero": 3,
+   "nom": "MATEO DI QUATTRO",
+   "score": 0.6410000000000002,
+   "p_victoire": 0.04932,
+   "p_top3": 0.15231,
+   "p_top5": 0.25986
+  },
+  {
+   "numero": 16,
+   "nom": "ZOOM DIAMANT",
+   "score": 0.6355000000000001,
+   "p_victoire": 0.04768,
+   "p_top3": 0.147835,
+   "p_top5": 0.256005
+  },
+  {
+   "numero": 11,
+   "nom": "KIRA BO FACE",
+   "score": 0.6285000000000002,
+   "p_victoire": 0.04693,
+   "p_top3": 0.14575,
+   "p_top5": 0.250635
+  },
+  {
+   "numero": 1,
+   "nom": "KOTKIE",
+   "score": 0.6020000000000002,
+   "p_victoire": 0.042155,
+   "p_top3": 0.131515,
+   "p_top5": 0.22812
+  },
+  {
+   "numero": 15,
+   "nom": "COMPETIVO",
+   "score": 0.5695,
+   "p_victoire": 0.037115,
+   "p_top3": 0.11628,
+   "p_top5": 0.202455
+  },
+  {
+   "numero": 10,
+   "nom": "DIE HARD (ITY)",
+   "score": 0.5610000000000002,
+   "p_victoire": 0.036065,
+   "p_top3": 0.112335,
+   "p_top5": 0.195955
+  },
+  {
+   "numero": 8,
+   "nom": "HINDEN",
+   "score": 0.5380000000000001,
+   "p_victoire": 0.031625,
+   "p_top3": 0.100695,
+   "p_top5": 0.178575
+  },
+  {
+   "numero": 2,
+   "nom": "ISIS D'HERFRAIE",
+   "score": 0.5220000000000001,
+   "p_victoire": 0.029925,
+   "p_top3": 0.095345,
+   "p_top5": 0.16954
+  },
+  {
+   "numero": 18,
+   "nom": "JUNKIE (SWE)",
+   "score": 0.44850000000000007,
+   "p_victoire": 0.02271,
+   "p_top3": 0.0719,
+   "p_top5": 0.128405
+  }
+ ],
+ "ordre_predit": [
+  6,
+  4,
+  5,
+  9,
+  12
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     6,
+     4,
+     5
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.010175,
+    "par_combinaison": 0.010175
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.033535,
+    "par_combinaison": 0.00838375
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.07089,
+    "par_combinaison": 0.007089
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.12487,
+    "par_combinaison": 0.0062435
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00467,
+    "par_combinaison": 0.00467
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.018215,
+    "par_combinaison": 0.0036429999999999995
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.04598,
+    "par_combinaison": 0.0030653333333333335
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17,
+     14
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.079615,
+    "par_combinaison": 0.0022747142857142857
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00276,
+    "par_combinaison": 0.00276
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.012845,
+    "par_combinaison": 0.0021408333333333336
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17,
+     14
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.029765,
+    "par_combinaison": 0.0014173809523809523
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17,
+     14,
+     7
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.057645,
+    "par_combinaison": 0.0010293750000000001
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     6,
+     4,
+     5,
+     9,
+     12,
+     17,
+     14,
+     7,
+     3
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.100235,
+    "par_combinaison": 0.000795515873015873
+   }
+  ]
+ }
+}

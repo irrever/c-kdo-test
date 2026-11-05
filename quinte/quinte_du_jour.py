@@ -36,6 +36,8 @@ def charger(date):
     with open(sortie, "w", encoding="utf-8") as f:
         f.write(rapport.generer(chemin_brut))
     print("écrit :", sortie)
+    import suivi
+    suivi.enregistrer_pronostic(date)  # fige le pronostic avant la course
     return sortie
 
 
