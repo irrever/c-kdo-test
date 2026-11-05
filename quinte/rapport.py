@@ -274,6 +274,53 @@ def _charger_elo_trot_attele():
     return elo
 
 
+# Coordonnées approximatives des hippodromes (pour la météo). Un hippodrome absent du dictionnaire n'a pas de météo.
+HIPPODROMES = {
+    "PARIS-VINCENNES": (48.8431, 2.4378), "VINCENNES": (48.8431, 2.4378),
+    "AUTEUIL": (48.8489, 2.2506), "PARISLONGCHAMP": (48.8536, 2.2148), "SAINT-CLOUD": (48.8410, 2.2030),
+    "CHANTILLY": (49.1936, 2.4600), "ENGHIEN": (48.9700, 2.3000), "MAISONS-LAFFITTE": (48.9480, 2.1420),
+    "FONTAINEBLEAU": (48.4080, 2.6900), "DEAUVILLE": (49.3561, 0.0745), "CAEN": (49.1830, -0.3700),
+    "LAVAL": (48.0600, -0.7700), "NANTES": (47.2360, -1.5000), "CAGNES-SUR-MER": (43.6664, 7.1490),
+    "PAU": (43.3160, -0.3450), "AVIGNON": (43.9490, 4.8090), "TOULOUSE": (43.6050, 1.4330),
+    "COMPIEGNE": (49.4180, 2.8260), "SEDAN": (49.7020, 4.9420), "AMIENS": (49.8940, 2.3000),
+}
+
+
+def _meteo_course(hippodrome, date):
+    """Pluie, vent, température et terrain probable, à partir de la prévision Open-Meteo."""
+    import json
+    import urllib.request
+    coord = HIPPODROMES.get((hippodrome or "").upper())
+    if not coord:
+        return None
+    lat, lon = coord
+    url = ("https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s"
+           "&hourly=precipitation,temperature_2m,wind_speed_10m&past_days=7&forecast_days=2&timezone=Europe%%2FParis"
+           % (lat, lon))
+    try:
+        with urllib.request.urlopen(url, timeout=30) as r:
+            d = json.loads(r.read().decode("utf-8"))
+    except Exception:
+        return None
+    h = d["hourly"]
+    temps = list(zip(h["time"], h["precipitation"], h["temperature_2m"], h["wind_speed_10m"]))
+    jour = [x for x in temps if x[0].startswith(date)]
+    avant = [x for x in temps if x[0] < date]
+    pluie_7j = sum(x[1] or 0 for x in avant)
+    pluie_48h = sum(x[1] or 0 for x in avant[-48:])
+    pluie_jour = sum(x[1] or 0 for x in jour)
+    vent_max = max((x[3] or 0) for x in jour) if jour else None
+    temp = round(sum((x[2] or 0) for x in jour) / len(jour), 1) if jour else None
+    if pluie_48h >= 10 or pluie_7j >= 30:
+        terrain = "probablement lourd ou collant"
+    elif pluie_7j >= 10:
+        terrain = "probablement souple"
+    else:
+        terrain = "probablement bon"
+    return {"pluie_7j": pluie_7j, "pluie_48h": pluie_48h, "pluie_jour": pluie_jour,
+            "vent_max": vent_max, "temp": temp, "terrain": terrain}
+
+
 def _profil_course(course, lignes, par_numero):
     """Profil de la course du jour : type, distance, peloton, poids, corde, monte, difficultés."""
     discipline = course.get("discipline") or ""
@@ -315,6 +362,16 @@ def _profil_course(course, lignes, par_numero):
         exterieures = [l["numero"] for c, l in cordes if int(c) >= max(1, int(0.7 * n))]
         faits.append(("Corde", "Départs extérieurs (à partir de la place %d) : %s. Affiché, non pris en compte." % (
             max(1, int(0.7 * n)), ", ".join("n°%d" % x for x in exterieures) or "aucun"), "mesuré"))
+
+    meteo = _meteo_course(course["reunion"]["hippodrome"]["name"], course["reunion"]["date_reunion"])
+    if meteo:
+        faits.append(("Météo et terrain", "Pluie : %.1f mm sur 7 jours, %.1f mm sur 48 h, %.1f mm prévus le jour de la course. "
+                      "Vent max : %s km/h. Température moyenne : %s °C. Terrain estimé : %s (estimation à partir de la pluie, "
+                      "non validée ; l'état officiel de la piste n'est pas accessible)." % (
+                          meteo["pluie_7j"], meteo["pluie_48h"], meteo["pluie_jour"],
+                          meteo["vent_max"], meteo["temp"], meteo["terrain"]), "contexte"))
+    else:
+        faits.append(("Météo et terrain", "Météo non disponible pour cet hippodrome.", "contexte"))
 
     elo = _charger_elo_trot_attele()
     monte = []
