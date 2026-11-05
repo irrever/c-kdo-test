@@ -10,6 +10,7 @@ tiercé, quarté et quinté (y compris les quintés de plus de 5 chevaux).
 """
 import html
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -86,11 +87,19 @@ details li{margin-bottom:6px}
 .rec .bloc.reco{border:2px solid var(--vert);background:var(--vert-bg)}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
+.profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
 </style></head><body><main>
 
 <section class="hero">
   <h1>@@titre@@</h1>
   <div class="chips">@@chips@@</div>
+</section>
+
+<section class="card accent-bleu">
+  <div class="label">Course du jour</div>
+  <h2>Profil de la course et difficultés</h2>
+  <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
+  @@profil@@
 </section>
 
 <section class="card accent-or">
@@ -246,6 +255,92 @@ def _analyse_cheval(l, p, discipline=""):
                 html.escape(l["musique"] or ""), "".join(lignes)))
 
 
+ELO_FICHIER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "turfin", "classement-elo-2026-11-04.md")
+
+
+def _charger_elo_trot_attele():
+    """Classement ELO des drivers de trot attelé (instantané du 4 novembre 2026)."""
+    elo = {}
+    if not os.path.exists(ELO_FICHIER):
+        return elo
+    dans_section = False
+    for ligne in open(ELO_FICHIER, encoding="utf-8"):
+        if ligne.startswith("## "):
+            dans_section = "Trot attelé" in ligne
+            continue
+        m = re.match(r"\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*(\d+)\s*\|", ligne)
+        if dans_section and m:
+            elo[m.group(2).upper()] = (int(m.group(1)), int(m.group(3)))
+    return elo
+
+
+def _profil_course(course, lignes, par_numero):
+    """Profil de la course du jour : type, distance, peloton, poids, corde, monte, difficultés."""
+    discipline = course.get("discipline") or ""
+    distance = int(course["distance"])
+    n = len(lignes)
+    faits = []   # (titre, texte, nature) ; nature = "mesuré" ou "contexte"
+
+    if distance < 1600:
+        cat = "courte distance"
+    elif distance < 2200:
+        cat = "distance intermédiaire"
+    else:
+        cat = "longue distance"
+    corde_txt = (" Corde : %s." % course["lib_corde_course"].replace("Corde ", "")) if course.get("lib_corde_course") else ""
+    faits.append(("Type de course", "%s, %s m (%s).%s" % (discipline, distance, cat, corde_txt), "mesuré"))
+
+    if n <= 8:
+        taille = "petit peloton"
+    elif n <= 12:
+        taille = "peloton moyen"
+    else:
+        taille = "grand peloton"
+    faits.append(("Taille du peloton", "%d partants : %s. Contexte Turfin : le favori gagne 44 %% en peloton de 8 ou moins, 20 %% à 16 partants et plus." % (n, taille), "contexte"))
+
+    poids = [(par_numero[l["numero"]].get("pds_calc_hand_partant"), l) for l in lignes]
+    poids = [(p, l) for p, l in poids if p is not None]
+    if discipline in ("Plat", "Obstacle") and len(poids) >= 3:
+        lourd = max(poids, key=lambda x: x[0])
+        leger = min(poids, key=lambda x: x[0])
+        faits.append(("Poids", "De %s kg (n°%d %s) à %s kg (n°%d %s), écart de %s kg. Affiché, non pris en compte dans la note." % (
+            leger[0], leger[1]["numero"], leger[1]["nom"], lourd[0], lourd[1]["numero"], lourd[1]["nom"],
+            lourd[0] - leger[0]), "mesuré"))
+    elif discipline in ("Attelé", "Monté", "Trot attelé", "Trot monté"):
+        faits.append(("Poids", "Pas de poids au trot : le handicap ne joue pas dans cette course.", "mesuré"))
+
+    cordes = [(par_numero[l["numero"]].get("place_corde_partant"), l) for l in lignes]
+    cordes = [(c, l) for c, l in cordes if c is not None]
+    if discipline in ("Plat", "Obstacle") and cordes:
+        exterieures = [l["numero"] for c, l in cordes if int(c) >= max(1, int(0.7 * n))]
+        faits.append(("Corde", "Départs extérieurs (à partir de la place %d) : %s. Affiché, non pris en compte." % (
+            max(1, int(0.7 * n)), ", ".join("n°%d" % x for x in exterieures) or "aucun"), "mesuré"))
+
+    elo = _charger_elo_trot_attele()
+    monte = []
+    for l in lignes:
+        drv = (l["driver"] or "").upper()
+        rang_elo = elo.get(drv)
+        if rang_elo:
+            monte.append("n°%d %s : %s (ELO %d, %se du classement)" % (
+                l["numero"], l["nom"], l["driver"], rang_elo[1], rang_elo[0]))
+    if discipline in ("Attelé", "Trot attelé"):
+        faits.append(("Qui le monte", ("Drivers classés au top 20 ELO (instantané du 4 novembre 2026) : " + " ; ".join(monte))
+                      if monte else "Aucun driver du jour dans le top 20 ELO.", "contexte"))
+
+    premieres = [l["numero"] for l in lignes if par_numero[l["numero"]].get("deferrer_partant_first_time")]
+    if premieres:
+        faits.append(("Premiers déferrages", "n° %s : premier déferrage de leur fiche (Turfin : effet positif observé, non validé sur nos données)." % ", ".join(str(x) for x in premieres), "contexte"))
+
+    ecart = lignes[0]["score"] - lignes[1]["score"]
+    faits.append(("Difficulté principale", "Le 1er et le 2e sont à %.1f points d'écart : " % (100 * ecart) + (
+        "un favori se détache." if ecart >= 0.08 else "course ouverte, plusieurs chevaux peuvent gagner."), "mesuré"))
+
+    items = "".join("<li><strong>%s</strong> : %s <span class='tag %s'>%s</span></li>" % (
+        html.escape(t), html.escape(x), "ok" if nat == "mesuré" else "info", nat) for t, x, nat in faits)
+    return "<ol class='profil'>%s</ol>" % items
+
+
 def _pastille(n, rang):
     classe = {1: "r1", 2: "r2"}.get(rang, "")
     return "<span class='pastille %s'>%d</span>" % (classe, n)
@@ -329,6 +424,7 @@ def generer(chemin_page):
         "jeu_sel": html.escape(phrase_jeu),
         "recommandations": recommandations,
         "budget": ae.BUDGET_COMBINAISONS,
+        "profil": _profil_course(course, lignes, par_numero),
         "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
