@@ -82,6 +82,16 @@ details li{margin-bottom:6px}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 
+.bloc-pari{margin-bottom:18px}
+.bloc-pari h3{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--text)}
+.numeros{display:flex;flex-wrap:wrap;gap:4px}
+.num-box{display:inline-block;min-width:24px;text-align:center;padding:2px 6px;border:1px solid var(--line);border-radius:4px;font-size:12.5px;font-variant-numeric:tabular-nums}
+tr.reco td{background:var(--bleu-bg)}
+tr.reco .num-box{border-color:var(--bleu);color:var(--bleu);font-weight:600}
+.numeros{display:flex;flex-wrap:wrap;gap:4px;min-width:120px}
+@media (max-width:820px){.opt{display:none}.num-box{min-width:20px;padding:1px 4px;font-size:11.5px}.bloc-pari td,.bloc-pari th{padding:6px 3px;font-size:12px}.bloc-pari .numeros{min-width:0;gap:3px}.bloc-pari th{font-size:10px;letter-spacing:.04em}}
+
+
 .layout{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding-top:20px}
 nav.side{position:sticky;top:12px;align-self:start}
 nav.side .grp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:14px 10px 4px}
@@ -146,10 +156,7 @@ td,th{padding:8px 6px}
   <div class="label">2.2 · Combinaisons en box</div>
   <h2>Tiercé, quarté et quinté en box</h2>
   <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
-  <div class="wrap"><table>
-    <thead><tr><th>Pari</th><th class="num">Box</th><th>Chevaux</th><th class="num">Combinaisons</th><th class="num">Probabilité</th><th class="num">Par combinaison</th></tr></thead>
-    <tbody>@@combinaisons@@</tbody>
-  </table></div>
+  @@combinaisons@@
   <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
 </section>
 <section class="card accent-gris wrap">
@@ -598,17 +605,27 @@ def generer(chemin_page):
     jeux_html = "".join("<tr><td>%s</td><td class='num'>%s</td></tr>" % (html.escape(k), pct(v))
                         for k, v in sorted(jeux.items(), key=lambda kv: -kv[1]))
 
-    combis_html = []
+    blocs_combis = []
     for type_pari, liste in combis.items():
+        reco_box = reco[type_pari]["box"] if type_pari in reco else None
+        lignes_pari = []
         for b in liste:
-            marque = " <span class='tag box'>recommandé</span>" if (
-                type_pari in reco and reco[type_pari]["box"] == b["box"]) else ""
-            combis_html.append(
-                "<tr><td>%s%s</td><td class='num'>%d</td><td>%s</td><td class='num'>%d</td>"
-                "<td class='num'>%s</td><td class='num'>%s</td></tr>" % (
-                    type_pari, marque, b["box"], ", ".join(str(x) for x in b["chevaux"]),
-                    b["combinaisons"], pct(b["probabilite"]), "%.3f %%" % (100 * b["par_combinaison"])))
-
+            est_reco = b["box"] == reco_box
+            numeros = "".join("<span class='num-box'>%d</span>" % x for x in b["chevaux"])
+            libelle = ("<span class='tag box'>Recommandé</span>" if est_reco else "")
+            lignes_pari.append(
+                "<tr class='%s'><td class='num'>%d</td><td><div class='numeros'>%s</div></td>"
+                "<td class='num'>%d</td><td class='num'>%s</td><td class='num opt'>%.3f %%</td><td>%s</td></tr>" % (
+                    "reco" if est_reco else "", b["box"], numeros, b["combinaisons"],
+                    pct(b["probabilite"]), 100 * b["par_combinaison"], libelle))
+        rangs = {"Tiercé": 3, "Quarté": 4, "Quinté": 5}[type_pari]
+        blocs_combis.append(
+            "<div class='bloc-pari'><h3>%s · les %d premiers, dans un box</h3>"
+            "<div class='wrap'><table><thead><tr><th class='num'>Box</th><th>Numéros</th>"
+            "<th class='num'>Comb.</th><th class='num'>Chances</th>"
+            "<th class='num opt'>Par combinaison</th><th></th></tr></thead>"
+            "<tbody>%s</tbody></table></div></div>" % (type_pari, rangs, "".join(lignes_pari)))
+    combis_html = blocs_combis
     recommandations = "".join(_recommandation_html(t, b) for t, b in reco.items())
     nom_jeu, phrase_jeu = _jeu_conseille(jeux)
 
