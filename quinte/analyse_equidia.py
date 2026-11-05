@@ -193,6 +193,49 @@ def jeux(ordres, lignes):
     return res
 
 
+BUDGET_COMBINAISONS = 10  # nombre maximal de combinaisons pour la recommandation par type de pari
+TAILLES_BOX = {
+    # type : (nombre de rangs couverts, tailles de box testées)
+    "Tiercé": (3, [3, 4, 5, 6]),
+    "Quarté": (4, [4, 5, 6, 7]),
+    "Quinté": (5, [5, 6, 7, 8, 9]),
+}
+
+
+def combinaisons_en_box(ordres, lignes):
+    """Probabilité de chaque box de tiercé, quarté et quinté (désordre), avec le nombre de combinaisons.
+
+    Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans les k chevaux choisis.
+    Nombre de combinaisons = C(k, N).
+    """
+    from math import comb
+    n = len(ordres)
+    nums = [l["numero"] for l in lignes]
+    resultats = {}
+    for type_pari, (rangs, tailles) in TAILLES_BOX.items():
+        liste = []
+        for k in tailles:
+            if k > len(nums):
+                continue
+            box = set(nums[:k])
+            p = sum(1 for o in ordres if set(o[:rangs]) <= box) / n
+            nb = comb(k, rangs)
+            liste.append({"box": k, "chevaux": nums[:k], "combinaisons": nb,
+                          "probabilite": p, "par_combinaison": p / nb})
+        resultats[type_pari] = liste
+    return resultats
+
+
+def recommandation_par_type(combinaisons):
+    """Pour chaque type de pari, la taille de box la plus probable dans le budget de combinaisons."""
+    rec = {}
+    for type_pari, liste in combinaisons.items():
+        dans_budget = [b for b in liste if b["combinaisons"] <= BUDGET_COMBINAISONS]
+        if dans_budget:
+            rec[type_pari] = max(dans_budget, key=lambda b: b["probabilite"])
+    return rec
+
+
 def main(chemin):
     course = charger_etat(chemin)
     lignes = analyser(course)

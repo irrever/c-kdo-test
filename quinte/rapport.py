@@ -4,10 +4,9 @@
 Usage :
     python3 quinte/rapport.py page_equidia.html sortie.html
 
-Réutilise le modèle de analyse_equidia.py (notes Equidia, sans cotes) et ajoute,
-pour chaque cheval, les raisons tirées de la fiche : forme, chronos, aptitudes,
-tandem driver-entraîneur, conditions, avis de l'entraîneur, déferrage, œillères,
-changement de distance, première association.
+Réutilise le modèle de analyse_equidia.py (notes Equidia, sans cotes). Pour chaque cheval,
+ajoute les raisons tirées de la fiche. Ajoute aussi le détail des combinaisons de
+tiercé, quarté et quinté (y compris les quintés de plus de 5 chevaux).
 """
 import html
 import os
@@ -21,52 +20,141 @@ GABARIT = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@@titre_page@@</title>
 <style>
-:root{color-scheme:light dark;--bg:#f6f6f8;--surface:#fff;--line:#e2e2e7;--text:#1c1c21;--muted:#6b6b76;--accent:#2f5da8}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111113;--surface:#1b1b20;--line:#2a2a2e;--text:#f4f4f5;--muted:#8e8e93;--accent:#9cc6ff}}
-:root[data-theme="dark"]{--bg:#111113;--surface:#1b1b20;--line:#2a2a2e;--text:#f4f4f5;--muted:#8e8e93;--accent:#9cc6ff}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif;padding:0 max(16px,env(safe-area-inset-right,0px)) 32px max(16px,env(safe-area-inset-left,0px))}
-main{max-width:920px;margin:0 auto;padding-top:24px}
-h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:0 0 10px}
-.meta{color:var(--muted);margin:0 0 16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
-.ordre{display:flex;flex-wrap:wrap;gap:6px}
-.pastille{min-width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;background:var(--accent);color:#fff;font-weight:700}
-.jeu{font-size:18px;font-weight:700}
+:root{color-scheme:light dark;
+  --bg:#f4f6fb;--surface:#ffffff;--line:#e3e7f0;--text:#1b1f2a;--muted:#5f6b7d;
+  --or:#c98a00;--or-bg:#fff4d6;--bleu:#2453c4;--bleu-bg:#e4ecff;
+  --vert:#1f7a4d;--vert-bg:#dcf5e7;--violet:#6b3fd1;--violet-bg:#eee8ff;
+  --rouge:#b3261e;--rouge-bg:#fde7e5;--gris:#7a8496;--gris-bg:#eef1f6;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1219;--surface:#171c27;--line:#2a3142;--text:#eef1f7;--muted:#9aa5b8;
+  --or:#f3c14a;--or-bg:#3a2d0d;--bleu:#8fb4ff;--bleu-bg:#18284a;
+  --vert:#6fd39a;--vert-bg:#15332a;--violet:#c3a8ff;--violet-bg:#2a1f4a;
+  --rouge:#ff8a80;--rouge-bg:#3d1b19;--gris:#9aa5b8;--gris-bg:#222a3a;}}
+:root[data-theme="dark"]{
+  --bg:#0f1219;--surface:#171c27;--line:#2a3142;--text:#eef1f7;--muted:#9aa5b8;
+  --or:#f3c14a;--or-bg:#3a2d0d;--bleu:#8fb4ff;--bleu-bg:#18284a;
+  --vert:#6fd39a;--vert-bg:#15332a;--violet:#c3a8ff;--violet-bg:#2a1f4a;
+  --rouge:#ff8a80;--rouge-bg:#3d1b19;--gris:#9aa5b8;--gris-bg:#222a3a;}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+main{max-width:960px;margin:0 auto;padding-top:20px}
+.hero{background:linear-gradient(120deg,var(--bleu),var(--violet));color:#fff;border-radius:16px;padding:20px;margin-bottom:18px}
+.hero h1{font-size:22px;margin:0 0 6px}
+.hero p{margin:0;opacity:.92}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px 10px;font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.card.accent-or{border-left:5px solid var(--or)}
+.card.accent-bleu{border-left:5px solid var(--bleu)}
+.card.accent-vert{border-left:5px solid var(--vert)}
+.card.accent-violet{border-left:5px solid var(--violet)}
+.card.accent-gris{border-left:5px solid var(--gris)}
+h2{font-size:17px;margin:0 0 10px}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.ordre{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;font-size:17px;color:#fff;background:var(--bleu)}
+.pastille.r1{background:var(--or)}
+.pastille.r2{background:var(--vert)}
+.pastille.box{background:var(--violet)}
+.pastille.gris{background:var(--gris)}
+.jeu-titre{font-size:20px;font-weight:800;color:var(--vert)}
+.note{color:var(--muted);font-size:13px;margin:6px 0}
 .wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{color:var(--muted);font-weight:600}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-.note{color:var(--muted);font-size:13px}
+tr.favori td{background:var(--or-bg)}
+tr.top2 td{background:var(--vert-bg)}
+.barre{height:8px;border-radius:999px;background:var(--gris-bg);overflow:hidden;min-width:90px}
+.barre span{display:block;height:100%;border-radius:999px;background:var(--bleu)}
+.tag{display:inline-block;font-size:12px;border-radius:999px;padding:1px 9px;margin:2px 4px 2px 0}
+.tag.ok{background:var(--vert-bg);color:var(--vert)}
+.tag.ko{background:var(--rouge-bg);color:var(--rouge)}
+.tag.info{background:var(--bleu-bg);color:var(--bleu)}
+.tag.box{background:var(--violet-bg);color:var(--violet)}
 details{border-bottom:1px solid var(--line);padding:10px 0}
-summary{cursor:pointer;font-weight:600}
+summary{cursor:pointer;font-weight:700}
 details ul{margin:8px 0 0;padding-left:18px;font-size:14px}
 details li{margin-bottom:6px}
-.tags{font-size:12px;color:var(--muted)}
+.etapes{counter-reset:etape;list-style:none;padding:0;margin:0}
+.etapes li{counter-increment:etape;position:relative;padding:6px 0 6px 38px;margin-bottom:4px}
+.etapes li::before{content:counter(etape);position:absolute;left:0;top:4px;width:26px;height:26px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.rec{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:640px){.rec{grid-template-columns:repeat(3,1fr)}}
+.rec .bloc{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
+.rec .bloc.reco{border:2px solid var(--vert);background:var(--vert-bg)}
+.rec .gros{font-size:22px;font-weight:800}
+.foot{color:var(--muted);font-size:12px;margin-top:8px}
 </style></head><body><main>
-<h1>Pronostic quinté — @@titre@@</h1>
-<p class="meta">@@date@@ · @@meta@@</p>
 
-<section class="card"><h2>Pronostic</h2>
-<p><strong>Ordre d'arrivée probable :</strong></p>
-<div class="ordre">@@ordre@@</div>
-<p class="note">Favori du modèle : n°@@fav_num@@ @@fav_nom@@ (note @@fav_score@@). Probabilité de gagner : @@fav_win@@ ; dans les trois premiers : @@fav_top3@@.</p>
-<p><strong>Jeu le plus probable :</strong> <span class="jeu">@@jeu_type@@</span></p>
-<p class="note">@@jeu_sel@@</p>
-<p class="note">Quinté désordre en box 7 (n°@@box7@@) : @@p_box7@@. Ordre exact du quinté : @@p_ordre@@ (quasi nul).</p>
+<section class="hero">
+  <h1>@@titre@@</h1>
+  <div class="chips">@@chips@@</div>
 </section>
 
-<section class="card wrap"><h2>Chevaux et probabilités</h2>
-<table><thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th class="num">1er</th><th class="num">Top 3</th><th class="num">Top 5</th></tr></thead>
-<tbody>@@lignes@@</tbody></table></section>
+<section class="card accent-or">
+  <div class="label">Pronostic</div>
+  <h2>Ordre d'arrivée probable</h2>
+  <div class="ordre">@@ordre@@</div>
+  <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
+</section>
 
-<section class="card"><h2>Analyse par cheval</h2>
-<p class="note">Cliquer sur un cheval pour voir les critères et les commentaires.</p>
-@@analyses@@</section>
+<section class="card accent-vert">
+  <div class="label">Jeu le plus probable</div>
+  <div class="jeu-titre">@@jeu_type@@</div>
+  <p class="note">@@jeu_sel@@</p>
+  <h2 style="margin-top:14px">Ce que je jouerais par type de pari</h2>
+  <div class="rec">@@recommandations@@</div>
+  <p class="note">Recommandation : la taille de box la plus probable, dans une limite de @@budget@@ combinaisons par pari.</p>
+</section>
 
-<section class="card wrap"><h2>Probabilités des jeux</h2>
-<table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
-<p class="note">Estimations par simulation (200 000 ordres). Le modèle a été validé sur 30 quintés passés : meilleur que le hasard, mais sur un petit échantillon. Les cotes ne sont pas utilisées. Jeu responsable.</p></section>
+<section class="card accent-bleu">
+  <div class="label">Méthode</div>
+  <h2>Comment le modèle choisit ses chevaux</h2>
+  <ol class="etapes">
+    <li><strong>Notes Equidia</strong> (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie). Ce sont les seules données qui pèsent dans la note : la musique seule et les cotes ne sont pas utilisées.</li>
+    <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
+    <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 4).</li>
+    <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
+  </ol>
+  <p class="note"><strong>Validation</strong> : le modèle a été choisi sur 20 quintés passés et testé sur 10 autres. Sur ces 10 courses, sa log-loss sur le gagnant est de 2,17, contre 2,62 pour un tirage au hasard. C'est mieux que le hasard, mais le petit nombre de courses limite la confiance. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
+</section>
+
+<section class="card accent-violet">
+  <div class="label">Combinaisons</div>
+  <h2>Tiercé, quarté et quinté en box</h2>
+  <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Pari</th><th class="num">Box</th><th>Chevaux</th><th class="num">Combinaisons</th><th class="num">Probabilité</th><th class="num">Par combinaison</th></tr></thead>
+    <tbody>@@combinaisons@@</tbody>
+  </table></div>
+  <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
+</section>
+
+<section class="card accent-gris wrap">
+  <div class="label">Chevaux</div>
+  <h2>Probabilités par cheval</h2>
+  <table>
+    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
+    <tbody>@@lignes@@</tbody>
+  </table>
+</section>
+
+<section class="card accent-bleu">
+  <div class="label">Détail</div>
+  <h2>Analyse par cheval</h2>
+  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
+  @@analyses@@
+</section>
+
+<section class="card accent-gris wrap">
+  <div class="label">Jeux simples</div>
+  <h2>Probabilités des jeux simples</h2>
+  <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
+</section>
+
+<p class="foot">Les cotes ne sont pas utilisées. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </main></body></html>
 """
 
@@ -96,7 +184,6 @@ def _jeu_conseille(jeux):
 
 
 def _faits_partant(p):
-    """Faits particuliers de la fiche : déferrage, œillères, distance, première association, avis entraîneur."""
     faits = []
     if p.get("libelle_avis_entraineur") and p["libelle_avis_entraineur"] != "Avis neutre":
         faits.append("Avis de l'entraîneur : %s." % p["libelle_avis_entraineur"].replace("Avis ", "").lower())
@@ -117,7 +204,6 @@ def _faits_partant(p):
 
 
 def _analyse_cheval(l, p):
-    """Bloc <details> pour un cheval : notes, commentaires Equidia et faits de la fiche."""
     notes = p.get("interne_note_partant") or {}
     lignes = []
     for cle, libelle in LIBELLES.items():
@@ -132,10 +218,25 @@ def _analyse_cheval(l, p):
     for fait in _faits_partant(p):
         lignes.append("<li>%s</li>" % html.escape(fait))
     entete = "n°%d %s — %s" % (l["numero"], html.escape(l["nom"]), pct(l["score"]))
-    return ("<details><summary>%s</summary><p class='tags'>Driver : %s · Entraîneur : %s · "
+    return ("<details><summary>%s</summary><p class='note'>Driver : %s · Entraîneur : %s · "
             "Musique : %s</p><ul>%s</ul></details>" % (
                 entete, html.escape(l["driver"] or "?"), html.escape(l.get("entraineur") or "?"),
                 html.escape(l["musique"] or ""), "".join(lignes)))
+
+
+def _pastille(n, rang):
+    classe = {1: "r1", 2: "r2"}.get(rang, "")
+    return "<span class='pastille %s'>%d</span>" % (classe, n)
+
+
+def _recommandation_html(type_pari, b):
+    return ("<div class='bloc reco'><div class='label'>%s</div>"
+            "<div class='gros'>Box %d</div>"
+            "<p class='note'>Chevaux : %s</p>"
+            "<p><span class='tag ok'>%d combinaison%s</span>"
+            "<span class='tag info'>%s de chances</span></p></div>" % (
+                type_pari, b["box"], ", ".join(str(x) for x in b["chevaux"]),
+                b["combinaisons"], "" if b["combinaisons"] == 1 else "s", pct(b["probabilite"])))
 
 
 def generer(chemin_page):
@@ -144,50 +245,69 @@ def generer(chemin_page):
     ordres = ae.simuler(lignes)
     prob = ae.probabilites(ordres, lignes)
     jeux = ae.jeux(ordres, lignes)
+    combis = ae.combinaisons_en_box(ordres, lignes)
+    reco = ae.recommandation_par_type(combis)
     ordre = [l["numero"] for l in lignes[:5]]
-    box7 = [l["numero"] for l in lignes[:7]]
     favori = lignes[0]
     par_numero = {p["num_partant"]: p for p in course["partants"]}
 
-    titre = "%s R%sC%s — %s" % (
+    titre = "Quinté : %s R%sC%s — %s" % (
         course["reunion"]["hippodrome"]["name"], course["reunion"]["num_reunion"],
         course["num_course_pmu"], course.get("libcourt_prix_course") or "")
     date = course["reunion"]["date_reunion"]
     meta = "%s · %s m · %s partants" % (course.get("discipline"), course["distance"], len(lignes))
+    chips = "".join("<span class='chip'>%s</span>" % html.escape(c) for c in [
+        date, course["reunion"]["hippodrome"]["name"], course.get("discipline"),
+        "%s m" % course["distance"], "%d partants" % len(lignes)] if c)
+
+    ordre_html = "".join(_pastille(n, i + 1) for i, n in enumerate(ordre))
 
     lignes_html = []
     for i, l in enumerate(lignes, 1):
         n = l["numero"]
+        classe = "favori" if i == 1 else ("top2" if i <= 3 else "")
+        barre = "<div class='barre'><span style='width:%.1f%%'></span></div>" % (100 * prob["top3"][n])
         lignes_html.append(
-            "<tr><td>%d</td><td class='num'>%s</td><td>%s</td><td>%s</td>"
-            "<td class='num'>%.3f</td><td class='num'>%s</td><td class='num'>%s</td><td class='num'>%s</td></tr>"
-            % (i, n, html.escape(l["nom"]), html.escape(l["driver"] or ""), l["score"],
-               pct(prob["victoire"][n]), pct(prob["top3"][n]), pct(prob["top5"][n])))
+            "<tr class='%s'><td>%d</td><td class='num'>%s</td><td>%s</td><td>%s</td>"
+            "<td class='num'>%.3f</td><td>%s %s</td><td>%s</td><td class='num'>%s</td></tr>"
+            % (classe, i, n, html.escape(l["nom"]), html.escape(l["driver"] or ""), l["score"],
+               barre, pct(prob["victoire"][n]), pct(prob["top3"][n]), pct(prob["top5"][n])))
 
     analyses_html = "".join(_analyse_cheval(l, par_numero[l["numero"]]) for l in lignes)
     jeux_html = "".join("<tr><td>%s</td><td class='num'>%s</td></tr>" % (html.escape(k), pct(v))
                         for k, v in sorted(jeux.items(), key=lambda kv: -kv[1]))
 
+    combis_html = []
+    for type_pari, liste in combis.items():
+        for b in liste:
+            marque = " <span class='tag box'>recommandé</span>" if (
+                type_pari in reco and reco[type_pari]["box"] == b["box"]) else ""
+            combis_html.append(
+                "<tr><td>%s%s</td><td class='num'>%d</td><td>%s</td><td class='num'>%d</td>"
+                "<td class='num'>%s</td><td class='num'>%s</td></tr>" % (
+                    type_pari, marque, b["box"], ", ".join(str(x) for x in b["chevaux"]),
+                    b["combinaisons"], pct(b["probabilite"]), "%.3f %%" % (100 * b["par_combinaison"])))
+
+    recommandations = "".join(_recommandation_html(t, b) for t, b in reco.items())
     nom_jeu, phrase_jeu = _jeu_conseille(jeux)
-    cle_ordre = "Quinté ordre %s" % "-".join(str(x) for x in ordre)
-    n_fav = favori["numero"]
+
     valeurs = {
         "titre": html.escape(titre),
         "titre_page": html.escape("Quinté %s R%sC%s" % (
             course["reunion"]["hippodrome"]["name"].title(), course["reunion"]["num_reunion"], course["num_course_pmu"])),
         "date": html.escape(date),
         "meta": html.escape(meta),
-        "ordre": "".join("<span class='pastille'>%d</span>" % n for n in ordre),
-        "fav_num": n_fav,
+        "chips": chips,
+        "ordre": ordre_html,
+        "fav_num": favori["numero"],
         "fav_nom": html.escape(favori["nom"]),
-        "fav_score": "%.3f" % favori["score"],
-        "fav_win": pct(prob["victoire"][n_fav]),
-        "fav_top3": pct(prob["top3"][n_fav]),
-        "p_ordre": pct(jeux.get(cle_ordre, 0.0)),
+        "fav_win": pct(prob["victoire"][favori["numero"]]),
+        "fav_top3": pct(prob["top3"][favori["numero"]]),
         "jeu_type": html.escape(nom_jeu),
         "jeu_sel": html.escape(phrase_jeu),
-        "box7": ", ".join(str(x) for x in box7),
-        "p_box7": pct(jeux.get("Quinté désordre box 7", 0.0)),
+        "recommandations": recommandations,
+        "budget": ae.BUDGET_COMBINAISONS,
+        "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "analyses": analyses_html,
         "jeux": jeux_html,
