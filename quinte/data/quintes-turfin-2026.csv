@@ -1,0 +1,309 @@
+date,libelle,hippodrome,discipline,arrivee_1,arrivee_2,arrivee_3,arrivee_4,arrivee_5,url
+2026-01-01,Prix Dominik Cordeau,Vincennes,Attelé,8,12,2,15,5,https://turfin.fr/course/2026-01-01/r1c5-vincennes-prix-dominik-cordeau
+2026-01-02,Prix De La Seulles,Deauville,Plat,3,12,11,2,7,https://turfin.fr/course/2026-01-02/r1c8-deauville-prix-de-la-seulles
+2026-01-03,Prix De Vic Sur Cere,Vincennes,Attelé,14,12,9,15,16,https://turfin.fr/course/2026-01-03/r1c4-vincennes-prix-de-vic-sur-cere
+2026-01-04,Prix De Lille,Vincennes,Attelé,2,14,4,5,1,https://turfin.fr/course/2026-01-04/r1c4-vincennes-prix-de-lille
+2026-01-05,Prix De L'aveyron,Vincennes,Attelé,6,15,4,8,5,https://turfin.fr/course/2026-01-05/r1c1-vincennes-prix-de-l-aveyron
+2026-01-06,Prix De Joinville,Vincennes,Attelé,10,11,2,3,16,https://turfin.fr/course/2026-01-06/r1c1-vincennes-prix-de-joinville
+2026-01-07,Prix Tekide (Prix Pierre Estrem Rey),Pau,Obstacle,1,15,4,2,9,https://turfin.fr/course/2026-01-07/r1c2-pau-prix-tekide-prix-pierre-estrem-rey
+2026-01-08,Prix De La Cote D'azur - Ici Azur,Cagnes/Mer,Attelé,16,8,5,3,9,https://turfin.fr/course/2026-01-08/r1c1-cagnes-mer-prix-de-la-cote-d-azur-ici-azur
+2026-01-09,Prix Du Volcan,Deauville,Plat,8,14,9,4,6,https://turfin.fr/course/2026-01-09/r1c8-deauville-prix-du-volcan
+2026-01-10,Prix Du Forez,Vincennes,Attelé,12,2,1,8,11,https://turfin.fr/course/2026-01-10/r1c4-vincennes-prix-du-forez
+2026-01-11,Prix De Belgique-Amerique Races Q6,Vincennes,Attelé,2,9,7,6,4,https://turfin.fr/course/2026-01-11/r1c4-vincennes-prix-de-belgique-amerique-races-q6
+2026-01-12,Prix Vans Barbot (Prix Du Languedoc),Cagnes/Mer,Plat,5,8,2,9,4,https://turfin.fr/course/2026-01-12/r1c2-cagnes-mer-prix-vans-barbot-prix-du-languedoc
+2026-01-13,Prix De Brionne,Vincennes,Attelé,8,15,10,3,2,https://turfin.fr/course/2026-01-13/r1c1-vincennes-prix-de-brionne
+2026-01-14,Prix De Cannes,Cagnes/Mer,Plat,7,1,15,9,8,https://turfin.fr/course/2026-01-14/r1c2-cagnes-mer-prix-de-cannes
+2026-01-15,Prix D'erbray,Vincennes,Attelé,1,6,8,3,10,https://turfin.fr/course/2026-01-15/r1c1-vincennes-prix-d-erbray
+2026-01-16,Prix Du Pays D'ouche,Deauville,Plat,3,7,1,14,10,https://turfin.fr/course/2026-01-16/r1c8-deauville-prix-du-pays-d-ouche
+2026-01-17,Prix De Granville,Vincennes,Attelé,8,3,13,11,10,https://turfin.fr/course/2026-01-17/r1c4-vincennes-prix-de-granville
+2026-01-18,Prix De Cornulier,Vincennes,Monté,13,16,10,15,18,https://turfin.fr/course/2026-01-18/r1c4-vincennes-prix-de-cornulier
+2026-01-19,Prix Charles Gastaud,Cagnes/Mer,Plat,3,5,4,7,14,https://turfin.fr/course/2026-01-19/r1c4-cagnes-mer-prix-charles-gastaud
+2026-01-20,Prix Annie Hutton,Pau,Obstacle,10,12,2,8,3,https://turfin.fr/course/2026-01-20/r1c2-pau-prix-annie-hutton
+2026-01-21,Prix Une De Mai,Cagnes/Mer,Attelé,9,12,14,4,13,https://turfin.fr/course/2026-01-21/r1c1-cagnes-mer-prix-une-de-mai
+2026-01-22,Prix Andre Meunier,Vincennes,Attelé,6,1,9,8,3,https://turfin.fr/course/2026-01-22/r1c2-vincennes-prix-andre-meunier
+2026-01-23,Prix De Cherbourg,Deauville,Plat,5,8,1,6,14,https://turfin.fr/course/2026-01-23/r1c8-deauville-prix-de-cherbourg
+2026-01-24,Prix Du Luxembourg,Vincennes,Attelé,4,6,7,12,5,https://turfin.fr/course/2026-01-24/r1c4-vincennes-prix-du-luxembourg
+2026-01-25,Prix D'amerique - Amerique Races,Vincennes,Attelé,13,11,6,10,12,https://turfin.fr/course/2026-01-25/r1c6-vincennes-prix-d-amerique-amerique-races
+2026-01-26,Prix De Marseille,Cagnes/Mer,Plat,5,4,8,9,7,https://turfin.fr/course/2026-01-26/r1c3-cagnes-mer-prix-de-marseille
+2026-01-27,Prix De Chateauroux,Vincennes,Attelé,10,11,2,14,9,https://turfin.fr/course/2026-01-27/r1c1-vincennes-prix-de-chateauroux
+2026-01-28,Prix Soal Racing (Prix Rene Cramail),Pau,Obstacle,2,5,3,6,16,https://turfin.fr/course/2026-01-28/r1c1-pau-prix-soal-racing-prix-rene-cramail
+2026-01-29,Prix De Langeais,Vincennes,Attelé,3,10,15,16,8,https://turfin.fr/course/2026-01-29/r1c1-vincennes-prix-de-langeais
+2026-01-30,Prix Du Treport,Deauville,Plat,9,3,4,7,13,https://turfin.fr/course/2026-01-30/r1c8-deauville-prix-du-treport
+2026-01-31,Prix Andre Louis Dreux,Vincennes,Attelé,13,8,9,1,12,https://turfin.fr/course/2026-01-31/r1c4-vincennes-prix-andre-louis-dreux
+2026-02-01,Prix De L'ile-De-France-Cornulier Races,Vincennes,Monté,7,11,4,6,5,https://turfin.fr/course/2026-02-01/r1c4-vincennes-prix-de-l-ile-de-france-cornulier-races
+2026-02-02,Prix Du Var,Cagnes/Mer,Plat,1,4,5,11,7,https://turfin.fr/course/2026-02-02/r1c2-cagnes-mer-prix-du-var
+2026-02-03,Prix De Monsegur,Vincennes,Attelé,3,10,7,4,14,https://turfin.fr/course/2026-02-03/r1c1-vincennes-prix-de-monsegur
+2026-02-04,Prix De Grasse,Cagnes/Mer,Plat,10,8,1,5,13,https://turfin.fr/course/2026-02-04/r1c2-cagnes-mer-prix-de-grasse
+2026-02-05,Prix De Durtal Les Rairies,Vincennes,Attelé,9,14,7,8,11,https://turfin.fr/course/2026-02-05/r1c1-vincennes-prix-de-durtal-les-rairies
+2026-02-06,Prix Guy De La Brosse,Vincennes,Attelé,9,14,2,7,5,https://turfin.fr/course/2026-02-06/r1c8-vincennes-prix-guy-de-la-brosse
+2026-02-07,Prix De Munich,Vincennes,Attelé,6,3,7,15,2,https://turfin.fr/course/2026-02-07/r1c4-vincennes-prix-de-munich
+2026-02-08,Prix De France Eqwin - Amerique Races,Vincennes,Attelé,10,5,1,4,3,https://turfin.fr/course/2026-02-08/r1c4-vincennes-prix-de-france-eqwin-amerique-races
+2026-02-09,Prix Jacques Rossi - Prix Des Bouches-Du-Rhone,Cagnes/Mer,Plat,13,2,8,5,6,https://turfin.fr/course/2026-02-09/r1c2-cagnes-mer-prix-jacques-rossi-prix-des-bouches-du-rhone
+2026-02-10,Prix De Dieppe,Vincennes,Attelé,12,9,5,6,11,https://turfin.fr/course/2026-02-10/r1c1-vincennes-prix-de-dieppe
+2026-02-11,Prix De Chateau-Gontier,Vincennes,Attelé,11,3,8,9,13,https://turfin.fr/course/2026-02-11/r1c1-vincennes-prix-de-chateau-gontier
+2026-02-12,Prix Jules Roucayrol,Cagnes/Mer,Attelé,14,11,12,15,10,https://turfin.fr/course/2026-02-12/r1c1-cagnes-mer-prix-jules-roucayrol
+2026-02-13,Gd Px Du Vendredi 13 (Px Chateaurenard),Vincennes,Attelé,1,14,12,15,7,https://turfin.fr/course/2026-02-13/r1c8-vincennes-gd-px-du-vendredi-13-px-chateaurenard
+2026-02-14,Prix Beugnot,Auteuil,Obstacle,13,9,1,16,11,https://turfin.fr/course/2026-02-14/r1c4-auteuil-prix-beugnot
+2026-02-15,Prix De La Lusophonie (Prix D'arras),Vincennes,Attelé,8,10,12,13,6,https://turfin.fr/course/2026-02-15/r1c5-vincennes-prix-de-la-lusophonie-prix-d-arras
+2026-02-16,Prix De L'hippodrome D'angers-Ecouflant,Vincennes,Attelé,13,12,7,16,11,https://turfin.fr/course/2026-02-16/r1c1-vincennes-prix-de-l-hippodrome-d-angers-ecouflant
+2026-02-17,Prix Du Chesnay,Vincennes,Attelé,10,15,14,1,3,https://turfin.fr/course/2026-02-17/r1c1-vincennes-prix-du-chesnay
+2026-02-18,Prix Henri Rossi,Cagnes/Mer,Plat,13,4,16,14,15,https://turfin.fr/course/2026-02-18/r1c4-cagnes-mer-prix-henri-rossi
+2026-02-19,Prix Du Cantal,Vincennes,Attelé,6,8,15,10,13,https://turfin.fr/course/2026-02-19/r1c1-vincennes-prix-du-cantal
+2026-02-20,Prix De Saint-Pierre La Cour,Vincennes,Attelé,9,6,12,14,8,https://turfin.fr/course/2026-02-20/r1c8-vincennes-prix-de-saint-pierre-la-cour
+2026-02-21,Prix Jacques Geliot,Cagnes/Mer,Plat,11,14,7,4,8,https://turfin.fr/course/2026-02-21/r1c4-cagnes-mer-prix-jacques-geliot
+2026-02-22,Prix De Paris Eqwin - Amerique Races,Vincennes,Attelé,2,4,10,14,13,https://turfin.fr/course/2026-02-22/r1c4-vincennes-prix-de-paris-eqwin-amerique-races
+2026-02-23,Prix Rose Laurel,Auteuil,Obstacle,2,11,15,8,4,https://turfin.fr/course/2026-02-23/r1c1-auteuil-prix-rose-laurel
+2026-02-24,Prix Rauba Capeu,Cagnes/Mer,Plat,16,3,5,11,10,https://turfin.fr/course/2026-02-24/r1c4-cagnes-mer-prix-rauba-capeu
+2026-02-25,Prix De Sedan,Vincennes,Attelé,1,10,6,4,11,https://turfin.fr/course/2026-02-25/r1c1-vincennes-prix-de-sedan
+2026-02-26,Prix Roger Ledoyen,Cagnes/Mer,Attelé,13,5,14,10,8,https://turfin.fr/course/2026-02-26/r1c1-cagnes-mer-prix-roger-ledoyen
+2026-02-27,Prix Emile Allix Courboy,Vincennes,Attelé,1,14,7,8,16,https://turfin.fr/course/2026-02-27/r1c9-vincennes-prix-emile-allix-courboy
+2026-02-28,Prix Du Plateau De Gravelle,Vincennes,Attelé,2,5,6,4,9,https://turfin.fr/course/2026-02-28/r1c5-vincennes-prix-du-plateau-de-gravelle
+2026-03-01,Prix Souviens-Toi,Auteuil,Obstacle,11,8,1,2,14,https://turfin.fr/course/2026-03-01/r1c3-auteuil-prix-souviens-toi
+2026-03-02,Prix De Saint-Etienne,Caen,Attelé,7,3,6,5,9,https://turfin.fr/course/2026-03-02/r1c1-caen-prix-de-saint-etienne
+2026-03-03,Prix Du Centre D'entrainement,Chantilly,Plat,16,1,5,4,11,https://turfin.fr/course/2026-03-03/r1c2-chantilly-prix-du-centre-d-entrainement
+2026-03-04,Grand National Du Trot,Amiens,Attelé,2,6,9,14,5,https://turfin.fr/course/2026-03-04/r1c1-amiens-grand-national-du-trot
+2026-03-05,Prix Teddy,Saint-Cloud,Plat,12,15,6,9,13,https://turfin.fr/course/2026-03-05/r1c1-saint-cloud-prix-teddy
+2026-03-06,Prix De Sanary-Sur-Mer,Enghien,Attelé,13,6,3,1,5,https://turfin.fr/course/2026-03-06/r1c8-enghien-prix-de-sanary-sur-mer
+2026-03-07,Prix Predicateur,Auteuil,Obstacle,5,8,15,3,7,https://turfin.fr/course/2026-03-07/r1c3-auteuil-prix-predicateur
+2026-03-08,Gr Crit Vitesse De La Cote D'azur-Bfm Ni,Cagnes/Mer,Attelé,7,2,4,5,12,https://turfin.fr/course/2026-03-08/r1c4-cagnes-mer-gr-crit-vitesse-de-la-cote-d-azur-bfm-ni
+2026-03-09,Prix De Canapville,Caen,Attelé,3,7,5,10,8,https://turfin.fr/course/2026-03-09/r1c4-caen-prix-de-canapville
+2026-03-10,Prix De La Gascogne,Saint-Cloud,Plat,12,8,7,3,9,https://turfin.fr/course/2026-03-10/r1c1-saint-cloud-prix-de-la-gascogne
+2026-03-11,Prix Du Haras Du Rocher,Laval,Attelé,5,8,9,13,6,https://turfin.fr/course/2026-03-11/r1c1-laval-prix-du-haras-du-rocher
+2026-03-12,Prix Jocker,Chantilly,Plat,10,9,14,6,2,https://turfin.fr/course/2026-03-12/r1c1-chantilly-prix-jocker
+2026-03-13,Grand Prix Du Vendredi 13 (Pierrefitte),Enghien,Attelé,—,,,,,https://turfin.fr/course/2026-03-13/r1c8-enghien-grand-prix-du-vendredi-13-pierrefitte
+2026-03-14,Prix General De Rougemont,Auteuil,Obstacle,6,5,2,4,14,https://turfin.fr/course/2026-03-14/r1c3-auteuil-prix-general-de-rougemont
+2026-03-15,Prix De La Gloriette,Saint-Cloud,Plat,12,6,2,3,15,https://turfin.fr/course/2026-03-15/r1c3-saint-cloud-prix-de-la-gloriette
+2026-03-16,Prix Des Quatre Glacieres,Chantilly,Plat,15,13,11,7,12,https://turfin.fr/course/2026-03-16/r1c1-chantilly-prix-des-quatre-glacieres
+2026-03-17,Prix Hubert De Catheu,Fontainebleau,Plat,8,1,2,4,13,https://turfin.fr/course/2026-03-17/r1c1-fontainebleau-prix-hubert-de-catheu
+2026-03-18,Px Ville De Vire Normandie - Paris-Turf,Vire,Attelé,5,7,2,12,11,https://turfin.fr/course/2026-03-18/r1c1-vire-px-ville-de-vire-normandie-paris-turf
+2026-03-19,Prix Dunette,Saint-Cloud,Plat,16,11,1,9,10,https://turfin.fr/course/2026-03-19/r1c1-saint-cloud-prix-dunette
+2026-03-20,Prix De Preuilly,Vincennes,Attelé,5,8,7,3,2,https://turfin.fr/course/2026-03-20/r1c8-vincennes-prix-de-preuilly
+2026-03-21,Prix Jean Cabrol,Vincennes,Attelé,5,8,2,13,6,https://turfin.fr/course/2026-03-21/r1c5-vincennes-prix-jean-cabrol
+2026-03-22,Prix Lutteur Iii,Auteuil,Obstacle,13,1,8,14,4,https://turfin.fr/course/2026-03-22/r1c3-auteuil-prix-lutteur-iii
+2026-03-23,Prix De La Rue Des Potagers,Chantilly,Plat,5,1,8,15,14,https://turfin.fr/course/2026-03-23/r1c1-chantilly-prix-de-la-rue-des-potagers
+2026-03-24,Prix De La Maison Des Jardies,Saint-Cloud,Plat,3,12,6,1,16,https://turfin.fr/course/2026-03-24/r1c1-saint-cloud-prix-de-la-maison-des-jardies
+2026-03-25,Grand National Du Trot,Borely,Attelé,7,15,13,9,2,https://turfin.fr/course/2026-03-25/r1c1-borely-grand-national-du-trot
+2026-03-26,Prix De La Journee Des Plantes,Chantilly,Plat,3,11,6,4,14,https://turfin.fr/course/2026-03-26/r1c1-chantilly-prix-de-la-journee-des-plantes
+2026-03-27,Prix Amalthea,Vincennes,Attelé,13,5,9,14,10,https://turfin.fr/course/2026-03-27/r1c8-vincennes-prix-amalthea
+2026-03-28,Prix Rose Or No,Auteuil,Obstacle,8,2,14,13,7,https://turfin.fr/course/2026-03-28/r1c3-auteuil-prix-rose-or-no
+2026-03-29,Prix Du Languedoc,Saint-Cloud,Plat,2,5,9,3,14,https://turfin.fr/course/2026-03-29/r1c3-saint-cloud-prix-du-languedoc
+2026-03-30,Prix Du Palio De Chantilly,Chantilly,Plat,1,16,10,6,7,https://turfin.fr/course/2026-03-30/r1c1-chantilly-prix-du-palio-de-chantilly
+2026-03-31,Prix Des Grandes Fontaines,Fontainebleau,Plat,6,2,14,8,9,https://turfin.fr/course/2026-03-31/r1c1-fontainebleau-prix-des-grandes-fontaines
+2026-04-01,Grand Prix Angers Loire Metropole,Angers,Attelé,1,5,9,3,2,https://turfin.fr/course/2026-04-01/r1c1-angers-grand-prix-angers-loire-metropole
+2026-04-02,Prix Alain Grimaux,Auteuil,Obstacle,9,10,7,4,3,https://turfin.fr/course/2026-04-02/r1c1-auteuil-prix-alain-grimaux
+2026-04-03,Prix Gratia,Vincennes,Attelé,9,4,10,13,7,https://turfin.fr/course/2026-04-03/r1c8-vincennes-prix-gratia
+2026-04-04,Prix Kerjacques,Vincennes,Attelé,10,8,7,3,12,https://turfin.fr/course/2026-04-04/r1c4-vincennes-prix-kerjacques
+2026-04-05,Super Handicap De Reouverture,Parislongchamp,Plat,3,1,7,5,12,https://turfin.fr/course/2026-04-05/r1c3-parislongchamp-super-handicap-de-reouverture
+2026-04-06,Prix De La Rochelle,Compiegne,Obstacle,10,2,1,6,7,https://turfin.fr/course/2026-04-06/r1c3-compiegne-prix-de-la-rochelle
+2026-04-07,Prix De L'operation Overlord,Deauville,Plat,8,2,6,12,7,https://turfin.fr/course/2026-04-07/r1c1-deauville-prix-de-l-operation-overlord
+2026-04-08,Grand National Du Trot,Lyon-Parilly,Attelé,4,14,3,9,16,https://turfin.fr/course/2026-04-08/r1c1-lyon-parilly-grand-national-du-trot
+2026-04-09,Prix Oiseleur,Auteuil,Obstacle,2,14,1,3,15,https://turfin.fr/course/2026-04-09/r1c1-auteuil-prix-oiseleur
+2026-04-10,Prix Ariel,Vincennes,Attelé,15,6,14,7,10,https://turfin.fr/course/2026-04-10/r1c8-vincennes-prix-ariel
+2026-04-11,Prix Henri Levesque,Vincennes,Attelé,13,9,5,10,14,https://turfin.fr/course/2026-04-11/r1c4-vincennes-prix-henri-levesque
+2026-04-12,Prix Du Pavillon Royal,Parislongchamp,Plat,2,10,11,16,9,https://turfin.fr/course/2026-04-12/r1c3-parislongchamp-prix-du-pavillon-royal
+2026-04-13,Prix Gaston Branere,Auteuil,Obstacle,12,1,16,2,11,https://turfin.fr/course/2026-04-13/r1c1-auteuil-prix-gaston-branere
+2026-04-14,Prix De Roissy,Chantilly,Plat,16,10,1,12,11,https://turfin.fr/course/2026-04-14/r1c1-chantilly-prix-de-roissy
+2026-04-15,Prix De La Commune De Cordemais,Cordemais,Attelé,15,9,14,3,6,https://turfin.fr/course/2026-04-15/r1c4-cordemais-prix-de-la-commune-de-cordemais
+2026-04-16,Prix De La Fontaine Carpeaux,Parislongchamp,Plat,10,14,8,2,13,https://turfin.fr/course/2026-04-16/r1c1-parislongchamp-prix-de-la-fontaine-carpeaux
+2026-04-17,Prix Neptuna,Vincennes,Attelé,4,2,11,10,1,https://turfin.fr/course/2026-04-17/r1c8-vincennes-prix-neptuna
+2026-04-18,Prix De L'atlantique,Enghien,Attelé,3,4,11,5,10,https://turfin.fr/course/2026-04-18/r1c4-enghien-prix-de-l-atlantique
+2026-04-19,Prix De Monfort,La Cepiere,Plat,14,5,1,4,10,https://turfin.fr/course/2026-04-19/r1c1-la-cepiere-prix-de-monfort
+2026-04-20,Prix De La Foret De Fontainebleau,Fontainebleau,Plat,5,10,11,14,9,https://turfin.fr/course/2026-04-20/r1c1-fontainebleau-prix-de-la-foret-de-fontainebleau
+2026-04-21,Prix La Bate,Compiegne,Obstacle,3,15,13,7,12,https://turfin.fr/course/2026-04-21/r1c1-compiegne-prix-la-bate
+2026-04-22,Grand National Du Trot,Chateaubriant,Attelé,5,9,2,12,11,https://turfin.fr/course/2026-04-22/r1c1-chateaubriant-grand-national-du-trot
+2026-04-23,Prix Du Pantheon,Parislongchamp,Plat,7,3,12,5,1,https://turfin.fr/course/2026-04-23/r1c1-parislongchamp-prix-du-pantheon
+2026-04-24,Prix Claudia,Vincennes,Attelé,10,12,5,7,6,https://turfin.fr/course/2026-04-24/r1c8-vincennes-prix-claudia
+2026-04-25,Grande Course De Haies De Printemps (Groupe Iii),Auteuil,Obstacle,9,1,13,12,2,https://turfin.fr/course/2026-04-25/r1c3-auteuil-grande-course-de-haies-de-printemps-groupe-iii
+2026-04-26,Prix De Marly,Parislongchamp,Plat,6,14,3,5,11,https://turfin.fr/course/2026-04-26/r1c3-parislongchamp-prix-de-marly
+2026-04-27,Handicap De Bordeaux,Le Bouscat,Plat,3,5,11,1,9,https://turfin.fr/course/2026-04-27/r1c5-le-bouscat-handicap-de-bordeaux
+2026-04-28,Prix Chantilly Capitale Du Cheval,Chantilly,Plat,1,16,13,6,3,https://turfin.fr/course/2026-04-28/r1c1-chantilly-prix-chantilly-capitale-du-cheval
+2026-04-29,Prix Ffb 53,Laval,Attelé,14,9,3,7,13,https://turfin.fr/course/2026-04-29/r1c1-laval-prix-ffb-53
+2026-04-30,Prix De Chevilly,Parislongchamp,Plat,14,4,9,11,1,https://turfin.fr/course/2026-04-30/r1c8-parislongchamp-prix-de-chevilly
+2026-05-01,Prix De Beaumesnil,Saint-Cloud,Plat,4,1,7,14,9,https://turfin.fr/course/2026-05-01/r1c4-saint-cloud-prix-de-beaumesnil
+2026-05-02,Prix Du Rouergue,Vincennes,Attelé,5,3,6,8,14,https://turfin.fr/course/2026-05-02/r1c4-vincennes-prix-du-rouergue
+2026-05-03,Prix Du Palais Bourbon,Parislongchamp,Plat,11,8,7,9,5,https://turfin.fr/course/2026-05-03/r1c4-parislongchamp-prix-du-palais-bourbon
+2026-05-04,Prix Henri Berry,Vichy,Attelé,13,16,1,11,9,https://turfin.fr/course/2026-05-04/r1c4-vichy-prix-henri-berry
+2026-05-05,Prix De Fouilleuse,Saint-Cloud,Plat,12,10,16,13,9,https://turfin.fr/course/2026-05-05/r1c1-saint-cloud-prix-de-fouilleuse
+2026-05-06,Prix De Niort,Vincennes,Attelé,2,14,8,6,16,https://turfin.fr/course/2026-05-06/r1c1-vincennes-prix-de-niort
+2026-05-07,Prix De La Concorde,Parislongchamp,Plat,5,7,14,12,10,https://turfin.fr/course/2026-05-07/r1c7-parislongchamp-prix-de-la-concorde
+2026-05-08,Prix Hubert Baguenault De Puchesse,Lyon-Parilly,Plat,15,4,12,2,8,https://turfin.fr/course/2026-05-08/r1c3-lyon-parilly-prix-hubert-baguenault-de-puchesse
+2026-05-09,Prix Des Ducs De Normandie,Caen,Attelé,12,7,11,3,15,https://turfin.fr/course/2026-05-09/r1c4-caen-prix-des-ducs-de-normandie
+2026-05-10,Super Handicap Du Printemps,Parislongchamp,Plat,13,8,12,3,15,https://turfin.fr/course/2026-05-10/r1c5-parislongchamp-super-handicap-du-printemps
+2026-05-11,Prix De Marigny,Vichy,Attelé,7,11,6,9,1,https://turfin.fr/course/2026-05-11/r1c4-vichy-prix-de-marigny
+2026-05-12,Prix De Montagny,Chantilly,Plat,12,15,9,7,2,https://turfin.fr/course/2026-05-12/r1c1-chantilly-prix-de-montagny
+2026-05-13,Prix Du Perreux,Vincennes,Attelé,12,11,3,10,1,https://turfin.fr/course/2026-05-13/r1c1-vincennes-prix-du-perreux
+2026-05-14,Prix Du Palais Des Glaces,Parislongchamp,Plat,10,6,3,13,14,https://turfin.fr/course/2026-05-14/r1c7-parislongchamp-prix-du-palais-des-glaces
+2026-05-15,Prix Dejanira,Vincennes,Attelé,9,7,11,3,4,https://turfin.fr/course/2026-05-15/r1c4-vincennes-prix-dejanira
+2026-05-16,Prix Le Parisien (Prix Le Guales De Mezaubran),Auteuil,Obstacle,15,8,13,3,16,https://turfin.fr/course/2026-05-16/r1c4-auteuil-prix-le-parisien-prix-le-guales-de-mezaubran
+2026-05-17,Le Defi Des Haras - Grand Steeple-Chase De Paris,Auteuil,Obstacle,9,3,2,4,1,https://turfin.fr/course/2026-05-17/r1c5-auteuil-le-defi-des-haras-grand-steeple-chase-de-paris
+2026-05-18,Prix Louis Brunet,Borely,Plat,1,7,10,9,5,https://turfin.fr/course/2026-05-18/r1c4-borely-prix-louis-brunet
+2026-05-19,Prix De La Foret De Chantilly,Chantilly,Plat,1,6,7,12,15,https://turfin.fr/course/2026-05-19/r1c1-chantilly-prix-de-la-foret-de-chantilly
+2026-05-20,Grand National Du Trot,Le Croise Laroche,Attelé,11,1,10,13,4,https://turfin.fr/course/2026-05-20/r1c1-le-croise-laroche-grand-national-du-trot
+2026-05-21,Prix De La Ville De Paris,Parislongchamp,Plat,4,11,3,6,15,https://turfin.fr/course/2026-05-21/r1c7-parislongchamp-prix-de-la-ville-de-paris
+2026-05-22,Prix Sirrah,Vincennes,Attelé,11,5,13,7,8,https://turfin.fr/course/2026-05-22/r1c4-vincennes-prix-sirrah
+2026-05-23,Prix Journal Week-End (Prix Du Rhone),Enghien,Attelé,5,6,3,2,4,https://turfin.fr/course/2026-05-23/r1c4-enghien-prix-journal-week-end-prix-du-rhone
+2026-05-24,Prix De L'orangerie,Parislongchamp,Plat,4,1,5,2,7,https://turfin.fr/course/2026-05-24/r1c3-parislongchamp-prix-de-l-orangerie
+2026-05-25,Prix Des Hauts De France,Compiegne,Plat,4,2,8,6,5,https://turfin.fr/course/2026-05-25/r1c3-compiegne-prix-des-hauts-de-france
+2026-05-26,Prix Johanna,Vincennes,Attelé,1,14,2,12,4,https://turfin.fr/course/2026-05-26/r1c5-vincennes-prix-johanna
+2026-05-27,Prix De La Musique,Strasbourg,Plat,4,8,12,1,9,https://turfin.fr/course/2026-05-27/r1c4-strasbourg-prix-de-la-musique
+2026-05-28,Sosafe Prix Des Epinettes,Parislongchamp,Plat,7,11,2,15,14,https://turfin.fr/course/2026-05-28/r1c6-parislongchamp-sosafe-prix-des-epinettes
+2026-05-29,Prix De Clairefontaine,Vincennes,Attelé,9,3,10,12,16,https://turfin.fr/course/2026-05-29/r1c4-vincennes-prix-de-clairefontaine
+2026-05-30,Prix Hardatit,Auteuil,Obstacle,7,2,8,5,4,https://turfin.fr/course/2026-05-30/r1c9-auteuil-prix-hardatit
+2026-05-31,Qatar Prix Du Jockey Club,Chantilly,Plat,16,6,14,15,4,https://turfin.fr/course/2026-05-31/r1c7-chantilly-qatar-prix-du-jockey-club
+2026-06-01,Prix De Chatelperron,Vichy,Attelé,5,6,7,9,12,https://turfin.fr/course/2026-06-01/r1c4-vichy-prix-de-chatelperron
+2026-06-02,Prix Du Chateau De Saint-Cloud,Saint-Cloud,Plat,2,3,12,1,16,https://turfin.fr/course/2026-06-02/r1c1-saint-cloud-prix-du-chateau-de-saint-cloud
+2026-06-03,Grand National Du Trot,Laval,Attelé,16,14,9,2,6,https://turfin.fr/course/2026-06-03/r1c1-laval-grand-national-du-trot
+2026-06-04,Prix De L'hotel Carnavalet - Grand Prix Des Femmes Jockeys,Parislongchamp,Plat,12,7,14,10,1,https://turfin.fr/course/2026-06-04/r1c6-parislongchamp-prix-de-l-hotel-carnavalet-grand-prix-des-femmes-jockeys
+2026-06-05,Px Ville De Nogent Sur Marne (Adalberta),Vincennes,Attelé,4,13,2,5,7,https://turfin.fr/course/2026-06-05/r1c4-vincennes-px-ville-de-nogent-sur-marne-adalberta
+2026-06-06,Prix Jules Thibault,Vincennes,Attelé,11,8,14,13,7,https://turfin.fr/course/2026-06-06/r1c4-vincennes-prix-jules-thibault
+2026-06-07,Prix De L'ile De La Cite,Parislongchamp,Plat,10,1,2,9,6,https://turfin.fr/course/2026-06-07/r1c3-parislongchamp-prix-de-l-ile-de-la-cite
+2026-06-08,Handicap D'angers Loire Metropole,Angers,Plat,15,16,6,4,1,https://turfin.fr/course/2026-06-08/r1c8-angers-handicap-d-angers-loire-metropole
+2026-06-09,Prix Benjamin Boutin,Compiegne,Plat,8,12,11,10,7,https://turfin.fr/course/2026-06-09/r1c8-compiegne-prix-benjamin-boutin
+2026-06-10,Prix De Thury Harcourt,Caen,Attelé,3,7,6,15,4,https://turfin.fr/course/2026-06-10/r1c6-caen-prix-de-thury-harcourt
+2026-06-11,Prix Du Bel Air,Parislongchamp,Plat,7,1,3,5,16,https://turfin.fr/course/2026-06-11/r1c6-parislongchamp-prix-du-bel-air
+2026-06-12,Prix Eudora,Vincennes,Attelé,4,8,14,1,9,https://turfin.fr/course/2026-06-12/r1c4-vincennes-prix-eudora
+2026-06-13,Prix De New York,Enghien,Attelé,7,3,4,5,1,https://turfin.fr/course/2026-06-13/r1c4-enghien-prix-de-new-york
+2026-06-14,Grand Handicap De Lamorlaye Longines,Chantilly,Plat,13,2,14,7,3,https://turfin.fr/course/2026-06-14/r1c4-chantilly-grand-handicap-de-lamorlaye-longines
+2026-06-15,Prix Du Petit Pre,Parislongchamp,Plat,15,1,8,6,13,https://turfin.fr/course/2026-06-15/r1c6-parislongchamp-prix-du-petit-pre
+2026-06-16,Prix Du Docteur Roger Simon-Prix De La Garden Party (Prix After Work),Nantes,Plat,3,4,12,14,16,https://turfin.fr/course/2026-06-16/r1c2-nantes-prix-du-docteur-roger-simon-prix-de-la-garden-party-prix-after-work
+2026-06-17,Prix De L'agglomeration D'agen,Agen La Garenne,Attelé,9,14,10,8,13,https://turfin.fr/course/2026-06-17/r1c3-agen-la-garenne-prix-de-l-agglomeration-d-agen
+2026-06-18,Prix Du Nabob,Parislongchamp,Plat,2,7,13,1,3,https://turfin.fr/course/2026-06-18/r1c7-parislongchamp-prix-du-nabob
+2026-06-19,Prix Rhodope,Vincennes,Attelé,13,16,6,17,15,https://turfin.fr/course/2026-06-19/r1c4-vincennes-prix-rhodope
+2026-06-20,Prix Race And Care,Compiegne,Plat,13,3,1,9,5,https://turfin.fr/course/2026-06-20/r1c3-compiegne-prix-race-and-care
+2026-06-21,Prix Jean-Yves Lecuyer,Vincennes,Attelé,3,13,12,5,15,https://turfin.fr/course/2026-06-21/r1c9-vincennes-prix-jean-yves-lecuyer
+2026-06-22,Prix Federation Des Courses Du Centre-Est,Lyon-Parilly,Plat,7,1,13,2,5,https://turfin.fr/course/2026-06-22/r1c8-lyon-parilly-prix-federation-des-courses-du-centre-est
+2026-06-23,Prix Dieppe Maritime,Dieppe,Plat,5,7,8,2,9,https://turfin.fr/course/2026-06-23/r1c8-dieppe-prix-dieppe-maritime
+2026-06-24,Grand Prix Ephrem Houel - 190 Ans Des Courses Au Trot,Cherbourg,Attelé,5,16,9,18,11,https://turfin.fr/course/2026-06-24/r1c3-cherbourg-grand-prix-ephrem-houel-190-ans-des-courses-au-trot
+2026-06-25,Prix De La Cote De Jade,Laval,Attelé,16,4,3,7,15,https://turfin.fr/course/2026-06-25/r5c4-laval-prix-de-la-cote-de-jade
+2026-06-26,Prix Eva,Enghien,Attelé,3,5,12,11,1,https://turfin.fr/course/2026-06-26/r1c3-enghien-prix-eva
+2026-06-27,Prix De Neuilly-Levallois,Enghien,Attelé,15,13,9,14,5,https://turfin.fr/course/2026-06-27/r1c2-enghien-prix-de-neuilly-levallois
+2026-06-28,Handicap D'ete,Saint-Cloud,Plat,3,9,13,11,5,https://turfin.fr/course/2026-06-28/r1c3-saint-cloud-handicap-d-ete
+2026-06-29,Logo Backboard By Nicolas Bailleul (Prix De La Ville De Tourgeville),Clairefontaine,Obstacle,11,13,7,14,8,https://turfin.fr/course/2026-06-29/r1c5-clairefontaine-logo-backboard-by-nicolas-bailleul-prix-de-la-ville-de-tourgeville
+2026-06-30,Grand Prix Du Conseil Municipal,Vichy,Attelé,3,1,6,11,13,https://turfin.fr/course/2026-06-30/r1c5-vichy-grand-prix-du-conseil-municipal
+2026-07-01,Prix De La Tour Eiffel,Enghien,Attelé,7,1,6,9,14,https://turfin.fr/course/2026-07-01/r1c8-enghien-prix-de-la-tour-eiffel
+2026-07-02,Prix De La Garden Party,Parislongchamp,Plat,8,6,11,15,1,https://turfin.fr/course/2026-07-02/r1c7-parislongchamp-prix-de-la-garden-party
+2026-07-03,Prix Paul Viel,Cabourg,Attelé,7,5,10,12,4,https://turfin.fr/course/2026-07-03/r1c4-cabourg-prix-paul-viel
+2026-07-04,Prix D'orgeval,Enghien,Attelé,5,13,11,16,7,https://turfin.fr/course/2026-07-04/r1c4-enghien-prix-d-orgeval
+2026-07-05,Handicap Des Hauts-De-Seine,Saint-Cloud,Plat,6,2,4,1,5,https://turfin.fr/course/2026-07-05/r1c3-saint-cloud-handicap-des-hauts-de-seine
+2026-07-06,Prix Des Sables D'olonne Agglomeration,Les Sables D Olonne,Attelé,7,4,2,8,3,https://turfin.fr/course/2026-07-06/r1c8-les-sables-d-olonne-prix-des-sables-d-olonne-agglomeration
+2026-07-07,Prix Le Roi Soleil,Chantilly,Plat,5,3,7,10,2,https://turfin.fr/course/2026-07-07/r1c8-chantilly-prix-le-roi-soleil
+2026-07-08,Prix Du Casino Partouche De Pornichet,Pornichet,Attelé,9,8,7,13,14,https://turfin.fr/course/2026-07-08/r1c5-pornichet-prix-du-casino-partouche-de-pornichet
+2026-07-09,Prix De L'opera,Enghien,Attelé,3,7,8,1,5,https://turfin.fr/course/2026-07-09/r1c8-enghien-prix-de-l-opera
+2026-07-10,Prix Des Hellebores,Cabourg,Attelé,9,5,15,7,12,https://turfin.fr/course/2026-07-10/r1c4-cabourg-prix-des-hellebores
+2026-07-11,Prix De Romainville,Enghien,Attelé,11,6,9,4,7,https://turfin.fr/course/2026-07-11/r1c7-enghien-prix-de-romainville
+2026-07-12,Haras De Fresnay-Le-Buffard Prix De Balleroy,Deauville,Plat,7,13,9,12,4,https://turfin.fr/course/2026-07-12/r1c3-deauville-haras-de-fresnay-le-buffard-prix-de-balleroy
+2026-07-13,Prix Region Normandie (Prix Dieppe Maritime),Dieppe,Plat,5,8,1,16,11,https://turfin.fr/course/2026-07-13/r1c8-dieppe-prix-region-normandie-prix-dieppe-maritime
+2026-07-14,Cygames Handicap De La Fete Nationale,Parislongchamp,Plat,4,2,14,6,10,https://turfin.fr/course/2026-07-14/r1c3-parislongchamp-cygames-handicap-de-la-fete-nationale
+2026-07-15,Prix De Coquainvilliers,Lisieux,Attelé,11,3,4,5,14,https://turfin.fr/course/2026-07-15/r1c8-lisieux-prix-de-coquainvilliers
+2026-07-16,Prix Du Chateau De Pierrefonds,Compiegne,Plat,14,5,3,10,7,https://turfin.fr/course/2026-07-16/r1c8-compiegne-prix-du-chateau-de-pierrefonds
+2026-07-17,Grand Prix De La Ville De Cabourg,Cabourg,Attelé,4,6,2,13,12,https://turfin.fr/course/2026-07-17/r1c4-cabourg-grand-prix-de-la-ville-de-cabourg
+2026-07-18,Prix De La Porte Montmartre,Enghien,Attelé,13,6,1,12,4,https://turfin.fr/course/2026-07-18/r1c4-enghien-prix-de-la-porte-montmartre
+2026-07-19,Prix Miss Alleged,Chantilly,Plat,1,13,8,9,4,https://turfin.fr/course/2026-07-19/r1c3-chantilly-prix-miss-alleged
+2026-07-20,Prix Hubert De Catheu,Vichy,Plat,15,11,1,13,2,https://turfin.fr/course/2026-07-20/r1c8-vichy-prix-hubert-de-catheu
+2026-07-21,Prix Imperatrice Eugenie,Vichy,Plat,4,8,14,13,6,https://turfin.fr/course/2026-07-21/r1c8-vichy-prix-imperatrice-eugenie
+2026-07-22,Prix De Picpus,Enghien,Attelé,13,4,6,10,8,https://turfin.fr/course/2026-07-22/r1c8-enghien-prix-de-picpus
+2026-07-23,Prix Paris Turf (Prix Vichy Communaute),Vichy,Plat,6,7,9,14,2,https://turfin.fr/course/2026-07-23/r1c8-vichy-prix-paris-turf-prix-vichy-communaute
+2026-07-24,Prix Henri Balliere,Cabourg,Attelé,11,14,2,9,3,https://turfin.fr/course/2026-07-24/r1c4-cabourg-prix-henri-balliere
+2026-07-25,Prix De L'hay-Les-Roses,Enghien,Attelé,7,3,4,13,12,https://turfin.fr/course/2026-07-25/r1c4-enghien-prix-de-l-hay-les-roses
+2026-07-26,"Prix Le Journal ""le Veinard""",Mont De Marsan,Plat,16,8,6,2,7,https://turfin.fr/course/2026-07-26/r1c3-mont-de-marsan-prix-le-journal-le-veinard
+2026-07-27,Grand Prix Garten On The Beach - Prix Leopold D'orsetti,Clairefontaine,Obstacle,12,13,7,4,1,https://turfin.fr/course/2026-07-27/r1c5-clairefontaine-grand-prix-garten-on-the-beach-prix-leopold-d-orsetti
+2026-07-28,Personnel D'ecurie By Ag2r La Mondiale - Prix De La Vallee De L'oise,Compiegne,Plat,13,8,7,5,4,https://turfin.fr/course/2026-07-28/r1c8-compiegne-personnel-d-ecurie-by-ag2r-la-mondiale-prix-de-la-vallee-de-l-oise
+2026-07-29,Prix De Pigalle,Enghien,Attelé,9,13,2,14,8,https://turfin.fr/course/2026-07-29/r1c1-enghien-prix-de-pigalle
+2026-07-30,Prix Toyota Toys Motors (Prix Region Normandie),Dieppe,Plat,10,14,12,3,16,https://turfin.fr/course/2026-07-30/r1c7-dieppe-prix-toyota-toys-motors-prix-region-normandie
+2026-07-31,Prix Des Lycopodes,Cabourg,Attelé,3,4,2,5,8,https://turfin.fr/course/2026-07-31/r1c4-cabourg-prix-des-lycopodes
+2026-08-01,Genybet - Prix De La Cote Fleurie,Clairefontaine,Plat,7,11,2,13,14,https://turfin.fr/course/2026-08-01/r1c3-clairefontaine-genybet-prix-de-la-cote-fleurie
+2026-08-02,Grand Handicap Des Sprinters,Deauville,Plat,16,10,3,5,1,https://turfin.fr/course/2026-08-02/r1c3-deauville-grand-handicap-des-sprinters
+2026-08-03,Racesdenormandie.com - Prix Robertet,Clairefontaine,Plat,2,8,1,15,6,https://turfin.fr/course/2026-08-03/r1c8-clairefontaine-racesdenormandie-com-prix-robertet
+2026-08-04,Prix Des Greniers A Sel,Deauville,Plat,4,3,6,1,9,https://turfin.fr/course/2026-08-04/r1c8-deauville-prix-des-greniers-a-sel
+2026-08-05,Grand National Du Trot-Ville De St-Malo,Saint Malo,Attelé,5,3,12,4,8,https://turfin.fr/course/2026-08-05/r1c5-saint-malo-grand-national-du-trot-ville-de-st-malo
+2026-08-06,Prix Des Pyramides,Enghien,Attelé,11,5,4,1,2,https://turfin.fr/course/2026-08-06/r1c8-enghien-prix-des-pyramides
+2026-08-07,Prix Bruno Coquatrix,Cabourg,Attelé,7,15,14,3,8,https://turfin.fr/course/2026-08-07/r1c4-cabourg-prix-bruno-coquatrix
+2026-08-08,Prix De Bayeux,Deauville,Plat,3,9,12,15,6,https://turfin.fr/course/2026-08-08/r1c3-deauville-prix-de-bayeux
+2026-08-09,Grand Handicap De Deauville,Deauville,Plat,11,13,18,3,1,https://turfin.fr/course/2026-08-09/r1c3-deauville-grand-handicap-de-deauville
+2026-08-10,Prix Genybet Super Top 5 (Prix De La Cote De Nacre),Clairefontaine,Plat,4,11,2,8,16,https://turfin.fr/course/2026-08-10/r1c5-clairefontaine-prix-genybet-super-top-5-prix-de-la-cote-de-nacre
+2026-08-11,Prix Des Collectivites Locales,Deauville,Plat,3,10,4,7,8,https://turfin.fr/course/2026-08-11/r1c8-deauville-prix-des-collectivites-locales
+2026-08-12,Prix Des Grandes Carrieres,Enghien,Attelé,14,4,3,7,13,https://turfin.fr/course/2026-08-12/r1c8-enghien-prix-des-grandes-carrieres
+2026-08-13,Sumbe Prix Des Chenettes,Deauville,Plat,3,6,13,1,16,https://turfin.fr/course/2026-08-13/r1c8-deauville-sumbe-prix-des-chenettes
+2026-08-14,Prix Fabien Rossolini,Cabourg,Attelé,10,4,9,1,13,https://turfin.fr/course/2026-08-14/r1c4-cabourg-prix-fabien-rossolini
+2026-08-15,Prix Du Champ Durand Hong Kong Jockey Club,Deauville,Plat,13,11,7,16,6,https://turfin.fr/course/2026-08-15/r1c3-deauville-prix-du-champ-durand-hong-kong-jockey-club
+2026-08-16,The Aga Khan Studs Prix Francois Andre,Deauville,Plat,8,14,11,5,4,https://turfin.fr/course/2026-08-16/r1c3-deauville-the-aga-khan-studs-prix-francois-andre
+2026-08-17,Prix Des Enfoires (Gde Course De Haies - Prix Guillaume D'ornano),Clairefontaine,Obstacle,4,2,12,13,15,https://turfin.fr/course/2026-08-17/r1c8-clairefontaine-prix-des-enfoires-gde-course-de-haies-prix-guillaume-d-ornano
+2026-08-18,Prix Du Vieux Bassin,Deauville,Plat,2,9,13,14,15,https://turfin.fr/course/2026-08-18/r1c8-deauville-prix-du-vieux-bassin
+2026-08-19,Prix De Beaune,Laval,Attelé,4,10,12,11,7,https://turfin.fr/course/2026-08-19/r1c8-laval-prix-de-beaune
+2026-08-20,Prix Du Havre,Deauville,Plat,11,15,6,9,3,https://turfin.fr/course/2026-08-20/r1c8-deauville-prix-du-havre
+2026-08-21,Prix D'argentan,Cabourg,Attelé,4,13,8,7,3,https://turfin.fr/course/2026-08-21/r1c4-cabourg-prix-d-argentan
+2026-08-22,Prix De La Place Morny,Deauville,Plat,14,9,5,12,10,https://turfin.fr/course/2026-08-22/r1c3-deauville-prix-de-la-place-morny
+2026-08-23,Sumbe Grand Handicap,Deauville,Plat,13,5,12,6,11,https://turfin.fr/course/2026-08-23/r1c3-deauville-sumbe-grand-handicap
+2026-08-24,Prix De Mortain,Vincennes,Attelé,13,16,3,17,18,https://turfin.fr/course/2026-08-24/r1c8-vincennes-prix-de-mortain
+2026-08-25,Morocco Cup - Handicap De La Manche,Deauville,Plat,14,9,11,6,3,https://turfin.fr/course/2026-08-25/r1c8-deauville-morocco-cup-handicap-de-la-manche
+2026-08-26,Prix Latitude Gps (Grand Steeple-Chase De La Ville De Deauville),Clairefontaine,Obstacle,6,10,1,4,13,https://turfin.fr/course/2026-08-26/r1c8-clairefontaine-prix-latitude-gps-grand-steeple-chase-de-la-ville-de-deauville
+2026-08-27,Prix De La Villa Lucie,Deauville,Plat,13,1,3,5,14,https://turfin.fr/course/2026-08-27/r1c8-deauville-prix-de-la-villa-lucie
+2026-08-28,Prix Des Aubrietes,Cabourg,Attelé,5,9,10,16,1,https://turfin.fr/course/2026-08-28/r1c4-cabourg-prix-des-aubrietes
+2026-08-29,Prix G. De Wazieres-Criterium 4 Ans Q4,Vincennes,Attelé,6,12,13,2,1,https://turfin.fr/course/2026-08-29/r1c4-vincennes-prix-g-de-wazieres-criterium-4-ans-q4
+2026-08-30,Prix Hotel Barriere Le Normandy,Deauville,Plat,4,11,8,9,7,https://turfin.fr/course/2026-08-30/r1c3-deauville-prix-hotel-barriere-le-normandy
+2026-08-31,Prix De Saint-Pair-Du-Mont,Saint-Cloud,Plat,1,2,15,14,13,https://turfin.fr/course/2026-08-31/r1c1-saint-cloud-prix-de-saint-pair-du-mont
+2026-09-01,Prix Des Terres Noires,Deauville,Plat,1,16,4,10,2,https://turfin.fr/course/2026-09-01/r1c1-deauville-prix-des-terres-noires
+2026-09-02,Prix Du Credit Agricole Nord-Est,La Capelle,Attelé,9,13,10,6,11,https://turfin.fr/course/2026-09-02/r1c1-la-capelle-prix-du-credit-agricole-nord-est
+2026-09-03,Prix De Longchamp,Parislongchamp,Plat,14,1,10,3,13,https://turfin.fr/course/2026-09-03/r1c1-parislongchamp-prix-de-longchamp
+2026-09-04,Prix Bruna,Vincennes,Attelé,8,11,12,6,2,https://turfin.fr/course/2026-09-04/r1c4-vincennes-prix-bruna
+2026-09-05,Prix Du Mont Saint Michel,Vincennes,Attelé,10,3,13,6,14,https://turfin.fr/course/2026-09-05/r1c4-vincennes-prix-du-mont-saint-michel
+2026-09-06,Qatar Prix De La Reine Marguerite Presente Par Le Parisien,Parislongchamp,Plat,9,2,16,12,1,https://turfin.fr/course/2026-09-06/r1c3-parislongchamp-qatar-prix-de-la-reine-marguerite-presente-par-le-parisien
+2026-09-07,Prix V And B,Craon,Attelé,13,16,7,3,6,https://turfin.fr/course/2026-09-07/r1c1-craon-prix-v-and-b
+2026-09-08,Prix Jean Bart,Auteuil,Obstacle,8,14,9,4,5,https://turfin.fr/course/2026-09-08/r1c1-auteuil-prix-jean-bart
+2026-09-09,Grand National Du Trot,Angers,Attelé,14,3,5,6,12,https://turfin.fr/course/2026-09-09/r1c1-angers-grand-national-du-trot
+2026-09-10,Prix Carrus,Parislongchamp,Plat,3,9,13,2,5,https://turfin.fr/course/2026-09-10/r1c1-parislongchamp-prix-carrus
+2026-09-11,Prix Algorah,Vincennes,Attelé,5,8,14,7,11,https://turfin.fr/course/2026-09-11/r1c4-vincennes-prix-algorah
+2026-09-12,Criterium Des 5 Ans,Vincennes,Attelé,8,9,11,13,15,https://turfin.fr/course/2026-09-12/r1c4-vincennes-criterium-des-5-ans
+2026-09-13,Super Handicap De La Rentree,Parislongchamp,Plat,12,4,10,14,7,https://turfin.fr/course/2026-09-13/r1c3-parislongchamp-super-handicap-de-la-rentree
+2026-09-14,Grand Prix Jean Dumouch,Beaumont De Lomagne,Attelé,6,10,9,13,14,https://turfin.fr/course/2026-09-14/r1c1-beaumont-de-lomagne-grand-prix-jean-dumouch
+2026-09-15,Prix Des Bords De L'oise,Compiegne,Plat,7,8,6,4,12,https://turfin.fr/course/2026-09-15/r1c1-compiegne-prix-des-bords-de-l-oise
+2026-09-16,Prix Pallanche Constructions,Feurs,Attelé,9,7,10,6,14,https://turfin.fr/course/2026-09-16/r1c1-feurs-prix-pallanche-constructions
+2026-09-17,Prix De Mehun Sur Yevre,Vincennes,Attelé,7,6,3,10,11,https://turfin.fr/course/2026-09-17/r1c1-vincennes-prix-de-mehun-sur-yevre
+2026-09-18,Prix Eucharis,Vincennes,Attelé,6,1,5,4,14,https://turfin.fr/course/2026-09-18/r1c4-vincennes-prix-eucharis
+2026-09-19,Prix Du Cabinet Des Livres,Chantilly,Plat,5,1,12,8,2,https://turfin.fr/course/2026-09-19/r1c4-chantilly-prix-du-cabinet-des-livres
+2026-09-20,Prix D'ancenis,Vincennes,Attelé,8,13,12,7,4,https://turfin.fr/course/2026-09-20/r1c4-vincennes-prix-d-ancenis
+2026-09-21,Prix Com De Com Thierache Du Centre,La Capelle,Attelé,13,3,16,4,11,https://turfin.fr/course/2026-09-21/r1c1-la-capelle-prix-com-de-com-thierache-du-centre
+2026-09-22,Prix Calabrais,Auteuil,Obstacle,1,4,3,10,8,https://turfin.fr/course/2026-09-22/r1c4-auteuil-prix-calabrais
+2026-09-23,Grand National Du Trot,Argentan,Attelé,13,6,5,12,18,https://turfin.fr/course/2026-09-23/r1c1-argentan-grand-national-du-trot
+2026-09-24,Prix De La Basse Automne,Compiegne,Plat,13,8,10,4,16,https://turfin.fr/course/2026-09-24/r1c1-compiegne-prix-de-la-basse-automne
+2026-09-25,Prix Austria,Vincennes,Attelé,13,11,12,10,15,https://turfin.fr/course/2026-09-25/r1c4-vincennes-prix-austria
+2026-09-26,Prix Grandlieu,Auteuil,Obstacle,6,5,12,4,1,https://turfin.fr/course/2026-09-26/r1c3-auteuil-prix-grandlieu
+2026-09-27,Grand Prix Du Portugal (Ovidius Naso),Vincennes,Attelé,8,12,14,10,9,https://turfin.fr/course/2026-09-27/r1c4-vincennes-grand-prix-du-portugal-ovidius-naso
+2026-09-28,Prix De Saint-Chamond,Enghien,Attelé,15,4,14,5,7,https://turfin.fr/course/2026-09-28/r1c1-enghien-prix-de-saint-chamond
+2026-09-29,Prix De La Chambre Du Duc,Chantilly,Plat,1,9,15,2,4,https://turfin.fr/course/2026-09-29/r1c1-chantilly-prix-de-la-chambre-du-duc
+2026-09-30,Grand Prix Anjou-Maine,Laval,Attelé,5,9,7,14,15,https://turfin.fr/course/2026-09-30/r1c1-laval-grand-prix-anjou-maine
+2026-10-01,Prix Cerealiste,Auteuil,Obstacle,15,3,14,1,9,https://turfin.fr/course/2026-10-01/r1c1-auteuil-prix-cerealiste
+2026-10-02,Prix Ludovica,Vincennes,Attelé,4,11,13,12,7,https://turfin.fr/course/2026-10-02/r1c4-vincennes-prix-ludovica
+2026-10-03,Qatar Prix De La Place Des Vosges,Parislongchamp,Plat,4,5,8,17,3,https://turfin.fr/course/2026-10-03/r1c4-parislongchamp-qatar-prix-de-la-place-des-vosges
+2026-10-04,Qatar Prix De L'arc De Triomphe,Parislongchamp,Plat,1,7,16,10,9,https://turfin.fr/course/2026-10-04/r1c5-parislongchamp-qatar-prix-de-l-arc-de-triomphe
+2026-10-05,Prix Des Buttes Chaumont,Enghien,Attelé,3,7,9,13,11,https://turfin.fr/course/2026-10-05/r1c1-enghien-prix-des-buttes-chaumont
+2026-10-06,Prix Guillaume De Pracomtal,Auteuil,Obstacle,8,2,7,3,15,https://turfin.fr/course/2026-10-06/r1c1-auteuil-prix-guillaume-de-pracomtal
+2026-10-07,Prix Des Gobelins,Enghien,Attelé,16,5,14,13,2,https://turfin.fr/course/2026-10-07/r1c1-enghien-prix-des-gobelins
+2026-10-08,Prix De Versailles,Saint-Cloud,Plat,1,5,8,4,15,https://turfin.fr/course/2026-10-08/r1c1-saint-cloud-prix-de-versailles
+2026-10-09,Prix Hera,Vincennes,Attelé,14,6,15,7,10,https://turfin.fr/course/2026-10-09/r1c4-vincennes-prix-hera
+2026-10-10,Prix De La Ville De Caen,Caen,Attelé,9,10,4,3,2,https://turfin.fr/course/2026-10-10/r1c4-caen-prix-de-la-ville-de-caen
+2026-10-11,Prix Montgomery (Groupe Iii),Auteuil,Obstacle,15,2,3,12,1,https://turfin.fr/course/2026-10-11/r1c3-auteuil-prix-montgomery-groupe-iii
+2026-10-12,Prix Jacques Rossi (Prix Jules Morgan),Borely,Plat,2,10,14,11,12,https://turfin.fr/course/2026-10-12/r1c4-borely-prix-jacques-rossi-prix-jules-morgan
+2026-10-13,Prix De La Galerie Des Varietes,Parislongchamp,Plat,9,16,2,14,1,https://turfin.fr/course/2026-10-13/r1c1-parislongchamp-prix-de-la-galerie-des-varietes
+2026-10-14,Grand National Du Trot,Reims,Attelé,10,15,13,5,9,https://turfin.fr/course/2026-10-14/r1c1-reims-grand-national-du-trot
+2026-10-15,Prix De La Vierge De Lorette,Chantilly,Plat,12,11,8,9,15,https://turfin.fr/course/2026-10-15/r1c1-chantilly-prix-de-la-vierge-de-lorette
+2026-10-16,Prix Themis,Vincennes,Attelé,4,11,7,6,13,https://turfin.fr/course/2026-10-16/r1c4-vincennes-prix-themis
+2026-10-17,Prix Prince D'ecouen - Grand Handicap D'automne,Auteuil,Obstacle,1,6,4,11,2,https://turfin.fr/course/2026-10-17/r1c3-auteuil-prix-prince-d-ecouen-grand-handicap-d-automne
+2026-10-18,Prix Rieussec,Parislongchamp,Plat,4,5,9,10,11,https://turfin.fr/course/2026-10-18/r1c3-parislongchamp-prix-rieussec
+2026-10-19,Prix De La Foret De Lyons,Deauville,Plat,4,2,6,1,13,https://turfin.fr/course/2026-10-19/r1c1-deauville-prix-de-la-foret-de-lyons
+2026-10-20,Prix Des Equidays,Clairefontaine,Plat,5,13,14,3,15,https://turfin.fr/course/2026-10-20/r1c1-clairefontaine-prix-des-equidays
+2026-10-21,Grand Prix De La Ville Rose,La Cepiere,Attelé,13,12,10,4,2,https://turfin.fr/course/2026-10-21/r1c1-la-cepiere-grand-prix-de-la-ville-rose
+2026-10-22,Prix Andre Adele,Auteuil,Obstacle,12,5,9,7,3,https://turfin.fr/course/2026-10-22/r1c1-auteuil-prix-andre-adele
+2026-10-23,Prix Orionis,Vincennes,Attelé,15,12,6,14,16,https://turfin.fr/course/2026-10-23/r1c4-vincennes-prix-orionis
+2026-10-24,Prix De Beaune,Compiegne,Obstacle,9,4,7,13,11,https://turfin.fr/course/2026-10-24/r1c3-compiegne-prix-de-beaune
+2026-10-25,Prix De L'elevage,Saint-Cloud,Plat,9,13,10,3,4,https://turfin.fr/course/2026-10-25/r1c5-saint-cloud-prix-de-l-elevage
+2026-10-26,Prix De La Route Des Princes,Chantilly,Plat,12,3,10,13,9,https://turfin.fr/course/2026-10-26/r1c4-chantilly-prix-de-la-route-des-princes
+2026-10-27,Prix D'utah Beach,Deauville,Plat,10,6,9,15,3,https://turfin.fr/course/2026-10-27/r1c1-deauville-prix-d-utah-beach
+2026-10-28,Prix Santo Pietro,Auteuil,Obstacle,14,12,11,7,4,https://turfin.fr/course/2026-10-28/r1c4-auteuil-prix-santo-pietro
+2026-10-29,Prix Des Cevennes,Vincennes,Attelé,14,10,5,3,12,https://turfin.fr/course/2026-10-29/r1c1-vincennes-prix-des-cevennes
+2026-10-30,Prix Mebsuta,Vincennes,Attelé,7,12,5,3,4,https://turfin.fr/course/2026-10-30/r1c5-vincennes-prix-mebsuta
+2026-10-31,Prix Du Pays De Bray,Deauville,Plat,9,11,3,1,5,https://turfin.fr/course/2026-10-31/r1c3-deauville-prix-du-pays-de-bray
+2026-11-01,Grand Prix De La Ville De Laval,Laval,Attelé,17,2,5,12,7,https://turfin.fr/course/2026-11-01/r1c4-laval-grand-prix-de-la-ville-de-laval
+2026-11-02,Prix De La Seine Et Marne,Fontainebleau,Plat,1,5,3,6,11,https://turfin.fr/course/2026-11-02/r1c3-fontainebleau-prix-de-la-seine-et-marne
+2026-11-03,Prix De Vienne,Vincennes,Attelé,11,13,17,15,16,https://turfin.fr/course/2026-11-03/r1c1-vincennes-prix-de-vienne
+2026-11-04,Grand National Du Trot,Nantes,Attelé,12,8,6,3,7,https://turfin.fr/course/2026-11-04/r1c2-nantes-grand-national-du-trot
