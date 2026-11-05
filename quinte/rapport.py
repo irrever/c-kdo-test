@@ -573,11 +573,9 @@ def _ajouter_navigation(page):
     if debut < 0 or fin < 0:
         return page
     avant = page[:debut + len("<main>")]
-    milieu = page[debut + len("<main>"):fin]
+    milieu = page[debut + len("<main>"):fin]   # tout le contenu : onglets, vues, zones (équilibrés)
     apres = page[fin:]
-    fin_hero = milieu.find("</section>") + len("</section>")
-    hero, reste = milieu[:fin_hero], milieu[fin_hero:]
-    return avant + hero + '<div class="layout">' + nav + '<div class="contenu">' + reste + '</div></div>' + apres
+    return avant + '<div class="layout">' + nav + '<div class="contenu">' + milieu + '</div></div>' + apres
 
 
 def _statistiques_chevaux(lignes):

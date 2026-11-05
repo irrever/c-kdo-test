@@ -86,8 +86,8 @@ def valeur_note(partant, cle):
 def analyser(course):
     lignes = []
     for p in course["partants"]:
-        if p.get("statut_part") != "DP":
-            continue  # non-partant exclu
+        if p.get("statut_part") == "NP":
+            continue  # non-partant exclu (les disqualifiés à l'arrivée restent des partants)
         musique = (p.get("cheval") or {}).get("musique") or p.get("musique")
         m_score, nb = score_musique(musique)
         composantes = {"musique": m_score}
@@ -113,7 +113,8 @@ def analyser(course):
             "composantes": composantes,
             "manquants": manquants,
         })
-    lignes.sort(key=lambda x: -x["score"])
+    # Tri déterministe : d'abord par note, puis par numéro. Ainsi le résultat ne dépend pas de l'ordre de la page.
+    lignes.sort(key=lambda x: (-x["score"], x["numero"]))
     return lignes
 
 
