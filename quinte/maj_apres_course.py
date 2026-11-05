@@ -89,7 +89,8 @@ def main(argv):
     if ligne is None:
         print("RIEN : arrivée incomplète pour %s" % date)
         return
-    quinte_du_jour.charger(date)  # régénère la page du jour et la page d'accueil
+    quinte_du_jour.charger(date)  # régénère la page du jour
+    quinte_du_jour.index()        # puis la page d'accueil, qui reprend la plus récente
     print("MISE_A_JOUR : %s, départ %s, arrivée %s" % (date, heure, ligne["ordre_reel"]))
 
 

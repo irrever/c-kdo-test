@@ -8,6 +8,7 @@ Réutilise le modèle de analyse_equidia.py (notes Equidia, sans cotes). Pour ch
 ajoute les raisons tirées de la fiche. Ajoute aussi le détail des combinaisons de
 tiercé, quarté et quinté (y compris les quintés de plus de 5 chevaux).
 """
+import glob
 import html
 import json
 import os
@@ -82,6 +83,18 @@ details li{margin-bottom:6px}
 .rec .bloc.reco{border:1px solid var(--bleu);background:var(--bleu-bg)}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
+
+.zone-details{padding:0;border-bottom:none;margin-bottom:14px}
+.zone-details > summary{list-style:none;cursor:pointer;display:block;padding:18px 44px 16px 18px;position:relative}
+.zone-details > summary::-webkit-details-marker{display:none}
+.zone-details > summary::after{content:"+";position:absolute;right:18px;top:14px;font-size:22px;line-height:1;color:var(--muted);font-weight:400}
+.zone-details[open] > summary::after{content:"\2212"}
+.zone-details > summary:focus-visible{outline:2px solid var(--bleu);outline-offset:-2px;border-radius:8px}
+.zone-details > summary .label{display:block}
+.zone-details > summary h2{margin:4px 0 0}
+.zone-details > :not(summary){margin-left:18px;margin-right:18px}
+.zone-details > :last-child{margin-bottom:18px}
+
 
 .entete h2{font-size:18px;margin:2px 0 10px;font-weight:600}
 .puces{display:flex;flex-wrap:wrap;gap:6px}
@@ -288,6 +301,12 @@ td,th{padding:8px 6px}
     b.addEventListener("click",function(){
       boutons.forEach(function(x){x.setAttribute("aria-selected", x===b ? "true" : "false");});
       document.querySelectorAll("[data-vue]").forEach(function(v){ v.hidden = (v.getAttribute("data-vue") !== b.getAttribute("data-cible")); });
+    });
+  });
+  document.querySelectorAll("nav.side a").forEach(function(a){
+    a.addEventListener("click", function(){
+      var cible = document.getElementById(a.getAttribute("href").slice(1));
+      if (cible && cible.tagName === "DETAILS") { cible.open = true; }
     });
   });
 })();
@@ -592,6 +611,22 @@ def _entete_html(course):
                 html.escape(numero), html.escape(hippo), html.escape(libelle), puces)
 
 
+def _rendre_depliable(page):
+    """Chaque zone de l'onglet Analyse devient un bloc repliable (fermé par défaut, sauf le quinté)."""
+    motif = re.compile(
+        r'<section id="(zone-[^"]+)" class="([^"]*)">\s*<div class="label">([^<]*)</div>\s*'
+        r'(<h2[^>]*>.*?</h2>)?(.*?)</section>', re.S)
+
+    def remplace(m):
+        zone_id, classes, libelle, titre, corps = m.group(1), m.group(2), m.group(3), m.group(4) or "", m.group(5)
+        ouvert = " open" if zone_id == "zone-1" else ""
+        return ('<details id="%s" class="%s zone-details"%s>'
+                '<summary><span class="label">%s</span>%s</summary>%s</details>') % (
+                    zone_id, classes, ouvert, libelle, titre, corps)
+
+    return motif.sub(remplace, page)
+
+
 def _ajouter_navigation(page):
     """Identifiants de zone et colonne de navigation latérale."""
     zones = []
@@ -605,6 +640,7 @@ def _ajouter_navigation(page):
             mo = mo.replace('<section class=', '<section id="%s" class=' % ancre, 1)
         sortie.append(mo)
     page = "".join(sortie)
+    page = _rendre_depliable(page)
     groupes = [
         ("Pronostic", [("1", "Quinté+")]),
         ("Analyse", [("2", "Analyse des chevaux"), ("6", "Probabilités")]),
@@ -848,14 +884,60 @@ def _reaction_html(lignes, arrivee, journal, disqualifies):
     return "".join(items)
 
 
+PRONOSTICS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pronostics")
+
+
+def _date_fr(iso):
+    """2026-11-05 -> jeudi 5 novembre 2026."""
+    import datetime as dt
+    try:
+        d = dt.date.fromisoformat(iso)
+    except ValueError:
+        return iso
+    jours = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+    mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
+            "septembre", "octobre", "novembre", "décembre"]
+    return "%s %d %s %d" % (jours[d.weekday()], d.day, mois[d.month - 1], d.year)
+
+
+def _dernier_quinte_couru(date):
+    """Résultats du dernier quinté couru avant `date` : (date, bloc HTML de la partie résultat), ou (None, None)."""
+    debut_marque = "<div class='vue' data-vue='resultat' hidden>"
+    fin_marque = '<div class="vue" data-vue="analyse">'
+    for f in sorted(glob.glob(os.path.join(PRONOSTICS_DIR, "????-??-??.html")), reverse=True):
+        d = os.path.basename(f)[:-5]
+        if d >= date:
+            continue
+        texte = open(f, encoding="utf-8").read()
+        if debut_marque not in texte or fin_marque not in texte or "Arrivée non encore connue" in texte:
+            continue
+        i = texte.index(debut_marque) + len(debut_marque)
+        j = texte.index(fin_marque)
+        bloc = texte[i:j].rstrip()
+        if bloc.endswith("</div>"):
+            bloc = bloc[:-len("</div>")]
+        return d, bloc
+    return None, None
+
+
 def _resultat_html(course, lignes, date, chemin_page):
     """Partie résultat : arrivée en grand, comparaison, réaction du modèle, rapports essentiels."""
     arrivee = _arrivee_page(course)
     if not arrivee:
-        return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
-                "<h2>Arrivée non encore connue</h2>"
-                "<p class='note'>Le résultat officiel et les rapports apparaîtront ici dès l'arrivée. "
-                "L'analyse ci-dessous reste celle faite avant la course.</p></section>")
+        d_prec, bloc_prec = _dernier_quinte_couru(date)
+        if bloc_prec is None:
+            return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
+                    "<h2>Arrivée non encore connue</h2>"
+                    "<p class='note'>Le résultat officiel et les rapports apparaîtront ici dès l'arrivée. "
+                    "L'analyse ci-dessous reste celle faite avant la course.</p></section>")
+        jp = os.path.join(JOURNAL_DIR, "%s.json" % d_prec)
+        cible = json.load(open(jp, encoding="utf-8")) if os.path.exists(jp) else {}
+        quoi = "%s (%s)" % (cible.get("hippodrome", ""), cible.get("course", ""))
+        bandeau = ("<section class='card accent-gris'><div class='label'>Dernier quinté couru</div>"
+                   "<h2>Résultats du quinté du %s</h2>"
+                   "<p class='note'>%s. Ces résultats et rapports restent affichés jusqu'à la publication de ceux du quinté "
+                   "du %s.</p></section>") % (html.escape(_date_fr(d_prec)), html.escape(quoi), html.escape(_date_fr(date)))
+        return bandeau + bloc_prec
 
     noms = {l["numero"]: l["nom"] for l in lignes}
     disq = {p["num_partant"] for p in course["partants"] if p.get("statut_part") == "AI"}
