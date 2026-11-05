@@ -56,15 +56,29 @@ def _deja_enregistre(date):
         return any(x["date"] == date for x in csv.DictReader(f, delimiter=";"))
 
 
+def _en_attente(chemin):
+    """Nombre de rapports encore marqués « pas encore publié » dans la page (None si la page n'existe pas)."""
+    if not os.path.exists(chemin):
+        return None
+    with open(chemin, encoding="utf-8") as f:
+        return f.read().count("pas encore publié")
+
+
+def _rafraichir_suivant(date):
+    """Le quinté du lendemain reprend le dernier quinté couru : si sa page existe, on la régénère."""
+    suivant = (dt.date.fromisoformat(date) + dt.timedelta(days=1)).isoformat()
+    page = os.path.join(quinte_du_jour.SORTIE, "%s.html" % suivant)
+    if os.path.exists(suivi._fichier_pronostic(suivant)) and os.path.exists(page):
+        quinte_du_jour.charger(suivant)
+
+
 def main(argv):
     date, maintenant = _parametres(argv)
     chemin_journal = suivi._fichier_pronostic(date)
     if not os.path.exists(chemin_journal):
         print("RIEN : pas de pronostic figé pour %s" % date)
         return
-    if _deja_enregistre(date):
-        print("RIEN : résultat déjà enregistré pour %s" % date)
-        return
+    deja = _deja_enregistre(date)
     with open(chemin_journal, encoding="utf-8") as f:
         journal = json.load(f)
     r, c = [int(x) for x in journal["course"].replace("R", "").split("C")]
@@ -85,11 +99,29 @@ def main(argv):
     if maintenant < seuil:
         print("ATTENTE : départ à %s, mise à jour à partir de %s" % (heure, seuil.strftime("%H:%M")))
         return
+    page = os.path.join(quinte_du_jour.SORTIE, "%s.html" % date)
+    if deja:
+        # Résultat déjà enregistré : la page n'est reprise que si des rapports officiels viennent de paraître.
+        avant = _en_attente(page)
+        if avant == 0:
+            print("RIEN : résultat et rapports déjà complets pour %s" % date)
+            return
+        quinte_du_jour.charger(date)
+        apres = _en_attente(page)
+        if apres is None or (avant is not None and apres >= avant):
+            print("RIEN : résultat déjà enregistré, rapports officiels toujours en attente pour %s" % date)
+            return
+        _rafraichir_suivant(date)
+        quinte_du_jour.index()
+        print("MISE_A_JOUR : %s, rapports officiels publiés (%d en attente, au lieu de %s)" % (
+            date, apres, avant if avant is not None else "aucun"))
+        return
     ligne = suivi.enregistrer_resultat(date)
     if ligne is None:
         print("RIEN : arrivée incomplète pour %s" % date)
         return
     quinte_du_jour.charger(date)  # régénère la page du jour
+    _rafraichir_suivant(date)     # reprend ses résultats sur la page du lendemain, si elle existe
     quinte_du_jour.index()        # puis la page d'accueil, qui reprend la plus récente
     print("MISE_A_JOUR : %s, départ %s, arrivée %s" % (date, heure, ligne["ordre_reel"]))
 
