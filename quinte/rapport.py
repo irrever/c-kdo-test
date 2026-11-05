@@ -39,7 +39,7 @@ GABARIT = """<!doctype html>
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
   padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 main{max-width:960px;margin:0 auto;padding-top:20px}
-.hero{background:#1f3a5f;color:#f2f4f8;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #16294a}
+.hero{background:#2a5ca8;color:#ffffff;border-radius:10px;padding:20px 22px;margin-bottom:14px;border:1px solid #224d8f}
 .hero h1{font-size:22px;margin:0 0 6px}
 .hero p{margin:0;opacity:.92}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -54,8 +54,12 @@ h2{font-size:17px;margin:0 0 10px}
 .label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
 .ordre{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-size:16px;color:#fff;background:var(--bleu)}
-.pastille.r1{background:var(--or)}
-.pastille.r2{background:var(--vert)}
+.zones{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px;margin-bottom:14px;display:flex;gap:4px;overflow-x:auto;white-space:nowrap}
+.zones a{color:var(--bleu);text-decoration:none;font-size:13px;font-weight:600;padding:5px 10px;border-radius:6px}
+.zones a:hover{background:var(--bleu-bg)}
+section{scroll-margin-top:64px}
+.pastille.r1{background:#163d75}
+.pastille.r2{background:var(--bleu)}
 .pastille.box{background:var(--violet)}
 .pastille.gris{background:var(--gris)}
 .jeu-titre{font-size:19px;font-weight:700;color:var(--text)}
@@ -96,7 +100,7 @@ details li{margin-bottom:6px}
   <div class="ordre">@@ordre@@</div>
   <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
 </section>
-<section class="card accent-vert">
+<section class="card accent-bleu">
   <div class="label">2.1 · Tiercé, quarté et quinté</div>
   <div class="jeu-titre">@@jeu_type@@</div>
   <p class="note">@@jeu_sel@@</p>
@@ -444,6 +448,31 @@ def _statistiques_chevaux(lignes):
             "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
+def _ajouter_navigation(page):
+    """Ajoute un identifiant à chaque zone numérotée et une barre de navigation qui reste en haut."""
+    zones = []
+    def ident(m):
+        numero, titre = m.group(1), m.group(2)
+        ancre = "zone-" + numero.replace(".", "-")
+        zones.append((ancre, numero, titre))
+        return '<section id="%s" class="%s"' % (ancre, m.group(0)[len('<section class="'):].split('"')[0]) if False else m.group(0)
+    # Attribue l'identifiant à la section qui contient le libellé de zone
+    morceaux = re.split(r'(?=<section class=)', page)
+    sortie = []
+    for mo in morceaux:
+        m = re.search(r'<div class="label">([\d.]+) · ([^<]*)</div>', mo)
+        if mo.startswith('<section class=') and m:
+            ancre = "zone-" + m.group(1).replace(".", "-")
+            zones.append((ancre, m.group(1), m.group(2)))
+            mo = mo.replace('<section class=', '<section id="%s" class=' % ancre, 1)
+        sortie.append(mo)
+    page = "".join(sortie)
+    liens = "".join('<a href="#%s">%s · %s</a>' % (a, n, html.escape(t.split(" : ")[0][:28])) for a, n, t in zones if n in ("1", "2.1", "3", "4", "5", "6", "7", "8.1", "9"))
+    nav = '<nav class="zones" aria-label="Zones">%s</nav>' % liens
+    fin_hero = page.find("</section>")
+    return page[:fin_hero + len("</section>")] + "\n" + nav + page[fin_hero + len("</section>"):]
+
+
 def _pastille(n, rang):
     classe = {1: "r1", 2: "r2"}.get(rang, "")
     return "<span class='pastille %s'>%d</span>" % (classe, n)
@@ -539,7 +568,7 @@ def generer(chemin_page):
     page = GABARIT
     for cle, valeur in valeurs.items():
         page = page.replace("@@%s@@" % cle, str(valeur))
-    return page
+    return _ajouter_navigation(page)
 
 
 if __name__ == "__main__":
