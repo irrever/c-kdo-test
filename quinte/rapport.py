@@ -82,6 +82,23 @@ details li{margin-bottom:6px}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 
+@media (max-width:820px){
+  .bloc-pari thead{display:none}
+  .bloc-pari table,.bloc-pari tbody{display:block;width:100%}
+  .bloc-pari tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"box tag" "nums nums" "comb chance";gap:6px 8px;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+  .bloc-pari tr.reco{border-color:var(--bleu)}
+  .bloc-pari td{border:0;padding:0;text-align:left;font-size:13px;background:transparent}
+  .bloc-pari td:nth-child(1){grid-area:box;font-weight:600}
+  .bloc-pari td:nth-child(1)::before{content:"Box "}
+  .bloc-pari td:nth-child(2){grid-area:nums}
+  .bloc-pari td:nth-child(3){grid-area:comb;color:var(--muted)}
+  .bloc-pari td:nth-child(3)::after{content:" combinaison(s)"}
+  .bloc-pari td:nth-child(4){grid-area:chance;text-align:right;font-weight:600}
+  .bloc-pari td:nth-child(6){grid-area:tag;text-align:right}
+  .bloc-pari td.opt{display:none}
+}
+
+
 .bloc-pari{margin-bottom:18px}
 .bloc-pari h3{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--text)}
 .numeros{display:flex;flex-wrap:wrap;gap:4px}
@@ -144,13 +161,11 @@ td,th{padding:8px 6px}
   <div class="ordre">@@ordre@@</div>
   <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
 </section>
-<section class="card accent-gris wrap">
+<section class="card accent-bleu">
   <div class="label">2 · Analyse des chevaux</div>
-  <h2>Probabilités par cheval</h2>
-  <table>
-    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
-    <tbody>@@lignes@@</tbody>
-  </table>
+  <h2>Analyse par cheval</h2>
+  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
+  @@analyses@@
 </section>
 <section class="card accent-bleu">
   <div class="label">3 · Tiercé, quarté et quinté</div>
@@ -177,17 +192,19 @@ td,th{padding:8px 6px}
   <h2>Distinction du gagnant et du top 5</h2>
   @@distinction@@
 </section>
+<section class="card accent-gris wrap">
+  <div class="label">6 · Probabilités par cheval</div>
+  <h2>Probabilités par cheval</h2>
+  <table>
+    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
+    <tbody>@@lignes@@</tbody>
+  </table>
+</section>
 <section class="card accent-bleu">
-  <div class="label">6 · Profil de la course et difficultés</div>
+  <div class="label">7 · Profil de la course et difficultés</div>
   <h2>Profil de la course et difficultés</h2>
   <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
   @@profil@@
-</section>
-<section class="card accent-bleu">
-  <div class="label">7 · Analyse détaillée par cheval</div>
-  <h2>Analyse par cheval</h2>
-  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
-  @@analyses@@
 </section>
 <section class="card accent-bleu">
   <div class="label">8.1 · Méthode</div>
@@ -221,6 +238,7 @@ td,th{padding:8px 6px}
   <h2>Statistiques des chevaux suivis</h2>
   @@statistiques@@
 </section>
+
 
 
 
@@ -505,9 +523,9 @@ def _ajouter_navigation(page):
     page = "".join(sortie)
     groupes = [
         ("Pronostic", [("1", "Quinté+")]),
-        ("Analyse", [("2", "Chevaux")]),
+        ("Analyse", [("2", "Analyse des chevaux"), ("6", "Probabilités")]),
         ("Jeux", [("3", "Tiercé, quarté, quinté"), ("3.1", "Box"), ("4", "Couplés et simples"), ("5", "Distinction top 5")]),
-        ("Détail", [("6", "Profil de course"), ("7", "Par cheval")]),
+        ("Détail", [("7", "Profil de course")]),
         ("Suivi", [("8.1", "Méthode"), ("9", "Statistiques")]),
     ]
     dispo = {n: a for a, n, _t in zones}
