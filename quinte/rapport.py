@@ -83,6 +83,11 @@ details li{margin-bottom:6px}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 
+.entete h2{font-size:18px;margin:2px 0 10px;font-weight:600}
+.puces{display:flex;flex-wrap:wrap;gap:6px}
+.puces span{display:inline-block;font-size:12.5px;padding:3px 9px;border:1px solid var(--line);border-radius:4px;color:var(--text);background:var(--gris-bg)}
+
+
 .arr-grand{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px}
 .arr-grand .cell{flex:1 1 110px;min-width:96px;padding:16px 10px;border:1px solid var(--line);border-radius:8px;text-align:center;background:var(--surface)}
 .arr-grand .cell b{display:block;font-size:40px;font-weight:700;line-height:1;color:var(--bleu)}
@@ -182,6 +187,7 @@ td,th{padding:8px 6px}
 }
 </style></head><body><main>
 
+@@entete@@
 @@onglets@@
 @@partie_resultat@@
 <div class="vue" data-vue="analyse">
@@ -549,6 +555,41 @@ def _statistiques_chevaux(lignes):
             round(100 * top3 / len(lst)), round(100 * pred)))
     return ("<table><thead><tr><th>Cheval</th><th class='num'>Courses</th><th class='num'>Place moy.</th>"
             "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
+
+
+def _entete_html(course):
+    """En-tête du quinté : date, réunion, heure de départ, distance, discipline, partants."""
+    import datetime as dt
+    reunion = course.get("reunion", {})
+    hippo = (reunion.get("hippodrome") or {}).get("name") or reunion.get("lib_reunion") or ""
+    date_iso = reunion.get("date_reunion") or ""
+    try:
+        d = dt.date.fromisoformat(date_iso)
+        jours = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+        mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
+                "septembre", "octobre", "novembre", "décembre"]
+        date_txt = "%s %d %s %d" % (jours[d.weekday()].capitalize(), d.day, mois[d.month - 1], d.year)
+    except ValueError:
+        date_txt = date_iso
+    heure = course.get("heure_depart_course") or ""
+    distance = course.get("distance")
+    discipline = course.get("discipline") or ""
+    partants = sum(1 for p in course.get("partants", []) if p.get("statut_part") != "NP")
+    libelle = course.get("libcourt_prix_course") or ""
+    corde = (course.get("lib_corde_course") or "").replace("Corde ", "corde ")
+    numero = "R%s C%s" % (reunion.get("num_reunion"), course.get("num_course_pmu"))
+    chips = [date_txt,
+             ("Départ %s" % heure) if heure else "",
+             ("%s m" % distance) if distance else "",
+             discipline,
+             ("%s partants" % partants) if partants else "",
+             corde]
+    puces = "".join("<span>%s</span>" % html.escape(c) for c in chips if c)
+    return ("<section class='card entete accent-bleu'>"
+            "<div class='label'>Quinté+ du jour · %s</div>"
+            "<h2>%s · %s</h2>"
+            "<div class='puces'>%s</div></section>") % (
+                html.escape(numero), html.escape(hippo), html.escape(libelle), puces)
 
 
 def _ajouter_navigation(page):
@@ -932,6 +973,7 @@ def generer(chemin_page):
         "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
+        "entete": _entete_html(course),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _resultat_html(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button></div>",
         "analyses": analyses_html,

@@ -1,0 +1,360 @@
+{
+ "date": "2026-11-06",
+ "retroactif": false,
+ "fige_le": "2026-11-05T18:49:00",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.0,
+   "aptitudes": 0.25,
+   "forme_cheval": 0.25,
+   "chronos": 0.2,
+   "tandem": 0.1,
+   "conditions": 0.1,
+   "bruits_ecuries": 0.1
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 7,
+   "nom": "ITALICA",
+   "score": 0.8205000000000001,
+   "p_victoire": 0.126275,
+   "p_top3": 0.35508,
+   "p_top5": 0.54957
+  },
+  {
+   "numero": 2,
+   "nom": "INDY DE MAI",
+   "score": 0.8005000000000001,
+   "p_victoire": 0.115635,
+   "p_top3": 0.32981,
+   "p_top5": 0.518975
+  },
+  {
+   "numero": 8,
+   "nom": "ISSI TOP",
+   "score": 0.7460000000000003,
+   "p_victoire": 0.09401,
+   "p_top3": 0.273995,
+   "p_top5": 0.44376
+  },
+  {
+   "numero": 12,
+   "nom": "INCREDIBLE GO",
+   "score": 0.7090000000000002,
+   "p_victoire": 0.08175,
+   "p_top3": 0.241905,
+   "p_top5": 0.396125
+  },
+  {
+   "numero": 9,
+   "nom": "IRIS DU LIVIER",
+   "score": 0.7030000000000002,
+   "p_victoire": 0.078295,
+   "p_top3": 0.234855,
+   "p_top5": 0.38872
+  },
+  {
+   "numero": 18,
+   "nom": "IZIJAL",
+   "score": 0.6435000000000001,
+   "p_victoire": 0.061515,
+   "p_top3": 0.18864,
+   "p_top5": 0.320015
+  },
+  {
+   "numero": 10,
+   "nom": "HEAVEN D'ECAJEUL",
+   "score": 0.6405000000000002,
+   "p_victoire": 0.061105,
+   "p_top3": 0.18604,
+   "p_top5": 0.3143
+  },
+  {
+   "numero": 14,
+   "nom": "IGLIANO DES IRIS",
+   "score": 0.6110000000000001,
+   "p_victoire": 0.054925,
+   "p_top3": 0.1677,
+   "p_top5": 0.28511
+  },
+  {
+   "numero": 15,
+   "nom": "ICI PARIS EFJI",
+   "score": 0.5700000000000002,
+   "p_victoire": 0.04624,
+   "p_top3": 0.144345,
+   "p_top5": 0.24684
+  },
+  {
+   "numero": 16,
+   "nom": "HORSERIS",
+   "score": 0.5555000000000001,
+   "p_victoire": 0.04421,
+   "p_top3": 0.136075,
+   "p_top5": 0.235595
+  },
+  {
+   "numero": 6,
+   "nom": "HORSE DE GRAMMONT",
+   "score": 0.5505000000000001,
+   "p_victoire": 0.043125,
+   "p_top3": 0.134235,
+   "p_top5": 0.232205
+  },
+  {
+   "numero": 3,
+   "nom": "IVON DE LA MONERIE",
+   "score": 0.5415000000000002,
+   "p_victoire": 0.04151,
+   "p_top3": 0.129405,
+   "p_top5": 0.224495
+  },
+  {
+   "numero": 4,
+   "nom": "ISEA DU QUENNE",
+   "score": 0.49350000000000005,
+   "p_victoire": 0.03467,
+   "p_top3": 0.108655,
+   "p_top5": 0.18922
+  },
+  {
+   "numero": 17,
+   "nom": "HOTESSE NAY",
+   "score": 0.49250000000000005,
+   "p_victoire": 0.034365,
+   "p_top3": 0.107065,
+   "p_top5": 0.186995
+  },
+  {
+   "numero": 1,
+   "nom": "HISCO DE PARNIERE",
+   "score": 0.48950000000000005,
+   "p_victoire": 0.033055,
+   "p_top3": 0.104355,
+   "p_top5": 0.18434
+  },
+  {
+   "numero": 11,
+   "nom": "GALOPIN DE CONDE",
+   "score": 0.41550000000000004,
+   "p_victoire": 0.024455,
+   "p_top3": 0.07866,
+   "p_top5": 0.14073
+  },
+  {
+   "numero": 13,
+   "nom": "HANACK DE VIVOIN",
+   "score": 0.2860000000000001,
+   "p_victoire": 0.014765,
+   "p_top3": 0.047115,
+   "p_top5": 0.085315
+  },
+  {
+   "numero": 5,
+   "nom": "HANUGAN",
+   "score": 0.18450000000000003,
+   "p_victoire": 0.010095,
+   "p_top3": 0.032065,
+   "p_top5": 0.05769
+  }
+ ],
+ "ordre_predit": [
+  7,
+  2,
+  8,
+  12,
+  9
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     7,
+     2,
+     8
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.01196,
+    "par_combinaison": 0.01196
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.03759,
+    "par_combinaison": 0.0093975
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.080125,
+    "par_combinaison": 0.0080125
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.12852,
+    "par_combinaison": 0.006425999999999999
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.005735,
+    "par_combinaison": 0.005735
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.0221,
+    "par_combinaison": 0.00442
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.04832,
+    "par_combinaison": 0.0032213333333333334
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18,
+     10
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.08967,
+    "par_combinaison": 0.002562
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.003535,
+    "par_combinaison": 0.003535
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.01378,
+    "par_combinaison": 0.002296666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18,
+     10
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.035005,
+    "par_combinaison": 0.001666904761904762
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18,
+     10,
+     14
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.0702,
+    "par_combinaison": 0.0012535714285714285
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     7,
+     2,
+     8,
+     12,
+     9,
+     18,
+     10,
+     14,
+     15
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.11667,
+    "par_combinaison": 0.0009259523809523809
+   }
+  ]
+ }
+}
