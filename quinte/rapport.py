@@ -121,6 +121,23 @@ details li{margin-bottom:6px}
   <p class="note"><strong>Validation</strong> : le modèle a été choisi sur 20 quintés passés et testé sur 10 autres. Sur ces 10 courses, sa log-loss sur le gagnant est de 2,17, contre 2,62 pour un tirage au hasard. C'est mieux que le hasard, mais le petit nombre de courses limite la confiance. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
 </section>
 
+<section class="card accent-bleu wrap">
+  <div class="label">Précision</div>
+  <h2>Ce qui compte, ce qui est affiché, ce qui a été testé</h2>
+  <table>
+    <thead><tr><th>Critère</th><th>Statut dans la note</th><th>Résultat du test (log-loss, plus bas = mieux)</th></tr></thead>
+    <tbody>
+      <tr><td>Notes Equidia : aptitude à la distance, forme, chronos, tandem, conditions, bruits</td><td><span class="tag ok">Pris en compte</span></td><td>@@ll_notes@@ (hasard : @@ll_hasard@@)</td></tr>
+      <tr><td>Distance du jour</td><td><span class="tag ok">Via l'aptitude à la distance</span></td><td>Inclus dans les notes</td></tr>
+      <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>@@ll_corde@@ si ajoutée au calcul</td></tr>
+      <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>@@ll_poids@@ si ajouté au calcul</td></tr>
+      <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
+      <tr><td>Cotes</td><td><span class="tag ko">Jamais utilisées</span></td><td>Exclues par principe</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Les notes ont été validées sur 30 quintés passés, dont 12 de plat ou d'obstacle. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
+</section>
+
 <section class="card accent-violet">
   <div class="label">Combinaisons</div>
   <h2>Tiercé, quarté et quinté en box</h2>
@@ -183,8 +200,13 @@ def _jeu_conseille(jeux):
     return nom, "Probabilité estimée : %s." % pct(p)
 
 
-def _faits_partant(p):
+def _faits_partant(p, discipline=""):
     faits = []
+    if discipline in ("Plat", "Obstacle"):
+        if p.get("pds_calc_hand_partant") is not None:
+            faits.append("Poids : %s kg (affiché, non pris en compte)." % p["pds_calc_hand_partant"])
+        if p.get("place_corde_partant") is not None:
+            faits.append("Place à la corde : %s (affiché, non pris en compte)." % p["place_corde_partant"])
     if p.get("libelle_avis_entraineur") and p["libelle_avis_entraineur"] != "Avis neutre":
         faits.append("Avis de l'entraîneur : %s." % p["libelle_avis_entraineur"].replace("Avis ", "").lower())
     if p.get("deferrer_partant_first_time"):
@@ -203,7 +225,7 @@ def _faits_partant(p):
     return faits
 
 
-def _analyse_cheval(l, p):
+def _analyse_cheval(l, p, discipline=""):
     notes = p.get("interne_note_partant") or {}
     lignes = []
     for cle, libelle in LIBELLES.items():
@@ -215,7 +237,7 @@ def _analyse_cheval(l, p):
         if commentaire:
             texte += " — %s" % html.escape(commentaire)
         lignes.append("<li>%s</li>" % texte)
-    for fait in _faits_partant(p):
+    for fait in _faits_partant(p, discipline):
         lignes.append("<li>%s</li>" % html.escape(fait))
     entete = "n°%d %s — %s" % (l["numero"], html.escape(l["nom"]), pct(l["score"]))
     return ("<details><summary>%s</summary><p class='note'>Driver : %s · Entraîneur : %s · "
@@ -273,7 +295,7 @@ def generer(chemin_page):
             % (classe, i, n, html.escape(l["nom"]), html.escape(l["driver"] or ""), l["score"],
                barre, pct(prob["victoire"][n]), pct(prob["top3"][n]), pct(prob["top5"][n])))
 
-    analyses_html = "".join(_analyse_cheval(l, par_numero[l["numero"]]) for l in lignes)
+    analyses_html = "".join(_analyse_cheval(l, par_numero[l["numero"]], course.get("discipline")) for l in lignes)
     jeux_html = "".join("<tr><td>%s</td><td class='num'>%s</td></tr>" % (html.escape(k), pct(v))
                         for k, v in sorted(jeux.items(), key=lambda kv: -kv[1]))
 
@@ -307,6 +329,7 @@ def generer(chemin_page):
         "jeu_sel": html.escape(phrase_jeu),
         "recommandations": recommandations,
         "budget": ae.BUDGET_COMBINAISONS,
+        "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "analyses": analyses_html,

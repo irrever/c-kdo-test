@@ -102,6 +102,8 @@ def build(d_debut, d_fin):
                 "nom": (p.get("cheval") or {}).get("nom_cheval"),
                 "driver": (p.get("monte") or {}).get("nom_monte"),
                 "musique": p.get("musique") or (p.get("cheval") or {}).get("musique"),
+                "place_corde": p.get("place_corde_partant"),
+                "poids": p.get("pds_calc_hand_partant"),
                 "notes": {k: notes.get(k) for k in NOTES} if note_ok else None,
                 "historique": hist_avant,
                 "arrivee": place_num(p.get("num_place_arrivee")),
