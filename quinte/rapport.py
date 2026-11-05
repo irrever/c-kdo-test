@@ -144,8 +144,16 @@ td,th{padding:8px 6px}
   <div class="ordre">@@ordre@@</div>
   <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
 </section>
+<section class="card accent-gris wrap">
+  <div class="label">2 · Analyse des chevaux</div>
+  <h2>Probabilités par cheval</h2>
+  <table>
+    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
+    <tbody>@@lignes@@</tbody>
+  </table>
+</section>
 <section class="card accent-bleu">
-  <div class="label">2.1 · Tiercé, quarté et quinté</div>
+  <div class="label">3 · Tiercé, quarté et quinté</div>
   <div class="jeu-titre">@@jeu_type@@</div>
   <p class="note">@@jeu_sel@@</p>
   <h2 style="margin-top:14px">Ce que je jouerais par type de pari</h2>
@@ -153,29 +161,21 @@ td,th{padding:8px 6px}
   <p class="note">Recommandation : la taille de box la plus probable, dans une limite de @@budget@@ combinaisons par pari.</p>
 </section>
 <section class="card accent-violet">
-  <div class="label">2.2 · Combinaisons en box</div>
+  <div class="label">3.1 · Combinaisons en box</div>
   <h2>Tiercé, quarté et quinté en box</h2>
   <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
   @@combinaisons@@
   <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
 </section>
 <section class="card accent-gris wrap">
-  <div class="label">3 · Couplés, simples placés et trios</div>
+  <div class="label">4 · Couplés, simples placés et trios</div>
   <h2>Probabilités des jeux simples</h2>
   <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
 </section>
 <section class="card accent-bleu">
-  <div class="label">4 · Distinction du gagnant et du top 5</div>
+  <div class="label">5 · Distinction du gagnant et du top 5</div>
   <h2>Distinction du gagnant et du top 5</h2>
   @@distinction@@
-</section>
-<section class="card accent-gris wrap">
-  <div class="label">5 · Chevaux et probabilités</div>
-  <h2>Probabilités par cheval</h2>
-  <table>
-    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
-    <tbody>@@lignes@@</tbody>
-  </table>
 </section>
 <section class="card accent-bleu">
   <div class="label">6 · Profil de la course et difficultés</div>
@@ -221,6 +221,7 @@ td,th{padding:8px 6px}
   <h2>Statistiques des chevaux suivis</h2>
   @@statistiques@@
 </section>
+
 
 
 <p class="foot">Les cotes ne sont pas utilisées. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
@@ -503,8 +504,10 @@ def _ajouter_navigation(page):
         sortie.append(mo)
     page = "".join(sortie)
     groupes = [
-        ("Pronostic", [("1", "Quinté+"), ("2.1", "Tiercé, quarté, quinté"), ("3", "Couplés et simples"), ("4", "Distinction top 5")]),
-        ("Analyse", [("5", "Chevaux"), ("6", "Profil de course"), ("7", "Détail par cheval")]),
+        ("Pronostic", [("1", "Quinté+")]),
+        ("Analyse", [("2", "Chevaux")]),
+        ("Jeux", [("3", "Tiercé, quarté, quinté"), ("3.1", "Box"), ("4", "Couplés et simples"), ("5", "Distinction top 5")]),
+        ("Détail", [("6", "Profil de course"), ("7", "Par cheval")]),
         ("Suivi", [("8.1", "Méthode"), ("9", "Statistiques")]),
     ]
     dispo = {n: a for a, n, _t in zones}
