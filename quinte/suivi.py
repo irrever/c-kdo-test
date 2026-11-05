@@ -76,7 +76,7 @@ def enregistrer_pronostic(date, retroactif=False):
 
 def _arrivee(date, r, c):
     """Arrivée officielle : liste des numéros classés, ou None si la course n'est pas terminée."""
-    course = eq.course(date, r, c)
+    course = eq.course(date, r, c, fresh=True)
     if not course or course.get("type_statut_course_id") != "finished":
         return None
     arr = []

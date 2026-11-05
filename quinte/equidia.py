@@ -27,8 +27,10 @@ def _cache_path(url):
     return os.path.join(CACHE, hashlib.sha1(url.encode()).hexdigest() + ".html")
 
 
-def get_html(url):
+def get_html(url, fresh=False):
     chemin = _cache_path(url)
+    if fresh and os.path.exists(chemin):
+        os.remove(chemin)
     if os.path.exists(chemin):
         with open(chemin, encoding="utf-8") as f:
             return f.read()
@@ -59,10 +61,10 @@ def _chercher(o, cle_test):
             yield from _chercher(v, cle_test)
 
 
-def course(date, r, c):
-    """Renvoie la course (dict PMU) ou None si la page n'a pas de course."""
+def course(date, r, c, fresh=False):
+    """Renvoie la course (dict PMU) ou None si la page n'a pas de course. fresh=True : ignore le cache."""
     url = "%s/courses/%s/R%d/C%d" % (BASE, date, r, c)
-    s = etat(get_html(url))
+    s = etat(get_html(url, fresh=fresh))
     if not s:
         return None
     trouves = [x for x in _chercher(s, lambda o: "partants" in o and "num_course_pmu" in o and o.get("guid") and o.get("distance"))]

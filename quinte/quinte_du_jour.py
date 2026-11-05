@@ -21,13 +21,19 @@ import rapport  # noqa: E402
 SORTIE = os.path.join(HERE, "pronostics")
 
 
+def _heure_depart(date, r, c):
+    """Heure de départ de la course (HH:MM, heure de Paris), lue dans les données de la course."""
+    course = eq.course(date, r, c, fresh=True)
+    return course.get("heure_depart_course") if course else None
+
+
 def charger(date):
     q = eq.quinte_du_jour(date)
     if not q:
         raise SystemExit("Aucun quinté trouvé pour %s." % date)
     r, c = q
     url = "%s/courses/%s/R%d/C%d" % (eq.BASE, date, r, c)
-    page_brute = eq.get_html(url)
+    page_brute = eq.get_html(url, fresh=True)
     os.makedirs(SORTIE, exist_ok=True)
     chemin_brut = os.path.join(eq.CACHE, "course-%s-R%dC%d.html" % (date, r, c))
     with open(chemin_brut, "w", encoding="utf-8") as f:
@@ -36,6 +42,9 @@ def charger(date):
     with open(sortie, "w", encoding="utf-8") as f:
         f.write(rapport.generer(chemin_brut))
     print("écrit :", sortie)
+    depart = _heure_depart(date, r, c)
+    if depart:
+        print("depart :", depart)
     import suivi
     suivi.enregistrer_pronostic(date)  # fige le pronostic avant la course
     return sortie

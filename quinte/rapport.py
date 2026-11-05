@@ -629,6 +629,8 @@ def _rapports_page(chemin_page):
     vus, uniques = set(), []
     for r in rapports:
         cle = (r["type_reserve_rap_def"], r["combinaison_rap_def"])
+        if r["type_reserve_rap_def"].startswith("e-"):
+            continue  # paris en ligne : même résultat, on ne les répète pas
         if cle not in vus and r["combinaison_rap_def"]:
             vus.add(cle); uniques.append(r)
     return uniques
