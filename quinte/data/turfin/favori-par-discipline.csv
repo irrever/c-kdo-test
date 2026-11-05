@@ -1,0 +1,24 @@
+﻿Discipline;Année;Courses;Favori gagnant (%);Favori dans les 3 (%)
+Plat;2024;3009;30,0;62,1
+Plat;2025;5427;31,2;63,5
+Plat;2026;4648;31,2;63,6
+Plat;Toutes;13084;31,0;63,2
+Trot attelé;2024;4391;34,1;60,3
+Trot attelé;2025;7546;34,6;60,1
+Trot attelé;2026;6392;36,1;63,2
+Trot attelé;Toutes;18329;35,0;61,2
+Trot monté;2024;596;37,8;63,8
+Trot monté;2025;1052;35,4;60,3
+Trot monté;2026;854;33,4;58,2
+Trot monté;Toutes;2502;35,3;60,4
+Obstacle;2024;770;29,9;62,1
+Obstacle;2025;1377;30,8;62,9
+Obstacle;2026;1009;34,0;66,8
+Obstacle;Toutes;3156;31,6;63,9
+Toutes disciplines;2024;8766;32,6;61,3
+Toutes disciplines;2025;15402;33,1;61,5
+Toutes disciplines;2026;12903;34,0;63,3
+Toutes disciplines;Toutes;37071;33,3;62,1
+
+Source : Turfin Data (https://turfin.fr/turfin-data/favori-par-discipline.csv), d'après les données PMU. N = 37071 courses, du 2024-06-09 au 2026-11-03, calculé le 2026-11-04. Turfin n'est pas affilié au PMU.
+Licence : Creative Commons BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — reprise, modification et rediffusion libres, y compris commerciales, avec citation de la source.

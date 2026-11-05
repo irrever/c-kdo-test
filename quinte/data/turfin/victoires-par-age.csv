@@ -1,0 +1,47 @@
+﻿Discipline;Âge;Partants;Victoires;Taux de victoire (%)
+Plat;2 ans;15880;1696;10,7
+Plat;3 ans;57075;5675;9,9
+Plat;4 ans;51936;4981;9,6
+Plat;5 ans;37537;3809;10,1
+Plat;6 ans;23852;2270;9,5
+Plat;7 ans;14309;1196;8,4
+Plat;8 ans;8320;640;7,7
+Plat;9 ans;4174;285;6,8
+Plat;10 ans et plus;2919;185;6,3
+Trot attelé;2 ans;3727;368;9,9
+Trot attelé;3 ans;37026;3275;8,8
+Trot attelé;4 ans;56044;4769;8,5
+Trot attelé;5 ans;47847;3907;8,2
+Trot attelé;6 ans;35440;3196;9,0
+Trot attelé;7 ans;27452;2295;8,4
+Trot attelé;8 ans;17935;1133;6,3
+Trot attelé;9 ans;10094;506;5,0
+Trot attelé;10 ans et plus;6186;262;4,2
+Trot monté;3 ans;4694;405;8,6
+Trot monté;4 ans;7275;585;8,0
+Trot monté;5 ans;5733;515;9,0
+Trot monté;6 ans;4290;456;10,6
+Trot monté;7 ans;3355;329;9,8
+Trot monté;8 ans;2267;159;7,0
+Trot monté;9 ans;1240;55;4,4
+Trot monté;10 ans et plus;725;36;5,0
+Obstacle;3 ans;6182;636;10,3
+Obstacle;4 ans;10541;1102;10,5
+Obstacle;5 ans;5925;590;10,0
+Obstacle;6 ans;3716;380;10,2
+Obstacle;7 ans;2241;227;10,1
+Obstacle;8 ans;1555;148;9,5
+Obstacle;9 ans;1004;105;10,5
+Obstacle;10 ans et plus;992;82;8,3
+Toutes disciplines;2 ans;19757;2076;10,5
+Toutes disciplines;3 ans;104977;9991;9,5
+Toutes disciplines;4 ans;125796;11437;9,1
+Toutes disciplines;5 ans;97042;8821;9,1
+Toutes disciplines;6 ans;67298;6302;9,4
+Toutes disciplines;7 ans;47357;4047;8,5
+Toutes disciplines;8 ans;30077;2080;6,9
+Toutes disciplines;9 ans;16512;951;5,8
+Toutes disciplines;10 ans et plus;10822;565;5,2
+
+Source : Turfin Data (https://turfin.fr/turfin-data/victoires-par-age.csv), d'après les données PMU. N = 519638 partants, du 2024-06-09 au 2026-11-03, calculé le 2026-11-04. Turfin n'est pas affilié au PMU.
+Licence : Creative Commons BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — reprise, modification et rediffusion libres, y compris commerciales, avec citation de la source.

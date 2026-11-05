@@ -1,0 +1,46 @@
+﻿Étude;Configuration;N;Victoires (%);Dans les 3 (%);Unité;Source
+Un trotteur déferré gagne-t-il plus souvent ?;Ferré des 4 pieds;13280;8,2;25,6;partants;/etudes/deferre
+Un trotteur déferré gagne-t-il plus souvent ?;Déferré ou protégé partiellement;13357;10,4;32,1;partants;/etudes/deferre
+Un trotteur déferré gagne-t-il plus souvent ?;Déferré des 4 pieds pour la 1re fois;4373;13,4;37,8;partants;/etudes/deferre
+Un trotteur déferré gagne-t-il plus souvent ?;Déferré des 4 pieds, déjà déferré la course d'avant;12508;11,5;34,1;partants;/etudes/deferre
+Un trotteur qui remet ses fers gagne-t-il moins souvent ?;Ferré, déjà ferré à sa course précédente;8372;9,5;29,7;partants;/etudes/referre
+Un trotteur qui remet ses fers gagne-t-il moins souvent ?;Remet ses fers après un déferrage partiel;1189;4,8;15,7;partants;/etudes/referre
+Un trotteur qui remet ses fers gagne-t-il moins souvent ?;Remet ses fers après avoir couru déferré des 4;1241;2,9;8,9;partants;/etudes/referre
+Un trotteur qui remet ses fers gagne-t-il moins souvent ?;Déferré (toute forme);29268;11,4;33,9;partants;/etudes/referre
+La corde change-t-elle vraiment les chances au plat ?;Corde 1;6339;9,6;29,3;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 2;6363;10,7;31,4;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 3;6337;10,5;30,9;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 4;6352;10,3;30,3;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 5;6318;9,9;30,2;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 6;6187;10,2;30,0;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 7;5971;10,0;28,8;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 8;5511;7,9;25,6;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 9;4986;7,6;23,5;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 10;4436;7,3;23,4;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 11;3780;7,4;21,0;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 12;3252;6,3;19,5;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 13;2726;6,7;19,6;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 14;2212;6,6;17,9;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 15;1710;5,2;17,4;partants;/etudes/corde
+La corde change-t-elle vraiment les chances au plat ?;Corde 16;1270;6,1;16,6;partants;/etudes/corde
+Les œillères aident-elles un cheval à gagner ?;Sans œillères;19509;9,5;28,3;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Avec œillères, tous types;5911;7,7;23,7;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Œillères classiques;2366;8,1;24,3;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Œillères australiennes;3545;7,4;23,3;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Œillères pour la 1re fois;1090;6,3;20,4;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Déjà portées à la course d'avant;4044;8,3;25,4;partants;/etudes/oeilleres
+Les œillères aident-elles un cheval à gagner ?;Retirées depuis la course d'avant;666;7,8;22,8;partants;/etudes/oeilleres
+Le favori gagne-t-il vraiment ?;Favori à moins de 2;2035;60,8;87,9;courses;/etudes/favori
+Le favori gagne-t-il vraiment ?;Favori entre 2 et 3;5281;42,1;77,0;courses;/etudes/favori
+Le favori gagne-t-il vraiment ?;Favori entre 3 et 5;7599;28,3;60,2;courses;/etudes/favori
+Le favori gagne-t-il vraiment ?;Favori à 5 et plus;1798;22,3;51,2;courses;/etudes/favori
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Chute de plus de 50 %;4783;20,1;49,2;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Chute de 30 à 50 %;15001;17,2;46,9;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Chute de 10 à 30 %;26748;15,1;42,0;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Stable (± 10 %);31479;12,2;35,5;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Hausse de 10 à 30 %;24472;9,7;28,9;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Hausse de 30 à 50 %;19090;6,2;21,3;partants;/etudes/cote-qui-baisse
+Un cheval dont la cote baisse gagne-t-il plus souvent ?;Hausse de plus de 50 %;40675;3,0;13,2;partants;/etudes/cote-qui-baisse
+
+Source : Turfin Data (https://turfin.fr/turfin-data/etudes-synthese.csv), d'après les données PMU. N = 363385 partants, du 2024-06-09 au 2026-11-03, calculé le 2026-11-04. Turfin n'est pas affilié au PMU.
+Licence : Creative Commons BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — reprise, modification et rediffusion libres, y compris commerciales, avec citation de la source.

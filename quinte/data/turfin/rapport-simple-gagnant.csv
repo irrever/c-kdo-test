@@ -1,0 +1,9 @@
+﻿Discipline;Année;Courses;Rapport médian (€);Rapport moyen (€);Rapports de 10 € et plus (%)
+Plat;2026;4467;5,3;8,18;23,5
+Trot attelé;2026;6458;4,6;8,89;22,7
+Trot monté;2026;862;5,1;9,08;22,7
+Obstacle;2026;1021;4,8;8,05;21,3
+Toutes disciplines;2026;12808;4,9;8,59;22,9
+
+Source : Turfin Data (https://turfin.fr/turfin-data/rapport-simple-gagnant.csv), d'après les données PMU. N = 12808 courses, du 2026-01-01 au 2026-11-03, calculé le 2026-11-04. Turfin n'est pas affilié au PMU.
+Licence : Creative Commons BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — reprise, modification et rediffusion libres, y compris commerciales, avec citation de la source.

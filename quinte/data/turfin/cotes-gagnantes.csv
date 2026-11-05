@@ -1,0 +1,24 @@
+﻿Discipline;Cote du gagnant;Gagnants;Part (%)
+Plat;Moins de 5/1;5809;44,3
+Plat;De 5/1 à 10/1;4085;31,1
+Plat;De 10/1 à 20/1;2249;17,1
+Plat;20/1 et plus;973;7,4
+Trot attelé;Moins de 5/1;9294;50,7
+Trot attelé;De 5/1 à 10/1;4655;25,4
+Trot attelé;De 10/1 à 20/1;2645;14,4
+Trot attelé;20/1 et plus;1747;9,5
+Trot monté;Moins de 5/1;1273;50,8
+Trot monté;De 5/1 à 10/1;665;26,5
+Trot monté;De 10/1 à 20/1;327;13,0
+Trot monté;20/1 et plus;242;9,7
+Obstacle;Moins de 5/1;1581;50,0
+Obstacle;De 5/1 à 10/1;925;29,3
+Obstacle;De 10/1 à 20/1;456;14,4
+Obstacle;20/1 et plus;200;6,3
+Toutes disciplines;Moins de 5/1;17957;48,4
+Toutes disciplines;De 5/1 à 10/1;10330;27,8
+Toutes disciplines;De 10/1 à 20/1;5677;15,3
+Toutes disciplines;20/1 et plus;3162;8,5
+
+Source : Turfin Data (https://turfin.fr/turfin-data/cotes-gagnantes.csv), d'après les données PMU. N = 37126 gagnants, du 2024-06-09 au 2026-11-03, calculé le 2026-11-04. Turfin n'est pas affilié au PMU.
+Licence : Creative Commons BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — reprise, modification et rediffusion libres, y compris commerciales, avec citation de la source.
