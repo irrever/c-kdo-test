@@ -32,13 +32,13 @@ GABARIT = """<!doctype html>
   --vert:#8cc7a6;--vert-bg:#15261d;--violet:#b3bccd;--violet-bg:#1d2431;
   --rouge:#e3948d;--rouge-bg:#33201e;--gris:#9aa4b4;--gris-bg:#1d2431;}}
 :root[data-theme="dark"]{
-  --bg:#121315;--surface:#1a1c1f;--line:#2c2f34;--text:#eceeF1;--muted:#9ca1a9;
-  --or:#a9bdd3;--or-bg:#1e2530;--bleu:#a9bdd3;--bleu-bg:#1e2530;
-  --vert:#a9bdd3;--vert-bg:#1e2530;--violet:#a9bdd3;--violet-bg:#1e2530;
-  --rouge:#d99a94;--rouge-bg:#2e1f1e;--gris:#9ca1a9;--gris-bg:#22252a;}
+  --bg:#0f1319;--surface:#161b23;--line:#262c36;--text:#e7eaf0;--muted:#8d96a6;
+  --or:#9db4d3;--or-bg:#1c2633;--bleu:#9db4d3;--bleu-bg:#1c2633;
+  --vert:#7fb89a;--vert-bg:#1c2633;--violet:#9db4d3;--violet-bg:#1c2633;
+  --rouge:#d99a94;--rouge-bg:#2e1f1e;--gris:#8d96a6;--gris-bg:#1a2029;}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
   padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
-main{max-width:960px;margin:0 auto;padding-top:20px}
+main{max-width:1120px;margin:0 auto;padding-top:20px}
 .hero{background:var(--surface);color:var(--text);border-radius:8px;padding:20px 22px;margin-bottom:14px;border:1px solid var(--line);border-left:3px solid var(--bleu)}
 .hero h1{font-size:22px;margin:0 0 6px}
 .hero p{margin:0;opacity:.92}
@@ -91,6 +91,16 @@ details li{margin-bottom:6px}
 .rec .bloc.reco{border:1px solid var(--bleu);background:var(--bleu-bg)}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
+
+.layout{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding-top:20px}
+nav.side{position:sticky;top:12px;align-self:start}
+nav.side .grp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:14px 10px 4px}
+nav.side .grp:first-child{margin-top:0}
+nav.side a{display:block;color:var(--muted);text-decoration:none;font-size:14px;padding:7px 10px;border-left:2px solid transparent}
+nav.side a:hover,nav.side a:focus-visible{color:var(--text);border-left-color:var(--bleu)}
+@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}.contenu{min-width:0}nav.side{position:static;display:flex;flex-wrap:wrap;gap:4px;min-width:0}nav.side .grp{display:none}nav.side a{border-left:0;border-bottom:2px solid transparent;padding:6px 8px}}
+section{scroll-margin-top:16px}
+
 .profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
 </style></head><body><main>
 
@@ -449,14 +459,8 @@ def _statistiques_chevaux(lignes):
 
 
 def _ajouter_navigation(page):
-    """Ajoute un identifiant à chaque zone numérotée et une barre de navigation qui reste en haut."""
+    """Identifiants de zone et colonne de navigation latérale."""
     zones = []
-    def ident(m):
-        numero, titre = m.group(1), m.group(2)
-        ancre = "zone-" + numero.replace(".", "-")
-        zones.append((ancre, numero, titre))
-        return '<section id="%s" class="%s"' % (ancre, m.group(0)[len('<section class="'):].split('"')[0]) if False else m.group(0)
-    # Attribue l'identifiant à la section qui contient le libellé de zone
     morceaux = re.split(r'(?=<section class=)', page)
     sortie = []
     for mo in morceaux:
@@ -467,10 +471,54 @@ def _ajouter_navigation(page):
             mo = mo.replace('<section class=', '<section id="%s" class=' % ancre, 1)
         sortie.append(mo)
     page = "".join(sortie)
-    liens = "".join('<a href="#%s">%s · %s</a>' % (a, n, html.escape(t.split(" : ")[0][:28])) for a, n, t in zones if n in ("1", "2.1", "3", "4", "5", "6", "7", "8.1", "9"))
-    nav = '<nav class="zones" aria-label="Zones">%s</nav>' % liens
-    fin_hero = page.find("</section>")
-    return page[:fin_hero + len("</section>")] + "\n" + nav + page[fin_hero + len("</section>"):]
+    groupes = [
+        ("Pronostic", [("1", "Quinté+"), ("2.1", "Tiercé, quarté, quinté"), ("3", "Couplés et simples"), ("4", "Distinction top 5")]),
+        ("Analyse", [("5", "Chevaux"), ("6", "Profil de course"), ("7", "Détail par cheval")]),
+        ("Suivi", [("8.1", "Méthode"), ("9", "Statistiques")]),
+    ]
+    dispo = {n: a for a, n, _t in zones}
+    corps = ""
+    for titre, liens in groupes:
+        items = "".join('<a href="#%s">%s</a>' % (dispo[n], html.escape(t)) for n, t in liens if n in dispo)
+        if items:
+            corps += '<div class="grp">%s</div>%s' % (titre, items)
+    nav = '<nav class="side" aria-label="Sections">%s</nav>' % corps
+    debut = page.find("<main>")
+    fin = page.rfind("</main>")
+    if debut < 0 or fin < 0:
+        return page
+    avant = page[:debut + len("<main>")]
+    milieu = page[debut + len("<main>"):fin]
+    apres = page[fin:]
+    fin_hero = milieu.find("</section>") + len("</section>")
+    hero, reste = milieu[:fin_hero], milieu[fin_hero:]
+    return avant + hero + '<div class="layout">' + nav + '<div class="contenu">' + reste + '</div></div>' + apres
+
+
+def _statistiques_chevaux(lignes):
+    """Historique réel des chevaux de la course, lu dans le registre (hors tests rétroactifs)."""
+    import csv
+    fichier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "journal", "chevaux.csv")
+    noms = {l["nom"].upper() for l in lignes}
+    if not os.path.exists(fichier):
+        return "<p class='note'>Aucune course enregistrée pour l'instant. Les statistiques se remplissent après chaque arrivée.</p>"
+    par = {}
+    for x in csv.DictReader(open(fichier, encoding="utf-8"), delimiter=";"):
+        if x["retroactif"] == "True" or x["nom"].upper() not in noms:
+            continue
+        par.setdefault(x["nom"], []).append(x)
+    if not par:
+        return "<p class='note'>Aucune course réelle enregistrée pour les chevaux de cette course. Les statistiques se remplissent après chaque arrivée.</p>"
+    lignes_html = []
+    for nom, lst in sorted(par.items()):
+        classes = [int(x["place_reelle"]) for x in lst if x["place_reelle"]]
+        top3 = sum(1 for x in lst if x["dans_top3"] == "True")
+        pred = sum(float(x["p_top3_predit"]) for x in lst) / len(lst)
+        lignes_html.append("<tr><td>%s</td><td class='num'>%d</td><td class='num'>%.1f</td><td class='num'>%d %%</td><td class='num'>%d %%</td></tr>" % (
+            html.escape(nom), len(lst), sum(classes) / len(classes) if classes else float("nan"),
+            round(100 * top3 / len(lst)), round(100 * pred)))
+    return ("<table><thead><tr><th>Cheval</th><th class='num'>Courses</th><th class='num'>Place moy.</th>"
+            "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
 def _pastille(n, rang):
