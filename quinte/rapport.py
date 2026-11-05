@@ -27,38 +27,38 @@ GABARIT = """<!doctype html>
   --vert:#1f7a4d;--vert-bg:#dcf5e7;--violet:#6b3fd1;--violet-bg:#eee8ff;
   --rouge:#b3261e;--rouge-bg:#fde7e5;--gris:#7a8496;--gris-bg:#eef1f6;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0f1219;--surface:#171c27;--line:#2a3142;--text:#eef1f7;--muted:#9aa5b8;
-  --or:#f3c14a;--or-bg:#3a2d0d;--bleu:#8fb4ff;--bleu-bg:#18284a;
-  --vert:#6fd39a;--vert-bg:#15332a;--violet:#c3a8ff;--violet-bg:#2a1f4a;
-  --rouge:#ff8a80;--rouge-bg:#3d1b19;--gris:#9aa5b8;--gris-bg:#222a3a;}}
+  --bg:#0e131b;--surface:#151c27;--line:#263041;--text:#e6eaf1;--muted:#9aa4b4;
+  --or:#c8a96a;--or-bg:#2a2317;--bleu:#9fb8dc;--bleu-bg:#18233a;
+  --vert:#8cc7a6;--vert-bg:#15261d;--violet:#b3bccd;--violet-bg:#1d2431;
+  --rouge:#e3948d;--rouge-bg:#33201e;--gris:#9aa4b4;--gris-bg:#1d2431;}}
 :root[data-theme="dark"]{
-  --bg:#0f1219;--surface:#171c27;--line:#2a3142;--text:#eef1f7;--muted:#9aa5b8;
-  --or:#f3c14a;--or-bg:#3a2d0d;--bleu:#8fb4ff;--bleu-bg:#18284a;
-  --vert:#6fd39a;--vert-bg:#15332a;--violet:#c3a8ff;--violet-bg:#2a1f4a;
-  --rouge:#ff8a80;--rouge-bg:#3d1b19;--gris:#9aa5b8;--gris-bg:#222a3a;}
+  --bg:#0e131b;--surface:#151c27;--line:#263041;--text:#e6eaf1;--muted:#9aa4b4;
+  --or:#c8a96a;--or-bg:#2a2317;--bleu:#9fb8dc;--bleu-bg:#18233a;
+  --vert:#8cc7a6;--vert-bg:#15261d;--violet:#b3bccd;--violet-bg:#1d2431;
+  --rouge:#e3948d;--rouge-bg:#33201e;--gris:#9aa4b4;--gris-bg:#1d2431;}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
   padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 main{max-width:960px;margin:0 auto;padding-top:20px}
-.hero{background:linear-gradient(120deg,var(--bleu),var(--violet));color:#fff;border-radius:16px;padding:20px;margin-bottom:18px}
+.hero{background:#1f3a5f;color:#f2f4f8;border-radius:10px;padding:20px 22px;margin-bottom:18px;border:1px solid #16294a}
 .hero h1{font-size:22px;margin:0 0 6px}
 .hero p{margin:0;opacity:.92}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px 10px;font-size:13px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
-.card.accent-or{border-left:5px solid var(--or)}
-.card.accent-bleu{border-left:5px solid var(--bleu)}
-.card.accent-vert{border-left:5px solid var(--vert)}
-.card.accent-violet{border-left:5px solid var(--violet)}
-.card.accent-gris{border-left:5px solid var(--gris)}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 9px;font-size:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:14px}
+.card.accent-or{border-left:3px solid var(--or)}
+.card.accent-bleu{border-left:3px solid var(--bleu)}
+.card.accent-vert{border-left:3px solid var(--vert)}
+.card.accent-violet{border-left:3px solid var(--violet)}
+.card.accent-gris{border-left:3px solid var(--gris)}
 h2{font-size:17px;margin:0 0 10px}
 .label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
 .ordre{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-.pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;font-size:17px;color:#fff;background:var(--bleu)}
+.pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-size:16px;color:#fff;background:var(--bleu)}
 .pastille.r1{background:var(--or)}
 .pastille.r2{background:var(--vert)}
 .pastille.box{background:var(--violet)}
 .pastille.gris{background:var(--gris)}
-.jeu-titre{font-size:20px;font-weight:800;color:var(--vert)}
+.jeu-titre{font-size:19px;font-weight:700;color:var(--text)}
 .note{color:var(--muted);font-size:13px;margin:6px 0}
 .wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -84,7 +84,7 @@ details li{margin-bottom:6px}
 .rec{display:grid;grid-template-columns:1fr;gap:12px}
 @media (min-width:640px){.rec{grid-template-columns:repeat(3,1fr)}}
 .rec .bloc{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
-.rec .bloc.reco{border:2px solid var(--vert);background:var(--vert-bg)}
+.rec .bloc.reco{border:1px solid var(--bleu);background:var(--bleu-bg)}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 .profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
@@ -100,6 +100,12 @@ details li{margin-bottom:6px}
   <h2>Profil de la course et difficultés</h2>
   <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
   @@profil@@
+</section>
+
+<section class="card accent-bleu">
+  <div class="label">Distinction</div>
+  <h2>Distinction du gagnant et du top 5</h2>
+  @@distinction@@
 </section>
 
 <section class="card accent-or">
@@ -398,6 +404,28 @@ def _profil_course(course, lignes, par_numero):
     return "<ol class='profil'>%s</ol>" % items
 
 
+def _distinction(lignes, prob):
+    """Rang par rang : probabilités et écart avec le cheval suivant. Marque le groupe de tête."""
+    lignes_html = []
+    for i, l in enumerate(lignes[:8], 1):
+        n = l["numero"]
+        suivant = lignes[i] if i < len(lignes) else None
+        ecart = (l["score"] - suivant["score"]) * 100 if suivant else None
+        serre = ecart is not None and ecart < 2.0
+        dans_top5 = "Top 5" if i <= 5 else "Hors top 5"
+        lignes_html.append(
+            "<tr><td>%d</td><td class='num'>%s</td><td>%s</td><td class='num'>%s</td><td class='num'>%s</td>"
+            "<td class='num'>%s</td><td><span class='tag %s'>%s</span></td></tr>" % (
+                i, n, html.escape(l["nom"]), pct(prob["victoire"][n]), pct(prob["top5"][n]),
+                ("%.1f pts" % ecart) if ecart is not None else "—",
+                "info" if i <= 5 else "", dans_top5 + (" · groupe serré" if serre and i <= 5 else "")))
+    return ("<div class='wrap'><table><thead><tr><th>Rang</th><th class='num'>N°</th><th>Cheval</th>"
+            "<th class='num'>Gagner</th><th class='num'>Top 5</th><th class='num'>Écart avec le suivant</th>"
+            "<th>Position</th></tr></thead><tbody>%s</tbody></table></div>"
+            "<p class='note'>Un écart inférieur à 2 points signale deux chevaux que le modèle ne sépare pas. "
+            "Dans ce cas, l'ordre entre eux est peu fiable.</p>") % "".join(lignes_html)
+
+
 def _pastille(n, rang):
     classe = {1: "r1", 2: "r2"}.get(rang, "")
     return "<span class='pastille %s'>%d</span>" % (classe, n)
@@ -482,6 +510,7 @@ def generer(chemin_page):
         "recommandations": recommandations,
         "budget": ae.BUDGET_COMBINAISONS,
         "profil": _profil_course(course, lignes, par_numero),
+        "distinction": _distinction(lignes, prob),
         "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
