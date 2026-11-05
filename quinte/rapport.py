@@ -776,7 +776,9 @@ def _lignes_rapports(chemin_page, arrivee):
         lignes_html.append(
             "<tr><td>%s</td><td>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
                 html.escape(nom_pari), html.escape(mode), html.escape(combinaison), html.escape(valeur)))
-    return "".join(lignes_html)
+    publie = all(cherche(t, 5, o, False) is not None
+                 for t, o in (("Quinté+ Ordre", True), ("Quinté+ Désordre", False)))
+    return "".join(lignes_html), publie
 
 
 def _forces_faiblesses(l):
@@ -900,45 +902,44 @@ def _date_fr(iso):
     return "%s %d %s %d" % (jours[d.weekday()], d.day, mois[d.month - 1], d.year)
 
 
+MARQUE_OFFICIEL_DEBUT = '<template id="bloc-officiel">'
+MARQUE_OFFICIEL_FIN = "</template>"
+
+
 def _dernier_quinte_couru(date):
-    """Résultats du dernier quinté couru avant `date` : (date, bloc HTML de la partie résultat), ou (None, None)."""
-    debut_marque = "<div class='vue' data-vue='resultat' hidden>"
-    fin_marque = '<div class="vue" data-vue="analyse">'
+    """Bloc officiel du dernier quinté couru avant `date` : (date, HTML), ou (None, None).
+
+    Chaque page dont le quinté a son arrivée garde son bloc officiel dans un <template>. La page du quinté
+    suivant le reprend tant que ses propres rapports Quinté+ ne sont pas publiés.
+    """
     for f in sorted(glob.glob(os.path.join(PRONOSTICS_DIR, "????-??-??.html")), reverse=True):
         d = os.path.basename(f)[:-5]
         if d >= date:
             continue
         texte = open(f, encoding="utf-8").read()
-        if debut_marque not in texte or fin_marque not in texte or "Arrivée non encore connue" in texte:
+        if MARQUE_OFFICIEL_DEBUT not in texte:
             continue
-        i = texte.index(debut_marque) + len(debut_marque)
-        j = texte.index(fin_marque)
-        bloc = texte[i:j].rstrip()
-        if bloc.endswith("</div>"):
-            bloc = bloc[:-len("</div>")]
-        return d, bloc
+        i = texte.index(MARQUE_OFFICIEL_DEBUT) + len(MARQUE_OFFICIEL_DEBUT)
+        return d, texte[i:texte.index(MARQUE_OFFICIEL_FIN, i)]
     return None, None
 
 
-def _resultat_html(course, lignes, date, chemin_page):
-    """Partie résultat : arrivée en grand, comparaison, réaction du modèle, rapports essentiels."""
-    arrivee = _arrivee_page(course)
-    if not arrivee:
-        d_prec, bloc_prec = _dernier_quinte_couru(date)
-        if bloc_prec is None:
-            return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
-                    "<h2>Arrivée non encore connue</h2>"
-                    "<p class='note'>Le résultat officiel et les rapports apparaîtront ici dès l'arrivée. "
-                    "L'analyse ci-dessous reste celle faite avant la course.</p></section>")
-        jp = os.path.join(JOURNAL_DIR, "%s.json" % d_prec)
-        cible = json.load(open(jp, encoding="utf-8")) if os.path.exists(jp) else {}
-        quoi = "%s (%s)" % (cible.get("hippodrome", ""), cible.get("course", ""))
-        bandeau = ("<section class='card accent-gris'><div class='label'>Dernier quinté couru</div>"
-                   "<h2>Résultats du quinté du %s</h2>"
-                   "<p class='note'>%s. Ces résultats et rapports restent affichés jusqu'à la publication de ceux du quinté "
-                   "du %s.</p></section>") % (html.escape(_date_fr(d_prec)), html.escape(quoi), html.escape(_date_fr(date)))
-        return bandeau + bloc_prec
+def _bandeau_dernier(d_prec, date):
+    """Bandeau au-dessus du dernier quinté couru, tant que le quinté du jour n'a pas ses rapports."""
+    jp = os.path.join(JOURNAL_DIR, "%s.json" % d_prec)
+    cible = json.load(open(jp, encoding="utf-8")) if os.path.exists(jp) else {}
+    quoi = "%s (%s)" % (cible.get("hippodrome", ""), cible.get("course", ""))
+    return ("<section class='card accent-gris'><div class='label'>Dernier quinté couru</div>"
+            "<h2>Résultats du quinté du %s</h2>"
+            "<p class='note'>%s. Ces résultats et rapports restent affichés jusqu'à la publication de ceux du quinté "
+            "du %s.</p></section>") % (html.escape(_date_fr(d_prec)), html.escape(quoi), html.escape(_date_fr(date)))
 
+
+def _bloc_officiel(course, lignes, date, arrivee, chemin_page):
+    """Arrivée, comparaison, réaction du modèle et rapports d'un quinté couru.
+
+    Renvoie (HTML, rapports Quinté+ publiés).
+    """
     noms = {l["numero"]: l["nom"] for l in lignes}
     disq = {p["num_partant"] for p in course["partants"] if p.get("statut_part") == "AI"}
     grand = "".join(
@@ -959,9 +960,9 @@ def _resultat_html(course, lignes, date, chemin_page):
         comparaison = ("<table class='res-tab'><thead><tr><th>Rang</th><th>Notre choix</th><th>Arrivée</th></tr></thead>"
                        "<tbody>%s</tbody></table>" % lignes_cmp)
     reaction = _reaction_html(lignes, arrivee, j, disq) if j is not None else ""
-    rapports = _lignes_rapports(chemin_page, arrivee)
+    rapports, publie = _lignes_rapports(chemin_page, arrivee)
 
-    return (
+    bloc = (
         "<section class='card accent-bleu'><div class='label'>Résultat officiel</div>"
         "<h2>Arrivée</h2><div class='arr-grand'>%s</div>"
         "<h2 style='margin-top:18px'>Notre choix contre l'arrivée</h2>%s"
@@ -969,6 +970,38 @@ def _resultat_html(course, lignes, date, chemin_page):
         "<h2 style='margin-top:18px'>Rapports essentiels (mise de base 2 €)</h2>"
         "<div class='wrap'><table class='res-tab'><thead><tr><th>Pari</th><th>Mode</th><th class='n'>Combinaison</th><th class='n'>Rapport</th></tr></thead>"
         "<tbody>%s</tbody></table></div></section>") % (grand, comparaison, reaction, rapports)
+    return bloc, publie
+
+
+def _resultat_html(course, lignes, date, chemin_page):
+    """Partie affichée de l'onglet « Résultat et rapports », et bloc officiel du jour (ou None).
+
+    Le quinté du jour remplace le dernier quinté couru seulement quand son arrivée et ses rapports Quinté+
+    sont publiés. Avant, on affiche le dernier quinté couru, avec son bandeau.
+    """
+    arrivee = _arrivee_page(course)
+    bloc, publie = (None, False)
+    if arrivee:
+        bloc, publie = _bloc_officiel(course, lignes, date, arrivee, chemin_page)
+    if bloc is not None and publie:
+        return bloc, bloc
+    d_prec, bloc_prec = _dernier_quinte_couru(date)
+    if bloc_prec is not None:
+        return _bandeau_dernier(d_prec, date) + bloc_prec, bloc
+    if bloc is not None:
+        return bloc, bloc
+    return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
+            "<h2>Arrivée non encore connue</h2>"
+            "<p class='note'>Le résultat officiel et les rapports apparaîtront ici dès l'arrivée. "
+            "L'analyse ci-dessous reste celle faite avant la course.</p></section>"), None
+
+
+def _partie_resultat(course, lignes, date, chemin_page):
+    """HTML de la partie résultat, suivi du bloc officiel repris par le quinté suivant."""
+    affiche, bloc = _resultat_html(course, lignes, date, chemin_page)
+    if bloc is None:
+        return affiche
+    return affiche + MARQUE_OFFICIEL_DEBUT + bloc + MARQUE_OFFICIEL_FIN
 
 
 def generer(chemin_page):
@@ -1056,7 +1089,7 @@ def generer(chemin_page):
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course),
-        "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _resultat_html(course, lignes, date, chemin_page) + "</div>",
+        "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button></div>",
         "analyses": analyses_html,
         "jeux": jeux_html,
