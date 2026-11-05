@@ -46,3 +46,13 @@ Points à retenir :
 3. Tester un poids plus fort pour l'entourage (forme récente driver et entraîneur).
 4. Tester la taille du peloton comme facteur d'aplatissement des probabilités.
 5. Ne garder que les changements qui améliorent la log-loss sur les courses de test.
+
+## 5. Synthèse des études (etudes-synthese.csv, identique au fichier déjà rangé)
+
+Chiffres d'ensemble, à titre de référence (N = 363 385 partants, du 9 juin 2024 au 3 novembre 2026) :
+- Déferré des 4 pieds pour la première fois : 13,4 % de victoires, contre 8,2 % pour un trotteur ferré des 4 pieds.
+- Remet ses fers après avoir couru déferré des 4 pieds : 2,9 % de victoires, contre 9,5 % pour un cheval déjà ferré.
+- Corde au plat : entre 9,6 % et 10,7 % pour les cordes 1 à 6, puis de 5,2 % à 7,9 % pour les cordes élevées. L'écart vient surtout de la taille du peloton, comme l'étude le précise.
+- Œillères : 7,7 % de victoires avec œillères, contre 9,5 % sans ; l'écart disparaît à cote comparable.
+
+Exclus du modèle par règle : les études sur le favori et sur la baisse ou la hausse de la cote (favori, cote qui baisse). Elles dépendent des cotes, que nous n'utilisons pas. Elles restent des repères de connaissance uniquement.
