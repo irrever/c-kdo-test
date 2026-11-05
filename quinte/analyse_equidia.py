@@ -15,18 +15,20 @@ import random
 import re
 import sys
 
-# Poids des critères (somme = 1). Forme = musique (résultats) ; le reste = notes internes Equidia.
+# Poids des critères (somme = 1). Choisis par validation (quinte/evaluer.py) :
+# les notes internes Equidia seules donnent la meilleure log-loss sur les courses de test.
+# La musique seule est moins bonne et n'est plus utilisée dans la note.
 POIDS = {
-    "musique": 0.30,
-    "aptitudes": 0.15,
-    "forme_cheval": 0.15,
-    "chronos": 0.15,
+    "musique": 0.0,
+    "aptitudes": 0.25,
+    "forme_cheval": 0.25,
+    "chronos": 0.20,
     "tandem": 0.10,
     "conditions": 0.10,
-    "bruits_ecuries": 0.05,
+    "bruits_ecuries": 0.10,
 }
-# Puissance de l'écart de note sur la probabilité de gagner (Plackett-Luce).
-SENSIBILITE = 6.0
+# Netteté des probabilités (Plackett-Luce), validée à K = 4 sur les courses de test.
+SENSIBILITE = 4.0
 SIMULATIONS = 200_000
 SEED = 20261105
 
