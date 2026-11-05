@@ -83,6 +83,16 @@ details li{margin-bottom:6px}
 .rec .gros{font-size:22px;font-weight:800}
 .foot{color:var(--muted);font-size:12px;margin-top:8px}
 
+.arr-grand{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px}
+.arr-grand .cell{flex:1 1 110px;min-width:96px;padding:16px 10px;border:1px solid var(--line);border-radius:8px;text-align:center;background:var(--surface)}
+.arr-grand .cell b{display:block;font-size:40px;font-weight:700;line-height:1;color:var(--bleu)}
+.arr-grand .cell .nom{display:block;font-size:12.5px;font-weight:600;margin-top:8px}
+.arr-grand .cell small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.retenir{margin:6px 0 0 18px;padding:0;font-size:13.5px}
+.retenir li{margin-bottom:4px}
+.res-tab td.n,.res-tab th.n{text-align:right}
+
+
 .onglets{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
 .onglets button{font:inherit;font-size:13.5px;font-weight:600;padding:8px 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer}
 .onglets button[aria-selected="true"]{background:var(--bleu);border-color:var(--bleu);color:#ffffff}
@@ -634,36 +644,171 @@ def _arrivee_page(course):
     return [n for _, n in sorted(arr)] or None
 
 
-def _rapports_page(chemin_page):
-    """Rapports officiels du quinté (pari, combinaison, mises) lus dans le HTML brut de la page."""
-    brut = open(chemin_page, encoding="utf-8").read()
-    rapports = []
-    for m in re.finditer(r'"type_reserve_rap_def":"([^"]*)"', brut):
-        fenetre = brut[m.start(): m.start() + 600]
-        comb = re.search(r'"combinaison_rap_def":"([^"]*)"', fenetre)
-        mises = re.search(r'"sum_mises_gagn_type_res_rap_def":"([^"]*)"', fenetre)
-        rapports.append({"type_reserve_rap_def": m.group(1),
-                         "combinaison_rap_def": comb.group(1) if comb else "",
-                         "sum_mises_gagn_type_res_rap_def": mises.group(1) if mises else ""})
-    vus, uniques = set(), []
-    for r in rapports:
-        cle = (r["type_reserve_rap_def"], r["combinaison_rap_def"])
-        if r["type_reserve_rap_def"].startswith("e-"):
-            continue  # paris en ligne : même résultat, on ne les répète pas
-        if cle not in vus and r["combinaison_rap_def"]:
-            vus.add(cle); uniques.append(r)
-    return uniques
-
-
 def _journal_du_jour(date):
+    """Pronostic figé avant la course (journal), ou None s'il n'existe pas."""
     chemin = os.path.join(JOURNAL_DIR, "%s.json" % date)
     if not os.path.exists(chemin):
         return None
     return json.load(open(chemin, encoding="utf-8"))
 
 
+def _lignes_rapports(chemin_page, arrivee):
+    """Tableau des rapports essentiels, à partir de l'arrivée officielle."""
+    brut = open(chemin_page, encoding="utf-8").read()
+    combos = []
+    for m in re.finditer(r'\{[^{}]*"combinaison_rap_def":"[^"]*"[^{}]*\}', brut):
+        try:
+            combos.append(json.loads(m.group(0)))
+        except ValueError:
+            pass
+
+    def nombres(texte):
+        return [int(x) for x in re.findall(r"\d+", texte or "")]
+
+    def cherche(type_pari, nb, ordre, exige_gagnant=False):
+        liste = arrivee[:nb]
+        if len(liste) < nb:
+            return None
+        for c in combos:
+            if c.get("type_reserve_rap_def") != type_pari:
+                continue
+            if exige_gagnant and c.get("gagnant") in (None, ""):
+                continue
+            n = nombres(c.get("combinaison_rap_def"))
+            if (ordre and n == liste) or (not ordre and sorted(n) == sorted(liste)):
+                return c
+        return None
+
+    specs = [
+        ("Quinté+", "Quinté+ Ordre", 5, True, False, "ordre"),
+        ("Quinté+", "Quinté+ Désordre", 5, False, False, "désordre"),
+        ("Tiercé", "Tiercé Ordre", 3, True, False, "ordre"),
+        ("Tiercé", "Tiercé Désordre", 3, False, False, "désordre"),
+        ("Quarté+", "Quarté+ Ordre", 4, True, False, "ordre"),
+        ("Quarté+", "Quarté+ Désordre", 4, False, False, "désordre"),
+        ("Couplé gagnant", "Couplé", 2, False, True, "désordre"),
+    ]
+    lignes_html = []
+    for nom_pari, type_pari, nb, ordre, exige, mode in specs:
+        c = cherche(type_pari, nb, ordre, exige)
+        combinaison = "-".join(str(x) for x in arrivee[:nb])
+        if c is None:
+            valeur = "pas encore publié"
+        else:
+            valeur = "%s €" % c.get("gagnant") if c.get("gagnant") not in (None, "") else "—"
+        lignes_html.append(
+            "<tr><td>%s</td><td>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
+                html.escape(nom_pari), html.escape(mode), html.escape(combinaison), html.escape(valeur)))
+    return "".join(lignes_html)
+
+
+def _forces_faiblesses(l):
+    """Points forts (≥ 70 %) et points faibles (< 40 %) d'un cheval, d'après ses composantes."""
+    forts, faibles = [], []
+    for cle, libelle in LIBELLES.items():
+        v = l["composantes"].get(cle)
+        if v is None:
+            continue
+        if v >= 0.7:
+            forts.append("%s (%d/100)" % (libelle.lower(), round(100 * v)))
+        elif v < 0.4:
+            faibles.append("%s (%d/100)" % (libelle.lower(), round(100 * v)))
+    return forts, faibles
+
+
+def _ordinal(n):
+    """1 -> 1er, 2 -> 2e, ..."""
+    return "1er" if n == 1 else "%de" % n
+
+
+def _pourcent(x):
+    """0.08 -> 8,0 % (virgule française)."""
+    return ("%.1f %%" % (100 * x)).replace(".", ",")
+
+
+def _reaction_html(lignes, arrivee, journal, disqualifies):
+    """Explication de l'écart entre le choix du modèle et l'arrivée réelle, cheval par cheval."""
+    rang_pred = {l["numero"]: i + 1 for i, l in enumerate(lignes)}
+    par_num = {l["numero"]: l for l in lignes}
+    rang_arr = {n: i + 1 for i, n in enumerate(arrivee)}
+    pred5 = [l["numero"] for l in lignes[:5]]
+    arr5 = arrivee[:5]
+    bien = [n for n in pred5 if n in arr5]
+    rates = [n for n in pred5 if n not in arr5]
+    surprises = [n for n in arr5 if n not in pred5]
+
+    def nom(n):
+        return "n°%d %s" % (n, html.escape(par_num[n]["nom"])) if n in par_num else "n°%d" % n
+
+    def arrive(n):
+        return _ordinal(rang_arr[n]) if n in rang_arr else "non classé"
+
+    def prevu(n):
+        return _ordinal(rang_pred[n]) if n in rang_pred else "hors liste"
+
+    def forces_txt(l):
+        forts, faibles = _forces_faiblesses(l)
+        return ", ".join(forts) or "aucun", ", ".join(faibles) or "aucun", faibles
+
+    items = []
+    items.append("<p class='concl'><strong>Notre choix</strong> : %s. <strong>L'arrivée</strong> : %s. "
+                 "Nous avions %d %s sur 5 dans le bon cinq.</p>" % (
+                     " – ".join(str(x) for x in pred5), " – ".join(str(x) for x in arr5),
+                     len(bien), "cheval" if len(bien) == 1 else "chevaux"))
+    if bien:
+        items.append("<p class='concl'><strong>Bien vu</strong> : %s.</p>" % ", ".join(
+            "%s (prévu %s, arrivé %s)" % (nom(n), prevu(n), arrive(n)) for n in bien))
+
+    for n in rates:
+        l = par_num[n]
+        if n in disqualifies:
+            items.append("<p class='concl'><strong>Raté</strong> : %s, prévu %s, n'a pas fini : disqualifié pour allure irrégulière. "
+                         "Aucune note ne permet de prévoir ce type d'incident.</p>" % (nom(n), prevu(n)))
+            continue
+        forts, faibles, liste_faibles = forces_txt(l)
+        texte = "<strong>Raté</strong> : %s, prévu %s, arrivé %s. Points forts du modèle : %s. Points faibles : %s." % (
+            nom(n), prevu(n), arrive(n), forts, faibles)
+        if any(f.startswith("forme") for f in liste_faibles):
+            texte += " Sa forme récente était faible. Elle pèse 25 % de la note : les autres critères l'ont compensée."
+        items.append("<p class='concl'>%s</p>" % texte)
+
+    for n in surprises:
+        l = par_num.get(n)
+        if l is None:
+            continue
+        forts, faibles, liste_faibles = forces_txt(l)
+        texte = ("<strong>Surprise</strong> : %s, arrivé %s alors que nous le prévoyions %s. "
+                 "Points forts : %s. Points faibles : %s.") % (nom(n), arrive(n), prevu(n), forts, faibles)
+        if any(f.startswith("chronos") for f in liste_faibles):
+            texte += (" Ses chronos étaient faibles (critère à 20 % de la note) alors qu'il a bien fini : "
+                      "notre note l'a probablement pénalisé à tort.")
+        items.append("<p class='concl'>%s</p>" % texte)
+
+    gagnant = arrivee[0] if arrivee else None
+    if gagnant in rang_pred and rang_pred[gagnant] > 3:
+        l = par_num[gagnant]
+        forts, faibles, _ = forces_txt(l)
+        p_gagnant = next((c["p_victoire"] for c in journal["chevaux"] if c["numero"] == gagnant), 0.0) if journal else 0.0
+        items.append("<p class='concl'><strong>Le gagnant</strong> : %s était %s chez nous, avec %s de chances de gagner. "
+                     "Points forts : %s. Points faibles : %s.</p>" % (
+                         nom(gagnant), _ordinal(rang_pred[gagnant]), _pourcent(p_gagnant), forts, faibles))
+
+    retenir = []
+    tous = [n for n in rates + surprises if n in par_num and n not in disqualifies]
+    if any(any(f.startswith("chronos") for f in forces_txt(par_num[n])[2]) for n in tous):
+        retenir.append("Le critère chronos (20 % de la note) a pénalisé des chevaux qui ont bien fini : à vérifier sur les prochaines courses.")
+    if any(any(f.startswith("forme") for f in forces_txt(par_num[n])[2]) for n in rates if n in par_num and n not in disqualifies):
+        retenir.append("La forme récente (25 % de la note) a été sous-pesée pour un partant qui a tout de même bien couru : à surveiller.")
+    if disqualifies:
+        retenir.append("Les disqualifications ne se prévoient pas avec nos données.")
+    retenir.append("Une seule course ne suffit pas à modifier le modèle : le bilan cumulé dans le journal reste la mesure à suivre.")
+    items.append("<p class='concl'><strong>Ce que j'en retiens</strong></p><ul class='retenir'>%s</ul>" % "".join(
+        "<li>%s</li>" % html.escape(r) for r in retenir))
+    return "".join(items)
+
+
 def _resultat_html(course, lignes, date, chemin_page):
-    """Partie résultat : arrivée, rapports, et comparaison avec le pronostic figé avant la course."""
+    """Partie résultat : arrivée en grand, comparaison, réaction du modèle, rapports essentiels."""
     arrivee = _arrivee_page(course)
     if not arrivee:
         return ("<section class='card accent-bleu'><div class='label'>Résultat</div>"
@@ -672,62 +817,35 @@ def _resultat_html(course, lignes, date, chemin_page):
                 "L'analyse ci-dessous reste celle faite avant la course.</p></section>")
 
     noms = {l["numero"]: l["nom"] for l in lignes}
-    arrivee_txt = " · ".join("%d. n°%d %s" % (i + 1, n, noms.get(n, "")) for i, n in enumerate(arrivee[:5]))
-    rapports = _rapports_page(chemin_page)
-    rap_html = ""
-    for r in rapports:
-        rap_html += "<tr><td>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (
-            html.escape(str(r.get("type_reserve_rap_def") or "Quinté+")),
-            html.escape(str(r.get("combinaison_rap_def") or "")),
-            html.escape(str(r.get("sum_mises_gagn_type_res_rap_def") or "")))
+    disq = {p["num_partant"] for p in course["partants"] if p.get("statut_part") == "AI"}
+    grand = "".join(
+        "<div class='cell'><b>%d</b><span class='nom'>%s</span><small>%s</small></div>" % (
+            n, html.escape(noms.get(n, "")), ["1er", "2e", "3e", "4e", "5e"][i])
+        for i, n in enumerate(arrivee[:5]))
 
     j = _journal_du_jour(date)
-    if j is None:
-        comparaison = "<p class='note'>Pas de pronostic figé pour cette date : la comparaison n'est pas possible.</p>"
-        conclusion = ""
-    else:
+    comparaison = ""
+    if j is not None:
         pred = j["ordre_predit"]
-        top3_reel = set(arrivee[:3])
-        top5_reel = set(arrivee[:5])
-        exact = pred[:5] == arrivee[:5]
-        pred_top3 = set(pred[:3])
-        bon_top3 = len(pred_top3 & top3_reel)
-        bon_top5 = len(set(pred[:5]) & top5_reel)
-        p_par = {c["numero"]: c for c in j["chevaux"]}
-        gagnant = arrivee[0]
-        rang_gagnant = (sorted(p_par, key=lambda n: -p_par[n]["p_victoire"]).index(gagnant) + 1) if gagnant in p_par else None
-        comparaison = (
-            "<table class='res-tab'><thead><tr><th>Rang</th><th>Prédit (figé avant course)</th><th>Arrivée réelle</th></tr></thead><tbody>%s</tbody></table>" % "".join(
-                "<tr><td>%d</td><td>n°%d %s</td><td>%s</td></tr>" % (
-                    i + 1, pred[i], html.escape(noms.get(pred[i], "")),
-                    ("n°%d %s" % (arrivee[i], html.escape(noms.get(arrivee[i], "")))) if i < len(arrivee) else "—")
-                for i in range(min(5, len(pred)))))
-        points = []
-        points.append("Ordre exact : %s." % ("oui" if exact else "non"))
-        points.append("Sur les 3 premiers, %d sur 3 étaient dans nos 3 premiers prédits ; sur les 5 premiers, %d sur 5 dans nos 5 premiers." % (bon_top3, bon_top5))
-        if gagnant in p_par:
-            points.append("Le gagnant, n°%d %s, était classé %d e par le modèle, avec %s de chances de gagner." % (
-                gagnant, html.escape(noms.get(gagnant, "")), rang_gagnant, "%.1f %%" % (100 * p_par[gagnant]["p_victoire"])))
-        else:
-            points.append("Le gagnant, n°%d, ne figurait pas dans la liste des partants analysés." % gagnant)
-        conclusion = "".join("<p class='concl'>%s</p>" % x for x in points)
-        if gagnant in p_par and rang_gagnant and rang_gagnant > 3:
-            conclusion += ("<p class='concl'><strong>Ce qu'il faut retenir</strong> : le modèle a sous-estimé le gagnant. "
-                           "Regardez son détail dans l'analyse des chevaux : les critères dont la note était faible sont les premiers suspects.</p>")
-        elif bon_top3 < 2:
-            conclusion += ("<p class='concl'><strong>Ce qu'il faut retenir</strong> : deux chevaux ou plus de notre top 3 ne sont pas arrivés. "
-                           "Un seul résultat ne permet pas de conclure : le bilan cumulé dans le journal est la mesure à suivre.</p>")
-        else:
-            conclusion += ("<p class='concl'><strong>Ce qu'il faut retenir</strong> : l'analyse a tenu sur le podium. "
-                           "Un résultat isolé ne suffit pas à valider le modèle.</p>")
+        lignes_cmp = "".join(
+            "<tr><td>%d</td><td>n°%d %s</td><td>n°%d %s</td></tr>" % (
+                i + 1, pred[i], html.escape(noms.get(pred[i], "")),
+                arrivee[i] if i < len(arrivee) else 0,
+                html.escape(noms.get(arrivee[i], "")) if i < len(arrivee) else "")
+            for i in range(min(5, len(pred))))
+        comparaison = ("<table class='res-tab'><thead><tr><th>Rang</th><th>Notre choix</th><th>Arrivée</th></tr></thead>"
+                       "<tbody>%s</tbody></table>" % lignes_cmp)
+    reaction = _reaction_html(lignes, arrivee, j, disq) if j is not None else ""
+    rapports = _lignes_rapports(chemin_page, arrivee)
 
-    rapports_bloc = ("<table class='res-tab'><thead><tr><th>Pari</th><th>Combinaison</th><th class='n'>Mises totales</th></tr></thead><tbody>%s</tbody></table>" % rap_html
-                     if rap_html else "<p class='note'>Rapports officiels non disponibles dans la page.</p>")
-    return ("<section class='card accent-bleu'><div class='label'>Résultat officiel</div>"
-            "<h2>Arrivée</h2><p class='note'>%s</p>"
-            "<h2 style='margin-top:14px'>Rapports</h2>%s"
-            "<h2 style='margin-top:14px'>Comparaison avec l'analyse</h2>%s%s</section>") % (
-                html.escape(arrivee_txt), rapports_bloc, comparaison, conclusion)
+    return (
+        "<section class='card accent-bleu'><div class='label'>Résultat officiel</div>"
+        "<h2>Arrivée</h2><div class='arr-grand'>%s</div>"
+        "<h2 style='margin-top:18px'>Notre choix contre l'arrivée</h2>%s"
+        "<h2 style='margin-top:18px'>Réaction du modèle</h2>%s"
+        "<h2 style='margin-top:18px'>Rapports essentiels (mise de base 2 €)</h2>"
+        "<div class='wrap'><table class='res-tab'><thead><tr><th>Pari</th><th>Mode</th><th class='n'>Combinaison</th><th class='n'>Rapport</th></tr></thead>"
+        "<tbody>%s</tbody></table></div></section>") % (grand, comparaison, reaction, rapports)
 
 
 def generer(chemin_page):
