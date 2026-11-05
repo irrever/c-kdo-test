@@ -56,3 +56,11 @@ Chiffres d'ensemble, à titre de référence (N = 363 385 partants, du 9 juin 20
 - Œillères : 7,7 % de victoires avec œillères, contre 9,5 % sans ; l'écart disparaît à cote comparable.
 
 Exclus du modèle par règle : les études sur le favori et sur la baisse ou la hausse de la cote (favori, cote qui baisse). Elles dépendent des cotes, que nous n'utilisons pas. Elles restent des repères de connaissance uniquement.
+
+## 6. Classement ELO (instantané du 4 novembre 2026)
+
+Source : quinte/data/turfin/classement-elo-2026-11-04.md. Les drivers et entraîneurs du quinté du 5 novembre y figurent ainsi :
+- Trot attelé, drivers : E. Raffin (1814, cheval n°5), B. Rochard (1752, n°15), M. Abrivard (1747, n°16), P.-Ph. Ploquin (1737, n°1), A. Barrier (1705, n°8), D. Thomain (1702, n°2), Th. Duvaldestin (1891, premier du classement, cheval n°10 pour T. Duvaldestin).
+- Non classés dans le top 20 : D. Bekaert (n°6), B. Goop (n°3), G. Gelormini (n°4), Mats Djuse (n°9), A. Collette (n°12), D. Brouwer (n°11 et n°17), R. Lamy (n°14), J. Raffestin (n°7).
+
+Ce classement n'a qu'un instantané : il ne peut pas être validé sur nos courses passées. Il reste une raison à présenter dans l'analyse, pas un poids du modèle.
