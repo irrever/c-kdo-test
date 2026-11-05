@@ -5,6 +5,8 @@ Usage :
     python3 quinte/suivi.py pronostic AAAA-MM-JJ    # le matin, avant la course
     python3 quinte/suivi.py resultat AAAA-MM-JJ     # le soir, après l'arrivée
     python3 quinte/suivi.py bilan                   # score cumulé contre le hasard
+    python3 quinte/suivi.py cheval NOM              # historique d'un cheval
+    python3 quinte/suivi.py chevaux                 # statistiques par cheval
 
 Fichiers :
     quinte/journal/AAAA-MM-JJ.json   pronostic figé avant la course
@@ -92,6 +94,9 @@ def enregistrer_resultat(date):
         raise SystemExit("Pas de pronostic figé pour %s." % date)
     d = json.load(open(chemin, encoding="utf-8"))
     r, c = [int(x) for x in d["course"].replace("R", "").split("C")]
+    if os.path.exists(BILAN) and any(x["date"] == date for x in csv.DictReader(open(BILAN, encoding="utf-8"), delimiter=";")):
+        print("Résultat déjà enregistré pour %s : aucune ligne ajoutée." % date)
+        return None
     reel = _arrivee(date, r, c)
     if not reel or len(reel) < 3:
         print("Course pas encore terminée ou arrivée incomplète pour %s." % date)
@@ -113,6 +118,7 @@ def enregistrer_resultat(date):
         "brier_top3": round(brier, 4), "rappel_top3_predit": round(rappel, 3),
         "pronostic_fige": d["fige_le"], "retroactif": d["retroactif"],
     }
+    _ecrire_chevaux(d, reel, date)
     existe = os.path.exists(BILAN)
     with open(BILAN, "a", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=CHAMPS_BILAN, delimiter=";")
@@ -123,17 +129,80 @@ def enregistrer_resultat(date):
     return ligne
 
 
+CHEVAUX = os.path.join(JOURNAL, "chevaux.csv")
+CHAMPS_CHEVAUX = ["date", "course", "hippodrome", "numero", "nom", "score", "p_top3_predit",
+                  "p_top5_predit", "place_reelle", "dans_top3", "retroactif"]
+
+
+def _ecrire_chevaux(d, reel, date):
+    """Ajoute une ligne par cheval analysé : prédiction figée et place réelle."""
+    rang = {n: i + 1 for i, n in enumerate(reel)}
+    existe = os.path.exists(CHEVAUX)
+    with open(CHEVAUX, "a", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=CHAMPS_CHEVAUX, delimiter=";")
+        if not existe:
+            w.writeheader()
+        for c in d["chevaux"]:
+            place = rang.get(c["numero"], "")
+            w.writerow({"date": date, "course": d["course"], "hippodrome": d["hippodrome"],
+                        "numero": c["numero"], "nom": c["nom"], "score": round(c["score"], 4),
+                        "p_top3_predit": round(c["p_top3"], 4), "p_top5_predit": round(c["p_top5"], 4),
+                        "place_reelle": place, "dans_top3": (place != "" and place <= 3),
+                        "retroactif": d["retroactif"]})
+
+
+def historique_cheval(nom):
+    """Toutes les courses analysées pour un cheval, avec la prédiction et la place réelle."""
+    if not os.path.exists(CHEVAUX):
+        print("Aucun cheval suivi pour l'instant.")
+        return
+    lignes = [x for x in csv.DictReader(open(CHEVAUX, encoding="utf-8"), delimiter=";")
+              if nom.upper() in x["nom"].upper()]
+    if not lignes:
+        print("Aucune course enregistrée pour « %s »." % nom)
+        return
+    for x in lignes:
+        print("%s %s n°%s %s : prédit top 3 %s, place réelle %s%s" % (
+            x["date"], x["course"], x["numero"], x["nom"], x["p_top3_predit"],
+            x["place_reelle"] or "non classé", " (test rétroactif)" if x["retroactif"] == "True" else ""))
+
+
+def stats_chevaux():
+    """Statistiques par cheval, courses réelles seulement (hors tests rétroactifs)."""
+    if not os.path.exists(CHEVAUX):
+        print("Aucun cheval suivi pour l'instant.")
+        return
+    par = {}
+    for x in csv.DictReader(open(CHEVAUX, encoding="utf-8"), delimiter=";"):
+        if x["retroactif"] == "True":
+            continue
+        par.setdefault(x["nom"], []).append(x)
+    print("%-22s %6s %12s %12s %12s" % ("Cheval", "Courses", "Place moy.", "Top 3 réel", "Top 3 prédit"))
+    for nom, lst in sorted(par.items(), key=lambda kv: -len(kv[1])):
+        classes = [int(x["place_reelle"]) for x in lst if x["place_reelle"]]
+        top3_reel = sum(1 for x in lst if x["dans_top3"] == "True") / len(lst)
+        top3_pred = sum(float(x["p_top3_predit"]) for x in lst) / len(lst)
+        place_moy = sum(classes) / len(classes) if classes else float("nan")
+        print("%-22s %6d %12.1f %11.0f%% %11.0f%%" % (nom[:22], len(lst), place_moy, 100 * top3_reel, 100 * top3_pred))
+
+
 def bilan():
     if not os.path.exists(BILAN):
         print("Aucune course enregistrée.")
         return
-    lignes = list(csv.DictReader(open(BILAN, encoding="utf-8"), delimiter=";"))
+    toutes = list(csv.DictReader(open(BILAN, encoding="utf-8"), delimiter=";"))
+    lignes = [x for x in toutes if x["retroactif"] != "True"]
+    retro = [x for x in toutes if x["retroactif"] == "True"]
     n = len(lignes)
+    if n == 0:
+        print("Aucune course réelle enregistrée (seulement des tests rétroactifs).")
+        return
     ll = [float(x["log_loss_gagnant"]) for x in lignes if x["log_loss_gagnant"]]
     br = [float(x["brier_top3"]) for x in lignes]
     rap = [float(x["rappel_top3_predit"]) for x in lignes]
     hasard = math.log(sum(int(x["partants"]) for x in lignes) / n)
-    print("courses : %d (dont %d rétroactives)" % (n, sum(1 for x in lignes if x["retroactif"] == "True")))
+    print("courses réelles (avant course) : %d" % n)
+    print("tests rétroactifs (séparés, non inclus) : %d" % len(retro))
     print("log-loss gagnant : %.3f (hasard moyen : %.3f)" % (sum(ll) / len(ll), hasard))
     print("Brier top 3      : %.4f" % (sum(br) / n))
     print("rappel top 3     : %.3f (hasard : %.3f)" % (sum(rap) / n, 3 / (sum(int(x["partants"]) for x in lignes) / n)))
@@ -149,5 +218,9 @@ if __name__ == "__main__":
         enregistrer_resultat(sys.argv[2])
     elif cmd == "bilan":
         bilan()
+    elif cmd == "cheval":
+        historique_cheval(sys.argv[2])
+    elif cmd == "chevaux":
+        stats_chevaux()
     else:
         raise SystemExit(__doc__)
