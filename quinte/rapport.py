@@ -90,42 +90,62 @@ details li{margin-bottom:6px}
 .profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
 </style></head><body><main>
 
-<section class="hero">
-  <h1>@@titre@@</h1>
-  <div class="chips">@@chips@@</div>
-</section>
-
-<section class="card accent-bleu">
-  <div class="label">Course du jour</div>
-  <h2>Profil de la course et difficultés</h2>
-  <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
-  @@profil@@
-</section>
-
-<section class="card accent-bleu">
-  <div class="label">Distinction</div>
-  <h2>Distinction du gagnant et du top 5</h2>
-  @@distinction@@
-</section>
-
 <section class="card accent-or">
-  <div class="label">Pronostic</div>
+  <div class="label">1 · Quinté+ : les 5 premiers</div>
   <h2>Ordre d'arrivée probable</h2>
   <div class="ordre">@@ordre@@</div>
   <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
 </section>
-
 <section class="card accent-vert">
-  <div class="label">Jeu le plus probable</div>
+  <div class="label">2.1 · Tiercé, quarté et quinté</div>
   <div class="jeu-titre">@@jeu_type@@</div>
   <p class="note">@@jeu_sel@@</p>
   <h2 style="margin-top:14px">Ce que je jouerais par type de pari</h2>
   <div class="rec">@@recommandations@@</div>
   <p class="note">Recommandation : la taille de box la plus probable, dans une limite de @@budget@@ combinaisons par pari.</p>
 </section>
-
+<section class="card accent-violet">
+  <div class="label">2.2 · Combinaisons en box</div>
+  <h2>Tiercé, quarté et quinté en box</h2>
+  <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Pari</th><th class="num">Box</th><th>Chevaux</th><th class="num">Combinaisons</th><th class="num">Probabilité</th><th class="num">Par combinaison</th></tr></thead>
+    <tbody>@@combinaisons@@</tbody>
+  </table></div>
+  <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
+</section>
+<section class="card accent-gris wrap">
+  <div class="label">3 · Couplés, simples placés et trios</div>
+  <h2>Probabilités des jeux simples</h2>
+  <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
+</section>
 <section class="card accent-bleu">
-  <div class="label">Méthode</div>
+  <div class="label">4 · Distinction du gagnant et du top 5</div>
+  <h2>Distinction du gagnant et du top 5</h2>
+  @@distinction@@
+</section>
+<section class="card accent-gris wrap">
+  <div class="label">5 · Chevaux et probabilités</div>
+  <h2>Probabilités par cheval</h2>
+  <table>
+    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
+    <tbody>@@lignes@@</tbody>
+  </table>
+</section>
+<section class="card accent-bleu">
+  <div class="label">6 · Profil de la course et difficultés</div>
+  <h2>Profil de la course et difficultés</h2>
+  <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
+  @@profil@@
+</section>
+<section class="card accent-bleu">
+  <div class="label">7 · Analyse détaillée par cheval</div>
+  <h2>Analyse par cheval</h2>
+  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
+  @@analyses@@
+</section>
+<section class="card accent-bleu">
+  <div class="label">8.1 · Méthode</div>
   <h2>Comment le modèle choisit ses chevaux</h2>
   <ol class="etapes">
     <li><strong>Notes Equidia</strong> (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie). Ce sont les seules données qui pèsent dans la note : la musique seule et les cotes ne sont pas utilisées.</li>
@@ -135,9 +155,8 @@ details li{margin-bottom:6px}
   </ol>
   <p class="note"><strong>Validation</strong> : le modèle a été choisi sur 20 quintés passés et testé sur 10 autres. Sur ces 10 courses, sa log-loss sur le gagnant est de 2,17, contre 2,62 pour un tirage au hasard. C'est mieux que le hasard, mais le petit nombre de courses limite la confiance. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
 </section>
-
 <section class="card accent-bleu wrap">
-  <div class="label">Précision</div>
+  <div class="label">8.2 · Ce qui compte, ce qui est testé</div>
   <h2>Ce qui compte, ce qui est affiché, ce qui a été testé</h2>
   <table>
     <thead><tr><th>Critère</th><th>Statut dans la note</th><th>Résultat du test (log-loss, plus bas = mieux)</th></tr></thead>
@@ -152,39 +171,12 @@ details li{margin-bottom:6px}
   </table>
   <p class="note">Les notes ont été validées sur 30 quintés passés, dont 12 de plat ou d'obstacle. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
 </section>
-
-<section class="card accent-violet">
-  <div class="label">Combinaisons</div>
-  <h2>Tiercé, quarté et quinté en box</h2>
-  <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
-  <div class="wrap"><table>
-    <thead><tr><th>Pari</th><th class="num">Box</th><th>Chevaux</th><th class="num">Combinaisons</th><th class="num">Probabilité</th><th class="num">Par combinaison</th></tr></thead>
-    <tbody>@@combinaisons@@</tbody>
-  </table></div>
-  <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
-</section>
-
 <section class="card accent-gris wrap">
-  <div class="label">Chevaux</div>
-  <h2>Probabilités par cheval</h2>
-  <table>
-    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
-    <tbody>@@lignes@@</tbody>
-  </table>
+  <div class="label">9 · Statistiques des chevaux</div>
+  <h2>Statistiques des chevaux suivis</h2>
+  @@statistiques@@
 </section>
 
-<section class="card accent-bleu">
-  <div class="label">Détail</div>
-  <h2>Analyse par cheval</h2>
-  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
-  @@analyses@@
-</section>
-
-<section class="card accent-gris wrap">
-  <div class="label">Jeux simples</div>
-  <h2>Probabilités des jeux simples</h2>
-  <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
-</section>
 
 <p class="foot">Les cotes ne sont pas utilisées. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </main></body></html>
@@ -426,6 +418,32 @@ def _distinction(lignes, prob):
             "Dans ce cas, l'ordre entre eux est peu fiable.</p>") % "".join(lignes_html)
 
 
+def _statistiques_chevaux(lignes):
+    """Historique réel des chevaux de la course, lu dans le registre (hors tests rétroactifs)."""
+    import csv
+    fichier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "journal", "chevaux.csv")
+    noms = {l["nom"].upper() for l in lignes}
+    if not os.path.exists(fichier):
+        return "<p class='note'>Aucune course enregistrée pour l'instant. Les statistiques se remplissent après chaque arrivée.</p>"
+    par = {}
+    for x in csv.DictReader(open(fichier, encoding="utf-8"), delimiter=";"):
+        if x["retroactif"] == "True" or x["nom"].upper() not in noms:
+            continue
+        par.setdefault(x["nom"], []).append(x)
+    if not par:
+        return "<p class='note'>Aucune course réelle enregistrée pour les chevaux de cette course. Les statistiques se remplissent après chaque arrivée.</p>"
+    lignes_html = []
+    for nom, lst in sorted(par.items()):
+        classes = [int(x["place_reelle"]) for x in lst if x["place_reelle"]]
+        top3 = sum(1 for x in lst if x["dans_top3"] == "True")
+        pred = sum(float(x["p_top3_predit"]) for x in lst) / len(lst)
+        lignes_html.append("<tr><td>%s</td><td class='num'>%d</td><td class='num'>%.1f</td><td class='num'>%d %%</td><td class='num'>%d %%</td></tr>" % (
+            html.escape(nom), len(lst), sum(classes) / len(classes) if classes else float("nan"),
+            round(100 * top3 / len(lst)), round(100 * pred)))
+    return ("<table><thead><tr><th>Cheval</th><th class='num'>Courses</th><th class='num'>Place moy.</th>"
+            "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
+
+
 def _pastille(n, rang):
     classe = {1: "r1", 2: "r2"}.get(rang, "")
     return "<span class='pastille %s'>%d</span>" % (classe, n)
@@ -511,6 +529,7 @@ def generer(chemin_page):
         "budget": ae.BUDGET_COMBINAISONS,
         "profil": _profil_course(course, lignes, par_numero),
         "distinction": _distinction(lignes, prob),
+        "statistiques": _statistiques_chevaux(lignes),
         "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
