@@ -1,0 +1,344 @@
+{
+ "date": "2026-11-07",
+ "retroactif": false,
+ "fige_le": "2026-11-06T21:10:34",
+ "hippodrome": "DEAUVILLE",
+ "course": "R1C3",
+ "modele": {
+  "sensibilite_K": 8.0,
+  "poids": {
+   "musique": 0.4,
+   "aptitudes": 0.15,
+   "forme_cheval": 0.15,
+   "chronos": 0.12,
+   "tandem": 0.06,
+   "conditions": 0.06,
+   "bruits_ecuries": 0.06
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 1,
+   "nom": "ZELORO",
+   "score": 0.7631704043971232,
+   "p_victoire": 0.305775,
+   "p_top3": 0.697055,
+   "p_top5": 0.88963
+  },
+  {
+   "numero": 14,
+   "nom": "HER CHRISTOPHER",
+   "score": 0.6480815782099557,
+   "p_victoire": 0.122165,
+   "p_top3": 0.37646,
+   "p_top5": 0.606075
+  },
+  {
+   "numero": 15,
+   "nom": "LAVENDIN",
+   "score": 0.6252991236088975,
+   "p_victoire": 0.100625,
+   "p_top3": 0.322015,
+   "p_top5": 0.53783
+  },
+  {
+   "numero": 13,
+   "nom": "HERMES WOOD",
+   "score": 0.5611333639048861,
+   "p_victoire": 0.060305,
+   "p_top3": 0.20213,
+   "p_top5": 0.36549
+  },
+  {
+   "numero": 12,
+   "nom": "ALMAROMY",
+   "score": 0.554421070852435,
+   "p_victoire": 0.057715,
+   "p_top3": 0.19387,
+   "p_top5": 0.34962
+  },
+  {
+   "numero": 2,
+   "nom": "QUIET KING",
+   "score": 0.5520722551377961,
+   "p_victoire": 0.057245,
+   "p_top3": 0.190595,
+   "p_top5": 0.34405
+  },
+  {
+   "numero": 16,
+   "nom": "SPEEDY GREEN",
+   "score": 0.5457566662782929,
+   "p_victoire": 0.05368,
+   "p_top3": 0.181,
+   "p_top5": 0.32831
+  },
+  {
+   "numero": 9,
+   "nom": "EAST GREY",
+   "score": 0.520150260410914,
+   "p_victoire": 0.044265,
+   "p_top3": 0.150075,
+   "p_top5": 0.27697
+  },
+  {
+   "numero": 8,
+   "nom": "WEDGEWOOD PEARL",
+   "score": 0.5163775932860949,
+   "p_victoire": 0.042795,
+   "p_top3": 0.146275,
+   "p_top5": 0.270265
+  },
+  {
+   "numero": 3,
+   "nom": "HUMAN EVOLUTION",
+   "score": 0.5070715444868199,
+   "p_victoire": 0.03977,
+   "p_top3": 0.136015,
+   "p_top5": 0.25394
+  },
+  {
+   "numero": 10,
+   "nom": "ALLURRE",
+   "score": 0.48884022234944813,
+   "p_victoire": 0.034495,
+   "p_top3": 0.118355,
+   "p_top5": 0.22151
+  },
+  {
+   "numero": 7,
+   "nom": "FEARLESS CHEETAH",
+   "score": 0.4292751502215185,
+   "p_victoire": 0.02053,
+   "p_top3": 0.07354,
+   "p_top5": 0.141535
+  },
+  {
+   "numero": 4,
+   "nom": "AL MAX",
+   "score": 0.42832136322305325,
+   "p_victoire": 0.02109,
+   "p_top3": 0.07301,
+   "p_top5": 0.141365
+  },
+  {
+   "numero": 5,
+   "nom": "OPALUS ROAD",
+   "score": 0.3959923973589716,
+   "p_victoire": 0.015795,
+   "p_top3": 0.05662,
+   "p_top5": 0.110785
+  },
+  {
+   "numero": 6,
+   "nom": "PIQUOISEAU",
+   "score": 0.3665909646591682,
+   "p_victoire": 0.012675,
+   "p_top3": 0.04432,
+   "p_top5": 0.087185
+  },
+  {
+   "numero": 11,
+   "nom": "CICCIO BOY",
+   "score": 0.34607497122628983,
+   "p_victoire": 0.011075,
+   "p_top3": 0.038665,
+   "p_top5": 0.07544
+  }
+ ],
+ "ordre_predit": [
+  1,
+  14,
+  15,
+  13,
+  12
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     1,
+     14,
+     15
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.04451,
+    "par_combinaison": 0.04451
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.096185,
+    "par_combinaison": 0.02404625
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.16259,
+    "par_combinaison": 0.016259000000000003
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.244765,
+    "par_combinaison": 0.01223825
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.01816,
+    "par_combinaison": 0.01816
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.05399,
+    "par_combinaison": 0.010798
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.112,
+    "par_combinaison": 0.007466666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2,
+     16
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.192105,
+    "par_combinaison": 0.005488714285714286
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.010155,
+    "par_combinaison": 0.010155
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.037765,
+    "par_combinaison": 0.006294166666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2,
+     16
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.091215,
+    "par_combinaison": 0.004343571428571428
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2,
+     16,
+     9
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.163465,
+    "par_combinaison": 0.002919017857142857
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     1,
+     14,
+     15,
+     13,
+     12,
+     2,
+     16,
+     9,
+     8
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.26295,
+    "par_combinaison": 0.002086904761904762
+   }
+  ]
+ }
+}
