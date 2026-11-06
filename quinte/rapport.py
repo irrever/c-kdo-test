@@ -280,11 +280,11 @@ td,th{padding:8px 6px}
       <tr><td>Cotes</td><td><span class="tag ko">Jamais utilisées</span></td><td>Exclues par principe</td></tr>
     </tbody>
   </table>
-  <p class="note">Les notes ont été validées sur 30 quintés passés, dont 12 de plat ou d'obstacle. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
+  <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026) : perte moyenne du vainqueur de 2,34 pour le modèle, 2,11 pour les cotes seules, 2,63 pour le hasard. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
 </section>
 <section class="card accent-gris wrap">
   <div class="label">9 · Statistiques des chevaux</div>
-  <h2>Statistiques des chevaux suivis</h2>
+  <h2>Statistiques Equidia de chaque cheval</h2>
   @@statistiques@@
 </section>
 
@@ -378,7 +378,7 @@ def _analyse_cheval(l, p, discipline=""):
         lignes.append("<li>%s</li>" % texte)
     for fait in _faits_partant(p, discipline):
         lignes.append("<li>%s</li>" % html.escape(fait))
-    entete = "n°%d %s — %s" % (l["numero"], html.escape(l["nom"]), pct(l["score"]))
+    entete = "n°%d %s — note %d/100" % (l["numero"], html.escape(l["nom"]), round(100 * l["score"]))
     return ("<details><summary>%s</summary><p class='note'>Driver : %s · Entraîneur : %s · "
             "Musique : %s</p><ul>%s</ul></details>" % (
                 entete, html.escape(l["driver"] or "?"), html.escape(l.get("entraineur") or "?"),
@@ -550,33 +550,32 @@ def _distinction(lignes, prob):
             "Dans ce cas, l'ordre entre eux est peu fiable.</p>") % "".join(lignes_html)
 
 
-def _statistiques_chevaux(lignes):
-    """Historique réel des chevaux de la course, lu dans le registre (hors tests rétroactifs)."""
-    import csv
-    fichier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "journal", "chevaux.csv")
-    noms = {l["nom"].upper() for l in lignes}
-    if not os.path.exists(fichier):
-        return "<p class='note'>Aucune course enregistrée pour l'instant. Les statistiques se remplissent après chaque arrivée.</p>"
-    par = {}
-    for x in csv.DictReader(open(fichier, encoding="utf-8"), delimiter=";"):
-        if x["retroactif"] == "True" or x["nom"].upper() not in noms:
-            continue
-        par.setdefault(x["nom"], []).append(x)
-    if not par:
-        return "<p class='note'>Aucune course réelle enregistrée pour les chevaux de cette course. Les statistiques se remplissent après chaque arrivée.</p>"
+def _statistiques_chevaux(course, lignes):
+    """Statistiques Equidia de chaque partant : gains de carrière, réduction kilométrique, réussite sur la distance."""
+    par_numero = {p["num_partant"]: p for p in course["partants"]}
     lignes_html = []
-    for nom, lst in sorted(par.items()):
-        classes = [int(x["place_reelle"]) for x in lst if x["place_reelle"]]
-        top3 = sum(1 for x in lst if x["dans_top3"] == "True")
-        pred = sum(float(x["p_top3_predit"]) for x in lst) / len(lst)
-        lignes_html.append("<tr><td>%s</td><td class='num'>%d</td><td class='num'>%.1f</td><td class='num'>%d %%</td><td class='num'>%d %%</td></tr>" % (
-            html.escape(nom), len(lst), sum(classes) / len(classes) if classes else float("nan"),
-            round(100 * top3 / len(lst)), round(100 * pred)))
-    return ("<table><thead><tr><th>Cheval</th><th class='num'>Courses</th><th class='num'>Place moy.</th>"
-            "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
+    for l in lignes:
+        p = par_numero[l["numero"]]
+        com = ""
+        for c in ((p.get("interne_note_partant") or {}).get("comments") or []):
+            if c.get("label") == "Aptitudes":
+                com = c.get("comment") or ""
+        m = re.search(r"(\d+)% de réussite dans les 5 premiers en (\d+) courses", com)
+        top5 = ("%s %% (%s courses)" % (m.group(1), m.group(2))) if m else "—"
+        try:
+            gains = "{:,}".format(int(p.get("gains_carriere"))).replace(",", " ") + " €"
+        except (TypeError, ValueError):
+            gains = "—"
+        chrono = p.get("reduction_km") or "—"
+        lignes_html.append(
+            "<tr><td>n°%d %s</td><td class='num'>%s</td><td class='num'>%s</td><td class='num'>%s</td></tr>" % (
+                l["numero"], html.escape(l["nom"]), html.escape(gains), html.escape(str(chrono)), html.escape(top5)))
+    return ("<table><thead><tr><th>Cheval</th><th class='num'>Gains de carrière</th>"
+            "<th class='num'>Réduction km</th><th class='num'>Top 5 sur la distance</th></tr></thead>"
+            "<tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
-def _entete_html(course):
+def _entete_html(course, avec_cotes=False):
     """En-tête du quinté : date, réunion, heure de départ, distance, discipline, partants."""
     import datetime as dt
     reunion = course.get("reunion", {})
@@ -602,7 +601,8 @@ def _entete_html(course):
              ("%s m" % distance) if distance else "",
              discipline,
              ("%s partants" % partants) if partants else "",
-             corde]
+             corde,
+             "Pronostic avec les cotes du jour" if avec_cotes else "Pronostic du soir, sans les cotes"]
     puces = "".join("<span>%s</span>" % html.escape(c) for c in chips if c)
     return ("<section class='card entete accent-bleu'>"
             "<div class='label'>Quinté+ du jour · %s</div>"
@@ -663,32 +663,6 @@ def _ajouter_navigation(page):
     milieu = page[debut + len("<main>"):fin]   # tout le contenu : onglets, vues, zones (équilibrés)
     apres = page[fin:]
     return avant + '<div class="layout">' + nav + '<div class="contenu">' + milieu + '</div></div>' + apres
-
-
-def _statistiques_chevaux(lignes):
-    """Historique réel des chevaux de la course, lu dans le registre (hors tests rétroactifs)."""
-    import csv
-    fichier = os.path.join(os.path.dirname(os.path.abspath(__file__)), "journal", "chevaux.csv")
-    noms = {l["nom"].upper() for l in lignes}
-    if not os.path.exists(fichier):
-        return "<p class='note'>Aucune course enregistrée pour l'instant. Les statistiques se remplissent après chaque arrivée.</p>"
-    par = {}
-    for x in csv.DictReader(open(fichier, encoding="utf-8"), delimiter=";"):
-        if x["retroactif"] == "True" or x["nom"].upper() not in noms:
-            continue
-        par.setdefault(x["nom"], []).append(x)
-    if not par:
-        return "<p class='note'>Aucune course réelle enregistrée pour les chevaux de cette course. Les statistiques se remplissent après chaque arrivée.</p>"
-    lignes_html = []
-    for nom, lst in sorted(par.items()):
-        classes = [int(x["place_reelle"]) for x in lst if x["place_reelle"]]
-        top3 = sum(1 for x in lst if x["dans_top3"] == "True")
-        pred = sum(float(x["p_top3_predit"]) for x in lst) / len(lst)
-        lignes_html.append("<tr><td>%s</td><td class='num'>%d</td><td class='num'>%.1f</td><td class='num'>%d %%</td><td class='num'>%d %%</td></tr>" % (
-            html.escape(nom), len(lst), sum(classes) / len(classes) if classes else float("nan"),
-            round(100 * top3 / len(lst)), round(100 * pred)))
-    return ("<table><thead><tr><th>Cheval</th><th class='num'>Courses</th><th class='num'>Place moy.</th>"
-            "<th class='num'>Top 3 réel</th><th class='num'>Top 3 prédit</th></tr></thead><tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
 def _pastille(n, rang):
@@ -1004,9 +978,26 @@ def _partie_resultat(course, lignes, date, chemin_page):
     return affiche + MARQUE_OFFICIEL_DEBUT + bloc + MARQUE_OFFICIEL_FIN
 
 
-def generer(chemin_page):
+DEBUT_RESULTAT = "<div class='vue' data-vue='resultat' hidden>"
+FIN_RESULTAT = '<div class="vue" data-vue="analyse">'
+
+
+def fusionner_resultat(page_figee, page_live):
+    """Page du jour : l'analyse vient de la page figée au pronostic final, le résultat de la page actuelle."""
+    i_f = page_figee.index(DEBUT_RESULTAT)
+    j_f = page_figee.index(FIN_RESULTAT)
+    i_l = page_live.index(DEBUT_RESULTAT)
+    j_l = page_live.index(FIN_RESULTAT)
+    return page_figee[:i_f] + page_live[i_l:j_l] + page_figee[j_f:]
+
+
+def generer(chemin_page, avec_cotes=False):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
+    cotes = ae.cotes_de(course) if avec_cotes else None
+    avec = bool(cotes)
+    if avec:
+        lignes = ae.melanger_cotes(lignes, cotes)
     ordres = ae.simuler(lignes)
     prob = ae.probabilites(ordres, lignes)
     jeux = ae.jeux(ordres, lignes)
@@ -1084,11 +1075,11 @@ def generer(chemin_page):
         "budget": ae.BUDGET_COMBINAISONS,
         "profil": _profil_course(course, lignes, par_numero),
         "distinction": _distinction(lignes, prob),
-        "statistiques": _statistiques_chevaux(lignes),
-        "ll_notes": "2,17", "ll_hasard": "2,62", "ll_corde": "2,18 (pire)", "ll_poids": "2,19 (pire)",
+        "statistiques": _statistiques_chevaux(course, lignes),
+        "ll_notes": "2,34", "ll_hasard": "2,63", "ll_corde": "—", "ll_poids": "—",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
-        "entete": _entete_html(course),
+        "entete": _entete_html(course, avec),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button></div>",
         "analyses": analyses_html,

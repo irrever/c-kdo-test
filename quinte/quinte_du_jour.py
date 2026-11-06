@@ -9,6 +9,7 @@ Sortie : quinte/pronostics/AAAA-MM-JJ.html, plus un index.html qui liste les pag
 """
 import datetime as dt
 import glob
+import json
 import shutil
 import html
 import os
@@ -28,7 +29,26 @@ def _heure_depart(date, r, c):
     return course.get("heure_depart_course") if course else None
 
 
-def charger(date):
+JOURNAL_DIR = os.path.join(HERE, "journal")
+
+
+def _figee(date):
+    """Page du jour telle qu'elle était au pronostic final : son analyse ne change plus ensuite."""
+    return os.path.join(JOURNAL_DIR, "%s-avant-course.html" % date)
+
+
+def _final_fige(date):
+    import suivi
+    chemin = suivi._fichier_pronostic(date)
+    return os.path.exists(chemin) and "final" in json.load(open(chemin, encoding="utf-8"))
+
+
+def charger(date, final=False):
+    """Télécharge le quinté d'une date et écrit sa page.
+
+    final=True : fige le pronostic avec les cotes du moment et garde cette analyse telle quelle.
+    Sinon : si l'analyse est figée, la page la reprend, avec le résultat du moment.
+    """
     q = eq.quinte_du_jour(date)
     if not q:
         raise SystemExit("Aucun quinté trouvé pour %s." % date)
@@ -39,15 +59,27 @@ def charger(date):
     chemin_brut = os.path.join(eq.CACHE, "course-%s-R%dC%d.html" % (date, r, c))
     with open(chemin_brut, "w", encoding="utf-8") as f:
         f.write(page_brute)
+    import suivi
+    if final:
+        suivi.enregistrer_pronostic(date)
+        suivi.enregistrer_final(date)
+    page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date))
+    if not final and os.path.exists(_figee(date)):
+        with open(_figee(date), encoding="utf-8") as f:
+            page = rapport.fusionner_resultat(f.read(), page)
+    if final:
+        os.makedirs(JOURNAL_DIR, exist_ok=True)
+        with open(_figee(date), "w", encoding="utf-8") as f:
+            f.write(page)
     sortie = os.path.join(SORTIE, "%s.html" % date)
     with open(sortie, "w", encoding="utf-8") as f:
-        f.write(rapport.generer(chemin_brut))
+        f.write(page)
     print("écrit :", sortie)
     depart = _heure_depart(date, r, c)
     if depart:
         print("depart :", depart)
-    import suivi
-    suivi.enregistrer_pronostic(date)  # fige le pronostic avant la course
+    if not final:
+        suivi.enregistrer_pronostic(date)  # fige le pronostic du soir, sans cotes, s'il ne l'est pas déjà
     return sortie
 
 

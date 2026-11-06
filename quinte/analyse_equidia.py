@@ -15,20 +15,21 @@ import random
 import re
 import sys
 
-# Poids des critères (somme = 1). Choisis par validation (quinte/evaluer.py) :
-# les notes internes Equidia seules donnent la meilleure log-loss sur les courses de test.
-# La musique seule est moins bonne et n'est plus utilisée dans la note.
+# Poids des critères (somme = 1). Musique (performances passées) : 40 %, notes Equidia : 60 %.
+# Choisis sur 48 courses terminées (octobre-novembre 2026) : la musique améliore la perte du vainqueur.
 POIDS = {
-    "musique": 0.0,
-    "aptitudes": 0.25,
-    "forme_cheval": 0.25,
-    "chronos": 0.20,
-    "tandem": 0.10,
-    "conditions": 0.10,
-    "bruits_ecuries": 0.10,
+    "musique": 0.40,
+    "aptitudes": 0.15,
+    "forme_cheval": 0.15,
+    "chronos": 0.12,
+    "tandem": 0.06,
+    "conditions": 0.06,
+    "bruits_ecuries": 0.06,
 }
-# Netteté des probabilités (Plackett-Luce), validée à K = 4 sur les courses de test.
-SENSIBILITE = 4.0
+# Netteté des probabilités (Plackett-Luce), choisie sur les mêmes courses.
+SENSIBILITE = 8.0
+# Part des cotes du jour dans la probabilité finale ; le reste vient du modèle.
+COTES_POIDS = 0.5
 SIMULATIONS = 200_000
 SEED = 20261105
 
@@ -118,10 +119,59 @@ def analyser(course):
     return lignes
 
 
+def _score_sim(l):
+    """Score utilisé pour simuler les arrivées : la note, ou la probabilité mélangée aux cotes (échelle log)."""
+    return l.get("score_sim", l["score"])
+
+
+def cotes_de(course):
+    """Rapport du jour de chaque partant (cote de la dernière mise avant le départ), ou None si incomplet."""
+    cotes = {}
+    for p in course["partants"]:
+        if p.get("statut_part") == "NP":
+            continue
+        try:
+            v = float(((p.get("get_last_cote_off") or {}).get("rapp_evol")))
+        except (TypeError, ValueError):
+            return None
+        if v <= 0:
+            return None
+        cotes[p["num_partant"]] = v
+    return cotes
+
+
+def melanger_cotes(lignes, cotes, poids_cotes=COTES_POIDS):
+    """Mélange la probabilité du modèle et la probabilité implicite des cotes.
+
+    Les cotes ne servent qu'à ce mélange ; la note de chaque cheval reste celle du modèle.
+    Renvoie les lignes triées par probabilité mélangée, avec score_sim pour la simulation.
+    """
+    m = max(l["score"] for l in lignes)
+    w = {l["numero"]: math.exp(SENSIBILITE * (l["score"] - m)) for l in lignes}
+    W = sum(w.values())
+    pm = {k: w[k] / W for k in w}
+    inv = {k: 1.0 / cotes[k] for k in pm}
+    I = sum(inv.values())
+    pk = {k: inv[k] / I for k in pm}
+    pb = {k: poids_cotes * pk[k] + (1 - poids_cotes) * pm[k] for k in pm}
+    nouvelles = []
+    for l in lignes:
+        x = dict(l)
+        n = l["numero"]
+        x["proba_modele"] = pm[n]
+        x["proba_cotes"] = pk[n]
+        x["proba_melange"] = pb[n]
+        x["score_sim"] = math.log(pb[n]) / SENSIBILITE
+        nouvelles.append(x)
+    nouvelles.sort(key=lambda x: (-x["proba_melange"], x["numero"]))
+    return nouvelles
+
+
 def simuler(lignes, n=SIMULATIONS):
     """Simule des ordres d'arrivée (Plackett-Luce) et renvoie les comptages utiles."""
     rng = random.Random(SEED)
-    poids = [math.exp(SENSIBILITE * (l["score"] - lignes[0]["score"])) for l in lignes]
+    s0 = _score_sim(lignes[0])
+    poids = [math.exp(SENSIBILITE * (_score_sim(l) - s0)) for l in lignes]
     nums = [l["numero"] for l in lignes]
     ordres = []
     for _ in range(n):

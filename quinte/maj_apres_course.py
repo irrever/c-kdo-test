@@ -72,6 +72,10 @@ def _rafraichir_suivant(date):
         quinte_du_jour.charger(suivant)
 
 
+def _depart(date, heure):
+    return dt.datetime.fromisoformat("%sT%s" % (date, heure)).replace(tzinfo=PARIS)
+
+
 def main(argv):
     date, maintenant = _parametres(argv)
     chemin_journal = suivi._fichier_pronostic(date)
@@ -86,16 +90,23 @@ def main(argv):
     if not course:
         print("ATTENTE : page de la course %s introuvable" % journal["course"])
         return
+    heure = course.get("heure_depart_course")
     if course.get("type_statut_course_id") != "finished":
+        # Pronostic final : figé avec les cotes une heure avant le départ, une seule fois.
+        if heure and "final" not in journal:
+            depart = _depart(date, heure)
+            if depart - dt.timedelta(hours=1) <= maintenant < depart:
+                quinte_du_jour.charger(date, final=True)
+                quinte_du_jour.index()
+                print("FINAL : pronostic figé avec les cotes pour %s (départ %s)" % (date, heure))
+                return
         print("ATTENTE : course %s pas encore terminée (statut %s)" % (
             journal["course"], course.get("type_statut_course_id")))
         return
-    heure = course.get("heure_depart_course")
     if not heure:
         print("ATTENTE : heure de départ inconnue pour %s" % journal["course"])
         return
-    depart = dt.datetime.fromisoformat("%sT%s" % (date, heure)).replace(tzinfo=PARIS)
-    seuil = depart + dt.timedelta(hours=1)
+    seuil = _depart(date, heure) + dt.timedelta(hours=1)
     if maintenant < seuil:
         print("ATTENTE : départ à %s, mise à jour à partir de %s" % (heure, seuil.strftime("%H:%M")))
         return

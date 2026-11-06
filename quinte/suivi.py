@@ -74,6 +74,45 @@ def enregistrer_pronostic(date, retroactif=False):
     return chemin
 
 
+def enregistrer_final(date):
+    """Fige le pronostic final, avec les cotes du moment (une heure avant le départ), une seule fois.
+
+    Le pronostic du soir reste dans le fichier, sous « pronostic_soir ». Les clés principales
+    deviennent celles du pronostic final : c'est lui qui sert au bilan et à la comparaison.
+    """
+    chemin = _fichier_pronostic(date)
+    if not os.path.exists(chemin):
+        enregistrer_pronostic(date)
+    d = json.load(open(chemin, encoding="utf-8"))
+    if "final" in d:
+        return chemin
+    r, c = [int(x) for x in d["course"].replace("R", "").split("C")]
+    course = eq.course(date, r, c, fresh=True)
+    cotes = ae.cotes_de(course)
+    if not cotes:
+        raise SystemExit("Cotes indisponibles pour %s : pronostic final non figé." % date)
+    lignes = ae.melanger_cotes(ae.analyser(course), cotes)
+    ordres = ae.simuler(lignes)
+    prob = ae.probabilites(ordres, lignes)
+    combis = ae.combinaisons_en_box(ordres, lignes)
+    maintenant = dt.datetime.now().isoformat(timespec="seconds")
+    d["pronostic_soir"] = {k: d[k] for k in ("fige_le", "modele", "chevaux", "ordre_predit", "combinaisons")}
+    d["fige_le"] = maintenant
+    d["modele"] = {"sensibilite_K": ae.SENSIBILITE, "poids": ae.POIDS, "simulations": ae.SIMULATIONS,
+                   "part_cotes": ae.COTES_POIDS}
+    d["chevaux"] = [{"numero": l["numero"], "nom": l["nom"], "score": l["score"],
+                     "proba_cotes": l["proba_cotes"], "proba_melange": l["proba_melange"],
+                     "p_victoire": prob["victoire"][l["numero"]], "p_top3": prob["top3"][l["numero"]],
+                     "p_top5": prob["top5"][l["numero"]]} for l in lignes]
+    d["ordre_predit"] = [l["numero"] for l in lignes[:5]]
+    d["combinaisons"] = combis
+    d["final"] = {"fige_le": maintenant, "cotes": {str(k): v for k, v in cotes.items()}}
+    with open(chemin, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+    print("pronostic final figé avec les cotes :", chemin)
+    return chemin
+
+
 def _arrivee(date, r, c):
     """Arrivée officielle : liste des numéros classés, ou None si la course n'est pas terminée."""
     course = eq.course(date, r, c, fresh=True)
