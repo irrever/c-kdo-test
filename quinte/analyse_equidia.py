@@ -29,7 +29,7 @@ POIDS = {
 # Netteté des probabilités (Plackett-Luce), choisie sur les mêmes courses.
 SENSIBILITE = 8.0
 # Part des cotes du jour dans la probabilité finale ; le reste vient du modèle.
-COTES_POIDS = 0.5
+COTES_POIDS = 0.7
 SIMULATIONS = 200_000
 SEED = 20261105
 

@@ -225,6 +225,72 @@ def stats_chevaux():
         print("%-22s %6d %12.1f %11.0f%% %11.0f%%" % (nom[:22], len(lst), place_moy, 100 * top3_reel, 100 * top3_pred))
 
 
+def comparaison_reelle():
+    """Perte du vainqueur sur les courses réelles déjà arrivées, par méthode (plus bas = mieux).
+
+    Méthodes : modèle (pronostic du soir, sans cotes), cotes seules, mélange (pronostic final, 70 % de cotes).
+    Renvoie (lignes course par course, moyennes par méthode avec le nombre de courses connues).
+    """
+    if not os.path.exists(BILAN):
+        return [], {}
+
+    def proba(liste, gagnant, cle):
+        for c in liste:
+            if c["numero"] == gagnant and c.get(cle) is not None:
+                return c[cle]
+        return None
+
+    def perte(p):
+        return -math.log(max(p, 1e-9)) if p is not None else None
+
+    lignes = []
+    for x in csv.DictReader(open(BILAN, encoding="utf-8"), delimiter=";"):
+        if x["retroactif"] == "True" or not x["ordre_reel"]:
+            continue
+        chemin = _fichier_pronostic(x["date"])
+        if not os.path.exists(chemin):
+            continue
+        j = json.load(open(chemin, encoding="utf-8"))
+        gagnant = int(x["ordre_reel"].split("-")[0])
+        soir = (j.get("pronostic_soir") or {}).get("chevaux") or j.get("chevaux") or []
+        final = j.get("chevaux") if "final" in j else []
+        lignes.append({
+            "date": x["date"], "hippodrome": x["hippodrome"], "gagnant": gagnant,
+            "partants": int(x["partants"]),
+            "modele": perte(proba(soir, gagnant, "p_victoire")),
+            "cotes": perte(proba(final, gagnant, "proba_cotes")),
+            "melange": perte(proba(final, gagnant, "proba_melange")),
+        })
+    moyennes = {}
+    for cle in ["modele", "cotes", "melange"]:
+        valeurs = [l[cle] for l in lignes if l[cle] is not None]
+        moyennes[cle] = (sum(valeurs) / len(valeurs) if valeurs else None, len(valeurs))
+    hasard = [math.log(l["partants"]) for l in lignes]
+    moyennes["hasard"] = (sum(hasard) / len(hasard) if hasard else None, len(hasard))
+    return lignes, moyennes
+
+
+def _afficher_comparaison():
+    """Tableau course par course, puis moyennes : modèle, cotes seules, mélange, hasard."""
+    lignes, moyennes = comparaison_reelle()
+    if not lignes:
+        return
+
+    def f(v):
+        return "%.3f" % v if v is not None else "—"
+
+    print()
+    print("%-11s %-18s %-8s %-8s %-8s %-8s" % ("date", "hippodrome", "gagnant", "modèle", "cotes", "mélange"))
+    for l in lignes:
+        print("%-11s %-18s %-8s %-8s %-8s %-8s" % (l["date"], l["hippodrome"][:18], l["gagnant"],
+                                                   f(l["modele"]), f(l["cotes"]), f(l["melange"])))
+    print()
+    noms = [("modele", "modèle"), ("cotes", "cotes seules"), ("melange", "mélange (70 % cotes)"), ("hasard", "hasard")]
+    for cle, nom in noms:
+        v, n = moyennes[cle]
+        print("perte moyenne du vainqueur, %-22s : %s (%d course%s)" % (nom, f(v), n, "" if n == 1 else "s"))
+
+
 def bilan():
     if not os.path.exists(BILAN):
         print("Aucune course enregistrée.")
@@ -245,6 +311,7 @@ def bilan():
     print("log-loss gagnant : %.3f (hasard moyen : %.3f)" % (sum(ll) / len(ll), hasard))
     print("Brier top 3      : %.4f" % (sum(br) / n))
     print("rappel top 3     : %.3f (hasard : %.3f)" % (sum(rap) / n, 3 / (sum(int(x["partants"]) for x in lignes) / n)))
+    _afficher_comparaison()
 
 
 if __name__ == "__main__":

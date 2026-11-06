@@ -259,12 +259,13 @@ td,th{padding:8px 6px}
   <div class="label">8.1 · Méthode</div>
   <h2>Comment le modèle choisit ses chevaux</h2>
   <ol class="etapes">
-    <li><strong>Notes Equidia</strong> (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie). Ce sont les seules données qui pèsent dans la note : la musique seule et les cotes ne sont pas utilisées.</li>
+    <li><strong>Musique et notes Equidia</strong> : la musique (les performances passées) pèse 40 % de la note, et les notes Equidia (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie) 60 %.</li>
     <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
-    <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 4).</li>
+    <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 8).</li>
     <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
+    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé avec les cotes du moment, mélangées à 70 % au modèle (30 %). C'est ce pronostic final qui est gardé pour le bilan.</li>
   </ol>
-  <p class="note"><strong>Validation</strong> : le modèle a été choisi sur 20 quintés passés et testé sur 10 autres. Sur ces 10 courses, sa log-loss sur le gagnant est de 2,17, contre 2,62 pour un tirage au hasard. C'est mieux que le hasard, mais le petit nombre de courses limite la confiance. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
+  <p class="note"><strong>Validation</strong> : les réglages (poids de la musique, sensibilité, part des cotes) ont été choisis sur 48 courses terminées d'octobre–novembre 2026. Ces mêmes courses ont servi à les choisir : le résultat est donc optimiste. Seul le suivi des prochaines courses, ci-dessous, donnera une mesure indépendante. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
 </section>
 <section class="card accent-bleu wrap">
   <div class="label">8.2 · Ce qui compte, ce qui est testé</div>
@@ -272,15 +273,17 @@ td,th{padding:8px 6px}
   <table>
     <thead><tr><th>Critère</th><th>Statut dans la note</th><th>Résultat du test (log-loss, plus bas = mieux)</th></tr></thead>
     <tbody>
-      <tr><td>Notes Equidia : aptitude à la distance, forme, chronos, tandem, conditions, bruits</td><td><span class="tag ok">Pris en compte</span></td><td>@@ll_notes@@ (hasard : @@ll_hasard@@)</td></tr>
-      <tr><td>Distance du jour</td><td><span class="tag ok">Via l'aptitude à la distance</span></td><td>Inclus dans les notes</td></tr>
-      <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>@@ll_corde@@ si ajoutée au calcul</td></tr>
-      <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>@@ll_poids@@ si ajouté au calcul</td></tr>
+      <tr><td>Musique (performances passées)</td><td><span class="tag ok">Pris en compte, 40 %</span></td><td>2,34 avec la musique, 2,43 sans (ancien modèle)</td></tr>
+      <tr><td>Notes Equidia : aptitude à la distance, forme, chronos, tandem, conditions, bruits</td><td><span class="tag ok">Pris en compte, 60 %</span></td><td>Incluses dans le 2,34</td></tr>
+      <tr><td>Distance du jour</td><td><span class="tag ok">Via l'aptitude à la distance</span></td><td>Incluse dans les notes</td></tr>
+      <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajoutée au calcul</td></tr>
+      <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajouté au calcul</td></tr>
       <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
-      <tr><td>Cotes</td><td><span class="tag ko">Jamais utilisées</span></td><td>Exclues par principe</td></tr>
+      <tr><td>Cotes du jour</td><td><span class="tag ok">Pris en compte à 70 % dans le pronostic final</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
     </tbody>
   </table>
-  <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026) : perte moyenne du vainqueur de 2,34 pour le modèle, 2,11 pour les cotes seules, 2,63 pour le hasard. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
+  <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026), perte moyenne du vainqueur : hasard 2,63 ; ancien modèle sans musique 2,43 ; nouveau modèle avec musique 2,34 ; cotes seules 2,11 ; mélange retenu 2,12. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
+  <p class="note">@@suivi_reel@@</p>
 </section>
 <section class="card accent-gris wrap">
   <div class="label">9 · Statistiques des chevaux</div>
@@ -291,7 +294,7 @@ td,th{padding:8px 6px}
 
 
 
-<p class="foot">Les cotes ne sont pas utilisées. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+<p class="foot">Les cotes du jour entrent dans le pronostic final, à 70 %. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </div>
 </main>
 <script>
@@ -991,6 +994,24 @@ def fusionner_resultat(page_figee, page_live):
     return page_figee[:i_f] + page_live[i_l:j_l] + page_figee[j_f:]
 
 
+def _suivi_reel_html():
+    """Suivi réel : perte moyenne du vainqueur sur les courses déjà arrivées, par méthode."""
+    import suivi
+    lignes, moyennes = suivi.comparaison_reelle()
+    if not lignes:
+        return "Suivi réel : aucune course arrivée n'est encore enregistrée."
+
+    def f(v):
+        return ("%.2f" % v).replace(".", ",") if v is not None else "—"
+
+    n = len(lignes)
+    m, mc, mm, mh = moyennes["modele"], moyennes["cotes"], moyennes["melange"], moyennes["hasard"]
+    return ("Suivi réel sur %d course%s arrivée%s, perte moyenne du vainqueur : modèle %s (%d), "
+            "cotes seules %s (%d), mélange %s (%d), hasard %s. Plus c'est bas, mieux c'est." % (
+                n, "" if n == 1 else "s", "" if n == 1 else "s",
+                f(m[0]), m[1], f(mc[0]), mc[1], f(mm[0]), mm[1], f(mh[0])))
+
+
 def generer(chemin_page, avec_cotes=False):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
@@ -1077,6 +1098,7 @@ def generer(chemin_page, avec_cotes=False):
         "distinction": _distinction(lignes, prob),
         "statistiques": _statistiques_chevaux(course, lignes),
         "ll_notes": "2,34", "ll_hasard": "2,63", "ll_corde": "—", "ll_poids": "—",
+        "suivi_reel": _suivi_reel_html(),
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course, avec),
