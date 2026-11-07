@@ -6,7 +6,12 @@ téléchargement du quinté de demain). Le quinté du jour reprend le pronostic 
 à sa page. Une course déjà partie n'a que son arrivée : un pronostic recalculé après le départ n'en serait pas un.
 Les données vont dans quinte/journal/AAAA-MM-JJ-journee.json ; les arrivées y sont mises à jour au fil de la journée.
 
-Usage : python3 quinte/journee.py AAAA-MM-JJ
+Chaque course pas encore partie est aussi versée au registre des pronostics (quinte/registre.py), avec le détail
+de chaque cheval. C'est ce registre qui sert aux analyses (quinte/analyse_registre.py).
+
+Usage :
+    python3 quinte/journee.py AAAA-MM-JJ             # calcule la journée, et verse les courses au registre
+    python3 quinte/journee.py AAAA-MM-JJ --registre  # verse seulement les courses pas encore parties au registre
 """
 import datetime as dt
 import json
@@ -18,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import equidia as eq  # noqa: E402
 import analyse_equidia as ae  # noqa: E402
+import registre  # noqa: E402
 
 JOURNAL = os.path.join(HERE, "journal")
 PARIS = ZoneInfo("Europe/Paris")
@@ -33,16 +39,22 @@ def _partants(course):
     return [p for p in course.get("partants", []) if p.get("statut_part") != "NP"]
 
 
+def _places(course):
+    """Place de chaque partant classé : numéro -> place."""
+    out = {}
+    for p in course.get("partants", []):
+        rang = p.get("num_place_arrivee")
+        if p.get("statut_part") == "DP" and rang and str(rang).strip().isdigit():
+            out[p["num_partant"]] = int(str(rang).strip())
+    return out
+
+
 def _arrivee(course):
     """Numéros des cinq premiers à l'arrivée, ou [] si la course n'est pas terminée."""
     if course.get("type_statut_course_id") != "finished":
         return []
-    arr = []
-    for p in course.get("partants", []):
-        rang = p.get("num_place_arrivee")
-        if p.get("statut_part") == "DP" and rang and str(rang).strip().isdigit():
-            arr.append((int(str(rang).strip()), p["num_partant"]))
-    return [n for _, n in sorted(arr)][:5]
+    places = _places(course)
+    return sorted(places, key=lambda n: places[n])[:5]
 
 
 def _entree(course, r, c):
@@ -65,15 +77,20 @@ def _entree(course, r, c):
     }
 
 
-def _pronostic_calcule(course):
-    """Pronostic d'une course pas encore partie, à partir de ses données actuelles."""
+def _calcul(course):
+    """Analyse d'une course pas encore partie : notes par cheval, et probabilités (20 000 simulations)."""
     lignes = ae.analyser(course)
-    prob = ae.probabilites(ae.simuler(lignes, n=SIMULATIONS), lignes)
+    probs = ae.probabilites(ae.simuler(lignes, n=SIMULATIONS), lignes)
+    return lignes, probs
+
+
+def _pronostic_de(lignes, probs):
+    """Pronostic affiché : les cinq premiers, et les huit premiers avec leurs probabilités."""
     return {
         "ordre": [l["numero"] for l in lignes[:5]],
         "top": [{"numero": l["numero"], "nom": l["nom"], "note": round(100 * l["score"]),
-                 "p_victoire": round(prob["victoire"][l["numero"]], 4),
-                 "p_top3": round(prob["top3"][l["numero"]], 4)} for l in lignes[:8]],
+                 "p_victoire": round(probs["victoire"][l["numero"]], 4),
+                 "p_top3": round(probs["top3"][l["numero"]], 4)} for l in lignes[:8]],
     }
 
 
@@ -98,8 +115,10 @@ def _pronostic_journal(date, r, c):
 
 
 def analyser_journee(date):
-    """Toutes les courses de la journée (réunions R1 à R12, telles que les liste Equidia)."""
-    resultat = []
+    """Toutes les courses de la journée (réunions R1 à R12, telles que les liste Equidia), et les lignes
+    du registre pour les courses pas encore parties."""
+    resultat, lignes_registre = [], []
+    calcule_le = dt.datetime.now(PARIS).isoformat(timespec="seconds")
     for r in range(1, REUNIONS_MAX + 1):
         try:
             statuts = eq.statuts_reunion(date, r)
@@ -121,9 +140,13 @@ def analyser_journee(date):
                 continue
             try:
                 entree = _entree(course, r, c)
-                pronostic = _pronostic_journal(date, r, c)
-                if pronostic is None and entree["statut"] == "before":
-                    pronostic = _pronostic_calcule(course)
+                if entree["statut"] == "before":
+                    lignes, probs = _calcul(course)
+                    lignes_registre += registre.lignes_de_course(
+                        date, r, c, course, lignes, probs, ae.cotes_de(course), calcule_le)
+                    pronostic = _pronostic_journal(date, r, c) or _pronostic_de(lignes, probs)
+                else:
+                    pronostic = _pronostic_journal(date, r, c)  # quinté déjà parti : son pronostic figé
                 if pronostic:
                     entree.update(pronostic)
             except Exception as e:  # une course défaillante ne bloque pas la journée
@@ -131,7 +154,7 @@ def analyser_journee(date):
                 continue
             resultat.append(entree)
     resultat.sort(key=lambda x: (x["r"], x["c"]))
-    return resultat
+    return resultat, lignes_registre
 
 
 def _depart(date, heure):
@@ -139,7 +162,8 @@ def _depart(date, heure):
 
 
 def rafraichir_arrivees(date, maintenant):
-    """Met à jour les courses parties mais pas encore terminées. Renvoie True si quelque chose a changé."""
+    """Met à jour les courses parties mais pas encore terminées, dans la journée et dans le registre.
+    Renvoie True si la journée a changé."""
     chemin = fichier(date)
     if not os.path.exists(chemin):
         return False
@@ -164,6 +188,8 @@ def rafraichir_arrivees(date, maintenant):
             x["statut"] = statut
             x["arrivee"] = arr
             change = True
+            if statut == "finished":
+                registre.mettre_a_jour_arrivees(date, x["r"], x["c"], _places(course))
     if change:
         with open(chemin, "w", encoding="utf-8") as f:
             json.dump(donnees, f, ensure_ascii=False, indent=1)
@@ -171,23 +197,35 @@ def rafraichir_arrivees(date, maintenant):
 
 
 def charger(date, calculer=False):
-    """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai, sinon None."""
+    """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai (sinon None)."""
     chemin = fichier(date)
     if os.path.exists(chemin):
         with open(chemin, encoding="utf-8") as f:
             return json.load(f)["courses"]
     if not calculer:
         return None
-    courses = analyser_journee(date)
+    courses, lignes = analyser_journee(date)
     os.makedirs(JOURNAL, exist_ok=True)
     with open(chemin, "w", encoding="utf-8") as f:
         json.dump({"date": date, "calcule_le": dt.datetime.now().isoformat(timespec="seconds"),
                    "courses": courses}, f, ensure_ascii=False, indent=1)
+    print("registre : %d lignes ajoutées" % registre.ajouter(lignes))
     return courses
 
 
+def enregistrer_registre(date):
+    """Verse au registre les courses de la journée pas encore parties, sans toucher au fichier de la journée."""
+    _, lignes = analyser_journee(date)
+    return registre.ajouter(lignes)
+
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    args = sys.argv[1:]
+    if not args or len(args) > 2 or (len(args) == 2 and args[1] != "--registre"):
         raise SystemExit(__doc__)
-    cs = charger(sys.argv[1], calculer=True)
-    print("courses de la journée :", len(cs), "· avec pronostic :", sum(1 for x in cs if x["ordre"]))
+    date = args[0]
+    if len(args) == 2:
+        print("registre : %d lignes ajoutées pour %s" % (enregistrer_registre(date), date))
+    else:
+        cs = charger(date, calculer=True)
+        print("courses de la journée :", len(cs), "· avec pronostic :", sum(1 for x in cs if x["ordre"]))
