@@ -96,7 +96,12 @@ def main(argv):
         if heure and "final" not in journal:
             depart = _depart(date, heure)
             if depart - dt.timedelta(hours=1) <= maintenant < depart:
-                quinte_du_jour.charger(date, final=True)
+                try:
+                    quinte_du_jour.charger(date, final=True)
+                except SystemExit as e:
+                    # Pas encore de cotes pour cette course : le passage suivant réessaiera.
+                    print("ATTENTE : pronostic final pas encore figé pour %s (%s)" % (date, e))
+                    return
                 quinte_du_jour.index()
                 print("FINAL : pronostic figé avec les cotes pour %s (départ %s)" % (date, heure))
                 return
