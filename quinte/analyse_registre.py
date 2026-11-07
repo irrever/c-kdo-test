@@ -83,10 +83,15 @@ def modele(courses):
         reels = {p["numero"] for p in partants if _nombre(p["arrivee"]) in (1.0, 2.0, 3.0)}
         predits = {p["numero"] for p in sorted(partants, key=lambda p: -(_nombre(p["p_top3"]) or 0))[:3]}
         favori = min(partants, key=lambda p: _nombre(p["rang"]) or 99)
+        perte_marche = None
+        cotes = {p["numero"]: _nombre(p["cote"]) for p in partants}
+        if all(cotes.values()):  # toutes les cotes du jour sont connues
+            somme = sum(1 / v for v in cotes.values())
+            perte_marche = -math.log(max((1 / cotes[gagnants[0]["numero"]]) / somme, 1e-6))
         out.append({"famille": famille(partants[0]["discipline"]), "distance": c["distance"],
                     "perte": -math.log(max(p_gagnant, 1e-6)), "hasard": math.log(len(partants)),
                     "rappel": len(reels & predits) / max(len(reels), 1),
-                    "favori": _nombre(favori["arrivee"]) == 1})
+                    "favori": _nombre(favori["arrivee"]) == 1, "perte_marche": perte_marche})
     return out
 
 
@@ -137,6 +142,13 @@ def section_modele(resultats):
              "Perte du vainqueur : plus c'est bas, mieux c'est.", "", ligne("ensemble", resultats)]
     for f in ("plat", "obstacle", "trot"):
         texte.append(ligne(f, [r for r in resultats if r["famille"] == f]))
+    avec_cotes = [r for r in resultats if r["perte_marche"] is not None]
+    if avec_cotes:
+        texte.append("- sur les %d courses avec toutes leurs cotes : modèle %s, cotes du jour seules %s" % (
+            len(avec_cotes), _fr(moyenne([r["perte"] for r in avec_cotes])),
+            _fr(moyenne([r["perte_marche"] for r in avec_cotes]))))
+    else:
+        texte.append("- cotes du jour : aucune course avec toutes ses cotes pour l'instant")
     return texte
 
 

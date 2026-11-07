@@ -37,13 +37,14 @@ def _course(arrivee=False):
             "type_statut_course_id": "finished" if arrivee else "before", "partants": partants}
 
 
-def _ligne(date, numero, arrivee, p_victoire, poids="", corde="", discipline="Plat", distance="1900"):
+def _ligne(date, numero, arrivee, p_victoire, poids="", corde="", discipline="Plat", distance="1900", cote=""):
     ligne = {champ: "" for champ in registre.CHAMPS}
     ligne.update({"date": date, "r": "1", "c": "1", "discipline": discipline, "distance": distance,
                   "partants": "3", "numero": str(numero), "nom": "H%d" % numero,
                   "arrivee": "" if arrivee is None else str(arrivee), "p_victoire": str(p_victoire),
                   "p_top3": "0.5", "rang": str(numero),
-                  "poids": str(poids) if poids != "" else "", "corde": str(corde) if corde != "" else ""})
+                  "poids": str(poids) if poids != "" else "", "corde": str(corde) if corde != "" else "",
+                  "cote": str(cote) if cote != "" else ""})
     return ligne
 
 
@@ -113,6 +114,16 @@ class TestAnalyse(unittest.TestCase):
         self.assertEqual(len(rs), 3)
         # poids 58 / 56 / 60 pour les places 1 / 2 / 3 : corrélation +0,5 dans chaque course
         self.assertAlmostEqual(rs[0]["r"], 0.5, places=6)
+
+    def test_cotes_du_jour(self):
+        rows = []
+        for jour in ["2026-11-01", "2026-11-02", "2026-11-03"]:
+            rows += [_ligne(jour, 1, 1, 0.5, cote=2.0), _ligne(jour, 2, 2, 0.3, cote=4.0),
+                     _ligne(jour, 3, 3, 0.2, cote=4.0)]
+        resultats = ar.modele(ar.courses_arrivees(rows))
+        # cotes 2 / 4 / 4 : probabilités implicites 0,5 / 0,25 / 0,25 ; le vainqueur (cote 2) a 0,5
+        self.assertAlmostEqual(ar.moyenne([r["perte_marche"] for r in resultats]), math.log(2), places=6)
+        self.assertIn("cotes du jour seules", ar.rapport(rows))
 
     def test_rapport_signale_petit_echantillon(self):
         texte = ar.rapport(self._jeu())
