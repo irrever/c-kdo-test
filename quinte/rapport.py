@@ -198,11 +198,22 @@ td,th{padding:8px 6px}
   td,th{padding:7px 4px;font-size:12.5px}
   .note{font-size:12px}
 }
+.recherche-form{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+.recherche-form label{display:flex;flex-direction:column;gap:4px;flex:1 1 160px;font-size:13px;color:var(--muted)}
+.recherche-form select{font:inherit;font-size:14px;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);width:100%}
+.rech-resultat h3{font-size:16px;margin:12px 0 4px}
+.rech-ordre{font-size:16px;font-weight:600;margin:8px 0}
+.rech-resultat table{width:100%;border-collapse:collapse;font-size:13px}
+.rech-resultat th,.rech-resultat td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+.rech-resultat th.n,.rech-resultat td.n{text-align:right;font-variant-numeric:tabular-nums}
+.rech-bouton{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border:1px solid var(--bleu);background:var(--bleu);color:#ffffff;border-radius:6px;cursor:pointer;align-self:flex-end}
+.rech-arrivee{font-size:15px;font-weight:600;margin:8px 0 2px}
 </style></head><body><main>
 
 @@entete@@
 @@onglets@@
 @@partie_resultat@@
+@@partie_recherche@@
 <div class="vue" data-vue="analyse">
 <section class="card accent-bleu">
   <div class="label">1 · Quinté+ : les 5 premiers</div>
@@ -908,8 +919,9 @@ def _bandeau_dernier(d_prec, date):
     quoi = "%s (%s)" % (cible.get("hippodrome", ""), cible.get("course", ""))
     return ("<section class='card accent-gris'><div class='label'>Dernier quinté couru</div>"
             "<h2>Résultats du quinté du %s</h2>"
-            "<p class='note'>%s. Ces résultats et rapports restent affichés jusqu'à la publication de ceux du quinté "
-            "du %s.</p></section>") % (html.escape(_date_fr(d_prec)), html.escape(quoi), html.escape(_date_fr(date)))
+            "<p class='note'>%s. Les rapports du quinté du %s ne sont pas encore publiés : ces résultats et rapports "
+            "restent affichés jusqu'à leur publication.</p></section>") % (
+        html.escape(_date_fr(d_prec)), html.escape(quoi), html.escape(_date_fr(date)))
 
 
 def _bloc_officiel(course, lignes, date, arrivee, chemin_page):
@@ -985,13 +997,28 @@ DEBUT_RESULTAT = "<div class='vue' data-vue='resultat' hidden>"
 FIN_RESULTAT = '<div class="vue" data-vue="analyse">'
 
 
+MARQUE_SUIVI = '<p class="note">Suivi réel'
+
+
+def _bloc_suivi(page):
+    """Début et fin du paragraphe « Suivi réel » de la page, ou None."""
+    i = page.find(MARQUE_SUIVI)
+    if i < 0:
+        return None
+    return i, page.index("</p>", i) + len("</p>")
+
+
 def fusionner_resultat(page_figee, page_live):
-    """Page du jour : l'analyse vient de la page figée au pronostic final, le résultat de la page actuelle."""
-    i_f = page_figee.index(DEBUT_RESULTAT)
+    """Page du jour : l'analyse vient de la page figée au pronostic ; l'entête, les onglets, le résultat,
+    la recherche et le suivi réel viennent de la page actuelle."""
     j_f = page_figee.index(FIN_RESULTAT)
-    i_l = page_live.index(DEBUT_RESULTAT)
     j_l = page_live.index(FIN_RESULTAT)
-    return page_figee[:i_f] + page_live[i_l:j_l] + page_figee[j_f:]
+    queue = page_figee[j_f:]
+    s_f = _bloc_suivi(queue)
+    s_l = _bloc_suivi(page_live)
+    if s_f and s_l:
+        queue = queue[:s_f[0]] + page_live[s_l[0]:s_l[1]] + queue[s_f[1]:]
+    return page_live[:j_l] + queue
 
 
 def _suivi_reel_html():
@@ -1012,7 +1039,103 @@ def _suivi_reel_html():
                 f(m[0]), m[1], f(mc[0]), mc[1], f(mm[0]), mm[1], f(mh[0])))
 
 
-def generer(chemin_page, avec_cotes=False):
+_JS_RECHERCHE = r"""(function(){
+  var courses = JSON.parse(document.getElementById('journee-donnees').textContent).courses;
+  var selR = document.getElementById('rech-reunion');
+  var selC = document.getElementById('rech-course');
+  var bouton = document.getElementById('rech-bouton');
+  var out = document.getElementById('rech-resultat');
+  function vider(el){ while (el.firstChild) { el.removeChild(el.firstChild); } }
+  function option(sel, valeur, libelle){ var o = document.createElement('option'); o.value = valeur; o.textContent = libelle; sel.appendChild(o); }
+  function fr(x, decimales){ return x.toFixed(decimales).replace('.', ','); }
+  function paragraphe(classe, texte){ var p = document.createElement('p'); p.className = classe; p.textContent = texte; return p; }
+  function etat(statut){ return statut === 'finished' ? 'terminée' : (statut === 'before' ? 'à venir' : 'en cours'); }
+  var reunions = {};
+  courses.forEach(function(x){ if (!reunions[x.r]) { reunions[x.r] = x.hippodrome; } });
+  Object.keys(reunions).map(Number).sort(function(a, b){ return a - b; }).forEach(function(r){
+    option(selR, r, 'R' + r + ' · ' + reunions[r]);
+  });
+  function changerReunion(){
+    vider(selC);
+    var r = Number(selR.value);
+    courses.filter(function(x){ return x.r === r; }).forEach(function(x){
+      option(selC, x.c, 'C' + x.c + ' · ' + (x.heure || '') + ' · ' + (x.libelle || ''));
+    });
+    afficher();
+  }
+  function afficher(){
+    vider(out);
+    var r = Number(selR.value), c = Number(selC.value);
+    var x = courses.filter(function(y){ return y.r === r && y.c === c; })[0];
+    if (!x) { return; }
+    var titre = document.createElement('h3');
+    titre.textContent = 'R' + x.r + 'C' + x.c + ' · ' + x.hippodrome + ' · départ ' + (x.heure || '?');
+    out.appendChild(titre);
+    out.appendChild(paragraphe('note', [x.discipline, x.distance ? x.distance + ' m' : '', x.partants + ' partants', etat(x.statut)].filter(Boolean).join(' · ')));
+    if (x.ordre && x.ordre.length) {
+      out.appendChild(paragraphe('rech-ordre', 'Pronostic : ' + x.ordre.join(' – ')));
+    } else {
+      out.appendChild(paragraphe('note', 'Pas de pronostic : la course était déjà partie quand la journée a été calculée.'));
+    }
+    if (x.arrivee && x.arrivee.length) {
+      out.appendChild(paragraphe('rech-arrivee', 'Arrivée : ' + x.arrivee.map(function(n){ return n + ' ' + (x.noms[n] || ''); }).join(' · ')));
+      if (x.ordre && x.ordre.length) {
+        var bons = x.ordre.filter(function(n){ return x.arrivee.indexOf(n) >= 0; }).length;
+        out.appendChild(paragraphe('note', 'Dans les 5 premiers : ' + bons + (bons > 1 ? ' chevaux' : ' cheval') + ' sur les 5 pronostiqués.'));
+      }
+    }
+    if (x.top && x.top.length) {
+      var table = document.createElement('table');
+      var tete = document.createElement('tr');
+      ['N°', 'Cheval', 'Note', 'Gagner', 'Top 3'].forEach(function(t, i){
+        var th = document.createElement('th'); th.textContent = t;
+        if (i >= 2) { th.className = 'n'; }
+        tete.appendChild(th);
+      });
+      table.appendChild(tete);
+      x.top.forEach(function(h){
+        var tr = document.createElement('tr');
+        [String(h.numero), h.nom, h.note + '/100', fr(100 * h.p_victoire, 1) + ' %', fr(100 * h.p_top3, 0) + ' %'].forEach(function(t, i){
+          var td = document.createElement('td'); td.textContent = t;
+          if (i >= 2) { td.className = 'n'; }
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+      out.appendChild(table);
+    }
+  }
+  selR.addEventListener('change', changerReunion);
+  selC.addEventListener('change', afficher);
+  bouton.addEventListener('click', afficher);
+  changerReunion();
+})();"""
+
+
+def _recherche_html(journee):
+    """Onglet Recherche : une réunion et une course de la même journée, avec leur pronostic et leur arrivée."""
+    if not journee:
+        return ("<section class='card accent-gris'><div class='label'>Recherche</div>"
+                "<h2>Recherche indisponible</h2>"
+                "<p class='note'>Le programme de cette journée n'est pas encore disponible.</p></section>")
+    donnees = json.dumps({"courses": journee}, ensure_ascii=False).replace("</", "<\\/")
+    return ("<section class='card accent-bleu recherche'>"
+            "<div class='label'>Recherche · même journée</div>"
+            "<h2>Trouver une course</h2>"
+            "<p class='note'>Pronostics figés avant chaque départ. Une course déjà partie n'a que son arrivée. "
+            "Seules les courses de cette journée sont proposées.</p>"
+            "<div class='recherche-form'>"
+            "<label>Réunion<select id='rech-reunion'></select></label>"
+            "<label>Course<select id='rech-course'></select></label>"
+            "<button type='button' id='rech-bouton' class='rech-bouton'>Rechercher</button>"
+            "</div>"
+            "<div id='rech-resultat' class='rech-resultat'></div>"
+            "</section>"
+            "<script type='application/json' id='journee-donnees'>" + donnees + "</script>"
+            "<script>" + _JS_RECHERCHE + "</script>")
+
+
+def generer(chemin_page, avec_cotes=False, journee=None):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
     cotes = ae.cotes_de(course) if avec_cotes else None
@@ -1099,11 +1222,12 @@ def generer(chemin_page, avec_cotes=False):
         "statistiques": _statistiques_chevaux(course, lignes),
         "ll_notes": "2,34", "ll_hasard": "2,63", "ll_corde": "—", "ll_poids": "—",
         "suivi_reel": _suivi_reel_html(),
+        "partie_recherche": "<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course, avec),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
-        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button></div>",
+        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button><button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button></div>",
         "analyses": analyses_html,
         "jeux": jeux_html,
     }

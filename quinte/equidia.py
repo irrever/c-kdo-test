@@ -14,6 +14,7 @@ import json
 import os
 import re
 import time
+import urllib.error
 import urllib.request
 
 BASE = "https://www.equidia.fr"
@@ -34,13 +35,27 @@ def get_html(url, fresh=False):
     if os.path.exists(chemin):
         with open(chemin, encoding="utf-8") as f:
             return f.read()
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        html = r.read().decode("utf-8", errors="replace")
+    html = _telecharger(url)
     with open(chemin, "w", encoding="utf-8") as f:
         f.write(html)
     time.sleep(PAUSE)
     return html
+
+
+def _telecharger(url, essais=4):
+    """Télécharge une page. Les erreurs passagères du site (504, délai dépassé, coupure) sont reprises."""
+    for n in range(1, essais + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or n == essais:
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if n == essais:
+                raise
+        time.sleep(5 * n)
 
 
 def etat(html):

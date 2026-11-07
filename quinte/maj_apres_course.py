@@ -6,13 +6,14 @@ Usage :
     python3 quinte/maj_apres_course.py --date AAAA-MM-JJ     # une date donnée
     python3 quinte/maj_apres_course.py --maintenant AAAA-MM-JJTHH:MM   # pour tester
 
-Ne fait la mise à jour que si, à la fois :
-- le pronostic du jour est figé (journal) et le résultat n'est pas encore enregistré ;
-- la course est terminée (arrivée publiée) ;
-- l'heure de départ + 1 h est atteinte (heure de Paris).
+Pour le quinté du jour :
+- une heure avant le départ, tant que le pronostic final n'est pas figé, le pronostic final est figé avec les cotes ;
+- une fois la course terminée et l'heure de départ + 1 h atteinte, le résultat est enregistré et la page reprise.
+Pour toute la journée, les arrivées sont mises à jour dès qu'elles sont connues.
 
-Affiche une seule ligne d'état commençant par RIEN, ATTENTE ou MISE_A_JOUR.
+Affiche une ligne d'état commençant par RIEN, ATTENTE, FINAL ou MISE_A_JOUR.
 """
+import csv
 import datetime as dt
 import json
 import os
@@ -24,6 +25,7 @@ sys.path.insert(0, HERE)
 import equidia as eq  # noqa: E402
 import suivi  # noqa: E402
 import quinte_du_jour  # noqa: E402
+import journee  # noqa: E402
 
 PARIS = ZoneInfo("Europe/Paris")
 
@@ -51,7 +53,6 @@ def _parametres(argv):
 def _deja_enregistre(date):
     if not os.path.exists(os.path.join(suivi.JOURNAL, "bilan.csv")):
         return False
-    import csv
     with open(os.path.join(suivi.JOURNAL, "bilan.csv"), encoding="utf-8") as f:
         return any(x["date"] == date for x in csv.DictReader(f, delimiter=";"))
 
@@ -76,20 +77,21 @@ def _depart(date, heure):
     return dt.datetime.fromisoformat("%sT%s" % (date, heure)).replace(tzinfo=PARIS)
 
 
-def main(argv):
-    date, maintenant = _parametres(argv)
+def _statut_quinte(date, maintenant):
+    """Traite le quinté du jour et renvoie la ligne d'état."""
     chemin_journal = suivi._fichier_pronostic(date)
     if not os.path.exists(chemin_journal):
-        print("RIEN : pas de pronostic figé pour %s" % date)
-        return
+        return "RIEN : pas de pronostic figé pour %s" % date
     deja = _deja_enregistre(date)
     with open(chemin_journal, encoding="utf-8") as f:
         journal = json.load(f)
     r, c = [int(x) for x in journal["course"].replace("R", "").split("C")]
-    course = eq.course(date, r, c, fresh=True)
+    try:
+        course = eq.course(date, r, c, fresh=True)
+    except Exception as e:
+        return "ATTENTE : données Equidia indisponibles pour %s (%s)" % (date, e)
     if not course:
-        print("ATTENTE : page de la course %s introuvable" % journal["course"])
-        return
+        return "ATTENTE : page de la course %s introuvable" % journal["course"]
     heure = course.get("heure_depart_course")
     if course.get("type_statut_course_id") != "finished":
         # Pronostic final : figé avec les cotes une heure avant le départ, une seule fois.
@@ -99,47 +101,51 @@ def main(argv):
                 try:
                     quinte_du_jour.charger(date, final=True)
                 except SystemExit as e:
-                    # Pas encore de cotes pour cette course : le passage suivant réessaiera.
-                    print("ATTENTE : pronostic final pas encore figé pour %s (%s)" % (date, e))
-                    return
+                    return "ATTENTE : pronostic final pas encore figé pour %s (%s)" % (date, e)
                 quinte_du_jour.index()
-                print("FINAL : pronostic figé avec les cotes pour %s (départ %s)" % (date, heure))
-                return
-        print("ATTENTE : course %s pas encore terminée (statut %s)" % (
-            journal["course"], course.get("type_statut_course_id")))
-        return
+                return "FINAL : pronostic figé avec les cotes pour %s (départ %s)" % (date, heure)
+        return "ATTENTE : course %s pas encore terminée (statut %s)" % (
+            journal["course"], course.get("type_statut_course_id"))
     if not heure:
-        print("ATTENTE : heure de départ inconnue pour %s" % journal["course"])
-        return
+        return "ATTENTE : heure de départ inconnue pour %s" % journal["course"]
     seuil = _depart(date, heure) + dt.timedelta(hours=1)
     if maintenant < seuil:
-        print("ATTENTE : départ à %s, mise à jour à partir de %s" % (heure, seuil.strftime("%H:%M")))
-        return
+        return "ATTENTE : départ à %s, mise à jour à partir de %s" % (heure, seuil.strftime("%H:%M"))
     page = os.path.join(quinte_du_jour.SORTIE, "%s.html" % date)
     if deja:
         # Résultat déjà enregistré : la page n'est reprise que si des rapports officiels viennent de paraître.
         avant = _en_attente(page)
         if avant == 0:
-            print("RIEN : résultat et rapports déjà complets pour %s" % date)
-            return
+            return "RIEN : résultat et rapports déjà complets pour %s" % date
         quinte_du_jour.charger(date)
         apres = _en_attente(page)
         if apres is None or (avant is not None and apres >= avant):
-            print("RIEN : résultat déjà enregistré, rapports officiels toujours en attente pour %s" % date)
-            return
+            return "RIEN : résultat déjà enregistré, rapports officiels toujours en attente pour %s" % date
         _rafraichir_suivant(date)
         quinte_du_jour.index()
-        print("MISE_A_JOUR : %s, rapports officiels publiés (%d en attente, au lieu de %s)" % (
-            date, apres, avant if avant is not None else "aucun"))
-        return
+        return "MISE_A_JOUR : %s, rapports officiels publiés (%d en attente, au lieu de %s)" % (
+            date, apres, avant if avant is not None else "aucun")
     ligne = suivi.enregistrer_resultat(date)
     if ligne is None:
-        print("RIEN : arrivée incomplète pour %s" % date)
-        return
+        return "RIEN : arrivée incomplète pour %s" % date
     quinte_du_jour.charger(date)  # régénère la page du jour
     _rafraichir_suivant(date)     # reprend ses résultats sur la page du lendemain, si elle existe
     quinte_du_jour.index()        # puis la page d'accueil, qui reprend la plus récente
-    print("MISE_A_JOUR : %s, départ %s, arrivée %s" % (date, heure, ligne["ordre_reel"]))
+    return "MISE_A_JOUR : %s, départ %s, arrivée %s" % (date, heure, ligne["ordre_reel"])
+
+
+def main(argv):
+    date, maintenant = _parametres(argv)
+    arrivees = False
+    if os.path.exists(suivi._fichier_pronostic(date)):
+        arrivees = journee.rafraichir_arrivees(date, maintenant)
+    ligne = _statut_quinte(date, maintenant)
+    if arrivees and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
+        # Des courses de la journée viennent de se terminer : la page est reprise avec leurs arrivées.
+        quinte_du_jour.charger(date)
+        quinte_du_jour.index()
+        ligne = "MISE_A_JOUR : arrivées de la journée mises à jour pour %s" % date
+    print(ligne)
 
 
 if __name__ == "__main__":

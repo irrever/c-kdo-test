@@ -19,14 +19,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import equidia as eq  # noqa: E402
 import rapport  # noqa: E402
+import journee as jr  # noqa: E402
 
 SORTIE = os.path.join(HERE, "pronostics")
-
-
-def _heure_depart(date, r, c):
-    """Heure de départ de la course (HH:MM, heure de Paris), lue dans les données de la course."""
-    course = eq.course(date, r, c, fresh=True)
-    return course.get("heure_depart_course") if course else None
 
 
 JOURNAL_DIR = os.path.join(HERE, "journal")
@@ -43,12 +38,21 @@ def _final_fige(date):
     return os.path.exists(chemin) and "final" in json.load(open(chemin, encoding="utf-8"))
 
 
-def charger(date, final=False):
+def _figer(date, page):
+    """Garde la page du jour telle qu'elle est : son analyse ne change plus ensuite."""
+    os.makedirs(JOURNAL_DIR, exist_ok=True)
+    with open(_figee(date), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
+def charger(date, final=False, calculer_journee=False):
     """Télécharge le quinté d'une date et écrit sa page.
 
-    final=True : fige le pronostic avec les cotes du moment et garde cette analyse telle quelle.
-    Sinon : si l'analyse est figée, la page la reprend, avec le résultat du moment.
+    Le pronostic du soir est figé dès la première page du jour, sans les cotes, et ne change plus.
+    final=True : fige le pronostic avec les cotes du moment, qui devient l'analyse de la page.
+    Sinon : la page reprend cette analyse figée, avec le résultat du moment.
     """
+    import suivi
     q = eq.quinte_du_jour(date)
     if not q:
         raise SystemExit("Aucun quinté trouvé pour %s." % date)
@@ -59,27 +63,26 @@ def charger(date, final=False):
     chemin_brut = os.path.join(eq.CACHE, "course-%s-R%dC%d.html" % (date, r, c))
     with open(chemin_brut, "w", encoding="utf-8") as f:
         f.write(page_brute)
-    import suivi
+    suivi.enregistrer_pronostic(date)  # sans effet si le pronostic du soir est déjà figé
     if final:
-        suivi.enregistrer_pronostic(date)
         suivi.enregistrer_final(date)
-    page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date))
-    if not final and os.path.exists(_figee(date)):
+    course = eq.course(date, r, c, fresh=True)
+    avant_depart = bool(course) and course.get("type_statut_course_id") == "before"
+    page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date),
+                           journee=jr.charger(date, calculer=calculer_journee))
+    if final:
+        _figer(date, page)
+    elif os.path.exists(_figee(date)):
         with open(_figee(date), encoding="utf-8") as f:
             page = rapport.fusionner_resultat(f.read(), page)
-    if final:
-        os.makedirs(JOURNAL_DIR, exist_ok=True)
-        with open(_figee(date), "w", encoding="utf-8") as f:
-            f.write(page)
+    elif avant_depart:
+        _figer(date, page)  # première page du jour, avant le départ : son analyse est figée ici
     sortie = os.path.join(SORTIE, "%s.html" % date)
     with open(sortie, "w", encoding="utf-8") as f:
         f.write(page)
     print("écrit :", sortie)
-    depart = _heure_depart(date, r, c)
-    if depart:
-        print("depart :", depart)
-    if not final:
-        suivi.enregistrer_pronostic(date)  # fige le pronostic du soir, sans cotes, s'il ne l'est pas déjà
+    if course and course.get("heure_depart_course"):
+        print("depart :", course["heure_depart_course"])
     return sortie
 
 
@@ -94,5 +97,5 @@ def index():
 
 if __name__ == "__main__":
     date = sys.argv[1] if len(sys.argv) > 1 else dt.date.today().isoformat()
-    charger(date)
+    charger(date, calculer_journee=True)
     index()
