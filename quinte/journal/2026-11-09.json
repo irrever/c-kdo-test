@@ -1,0 +1,336 @@
+{
+ "date": "2026-11-09",
+ "retroactif": false,
+ "fige_le": "2026-11-08T22:07:33",
+ "hippodrome": "BORDEAUX-LE BOUSCAT",
+ "course": "R1C2",
+ "modele": {
+  "sensibilite_K": 8.0,
+  "poids": {
+   "musique": 0.4,
+   "aptitudes": 0.15,
+   "forme_cheval": 0.15,
+   "chronos": 0.12,
+   "tandem": 0.06,
+   "conditions": 0.06,
+   "bruits_ecuries": 0.06
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 13,
+   "nom": "ICARE DU BERYL",
+   "score": 0.7610145371929031,
+   "p_victoire": 0.208165,
+   "p_top3": 0.55545,
+   "p_top5": 0.79734
+  },
+  {
+   "numero": 5,
+   "nom": "KEROSEN DU GERS",
+   "score": 0.748360261308388,
+   "p_victoire": 0.189335,
+   "p_top3": 0.51944,
+   "p_top5": 0.76685
+  },
+  {
+   "numero": 11,
+   "nom": "GERICAULT",
+   "score": 0.7222450109205515,
+   "p_victoire": 0.152185,
+   "p_top3": 0.44451,
+   "p_top5": 0.694775
+  },
+  {
+   "numero": 14,
+   "nom": "HOLD UP DES VENTES",
+   "score": 0.6545781346075236,
+   "p_victoire": 0.088735,
+   "p_top3": 0.28202,
+   "p_top5": 0.494945
+  },
+  {
+   "numero": 7,
+   "nom": "JACKSON D'ARC",
+   "score": 0.6514069789623335,
+   "p_victoire": 0.08762,
+   "p_top3": 0.277415,
+   "p_top5": 0.485285
+  },
+  {
+   "numero": 6,
+   "nom": "KASSIOPEE WIND",
+   "score": 0.6105742147448757,
+   "p_victoire": 0.063225,
+   "p_top3": 0.205815,
+   "p_top5": 0.377955
+  },
+  {
+   "numero": 10,
+   "nom": "IRIS DES ROSEAUX",
+   "score": 0.5744499424804317,
+   "p_victoire": 0.047355,
+   "p_top3": 0.15713,
+   "p_top5": 0.29582
+  },
+  {
+   "numero": 1,
+   "nom": "DUNA DI GIRIFALCO",
+   "score": 0.5605398656415119,
+   "p_victoire": 0.04238,
+   "p_top3": 0.142775,
+   "p_top5": 0.27062
+  },
+  {
+   "numero": 12,
+   "nom": "HOLLYWOOD DU BOIS",
+   "score": 0.5431116691607738,
+   "p_victoire": 0.0372,
+   "p_top3": 0.12448,
+   "p_top5": 0.23833
+  },
+  {
+   "numero": 9,
+   "nom": "IDOLE OF LOVE",
+   "score": 0.4966091532102219,
+   "p_victoire": 0.02434,
+   "p_top3": 0.085135,
+   "p_top5": 0.166685
+  },
+  {
+   "numero": 3,
+   "nom": "STARO RAILI",
+   "score": 0.4714883507305411,
+   "p_victoire": 0.02066,
+   "p_top3": 0.070495,
+   "p_top5": 0.1395
+  },
+  {
+   "numero": 4,
+   "nom": "NELSON GREENWOOD",
+   "score": 0.4214888828612266,
+   "p_victoire": 0.01347,
+   "p_top3": 0.047575,
+   "p_top5": 0.095445
+  },
+  {
+   "numero": 2,
+   "nom": "ROSSI GARLINE",
+   "score": 0.39020182480219495,
+   "p_victoire": 0.01045,
+   "p_top3": 0.0366,
+   "p_top5": 0.073675
+  },
+  {
+   "numero": 15,
+   "nom": "ELEGANCE KRONOS",
+   "score": 0.38336358965663675,
+   "p_victoire": 0.01022,
+   "p_top3": 0.03566,
+   "p_top5": 0.071575
+  },
+  {
+   "numero": 8,
+   "nom": "GALANT DE CAREL",
+   "score": 0.280604328987917,
+   "p_victoire": 0.00466,
+   "p_top3": 0.0155,
+   "p_top5": 0.0312
+  }
+ ],
+ "ordre_predit": [
+  13,
+  5,
+  11,
+  14,
+  7
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     13,
+     5,
+     11
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.070355,
+    "par_combinaison": 0.070355
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.1623,
+    "par_combinaison": 0.040575
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.29171,
+    "par_combinaison": 0.029171000000000002
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.41264,
+    "par_combinaison": 0.020632
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.045005,
+    "par_combinaison": 0.045005
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.139555,
+    "par_combinaison": 0.027911000000000002
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.253075,
+    "par_combinaison": 0.016871666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6,
+     10
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.366375,
+    "par_combinaison": 0.010467857142857143
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.041415,
+    "par_combinaison": 0.041415
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.125305,
+    "par_combinaison": 0.020884166666666665
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6,
+     10
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.22971,
+    "par_combinaison": 0.010938571428571428
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6,
+     10,
+     1
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.36198,
+    "par_combinaison": 0.006463928571428572
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     13,
+     5,
+     11,
+     14,
+     7,
+     6,
+     10,
+     1,
+     12
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.510035,
+    "par_combinaison": 0.004047896825396825
+   }
+  ]
+ }
+}

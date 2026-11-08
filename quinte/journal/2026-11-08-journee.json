@@ -283,7 +283,7 @@
    "heure": "14:33",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SKYTREE",
@@ -295,7 +295,13 @@
     "7": "TRUE DAWN",
     "8": "ETINCELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    3,
+    4,
+    5
+   ],
    "ordre": [
     1,
     7,
@@ -370,7 +376,7 @@
    "heure": "15:15",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "DON'T SHUT ME DOWN",
@@ -389,7 +395,13 @@
     "14": "ZARFLIGHT",
     "15": "GOOD TO SEE YOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    10,
+    11,
+    4
+   ],
    "ordre": [
     7,
     15,
@@ -464,7 +476,7 @@
    "heure": "15:50",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "TARDAR",
@@ -478,7 +490,13 @@
     "9": "MARYLENE DU SERRE",
     "10": "LAMELOISE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    9,
+    8,
+    2
+   ],
    "ordre": [
     10,
     5,
@@ -553,7 +571,7 @@
    "heure": "16:25",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "VINGT SEPT",
@@ -572,7 +590,13 @@
     "14": "ATHINEOS",
     "15": "BARBADIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    8,
+    13,
+    2
+   ],
    "ordre": [
     5,
     10,
@@ -647,7 +671,7 @@
    "heure": "17:00",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "SODA ZABEEL",
@@ -665,7 +689,13 @@
     "13": "LAND OF LIBERTY",
     "14": "RUMPUMPEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    3,
+    14,
+    2
+   ],
    "ordre": [
     14,
     4,
@@ -1415,7 +1445,7 @@
    "heure": "14:25",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NANCY ATAC",
@@ -1426,7 +1456,13 @@
     "6": "NEW BOMBER MAR",
     "7": "NOCIO DE LADIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    6,
+    5,
+    2
+   ],
    "ordre": [
     2,
     7,
@@ -1976,7 +2012,7 @@
    "heure": "14:15",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LUCIANO VET",
@@ -1990,7 +2026,13 @@
     "9": "LUCIANO VREDEBEST",
     "10": "LUCKY MESLOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    10,
+    8,
+    2,
+    3
+   ],
    "ordre": [
     9,
     7,
@@ -2065,7 +2107,7 @@
    "heure": "14:50",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JOCKEY",
@@ -2083,7 +2125,13 @@
     "13": "JUSTICE BRICKELL",
     "14": "JAVELOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    13,
+    9,
+    12,
+    6
+   ],
    "ordre": [
     9,
     8,
@@ -2158,7 +2206,7 @@
    "heure": "15:32",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "IDEAL DE CASTELLE",
@@ -2174,7 +2222,13 @@
     "11": "HEADSCOTT",
     "12": "IGREC DE CELLAND"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    12,
+    3,
+    9
+   ],
    "ordre": [
     5,
     8,
@@ -2249,7 +2303,7 @@
    "heure": "16:07",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KUROKO LAUAR",
@@ -2269,7 +2323,13 @@
     "15": "KAID FORTUNA",
     "16": "KING DE FOURCHES"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    13,
+    7,
+    14
+   ],
    "ordre": [
     8,
     14,
@@ -2344,7 +2404,7 @@
    "heure": "16:42",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ISCO DE WATOU",
@@ -2364,7 +2424,13 @@
     "15": "HEROIC DES BOSC",
     "16": "JOUEUSE DU MIREL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    13,
+    7,
+    8,
+    16
+   ],
    "ordre": [
     11,
     12,
@@ -2439,7 +2505,7 @@
    "heure": "17:17",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LOCKI DU FER",
@@ -2455,7 +2521,13 @@
     "11": "LETIKALIN",
     "12": "LUSANIO DE WARNOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    12,
+    10,
+    8,
+    7
+   ],
    "ordre": [
     10,
     12,
@@ -2530,7 +2602,7 @@
    "heure": "17:52",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MARSTON VICTORY",
@@ -2544,7 +2616,13 @@
     "9": "MAJOR DU BISTON",
     "10": "MISTER BARRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    4,
+    9,
+    6,
+    1
+   ],
    "ordre": [
     8,
     7,
@@ -2619,7 +2697,7 @@
    "heure": "18:27",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NOBLE DE REVE D'OR",
@@ -2634,7 +2712,13 @@
     "10": "NIGHT DU SAPTEL",
     "11": "NUROSEDA DE WARNOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    2,
+    5,
+    3
+   ],
    "ordre": [
     11,
     1,
@@ -2709,7 +2793,7 @@
    "heure": "19:02",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KARA DES DUNES",
@@ -2726,7 +2810,13 @@
     "13": "KERIA FLEURY",
     "14": "KARAIBE DE TILLARD"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    3,
+    6,
+    10
+   ],
    "ordre": [
     1,
     2,
@@ -2801,7 +2891,7 @@
    "heure": "19:34",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MICHKA",
@@ -2817,7 +2907,13 @@
     "11": "MARIE JOSE LABELLE",
     "12": "MADISON DE MAHEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    12,
+    6,
+    3,
+    11
+   ],
    "ordre": [
     4,
     12,
@@ -2892,7 +2988,7 @@
    "heure": "20:06",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LOVER DREAM",
@@ -2910,7 +3006,13 @@
     "13": "KALYPSO DU CAUX",
     "14": "KIF DE COSSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    6,
+    11,
+    7,
+    12
+   ],
    "ordre": [
     7,
     6,
@@ -3083,7 +3185,7 @@
    "heure": "14:00",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LITTLE LULU",
@@ -3097,7 +3199,13 @@
     "9": "LARMES DE JOIE",
     "10": "LOVELY JAP"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    5,
+    6,
+    1,
+    2
+   ],
    "ordre": [
     7,
     5,
@@ -3172,7 +3280,7 @@
    "heure": "14:30",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NIAGARA DES MOTTES",
@@ -3185,7 +3293,13 @@
     "8": "DEAL DAILY",
     "9": "NAVAJO'S GIRL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    2,
+    1,
+    8
+   ],
    "ordre": [
     2,
     7,
@@ -3260,7 +3374,7 @@
    "heure": "15:00",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AREYOUONTHELIST",
@@ -3276,7 +3390,13 @@
     "11": "GAMINE DE TEILLEE",
     "12": "NASHIRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    9,
+    5,
+    7,
+    11
+   ],
    "ordre": [
     1,
     10,
@@ -3351,7 +3471,7 @@
    "heure": "15:30",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "EDIBEST FAL",
@@ -3367,7 +3487,13 @@
     "11": "TIO KAO BANG",
     "12": "MAGNETIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    2,
+    6,
+    8
+   ],
    "ordre": [
     2,
     4,
@@ -3442,7 +3568,7 @@
    "heure": "16:00",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "KIRKITA",
@@ -3454,7 +3580,13 @@
     "7": "MAMZELLE D'AUTHIE",
     "8": "SOURIS BLEUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    4,
+    3,
+    5
+   ],
    "ordre": [
     2,
     1,
@@ -3529,7 +3661,7 @@
    "heure": "16:30",
    "distance": 4200,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "STAR DE LA BLAIRIE",
@@ -3543,7 +3675,13 @@
     "9": "KIMLEEN ST ELOI",
     "10": "BARON DE FLANDRES"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    10,
+    9,
+    4,
+    5
+   ],
    "ordre": [
     7,
     4,
@@ -3618,7 +3756,7 @@
    "heure": "20:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "POR MEDIA CABEZA",
@@ -3631,7 +3769,13 @@
     "8": "PORCA MISERIA",
     "9": "LAUCHI"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    3,
+    4,
+    5
+   ],
    "ordre": [
     7,
     8,
@@ -3706,7 +3850,7 @@
    "heure": "21:00",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "TRULY APPROVED",
@@ -3717,7 +3861,13 @@
     "6": "STEINKEVJCZUK",
     "7": "OLYMPIC OLYMPIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    5,
+    2,
+    4
+   ],
    "ordre": [
     5,
     7,
@@ -3785,7 +3935,7 @@
    "heure": "21:30",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SEVILLANA KEEP",
@@ -3798,7 +3948,13 @@
     "8": "COPY LINK",
     "9": "PALMA DEL CIELO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    9,
+    6,
+    3,
+    2
+   ],
    "ordre": [
     8,
     6,
@@ -3873,7 +4029,7 @@
    "heure": "22:00",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "GLORIOSO AVE",
@@ -3885,7 +4041,13 @@
     "7": "UNO MACHO",
     "8": "ES PATRIARCA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    6,
+    7,
+    8
+   ],
    "ordre": [
     5,
     8,
@@ -3960,7 +4122,7 @@
    "heure": "22:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MAREA BRAVA",
@@ -3974,7 +4136,13 @@
     "9": "LENTEJUELAS",
     "10": "CRAKFIVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    7,
+    2,
+    6
+   ],
    "ordre": [
     2,
     7,
@@ -4049,7 +4217,7 @@
    "heure": "23:00",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "MALIBU QUEEN",
@@ -4425,7 +4593,7 @@
    "heure": "14:20",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KASHMIR'S FELLA",
@@ -4441,7 +4609,13 @@
     "11": "LELOUP VALLEE",
     "12": "KEEP TIME"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    6,
+    4,
+    8,
+    2
+   ],
    "ordre": [
     11,
     4,
@@ -4516,7 +4690,7 @@
    "heure": "14:55",
    "distance": 2050,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LANDEVY",
@@ -4536,7 +4710,13 @@
     "15": "LECCE MARIS",
     "16": "LADY HEART"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    12,
+    15,
+    7
+   ],
    "ordre": [
     14,
     4,
@@ -4611,7 +4791,7 @@
    "heure": "15:25",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "HORUS DES CHAMPS",
@@ -4627,7 +4807,13 @@
     "11": "IBRA TEJY",
     "12": "JIMBO SPORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    11,
+    2,
+    12
+   ],
    "ordre": [
     12,
     7,
@@ -4702,7 +4888,7 @@
    "heure": "15:55",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KLEPPER DU LOIR",
@@ -4717,7 +4903,13 @@
     "10": "KING DE BASSIERE",
     "11": "KILLER MELOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    7,
+    11,
+    2
+   ],
    "ordre": [
     7,
     3,
@@ -4792,7 +4984,7 @@
    "heure": "16:25",
    "distance": 2050,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "JULIA DOCTOR",
@@ -4805,7 +4997,13 @@
     "8": "JOUR DE TONNERRE",
     "9": "KAREN D'IRAI"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    3,
+    1,
+    9
+   ],
    "ordre": [
     6,
     3,
@@ -5271,7 +5469,7 @@
    "heure": "14:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LIZY DU VIVIER",
@@ -5287,7 +5485,13 @@
     "11": "LILY IMPERATRICE",
     "12": "LUCKIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    11,
+    12,
+    6,
+    4
+   ],
    "ordre": [
     10,
     11,
@@ -5362,7 +5566,7 @@
    "heure": "15:00",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KING DE CHANLECY",
@@ -5379,7 +5583,13 @@
     "12": "KEL JAC",
     "13": "KINGLY DREAMS"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    3,
+    6,
+    12
+   ],
    "ordre": [
     7,
     12,
@@ -5454,7 +5664,7 @@
    "heure": "15:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JACQUIE DU GARDEN",
@@ -5474,7 +5684,13 @@
     "15": "JUMBO D'AUVILLIER",
     "16": "JOLAN BOY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    16,
+    14,
+    3
+   ],
    "ordre": [
     16,
     13,
@@ -5549,7 +5765,7 @@
    "heure": "16:00",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JASMIN DE VINDECY",
@@ -5566,7 +5782,13 @@
     "13": "KILLER DE CAHOT",
     "14": "KAISER DE MORTREE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    9,
+    14,
+    7,
+    3
+   ],
    "ordre": [
     9,
     13,
@@ -5718,7 +5940,7 @@
    "heure": "14:10",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "WOOD STORM",
@@ -5730,7 +5952,13 @@
     "7": "LILYBOY",
     "8": "ZARA WOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    6,
+    3,
+    2
+   ],
    "ordre": [
     2,
     7,
@@ -5805,7 +6033,7 @@
    "heure": "14:40",
    "distance": 1850,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "LEHA",
@@ -5815,7 +6043,13 @@
     "5": "MISSES LILY",
     "6": "HISTO CHOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    1,
+    6,
+    2
+   ],
    "ordre": [
     1,
     2,
@@ -5876,7 +6110,7 @@
    "heure": "15:10",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "TEDERINO",
@@ -5888,7 +6122,13 @@
     "7": "GLWA'DOCH",
     "8": "SUBLI CHOPE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    4,
+    7,
+    5
+   ],
    "ordre": [
     1,
     2,
@@ -5963,7 +6203,7 @@
    "heure": "15:40",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "POP LIGHT",
@@ -5972,7 +6212,13 @@
     "4": "BLOUZEUR",
     "5": "BIENBATHY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    2,
+    5,
+    1
+   ],
    "ordre": [
     4,
     2,
@@ -6026,7 +6272,7 @@
    "heure": "16:10",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "MATADOR WOOD",
@@ -6035,7 +6281,12 @@
     "4": "MAITRE D'OEUVRE",
     "5": "TERESITA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    4,
+    2
+   ],
    "ordre": [
     5,
     1,
@@ -6089,7 +6340,7 @@
    "heure": "16:40",
    "distance": 4900,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NIKOS DE CANDALE AA",
@@ -6100,7 +6351,13 @@
     "6": "IREMMA AA",
     "7": "NEVIS DE CANDALE AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    1,
+    3,
+    4
+   ],
    "ordre": [
     2,
     5,
@@ -6365,7 +6622,7 @@
    "heure": "14:05",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MENTION BIEN",
@@ -6382,7 +6639,13 @@
     "12": "MELODIE DE FAEL",
     "13": "MARIE DE L'AUNAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    13,
+    9,
+    10,
+    8
+   ],
    "ordre": [
     9,
     5,
@@ -6457,7 +6720,7 @@
    "heure": "14:35",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MIA DES MURAILLES",
@@ -6474,7 +6737,13 @@
     "12": "MERIDA RIVERIE",
     "13": "MADISON KAT"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    10,
+    12,
+    11,
+    5
+   ],
    "ordre": [
     7,
     12,
@@ -6549,7 +6818,7 @@
    "heure": "15:05",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAIN EVENT",
@@ -6567,7 +6836,13 @@
     "13": "MAGIC MORNING",
     "14": "MISTER EVER DORE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    9,
+    8,
+    5
+   ],
    "ordre": [
     13,
     2,
@@ -6642,7 +6917,7 @@
    "heure": "15:35",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ME VOILA SACRE",
@@ -6660,7 +6935,13 @@
     "13": "MAC GYVER",
     "14": "MORGON D'AVIGNERE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    14,
+    7,
+    2,
+    4
+   ],
    "ordre": [
     14,
     4,
@@ -6735,7 +7016,7 @@
    "heure": "16:05",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KID DU RIB",
@@ -6755,7 +7036,13 @@
     "15": "ILLICO DE VAU",
     "16": "HYPSO DES CAILLONS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    11,
+    14,
+    12
+   ],
    "ordre": [
     11,
     1,
@@ -6830,7 +7117,7 @@
    "heure": "16:35",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "IVORY KINGDOM",
@@ -6850,7 +7137,13 @@
     "15": "HIBISCUS DE MAISY",
     "16": "IMPERATOR DE CARSI"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    15,
+    14,
+    9,
+    11
+   ],
    "ordre": [
     14,
     16,
@@ -6925,7 +7218,7 @@
    "heure": "17:05",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KING HAUFOR",
@@ -6941,7 +7234,13 @@
     "11": "KOLMI DES EPINES",
     "12": "KAISER DE CESNY"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    12,
+    10,
+    4,
+    6
+   ],
    "ordre": [
     2,
     9,
