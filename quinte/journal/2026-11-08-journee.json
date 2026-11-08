@@ -4217,7 +4217,7 @@
    "heure": "23:00",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MALIBU QUEEN",
@@ -4231,7 +4231,13 @@
     "9": "LOCURA MINE",
     "10": "BACANA MINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    5,
+    7,
+    10
+   ],
    "ordre": [
     6,
     5,
