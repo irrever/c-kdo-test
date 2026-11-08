@@ -10,7 +10,7 @@
    "heure": "12:48",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "DUTCHMAN",
@@ -24,7 +24,13 @@
     "9": "THE PYRENEES",
     "10": "LIMIT UP"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    10,
+    4,
+    5
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -91,7 +97,7 @@
    "heure": "13:23",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SYDNEY MOON",
@@ -103,7 +109,13 @@
     "7": "NOUVEAUTE",
     "8": "GOLDY GLORY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    5,
+    3,
+    7
+   ],
    "ordre": [
     3,
     2,
@@ -178,7 +190,7 @@
    "heure": "13:58",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KASSKA",
@@ -193,7 +205,13 @@
     "10": "KIMYA",
     "11": "ROMANTIQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    10,
+    3,
+    5,
+    1
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -722,7 +740,7 @@
    "heure": "10:32",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAGGIE",
@@ -738,7 +756,13 @@
     "11": "NIBIA",
     "12": "LATIN KRONOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    7,
+    2,
+    6
+   ],
    "ordre": [
     11,
     5,
@@ -813,7 +837,7 @@
    "heure": "11:08",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LIO D'ESCANDOL",
@@ -828,7 +852,13 @@
     "10": "MOLINERA D'HEROINA",
     "11": "MUSSOLINI ABAT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    3,
+    2,
+    10
+   ],
    "ordre": [
     10,
     11,
@@ -903,7 +933,7 @@
    "heure": "11:42",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KAMARAN FB",
@@ -919,7 +949,13 @@
     "11": "JOIA CASH",
     "12": "JALLEIRA ATAC"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    5,
+    6,
+    8
+   ],
    "ordre": [
     7,
     5,
@@ -994,7 +1030,7 @@
    "heure": "12:14",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LEONA JELMA",
@@ -1011,7 +1047,13 @@
     "12": "JULIANDER",
     "13": "KEATANA DU METZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    4,
+    5,
+    12
+   ],
    "ordre": [
     4,
     11,
@@ -1086,7 +1128,7 @@
    "heure": "12:45",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MAR DURAN",
@@ -1099,7 +1141,13 @@
     "8": "MALVASIA DES BOSC",
     "9": "MARLON GS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    2,
+    4,
+    6
+   ],
    "ordre": [
     4,
     2,
@@ -1174,7 +1222,7 @@
    "heure": "13:10",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NOURS D'AMOUR",
@@ -1192,7 +1240,13 @@
     "13": "NORA GS",
     "14": "MARQUES CUCO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    14,
+    3,
+    12
+   ],
    "ordre": [
     8,
     14,
@@ -1267,7 +1321,7 @@
    "heure": "13:35",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "OKELELE",
@@ -1280,7 +1334,13 @@
     "8": "OMBRA DE FONT",
     "9": "ORLANDA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
    "ordre": [
     5,
     3,
@@ -1434,7 +1494,7 @@
    "heure": "11:26",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "IZELBIO",
@@ -1449,7 +1509,13 @@
     "10": "JAMES BOND GWEN",
     "11": "HEZA DE L'ERDRE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    1,
+    5,
+    6
+   ],
    "ordre": [
     7,
     4,
@@ -1524,7 +1590,7 @@
    "heure": "11:58",
    "distance": 2625,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "JAMAICAIN D'ORTUGE",
@@ -1537,7 +1603,13 @@
     "8": "EVER SO MUCH",
     "9": "KINOHA D'OURVILLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    1,
+    9,
+    6
+   ],
    "ordre": [
     9,
     7,
@@ -1612,7 +1684,7 @@
    "heure": "12:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NUGGET RIVER",
@@ -1627,7 +1699,13 @@
     "10": "NOLITA MADRIK",
     "11": "NUBA DE PERVENCHE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    5,
+    9,
+    8,
+    6
+   ],
    "ordre": [
     9,
     7,
@@ -1702,7 +1780,7 @@
    "heure": "13:05",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAMZELLE BLANCHE",
@@ -1720,7 +1798,13 @@
     "14": "MISS ULTIME",
     "15": "MAGIE TURGOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    10,
+    8,
+    11
+   ],
    "ordre": [
     1,
     10,
@@ -1795,7 +1879,7 @@
    "heure": "13:40",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAGIE DU LUPIN",
@@ -1811,7 +1895,13 @@
     "11": "MISS DE LA COTE",
     "12": "MY DREAM MESLOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    12,
+    11,
+    2,
+    1
+   ],
    "ordre": [
     9,
     5,
@@ -1886,7 +1976,7 @@
    "heure": "14:15",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "LUCIANO VET",
@@ -2895,7 +2985,7 @@
    "heure": "13:30",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NIVERNAIS DECOUGNY",
@@ -2912,7 +3002,13 @@
     "12": "NOWYAS",
     "13": "NASSIRIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    10,
+    11,
+    12,
+    13
+   ],
    "ordre": [
     1,
     13,
@@ -2987,7 +3083,7 @@
    "heure": "14:00",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "LITTLE LULU",
@@ -4132,7 +4228,7 @@
    "heure": "13:20",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NAGELE DE L'ETOILE",
@@ -4148,7 +4244,13 @@
     "11": "NAFISA MENUET",
     "12": "NUNZIA SPERANZA"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    8,
+    5,
+    7,
+    11
+   ],
    "ordre": [
     6,
     9,
@@ -4223,7 +4325,7 @@
    "heure": "13:50",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MISS D'HERMES",
@@ -4242,7 +4344,13 @@
     "14": "MILADY SMART",
     "15": "MAM'ZELLE LARZIZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    1,
+    6,
+    15
+   ],
    "ordre": [
     5,
     9,
@@ -4772,7 +4880,7 @@
    "heure": "12:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NARKO DU BERNAU",
@@ -4788,7 +4896,13 @@
     "11": "NEMROD KYDE",
     "12": "NOUBA JULRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    11,
+    10,
+    9,
+    4
+   ],
    "ordre": [
     9,
     4,
@@ -4863,7 +4977,7 @@
    "heure": "13:00",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NELINE DE VALFORG",
@@ -4879,7 +4993,13 @@
     "11": "NASDAQ LYMM",
     "12": "NATIF DE BERTRANGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    10,
+    4,
+    2
+   ],
    "ordre": [
     1,
     11,
@@ -4954,7 +5074,7 @@
    "heure": "13:30",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MIGNON DU LOISIR",
@@ -4973,7 +5093,13 @@
     "14": "MISSION IMPOSSIBLE",
     "15": "MAMBO DE CAHOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    14,
+    6,
+    13,
+    2
+   ],
    "ordre": [
     15,
     14,
@@ -5048,7 +5174,7 @@
    "heure": "14:00",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LAIOS JULRY",
@@ -5064,7 +5190,13 @@
     "11": "LIGHT FEELING",
     "12": "LUCAS D'AVRIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    7,
+    12,
+    4
+   ],
    "ordre": [
     11,
     5,
@@ -5509,7 +5641,7 @@
    "heure": "13:40",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "BLUE BOY AA",
@@ -5519,7 +5651,13 @@
     "5": "NEVA PONTADOUR AA",
     "6": "DISMOIOUI PIA AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    5,
+    6,
+    2
+   ],
    "ordre": [
     1,
     4,
@@ -5580,7 +5718,7 @@
    "heure": "14:10",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "WOOD STORM",
@@ -6030,7 +6168,7 @@
    "heure": "13:05",
    "distance": 2225,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NAVERICK DREAM",
@@ -6046,7 +6184,13 @@
     "11": "NEVERMIND DAY",
     "12": "NASDAQ DE BUSSET"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    11,
+    8,
+    9,
+    1
+   ],
    "ordre": [
     12,
     1,
@@ -6121,7 +6265,7 @@
    "heure": "13:35",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LUDO DU VEILLEROT",
@@ -6140,7 +6284,13 @@
     "14": "LUCKY DES LANDES",
     "15": "LANCIER DE REANA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    15,
+    6,
+    8
+   ],
    "ordre": [
     9,
     15,
@@ -6215,7 +6365,7 @@
    "heure": "14:05",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "MENTION BIEN",
