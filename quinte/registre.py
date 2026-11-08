@@ -19,7 +19,7 @@ NOTES = ["musique", "aptitudes", "forme_cheval", "chronos", "tandem", "condition
 CHAMPS = (["date", "calcule_le", "r", "c", "hippodrome", "heure", "discipline", "distance", "partants",
            "numero", "nom", "monte", "poids", "corde", "musique_texte"]
           + ["n_" + n for n in NOTES]
-          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote"])
+          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote", "sans_donnees"])
 
 
 def _lire(chemin):
@@ -41,7 +41,7 @@ def _vide(v):
     return "" if v is None else v
 
 
-def lignes_de_course(date, r, c, course, lignes, probs, cotes, calcule_le):
+def lignes_de_course(date, r, c, course, lignes, probs, cotes, calcule_le, sans_donnees=False):
     """Lignes du registre pour une course pas encore partie : une par partant, dans l'ordre du modèle."""
     reunion = course.get("reunion") or {}
     par_numero = {p["num_partant"]: p for p in course.get("partants", [])}
@@ -70,6 +70,7 @@ def lignes_de_course(date, r, c, course, lignes, probs, cotes, calcule_le):
             "p_top3": round(probs["top3"][l["numero"]], 4),
             "cote": _vide((cotes or {}).get(l["numero"])),
             "arrivee": "",
+            "sans_donnees": "1" if sans_donnees else "",
         }
         for n in NOTES:
             v = notes.get(n)
@@ -100,6 +101,20 @@ def mettre_a_jour_arrivees(date, r, c, places, chemin=CHEMIN):
             if x["arrivee"] != nouvelle:
                 x["arrivee"] = nouvelle
                 modifiees += 1
+    if modifiees:
+        _ecrire(lignes, chemin)
+    return modifiees
+
+
+def marquer_sans_donnees(date, r, c, chemin=CHEMIN):
+    """Marque une course où le modèle n'avait rien à départager : elle sort des comparaisons du modèle.
+    Renvoie le nombre de lignes marquées."""
+    lignes = _lire(chemin)
+    modifiees = 0
+    for x in lignes:
+        if (x["date"], x["r"], x["c"]) == (str(date), str(r), str(c)) and x.get("sans_donnees") != "1":
+            x["sans_donnees"] = "1"
+            modifiees += 1
     if modifiees:
         _ecrire(lignes, chemin)
     return modifiees

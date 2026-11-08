@@ -258,6 +258,12 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
 .ecarts{margin:8px 0 0;padding-left:18px;display:grid;gap:8px;font-size:14px}
 .vigilance-groupe{display:grid;gap:6px;margin-top:12px}
 .formule{margin:0;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.rech-sans{width:fit-content;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--rouge);background:var(--rouge-bg);border-radius:6px;padding:3px 8px;margin:4px 0}
+.rech-soustitre{font-weight:600;margin:10px 0 2px}
+.rech-cotes{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
+.rech-cotes li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding:4px 0}
+.rech-cotes b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rech-favori{font-weight:600;margin:8px 0 0}
 @@fond_css@@</style></head><body><main>
 
 @@entete@@
@@ -1130,6 +1136,39 @@ _JS_RECHERCHE = r"""(function(){
     });
     afficher();
   }
+  function cote(v){ return String(Math.round(v * 10) / 10).replace('.', ','); }
+  function sansPronostic(x){
+    var avant = x.statut === 'before';
+    out.appendChild(paragraphe('rech-sans', 'Pas de pronostic'));
+    out.appendChild(paragraphe('note', avant
+      ? "Aucun cheval n'a encore couru. Sans musique ni notes Equidia, le modèle ne peut pas les départager : la page n'affiche donc ni ordre, ni pourcentages."
+      : "Aucun cheval n'avait de musique ni de note Equidia : le modèle ne pouvait pas les départager, la page n'a donc affiché ni ordre ni pourcentages."));
+    if (x.conditions) { out.appendChild(paragraphe('note', 'Conditions : ' + x.conditions)); }
+    var heure = x.cotes_releve ? x.cotes_releve.slice(11, 13) + ' h ' + x.cotes_releve.slice(14, 16) : '';
+    out.appendChild(paragraphe('rech-soustitre', avant
+      ? 'Cotes' + (heure ? ' à ' + heure : '') + ", à titre d'information"
+      : "Dernières cotes avant le départ, à titre d'information"));
+    out.appendChild(paragraphe('note', "Elles viennent du marché, pas du modèle. Liste dans l'ordre des numéros."));
+    if (x.cotes && x.cotes.length) {
+      var liste = document.createElement('ul');
+      liste.className = 'rech-cotes';
+      x.cotes.forEach(function(h){
+        var li = document.createElement('li');
+        var nom = document.createElement('span');
+        nom.textContent = 'n°' + h.numero + ' ' + h.nom;
+        var valeur = document.createElement('b');
+        valeur.textContent = cote(h.cote);
+        li.appendChild(nom);
+        li.appendChild(valeur);
+        liste.appendChild(li);
+      });
+      out.appendChild(liste);
+      var favori = x.cotes.reduce(function(a, b){ return b.cote < a.cote ? b : a; });
+      out.appendChild(paragraphe('rech-favori', 'Favori des cotes : n°' + favori.numero + ' ' + favori.nom + ', à ' + cote(favori.cote) + '.'));
+    } else {
+      out.appendChild(paragraphe('note', 'Cotes non encore publiées.'));
+    }
+  }
   function afficher(){
     vider(out);
     var r = Number(selR.value), c = Number(selC.value);
@@ -1139,7 +1178,9 @@ _JS_RECHERCHE = r"""(function(){
     titre.textContent = 'R' + x.r + 'C' + x.c + ' · ' + x.hippodrome + ' · départ ' + (x.heure || '?');
     out.appendChild(titre);
     out.appendChild(paragraphe('note', [x.discipline, x.distance ? x.distance + ' m' : '', x.partants + ' partants', etat(x.statut)].filter(Boolean).join(' · ')));
-    if (x.ordre && x.ordre.length) {
+    if (x.sans_donnees) {
+      sansPronostic(x);
+    } else if (x.ordre && x.ordre.length) {
       out.appendChild(paragraphe('rech-ordre', 'Pronostic : ' + x.ordre.join(' – ')));
     } else {
       out.appendChild(paragraphe('note', 'Pas de pronostic : la course était déjà partie quand la journée a été calculée.'));

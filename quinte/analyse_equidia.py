@@ -119,6 +119,12 @@ def analyser(course):
     return lignes
 
 
+def sans_donnees(lignes):
+    """Vrai si le modèle ne connaît rien des partants : aucun n'a de musique ni de note. Les notes sont alors
+    toutes neutres, et le classement ne dit rien (course de débutants, par exemple)."""
+    return bool(lignes) and all(all(v is None for v in l["composantes"].values()) for l in lignes)
+
+
 def _score_sim(l):
     """Score utilisé pour simuler les arrivées : la note, ou la probabilité mélangée aux cotes (échelle log)."""
     return l.get("score_sim", l["score"])

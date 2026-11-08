@@ -144,6 +144,10 @@ def main(argv):
             cotes = journee.capturer_cotes_proches(date, maintenant)
         except Exception as e:
             print("AVERTISSEMENT : cotes avant départ non relevées : %s" % e)
+        try:
+            journee.rafraichir_cotes_sans_donnees(date, maintenant)
+        except Exception as e:
+            print("AVERTISSEMENT : cotes des courses sans pronostic non relevées : %s" % e)
     ligne = _statut_quinte(date, maintenant)
     if arrivees and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
         # Des courses de la journée viennent de se terminer : la page est reprise avec leurs arrivées.

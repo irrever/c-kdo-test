@@ -25,71 +25,63 @@
     "10": "LIMIT UP"
    },
    "arrivee": [],
-   "ordre": [
-    1,
-    2,
-    3,
-    4,
-    5
-   ],
-   "top": [
+   "ordre": [],
+   "top": [],
+   "sans_donnees": true,
+   "conditions": "Pour poulains entiers et hongres de 2 ans n'ayant jamais couru. Poids : 58 kg.",
+   "cotes": [
     {
      "numero": 1,
      "nom": "DUTCHMAN",
-     "note": 50,
-     "p_victoire": 0.1001,
-     "p_top3": 0.3016
+     "cote": 17.0
     },
     {
      "numero": 2,
      "nom": "LE HAM",
-     "note": 50,
-     "p_victoire": 0.1021,
-     "p_top3": 0.2984
+     "cote": 5.6
     },
     {
      "numero": 3,
      "nom": "TRYSTAR",
-     "note": 50,
-     "p_victoire": 0.0995,
-     "p_top3": 0.2969
+     "cote": 10.0
     },
     {
      "numero": 4,
      "nom": "BATUKHAN",
-     "note": 50,
-     "p_victoire": 0.0998,
-     "p_top3": 0.3018
+     "cote": 5.9
     },
     {
      "numero": 5,
      "nom": "SZECHUAN",
-     "note": 50,
-     "p_victoire": 0.0984,
-     "p_top3": 0.2994
+     "cote": 46.0
     },
     {
      "numero": 6,
      "nom": "KUBANGO",
-     "note": 50,
-     "p_victoire": 0.1013,
-     "p_top3": 0.2969
+     "cote": 17.0
     },
     {
      "numero": 7,
      "nom": "GUARACI",
-     "note": 50,
-     "p_victoire": 0.0995,
-     "p_top3": 0.3038
+     "cote": 20.0
     },
     {
      "numero": 8,
      "nom": "PEARL EXPRESS",
-     "note": 50,
-     "p_victoire": 0.0998,
-     "p_top3": 0.299
+     "cote": 13.0
+    },
+    {
+     "numero": 9,
+     "nom": "THE PYRENEES",
+     "cote": 2.5
+    },
+    {
+     "numero": 10,
+     "nom": "LIMIT UP",
+     "cote": 13.0
     }
-   ]
+   ],
+   "cotes_releve": "2026-11-08T11:10"
   },
   {
    "r": 1,
@@ -202,71 +194,68 @@
     "11": "ROMANTIQUE"
    },
    "arrivee": [],
-   "ordre": [
-    1,
-    2,
-    3,
-    4,
-    5
-   ],
-   "top": [
+   "ordre": [],
+   "top": [],
+   "sans_donnees": true,
+   "conditions": "Pour pouliches de 2 ans n'ayant jamais couru. Poids : 58 kg.",
+   "cotes": [
     {
      "numero": 1,
      "nom": "KASSKA",
-     "note": 50,
-     "p_victoire": 0.0911,
-     "p_top3": 0.2741
+     "cote": 8.2
     },
     {
      "numero": 2,
      "nom": "MALIKA",
-     "note": 50,
-     "p_victoire": 0.0935,
-     "p_top3": 0.2701
+     "cote": 3.6
     },
     {
      "numero": 3,
      "nom": "PASABAN",
-     "note": 50,
-     "p_victoire": 0.0897,
-     "p_top3": 0.2708
+     "cote": 16.0
     },
     {
      "numero": 4,
      "nom": "PATH OF THE STAR",
-     "note": 50,
-     "p_victoire": 0.0907,
-     "p_top3": 0.2756
+     "cote": 8.3
     },
     {
      "numero": 5,
      "nom": "COEUR D'OR",
-     "note": 50,
-     "p_victoire": 0.0895,
-     "p_top3": 0.2696
+     "cote": 13.0
     },
     {
      "numero": 6,
      "nom": "LOUISIANA",
-     "note": 50,
-     "p_victoire": 0.0912,
-     "p_top3": 0.2746
+     "cote": 19.0
     },
     {
      "numero": 7,
      "nom": "CUBAN SUNRISE",
-     "note": 50,
-     "p_victoire": 0.0909,
-     "p_top3": 0.2708
+     "cote": 18.0
     },
     {
      "numero": 8,
      "nom": "ROMANTIC SHOW",
-     "note": 50,
-     "p_victoire": 0.0913,
-     "p_top3": 0.2735
+     "cote": 19.0
+    },
+    {
+     "numero": 9,
+     "nom": "BEAUTIFUL APPLAUSE",
+     "cote": 35.0
+    },
+    {
+     "numero": 10,
+     "nom": "KIMYA",
+     "cote": 5.8
+    },
+    {
+     "numero": 11,
+     "nom": "ROMANTIQUE",
+     "cote": 6.4
     }
-   ]
+   ],
+   "cotes_releve": "2026-11-08T11:10"
   },
   {
    "r": 1,

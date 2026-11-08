@@ -13,6 +13,7 @@ Usage :
     python3 quinte/journee.py AAAA-MM-JJ             # calcule la journée, et verse les courses au registre
     python3 quinte/journee.py AAAA-MM-JJ --registre  # verse seulement les courses pas encore parties au registre
     python3 quinte/journee.py AAAA-MM-JJ --completer # ajoute à la journée les réunions publiées depuis son calcul
+    python3 quinte/journee.py AAAA-MM-JJ --cotes     # relève les cotes des courses sans pronostic qui partent dans l'heure
 """
 import datetime as dt
 import json
@@ -115,6 +116,20 @@ def _pronostic_journal(date, r, c):
     }
 
 
+def _liste_cotes(course, cotes):
+    """Cotes relevées, dans l'ordre des numéros : [{numero, nom, cote}]."""
+    noms = {p["num_partant"]: (p.get("cheval") or {}).get("nom_cheval", "") for p in _partants(course)}
+    return [{"numero": n, "nom": noms.get(n, ""), "cote": cotes[n]} for n in sorted(cotes) if cotes[n]]
+
+
+def _sans_pronostic(course, cotes, releve):
+    """Course où le modèle ne peut rien départager : pas d'ordre ni de pourcentages. La page affiche à la place
+    les conditions de la course et les cotes du marché, à titre d'information."""
+    return {"sans_donnees": True, "ordre": [], "top": [],
+            "conditions": course.get("conditions_txt_course") or "",
+            "cotes": _liste_cotes(course, cotes or {}), "cotes_releve": releve}
+
+
 def analyser_journee(date, ignorer=frozenset()):
     """Toutes les courses de la journée (réunions R1 à R12, telles que les liste Equidia), et les lignes
     du registre pour les courses pas encore parties."""
@@ -143,9 +158,15 @@ def analyser_journee(date, ignorer=frozenset()):
                 entree = _entree(course, r, c)
                 if entree["statut"] == "before":
                     lignes, probs = _calcul(course)
+                    cotes = ae.cotes_de(course)
+                    sans = ae.sans_donnees(lignes)
                     lignes_registre += registre.lignes_de_course(
-                        date, r, c, course, lignes, probs, ae.cotes_de(course), calcule_le)
-                    pronostic = _pronostic_journal(date, r, c) or _pronostic_de(lignes, probs)
+                        date, r, c, course, lignes, probs, cotes, calcule_le, sans_donnees=sans)
+                    if sans:  # le modèle ne départage rien : pas de pronostic, les cotes à titre d'information
+                        entree.update(_sans_pronostic(course, cotes, calcule_le))
+                        pronostic = None
+                    else:
+                        pronostic = _pronostic_journal(date, r, c) or _pronostic_de(lignes, probs)
                 else:
                     pronostic = _pronostic_journal(date, r, c)  # quinté déjà parti : son pronostic figé
                 if pronostic:
@@ -223,6 +244,38 @@ def capturer_cotes_proches(date, maintenant, fenetre_minutes=60):
     return releves
 
 
+def rafraichir_cotes_sans_donnees(date, maintenant, fenetre_minutes=60):
+    """Relève de nouveau les cotes des courses sans pronostic qui partent dans l'heure : la page affiche le dernier
+    relevé avant le départ. Renvoie le nombre de courses mises à jour."""
+    chemin = fichier(date)
+    if not os.path.exists(chemin):
+        return 0
+    with open(chemin, encoding="utf-8") as f:
+        donnees = json.load(f)
+    heure = maintenant.strftime("%Y-%m-%dT%H:%M")
+    maj = 0
+    for x in donnees["courses"]:
+        if not x.get("sans_donnees") or x["statut"] != "before" or not x["heure"]:
+            continue
+        minutes = (_depart(date, x["heure"]) - maintenant).total_seconds() / 60
+        if not 0 < minutes <= fenetre_minutes:
+            continue
+        try:
+            course = eq.course(date, x["r"], x["c"], fresh=True)
+        except Exception as e:
+            print("cotes non relevées R%dC%d : %s" % (x["r"], x["c"], e))
+            continue
+        cotes = ae.cotes_de(course) if course else None
+        if cotes:
+            x["cotes"] = _liste_cotes(course, cotes)
+            x["cotes_releve"] = heure
+            maj += 1
+    if maj:
+        with open(chemin, "w", encoding="utf-8") as f:
+            json.dump(donnees, f, ensure_ascii=False, indent=1)
+    return maj
+
+
 def charger(date, calculer=False):
     """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai (sinon None)."""
     chemin = fichier(date)
@@ -266,12 +319,15 @@ def enregistrer_registre(date):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    options = ("--registre", "--completer")
+    options = ("--registre", "--completer", "--cotes")
     if not args or len(args) > 2 or (len(args) == 2 and args[1] not in options):
         raise SystemExit(__doc__)
     date = args[0]
     if len(args) == 2 and args[1] == "--registre":
         print("registre : %d lignes ajoutées pour %s" % (enregistrer_registre(date), date))
+    elif len(args) == 2 and args[1] == "--cotes":
+        print("cotes relevées pour %d course(s) sans pronostic de %s" % (
+            rafraichir_cotes_sans_donnees(date, dt.datetime.now(PARIS)), date))
     elif len(args) == 2:
         print("%d courses ajoutées à la journée du %s" % (completer(date), date))
     else:

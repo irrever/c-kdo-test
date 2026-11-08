@@ -62,6 +62,8 @@ def courses_arrivees(lignes):
         par_course[(x["date"], x["r"], x["c"])].append(x)
     courses = []
     for cle, partants in sorted(par_course.items()):
+        if any(p.get("sans_donnees") == "1" for p in partants):
+            continue  # le modèle n'avait rien à départager : hors comparaison
         classes = [p for p in partants if _nombre(p["arrivee"]) is not None]
         if len(classes) < 3:
             continue
@@ -189,6 +191,7 @@ def section_corde(courses):
 
 def rapport(lignes):
     courses = courses_arrivees(lignes)
+    exclues = len({(x["date"], x["r"], x["c"]) for x in lignes if x.get("sans_donnees") == "1"})
     texte = ["# Analyse du registre des pronostics", ""]
     if not courses:
         return "\n".join(texte + ["Rien à analyser pour l'instant : aucune course du registre n'a encore son arrivée."])
@@ -196,6 +199,8 @@ def rapport(lignes):
     chevaux = sum(len(c["partants"]) for c in courses)
     texte.append("Courses avec arrivée connue : %d (%d chevaux), du %s au %s." % (
         len(courses), chevaux, jours[0], jours[-1]))
+    if exclues:
+        texte.append("Courses sans donnée (aucune musique ni note) exclues : %d." % exclues)
     if len(courses) < SEUIL_FIABLE:
         texte += ["", "**Échantillon trop petit (moins de %d courses) : ces chiffres servent à suivre, "
                       "pas à conclure.**" % SEUIL_FIABLE]

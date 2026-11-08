@@ -235,5 +235,75 @@ class TestFond(unittest.TestCase):
         self.assertEqual(retire, page)  # le reste de la page est intact
 
 
+class TestSansDonnees(unittest.TestCase):
+    def test_detection(self):
+        import analyse_equidia as ae
+        vide = [{"composantes": {"musique": None, "aptitudes": None}}] * 2
+        self.assertTrue(ae.sans_donnees(vide))
+        self.assertFalse(ae.sans_donnees([{"composantes": {"musique": 0.8, "aptitudes": None}}] + vide))
+        self.assertFalse(ae.sans_donnees([]))
+
+    def test_entree_sans_pronostic(self):
+        course = {"conditions_txt_course": "Pour poulains de 2 ans.", "partants": [
+            {"num_partant": 1, "cheval": {"nom_cheval": "DUTCHMAN"}},
+            {"num_partant": 9, "cheval": {"nom_cheval": "THE PYRENEES"}}]}
+        entree = journee._sans_pronostic(course, {9: 2.4, 1: 16.0}, "2026-11-08T11:01")
+        self.assertTrue(entree["sans_donnees"])
+        self.assertEqual((entree["ordre"], entree["top"]), ([], []))
+        self.assertEqual(entree["cotes"], [{"numero": 1, "nom": "DUTCHMAN", "cote": 16.0},
+                                           {"numero": 9, "nom": "THE PYRENEES", "cote": 2.4}])
+        self.assertEqual(entree["conditions"], "Pour poulains de 2 ans.")
+        self.assertEqual(entree["cotes_releve"], "2026-11-08T11:01")
+
+    def test_marquage_et_exclusion(self):
+        import analyse_equidia as ae
+        chemin = os.path.join(tempfile.mkdtemp(), "registre.csv")
+        partants = [_partant(n, nom, "", {}, 58, n, place=n, cote=cote)
+                    for n, nom, cote in [(1, "ALPHA", 16.0), (2, "BETA", 5.7), (3, "GAMMA", 9.0)]]
+        c = {"discipline": "Plat", "distance": 1500, "heure_depart_course": "12:48",
+             "reunion": {"hippodrome": {"name": "SAINT-CLOUD"}}, "type_statut_course_id": "finished",
+             "partants": partants}
+        lignes, probs = journee._calcul(c)
+        self.assertTrue(ae.sans_donnees(lignes))
+        for r in (1, 2):
+            registre.ajouter(registre.lignes_de_course("2026-11-08", r, 1, c, lignes, probs,
+                                                       {1: 16.0, 2: 5.7, 3: 9.0}, "t"), chemin)
+            registre.mettre_a_jour_arrivees("2026-11-08", r, 1, {1: 1, 2: 2, 3: 3}, chemin)
+        self.assertEqual(registre.marquer_sans_donnees("2026-11-08", 1, 1, chemin), 3)
+        self.assertEqual(registre.marquer_sans_donnees("2026-11-08", 1, 1, chemin), 0)  # déjà marquée
+        texte = ar.rapport(registre.lire(chemin))
+        self.assertIn("Courses avec arrivée connue : 1", texte)
+        self.assertIn("exclues : 1", texte)
+
+    def test_cotes_du_dernier_releve_pour_une_course_sans_pronostic(self):
+        import json
+        import datetime as dt
+        from zoneinfo import ZoneInfo
+        import analyse_equidia as ae
+        dossier = tempfile.mkdtemp()
+        avant, d_course, d_cotes = journee.JOURNAL, journee.eq.course, ae.cotes_de
+        journee.JOURNAL = dossier
+        try:
+            with open(journee.fichier("2026-11-08"), "w", encoding="utf-8") as f:
+                json.dump({"date": "2026-11-08", "courses": [
+                    {"r": 1, "c": 1, "statut": "before", "heure": "12:48", "sans_donnees": True,
+                     "ordre": [], "top": []},
+                    {"r": 1, "c": 2, "statut": "before", "heure": "13:23", "ordre": [1], "top": []}]}, f)
+            course = {"partants": [_partant(n, nom, "", {}, 58, n, cote=val)
+                                   for n, nom, val in [(1, "ALPHA", 16.0), (2, "BETA", 5.7), (3, "GAMMA", 9.0)]]}
+            journee.eq.course = lambda *a, **k: course
+            ae.cotes_de = lambda c: {1: 4.0, 2: 6.5, 3: 9.0}
+            maintenant = dt.datetime(2026, 11, 8, 12, 35, tzinfo=ZoneInfo("Europe/Paris"))
+            self.assertEqual(journee.rafraichir_cotes_sans_donnees("2026-11-08", maintenant), 1)
+            with open(journee.fichier("2026-11-08"), encoding="utf-8") as f:
+                courses = json.load(f)["courses"]
+            self.assertEqual(courses[0]["cotes_releve"], "2026-11-08T12:35")
+            self.assertEqual([h["cote"] for h in courses[0]["cotes"]], [4.0, 6.5, 9.0])
+            self.assertNotIn("cotes", courses[1])  # une course avec pronostic n'est pas touchée
+        finally:
+            journee.eq.course, ae.cotes_de = d_course, d_cotes
+            journee.JOURNAL = avant
+
+
 if __name__ == "__main__":
     unittest.main()
