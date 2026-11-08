@@ -137,14 +137,21 @@ def _statut_quinte(date, maintenant):
 def main(argv):
     date, maintenant = _parametres(argv)
     arrivees = False
+    cotes = 0
     if os.path.exists(suivi._fichier_pronostic(date)):
         arrivees = journee.rafraichir_arrivees(date, maintenant)
+        try:
+            cotes = journee.capturer_cotes_proches(date, maintenant)
+        except Exception as e:
+            print("AVERTISSEMENT : cotes avant départ non relevées : %s" % e)
     ligne = _statut_quinte(date, maintenant)
     if arrivees and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
         # Des courses de la journée viennent de se terminer : la page est reprise avec leurs arrivées.
         quinte_du_jour.charger(date)
         quinte_du_jour.index()
         ligne = "MISE_A_JOUR : arrivées de la journée mises à jour pour %s" % date
+    if cotes and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
+        ligne = "MISE_A_JOUR : cotes relevées avant départ pour %d course(s) de %s" % (cotes, date)
     print(ligne)
 
 

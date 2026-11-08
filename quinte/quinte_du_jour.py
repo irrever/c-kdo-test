@@ -78,8 +78,20 @@ def charger(date, final=False, calculer_journee=False):
         suivi.enregistrer_final(date)
     course = eq.course(date, r, c, fresh=True)
     avant_depart = bool(course) and course.get("type_statut_course_id") == "before"
+    import vigilance
+    zones_finales = modele = None
+    chemin_journal = suivi._fichier_pronostic(date)
+    if os.path.exists(chemin_journal):
+        with open(chemin_journal, encoding="utf-8") as f:
+            journal = json.load(f)
+        try:
+            zones_finales = vigilance.depuis_journal(journal)
+            modele = vigilance.modele_seul(journal)
+        except Exception as e:  # une zone mal calculée ne doit jamais empêcher la page
+            print("AVERTISSEMENT : zones de vigilance non calculées : %s" % e)
     page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date),
-                           journee=jr.charger(date, calculer=calculer_journee), fige_le=_fige_le(date))
+                           journee=jr.charger(date, calculer=calculer_journee), fige_le=_fige_le(date),
+                           vigilance=zones_finales, modele=modele)
     if final:
         _figer(date, page)
     elif os.path.exists(_figee(date)):

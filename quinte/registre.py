@@ -19,7 +19,7 @@ NOTES = ["musique", "aptitudes", "forme_cheval", "chronos", "tandem", "condition
 CHAMPS = (["date", "calcule_le", "r", "c", "hippodrome", "heure", "discipline", "distance", "partants",
            "numero", "nom", "monte", "poids", "corde", "musique_texte"]
           + ["n_" + n for n in NOTES]
-          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee"])
+          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote"])
 
 
 def _lire(chemin):
@@ -99,6 +99,23 @@ def mettre_a_jour_arrivees(date, r, c, places, chemin=CHEMIN):
             nouvelle = str(places[numero]) if numero in places else ""
             if x["arrivee"] != nouvelle:
                 x["arrivee"] = nouvelle
+                modifiees += 1
+    if modifiees:
+        _ecrire(lignes, chemin)
+    return modifiees
+
+
+def capturer_cotes(date, r, c, cotes, heure, chemin=CHEMIN):
+    """Inscrit les cotes relevées juste avant le départ d'une course (numéro -> rapport) et l'heure du relevé.
+    Chaque relevé remplace le précédent : seul compte le dernier, celui d'avant le départ."""
+    lignes = _lire(chemin)
+    modifiees = 0
+    for x in lignes:
+        if (x["date"], x["r"], x["c"]) == (str(date), str(r), str(c)):
+            numero = int(x["numero"])
+            if numero in cotes:
+                x["cote_depart"] = str(cotes[numero])
+                x["heure_cote"] = heure
                 modifiees += 1
     if modifiees:
         _ecrire(lignes, chemin)

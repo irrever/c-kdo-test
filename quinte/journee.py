@@ -197,6 +197,32 @@ def rafraichir_arrivees(date, maintenant):
     return change
 
 
+def capturer_cotes_proches(date, maintenant, fenetre_minutes=60):
+    """Relève les cotes des courses qui partent dans l'heure, et les inscrit au registre. Ce sont les dernières
+    cotes avant le départ : chaque passage remplace les précédentes. Renvoie le nombre de courses relevées."""
+    chemin = fichier(date)
+    if not os.path.exists(chemin):
+        return 0
+    with open(chemin, encoding="utf-8") as f:
+        donnees = json.load(f)
+    releves = 0
+    for x in donnees["courses"]:
+        if x["statut"] != "before" or not x["heure"]:
+            continue
+        minutes = (_depart(date, x["heure"]) - maintenant).total_seconds() / 60
+        if not 0 < minutes <= fenetre_minutes:
+            continue
+        try:
+            course = eq.course(date, x["r"], x["c"], fresh=True)
+        except Exception as e:
+            print("cotes non relevées R%dC%d : %s" % (x["r"], x["c"], e))
+            continue
+        cotes = ae.cotes_de(course) if course else None
+        if cotes and registre.capturer_cotes(date, x["r"], x["c"], cotes, maintenant.strftime("%Y-%m-%dT%H:%M")):
+            releves += 1
+    return releves
+
+
 def charger(date, calculer=False):
     """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai (sinon None)."""
     chemin = fichier(date)

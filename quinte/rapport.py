@@ -208,6 +208,12 @@ td,th{padding:8px 6px}
 .rech-resultat th.n,.rech-resultat td.n{text-align:right;font-variant-numeric:tabular-nums}
 .rech-bouton{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border:1px solid var(--bleu);background:var(--bleu);color:#ffffff;border-radius:6px;cursor:pointer;align-self:flex-end}
 .rech-arrivee{font-size:15px;font-weight:600;margin:8px 0 2px}
+.vigilance-liste, .modele-liste { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
+.modele-liste { list-style: none; padding-left: 0; }
+.modele-liste li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.vigilance-groupe { display: grid; gap: 6px; margin-top: 12px; }
+.tag.alerte-rouge { color: var(--rouge); background: var(--rouge-bg); }
+.tag.alerte-gris { color: var(--gris); background: var(--gris-bg); }
 </style></head><body><main>
 
 @@entete@@
@@ -305,6 +311,7 @@ td,th{padding:8px 6px}
 
 
 
+@@apres_analyse@@
 <p class="foot">Les cotes du jour entrent dans le pronostic final, à 70 %. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </div>
 </main>
@@ -1150,7 +1157,57 @@ def _recherche_html(journee):
             "<script>" + _JS_RECHERCHE + "</script>")
 
 
-def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None):
+def _heure_paris(fige_le):
+    """Heure de Paris (HH h MM) d'une heure de figement enregistrée en UTC."""
+    import datetime as dt
+    from zoneinfo import ZoneInfo
+    t = dt.datetime.fromisoformat(fige_le).replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Paris"))
+    return t.strftime("%H h %M")
+
+
+def _vigilance_html(v):
+    """Zones de vigilance du pronostic final : chevaux où le modèle et le marché sont à deux fois d'écart."""
+    if not v:
+        return ""
+
+    def liste(numeros):
+        if not numeros:
+            return "<p class='note'>Aucun cheval dans cette zone.</p>"
+        items = ""
+        for k in numeros:
+            cote = ("%g" % v["cotes"][k]).replace(".", ",") if k in v["cotes"] else "—"
+            items += "<li><b>n°%s %s</b> : modèle %s, marché %s (cote %s)</li>" % (
+                k, html.escape(v["noms"].get(k, "")), pct(v["pm"][k]).replace(".", ","), pct(v["pk"][k]).replace(".", ","), cote)
+        return "<ul class='vigilance-liste'>%s</ul>" % items
+
+    return ("<section class='card'><div class='label'>Vigilance · pronostic final</div>"
+            "<h2>Zones de vigilance</h2>"
+            "<p class='note'>Chevaux où notre modèle et le marché sont à deux fois d'écart au moins, et qui ont au moins 6 %% de chances dans l'un des deux avis. "
+            "Le marché sait peut-être quelque chose que nous ignorons.</p>"
+            "<div class='vigilance-groupe'><span class='tag alerte-rouge'>Méfiance</span>"
+            "<p class='note'>Le modèle y croit au moins deux fois plus que le marché.</p>%s</div>"
+            "<div class='vigilance-groupe'><span class='tag alerte-gris'>À surveiller</span>"
+            "<p class='note'>Le marché y croit au moins deux fois plus que le modèle.</p>%s</div>"
+            "<p class='note'>Repère simple, pas encore validé sur nos courses. Le pronostic final en tient déjà compte, "
+            "à travers les 70 %% de cotes.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
+
+
+def _modele_seul_html(m):
+    """Le pronostic du soir, sans cotes, gardé à côté du pronostic final pour comparer."""
+    if not m:
+        return ""
+    lignes = "".join(
+        "<li><span class='rang'>%d</span><span>n°%s %s</span><span class='note'>%d/100</span></li>" % (
+            i, numero, html.escape(m["noms"].get(numero, "")), round(100 * m["notes"].get(numero, 0)))
+        for i, numero in enumerate(m["ordre"], start=1))
+    return ("<section class='card'><div class='label'>Modèle seul · sans cotes</div>"
+            "<h2>Avis indépendant, figé à %s</h2>"
+            "<ol class='modele-liste'>%s</ol>"
+            "<p class='note'>Gardé pour comparer avec le pronostic final.</p></section>") % (
+                _heure_paris(m["fige_le"]), lignes)
+
+
+def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
     cotes = ae.cotes_de(course) if avec_cotes else None
@@ -1241,6 +1298,7 @@ def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None):
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course, avec, fige_le),
+        "apres_analyse": _modele_seul_html(modele) + _vigilance_html(vigilance),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button><button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button></div>",
         "analyses": analyses_html,

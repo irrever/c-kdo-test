@@ -165,5 +165,55 @@ class TestAnalyse(unittest.TestCase):
         self.assertEqual(ar.famille("Attelé"), "trot")
 
 
+class TestVigilance(unittest.TestCase):
+    def test_zones_a_deux_fois_d_ecart(self):
+        import vigilance
+        pm = {1: 0.5, 2: 0.3, 3: 0.2}
+        pk = {1: 0.2, 2: 0.4, 3: 0.4}
+        mefiance, surveiller = vigilance.zones(pm, pk)
+        self.assertEqual(mefiance, [1])    # le modèle y croit 2,5 fois plus que le marché
+        self.assertEqual(surveiller, [3])  # le marché y croit 2 fois plus que le modèle
+        self.assertAlmostEqual(sum(vigilance.part_modele({1: 0.9, 2: 0.2}).values()), 1.0, places=9)
+
+    def test_outsiders_non_signales(self):
+        import vigilance
+        # un outsider à 2 % pour le modèle contre 5 % pour le marché : écart de 2,5 fois, mais sans enjeu
+        mefiance, surveiller = vigilance.zones({1: 0.02, 2: 0.5}, {1: 0.05, 2: 0.5})
+        self.assertEqual(surveiller, [])
+        self.assertEqual(mefiance, [])
+
+
+class TestCaptureCotes(unittest.TestCase):
+    def test_capture_des_cotes_avant_depart(self):
+        chemin = os.path.join(tempfile.mkdtemp(), "registre.csv")
+        c = _course()
+        lignes, probs = journee._calcul(c)
+        registre.ajouter(registre.lignes_de_course("2026-11-08", 1, 5, c, lignes, probs, None, "t"), chemin)
+        self.assertEqual(registre.capturer_cotes("2026-11-08", 1, 5, {1: 4.0, 2: 6.5, 3: 9.0},
+                                                 "2026-11-08T14:45", chemin), 3)
+        self.assertEqual(registre.capturer_cotes("2026-11-08", 1, 5, {1: 3.5, 2: 6.0, 3: 8.0},
+                                                 "2026-11-08T15:00", chemin), 3)
+        rows = {r["numero"]: r for r in registre.lire(chemin)}
+        self.assertEqual(rows["1"]["cote_depart"], "3.5")          # le dernier relevé remplace le précédent
+        self.assertEqual(rows["1"]["heure_cote"], "2026-11-08T15:00")
+
+
+class TestBlocsPage(unittest.TestCase):
+    def test_blocs_de_vigilance_et_modele_seul(self):
+        import rapport
+        v = {"mefiance": [1], "surveiller": [3], "pm": {1: 0.5, 2: 0.3, 3: 0.2}, "pk": {1: 0.2, 2: 0.4, 3: 0.4},
+             "noms": {1: "ALPHA", 2: "BETA", 3: "GAMMA"}, "cotes": {1: 5.0, 2: 2.5, 3: 2.5}}
+        bloc = rapport._vigilance_html(v)
+        self.assertIn("Méfiance", bloc)
+        self.assertIn("ALPHA", bloc)
+        self.assertIn("cote 5", bloc)
+        self.assertIn("À surveiller", bloc)
+        self.assertIn("70 % de cotes", bloc)
+        self.assertEqual(rapport._vigilance_html(None), "")
+        m = {"fige_le": "2026-11-08T08:10:49", "ordre": [1, 2], "noms": {1: "ALPHA", 2: "BETA"},
+             "notes": {1: 0.87, 2: 0.74}}
+        self.assertIn("09 h 10", rapport._modele_seul_html(m))
+
+
 if __name__ == "__main__":
     unittest.main()
