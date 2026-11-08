@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quinté Saint-Cloud R1C5</title>
+<style>
+:root{color-scheme:light;
+  --bg:#f5f6f8;--surface:#ffffff;--line:#e3e6ec;--text:#1b2230;--muted:#667085;
+  --or:#1f3a5f;--or-bg:#e9eef5;--bleu:#1f3a5f;--bleu-bg:#e9eef5;
+  --vert:#1f3a5f;--vert-bg:#e9eef5;--violet:#1f3a5f;--violet-bg:#e9eef5;
+  --rouge:#8a3b3b;--rouge-bg:#f7ecec;--gris:#667085;--gris-bg:#f1f3f6;}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+main{max-width:1120px;margin:0 auto;padding-top:20px}
+.hero{background:var(--surface);color:var(--text);border-radius:8px;padding:20px 22px;margin-bottom:14px;border:1px solid var(--line);border-left:3px solid var(--bleu)}
+.hero h1{font-size:22px;margin:0 0 6px}
+.hero p{margin:0;opacity:.92}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 9px;font-size:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:14px}
+.card.accent-or{border-left:3px solid var(--or)}
+.card.accent-bleu{border-left:3px solid var(--bleu)}
+.card.accent-vert{border-left:3px solid var(--vert)}
+.card.accent-violet{border-left:3px solid var(--violet)}
+.card.accent-gris{border-left:3px solid var(--gris)}
+h2{font-size:17px;margin:0 0 10px}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.ordre{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-size:16px;color:var(--text);background:var(--surface);border:1px solid var(--line)}
+.zones{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px;margin-bottom:14px;display:flex;gap:4px;overflow-x:auto;white-space:nowrap}
+.zones a{color:var(--bleu);text-decoration:none;font-size:13px;font-weight:600;padding:5px 10px;border-radius:6px}
+.zones a:hover{background:var(--bleu-bg)}
+section{scroll-margin-top:64px}
+.pastille.r1{background:var(--bleu);color:#ffffff;border-color:var(--bleu)}
+.pastille.r2{border-color:var(--bleu)}
+.pastille.box{background:var(--violet)}
+.pastille.gris{background:var(--gris)}
+.jeu-titre{font-size:19px;font-weight:700;color:var(--text)}
+.note{color:var(--muted);font-size:13px;margin:6px 0}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.favori td{background:var(--bleu-bg)}
+tr.top2 td{background:var(--gris-bg)}
+.barre{height:8px;border-radius:999px;background:var(--gris-bg);overflow:hidden;min-width:90px}
+.barre span{display:block;height:100%;border-radius:999px;background:var(--bleu)}
+.tag{display:inline-block;font-size:12px;border-radius:999px;padding:1px 9px;margin:2px 4px 2px 0}
+.tag.ok{background:var(--gris-bg);color:var(--text)}
+.tag.ko{background:var(--rouge-bg);color:var(--rouge)}
+.tag.info{background:var(--gris-bg);color:var(--muted)}
+.tag.box{background:var(--bleu-bg);color:var(--bleu);border:1px solid var(--bleu)}
+details{border-bottom:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:700}
+details ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+details li{margin-bottom:6px}
+.etapes{counter-reset:etape;list-style:none;padding:0;margin:0}
+.etapes li{counter-increment:etape;position:relative;padding:6px 0 6px 38px;margin-bottom:4px}
+.etapes li::before{content:counter(etape);position:absolute;left:0;top:4px;width:26px;height:26px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.rec{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:640px){.rec{grid-template-columns:repeat(3,1fr)}}
+.rec .bloc{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
+.rec .bloc.reco{border:1px solid var(--bleu);background:var(--bleu-bg)}
+.rec .gros{font-size:22px;font-weight:800}
+.foot{color:var(--muted);font-size:12px;margin-top:8px}
+
+.zone-details{padding:0;border-bottom:none;margin-bottom:14px}
+.zone-details > summary{list-style:none;cursor:pointer;display:block;padding:18px 44px 16px 18px;position:relative}
+.zone-details > summary::-webkit-details-marker{display:none}
+.zone-details > summary::after{content:"+";position:absolute;right:18px;top:14px;font-size:22px;line-height:1;color:var(--muted);font-weight:400}
+.zone-details[open] > summary::after{content:"2"}
+.zone-details > summary:focus-visible{outline:2px solid var(--bleu);outline-offset:-2px;border-radius:8px}
+.zone-details > summary .label{display:block}
+.zone-details > summary h2{margin:4px 0 0}
+.zone-details > :not(summary){margin-left:18px;margin-right:18px}
+.zone-details > :last-child{margin-bottom:18px}
+
+
+.entete h2{font-size:18px;margin:2px 0 10px;font-weight:600}
+.puces{display:flex;flex-wrap:wrap;gap:6px}
+.puces span{display:inline-block;font-size:12.5px;padding:3px 9px;border:1px solid var(--line);border-radius:4px;color:var(--text);background:var(--gris-bg)}
+
+
+.arr-grand{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px}
+.arr-grand .cell{flex:1 1 110px;min-width:96px;padding:16px 10px;border:1px solid var(--line);border-radius:8px;text-align:center;background:var(--surface)}
+.arr-grand .cell b{display:block;font-size:40px;font-weight:700;line-height:1;color:var(--bleu)}
+.arr-grand .cell .nom{display:block;font-size:12.5px;font-weight:600;margin-top:8px}
+.arr-grand .cell small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.retenir{margin:6px 0 0 18px;padding:0;font-size:13.5px}
+.retenir li{margin-bottom:4px}
+.res-tab td.n,.res-tab th.n{text-align:right}
+
+
+.onglets{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.onglets button{font:inherit;font-size:13.5px;font-weight:600;padding:8px 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer}
+.onglets button[aria-selected="true"]{background:var(--bleu);border-color:var(--bleu);color:#ffffff}
+.onglets button:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}
+[hidden]{display:none!important}
+
+
+.partie{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 2px 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+.partie.resultat{color:var(--bleu);border-bottom-color:var(--bleu)}
+.res-tab{width:100%;border-collapse:collapse;font-size:13.5px}
+.res-tab th,.res-tab td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+.res-tab td.n,.res-tab th.n{text-align:right;font-variant-numeric:tabular-nums}
+.ok-txt{color:var(--text);font-weight:600}
+.concl{border-left:3px solid var(--bleu);padding:4px 0 4px 12px;margin:8px 0;font-size:13.5px}
+
+
+@media (max-width:820px){
+  .bloc-pari thead{display:none}
+  .bloc-pari table,.bloc-pari tbody{display:block;width:100%}
+  .bloc-pari tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"box tag" "nums nums" "comb chance";gap:6px 8px;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+  .bloc-pari tr.reco{border-color:var(--bleu)}
+  .bloc-pari td{border:0;padding:0;text-align:left;font-size:13px;background:transparent}
+  .bloc-pari td:nth-child(1){grid-area:box;font-weight:600}
+  .bloc-pari td:nth-child(1)::before{content:"Box "}
+  .bloc-pari td:nth-child(2){grid-area:nums}
+  .bloc-pari td:nth-child(3){grid-area:comb;color:var(--muted)}
+  .bloc-pari td:nth-child(3)::after{content:" combinaison(s)"}
+  .bloc-pari td:nth-child(4){grid-area:chance;text-align:right;font-weight:600}
+  .bloc-pari td:nth-child(6){grid-area:tag;text-align:right}
+  .bloc-pari td.opt{display:none}
+}
+
+
+.bloc-pari{margin-bottom:18px}
+.bloc-pari h3{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--text)}
+.numeros{display:flex;flex-wrap:wrap;gap:4px}
+.num-box{display:inline-block;min-width:24px;text-align:center;padding:2px 6px;border:1px solid var(--line);border-radius:4px;font-size:12.5px;font-variant-numeric:tabular-nums}
+tr.reco td{background:var(--bleu-bg)}
+tr.reco .num-box{border-color:var(--bleu);color:var(--bleu);font-weight:600}
+.numeros{display:flex;flex-wrap:wrap;gap:4px;min-width:120px}
+@media (max-width:820px){.opt{display:none}.num-box{min-width:20px;padding:1px 4px;font-size:11.5px}.bloc-pari td,.bloc-pari th{padding:6px 3px;font-size:12px}.bloc-pari .numeros{min-width:0;gap:3px}.bloc-pari th{font-size:10px;letter-spacing:.04em}}
+
+
+.layout{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding-top:20px}
+nav.side{position:sticky;top:12px;align-self:start}
+nav.side .grp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:14px 10px 4px}
+nav.side .grp:first-child{margin-top:0}
+nav.side a{display:block;color:var(--muted);text-decoration:none;font-size:14px;padding:7px 10px;border-left:2px solid transparent}
+nav.side a:hover,nav.side a:focus-visible{color:var(--text);border-left-color:var(--bleu)}
+@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}.contenu{min-width:0}nav.side{position:static;display:flex;flex-wrap:wrap;gap:4px;min-width:0}nav.side .grp{display:none}nav.side a{border-left:0;border-bottom:2px solid transparent;padding:6px 8px}}
+section{scroll-margin-top:16px}
+
+.profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
+
+/* Raffinement : typographie fine et espacements précis */
+body{font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
+h1{font-size:21px;font-weight:600;letter-spacing:-.01em}
+h2{font-size:15px;font-weight:600;letter-spacing:-.005em}
+.label{font-size:11px;font-weight:600;letter-spacing:.09em}
+.card{border-radius:6px;padding:18px 18px 16px;box-shadow:0 1px 1px rgba(16,24,40,.03)}
+.card.accent-bleu,.card.accent-or,.card.accent-gris,.card.accent-violet{border-left-width:2px}
+.pastille{min-width:40px;height:40px;font-size:15px;font-weight:600;border-radius:6px}
+.note{font-size:12.5px;line-height:1.55}
+table{font-size:13px}
+th{font-size:10.5px;letter-spacing:.08em}
+td,th{padding:8px 6px}
+.tag{font-size:11px;padding:1px 7px;border-radius:3px;letter-spacing:.01em}
+.hero{padding:18px 20px;box-shadow:0 1px 1px rgba(16,24,40,.04)}
+.hero h1{font-size:19px;font-weight:600}
+.chip{border-radius:3px;font-size:11.5px}
+@media (max-width:820px){
+  body{font-size:14px;padding-top:0}
+  .layout{padding-top:12px;gap:14px}
+  nav.side{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;margin:0 -16px;padding:2px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav.side::-webkit-scrollbar{display:none}
+  nav.side a{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12.5px;background:var(--surface);white-space:nowrap}
+  nav.side a:hover{border-color:var(--bleu);color:var(--bleu);border-left-color:var(--line)}
+  .card{padding:16px 15px 14px;margin-bottom:12px}
+  .pastille{min-width:36px;height:36px;font-size:14px}
+  .ordre{gap:6px}
+  .hero{padding:16px 16px;margin-bottom:12px}
+  .hero h1{font-size:17px;line-height:1.3}
+  .hero p{font-size:12.5px}
+  .chips{gap:5px}
+  td,th{padding:7px 4px;font-size:12.5px}
+  .note{font-size:12px}
+}
+.recherche-form{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+.recherche-form label{display:flex;flex-direction:column;gap:4px;flex:1 1 160px;font-size:13px;color:var(--muted)}
+.recherche-form select{font:inherit;font-size:14px;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);width:100%}
+.rech-resultat h3{font-size:16px;margin:12px 0 4px}
+.rech-ordre{font-size:16px;font-weight:600;margin:8px 0}
+.rech-resultat table{width:100%;border-collapse:collapse;font-size:13px}
+.rech-resultat th,.rech-resultat td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+.rech-resultat th.n,.rech-resultat td.n{text-align:right;font-variant-numeric:tabular-nums}
+.rech-bouton{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border:1px solid var(--bleu);background:var(--bleu);color:#ffffff;border-radius:6px;cursor:pointer;align-self:flex-end}
+.rech-arrivee{font-size:15px;font-weight:600;margin:8px 0 2px}
+</style></head><body><main><div class="layout"><nav class="side" aria-label="Sections"><div class="grp">Pronostic</div><a href="#zone-1">Quinté+</a><div class="grp">Analyse</div><a href="#zone-2">Analyse des chevaux</a><a href="#zone-6">Probabilités</a><div class="grp">Jeux</div><a href="#zone-3">Tiercé, quarté, quinté</a><a href="#zone-3-1">Box</a><a href="#zone-4">Couplés et simples</a><a href="#zone-5">Distinction top 5</a><div class="grp">Détail</div><a href="#zone-7">Profil de course</a><div class="grp">Suivi</div><a href="#zone-8-1">Méthode</a><a href="#zone-9">Statistiques</a></nav><div class="contenu">
+
+<section class='card entete accent-bleu'><div class='label'>Quinté+ du jour · R1 C5</div><h2>SAINT-CLOUD · SAGARO</h2><div class='puces'><span>Dimanche 8 novembre 2026</span><span>Départ 15:15</span><span>3100 m</span><span>Plat</span><span>15 partants</span><span>corde à gauche</span><span>Pronostic figé le jour même à 09 h 10, sans les cotes</span></div></section>
+<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button><button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button></div>
+<div class='vue' data-vue='resultat' hidden><section class='card accent-gris'><div class='label'>Dernier quinté couru</div><h2>Résultats du quinté du samedi 7 novembre 2026</h2><p class='note'>DEAUVILLE (R1C3). Les rapports du quinté du dimanche 8 novembre 2026 ne sont pas encore publiés : ces résultats et rapports restent affichés jusqu'à leur publication.</p></section><section class='card accent-bleu'><div class='label'>Résultat officiel</div><h2>Arrivée</h2><div class='arr-grand'><div class='cell'><b>1</b><span class='nom'>ZELORO</span><small>1er</small></div><div class='cell'><b>14</b><span class='nom'>HER CHRISTOPHER</span><small>2e</small></div><div class='cell'><b>9</b><span class='nom'>EAST GREY</span><small>3e</small></div><div class='cell'><b>13</b><span class='nom'>HERMES WOOD</span><small>4e</small></div><div class='cell'><b>12</b><span class='nom'>ALMAROMY</span><small>5e</small></div></div><h2 style='margin-top:18px'>Notre choix contre l'arrivée</h2><table class='res-tab'><thead><tr><th>Rang</th><th>Notre choix</th><th>Arrivée</th></tr></thead><tbody><tr><td>1</td><td>n°1 ZELORO</td><td>n°1 ZELORO</td></tr><tr><td>2</td><td>n°14 HER CHRISTOPHER</td><td>n°14 HER CHRISTOPHER</td></tr><tr><td>3</td><td>n°15 LAVENDIN</td><td>n°9 EAST GREY</td></tr><tr><td>4</td><td>n°13 HERMES WOOD</td><td>n°13 HERMES WOOD</td></tr><tr><td>5</td><td>n°12 ALMAROMY</td><td>n°12 ALMAROMY</td></tr></tbody></table><h2 style='margin-top:18px'>Réaction du modèle</h2><p class='concl'><strong>Notre choix</strong> : 1 – 14 – 15 – 13 – 12. <strong>L'arrivée</strong> : 1 – 14 – 9 – 13 – 12. Nous avions 4 chevaux sur 5 dans le bon cinq.</p><p class='concl'><strong>Bien vu</strong> : n°1 ZELORO (prévu 1er, arrivé 1er), n°14 HER CHRISTOPHER (prévu 2e, arrivé 2e), n°13 HERMES WOOD (prévu 4e, arrivé 4e), n°12 ALMAROMY (prévu 5e, arrivé 5e).</p><p class='concl'><strong>Raté</strong> : n°15 LAVENDIN, prévu 3e, arrivé 13e. Points forts du modèle : aptitudes à la distance (100/100), conditions (89/100), bruits d'écurie (82/100). Points faibles : aucun.</p><p class='concl'><strong>Surprise</strong> : n°9 EAST GREY, arrivé 3e alors que nous le prévoyions 8e. Points forts : tandem driver-entraîneur (100/100). Points faibles : aucun.</p><p class='concl'><strong>Ce que j'en retiens</strong></p><ul class='retenir'><li>Une seule course ne suffit pas à modifier le modèle : le bilan cumulé dans le journal reste la mesure à suivre.</li></ul><h2 style='margin-top:18px'>Rapports essentiels (mise de base 2 €)</h2><div class='wrap'><table class='res-tab'><thead><tr><th>Pari</th><th>Mode</th><th class='n'>Combinaison</th><th class='n'>Rapport</th></tr></thead><tbody><tr><td>Quinté+</td><td>ordre</td><td class='n'>1-14-9-13-12</td><td class='n'>14.134,10 €</td></tr><tr><td>Quinté+</td><td>désordre</td><td class='n'>1-14-9-13-12</td><td class='n'>210,40 €</td></tr><tr><td>Tiercé</td><td>ordre</td><td class='n'>1-14-9</td><td class='n'>349,10 €</td></tr><tr><td>Tiercé</td><td>désordre</td><td class='n'>1-14-9</td><td class='n'>51,00 €</td></tr><tr><td>Quarté+</td><td>ordre</td><td class='n'>1-14-9-13</td><td class='n'>1.155,60 €</td></tr><tr><td>Quarté+</td><td>désordre</td><td class='n'>1-14-9-13</td><td class='n'>104,50 €</td></tr><tr><td>Couplé gagnant</td><td>désordre</td><td class='n'>1-14</td><td class='n'>17,80 €</td></tr></tbody></table></div></section></div>
+<div class='vue' data-vue='recherche' hidden><section class='card accent-bleu recherche'><div class='label'>Recherche · même journée</div><h2>Trouver une course</h2><p class='note'>Pronostics figés avant chaque départ. Une course déjà partie n'a que son arrivée. Seules les courses de cette journée sont proposées.</p><div class='recherche-form'><label>Réunion<select id='rech-reunion'></select></label><label>Course<select id='rech-course'></select></label><button type='button' id='rech-bouton' class='rech-bouton'>Rechercher</button></div><div id='rech-resultat' class='rech-resultat'></div></section><script type='application/json' id='journee-donnees'>{"courses": [{"r": 1, "c": 1, "hippodrome": "SAINT-CLOUD", "libelle": "ANTIVARI", "heure": "12:48", "distance": 1500, "discipline": "Plat", "statut": "before", "partants": 10, "noms": {"1": "DUTCHMAN", "2": "LE HAM", "3": "TRYSTAR", "4": "BATUKHAN", "5": "SZECHUAN", "6": "KUBANGO", "7": "GUARACI", "8": "PEARL EXPRESS", "9": "THE PYRENEES", "10": "LIMIT UP"}, "arrivee": [], "ordre": [1, 2, 3, 4, 5], "top": [{"numero": 1, "nom": "DUTCHMAN", "note": 50, "p_victoire": 0.1001, "p_top3": 0.3016}, {"numero": 2, "nom": "LE HAM", "note": 50, "p_victoire": 0.1021, "p_top3": 0.2984}, {"numero": 3, "nom": "TRYSTAR", "note": 50, "p_victoire": 0.0995, "p_top3": 0.2969}, {"numero": 4, "nom": "BATUKHAN", "note": 50, "p_victoire": 0.0998, "p_top3": 0.3018}, {"numero": 5, "nom": "SZECHUAN", "note": 50, "p_victoire": 0.0984, "p_top3": 0.2994}, {"numero": 6, "nom": "KUBANGO", "note": 50, "p_victoire": 0.1013, "p_top3": 0.2969}, {"numero": 7, "nom": "GUARACI", "note": 50, "p_victoire": 0.0995, "p_top3": 0.3038}, {"numero": 8, "nom": "PEARL EXPRESS", "note": 50, "p_victoire": 0.0998, "p_top3": 0.299}]}, {"r": 1, "c": 2, "hippodrome": "SAINT-CLOUD", "libelle": "HEROD", "heure": "13:23", "distance": 1400, "discipline": "Plat", "statut": "before", "partants": 8, "noms": {"1": "SYDNEY MOON", "2": "TIMUR", "3": "BELISA BAY", "4": "RISCAL", "5": "HINATA GREY", "6": "FLYING SPUR", "7": "NOUVEAUTE", "8": "GOLDY GLORY"}, "arrivee": [], "ordre": [3, 2, 5, 8, 1], "top": [{"numero": 3, "nom": "BELISA BAY", "note": 82, "p_victoire": 0.2738, "p_top3": 0.6845}, {"numero": 2, "nom": "TIMUR", "note": 79, "p_victoire": 0.2198, "p_top3": 0.6135}, {"numero": 5, "nom": "HINATA GREY", "note": 74, "p_victoire": 0.1472, "p_top3": 0.4667}, {"numero": 8, "nom": "GOLDY GLORY", "note": 71, "p_victoire": 0.1187, "p_top3": 0.3901}, {"numero": 1, "nom": "SYDNEY MOON", "note": 68, "p_victoire": 0.0877, "p_top3": 0.2939}, {"numero": 6, "nom": "FLYING SPUR", "note": 65, "p_victoire": 0.0761, "p_top3": 0.2615}, {"numero": 7, "nom": "NOUVEAUTE", "note": 58, "p_victoire": 0.0404, "p_top3": 0.1535}, {"numero": 4, "nom": "RISCAL", "note": 57, "p_victoire": 0.0363, "p_top3": 0.1364}]}, {"r": 1, "c": 3, "hippodrome": "SAINT-CLOUD", "libelle": "DOUVE", "heure": "13:58", "distance": 1500, "discipline": "Plat", "statut": "before", "partants": 11, "noms": {"1": "KASSKA", "2": "MALIKA", "3": "PASABAN", "4": "PATH OF THE STAR", "5": "COEUR D'OR", "6": "LOUISIANA", "7": "CUBAN SUNRISE", "8": "ROMANTIC SHOW", "9": "BEAUTIFUL APPLAUSE", "10": "KIMYA", "11": "ROMANTIQUE"}, "arrivee": [], "ordre": [1, 2, 3, 4, 5], "top": [{"numero": 1, "nom": "KASSKA", "note": 50, "p_victoire": 0.0911, "p_top3": 0.2741}, {"numero": 2, "nom": "MALIKA", "note": 50, "p_victoire": 0.0935, "p_top3": 0.2701}, {"numero": 3, "nom": "PASABAN", "note": 50, "p_victoire": 0.0897, "p_top3": 0.2708}, {"numero": 4, "nom": "PATH OF THE STAR", "note": 50, "p_victoire": 0.0907, "p_top3": 0.2756}, {"numero": 5, "nom": "COEUR D'OR", "note": 50, "p_victoire": 0.0895, "p_top3": 0.2696}, {"numero": 6, "nom": "LOUISIANA", "note": 50, "p_victoire": 0.0912, "p_top3": 0.2746}, {"numero": 7, "nom": "CUBAN SUNRISE", "note": 50, "p_victoire": 0.0909, "p_top3": 0.2708}, {"numero": 8, "nom": "ROMANTIC SHOW", "note": 50, "p_victoire": 0.0913, "p_top3": 0.2735}]}, {"r": 1, "c": 4, "hippodrome": "SAINT-CLOUD", "libelle": "TANTIEME", "heure": "14:33", "distance": 1600, "discipline": "Plat", "statut": "before", "partants": 8, "noms": {"1": "SKYTREE", "2": "CROWN OF OAKS", "3": "DARIUS CEN", "4": "VATICANA", "5": "TAKE ME ON", "6": "MALA WYSKA", "7": "TRUE DAWN", "8": "ETINCELLE"}, "arrivee": [], "ordre": [1, 7, 5, 2, 8], "top": [{"numero": 1, "nom": "SKYTREE", "note": 75, "p_victoire": 0.1969, "p_top3": 0.539}, {"numero": 7, "nom": "TRUE DAWN", "note": 74, "p_victoire": 0.1749, "p_top3": 0.5053}, {"numero": 5, "nom": "TAKE ME ON", "note": 73, "p_victoire": 0.163, "p_top3": 0.4823}, {"numero": 2, "nom": "CROWN OF OAKS", "note": 69, "p_victoire": 0.1264, "p_top3": 0.3869}, {"numero": 8, "nom": "ETINCELLE", "note": 69, "p_victoire": 0.1186, "p_top3": 0.3658}, {"numero": 4, "nom": "VATICANA", "note": 67, "p_victoire": 0.1045, "p_top3": 0.3296}, {"numero": 3, "nom": "DARIUS CEN", "note": 65, "p_victoire": 0.0878, "p_top3": 0.2908}, {"numero": 6, "nom": "MALA WYSKA", "note": 51, "p_victoire": 0.0279, "p_top3": 0.1003}]}, {"r": 1, "c": 5, "hippodrome": "SAINT-CLOUD", "libelle": "SAGARO", "heure": "15:15", "distance": 3100, "discipline": "Plat", "statut": "before", "partants": 15, "noms": {"1": "DON'T SHUT ME DOWN", "2": "HOMO DEUS", "3": "BLACK SAXON", "4": "MISTER GATZ", "5": "A BEAUREGARD", "6": "MON RICIN", "7": "ORAGEUX", "8": "RAM SEA", "9": "PAOLINO", "10": "DARK ROCKSTER", "11": "DEMPY", "12": "LUCIO VERO", "13": "GARVEY", "14": "ZARFLIGHT", "15": "GOOD TO SEE YOU"}, "arrivee": [], "ordre": [7, 15, 12, 10, 11], "top": [{"numero": 7, "nom": "ORAGEUX", "note": 87, "p_victoire": 0.3892, "p_top3": 0.807}, {"numero": 15, "nom": "GOOD TO SEE YOU", "note": 73, "p_victoire": 0.1326, "p_top3": 0.4398}, {"numero": 12, "nom": "LUCIO VERO", "note": 71, "p_victoire": 0.1067, "p_top3": 0.3653}, {"numero": 10, "nom": "DARK ROCKSTER", "note": 66, "p_victoire": 0.0767, "p_top3": 0.2731}, {"numero": 11, "nom": "DEMPY", "note": 62, "p_victoire": 0.0517, "p_top3": 0.1926}, {"numero": 13, "nom": "GARVEY", "note": 61, "p_victoire": 0.0494, "p_top3": 0.1823}, {"numero": 3, "nom": "BLACK SAXON", "note": 57, "p_victoire": 0.0346, "p_top3": 0.1301}, {"numero": 8, "nom": "RAM SEA", "note": 55, "p_victoire": 0.0303, "p_top3": 0.1133}]}, {"r": 1, "c": 6, "hippodrome": "SAINT-CLOUD", "libelle": "VULCAIN", "heure": "15:50", "distance": 2500, "discipline": "Plat", "statut": "before", "partants": 10, "noms": {"1": "TARDAR", "2": "SHANOUR", "3": "COSY BEAR", "4": "PORTAL", "5": "WIZARD OF LIPS", "6": "MARIA APOLLONIA", "7": "STEALITWITHAKISS", "8": "VANTA", "9": "MARYLENE DU SERRE", "10": "LAMELOISE"}, "arrivee": [], "ordre": [10, 5, 3, 2, 6], "top": [{"numero": 10, "nom": "LAMELOISE", "note": 82, "p_victoire": 0.2661, "p_top3": 0.6573}, {"numero": 5, "nom": "WIZARD OF LIPS", "note": 76, "p_victoire": 0.1673, "p_top3": 0.4957}, {"numero": 3, "nom": "COSY BEAR", "note": 75, "p_victoire": 0.1505, "p_top3": 0.4597}, {"numero": 2, "nom": "SHANOUR", "note": 72, "p_victoire": 0.1208, "p_top3": 0.3782}, {"numero": 6, "nom": "MARIA APOLLONIA", "note": 71, "p_victoire": 0.1041, "p_top3": 0.3393}, {"numero": 4, "nom": "PORTAL", "note": 63, "p_victoire": 0.0563, "p_top3": 0.1908}, {"numero": 7, "nom": "STEALITWITHAKISS", "note": 60, "p_victoire": 0.0481, "p_top3": 0.164}, {"numero": 1, "nom": "TARDAR", "note": 59, "p_victoire": 0.0412, "p_top3": 0.15}]}, {"r": 1, "c": 7, "hippodrome": "SAINT-CLOUD", "libelle": "BUCKSKIN", "heure": "16:25", "distance": 3100, "discipline": "Plat", "statut": "before", "partants": 15, "noms": {"1": "VINGT SEPT", "2": "GRAND ART", "3": "EXTRAPOL", "4": "SUMMER WAY", "5": "INSEPARABLE", "6": "ROOSTER CROWING", "7": "VIANETA", "8": "KING KARA", "9": "BOUSSANT", "10": "BRIGHTON SPORT", "11": "ALMACADO GREE", "12": "M'GLAMOUR", "13": "ILUMINE PRECIEUSE", "14": "ATHINEOS", "15": "BARBADIN"}, "arrivee": [], "ordre": [5, 10, 3, 4, 2], "top": [{"numero": 5, "nom": "INSEPARABLE", "note": 73, "p_victoire": 0.1882, "p_top3": 0.5027}, {"numero": 10, "nom": "BRIGHTON SPORT", "note": 69, "p_victoire": 0.1394, "p_top3": 0.415}, {"numero": 3, "nom": "EXTRAPOL", "note": 68, "p_victoire": 0.1302, "p_top3": 0.3833}, {"numero": 4, "nom": "SUMMER WAY", "note": 67, "p_victoire": 0.119, "p_top3": 0.3556}, {"numero": 2, "nom": "GRAND ART", "note": 67, "p_victoire": 0.1179, "p_top3": 0.3517}, {"numero": 12, "nom": "M'GLAMOUR", "note": 66, "p_victoire": 0.1052, "p_top3": 0.3258}, {"numero": 6, "nom": "ROOSTER CROWING", "note": 60, "p_victoire": 0.0672, "p_top3": 0.21}, {"numero": 1, "nom": "VINGT SEPT", "note": 50, "p_victoire": 0.0328, "p_top3": 0.1049}]}, {"r": 1, "c": 8, "hippodrome": "SAINT-CLOUD", "libelle": "SOLITUDE", "heure": "17:00", "distance": 2000, "discipline": "Plat", "statut": "before", "partants": 14, "noms": {"1": "SODA ZABEEL", "2": "YMEEELIH", "3": "ECIJA", "4": "AURORA BEAU REAL", "5": "HELLO AVENUE", "6": "CLEA CHOPE", "7": "LEGACY LINK", "8": "MUSIC'S GIRL", "9": "VANIR", "10": "BLANCHE DE MEDICIS", "11": "ARCTIC BAY", "12": "GLYFADA", "13": "LAND OF LIBERTY", "14": "RUMPUMPEL"}, "arrivee": [], "ordre": [14, 4, 5, 3, 1], "top": [{"numero": 14, "nom": "RUMPUMPEL", "note": 85, "p_victoire": 0.2693, "p_top3": 0.6506}, {"numero": 4, "nom": "AURORA BEAU REAL", "note": 81, "p_victoire": 0.1816, "p_top3": 0.5178}, {"numero": 5, "nom": "HELLO AVENUE", "note": 74, "p_victoire": 0.1111, "p_top3": 0.3488}, {"numero": 3, "nom": "ECIJA", "note": 73, "p_victoire": 0.0985, "p_top3": 0.316}, {"numero": 1, "nom": "SODA ZABEEL", "note": 69, "p_victoire": 0.0712, "p_top3": 0.2392}, {"numero": 12, "nom": "GLYFADA", "note": 64, "p_victoire": 0.0476, "p_top3": 0.1583}, {"numero": 10, "nom": "BLANCHE DE MEDICIS", "note": 62, "p_victoire": 0.0415, "p_top3": 0.1426}, {"numero": 6, "nom": "CLEA CHOPE", "note": 62, "p_victoire": 0.0423, "p_top3": 0.1416}]}]}</script><script>(function(){
+  var courses = JSON.parse(document.getElementById('journee-donnees').textContent).courses;
+  var selR = document.getElementById('rech-reunion');
+  var selC = document.getElementById('rech-course');
+  var bouton = document.getElementById('rech-bouton');
+  var out = document.getElementById('rech-resultat');
+  function vider(el){ while (el.firstChild) { el.removeChild(el.firstChild); } }
+  function option(sel, valeur, libelle){ var o = document.createElement('option'); o.value = valeur; o.textContent = libelle; sel.appendChild(o); }
+  function fr(x, decimales){ return x.toFixed(decimales).replace('.', ','); }
+  function paragraphe(classe, texte){ var p = document.createElement('p'); p.className = classe; p.textContent = texte; return p; }
+  function etat(statut){ return statut === 'finished' ? 'terminée' : (statut === 'before' ? 'à venir' : 'en cours'); }
+  var reunions = {};
+  courses.forEach(function(x){ if (!reunions[x.r]) { reunions[x.r] = x.hippodrome; } });
+  Object.keys(reunions).map(Number).sort(function(a, b){ return a - b; }).forEach(function(r){
+    option(selR, r, 'R' + r + ' · ' + reunions[r]);
+  });
+  function changerReunion(){
+    vider(selC);
+    var r = Number(selR.value);
+    courses.filter(function(x){ return x.r === r; }).forEach(function(x){
+      option(selC, x.c, 'C' + x.c + ' · ' + (x.heure || '') + ' · ' + (x.libelle || ''));
+    });
+    afficher();
+  }
+  function afficher(){
+    vider(out);
+    var r = Number(selR.value), c = Number(selC.value);
+    var x = courses.filter(function(y){ return y.r === r && y.c === c; })[0];
+    if (!x) { return; }
+    var titre = document.createElement('h3');
+    titre.textContent = 'R' + x.r + 'C' + x.c + ' · ' + x.hippodrome + ' · départ ' + (x.heure || '?');
+    out.appendChild(titre);
+    out.appendChild(paragraphe('note', [x.discipline, x.distance ? x.distance + ' m' : '', x.partants + ' partants', etat(x.statut)].filter(Boolean).join(' · ')));
+    if (x.ordre && x.ordre.length) {
+      out.appendChild(paragraphe('rech-ordre', 'Pronostic : ' + x.ordre.join(' – ')));
+    } else {
+      out.appendChild(paragraphe('note', 'Pas de pronostic : la course était déjà partie quand la journée a été calculée.'));
+    }
+    if (x.arrivee && x.arrivee.length) {
+      out.appendChild(paragraphe('rech-arrivee', 'Arrivée : ' + x.arrivee.map(function(n){ return n + ' ' + (x.noms[n] || ''); }).join(' · ')));
+      if (x.ordre && x.ordre.length) {
+        var bons = x.ordre.filter(function(n){ return x.arrivee.indexOf(n) >= 0; }).length;
+        out.appendChild(paragraphe('note', 'Dans les 5 premiers : ' + bons + (bons > 1 ? ' chevaux' : ' cheval') + ' sur les 5 pronostiqués.'));
+      }
+    }
+    if (x.top && x.top.length) {
+      var table = document.createElement('table');
+      var tete = document.createElement('tr');
+      ['N°', 'Cheval', 'Note', 'Gagner', 'Top 3'].forEach(function(t, i){
+        var th = document.createElement('th'); th.textContent = t;
+        if (i >= 2) { th.className = 'n'; }
+        tete.appendChild(th);
+      });
+      table.appendChild(tete);
+      x.top.forEach(function(h){
+        var tr = document.createElement('tr');
+        [String(h.numero), h.nom, h.note + '/100', fr(100 * h.p_victoire, 1) + ' %', fr(100 * h.p_top3, 0) + ' %'].forEach(function(t, i){
+          var td = document.createElement('td'); td.textContent = t;
+          if (i >= 2) { td.className = 'n'; }
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+      out.appendChild(table);
+    }
+  }
+  selR.addEventListener('change', changerReunion);
+  selC.addEventListener('change', afficher);
+  bouton.addEventListener('click', afficher);
+  changerReunion();
+})();</script></div>
+<div class="vue" data-vue="analyse">
+<details id="zone-1" class="card accent-bleu zone-details" open><summary><span class="label">1 · Quinté+ : les 5 premiers</span><h2>Ordre d'arrivée probable</h2></summary>
+  <div class="ordre"><span class='pastille r1'>7</span><span class='pastille r2'>15</span><span class='pastille '>12</span><span class='pastille '>10</span><span class='pastille '>11</span></div>
+  <p class="note">Le favori du modèle est <strong>n°7 ORAGEUX</strong> : 38.9 % de chances de gagner, 80.7 % dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
+</details>
+<details id="zone-2" class="card accent-bleu zone-details"><summary><span class="label">2 · Analyse des chevaux</span><h2>Analyse par cheval</h2></summary>
+  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
+  <details><summary>n°7 ORAGEUX — note 87/100</summary><p class='note'>Driver : M.BARZALONA · Entraîneur : J.REYNIER (S) · Musique : 1p1p1p2p</p><ul><li><strong>Aptitudes à la distance</strong> : 80/100</li><li><strong>Forme</strong> : 92/100</li><li><strong>Tandem driver-entraîneur</strong> : 100/100</li><li><strong>Conditions</strong> : 100/100</li><li><strong>Bruits d'écurie</strong> : 77/100</li><li>Poids : 58 kg (affiché, non pris en compte).</li><li>Place à la corde : 1 (affiché, non pris en compte).</li></ul></details><details><summary>n°15 GOOD TO SEE YOU — note 73/100</summary><p class='note'>Driver : A.CRASTUS · Entraîneur : MME A.WATTEL · Musique : 2p1p0p4p1p3p3p2p5p4p</p><ul><li><strong>Aptitudes à la distance</strong> : 100/100</li><li><strong>Forme</strong> : 99/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 100/100</li><li><strong>Bruits d'écurie</strong> : 56/100</li><li>Poids : 51 kg (affiché, non pris en compte).</li><li>Place à la corde : 13 (affiché, non pris en compte).</li></ul></details><details><summary>n°12 LUCIO VERO — note 71/100</summary><p class='note'>Driver : A.MEKOUCHE · Entraîneur : R.AVIAL LOPEZ · Musique : 1p7p1p6p4p2p1p0p1p0p</p><ul><li><strong>Aptitudes à la distance</strong> : 86/100</li><li><strong>Forme</strong> : 99/100</li><li><strong>Tandem driver-entraîneur</strong> : 85/100</li><li><strong>Conditions</strong> : 64/100</li><li><strong>Bruits d'écurie</strong> : 73/100</li><li>Poids : 54 kg (affiché, non pris en compte).</li><li>Place à la corde : 15 (affiché, non pris en compte).</li></ul></details><details><summary>n°10 DARK ROCKSTER — note 66/100</summary><p class='note'>Driver : C.LECOEUVRE · Entraîneur : S.WATTEL (S) · Musique : 6p4p(25)1p4p2p</p><ul><li><strong>Aptitudes à la distance</strong> : 98/100</li><li><strong>Forme</strong> : 92/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 56/100</li><li><strong>Bruits d'écurie</strong> : 67/100</li><li>Poids : 57 kg (affiché, non pris en compte).</li><li>Place à la corde : 6 (affiché, non pris en compte).</li><li>Langue attachée.</li></ul></details><details><summary>n°11 DEMPY — note 62/100</summary><p class='note'>Driver : C.SOUMILLON · Entraîneur : D.BONILLA (S) · Musique : 4p0p2p7p1p0p7p3p4p5p</p><ul><li><strong>Aptitudes à la distance</strong> : 100/100</li><li><strong>Forme</strong> : 67/100</li><li><strong>Tandem driver-entraîneur</strong> : 100/100</li><li><strong>Conditions</strong> : 82/100</li><li><strong>Bruits d'écurie</strong> : 75/100</li><li>Poids : 55.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 12 (affiché, non pris en compte).</li><li>Langue attachée.</li></ul></details><details><summary>n°13 GARVEY — note 61/100</summary><p class='note'>Driver : E.HARDOUIN · Entraîneur : MME E.MADER · Musique : 2p4p3p3p2p2p4p4p4p</p><ul><li><strong>Aptitudes à la distance</strong> : 30/100</li><li><strong>Forme</strong> : 100/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 91/100</li><li><strong>Bruits d'écurie</strong> : 35/100</li><li>Poids : 53.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 5 (affiché, non pris en compte).</li></ul></details><details><summary>n°3 BLACK SAXON — note 57/100</summary><p class='note'>Driver : A.MADAMET · Entraîneur : N.BELLANGER (S) · Musique : 0p2p4p5p0p1p1p2p2p</p><ul><li><strong>Aptitudes à la distance</strong> : 68/100</li><li><strong>Forme</strong> : 58/100</li><li><strong>Tandem driver-entraîneur</strong> : 72/100</li><li><strong>Conditions</strong> : 76/100</li><li><strong>Bruits d'écurie</strong> : 56/100</li><li>Poids : 59.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 8 (affiché, non pris en compte).</li></ul></details><details><summary>n°8 RAM SEA — note 55/100</summary><p class='note'>Driver : L.BRECHET · Entraîneur : D.MELE (S) · Musique : 3p0p0p1p3p5p8p2p(25)5p</p><ul><li><strong>Aptitudes à la distance</strong> : 79/100</li><li><strong>Forme</strong> : 60/100</li><li><strong>Tandem driver-entraîneur</strong> : 75/100</li><li><strong>Conditions</strong> : 58/100</li><li><strong>Bruits d'écurie</strong> : 66/100</li><li>Poids : 57.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 4 (affiché, non pris en compte).</li><li>Œillères : A.</li></ul></details><details><summary>n°1 DON&#x27;T SHUT ME DOWN — note 55/100</summary><p class='note'>Driver : M.GUYON · Entraîneur : P&amp;J.BRANDT (S) · Musique : 6p5p1p5p7p0p7p6p(25)9p</p><ul><li><strong>Aptitudes à la distance</strong> : 94/100</li><li><strong>Forme</strong> : 74/100</li><li><strong>Tandem driver-entraîneur</strong> : 61/100</li><li><strong>Conditions</strong> : 48/100</li><li><strong>Bruits d'écurie</strong> : 79/100</li><li>Poids : 61 kg (affiché, non pris en compte).</li><li>Place à la corde : 9 (affiché, non pris en compte).</li></ul></details><details><summary>n°6 MON RICIN — note 53/100</summary><p class='note'>Driver : A.LEMAITRE · Entraîneur : TIM.DONWORTH (S) · Musique : 0p0p1p0p3p(25)3p3p6p1p</p><ul><li><strong>Aptitudes à la distance</strong> : 100/100</li><li><strong>Forme</strong> : 42/100</li><li><strong>Tandem driver-entraîneur</strong> : 64/100</li><li><strong>Conditions</strong> : 64/100</li><li><strong>Bruits d'écurie</strong> : 64/100</li><li>Poids : 58.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 2 (affiché, non pris en compte).</li><li>Première fois avec des œillères.</li><li>Œillères : A.</li></ul></details><details><summary>n°5 A BEAUREGARD — note 49/100</summary><p class='note'>Driver : D.PROVOST · Entraîneur : M.CESANDRI (S) · Musique : 2p0p1p7p7p0p6p0p6p</p><ul><li><strong>Aptitudes à la distance</strong> : 73/100</li><li><strong>Forme</strong> : 69/100</li><li><strong>Tandem driver-entraîneur</strong> : 47/100</li><li><strong>Conditions</strong> : 16/100</li><li><strong>Bruits d'écurie</strong> : 74/100</li><li>Poids : 59 kg (affiché, non pris en compte).</li><li>Place à la corde : 14 (affiché, non pris en compte).</li><li>Langue attachée.</li></ul></details><details><summary>n°2 HOMO DEUS — note 48/100</summary><p class='note'>Driver : PC.BOUDOT · Entraîneur : H.GHABRI · Musique : 8p9p5p(25)5p1p8p9p(24)4p</p><ul><li><strong>Aptitudes à la distance</strong> : 77/100</li><li><strong>Forme</strong> : 54/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 81/100</li><li><strong>Bruits d'écurie</strong> : 55/100</li><li>Poids : 60 kg (affiché, non pris en compte).</li><li>Place à la corde : 10 (affiché, non pris en compte).</li><li>Langue attachée.</li></ul></details><details><summary>n°4 MISTER GATZ — note 47/100</summary><p class='note'>Driver : S.PASQUIER · Entraîneur : S.NIGGE (S) · Musique : 0p1p7p7p6p2p4p0p(25)7p</p><ul><li><strong>Aptitudes à la distance</strong> : 89/100</li><li><strong>Forme</strong> : 50/100</li><li><strong>Tandem driver-entraîneur</strong> : 26/100</li><li><strong>Conditions</strong> : 28/100</li><li><strong>Bruits d'écurie</strong> : 65/100</li><li>Poids : 59.5 kg (affiché, non pris en compte).</li><li>Place à la corde : 16 (affiché, non pris en compte).</li></ul></details><details><summary>n°14 ZARFLIGHT — note 43/100</summary><p class='note'>Driver : F.VERON · Entraîneur : GAB.LEENDERS (S) · Musique : 0p5p7p1p6p1p(25)8sAh8h</p><ul><li><strong>Aptitudes à la distance</strong> : 38/100</li><li><strong>Forme</strong> : 55/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 57/100</li><li><strong>Bruits d'écurie</strong> : 73/100</li><li>Poids : 52 kg (affiché, non pris en compte).</li><li>Place à la corde : 7 (affiché, non pris en compte).</li><li>Langue attachée.</li></ul></details><details><summary>n°9 PAOLINO — note 41/100</summary><p class='note'>Driver : A.HAMELIN · Entraîneur : D&amp;P.PROD&#x27;HOMME (S) · Musique : 9p0p0p1p5p0p7p(25)0p8p</p><ul><li><strong>Aptitudes à la distance</strong> : 83/100</li><li><strong>Forme</strong> : 40/100</li><li><strong>Tandem driver-entraîneur</strong> : 50/100</li><li><strong>Conditions</strong> : 37/100</li><li><strong>Bruits d'écurie</strong> : 65/100</li><li>Poids : 57 kg (affiché, non pris en compte).</li><li>Place à la corde : 3 (affiché, non pris en compte).</li></ul></details>
+</details>
+<details id="zone-3" class="card accent-bleu zone-details"><summary><span class="label">3 · Tiercé, quarté et quinté</span></summary><div class="jeu-titre">Simple placé n°7</div>
+  <p class="note">Probabilité estimée : 80.7 %.</p>
+  <h2 style="margin-top:14px">Ce que je jouerais par type de pari</h2>
+  <div class="rec"><div class='bloc reco'><div class='label'>Tiercé</div><div class='gros'>Box 5</div><p class='note'>Chevaux : 7, 15, 12, 10, 11</p><p><span class='tag ok'>10 combinaisons</span><span class='tag info'>28.2 % de chances</span></p></div><div class='bloc reco'><div class='label'>Quarté</div><div class='gros'>Box 5</div><p class='note'>Chevaux : 7, 15, 12, 10, 11</p><p><span class='tag ok'>5 combinaisons</span><span class='tag info'>12.0 % de chances</span></p></div><div class='bloc reco'><div class='label'>Quinté</div><div class='gros'>Box 6</div><p class='note'>Chevaux : 7, 15, 12, 10, 11, 13</p><p><span class='tag ok'>6 combinaisons</span><span class='tag info'>9.5 % de chances</span></p></div></div>
+  <p class="note">Recommandation : la taille de box la plus probable, dans une limite de 10 combinaisons par pari.</p>
+</details>
+<details id="zone-3-1" class="card accent-violet zone-details"><summary><span class="label">3.1 · Combinaisons en box</span><h2>Tiercé, quarté et quinté en box</h2></summary>
+  <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
+  <div class='bloc-pari'><h3>Tiercé · les 3 premiers, dans un box</h3><div class='wrap'><table><thead><tr><th class='num'>Box</th><th>Numéros</th><th class='num'>Comb.</th><th class='num'>Chances</th><th class='num opt'>Par combinaison</th><th></th></tr></thead><tbody><tr class=''><td class='num'>3</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span></div></td><td class='num'>1</td><td class='num'>8.0 %</td><td class='num opt'>7.955 %</td><td></td></tr><tr class=''><td class='num'>4</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span></div></td><td class='num'>4</td><td class='num'>18.5 %</td><td class='num opt'>4.626 %</td><td></td></tr><tr class='reco'><td class='num'>5</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span></div></td><td class='num'>10</td><td class='num'>28.2 %</td><td class='num opt'>2.819 %</td><td><span class='tag box'>Recommandé</span></td></tr><tr class=''><td class='num'>6</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span></div></td><td class='num'>20</td><td class='num'>39.1 %</td><td class='num opt'>1.954 %</td><td></td></tr></tbody></table></div></div><div class='bloc-pari'><h3>Quarté · les 4 premiers, dans un box</h3><div class='wrap'><table><thead><tr><th class='num'>Box</th><th>Numéros</th><th class='num'>Comb.</th><th class='num'>Chances</th><th class='num opt'>Par combinaison</th><th></th></tr></thead><tbody><tr class=''><td class='num'>4</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span></div></td><td class='num'>1</td><td class='num'>5.0 %</td><td class='num opt'>4.957 %</td><td></td></tr><tr class='reco'><td class='num'>5</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span></div></td><td class='num'>5</td><td class='num'>12.0 %</td><td class='num opt'>2.408 %</td><td><span class='tag box'>Recommandé</span></td></tr><tr class=''><td class='num'>6</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span></div></td><td class='num'>15</td><td class='num'>21.9 %</td><td class='num opt'>1.463 %</td><td></td></tr><tr class=''><td class='num'>7</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span><span class='num-box'>3</span></div></td><td class='num'>35</td><td class='num'>30.9 %</td><td class='num opt'>0.882 %</td><td></td></tr></tbody></table></div></div><div class='bloc-pari'><h3>Quinté · les 5 premiers, dans un box</h3><div class='wrap'><table><thead><tr><th class='num'>Box</th><th>Numéros</th><th class='num'>Comb.</th><th class='num'>Chances</th><th class='num opt'>Par combinaison</th><th></th></tr></thead><tbody><tr class=''><td class='num'>5</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span></div></td><td class='num'>1</td><td class='num'>3.0 %</td><td class='num opt'>2.970 %</td><td></td></tr><tr class='reco'><td class='num'>6</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span></div></td><td class='num'>6</td><td class='num'>9.5 %</td><td class='num opt'>1.586 %</td><td><span class='tag box'>Recommandé</span></td></tr><tr class=''><td class='num'>7</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span><span class='num-box'>3</span></div></td><td class='num'>21</td><td class='num'>17.1 %</td><td class='num opt'>0.814 %</td><td></td></tr><tr class=''><td class='num'>8</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span><span class='num-box'>3</span><span class='num-box'>8</span></div></td><td class='num'>56</td><td class='num'>26.1 %</td><td class='num opt'>0.466 %</td><td></td></tr><tr class=''><td class='num'>9</td><td><div class='numeros'><span class='num-box'>7</span><span class='num-box'>15</span><span class='num-box'>12</span><span class='num-box'>10</span><span class='num-box'>11</span><span class='num-box'>13</span><span class='num-box'>3</span><span class='num-box'>8</span><span class='num-box'>1</span></div></td><td class='num'>126</td><td class='num'>37.6 %</td><td class='num opt'>0.298 %</td><td></td></tr></tbody></table></div></div>
+  <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
+</details>
+<details id="zone-4" class="card accent-gris wrap zone-details"><summary><span class="label">4 · Couplés, simples placés et trios</span><h2>Probabilités des jeux simples</h2></summary>
+  <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody><tr><td>Simple placé n°7</td><td class='num'>80.7 %</td></tr><tr><td>Simple gagnant n°7</td><td class='num'>38.9 %</td></tr><tr><td>Couplé placé 7-15 (désordre)</td><td class='num'>33.5 %</td></tr><tr><td>Trio désordre box 5 (7,15,12,10,11)</td><td class='num'>28.2 %</td></tr><tr><td>Quarté désordre box 6</td><td class='num'>21.9 %</td></tr><tr><td>Trio désordre box 4 (7,15,12,10)</td><td class='num'>18.5 %</td></tr><tr><td>Quinté désordre box 7</td><td class='num'>17.1 %</td></tr><tr><td>Couplé gagnant désordre 7-15</td><td class='num'>14.5 %</td></tr><tr><td>Quarté désordre box 5</td><td class='num'>12.0 %</td></tr><tr><td>Quinté désordre box 6</td><td class='num'>9.5 %</td></tr><tr><td>Couplé gagnant ordre 7-15</td><td class='num'>8.5 %</td></tr><tr><td>Quinté désordre box 5</td><td class='num'>3.0 %</td></tr><tr><td>Trio ordre 7-15-12</td><td class='num'>1.9 %</td></tr><tr><td>Quinté ordre 7-15-12-10-11</td><td class='num'>0.1 %</td></tr></tbody></table>
+</details>
+<details id="zone-5" class="card accent-bleu zone-details"><summary><span class="label">5 · Distinction du gagnant et du top 5</span><h2>Distinction du gagnant et du top 5</h2></summary>
+  <div class='wrap'><table><thead><tr><th>Rang</th><th class='num'>N°</th><th>Cheval</th><th class='num'>Gagner</th><th class='num'>Top 5</th><th class='num'>Écart avec le suivant</th><th>Position</th></tr></thead><tbody><tr><td>1</td><td class='num'>7</td><td>ORAGEUX</td><td class='num'>38.9 %</td><td class='num'>95.5 %</td><td class='num'>13.4 pts</td><td><span class='tag info'>Top 5</span></td></tr><tr><td>2</td><td class='num'>15</td><td>GOOD TO SEE YOU</td><td class='num'>13.3 %</td><td class='num'>70.1 %</td><td class='num'>2.7 pts</td><td><span class='tag info'>Top 5</span></td></tr><tr><td>3</td><td class='num'>12</td><td>LUCIO VERO</td><td class='num'>10.7 %</td><td class='num'>62.1 %</td><td class='num'>4.3 pts</td><td><span class='tag info'>Top 5</span></td></tr><tr><td>4</td><td class='num'>10</td><td>DARK ROCKSTER</td><td class='num'>7.7 %</td><td class='num'>49.7 %</td><td class='num'>4.8 pts</td><td><span class='tag info'>Top 5</span></td></tr><tr><td>5</td><td class='num'>11</td><td>DEMPY</td><td class='num'>5.2 %</td><td class='num'>37.0 %</td><td class='num'>0.7 pts</td><td><span class='tag info'>Top 5 · groupe serré</span></td></tr><tr><td>6</td><td class='num'>13</td><td>GARVEY</td><td class='num'>4.9 %</td><td class='num'>35.2 %</td><td class='num'>4.5 pts</td><td><span class='tag '>Hors top 5</span></td></tr><tr><td>7</td><td class='num'>3</td><td>BLACK SAXON</td><td class='num'>3.5 %</td><td class='num'>25.9 %</td><td class='num'>1.9 pts</td><td><span class='tag '>Hors top 5</span></td></tr><tr><td>8</td><td class='num'>8</td><td>RAM SEA</td><td class='num'>3.0 %</td><td class='num'>22.7 %</td><td class='num'>0.2 pts</td><td><span class='tag '>Hors top 5</span></td></tr></tbody></table></div><p class='note'>Un écart inférieur à 2 points signale deux chevaux que le modèle ne sépare pas. Dans ce cas, l'ordre entre eux est peu fiable.</p>
+</details>
+<details id="zone-6" class="card accent-gris wrap zone-details"><summary><span class="label">6 · Probabilités par cheval</span><h2>Probabilités par cheval</h2></summary>
+  <table>
+    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
+    <tbody><tr class='favori'><td>1</td><td class='num'>7</td><td>ORAGEUX</td><td>M.BARZALONA</td><td class='num'>0.869</td><td><div class='barre'><span style='width:80.7%'></span></div> 38.9 %</td><td>80.7 %</td><td class='num'>95.5 %</td></tr><tr class='top2'><td>2</td><td class='num'>15</td><td>GOOD TO SEE YOU</td><td>A.CRASTUS</td><td class='num'>0.735</td><td><div class='barre'><span style='width:44.0%'></span></div> 13.3 %</td><td>44.0 %</td><td class='num'>70.1 %</td></tr><tr class='top2'><td>3</td><td class='num'>12</td><td>LUCIO VERO</td><td>A.MEKOUCHE</td><td class='num'>0.708</td><td><div class='barre'><span style='width:36.5%'></span></div> 10.7 %</td><td>36.5 %</td><td class='num'>62.1 %</td></tr><tr class=''><td>4</td><td class='num'>10</td><td>DARK ROCKSTER</td><td>C.LECOEUVRE</td><td class='num'>0.664</td><td><div class='barre'><span style='width:27.3%'></span></div> 7.7 %</td><td>27.3 %</td><td class='num'>49.7 %</td></tr><tr class=''><td>5</td><td class='num'>11</td><td>DEMPY</td><td>C.SOUMILLON</td><td class='num'>0.617</td><td><div class='barre'><span style='width:19.3%'></span></div> 5.2 %</td><td>19.3 %</td><td class='num'>37.0 %</td></tr><tr class=''><td>6</td><td class='num'>13</td><td>GARVEY</td><td>E.HARDOUIN</td><td class='num'>0.610</td><td><div class='barre'><span style='width:18.2%'></span></div> 4.9 %</td><td>18.2 %</td><td class='num'>35.2 %</td></tr><tr class=''><td>7</td><td class='num'>3</td><td>BLACK SAXON</td><td>A.MADAMET</td><td class='num'>0.565</td><td><div class='barre'><span style='width:13.0%'></span></div> 3.5 %</td><td>13.0 %</td><td class='num'>25.9 %</td></tr><tr class=''><td>8</td><td class='num'>8</td><td>RAM SEA</td><td>L.BRECHET</td><td class='num'>0.547</td><td><div class='barre'><span style='width:11.3%'></span></div> 3.0 %</td><td>11.3 %</td><td class='num'>22.7 %</td></tr><tr class=''><td>9</td><td class='num'>1</td><td>DON&#x27;T SHUT ME DOWN</td><td>M.GUYON</td><td class='num'>0.545</td><td><div class='barre'><span style='width:11.3%'></span></div> 3.0 %</td><td>11.3 %</td><td class='num'>22.7 %</td></tr><tr class=''><td>10</td><td class='num'>6</td><td>MON RICIN</td><td>A.LEMAITRE</td><td class='num'>0.534</td><td><div class='barre'><span style='width:10.2%'></span></div> 2.6 %</td><td>10.2 %</td><td class='num'>20.6 %</td></tr><tr class=''><td>11</td><td class='num'>5</td><td>A BEAUREGARD</td><td>D.PROVOST</td><td class='num'>0.493</td><td><div class='barre'><span style='width:7.4%'></span></div> 1.9 %</td><td>7.4 %</td><td class='num'>15.2 %</td></tr><tr class=''><td>12</td><td class='num'>2</td><td>HOMO DEUS</td><td>PC.BOUDOT</td><td class='num'>0.478</td><td><div class='barre'><span style='width:6.5%'></span></div> 1.7 %</td><td>6.5 %</td><td class='num'>13.6 %</td></tr><tr class=''><td>13</td><td class='num'>4</td><td>MISTER GATZ</td><td>S.PASQUIER</td><td class='num'>0.468</td><td><div class='barre'><span style='width:6.0%'></span></div> 1.5 %</td><td>6.0 %</td><td class='num'>12.6 %</td></tr><tr class=''><td>14</td><td class='num'>14</td><td>ZARFLIGHT</td><td>F.VERON</td><td class='num'>0.429</td><td><div class='barre'><span style='width:4.4%'></span></div> 1.2 %</td><td>4.4 %</td><td class='num'>9.3 %</td></tr><tr class=''><td>15</td><td class='num'>9</td><td>PAOLINO</td><td>A.HAMELIN</td><td class='num'>0.409</td><td><div class='barre'><span style='width:3.8%'></span></div> 1.0 %</td><td>3.8 %</td><td class='num'>8.0 %</td></tr></tbody>
+  </table>
+</details>
+<details id="zone-7" class="card accent-bleu zone-details"><summary><span class="label">7 · Profil de la course et difficultés</span><h2>Profil de la course et difficultés</h2></summary>
+  <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
+  <ol class='profil'><li><strong>Type de course</strong> : Plat, 3100 m (longue distance). Corde : à gauche. <span class='tag ok'>mesuré</span></li><li><strong>Taille du peloton</strong> : 15 partants : grand peloton. Contexte Turfin : le favori gagne 44 % en peloton de 8 ou moins, 20 % à 16 partants et plus. <span class='tag info'>contexte</span></li><li><strong>Poids</strong> : De 51 kg (n°15 GOOD TO SEE YOU) à 61 kg (n°1 DON&#x27;T SHUT ME DOWN), écart de 10 kg. Affiché, non pris en compte dans la note. <span class='tag ok'>mesuré</span></li><li><strong>Corde</strong> : Départs extérieurs (à partir de la place 10) : n°15, n°12, n°11, n°5, n°2, n°4. Affiché, non pris en compte. <span class='tag ok'>mesuré</span></li><li><strong>Météo et terrain</strong> : Météo non disponible pour cet hippodrome. <span class='tag info'>contexte</span></li><li><strong>Difficulté principale</strong> : Le 1er et le 2e sont à 13.4 points d&#x27;écart : un favori se détache. <span class='tag ok'>mesuré</span></li></ol>
+</details>
+<details id="zone-8-1" class="card accent-bleu zone-details"><summary><span class="label">8.1 · Méthode</span><h2>Comment le modèle choisit ses chevaux</h2></summary>
+  <ol class="etapes">
+    <li><strong>Musique et notes Equidia</strong> : la musique (les performances passées) pèse 40 % de la note, et les notes Equidia (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie) 60 %.</li>
+    <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
+    <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 8).</li>
+    <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
+    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé avec les cotes du moment, mélangées à 70 % au modèle (30 %). C'est ce pronostic final qui est gardé pour le bilan.</li>
+  </ol>
+  <p class="note"><strong>Validation</strong> : les réglages (poids de la musique, sensibilité, part des cotes) ont été choisis sur 48 courses terminées d'octobre–novembre 2026. Ces mêmes courses ont servi à les choisir : le résultat est donc optimiste. Seul le suivi des prochaines courses, ci-dessous, donnera une mesure indépendante. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
+</details>
+<details id="zone-8-2" class="card accent-bleu wrap zone-details"><summary><span class="label">8.2 · Ce qui compte, ce qui est testé</span><h2>Ce qui compte, ce qui est affiché, ce qui a été testé</h2></summary>
+  <table>
+    <thead><tr><th>Critère</th><th>Statut dans la note</th><th>Résultat du test (log-loss, plus bas = mieux)</th></tr></thead>
+    <tbody>
+      <tr><td>Musique (performances passées)</td><td><span class="tag ok">Pris en compte, 40 %</span></td><td>2,34 avec la musique, 2,43 sans (ancien modèle)</td></tr>
+      <tr><td>Notes Equidia : aptitude à la distance, forme, chronos, tandem, conditions, bruits</td><td><span class="tag ok">Pris en compte, 60 %</span></td><td>Incluses dans le 2,34</td></tr>
+      <tr><td>Distance du jour</td><td><span class="tag ok">Via l'aptitude à la distance</span></td><td>Incluse dans les notes</td></tr>
+      <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajoutée au calcul</td></tr>
+      <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajouté au calcul</td></tr>
+      <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
+      <tr><td>Cotes du jour</td><td><span class="tag ok">Pris en compte à 70 % dans le pronostic final</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026), perte moyenne du vainqueur : hasard 2,63 ; ancien modèle sans musique 2,43 ; nouveau modèle avec musique 2,34 ; cotes seules 2,11 ; mélange retenu 2,12. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
+  <p class="note">Suivi réel sur 3 courses arrivées, perte moyenne du vainqueur : modèle 2,17 (3), cotes seules — (0), mélange — (0), hasard 2,83. Plus c'est bas, mieux c'est.</p>
+</details>
+<details id="zone-9" class="card accent-gris wrap zone-details"><summary><span class="label">9 · Statistiques des chevaux</span><h2>Statistiques Equidia de chaque cheval</h2></summary>
+  <table><thead><tr><th>Cheval</th><th class='num'>Gains de carrière</th><th class='num'>Réduction km</th><th class='num'>Top 5 sur la distance</th></tr></thead><tbody><tr><td>n°7 ORAGEUX</td><td class='num'>22 686 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°15 GOOD TO SEE YOU</td><td class='num'>27 504 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°12 LUCIO VERO</td><td class='num'>125 853 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°10 DARK ROCKSTER</td><td class='num'>22 353 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°11 DEMPY</td><td class='num'>115 610 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°13 GARVEY</td><td class='num'>51 724 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°3 BLACK SAXON</td><td class='num'>94 444 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°8 RAM SEA</td><td class='num'>65 214 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°1 DON&#x27;T SHUT ME DOWN</td><td class='num'>85 136 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°6 MON RICIN</td><td class='num'>141 724 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°5 A BEAUREGARD</td><td class='num'>103 555 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°2 HOMO DEUS</td><td class='num'>299 839 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°4 MISTER GATZ</td><td class='num'>102 673 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°14 ZARFLIGHT</td><td class='num'>9 607 €</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td>n°9 PAOLINO</td><td class='num'>35 858 €</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+</details>
+
+
+
+
+<p class="foot">Les cotes du jour entrent dans le pronostic final, à 70 %. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+</div>
+</div></div></main>
+<script>
+(function(){
+  var boutons=document.querySelectorAll(".onglets button");
+  boutons.forEach(function(b){
+    b.addEventListener("click",function(){
+      boutons.forEach(function(x){x.setAttribute("aria-selected", x===b ? "true" : "false");});
+      document.querySelectorAll("[data-vue]").forEach(function(v){ v.hidden = (v.getAttribute("data-vue") !== b.getAttribute("data-cible")); });
+    });
+  });
+  document.querySelectorAll("nav.side a").forEach(function(a){
+    a.addEventListener("click", function(){
+      var cible = document.getElementById(a.getAttribute("href").slice(1));
+      if (cible && cible.tagName === "DETAILS") { cible.open = true; }
+    });
+  });
+})();
+</script>
+</body></html>

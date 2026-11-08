@@ -38,6 +38,16 @@ def _final_fige(date):
     return os.path.exists(chemin) and "final" in json.load(open(chemin, encoding="utf-8"))
 
 
+def _fige_le(date):
+    """Heure (UTC) à laquelle le pronostic du jour a été figé, ou None."""
+    import suivi
+    chemin = suivi._fichier_pronostic(date)
+    if not os.path.exists(chemin):
+        return None
+    with open(chemin, encoding="utf-8") as f:
+        return json.load(f).get("fige_le")
+
+
 def _figer(date, page):
     """Garde la page du jour telle qu'elle est : son analyse ne change plus ensuite."""
     os.makedirs(JOURNAL_DIR, exist_ok=True)
@@ -69,7 +79,7 @@ def charger(date, final=False, calculer_journee=False):
     course = eq.course(date, r, c, fresh=True)
     avant_depart = bool(course) and course.get("type_statut_course_id") == "before"
     page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date),
-                           journee=jr.charger(date, calculer=calculer_journee))
+                           journee=jr.charger(date, calculer=calculer_journee), fige_le=_fige_le(date))
     if final:
         _figer(date, page)
     elif os.path.exists(_figee(date)):

@@ -12,6 +12,7 @@ de chaque cheval. C'est ce registre qui sert aux analyses (quinte/analyse_regist
 Usage :
     python3 quinte/journee.py AAAA-MM-JJ             # calcule la journée, et verse les courses au registre
     python3 quinte/journee.py AAAA-MM-JJ --registre  # verse seulement les courses pas encore parties au registre
+    python3 quinte/journee.py AAAA-MM-JJ --completer # ajoute à la journée les réunions publiées depuis son calcul
 """
 import datetime as dt
 import json
@@ -114,7 +115,7 @@ def _pronostic_journal(date, r, c):
     }
 
 
-def analyser_journee(date):
+def analyser_journee(date, ignorer=frozenset()):
     """Toutes les courses de la journée (réunions R1 à R12, telles que les liste Equidia), et les lignes
     du registre pour les courses pas encore parties."""
     resultat, lignes_registre = [], []
@@ -125,11 +126,11 @@ def analyser_journee(date):
         except Exception as e:
             print("réunion R%d ignorée : %s" % (r, e))
             continue
-        if not statuts:
-            break
+        if not statuts:  # réunion pas encore publiée : on passe à la suivante, une réunion vide ne stoppe pas tout
+            continue
         for st in statuts:
             c = st.get("num_course_pmu")
-            if not c:
+            if not c or (r, c) in ignorer:
                 continue
             try:
                 course = eq.course(date, r, c, fresh=True)
@@ -213,6 +214,24 @@ def charger(date, calculer=False):
     return courses
 
 
+def completer(date):
+    """Ajoute à la journée les courses des réunions publiées depuis son calcul. Les courses déjà présentes
+    ne bougent pas : leur pronostic reste celui du calcul, même si elles sont parties depuis."""
+    chemin = fichier(date)
+    if not os.path.exists(chemin):
+        raise SystemExit("Journée pas encore calculée pour %s." % date)
+    with open(chemin, encoding="utf-8") as f:
+        donnees = json.load(f)
+    connues = {(x["r"], x["c"]) for x in donnees["courses"]}
+    nouvelles, lignes = analyser_journee(date, ignorer=connues)
+    donnees["courses"] = sorted(donnees["courses"] + nouvelles, key=lambda x: (x["r"], x["c"]))
+    donnees["complete_le"] = dt.datetime.now().isoformat(timespec="seconds")
+    with open(chemin, "w", encoding="utf-8") as f:
+        json.dump(donnees, f, ensure_ascii=False, indent=1)
+    print("registre : %d lignes ajoutées" % registre.ajouter(lignes))
+    return len(nouvelles)
+
+
 def enregistrer_registre(date):
     """Verse au registre les courses de la journée pas encore parties, sans toucher au fichier de la journée."""
     _, lignes = analyser_journee(date)
@@ -221,11 +240,14 @@ def enregistrer_registre(date):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    if not args or len(args) > 2 or (len(args) == 2 and args[1] != "--registre"):
+    options = ("--registre", "--completer")
+    if not args or len(args) > 2 or (len(args) == 2 and args[1] not in options):
         raise SystemExit(__doc__)
     date = args[0]
-    if len(args) == 2:
+    if len(args) == 2 and args[1] == "--registre":
         print("registre : %d lignes ajoutées pour %s" % (enregistrer_registre(date), date))
+    elif len(args) == 2:
+        print("%d courses ajoutées à la journée du %s" % (completer(date), date))
     else:
         cs = charger(date, calculer=True)
         print("courses de la journée :", len(cs), "· avec pronostic :", sum(1 for x in cs if x["ordre"]))

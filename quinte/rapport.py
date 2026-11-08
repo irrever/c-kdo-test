@@ -589,7 +589,22 @@ def _statistiques_chevaux(course, lignes):
             "<tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
-def _entete_html(course, avec_cotes=False):
+def _libelle_pronostic(course, avec_cotes, fige_le):
+    """« Pronostic du soir » s'il a été figé la veille ; sinon l'heure réelle du figement (heure de Paris)."""
+    if avec_cotes:
+        return "Pronostic avec les cotes du jour"
+    if not fige_le:
+        return "Pronostic du soir, sans les cotes"
+    import datetime as dt
+    from zoneinfo import ZoneInfo
+    paris = dt.datetime.fromisoformat(fige_le).replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Paris"))
+    jour_course = (course.get("reunion") or {}).get("date_reunion") or ""
+    if paris.date().isoformat() < jour_course:
+        return "Pronostic du soir, sans les cotes"
+    return "Pronostic figé le jour même à %s, sans les cotes" % paris.strftime("%H h %M")
+
+
+def _entete_html(course, avec_cotes=False, fige_le=None):
     """En-tête du quinté : date, réunion, heure de départ, distance, discipline, partants."""
     import datetime as dt
     reunion = course.get("reunion", {})
@@ -616,7 +631,7 @@ def _entete_html(course, avec_cotes=False):
              discipline,
              ("%s partants" % partants) if partants else "",
              corde,
-             "Pronostic avec les cotes du jour" if avec_cotes else "Pronostic du soir, sans les cotes"]
+             _libelle_pronostic(course, avec_cotes, fige_le)]
     puces = "".join("<span>%s</span>" % html.escape(c) for c in chips if c)
     return ("<section class='card entete accent-bleu'>"
             "<div class='label'>Quinté+ du jour · %s</div>"
@@ -1135,7 +1150,7 @@ def _recherche_html(journee):
             "<script>" + _JS_RECHERCHE + "</script>")
 
 
-def generer(chemin_page, avec_cotes=False, journee=None):
+def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
     cotes = ae.cotes_de(course) if avec_cotes else None
@@ -1225,7 +1240,7 @@ def generer(chemin_page, avec_cotes=False, journee=None):
         "partie_recherche": "<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
-        "entete": _entete_html(course, avec),
+        "entete": _entete_html(course, avec, fige_le),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button><button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button></div>",
         "analyses": analyses_html,

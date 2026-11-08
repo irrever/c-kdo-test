@@ -93,6 +93,31 @@ class TestJournee(unittest.TestCase):
         self.assertEqual(journee._arrivee(_course()), [])
 
 
+class TestCompletion(unittest.TestCase):
+    def test_completer_garde_les_courses_existantes(self):
+        import json
+        dossier = tempfile.mkdtemp()
+        avant = journee.JOURNAL
+        journee.JOURNAL = dossier
+        original = journee.analyser_journee
+        try:
+            with open(journee.fichier("2026-11-09"), "w", encoding="utf-8") as f:
+                json.dump({"date": "2026-11-09",
+                           "courses": [{"r": 1, "c": 1, "statut": "before", "ordre": [2, 1]}]}, f)
+
+            def faux_analyser(date, ignorer=frozenset()):
+                self.assertIn((1, 1), ignorer)  # la course déjà présente n'est pas recalculée
+                return [{"r": 3, "c": 2, "statut": "before", "ordre": [5]}], []
+            journee.analyser_journee = faux_analyser
+            self.assertEqual(journee.completer("2026-11-09"), 1)
+            courses = json.load(open(journee.fichier("2026-11-09"), encoding="utf-8"))["courses"]
+            self.assertEqual([(x["r"], x["c"]) for x in courses], [(1, 1), (3, 2)])
+            self.assertEqual(courses[0]["ordre"], [2, 1])
+        finally:
+            journee.analyser_journee = original
+            journee.JOURNAL = avant
+
+
 class TestAnalyse(unittest.TestCase):
     def _jeu(self):
         rows = []
