@@ -214,6 +214,49 @@ td,th{padding:8px 6px}
 .vigilance-groupe { display: grid; gap: 6px; margin-top: 12px; }
 .tag.alerte-rouge { color: var(--rouge); background: var(--rouge-bg); }
 .tag.alerte-gris { color: var(--gris); background: var(--gris-bg); }
+/* Refonte reprise de la maquette : palette sarcelle, titres en serif, cartes arrondies, mode sombre */
+:root{color-scheme:light;
+  --bg:#f5f4ef;--surface:#ffffff;--line:#e2e0d8;--text:#1c1f24;--muted:#5f656d;
+  --or:#0d6a5b;--or-bg:#d6ebe5;--bleu:#0d6a5b;--bleu-bg:#d6ebe5;
+  --vert:#0d6a5b;--vert-bg:#d6ebe5;--violet:#0d6a5b;--violet-bg:#d6ebe5;
+  --rouge:#9a4a00;--rouge-bg:#f8e6d2;--gris:#5f656d;--gris-bg:#ebe9e2;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#14161a;--surface:#1c1f24;--line:#2d3238;--text:#ececea;--muted:#a3a9b1;
+  --or:#6fd6bf;--or-bg:#1d3a34;--bleu:#6fd6bf;--bleu-bg:#1d3a34;
+  --vert:#6fd6bf;--vert-bg:#1d3a34;--violet:#6fd6bf;--violet-bg:#1d3a34;
+  --rouge:#f2b36b;--rouge-bg:#3a2a1a;--gris:#a3a9b1;--gris-bg:#2a2e34;}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#14161a;--surface:#1c1f24;--line:#2d3238;--text:#ececea;--muted:#a3a9b1;
+  --or:#6fd6bf;--or-bg:#1d3a34;--bleu:#6fd6bf;--bleu-bg:#1d3a34;
+  --vert:#6fd6bf;--vert-bg:#1d3a34;--violet:#6fd6bf;--violet-bg:#1d3a34;
+  --rouge:#f2b36b;--rouge-bg:#3a2a1a;--gris:#a3a9b1;--gris-bg:#2a2e34;}
+h1{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:26px;font-weight:600;line-height:1.2;letter-spacing:0;text-wrap:balance}
+h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weight:600;line-height:1.25;letter-spacing:0;margin:0 0 8px;text-wrap:balance}
+.hero h1{font-size:24px}
+.entete h2{font-size:22px;font-weight:600;margin:2px 0 10px}
+.card{border-radius:14px;padding:16px;box-shadow:none;border:1px solid var(--line)}
+.card.accent-bleu,.card.accent-or,.card.accent-gris,.card.accent-violet,.card.accent-vert,.hero{border-left:1px solid var(--line)}
+.label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--bleu);background:var(--bleu-bg);border-radius:6px;padding:3px 8px;margin:0 0 6px}
+.badge.gris{color:var(--muted);background:var(--gris-bg)}
+.badge.alerte{color:var(--rouge);background:var(--rouge-bg)}
+.sous{margin:2px 0 8px;font-size:14px;color:var(--muted)}
+.puces span{border-radius:999px;background:transparent;color:var(--muted);font-size:12.5px;padding:3px 10px}
+.tag{border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;letter-spacing:.01em}
+.onglets button{border-radius:8px}
+.barre{height:8px;border-radius:999px;background:var(--gris-bg);min-width:0}
+.barre span{background:var(--bleu)}
+.final-liste,.modele-liste{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
+.final-liste li{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(0,40%);align-items:center;gap:10px}
+.modele-liste li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px}
+.rang{font-variant-numeric:tabular-nums;color:var(--muted)}
+.nom{min-width:0;overflow-wrap:anywhere}
+.nom small{display:block;font-size:12.5px;color:var(--muted)}
+.mesure{display:grid;gap:4px;justify-items:end;min-width:0;font-variant-numeric:tabular-nums}
+.mesure .barre{width:100%}
+.ecarts{margin:8px 0 0;padding-left:18px;display:grid;gap:8px;font-size:14px}
+.vigilance-groupe{display:grid;gap:6px;margin-top:12px}
+.formule{margin:0;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
 </style></head><body><main>
 
 @@entete@@
@@ -221,6 +264,7 @@ td,th{padding:8px 6px}
 @@partie_resultat@@
 @@partie_recherche@@
 <div class="vue" data-vue="analyse">
+@@blocs_final@@
 <section class="card accent-bleu">
   <div class="label">1 · Quinté+ : les 5 premiers</div>
   <h2>Ordre d'arrivée probable</h2>
@@ -311,7 +355,6 @@ td,th{padding:8px 6px}
 
 
 
-@@apres_analyse@@
 <p class="foot">Les cotes du jour entrent dans le pronostic final, à 70 %. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </div>
 </main>
@@ -350,7 +393,7 @@ COMMENTAIRES = {
 
 
 def pct(x):
-    return "%.1f %%" % (100 * x)
+    return ("%.1f\u00a0%%" % (100 * x)).replace(".", ",")
 
 
 def _jeu_conseille(jeux):
@@ -1165,6 +1208,59 @@ def _heure_paris(fige_le):
     return t.strftime("%H h %M")
 
 
+def _cote_fr(x):
+    return ("%g" % x).replace(".", ",") if x else "—"
+
+
+def _resume_final_html(v):
+    """Le pronostic final, avec les cotes : les cinq premiers, avec la part de chacun."""
+    if not v:
+        return ""
+    maxi = max(v["melange"].values()) or 1
+    lignes = ""
+    for i, k in enumerate(v["ordre_final"][:5], start=1):
+        lignes += ("<li><span class='rang'>%d</span><span class='nom'><b>n°%s</b> %s<small>cote %s</small></span>"
+                   "<span class='mesure'><span class='barre'><span style='width:%.0f%%'></span></span><b>%s</b></span></li>") % (
+            i, k, html.escape(v["noms"].get(k, "")), _cote_fr(v["cotes"].get(k)),
+            100 * v["melange"][k] / maxi, pct(v["melange"][k]))
+    return ("<section class='card'><span class='badge'>Référence</span><h2>Pronostic final</h2>"
+            "<p class='sous'>Avec les cotes : 70 %% marché, 30 %% modèle. Figé à %s.</p>"
+            "<ol class='final-liste'>%s</ol></section>") % (_heure_paris(v["fige_le"]), lignes)
+
+
+def _modele_seul_html(m):
+    """Le pronostic du matin, sans cotes, gardé à côté du pronostic final pour comparer."""
+    if not m:
+        return ""
+    lignes = "".join(
+        "<li><span class='rang'>%d</span><span class='nom'><b>n°%s</b> %s</span><span class='note'>%d/100</span></li>" % (
+            i, numero, html.escape(m["noms"].get(numero, "")), round(100 * m["notes"].get(numero, 0)))
+        for i, numero in enumerate(m["ordre"], start=1))
+    return ("<section class='card'><span class='badge gris'>Avis indépendant</span><h2>Modèle seul</h2>"
+            "<p class='sous'>Sans cotes, figé à %s. Gardé pour comparer.</p>"
+            "<ol class='modele-liste'>%s</ol></section>") % (_heure_paris(m["fige_le"]), lignes)
+
+
+def _pourquoi_html(v):
+    """Les trois chevaux dont le rang change le plus entre le modèle seul et le pronostic final."""
+    if not v or not v.get("rang_soir"):
+        return ""
+    communs = [k for k in v["ordre_final"] if k in v["rang_soir"]]
+    if not communs:
+        return ""
+    choisis = sorted(communs, key=lambda k: -abs(v["rang_soir"][k] - v["rang_final"][k]))[:3]
+    items = ""
+    for k in choisis:
+        rs, rf, rm = v["rang_soir"][k], v["rang_final"][k], v["rang_marche"][k]
+        suite = "Le marché le soutient." if rf < rs else "Le marché le juge moins probable."
+        items += ("<li><b>n°%s %s</b> : %s pour le modèle, %s au final. Le marché le classe %s (cote %s). %s</li>") % (
+            k, html.escape(v["noms"].get(k, "")), _ordinal(rs), _ordinal(rf), _ordinal(rm),
+            _cote_fr(v["cotes"].get(k)), suite)
+    return ("<section class='card'><h2>Pourquoi les deux diffèrent</h2>"
+            "<ul class='ecarts'>%s</ul>"
+            "<p class='formule'>Probabilité finale = 0,7 × part du marché + 0,3 × part du modèle.</p></section>") % items
+
+
 def _vigilance_html(v):
     """Zones de vigilance du pronostic final : chevaux où le modèle et le marché sont à deux fois d'écart."""
     if not v:
@@ -1175,36 +1271,18 @@ def _vigilance_html(v):
             return "<p class='note'>Aucun cheval dans cette zone.</p>"
         items = ""
         for k in numeros:
-            cote = ("%g" % v["cotes"][k]).replace(".", ",") if k in v["cotes"] else "—"
             items += "<li><b>n°%s %s</b> : modèle %s, marché %s (cote %s)</li>" % (
-                k, html.escape(v["noms"].get(k, "")), pct(v["pm"][k]).replace(".", ","), pct(v["pk"][k]).replace(".", ","), cote)
-        return "<ul class='vigilance-liste'>%s</ul>" % items
+                k, html.escape(v["noms"].get(k, "")), pct(v["pm"][k]), pct(v["pk"][k]), _cote_fr(v["cotes"].get(k)))
+        return "<ul class='ecarts'>%s</ul>" % items
 
-    return ("<section class='card'><div class='label'>Vigilance · pronostic final</div>"
-            "<h2>Zones de vigilance</h2>"
-            "<p class='note'>Chevaux où notre modèle et le marché sont à deux fois d'écart au moins, et qui ont au moins 6 %% de chances dans l'un des deux avis. "
-            "Le marché sait peut-être quelque chose que nous ignorons.</p>"
-            "<div class='vigilance-groupe'><span class='tag alerte-rouge'>Méfiance</span>"
+    return ("<section class='card'><h2>Zones de vigilance</h2>"
+            "<p class='sous'>Chevaux où notre modèle et le marché sont à deux fois d'écart au moins, et qui ont au moins 6\u00a0%% de chances dans l'un des deux avis. Le marché sait peut-être quelque chose que nous ignorons.</p>"
+            "<div class='vigilance-groupe'><span class='badge alerte'>Méfiance</span>"
             "<p class='note'>Le modèle y croit au moins deux fois plus que le marché.</p>%s</div>"
-            "<div class='vigilance-groupe'><span class='tag alerte-gris'>À surveiller</span>"
+            "<div class='vigilance-groupe'><span class='badge gris'>À surveiller</span>"
             "<p class='note'>Le marché y croit au moins deux fois plus que le modèle.</p>%s</div>"
             "<p class='note'>Repère simple, pas encore validé sur nos courses. Le pronostic final en tient déjà compte, "
             "à travers les 70 %% de cotes.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
-
-
-def _modele_seul_html(m):
-    """Le pronostic du soir, sans cotes, gardé à côté du pronostic final pour comparer."""
-    if not m:
-        return ""
-    lignes = "".join(
-        "<li><span class='rang'>%d</span><span>n°%s %s</span><span class='note'>%d/100</span></li>" % (
-            i, numero, html.escape(m["noms"].get(numero, "")), round(100 * m["notes"].get(numero, 0)))
-        for i, numero in enumerate(m["ordre"], start=1))
-    return ("<section class='card'><div class='label'>Modèle seul · sans cotes</div>"
-            "<h2>Avis indépendant, figé à %s</h2>"
-            "<ol class='modele-liste'>%s</ol>"
-            "<p class='note'>Gardé pour comparer avec le pronostic final.</p></section>") % (
-                _heure_paris(m["fige_le"]), lignes)
 
 
 def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None):
@@ -1294,13 +1372,14 @@ def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance
         "statistiques": _statistiques_chevaux(course, lignes),
         "ll_notes": "2,34", "ll_hasard": "2,63", "ll_corde": "—", "ll_poids": "—",
         "suivi_reel": _suivi_reel_html(),
-        "partie_recherche": "<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>",
+        "partie_recherche": ("<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>") if journee else "",
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course, avec, fige_le),
-        "apres_analyse": _modele_seul_html(modele) + _vigilance_html(vigilance),
+        "blocs_final": _resume_final_html(vigilance) + _modele_seul_html(modele) + _pourquoi_html(vigilance) + _vigilance_html(vigilance),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
-        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button><button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button></div>",
+        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button>"
+                    + ("<button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button>" if journee else "") + "</div>",
         "analyses": analyses_html,
         "jeux": jeux_html,
     }

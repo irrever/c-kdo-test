@@ -45,17 +45,26 @@ def zones(pm, pk):
 
 
 def depuis_journal(d):
-    """Zones du pronostic final, à partir du journal. None tant que le pronostic final n'est pas figé."""
+    """Données du pronostic final, à partir du journal. None tant que le pronostic final n'est pas figé."""
     if "final" not in d:
         return None
     chevaux = d["chevaux"]
     scores = {x["numero"]: x["score"] for x in chevaux}
     pk = {x["numero"]: x["proba_cotes"] for x in chevaux}
+    melange = {x["numero"]: x["proba_melange"] for x in chevaux}
     noms = {x["numero"]: x["nom"] for x in chevaux}
     pm = part_modele(scores)
     mefiance, surveiller = zones(pm, pk)
     cotes = {int(k): v for k, v in d["final"]["cotes"].items()}
-    return {"mefiance": mefiance, "surveiller": surveiller, "pm": pm, "pk": pk, "noms": noms, "cotes": cotes}
+    ordre_final = sorted(melange, key=lambda k: (-melange[k], k))
+    soir = d.get("pronostic_soir", {}).get("chevaux", [])
+    return {
+        "mefiance": mefiance, "surveiller": surveiller, "pm": pm, "pk": pk, "noms": noms, "cotes": cotes,
+        "melange": melange, "ordre_final": ordre_final, "fige_le": d["final"]["fige_le"],
+        "rang_soir": {x["numero"]: i for i, x in enumerate(soir, start=1)},
+        "rang_final": {k: i for i, k in enumerate(ordre_final, start=1)},
+        "rang_marche": {k: i for i, k in enumerate(sorted(pk, key=lambda k: (-pk[k], k)), start=1)},
+    }
 
 
 def modele_seul(d):
