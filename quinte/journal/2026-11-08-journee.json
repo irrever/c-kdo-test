@@ -4312,7 +4312,7 @@
    "heure": "23:30",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "MUCHO MACHO VELOZ",
