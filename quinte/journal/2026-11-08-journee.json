@@ -33,47 +33,47 @@
     {
      "numero": 1,
      "nom": "DUTCHMAN",
-     "cote": 17.0
+     "cote": 16.0
     },
     {
      "numero": 2,
      "nom": "LE HAM",
-     "cote": 5.6
+     "cote": 6.9
     },
     {
      "numero": 3,
      "nom": "TRYSTAR",
-     "cote": 10.0
+     "cote": 11.0
     },
     {
      "numero": 4,
      "nom": "BATUKHAN",
-     "cote": 5.9
+     "cote": 4.8
     },
     {
      "numero": 5,
      "nom": "SZECHUAN",
-     "cote": 46.0
+     "cote": 51.0
     },
     {
      "numero": 6,
      "nom": "KUBANGO",
-     "cote": 17.0
+     "cote": 20.0
     },
     {
      "numero": 7,
      "nom": "GUARACI",
-     "cote": 20.0
+     "cote": 10.0
     },
     {
      "numero": 8,
      "nom": "PEARL EXPRESS",
-     "cote": 13.0
+     "cote": 17.0
     },
     {
      "numero": 9,
      "nom": "THE PYRENEES",
-     "cote": 2.5
+     "cote": 2.6
     },
     {
      "numero": 10,
@@ -81,7 +81,7 @@
      "cote": 13.0
     }
    ],
-   "cotes_releve": "2026-11-08T11:10"
+   "cotes_releve": "2026-11-08T12:36"
   },
   {
    "r": 1,
