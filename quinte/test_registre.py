@@ -215,5 +215,25 @@ class TestBlocsPage(unittest.TestCase):
         self.assertIn("09 h 10", rapport._modele_seul_html(m))
 
 
+class TestFond(unittest.TestCase):
+    def test_choix_du_fond(self):
+        import rapport
+        bouton = rapport._bouton_fond_html()
+        self.assertIn("fond-bouton", bouton)
+        self.assertIn("quinte-fond", bouton)
+
+    def test_ajout_aux_pages_publiees(self):
+        import rapport
+        page = ("<!doctype html><html><head><title>Quinté</title>\n<style>\nbody{}\n</style></head><body><main>"
+                "<section>Entête</section>\n<div class='onglets' role='tablist'></div>\n"
+                "<div class=\"vue\" data-vue=\"analyse\"></div></main></body></html>")
+        avec = rapport.ajouter_fond(page)
+        self.assertEqual(avec.count("id='fond-bouton'"), 1)
+        self.assertEqual(rapport.ajouter_fond(avec), avec)  # une seconde passe ne change rien
+        retire = avec.replace("\n" + rapport.FOND_TETE, "", 1).replace(rapport.FOND_CSS, "", 1)
+        retire = retire.replace("<div class='fond-ligne'>" + rapport._bouton_fond_html() + "</div>\n", "", 1)
+        self.assertEqual(retire, page)  # le reste de la page est intact
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -22,6 +22,7 @@ GABARIT = """<!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@@titre_page@@</title>
+@@fond_tete@@
 <style>
 :root{color-scheme:light;
   --bg:#f5f6f8;--surface:#ffffff;--line:#e3e6ec;--text:#1b2230;--muted:#667085;
@@ -257,9 +258,10 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
 .ecarts{margin:8px 0 0;padding-left:18px;display:grid;gap:8px;font-size:14px}
 .vigilance-groupe{display:grid;gap:6px;margin-top:12px}
 .formule{margin:0;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
-</style></head><body><main>
+@@fond_css@@</style></head><body><main>
 
 @@entete@@
+<div class='fond-ligne'>@@fond@@</div>
 @@onglets@@
 @@partie_resultat@@
 @@partie_recherche@@
@@ -1285,6 +1287,42 @@ def _vigilance_html(v):
             "à travers les 70 %% de cotes.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
 
 
+FOND_TETE = ("<script>(function(){var t='light';try{if(localStorage.getItem('quinte-fond')==='dark'){t='dark';}}"
+             "catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>")
+FOND_CSS = (".fond-ligne{display:flex;justify-content:flex-end;margin:0 0 10px}\n"
+            ".fond-bouton{font:inherit;font-size:13px;font-weight:600;padding:6px 14px;border:1px solid var(--line);"
+            "border-radius:999px;background:var(--surface);color:var(--text);cursor:pointer}\n"
+            ".fond-bouton:hover{border-color:var(--bleu);color:var(--bleu)}\n"
+            ".fond-bouton:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}\n")
+
+
+def _bouton_fond_html():
+    """Choix du fond de la page : blanc par défaut, ou noir. Le choix est gardé sur l'appareil."""
+    return ("<button type='button' id='fond-bouton' class='fond-bouton'>Passer au fond noir</button>"
+            "<script>(function(){var b=document.getElementById('fond-bouton');if(!b){return;}"
+            "function appliquer(t){document.documentElement.setAttribute('data-theme',t);"
+            "b.textContent=t==='dark'?'Passer au fond blanc':'Passer au fond noir';}"
+            "appliquer(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light');"
+            "b.addEventListener('click',function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';"
+            "appliquer(t);try{localStorage.setItem('quinte-fond',t);}catch(e){}});})();</script>")
+
+
+def ajouter_fond(page):
+    """Ajoute le choix du fond à une page déjà publiée, sans toucher au reste : même script, même style et même
+    bouton que le gabarit. Une page qui l'a déjà reste inchangée."""
+    if "id='fond-bouton'" in page:
+        return page
+    ancres = ("</title>", "</style></head><body><main>", "<div class='onglets' role='tablist'>")
+    for a in ancres:
+        if page.count(a) != 1:
+            raise ValueError("ancre absente ou présente plusieurs fois : %s" % a)
+    page = page.replace("</title>", "</title>\n" + FOND_TETE, 1)
+    page = page.replace("</style></head><body><main>", FOND_CSS + "</style></head><body><main>", 1)
+    return page.replace("<div class='onglets' role='tablist'>",
+                        "<div class='fond-ligne'>" + _bouton_fond_html() + "</div>\n"
+                        "<div class='onglets' role='tablist'>", 1)
+
+
 def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
@@ -1376,6 +1414,9 @@ def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance
         "combinaisons": "".join(combis_html),
         "lignes": "".join(lignes_html),
         "entete": _entete_html(course, avec, fige_le),
+        "fond": _bouton_fond_html(),
+        "fond_tete": FOND_TETE,
+        "fond_css": FOND_CSS,
         "blocs_final": _resume_final_html(vigilance) + _modele_seul_html(modele) + _pourquoi_html(vigilance) + _vigilance_html(vigilance),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button>"
