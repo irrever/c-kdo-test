@@ -10,7 +10,7 @@
    "heure": "13:10",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "INCERTAIN LANCELOT",
@@ -30,7 +30,13 @@
     "15": "IMANOLO DE LOU",
     "16": "GRAND RESTAURANT"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    11,
+    2,
+    4,
+    16
+   ],
    "ordre": [
     16,
     4,
@@ -1327,7 +1333,7 @@
    "heure": "13:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "EKLAIRDEGENY",
@@ -1729,7 +1735,7 @@
    "heure": "13:27",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "EPI",
@@ -1744,7 +1750,13 @@
     "10": "HOLLIE WOOD",
     "11": "REVUELTO"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    11,
+    6,
+    8
+   ],
    "ordre": [
     9,
     1,
@@ -1843,12 +1855,12 @@
     {
      "numero": 1,
      "nom": "LIKASI",
-     "cote": 3.0
+     "cote": 3.8
     },
     {
      "numero": 2,
      "nom": "DOUE",
-     "cote": 14.0
+     "cote": 16.0
     },
     {
      "numero": 3,
@@ -1858,45 +1870,45 @@
     {
      "numero": 4,
      "nom": "ESKOW",
-     "cote": 62.0
+     "cote": 31.0
     },
     {
      "numero": 5,
      "nom": "CLEFT ROCK",
-     "cote": 8.4
+     "cote": 9.5
     },
     {
      "numero": 6,
      "nom": "MONTMORENCY",
-     "cote": 12.0
+     "cote": 11.0
     },
     {
      "numero": 7,
      "nom": "KRIOUKOV",
-     "cote": 18.0
+     "cote": 22.0
     },
     {
      "numero": 8,
      "nom": "PERSIAN'S SAGA",
-     "cote": 16.0
+     "cote": 12.0
     },
     {
      "numero": 9,
      "nom": "PEMULWUY",
-     "cote": 3.8
+     "cote": 3.1
     },
     {
      "numero": 10,
      "nom": "AL BOURAQ",
-     "cote": 26.0
+     "cote": 28.0
     },
     {
      "numero": 11,
      "nom": "GEMOZAC",
-     "cote": 14.0
+     "cote": 15.0
     }
    ],
-   "cotes_releve": "2026-11-09T13:23"
+   "cotes_releve": "2026-11-09T13:45"
   },
   {
    "r": 3,
@@ -4035,7 +4047,7 @@
    "heure": "13:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NANA DU RIB",
@@ -4053,7 +4065,13 @@
     "13": "NEWSTAR DU RIB",
     "14": "NORCIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    5,
+    12,
+    7,
+    14
+   ],
    "ordre": [
     14,
     11,
@@ -4128,7 +4146,7 @@
    "heure": "13:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "NATALIA ERA",
