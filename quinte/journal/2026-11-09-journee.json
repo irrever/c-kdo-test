@@ -2928,7 +2928,7 @@
    "heure": "20:27",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "LEVER DE RIDEAU",
@@ -2938,7 +2938,13 @@
     "5": "STELLA DU ORO",
     "6": "MAMA STRALIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    1,
+    4,
+    6
+   ],
    "ordre": [
     6,
     5,
@@ -3380,7 +3386,7 @@
    "heure": "20:10",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "PEHOE",
@@ -3395,7 +3401,13 @@
     "10": "MI AMIGO ANDRESITO",
     "11": "PIRATA BIGOTON"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    3,
+    7,
+    8
+   ],
    "ordre": [
     3,
     7,
