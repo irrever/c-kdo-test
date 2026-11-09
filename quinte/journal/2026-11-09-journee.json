@@ -2639,7 +2639,7 @@
    "heure": "18:45",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LINFASOMMER",
@@ -2655,7 +2655,13 @@
     "11": "QUIET SEA",
     "12": "REDSIA FAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    10,
+    7,
+    6
+   ],
    "ordre": [
     6,
     4,
@@ -3172,7 +3178,7 @@
    "heure": "19:02",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "QUE PORFIADO",
