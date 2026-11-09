@@ -848,7 +848,7 @@
    "heure": "10:52",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "NOKIA DES MOTTES",
@@ -860,7 +860,13 @@
     "7": "NE DIS JAMAIS NON",
     "8": "NEO BAIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    7,
+    3,
+    1
+   ],
    "ordre": [
     6,
     3,
