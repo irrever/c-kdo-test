@@ -1372,7 +1372,50 @@ def ajouter_fond(page):
                         "<div class='onglets' role='tablist'>", 1)
 
 
-def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None):
+def _avis_html(a):
+    """Bloc « Notre avis combiné » : notre modèle en production et la logique de la presse, boîte de 6."""
+    if not a:
+        return ""
+    from math import comb
+
+    def liste(ns):
+        return " · ".join(str(n) for n in ns) if ns else "aucun"
+
+    lignes = []
+    for x in a["lignes"]:
+        n = x["numero"]
+        if n in a["box"]:
+            verdict = "Dans la boîte"
+        elif n in a["a_jouer"]:
+            verdict = "À jouer"
+        elif n in a["a_eviter"]:
+            verdict = "À éviter en base"
+        else:
+            verdict = "—"
+        if x["pos"] is None:
+            derniere = "incident" if x["excusee"] else "—"
+        else:
+            derniere = "np" if x["pos"] == 0 else str(x["pos"])
+        top5 = "%d %%" % round(100 * x["top5"]) if x["top5"] is not None else "—"
+        lignes.append("<tr><td class='num'>%d</td><td class='num'>%d</td><td>%s</td><td class='num'>%s</td>"
+                      "<td>%s</td><td class='num'>%s</td><td>%s</td></tr>" % (
+                          x["rang"], n, html.escape(x["nom"]), top5, html.escape(x["categorie"]), derniere, verdict))
+    presse_txt = "" if a["presse_disponible"] else "<p class='note'>Pas de sélection de la presse : notre top 6 seul.</p>"
+    return ("<div class='bloc-pari'><h3>Notre avis combiné</h3>"
+            "<p class='note'>Notre modèle en production, confronté à la logique de la presse. Règles fixées à l'avance.</p>"
+            + presse_txt +
+            "<ul><li><b>Notre top 5 :</b> %s.</li>"
+            "<li><b>Écartés par la presse, dernière course forte :</b> %s.</li>"
+            "<li><b>Retenus par la presse, dernière course hors des 4 premières :</b> %s.</li></ul>"
+            "<p><b>Notre choix :</b> boîte de %d : %s, soit %d combinaisons. La mise dépend des cotes.</p>"
+            "<div class='wrap'><table><thead><tr><th class='num'>Rang</th><th class='num'>N°</th><th>Cheval</th>"
+            "<th class='num'>Top 5</th><th>Presse</th><th class='num'>Dernière</th><th>Verdict</th></tr></thead>"
+            "<tbody>%s</tbody></table></div></div>"
+            ) % (liste(a["top5"]), liste(a["a_jouer"]), liste(a["a_eviter"]), len(a["box"]), liste(a["box"]),
+                 comb(len(a["box"]), 5), "".join(lignes))
+
+
+def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None, avis=None):
     course = ae.charger_etat(chemin_page)
     lignes = ae.analyser(course)
     cotes = ae.cotes_de(course) if avec_cotes else None
@@ -1466,7 +1509,7 @@ def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance
         "fond": _bouton_fond_html(),
         "fond_tete": FOND_TETE,
         "fond_css": FOND_CSS,
-        "blocs_final": _resume_final_html(vigilance) + _modele_seul_html(modele) + _pourquoi_html(vigilance) + _vigilance_html(vigilance),
+        "blocs_final": _avis_html(avis) + _resume_final_html(vigilance) + _modele_seul_html(modele) + _pourquoi_html(vigilance) + _vigilance_html(vigilance),
         "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
         "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button>"
                     + ("<button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button>" if journee else "") + "</div>",

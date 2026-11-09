@@ -55,6 +55,12 @@ def _figer(date, page):
         f.write(page)
 
 
+def _avis(date):
+    """L'avis combiné enregistré pour ce quinté (sinon rien)."""
+    import combine
+    return combine.charger(date)
+
+
 def charger(date, final=False, calculer_journee=False):
     """Télécharge le quinté d'une date et écrit sa page.
 
@@ -91,7 +97,7 @@ def charger(date, final=False, calculer_journee=False):
             print("AVERTISSEMENT : zones de vigilance non calculées : %s" % e)
     page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date),
                            journee=jr.charger(date, calculer=calculer_journee), fige_le=_fige_le(date),
-                           vigilance=zones_finales, modele=modele)
+                           vigilance=zones_finales, modele=modele, avis=_avis(date))
     if final:
         _figer(date, page)
     elif os.path.exists(_figee(date)):

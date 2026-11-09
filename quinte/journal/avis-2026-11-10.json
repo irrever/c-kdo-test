@@ -1,0 +1,212 @@
+{
+  "box": [
+    5,
+    8,
+    6,
+    10,
+    12,
+    13
+  ],
+  "top5": [
+    5,
+    8,
+    6,
+    10,
+    12
+  ],
+  "a_jouer": [
+    6,
+    10,
+    12,
+    13
+  ],
+  "a_eviter": [
+    1,
+    16
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 5,
+      "nom": "MARBELLESA",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5239,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "KHALINSKHA",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4686,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "WAZIERS",
+      "rang": 3,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3924,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "LAITH",
+      "rang": 4,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.366,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "MATAKI",
+      "rang": 5,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3482,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "GRAND SCOOP",
+      "rang": 6,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3421,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "PRINCE AUBOIS",
+      "rang": 7,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3374,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "SCHUMAN",
+      "rang": 8,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3093,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "ZAHARA",
+      "rang": 9,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3087,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "ALPARSLAN",
+      "rang": 10,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2976,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "LESSLEPASSER",
+      "rang": 11,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.283,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "MISTER CHANG",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2737,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "INTERACTIV",
+      "rang": 13,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2699,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 16,
+      "nom": "FATA MORGANA",
+      "rang": 14,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2068,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "ROYALWOOD",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1565,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "PAINTELLO",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1159,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-10",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "FONTAINEBLEAU",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-09T23:15:36+00:00"
+}
