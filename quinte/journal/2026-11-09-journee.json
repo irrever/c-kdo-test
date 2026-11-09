@@ -753,7 +753,7 @@
    "heure": "10:22",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MY BEL DU LION",
@@ -767,7 +767,13 @@
     "10": "ABONDENSE",
     "11": "ALHENA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    1,
+    10,
+    4
+   ],
    "ordre": [
     3,
     5,
