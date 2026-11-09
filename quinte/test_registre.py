@@ -391,5 +391,29 @@ class TestFinalAvecCotes(unittest.TestCase):
         self.assertEqual(lues[5]["ordre"], [1])
 
 
+def _ligne_bilan(numero, score, cote, arrivee, rg=None, rp=None):
+    ligne = {champ: "" for champ in registre.CHAMPS}
+    ligne.update({"date": "2026-11-08", "r": "1", "c": "1", "discipline": "Plat", "distance": "1900",
+                  "partants": "3", "numero": str(numero), "nom": "H%d" % numero, "hippodrome": "X", "heure": "13:00",
+                  "calcule_le": "2026-11-08T23:07", "score": str(score), "rang": str(numero), "p_victoire": "0.5",
+                  "cote_depart": str(cote), "heure_cote": "reprise", "arrivee": str(arrivee)})
+    if rg:
+        ligne["rapport_gagnant"] = str(rg)
+    if rp:
+        ligne["rapport_place"] = str(rp)
+    return ligne
+
+
+class TestBilanJour(unittest.TestCase):
+    def test_bilan_du_jour(self):
+        import constat
+        lignes = [_ligne_bilan(1, 0.9, 2.0, 1, rg=1.6, rp=1.1), _ligne_bilan(2, 0.5, 4.0, 2, rp=1.9),
+                  _ligne_bilan(3, 0.2, 9.0, 3, rp=3.0)]
+        texte = constat.bilan_jour("2026-11-08", entrees=[{"r": 1, "c": 1, "ordre": [1, 2, 3]}], lignes=lignes)
+        self.assertIn("| Ce qui était affiché |", texte)
+        self.assertIn("100,0 %", texte)  # le n° 1 affiché gagne
+        self.assertIn("1 / 1", texte)  # le vainqueur est 1er à la fois dans l'affiché et dans le nouveau réglage
+
+
 if __name__ == "__main__":
     unittest.main()

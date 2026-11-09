@@ -324,12 +324,30 @@ def figer_finaux(date, maintenant, fenetre_minutes=60, ignorer=frozenset()):
     return figees
 
 
+def _avec_pronostic_du_quinte(date, courses):
+    """Le quinté reprend son pronostic de journal : le pronostic final dès qu'il est figé, comme sur sa page."""
+    import suivi
+    chemin = suivi._fichier_pronostic(date)
+    if not os.path.exists(chemin):
+        return courses
+    with open(chemin, encoding="utf-8") as f:
+        d = json.load(f)
+    r, c = [int(x) for x in d["course"].replace("R", "").split("C")]
+    pronostic = _pronostic_journal(date, r, c)
+    for x in courses:
+        if (x["r"], x["c"]) == (r, c) and pronostic:
+            x.update(pronostic)
+            if "final" in d:
+                x["final"] = {"fige_le": d["final"]["fige_le"][:16], "part_cotes": d["final"].get("part_cotes", 0.7)}
+    return courses
+
+
 def charger(date, calculer=False):
     """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai (sinon None)."""
     chemin = fichier(date)
     if os.path.exists(chemin):
         with open(chemin, encoding="utf-8") as f:
-            return json.load(f)["courses"]
+            return _avec_pronostic_du_quinte(date, json.load(f)["courses"])
     if not calculer:
         return None
     courses, lignes = analyser_journee(date)
