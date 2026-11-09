@@ -3662,7 +3662,7 @@
    "heure": "21:45",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ZIM",
@@ -3676,7 +3676,13 @@
     "9": "VELETA DE PROA",
     "10": "MI GIGANTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    5,
+    8,
+    4
+   ],
    "ordre": [
     5,
     3,
