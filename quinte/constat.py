@@ -404,6 +404,9 @@ def main(argv):
         if "--rattraper" in argv:
             print("courses terminées relues pour %s : %d" % (date, journee.rattraper(date)))
         texte = bilan_jour(date, entrees=journee.charger(date), quinte=_quinte_du_jour(date))
+        import essais
+        import quintes
+        texte += quintes.bloc_bilan(date) + essais.bloc_bilan(date)
         os.makedirs(os.path.join(HERE, "journal"), exist_ok=True)
         with open(os.path.join(HERE, "journal", "bilan-%s.md" % date), "w", encoding="utf-8") as f:
             f.write(texte)

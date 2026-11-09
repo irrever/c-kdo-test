@@ -415,5 +415,35 @@ class TestBilanJour(unittest.TestCase):
         self.assertIn("1 / 1", texte)  # le vainqueur est 1er à la fois dans l'affiché et dans le nouveau réglage
 
 
+class TestEssaisEtQuintes(unittest.TestCase):
+    def test_variantes_de_la_note(self):
+        import essais
+        ligne = {"n_musique": "0.5", "n_aptitudes": "", "n_forme_cheval": "0.5", "n_chronos": "0.0",
+                 "n_tandem": "0.5", "n_conditions": "0.5", "n_bruits_ecuries": "0.5"}
+        # production : aptitudes absentes comptent pour 0,5, chrono 0,0 reste 0,0
+        self.assertAlmostEqual(essais.score(ligne, "actuel"), 0.44)
+        self.assertAlmostEqual(essais.score(ligne, "chrono_0_neutre"), 0.50)
+        self.assertAlmostEqual(essais.score(ligne, "absents_retires"), 0.365 / 0.85)
+        self.assertAlmostEqual(essais.score(ligne, "les_deux"), 0.5)
+
+    def test_mesure_d_un_quinte(self):
+        import quintes
+        scores = {"1": "0.9", "2": "0.8", "3": "0.7", "4": "0.6", "5": "0.5", "6": "0.4"}
+        arrivees = {"2": "1", "1": "2", "4": "3", "6": "4", "5": "5", "3": "6"}
+        cotes = {"1": "10", "2": "3", "3": "20", "4": "5", "5": "8", "6": "12"}
+        lignes = []
+        for numero in scores:
+            l = {champ: "" for champ in registre.CHAMPS}
+            l.update({"numero": numero, "score": scores[numero], "arrivee": arrivees[numero],
+                      "cote_depart": cotes[numero], "hippodrome": "X"})
+            lignes.append(l)
+        m = quintes.mesure_course(lignes)
+        self.assertEqual(m["rang_median_notre"], 4)  # arrivants classés 1, 2, 4, 5 et 6 chez nous
+        self.assertEqual(m["rang_median_marche"], 3)  # et 1, 2, 3, 4 et 5 au marché
+        self.assertEqual(m["couv"][5], 4)
+        self.assertEqual(m["couv"][6], 5)
+        self.assertEqual(m["boite_complete"], 6)
+
+
 if __name__ == "__main__":
     unittest.main()
