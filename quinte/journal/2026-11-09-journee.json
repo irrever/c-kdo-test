@@ -2545,7 +2545,7 @@
    "heure": "18:11",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "VILLA ADRIENNE",
@@ -2558,7 +2558,13 @@
     "8": "TEMADIVA",
     "9": "SECRET QUEEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    6,
+    8,
+    9
+   ],
    "ordre": [
     5,
     6,
@@ -3070,7 +3076,7 @@
    "heure": "18:28",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "PRETTA",
@@ -3085,7 +3091,13 @@
     "10": "MADAME ELIANA",
     "11": "RUNA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    6,
+    11,
+    3,
+    4
+   ],
    "ordre": [
     11,
     7,
