@@ -111,7 +111,7 @@
    "heure": "13:55",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "DUNA DI GIRIFALCO",
@@ -130,7 +130,13 @@
     "14": "HOLD UP DES VENTES",
     "15": "ELEGANCE KRONOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    15,
+    13,
+    10
+   ],
    "ordre": [
     13,
     5,
@@ -1333,7 +1339,7 @@
    "heure": "13:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "EKLAIRDEGENY",
@@ -1344,7 +1350,13 @@
     "6": "BELVEDERE PALACE",
     "7": "KATHALINA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    7,
+    2,
+    5
+   ],
    "ordre": [
     3,
     2,
@@ -1412,7 +1424,7 @@
    "heure": "14:10",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "LE FUTUR",
@@ -1831,7 +1843,7 @@
    "heure": "14:12",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "LIKASI",
@@ -4146,7 +4158,7 @@
    "heure": "13:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NATALIA ERA",
@@ -4164,7 +4176,13 @@
     "13": "NIKITA DE PLAY",
     "14": "NIKITA HONEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    1,
+    9,
+    3
+   ],
    "ordre": [
     9,
     13,
@@ -4239,7 +4257,7 @@
    "heure": "14:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "MORONI",
