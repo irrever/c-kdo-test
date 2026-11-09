@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-09",
+  "r": 1,
+  "c": 2,
+  "url": "https://www.equidia.fr/courses/2026-11-09/R1/C2",
+  "hippodrome": "BORDEAUX-LE BOUSCAT",
+  "heure_depart": null,
+  "retroactif": true,
+  "capture_le_utc": null,
+  "presse": {
+    "parier": null,
+    "cinq": [
+      5,
+      4,
+      13,
+      6,
+      11
+    ],
+    "bases": [
+      5,
+      4
+    ],
+    "outsiders": [
+      7,
+      3,
+      14,
+      9
+    ],
+    "belles": [
+      13,
+      6,
+      11,
+      15,
+      10,
+      12
+    ],
+    "delaisses": [
+      1,
+      2,
+      8
+    ]
+  },
+  "notre": [
+    {
+      "numero": 13,
+      "nom": "ICARE DU BERYL",
+      "score": 0.761015,
+      "rang": 1,
+      "p_victoire": 0.211,
+      "p_top5": null
+    },
+    {
+      "numero": 5,
+      "nom": "KEROSEN DU GERS",
+      "score": 0.74836,
+      "rang": 2,
+      "p_victoire": 0.1877,
+      "p_top5": null
+    },
+    {
+      "numero": 11,
+      "nom": "GERICAULT",
+      "score": 0.722245,
+      "rang": 3,
+      "p_victoire": 0.1522,
+      "p_top5": null
+    },
+    {
+      "numero": 14,
+      "nom": "HOLD UP DES VENTES",
+      "score": 0.654578,
+      "rang": 4,
+      "p_victoire": 0.0894,
+      "p_top5": null
+    },
+    {
+      "numero": 7,
+      "nom": "JACKSON D'ARC",
+      "score": 0.651407,
+      "rang": 5,
+      "p_victoire": 0.0872,
+      "p_top5": null
+    },
+    {
+      "numero": 6,
+      "nom": "KASSIOPEE WIND",
+      "score": 0.610574,
+      "rang": 6,
+      "p_victoire": 0.0619,
+      "p_top5": null
+    },
+    {
+      "numero": 10,
+      "nom": "IRIS DES ROSEAUX",
+      "score": 0.57445,
+      "rang": 7,
+      "p_victoire": 0.0473,
+      "p_top5": null
+    },
+    {
+      "numero": 1,
+      "nom": "DUNA DI GIRIFALCO",
+      "score": 0.56054,
+      "rang": 8,
+      "p_victoire": 0.0432,
+      "p_top5": null
+    },
+    {
+      "numero": 12,
+      "nom": "HOLLYWOOD DU BOIS",
+      "score": 0.543112,
+      "rang": 9,
+      "p_victoire": 0.0386,
+      "p_top5": null
+    },
+    {
+      "numero": 9,
+      "nom": "IDOLE OF LOVE",
+      "score": 0.496609,
+      "rang": 10,
+      "p_victoire": 0.0242,
+      "p_top5": null
+    },
+    {
+      "numero": 3,
+      "nom": "STARO RAILI",
+      "score": 0.471488,
+      "rang": 11,
+      "p_victoire": 0.0197,
+      "p_top5": null
+    },
+    {
+      "numero": 4,
+      "nom": "NELSON GREENWOOD",
+      "score": 0.421489,
+      "rang": 12,
+      "p_victoire": 0.0135,
+      "p_top5": null
+    },
+    {
+      "numero": 2,
+      "nom": "ROSSI GARLINE",
+      "score": 0.390202,
+      "rang": 13,
+      "p_victoire": 0.0095,
+      "p_top5": null
+    },
+    {
+      "numero": 15,
+      "nom": "ELEGANCE KRONOS",
+      "score": 0.383364,
+      "rang": 14,
+      "p_victoire": 0.0106,
+      "p_top5": null
+    },
+    {
+      "numero": 8,
+      "nom": "GALANT DE CAREL",
+      "score": 0.280604,
+      "rang": 15,
+      "p_victoire": 0.004,
+      "p_top5": null
+    }
+  ]
+}

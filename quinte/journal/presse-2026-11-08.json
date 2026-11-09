@@ -1,0 +1,164 @@
+{
+  "date": "2026-11-08",
+  "r": 1,
+  "c": 5,
+  "url": "https://www.equidia.fr/courses/2026-11-08/R1/C5",
+  "hippodrome": "SAINT-CLOUD",
+  "heure_depart": null,
+  "retroactif": true,
+  "capture_le_utc": null,
+  "presse": {
+    "parier": null,
+    "cinq": [
+      7,
+      1,
+      10,
+      9,
+      8
+    ],
+    "bases": [
+      7,
+      1
+    ],
+    "outsiders": [
+      6,
+      4,
+      3,
+      13,
+      15,
+      12,
+      2
+    ],
+    "belles": [
+      10,
+      9,
+      8,
+      5,
+      11,
+      14
+    ],
+    "delaisses": []
+  },
+  "notre": [
+    {
+      "numero": 7,
+      "nom": "ORAGEUX",
+      "score": 0.868782,
+      "rang": 1,
+      "p_victoire": 0.3907,
+      "p_top5": null
+    },
+    {
+      "numero": 15,
+      "nom": "GOOD TO SEE YOU",
+      "score": 0.734861,
+      "rang": 2,
+      "p_victoire": 0.1315,
+      "p_top5": null
+    },
+    {
+      "numero": 12,
+      "nom": "LUCIO VERO",
+      "score": 0.707512,
+      "rang": 3,
+      "p_victoire": 0.1082,
+      "p_top5": null
+    },
+    {
+      "numero": 10,
+      "nom": "DARK ROCKSTER",
+      "score": 0.664401,
+      "rang": 4,
+      "p_victoire": 0.0769,
+      "p_top5": null
+    },
+    {
+      "numero": 11,
+      "nom": "DEMPY",
+      "score": 0.616625,
+      "rang": 5,
+      "p_victoire": 0.0515,
+      "p_top5": null
+    },
+    {
+      "numero": 13,
+      "nom": "GARVEY",
+      "score": 0.609979,
+      "rang": 6,
+      "p_victoire": 0.0485,
+      "p_top5": null
+    },
+    {
+      "numero": 3,
+      "nom": "BLACK SAXON",
+      "score": 0.565418,
+      "rang": 7,
+      "p_victoire": 0.0342,
+      "p_top5": null
+    },
+    {
+      "numero": 8,
+      "nom": "RAM SEA",
+      "score": 0.546912,
+      "rang": 8,
+      "p_victoire": 0.0304,
+      "p_top5": null
+    },
+    {
+      "numero": 1,
+      "nom": "DON'T SHUT ME DOWN",
+      "score": 0.545288,
+      "rang": 9,
+      "p_victoire": 0.0311,
+      "p_top5": null
+    },
+    {
+      "numero": 6,
+      "nom": "MON RICIN",
+      "score": 0.533817,
+      "rang": 10,
+      "p_victoire": 0.0268,
+      "p_top5": null
+    },
+    {
+      "numero": 5,
+      "nom": "A BEAUREGARD",
+      "score": 0.493103,
+      "rang": 11,
+      "p_victoire": 0.0182,
+      "p_top5": null
+    },
+    {
+      "numero": 2,
+      "nom": "HOMO DEUS",
+      "score": 0.478147,
+      "rang": 12,
+      "p_victoire": 0.0164,
+      "p_top5": null
+    },
+    {
+      "numero": 4,
+      "nom": "MISTER GATZ",
+      "score": 0.467961,
+      "rang": 13,
+      "p_victoire": 0.0152,
+      "p_top5": null
+    },
+    {
+      "numero": 14,
+      "nom": "ZARFLIGHT",
+      "score": 0.428881,
+      "rang": 14,
+      "p_victoire": 0.0105,
+      "p_top5": null
+    },
+    {
+      "numero": 9,
+      "nom": "PAOLINO",
+      "score": 0.408764,
+      "rang": 15,
+      "p_victoire": 0.0099,
+      "p_top5": null
+    }
+  ]
+}
