@@ -19,7 +19,8 @@ NOTES = ["musique", "aptitudes", "forme_cheval", "chronos", "tandem", "condition
 CHAMPS = (["date", "calcule_le", "r", "c", "hippodrome", "heure", "discipline", "distance", "partants",
            "numero", "nom", "monte", "poids", "corde", "musique_texte"]
           + ["n_" + n for n in NOTES]
-          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote", "sans_donnees"])
+          + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote", "sans_donnees",
+           "rapport_gagnant", "rapport_place"])
 
 
 def _lire(chemin):
@@ -131,6 +132,48 @@ def capturer_cotes(date, r, c, cotes, heure, chemin=CHEMIN):
             if numero in cotes:
                 x["cote_depart"] = str(cotes[numero])
                 x["heure_cote"] = heure
+                modifiees += 1
+    if modifiees:
+        _ecrire(lignes, chemin)
+    return modifiees
+
+
+def completer_cotes(date, r, c, cotes, chemin=CHEMIN):
+    """Complète une course terminée dont aucune cote n'a été relevée avant le départ : la dernière cote de départ,
+    relue après la course, est inscrite avec heure_cote « reprise ». Une course déjà relevée n'est pas touchée.
+    Renvoie le nombre de lignes complétées."""
+    lignes = _lire(chemin)
+    de_la_course = [x for x in lignes if (x["date"], x["r"], x["c"]) == (str(date), str(r), str(c))]
+    if not de_la_course or any(x.get("cote_depart") for x in de_la_course):
+        return 0
+    completees = 0
+    for x in de_la_course:
+        numero = int(x["numero"])
+        if numero in cotes:
+            x["cote_depart"] = str(cotes[numero])
+            x["heure_cote"] = "reprise"
+            completees += 1
+    if completees:
+        _ecrire(lignes, chemin)
+    return completees
+
+
+def inscrire_rapports(date, r, c, rapports, chemin=CHEMIN):
+    """Inscrit les rapports officiels d'une course terminée, pour 1 € misé : le simple gagnant (au vainqueur) et le
+    simple placé (aux trois premiers). rapports : {"gagnant": {numero: rapport}, "place": {numero: rapport}}.
+    Renvoie le nombre de lignes modifiées."""
+    lignes = _lire(chemin)
+    modifiees = 0
+    for x in lignes:
+        if (x["date"], x["r"], x["c"]) != (str(date), str(r), str(c)):
+            continue
+        numero = int(x["numero"])
+        valeurs = {"rapport_gagnant": rapports.get("gagnant", {}).get(numero),
+                   "rapport_place": rapports.get("place", {}).get(numero)}
+        for champ, v in valeurs.items():
+            texte = "" if v is None else str(v)
+            if x.get(champ, "") != texte:
+                x[champ] = texte
                 modifiees += 1
     if modifiees:
         _ecrire(lignes, chemin)

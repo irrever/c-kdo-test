@@ -305,5 +305,58 @@ class TestSansDonnees(unittest.TestCase):
             journee.JOURNAL = avant
 
 
+class TestRattrapage(unittest.TestCase):
+    def test_cotes_reprises_sans_toucher_aux_cotes_captees(self):
+        chemin = os.path.join(tempfile.mkdtemp(), "registre.csv")
+        c = _course()
+        lignes, probs = journee._calcul(c)
+        registre.ajouter(registre.lignes_de_course("2026-11-08", 1, 6, c, lignes, probs, None, "t"), chemin)
+        registre.ajouter(registre.lignes_de_course("2026-11-08", 1, 7, c, lignes, probs, None, "t"), chemin)
+        registre.capturer_cotes("2026-11-08", 1, 7, {1: 3.5, 2: 6.0, 3: 8.0}, "2026-11-08T14:50", chemin)
+        self.assertEqual(registre.completer_cotes("2026-11-08", 1, 6, {1: 4.0, 2: 6.0, 3: 9.0}, chemin), 3)
+        self.assertEqual(registre.completer_cotes("2026-11-08", 1, 7, {1: 4.0, 2: 6.0, 3: 9.0}, chemin), 0)
+        lues = registre.lire(chemin)
+        reprises = {x["numero"]: (x["cote_depart"], x["heure_cote"]) for x in lues if x["c"] == "6"}
+        self.assertEqual(reprises["1"], ("4.0", "reprise"))
+        captees = {x["cote_depart"] for x in lues if x["c"] == "7"}
+        self.assertEqual(captees, {"3.5", "6.0", "8.0"})
+
+    def test_rapports_officiels(self):
+        chemin = os.path.join(tempfile.mkdtemp(), "registre.csv")
+        c = _course()
+        lignes, probs = journee._calcul(c)
+        registre.ajouter(registre.lignes_de_course("2026-11-08", 1, 6, c, lignes, probs, None, "t"), chemin)
+        rapports = {"gagnant": {1: 1.2}, "place": {1: 1.05, 2: 2.1}}
+        self.assertEqual(registre.inscrire_rapports("2026-11-08", 1, 6, rapports, chemin), 3)
+        self.assertEqual(registre.inscrire_rapports("2026-11-08", 1, 6, rapports, chemin), 0)
+        par_numero = {x["numero"]: x for x in registre.lire(chemin)}
+        self.assertEqual((par_numero["1"]["rapport_gagnant"], par_numero["1"]["rapport_place"]), ("1.2", "1.05"))
+        self.assertEqual((par_numero["2"]["rapport_gagnant"], par_numero["2"]["rapport_place"]), ("", "2.1"))
+
+
+class TestRapportsSimples(unittest.TestCase):
+    def test_lecture_des_rapports(self):
+        import equidia
+        page = ('<script>var r=[{"place":"1,05","gagnant":"1,20","combinaison_rap_def":"5","type_reserve_rap_def":"Simple"},'
+                '{"place":"2,10","combinaison_rap_def":"2","type_reserve_rap_def":"Simple"},'
+                '{"gagnant":"9,50","combinaison_rap_def":"3-4","type_reserve_rap_def":"Couplé"}];</script>')
+        self.assertEqual(equidia.rapports_simples(page), {"gagnant": {5: 1.2}, "place": {5: 1.05, 2: 2.1}})
+        self.assertEqual(equidia._montant("1.234,50"), 1234.5)
+
+
+class TestConstat(unittest.TestCase):
+    def test_variantes_et_gains(self):
+        import constat
+        c = {"n": 3, "famille": "plat", "scores": {"1": 0.9, "2": 0.5, "3": 0.2}, "p_registre": {},
+             "cotes": {"1": 2.0, "2": 4.0, "3": 9.0}, "sources": {"captée"}, "gagnant": "1",
+             "placés": {"1", "2", "3"}, "rg": 1.6, "rp": {"1": 1.1, "2": 1.9, "3": 3.0}}
+        self.assertAlmostEqual(sum(constat._proba_modele(c["scores"], 8.0).values()), 1.0)
+        perte, top1, top3, gain_g, gain_p = constat.evaluer([c], "modele")[0]
+        self.assertEqual((top1, top3), (1.0, 1.0))  # le modèle désigne le vainqueur
+        self.assertAlmostEqual(gain_g, 1.6)
+        self.assertAlmostEqual(gain_p, 1.1)
+        self.assertAlmostEqual(constat.evaluer([c], "hasard")[0][3], 1.6 / 3)
+
+
 if __name__ == "__main__":
     unittest.main()

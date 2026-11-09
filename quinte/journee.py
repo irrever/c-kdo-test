@@ -14,6 +14,7 @@ Usage :
     python3 quinte/journee.py AAAA-MM-JJ --registre  # verse seulement les courses pas encore parties au registre
     python3 quinte/journee.py AAAA-MM-JJ --completer # ajoute à la journée les réunions publiées depuis son calcul
     python3 quinte/journee.py AAAA-MM-JJ --cotes     # relève les cotes des courses sans pronostic qui partent dans l'heure
+    python3 quinte/journee.py AAAA-MM-JJ --rattraper # relit les courses terminées : cotes de départ manquantes, rapports
 """
 import datetime as dt
 import json
@@ -317,9 +318,31 @@ def enregistrer_registre(date):
     return registre.ajouter(lignes)
 
 
+def rattraper(date):
+    """Courses terminées de la journée : cotes de départ relues après la course quand elles manquent, et rapports
+    officiels du simple gagnant et du simple placé. Renvoie le nombre de courses relues."""
+    courses = sorted({(int(x["r"]), int(x["c"])) for x in registre.lire() if x["date"] == date and x["arrivee"]})
+    relues = 0
+    for r, c in courses:
+        try:
+            course = eq.course(date, r, c, fresh=True)  # relit la page, qui contient aussi les rapports
+        except Exception as e:
+            print("R%dC%d non relue : %s" % (r, c, e))
+            continue
+        if not course or course.get("type_statut_course_id") != "finished":
+            continue
+        page = eq.get_html("%s/courses/%s/R%d/C%d" % (eq.BASE, date, r, c))  # la page vient d'être relue : cache
+        cotes = ae.cotes_de(course)
+        if cotes:
+            registre.completer_cotes(date, r, c, cotes)
+        registre.inscrire_rapports(date, r, c, eq.rapports_simples(page))
+        relues += 1
+    return relues
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
-    options = ("--registre", "--completer", "--cotes")
+    options = ("--registre", "--completer", "--cotes", "--rattraper")
     if not args or len(args) > 2 or (len(args) == 2 and args[1] not in options):
         raise SystemExit(__doc__)
     date = args[0]
@@ -328,6 +351,8 @@ if __name__ == "__main__":
     elif len(args) == 2 and args[1] == "--cotes":
         print("cotes relevées pour %d course(s) sans pronostic de %s" % (
             rafraichir_cotes_sans_donnees(date, dt.datetime.now(PARIS)), date))
+    elif len(args) == 2 and args[1] == "--rattraper":
+        print("courses terminées relues pour %s : %d" % (date, rattraper(date)))
     elif len(args) == 2:
         print("%d courses ajoutées à la journée du %s" % (completer(date), date))
     else:

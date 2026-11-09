@@ -6,7 +6,7 @@ Sources publiques de equidia.fr, lues dans le bloc JSON embarqué (serverApp-sta
 - page d'un cheval (/chevaux/<slug>) : 10 dernières courses avec date, hippodrome,
   distance, corde, driver et place.
 
-Les cotes (cote_*, rapports, enjeux) ne sont jamais lues.
+Les cotes de départ (get_last_cote_off) et les rapports du simple gagnant et du simple placé sont lus ; les enjeux ne le sont jamais.
 """
 import concurrent.futures as cf
 import hashlib
@@ -84,6 +84,36 @@ def course(date, r, c, fresh=False):
         return None
     trouves = [x for x in _chercher(s, lambda o: "partants" in o and "num_course_pmu" in o and o.get("guid") and o.get("distance"))]
     return trouves[0] if trouves else None
+
+
+RAPPORT_RE = re.compile(r'\{[^{}]*"combinaison_rap_def":"[^"]*"[^{}]*\}')
+
+
+def _montant(texte):
+    """« 1,20 » ou « 1.234,50 » -> nombre ; None si absent."""
+    if not texte:
+        return None
+    return float(str(texte).replace(".", "").replace(",", "."))
+
+
+def rapports_simples(page):
+    """Rapports officiels du simple gagnant et du simple placé, lus dans la page d'une course terminée :
+    {"gagnant": {numero: rapport}, "place": {numero: rapport}}, pour 1 € misé. Une course pas encore terminée
+    n'a pas de rapports : les dictionnaires sont alors vides."""
+    gagnant, place = {}, {}
+    for m in RAPPORT_RE.finditer(page):
+        try:
+            o = json.loads(m.group(0))
+            numero = int(str(o["combinaison_rap_def"]).strip())
+        except (ValueError, KeyError):
+            continue
+        if o.get("type_reserve_rap_def") != "Simple":
+            continue
+        if o.get("gagnant"):
+            gagnant[numero] = _montant(o["gagnant"])
+        if o.get("place"):
+            place[numero] = _montant(o["place"])
+    return {"gagnant": gagnant, "place": place}
 
 
 def statuts_reunion(date, r=1):
