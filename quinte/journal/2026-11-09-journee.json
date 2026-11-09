@@ -309,7 +309,7 @@
    "heure": "15:05",
    "distance": 2650,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "KOKTAIL DE JANZE",
@@ -1948,7 +1948,7 @@
    "heure": "14:47",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "JIEPIE ET JO",
@@ -1963,7 +1963,13 @@
     "10": "OROPENDOLA",
     "11": "LADY DANAE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    4,
+    6,
+    7
+   ],
    "ordre": [
     7,
     4,
@@ -4376,7 +4382,7 @@
    "heure": "14:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MIGHTY QUICK",
@@ -4396,7 +4402,13 @@
     "15": "MOYA SPORT",
     "16": "MISS DE L'AUNAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    7,
+    9,
+    4,
+    11
+   ],
    "ordre": [
     9,
     15,
