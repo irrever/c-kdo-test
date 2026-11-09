@@ -408,7 +408,7 @@
    "heure": "15:40",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "JOPLIN DES CROUAS",
@@ -422,7 +422,13 @@
     "9": "KAPORAL CARISAIE",
     "10": "KAYNE RICHER"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    7,
+    4,
+    9
+   ],
    "ordre": [
     3,
     5,
@@ -497,7 +503,7 @@
    "heure": "16:13",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "MADISON DANICA",
@@ -2146,7 +2152,7 @@
    "heure": "15:57",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "VERNON",
@@ -2162,7 +2168,13 @@
     "12": "ANASHKAYA",
     "13": "GIUDICELLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    5,
+    10,
+    4
+   ],
    "ordre": [
     13,
     5,
@@ -4596,7 +4608,7 @@
    "heure": "15:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MAJOR CRESS",
@@ -4616,7 +4628,13 @@
     "15": "MOUNGO",
     "16": "MAGIC ZIZOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    12,
+    13,
+    9
+   ],
    "ordre": [
     14,
     16,
