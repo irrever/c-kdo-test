@@ -700,7 +700,7 @@
    "heure": "17:17",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KROME",
@@ -720,7 +720,13 @@
     "15": "GRAHIKA",
     "16": "KESITO D'URVILLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    16,
+    4,
+    10,
+    6
+   ],
    "ordre": [
     16,
     4,
@@ -2443,7 +2449,7 @@
    "heure": "17:37",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "SECOND TO NONE",
