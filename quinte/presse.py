@@ -281,8 +281,76 @@ def cumul():
     return texte_ + "."
 
 
+def _categories(p):
+    """La catégorie de la presse pour chaque numéro : base, belle, outsider ou délaissé."""
+    return {n: nom for _, cle, nom in CATEGORIES for n in p[cle]}
+
+
+def erreurs(selection, arr5):
+    """Ce que la presse a raté : les arrivants hors de sa sélection, et les sélectionnés hors du top 5."""
+    return sorted(set(arr5) - set(selection)), sorted(set(selection) - set(arr5))
+
+
+def _valeurs(date, r, c):
+    """La valeur de handicap de chaque partant, quand Equidia la publie pour cette course. Sinon, rien."""
+    try:
+        import equidia as eq
+        course = eq.course(date, r, c)
+    except Exception:
+        return {}
+    out = {}
+    for p in (course or {}).get("partants", []):
+        v = p.get("valeur")
+        if v in (None, ""):
+            v = (p.get("cheval") or {}).get("valeur")
+        try:
+            out[int(p["num_partant"])] = float(v)
+        except (TypeError, ValueError):
+            pass
+    return out
+
+
+def diagnostic(date):
+    """Ce que la presse a fait, cheval par cheval : sa catégorie, nos six notes Equidia, notre musique, la valeur de
+    handicap quand elle existe, notre rang. Après la course : ce qu'elle a raté, ce qu'elle a eu en trop, et le taux
+    de réussite de chaque catégorie."""
+    d, lignes, arrivee = _charger(date)
+    p = d["presse"]
+    cat = _categories(p)
+    selection = p["parier"] or p["cinq"] or []
+    valeur = _valeurs(date, d["r"], d["c"])
+    comp = {int(l["numero"]): l for l in lignes}
+    colonnes = ["n_musique", "n_aptitudes", "n_forme_cheval", "n_conditions", "n_bruits_ecuries"]
+    L = ["## Diagnostic · quinté du %s · R%dC%d" % (date, d["r"], d["c"]), "",
+         "| n° | cheval | presse | valeur | musique | aptitudes | forme | conditions | bruits | notre rang | arrivée |",
+         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    arr5 = _arrivants(arrivee)
+    for x in d["notre"]:
+        n = x["numero"]
+        notes = []
+        for col in colonnes:
+            v = comp.get(n, {}).get(col)
+            notes.append(("%.2f" % float(v)).replace(".", ",") if v else "—")
+        val = ("%g" % valeur[n]).replace(".", ",") if n in valeur else "—"
+        L.append("| %d | %s | %s | %s | %s | %s | %s | %s | %s | %d | %s |" % (
+            n, comp.get(n, {}).get("nom", ""), cat.get(n, "—"), val, notes[0], notes[1], notes[2], notes[3],
+            notes[4], x["rang"], arrivee.get(n) or "—"))
+    if arr5 is not None:
+        hors, en_trop = erreurs(selection, arr5)
+        L += ["", "Dans le top 5, hors de la sélection de la presse : %s." % (", ".join(map(str, hors)) or "aucun"),
+              "Dans la sélection de la presse, hors du top 5 : %s." % (", ".join(map(str, en_trop)) or "aucun")]
+        libelles = {"base": "bases", "belle": "belles chances", "outsider": "outsiders", "délaissé": "délaissés"}
+        taux = []
+        for nom in ["base", "belle", "outsider", "délaissé"]:
+            horses = [n for n, k in cat.items() if k == nom]
+            if horses:
+                taux.append("%s %d/%d" % (libelles[nom], sum(1 for n in horses if n in arr5), len(horses)))
+        L.append("Dans le top 5, par catégorie de la presse : %s." % " ; ".join(taux))
+    return "\n".join(L) + "\n"
+
+
 def main(argv):
-    aide = "usage : presse.py capturer AAAA-MM-JJ | constat AAAA-MM-JJ | retro AAAA-MM-JJ R C | cumul"
+    aide = "usage : presse.py capturer AAAA-MM-JJ | constat AAAA-MM-JJ | diagnostic AAAA-MM-JJ | retro AAAA-MM-JJ R C | cumul"
     if len(argv) < 2:
         print(aide)
         return 2
@@ -293,6 +361,8 @@ def main(argv):
         print(constat(argv[2]))
     elif cmd == "retro" and len(argv) == 5:
         print(retro(argv[2], int(argv[3]), int(argv[4])))
+    elif cmd == "diagnostic" and len(argv) == 3:
+        print(diagnostic(argv[2]))
     elif cmd == "cumul" and len(argv) == 2:
         print(cumul())
     else:

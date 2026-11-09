@@ -66,5 +66,17 @@ class TestClassement(unittest.TestCase):
         self.assertEqual(presse.mesures(ordre, [1, 2, 3, 4, 5]), (5, 5))
 
 
+class TestDiagnostic(unittest.TestCase):
+    def test_erreurs(self):
+        self.assertEqual(presse.erreurs([7, 1, 10, 9, 8], [7, 1, 10, 11, 4]), ([4, 11], [8, 9]))
+
+    def test_categories(self):
+        p = presse.lire_pronostic(PAGE_8)
+        cat = presse._categories(p)
+        self.assertEqual(cat[7], "base")
+        self.assertEqual(cat[10], "belle")
+        self.assertEqual(cat[4], "outsider")
+
+
 if __name__ == "__main__":
     unittest.main()

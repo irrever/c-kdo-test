@@ -15,29 +15,37 @@ import random
 import re
 import sys
 
-# Poids des critères (somme = 1). Musique (performances passées) : 40 %, notes Equidia : 60 %.
-# Choisis sur 48 courses terminées (octobre-novembre 2026) : la musique améliore la perte du vainqueur.
+# Poids des critères (somme = 1). Musique : 25 %, les six notes Equidia : 75 %, dans leurs proportions d'avant.
+# La musique était à 40 % : choisie sur 48 courses, elle était trop grossière (voir score_musique).
 POIDS = {
-    "musique": 0.40,
-    "aptitudes": 0.15,
-    "forme_cheval": 0.15,
-    "chronos": 0.12,
-    "tandem": 0.06,
-    "conditions": 0.06,
-    "bruits_ecuries": 0.06,
+    "musique": 0.25,
+    "aptitudes": 0.1875,
+    "forme_cheval": 0.1875,
+    "chronos": 0.15,
+    "tandem": 0.075,
+    "conditions": 0.075,
+    "bruits_ecuries": 0.075,
 }
 # Netteté des probabilités (Plackett-Luce). 4 depuis le 9 novembre (8 avant) : probabilités moins tranchées.
 SENSIBILITE = 4.0
-# Part des cotes dans le pronostic : 0. Le pronostic est notre analyse ; les cotes sont affichées à titre
-# d'information. Elles entraient à 70 % jusqu'au 8 novembre, à 90 % le 9 novembre au soir.
-COTES_POIDS = 0.0
-# Au trot comme ailleurs : notre analyse seule, les cotes à titre d'information.
-COTES_POIDS_TROT = 0.0
+# Part des cotes dans le pronostic final : 70 %, notre analyse 30 %. Le pronostic du soir reste sans cotes.
+# Décidé le 9 novembre : le mélange égale le marché sur nos courses ; notre modèle seul lui est inférieur.
+COTES_POIDS = 0.7
+# Au trot comme ailleurs.
+COTES_POIDS_TROT = 0.7
 SIMULATIONS = 200_000
 SEED = 20261105
 
-PLACE_SCORE = {1: 1.0, 2: 0.8, 3: 0.6, 4: 0.45, 5: 0.3, 6: 0.2, 7: 0.1, 8: 0.1, 9: 0.1}
+# Musique corrigée. Une course compte selon sa place, mais : une course de même discipline que celle du jour pèse
+# deux fois plus qu'une autre ; un incident (T, A, R) n'est pas une mauvaise course ; un passé court est ramené vers
+# le neutre (0,5). Dix courses au plus, les plus récentes d'abord.
+PLACE_SCORE = {1: 1.0, 2: 0.8, 3: 0.6, 4: 0.45, 5: 0.3, 6: 0.2, 7: 0.12, 8: 0.08, 9: 0.05, 10: 0.03}
+SCORE_INCIDENT = 0.4      # T, A, R
+SCORE_DISQUALIFIE = 0.2   # D
 DECROISSANCE = 0.85
+COURSES_MUSIQUE = 10
+MASSE_NEUTRE = 1.0        # poids du neutre quand le passé est court
+FAMILLE_LETTRE = {"p": "plat", "h": "obstacle", "s": "obstacle", "c": "obstacle", "a": "trot", "m": "trot"}
 
 
 def charger_etat(html_path):
@@ -64,22 +72,44 @@ def charger_etat(html_path):
     return trouves[0]
 
 
-def score_musique(musique):
-    """Note 0..1 à partir de la musique (plus récent en premier). Les marqueurs d'année (25) sont ignorés."""
-    runs = []
-    for year, val, disc in re.findall(r"\((\d\d)\)|(D|T|A|R|\d+)([a-z]?)", musique or ""):
-        if year:
-            continue
-        if val.isdigit() and int(val) > 0:
-            runs.append(PLACE_SCORE.get(int(val), 0.0))
-        else:
-            runs.append(0.0)  # 0 = non placé, D = disqualifié, T/A/R = incident
-    recent = runs[:10]
-    if not recent:
+def _famille(discipline):
+    """Famille de la course : plat, obstacle, trot ou autre. Même règle que analyse_registre.famille."""
+    d = (discipline or "").lower()
+    if "plat" in d:
+        return "plat"
+    if "haie" in d or "steeple" in d or "cross" in d or "obstacle" in d:
+        return "obstacle"
+    if "attel" in d or "mont" in d or "trot" in d:
+        return "trot"
+    return "autre"
+
+
+def score_musique(musique, famille=None):
+    """Note 0..1 à partir de la musique, la plus récente d'abord. Les marqueurs d'année (25) sont ignorés.
+
+    Une course de même famille que la course du jour compte pour 1, une autre pour 0,5. Un incident (T, A, R)
+    compte pour 0,4 et un disqualifié (D) pour 0,2. Renvoie (note, nombre de courses retenues), ou (None, 0).
+    """
+    runs = [(val, disc) for year, val, disc in re.findall(r"\((\d\d)\)|(D|T|A|R|\d+)([a-z]?)", musique or "")
+            if not year][:COURSES_MUSIQUE]
+    if not runs:
         return None, 0
-    somme = sum(s * (DECROISSANCE ** i) for i, s in enumerate(recent))
-    poids = sum(DECROISSANCE ** i for i in range(len(recent)))
-    return somme / poids, len(recent)
+    somme = masse = 0.0
+    for i, (val, disc) in enumerate(runs):
+        if val.isdigit() and int(val) > 0:
+            s = PLACE_SCORE.get(int(val), 0.0)
+        elif val in ("T", "A", "R"):
+            s = SCORE_INCIDENT
+        elif val == "D":
+            s = SCORE_DISQUALIFIE
+        else:
+            s = 0.0
+        poids = DECROISSANCE ** i
+        if famille is not None and FAMILLE_LETTRE.get(disc) != famille:
+            poids *= 0.5
+        somme += poids * s
+        masse += poids
+    return (somme + MASSE_NEUTRE * 0.5) / (masse + MASSE_NEUTRE), len(runs)
 
 
 def valeur_note(partant, cle):
@@ -93,7 +123,7 @@ def analyser(course):
         if p.get("statut_part") == "NP":
             continue  # non-partant exclu (les disqualifiés à l'arrivée restent des partants)
         musique = (p.get("cheval") or {}).get("musique") or p.get("musique")
-        m_score, nb = score_musique(musique)
+        m_score, nb = score_musique(musique, _famille(course.get("discipline")))
         composantes = {"musique": m_score}
         for cle in ["aptitudes", "forme_cheval", "chronos", "tandem", "conditions", "bruits_ecuries"]:
             composantes[cle] = valeur_note(p, cle)

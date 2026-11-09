@@ -421,9 +421,12 @@ class TestEssaisEtQuintes(unittest.TestCase):
         ligne = {"n_musique": "0.5", "n_aptitudes": "", "n_forme_cheval": "0.5", "n_chronos": "0.0",
                  "n_tandem": "0.5", "n_conditions": "0.5", "n_bruits_ecuries": "0.5"}
         # production : aptitudes absentes comptent pour 0,5, chrono 0,0 reste 0,0
-        self.assertAlmostEqual(essais.score(ligne, "actuel"), 0.44)
+        # poids : musique 0,25 ; aptitudes 0,1875 ; forme 0,1875 ; chronos 0,15 ; tandem, conditions, bruits 0,075
+        self.assertAlmostEqual(essais.score(ligne, "actuel"),
+                               0.25 * 0.5 + 0.1875 * 0.5 + 0.1875 * 0.5 + 0.15 * 0.0 + 0.075 * 0.5 * 3)  # 0,425
         self.assertAlmostEqual(essais.score(ligne, "chrono_0_neutre"), 0.50)
-        self.assertAlmostEqual(essais.score(ligne, "absents_retires"), 0.365 / 0.85)
+        self.assertAlmostEqual(essais.score(ligne, "absents_retires"),
+                               (0.25 * 0.5 + 0.1875 * 0.5 + 0.15 * 0.0 + 0.075 * 0.5 * 3) / (0.8125))
         self.assertAlmostEqual(essais.score(ligne, "les_deux"), 0.5)
 
     def test_mesure_d_un_quinte(self):
