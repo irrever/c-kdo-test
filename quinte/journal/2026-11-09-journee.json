@@ -2449,7 +2449,7 @@
    "heure": "17:37",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SECOND TO NONE",
@@ -2464,7 +2464,13 @@
     "10": "GRACEHILL",
     "11": "FIVE DAYS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    2,
+    5,
+    1
+   ],
    "ordre": [
     9,
     5,
@@ -2539,7 +2545,7 @@
    "heure": "18:11",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "VILLA ADRIENNE",
@@ -2969,7 +2975,7 @@
    "heure": "17:54",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "TOPACIO AZUL",
@@ -2983,7 +2989,13 @@
     "9": "SUNDY POINT",
     "10": "STAR RATE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    9,
+    8,
+    4
+   ],
    "ordre": [
     4,
     2,
