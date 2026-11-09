@@ -3567,7 +3567,7 @@
    "heure": "21:15",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "CHARLOTTE YORK",
@@ -3581,7 +3581,13 @@
     "9": "AMANDA PEPITA",
     "10": "LA MATEA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    3,
+    2,
+    10,
+    1
+   ],
    "ordre": [
     3,
     6,
