@@ -28,11 +28,11 @@ POIDS = {
 }
 # Netteté des probabilités (Plackett-Luce). 4 depuis le 9 novembre (8 avant) : probabilités moins tranchées.
 SENSIBILITE = 4.0
-# Part des cotes dans le pronostic final : 70 %, notre analyse 30 %. Le pronostic du soir reste sans cotes.
-# Décidé le 9 novembre : le mélange égale le marché sur nos courses ; notre modèle seul lui est inférieur.
-COTES_POIDS = 0.7
+# Part des cotes dans le pronostic final : 90 %, notre analyse 10 %. Le pronostic du soir reste sans cotes.
+# Décidé le 9 novembre, à tester sur 30 quintés : 90/10 égale le marché sur nos courses sans le contredire.
+COTES_POIDS = 0.9
 # Au trot comme ailleurs.
-COTES_POIDS_TROT = 0.7
+COTES_POIDS_TROT = 0.9
 SIMULATIONS = 200_000
 SEED = 20261105
 

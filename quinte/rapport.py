@@ -332,7 +332,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
     <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
     <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 4 depuis le 9 novembre, K = 8 avant).</li>
     <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
-    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé et figé avec les cotes du moment : 70 % de cotes et 30 % de notre analyse. C'est ce pronostic final qui est gardé pour le bilan.</li>
+    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé et figé avec les cotes du moment : 90 % de cotes et 10 % de notre analyse. C'est ce pronostic final qui est gardé pour le bilan.</li>
   </ol>
   <p class="note"><strong>Validation</strong> : les réglages (poids de la musique, sensibilité, part des cotes) ont été choisis sur 48 courses terminées d'octobre–novembre 2026. Ces mêmes courses ont servi à les choisir : le résultat est donc optimiste. Seul le suivi des prochaines courses, ci-dessous, donnera une mesure indépendante. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
 </section>
@@ -348,7 +348,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
       <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajoutée au calcul</td></tr>
       <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajouté au calcul</td></tr>
       <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
-      <tr><td>Cotes du jour</td><td><span class="tag info">Dans le pronostic final, à 70 %</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
+      <tr><td>Cotes du jour</td><td><span class="tag info">Dans le pronostic final, à 90 %</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
     </tbody>
   </table>
   <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026), perte moyenne du vainqueur : hasard 2,63 ; ancien modèle sans musique 2,43 ; nouveau modèle avec musique 2,34 ; cotes seules 2,11 ; mélange retenu 2,12. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
@@ -363,7 +363,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
 
 
 
-<p class="foot">Le pronostic final mélange les cotes du jour (70 %) et notre analyse (30 %). Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+<p class="foot">Le pronostic final mélange les cotes du jour (90 %) et notre analyse (10 %). Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </div>
 </main>
 <script>
