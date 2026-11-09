@@ -3946,7 +3946,7 @@
    "heure": "23:15",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "RESPECT",
