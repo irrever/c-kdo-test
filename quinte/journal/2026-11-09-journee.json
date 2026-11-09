@@ -3482,7 +3482,7 @@
    "heure": "20:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "DONNARUMMA",
@@ -3493,7 +3493,13 @@
     "6": "INSISTENTEMENTE",
     "7": "BEN-RYAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    3,
+    6,
+    4
+   ],
    "ordre": [
     3,
     6,
@@ -3561,7 +3567,7 @@
    "heure": "21:15",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "CHARLOTTE YORK",
