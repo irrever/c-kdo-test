@@ -10,7 +10,7 @@
    "heure": "13:10",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "INCERTAIN LANCELOT",
@@ -1131,7 +1131,7 @@
    "heure": "12:34",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "SHALOHA",
@@ -1148,7 +1148,13 @@
     "12": "ALMAGRO",
     "13": "HAPPY HARRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    13,
+    8,
+    7
+   ],
    "ordre": [
     7,
     8,
@@ -1223,7 +1229,7 @@
    "heure": "13:09",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LOU MARINA",
@@ -1240,7 +1246,13 @@
     "12": "PENNYWELL",
     "13": "KENPIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    10,
+    9,
+    6
+   ],
    "ordre": [
     9,
     3,
@@ -1653,7 +1665,7 @@
    "heure": "12:52",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "BSHARRI",
@@ -1664,7 +1676,13 @@
     "6": "VANAVALONA",
     "7": "PIETRADOLCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    7,
+    5,
+    3
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -1821,8 +1839,64 @@
    "top": [],
    "sans_donnees": true,
    "conditions": "Pour poulains entiers et hongres de 2 ans, n'ayant jamais couru. Poids : 58 kg.",
-   "cotes": [],
-   "cotes_releve": "2026-11-08T23:07:34+01:00"
+   "cotes": [
+    {
+     "numero": 1,
+     "nom": "LIKASI",
+     "cote": 3.0
+    },
+    {
+     "numero": 2,
+     "nom": "DOUE",
+     "cote": 14.0
+    },
+    {
+     "numero": 3,
+     "nom": "DUC D'AUMALE",
+     "cote": 12.0
+    },
+    {
+     "numero": 4,
+     "nom": "ESKOW",
+     "cote": 62.0
+    },
+    {
+     "numero": 5,
+     "nom": "CLEFT ROCK",
+     "cote": 8.4
+    },
+    {
+     "numero": 6,
+     "nom": "MONTMORENCY",
+     "cote": 12.0
+    },
+    {
+     "numero": 7,
+     "nom": "KRIOUKOV",
+     "cote": 18.0
+    },
+    {
+     "numero": 8,
+     "nom": "PERSIAN'S SAGA",
+     "cote": 16.0
+    },
+    {
+     "numero": 9,
+     "nom": "PEMULWUY",
+     "cote": 3.8
+    },
+    {
+     "numero": 10,
+     "nom": "AL BOURAQ",
+     "cote": 26.0
+    },
+    {
+     "numero": 11,
+     "nom": "GEMOZAC",
+     "cote": 14.0
+    }
+   ],
+   "cotes_releve": "2026-11-09T13:20"
   },
   {
    "r": 3,
@@ -3862,7 +3936,7 @@
    "heure": "12:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NAPOLEON DARBY",
@@ -3880,7 +3954,13 @@
     "13": "NORMAN ROCKWELL",
     "14": "NATCHEZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    11,
+    12,
+    14,
+    5
+   ],
    "ordre": [
     14,
     13,
@@ -3955,7 +4035,7 @@
    "heure": "13:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "NANA DU RIB",
