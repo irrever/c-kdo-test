@@ -287,7 +287,8 @@ def _pronostic_avec_cotes(course, cotes):
 
 
 def figer_finaux(date, maintenant, fenetre_minutes=60, ignorer=frozenset()):
-    """Pronostic final des courses de la journée : une heure avant le départ, dès que les cotes de tous les partants
+    """Pronostic final des courses de la journée, avec les cotes. Non appelé : le pronostic n'utilise plus les cotes
+    (voir analyse_equidia.COTES_POIDS). Une heure avant le départ, dès que les cotes de tous les partants
     sont connues, le pronostic est recalculé avec elles, puis il est figé. Le quinté (ignorer) garde son propre
     pronostic final. Renvoie le nombre de courses figées."""
     chemin = fichier(date)

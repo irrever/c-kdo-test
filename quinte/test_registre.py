@@ -208,7 +208,7 @@ class TestBlocsPage(unittest.TestCase):
         self.assertIn("ALPHA", bloc)
         self.assertIn("cote 5", bloc)
         self.assertIn("À surveiller", bloc)
-        self.assertIn("90 % de cotes", bloc)
+        self.assertIn("titre d'information", bloc)
         self.assertEqual(rapport._vigilance_html(None), "")
         m = {"fige_le": "2026-11-08T08:10:49", "ordre": [1, 2], "noms": {1: "ALPHA", 2: "BETA"},
              "notes": {1: 0.87, 2: 0.74}}
@@ -361,8 +361,8 @@ class TestConstat(unittest.TestCase):
 class TestFinalAvecCotes(unittest.TestCase):
     def test_poids_des_cotes_selon_la_discipline(self):
         import analyse_equidia as ae
-        self.assertEqual(ae.poids_cotes_pour("Attelé"), 1.0)  # au trot, les cotes seules
-        self.assertEqual(ae.poids_cotes_pour("Monté"), 1.0)
+        self.assertEqual(ae.poids_cotes_pour("Attelé"), ae.COTES_POIDS_TROT)
+        self.assertEqual(ae.poids_cotes_pour("Monté"), ae.COTES_POIDS_TROT)
         self.assertEqual(ae.poids_cotes_pour("Plat"), ae.COTES_POIDS)
 
     def test_pronostic_final_fige_une_fois_dans_la_fenetre(self):

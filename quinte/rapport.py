@@ -332,7 +332,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
     <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
     <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 4 depuis le 9 novembre, K = 8 avant).</li>
     <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
-    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé avec les cotes du moment : 90 % de marché, 10 % de modèle, et au trot les cotes seules. Jusqu'au 9 novembre, la part des cotes était de 70 %. Les autres courses de la journée suivent la même règle. C'est ce pronostic final qui est gardé pour le bilan.</li>
+    <li><strong>Pronostic du soir, puis pronostic final</strong> : le soir, le pronostic est publié sans cotes. Une heure avant le départ, il est recalculé et figé : c'est notre analyse, établie sans les cotes. Les cotes du moment sont affichées à titre d'information. Jusqu'au 9 novembre, elles entraient dans le pronostic final à 70 %. C'est ce pronostic final qui est gardé pour le bilan.</li>
   </ol>
   <p class="note"><strong>Validation</strong> : les réglages (poids de la musique, sensibilité, part des cotes) ont été choisis sur 48 courses terminées d'octobre–novembre 2026. Ces mêmes courses ont servi à les choisir : le résultat est donc optimiste. Seul le suivi des prochaines courses, ci-dessous, donnera une mesure indépendante. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
 </section>
@@ -348,7 +348,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
       <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajoutée au calcul</td></tr>
       <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajouté au calcul</td></tr>
       <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
-      <tr><td>Cotes du jour</td><td><span class="tag ok">Pris en compte à 90 % dans le pronostic final (70 % jusqu'au 9 novembre)</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
+      <tr><td>Cotes du jour</td><td><span class="tag info">Affichées à titre d'information, hors du pronostic (70 % jusqu'au 9 novembre)</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
     </tbody>
   </table>
   <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026), perte moyenne du vainqueur : hasard 2,63 ; ancien modèle sans musique 2,43 ; nouveau modèle avec musique 2,34 ; cotes seules 2,11 ; mélange retenu 2,12. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
@@ -363,7 +363,7 @@ h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weig
 
 
 
-<p class="foot">Les cotes du jour entrent dans le pronostic final, à 90 % (au trot, les cotes seules). Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+<p class="foot">Les cotes du jour sont affichées à titre d'information : le pronostic est celui de notre analyse. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
 </div>
 </main>
 <script>
@@ -650,7 +650,7 @@ def _statistiques_chevaux(course, lignes):
 def _libelle_pronostic(course, avec_cotes, fige_le):
     """« Pronostic du soir » s'il a été figé la veille ; sinon l'heure réelle du figement (heure de Paris)."""
     if avec_cotes:
-        return "Pronostic avec les cotes du jour"
+        return "Pronostic final, figé une heure avant le départ"
     if not fige_le:
         return "Pronostic du soir, sans les cotes"
     import datetime as dt
@@ -1138,9 +1138,10 @@ _JS_RECHERCHE = r"""(function(){
   }
   function cote(v){ return String(Math.round(v * 10) / 10).replace('.', ','); }
   function libellePronostic(x){
-    if (!x.final) { return 'Sans cotes : pronostic du modèle, figé le soir.'; }
+    if (!x.final) { return 'Notre analyse, figée le soir, sans les cotes.'; }
     var heure = x.final.fige_le.slice(11, 13) + ' h ' + x.final.fige_le.slice(14, 16);
     var part = Math.round(100 * x.final.part_cotes);
+    if (part <= 0) { return 'Notre analyse, figée à ' + heure + ', sans les cotes.'; }
     if (part >= 100) { return 'Avec les cotes seules (trot), figé à ' + heure + '.'; }
     return 'Avec les cotes : ' + part + ' % de marché, ' + (100 - part) + ' % de modèle, figé à ' + heure + '.';
   }
@@ -1275,7 +1276,7 @@ def _resume_final_html(v):
             i, k, html.escape(v["noms"].get(k, "")), _cote_fr(v["cotes"].get(k)),
             100 * v["melange"][k] / maxi, pct(v["melange"][k]))
     return ("<section class='card'><span class='badge'>Référence</span><h2>Pronostic final</h2>"
-            "<p class='sous'>Avec les cotes : 90 %% marché, 10 %% modèle (au trot, les cotes seules). Figé à %s.</p>"
+            "<p class='sous'>Notre analyse, sans les cotes. Figée à %s.</p>"
             "<ol class='final-liste'>%s</ol></section>") % (_heure_paris(v["fige_le"]), lignes)
 
 
@@ -1309,7 +1310,7 @@ def _pourquoi_html(v):
             _cote_fr(v["cotes"].get(k)), suite)
     return ("<section class='card'><h2>Pourquoi les deux diffèrent</h2>"
             "<ul class='ecarts'>%s</ul>"
-            "<p class='formule'>Probabilité finale = 0,7 × part du marché + 0,3 × part du modèle.</p></section>") % items
+            "</section>") % items
 
 
 def _vigilance_html(v):
@@ -1332,8 +1333,7 @@ def _vigilance_html(v):
             "<p class='note'>Le modèle y croit au moins deux fois plus que le marché.</p>%s</div>"
             "<div class='vigilance-groupe'><span class='badge gris'>À surveiller</span>"
             "<p class='note'>Le marché y croit au moins deux fois plus que le modèle.</p>%s</div>"
-            "<p class='note'>Repère simple, pas encore validé sur nos courses. Le pronostic final en tient déjà compte, "
-            "à travers les 90 %% de cotes.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
+            "<p class='note'>Repère simple, pas encore validé sur nos courses. Ces écarts sont donnés à titre d'information : ils ne modifient pas notre pronostic.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
 
 
 FOND_TETE = ("<script>(function(){var t='light';try{if(localStorage.getItem('quinte-fond')==='dark'){t='dark';}}"

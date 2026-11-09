@@ -28,10 +28,11 @@ POIDS = {
 }
 # Netteté des probabilités (Plackett-Luce). 4 depuis le 9 novembre (8 avant) : probabilités moins tranchées.
 SENSIBILITE = 4.0
-# Part des cotes du jour dans la probabilité finale ; le reste vient du modèle. 0,7 jusqu'au 8 novembre.
-COTES_POIDS = 0.9
-# Au trot, les cotes seules : sur nos courses, le modèle fait moins bien que le hasard au trot.
-COTES_POIDS_TROT = 1.0
+# Part des cotes dans le pronostic : 0. Le pronostic est notre analyse ; les cotes sont affichées à titre
+# d'information. Elles entraient à 70 % jusqu'au 8 novembre, à 90 % le 9 novembre au soir.
+COTES_POIDS = 0.0
+# Au trot comme ailleurs : notre analyse seule, les cotes à titre d'information.
+COTES_POIDS_TROT = 0.0
 SIMULATIONS = 200_000
 SEED = 20261105
 
