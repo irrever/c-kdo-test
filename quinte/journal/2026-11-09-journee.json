@@ -599,7 +599,7 @@
    "heure": "16:45",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LORD PAGUERIE",
@@ -619,7 +619,13 @@
     "15": "LOVE QUEEN",
     "16": "LORETTE UP STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    15,
+    3,
+    13
+   ],
    "ordre": [
     13,
     5,
@@ -694,7 +700,7 @@
    "heure": "17:17",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "KROME",
@@ -2340,7 +2346,7 @@
    "heure": "17:01",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MY SECRET LIGHT",
@@ -2356,7 +2362,13 @@
     "11": "FETE JOYEUSE",
     "12": "SKADOOSH"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    10,
+    4,
+    12
+   ],
    "ordre": [
     3,
     1,
