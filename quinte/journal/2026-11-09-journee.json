@@ -1036,7 +1036,7 @@
    "heure": "11:57",
    "distance": 4300,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "QUEL PATRON",
@@ -1050,7 +1050,13 @@
     "9": "JOURNEE D'LA FEMME",
     "10": "LALOI"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    3,
+    6,
+    9
+   ],
    "ordre": [
     9,
     4,
@@ -1476,7 +1482,7 @@
    "heure": "11:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "MAYFAIR TIME",
@@ -1486,7 +1492,13 @@
     "5": "MAHASIAH",
     "6": "NINAO"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    4,
+    2,
+    6
+   ],
    "ordre": [
     4,
     2,
@@ -1547,7 +1559,7 @@
    "heure": "12:17",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "CAUDRY",
@@ -1651,8 +1663,39 @@
    "top": [],
    "sans_donnees": true,
    "conditions": "Pour pouliches de 2 ans, n'ayant jamais couru. Poids : 58 kg.",
-   "cotes": [],
-   "cotes_releve": "2026-11-08T23:07:34+01:00"
+   "cotes": [
+    {
+     "numero": 1,
+     "nom": "BSHARRI",
+     "cote": 5.4
+    },
+    {
+     "numero": 2,
+     "nom": "BLUE DIVINE",
+     "cote": 11.0
+    },
+    {
+     "numero": 3,
+     "nom": "GREY MIA",
+     "cote": 22.0
+    },
+    {
+     "numero": 4,
+     "nom": "PENDEEN",
+     "cote": 1.3
+    },
+    {
+     "numero": 5,
+     "nom": "NOUR ALWAY",
+     "cote": 23.0
+    },
+    {
+     "numero": 7,
+     "nom": "PIETRADOLCE",
+     "cote": 15.0
+    }
+   ],
+   "cotes_releve": "2026-11-09T12:20"
   },
   {
    "r": 3,
@@ -3714,7 +3757,7 @@
    "heure": "12:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "NAGLISO",
