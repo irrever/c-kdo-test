@@ -2833,7 +2833,7 @@
    "heure": "19:53",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "DELIRE D'AMOUR",
@@ -2847,7 +2847,13 @@
     "9": "PULP FICTION",
     "10": "NANALA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    7,
+    8,
+    5
+   ],
    "ordre": [
     2,
     7,
@@ -3279,7 +3285,7 @@
    "heure": "19:36",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "TUYARAK",
@@ -3293,7 +3299,13 @@
     "9": "RUBIO ALOCADO",
     "10": "ROJO BURGUES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    10,
+    7,
+    5,
+    2
+   ],
    "ordre": [
     5,
     6,
@@ -3368,7 +3380,7 @@
    "heure": "20:10",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "PEHOE",
