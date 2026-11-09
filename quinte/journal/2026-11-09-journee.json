@@ -3757,7 +3757,7 @@
    "heure": "22:15",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SALUS",
@@ -3769,7 +3769,13 @@
     "7": "PRINCESA TROYANA",
     "8": "MUY AVISPADA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    6,
+    8,
+    2
+   ],
    "ordre": [
     3,
     4,
@@ -3844,7 +3850,7 @@
    "heure": "22:45",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "CHOW CHOW",
@@ -3859,7 +3865,13 @@
     "10": "PRIMA NOTTE",
     "11": "DRAKE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    6,
+    5,
+    4,
+    2
+   ],
    "ordre": [
     5,
     3,
