@@ -941,7 +941,7 @@
    "heure": "11:22",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "GRANDBAT",
@@ -955,7 +955,13 @@
     "9": "BROOKS",
     "10": "GOLD ALLEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    2,
+    3,
+    9
+   ],
    "ordre": [
     7,
     4,
