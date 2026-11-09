@@ -211,7 +211,7 @@
    "heure": "14:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NUMENOR'S FELLA",
@@ -228,7 +228,13 @@
     "12": "NINON DU GUELIER",
     "13": "NARCOS DE BRION"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    13,
+    1,
+    9
+   ],
    "ordre": [
     3,
     2,
@@ -1424,7 +1430,7 @@
    "heure": "14:10",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LE FUTUR",
@@ -1437,7 +1443,13 @@
     "8": "NEW BEDE",
     "9": "L'ESPELETTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    2,
+    5,
+    8
+   ],
    "ordre": [
     8,
     5,
@@ -1843,7 +1855,7 @@
    "heure": "14:12",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LIKASI",
@@ -1858,7 +1870,13 @@
     "10": "AL BOURAQ",
     "11": "GEMOZAC"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    6,
+    2,
+    1
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -4257,7 +4275,7 @@
    "heure": "14:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MORONI",
@@ -4277,7 +4295,13 @@
     "15": "MELBA BAROQUE",
     "16": "MY QUEEN BLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    15,
+    12,
+    6,
+    9
+   ],
    "ordre": [
     6,
     10,
@@ -4352,7 +4376,7 @@
    "heure": "14:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "MIGHTY QUICK",
