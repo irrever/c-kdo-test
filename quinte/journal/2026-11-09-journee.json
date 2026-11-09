@@ -503,7 +503,7 @@
    "heure": "16:13",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MADISON DANICA",
@@ -518,7 +518,13 @@
     "10": "MELICIE DU JOAMAX",
     "11": "MUSE D'ORTUGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    6,
+    1,
+    8
+   ],
    "ordre": [
     1,
     2,
@@ -593,7 +599,7 @@
    "heure": "16:45",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "LORD PAGUERIE",
@@ -2249,7 +2255,7 @@
    "heure": "16:29",
    "distance": 2150,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NUITS DE COUGNY",
@@ -2260,7 +2266,13 @@
     "7": "GAITA",
     "8": "FIDJI"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    7,
+    4,
+    6
+   ],
    "ordre": [
     5,
     2,
