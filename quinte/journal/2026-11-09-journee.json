@@ -1131,7 +1131,7 @@
    "heure": "12:34",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "SHALOHA",
@@ -1559,7 +1559,7 @@
    "heure": "12:17",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CAUDRY",
@@ -1572,7 +1572,13 @@
     "8": "MIDNIGHT MAGIC",
     "9": "NAZGUL BLOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    3,
+    4,
+    9
+   ],
    "ordre": [
     3,
     1,
@@ -1667,35 +1673,35 @@
     {
      "numero": 1,
      "nom": "BSHARRI",
-     "cote": 5.4
+     "cote": 2.9
     },
     {
      "numero": 2,
      "nom": "BLUE DIVINE",
-     "cote": 11.0
+     "cote": 14.0
     },
     {
      "numero": 3,
      "nom": "GREY MIA",
-     "cote": 22.0
+     "cote": 32.0
     },
     {
      "numero": 4,
      "nom": "PENDEEN",
-     "cote": 1.3
+     "cote": 1.4
     },
     {
      "numero": 5,
      "nom": "NOUR ALWAY",
-     "cote": 23.0
+     "cote": 29.0
     },
     {
      "numero": 7,
      "nom": "PIETRADOLCE",
-     "cote": 15.0
+     "cote": 22.0
     }
    ],
-   "cotes_releve": "2026-11-09T12:20"
+   "cotes_releve": "2026-11-09T12:45"
   },
   {
    "r": 3,
@@ -3757,7 +3763,7 @@
    "heure": "12:15",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NAGLISO",
@@ -3775,7 +3781,13 @@
     "13": "NALIUS DU THYRAL",
     "14": "NENO KUNJI WIND"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    13,
+    10,
+    9,
+    6
+   ],
    "ordre": [
     10,
     14,
@@ -3850,7 +3862,7 @@
    "heure": "12:45",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "NAPOLEON DARBY",
