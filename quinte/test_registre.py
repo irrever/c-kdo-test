@@ -208,7 +208,7 @@ class TestBlocsPage(unittest.TestCase):
         self.assertIn("ALPHA", bloc)
         self.assertIn("cote 5", bloc)
         self.assertIn("À surveiller", bloc)
-        self.assertIn("70 % de cotes", bloc)
+        self.assertIn("90 % de cotes", bloc)
         self.assertEqual(rapport._vigilance_html(None), "")
         m = {"fige_le": "2026-11-08T08:10:49", "ordre": [1, 2], "noms": {1: "ALPHA", 2: "BETA"},
              "notes": {1: 0.87, 2: 0.74}}
@@ -356,6 +356,39 @@ class TestConstat(unittest.TestCase):
         self.assertAlmostEqual(gain_g, 1.6)
         self.assertAlmostEqual(gain_p, 1.1)
         self.assertAlmostEqual(constat.evaluer([c], "hasard")[0][3], 1.6 / 3)
+
+
+class TestFinalAvecCotes(unittest.TestCase):
+    def test_poids_des_cotes_selon_la_discipline(self):
+        import analyse_equidia as ae
+        self.assertEqual(ae.poids_cotes_pour("Attelé"), 1.0)  # au trot, les cotes seules
+        self.assertEqual(ae.poids_cotes_pour("Monté"), 1.0)
+        self.assertEqual(ae.poids_cotes_pour("Plat"), ae.COTES_POIDS)
+
+    def test_pronostic_final_fige_une_fois_dans_la_fenetre(self):
+        import datetime as dt
+        import json
+        from unittest import mock
+        import analyse_equidia as ae
+        dossier = tempfile.mkdtemp()
+        courses = [
+            {"r": 1, "c": 4, "statut": "before", "heure": "13:10", "sans_donnees": False, "ordre": [9, 8, 7, 6, 5], "top": []},
+            {"r": 1, "c": 5, "statut": "before", "heure": "15:00", "sans_donnees": False, "ordre": [1], "top": []},
+        ]
+        chemin = os.path.join(dossier, "2026-11-07-journee.json")
+        with open(chemin, "w", encoding="utf-8") as f:
+            json.dump({"date": "2026-11-07", "courses": courses}, f)
+        maintenant = dt.datetime(2026, 11, 7, 12, 20, tzinfo=journee.PARIS)
+        with mock.patch.object(journee, "JOURNAL", dossier), mock.patch.object(journee, "SIMULATIONS", 2000), \
+                mock.patch.object(journee.eq, "course", return_value=_course()):
+            self.assertEqual(journee.figer_finaux("2026-11-07", maintenant), 1)  # seule la course de 13 h 10 est dans la fenêtre
+            self.assertEqual(journee.figer_finaux("2026-11-07", maintenant), 0)  # figée une seule fois
+        with open(chemin, encoding="utf-8") as f:
+            lues = {x["c"]: x for x in json.load(f)["courses"]}
+        self.assertEqual(set(lues[4]["ordre"]), {1, 2, 3})
+        self.assertEqual(lues[4]["final"], {"fige_le": "2026-11-07T12:20", "part_cotes": ae.COTES_POIDS})
+        self.assertNotIn("final", lues[5])
+        self.assertEqual(lues[5]["ordre"], [1])
 
 
 if __name__ == "__main__":

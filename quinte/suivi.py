@@ -91,7 +91,8 @@ def enregistrer_final(date):
     cotes = ae.cotes_de(course)
     if not cotes:
         raise SystemExit("Cotes indisponibles pour %s : pronostic final non figé." % date)
-    lignes = ae.melanger_cotes(ae.analyser(course), cotes)
+    poids = ae.poids_cotes_pour(course.get("discipline"))
+    lignes = ae.melanger_cotes(ae.analyser(course), cotes, poids)
     ordres = ae.simuler(lignes)
     prob = ae.probabilites(ordres, lignes)
     combis = ae.combinaisons_en_box(ordres, lignes)
@@ -99,14 +100,14 @@ def enregistrer_final(date):
     d["pronostic_soir"] = {k: d[k] for k in ("fige_le", "modele", "chevaux", "ordre_predit", "combinaisons")}
     d["fige_le"] = maintenant
     d["modele"] = {"sensibilite_K": ae.SENSIBILITE, "poids": ae.POIDS, "simulations": ae.SIMULATIONS,
-                   "part_cotes": ae.COTES_POIDS}
+                   "part_cotes": poids}
     d["chevaux"] = [{"numero": l["numero"], "nom": l["nom"], "score": l["score"],
                      "proba_cotes": l["proba_cotes"], "proba_melange": l["proba_melange"],
                      "p_victoire": prob["victoire"][l["numero"]], "p_top3": prob["top3"][l["numero"]],
                      "p_top5": prob["top5"][l["numero"]]} for l in lignes]
     d["ordre_predit"] = [l["numero"] for l in lignes[:5]]
     d["combinaisons"] = combis
-    d["final"] = {"fige_le": maintenant, "cotes": {str(k): v for k, v in cotes.items()}}
+    d["final"] = {"fige_le": maintenant, "cotes": {str(k): v for k, v in cotes.items()}, "part_cotes": poids}
     with open(chemin, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
     print("pronostic final figé avec les cotes :", chemin)
@@ -228,7 +229,7 @@ def stats_chevaux():
 def comparaison_reelle():
     """Perte du vainqueur sur les courses réelles déjà arrivées, par méthode (plus bas = mieux).
 
-    Méthodes : modèle (pronostic du soir, sans cotes), cotes seules, mélange (pronostic final, 70 % de cotes).
+    Méthodes : modèle (pronostic du soir, sans cotes), cotes seules, mélange (pronostic final, cotes mélangées au modèle).
     Renvoie (lignes course par course, moyennes par méthode avec le nombre de courses connues).
     """
     if not os.path.exists(BILAN):
@@ -285,7 +286,7 @@ def _afficher_comparaison():
         print("%-11s %-18s %-8s %-8s %-8s %-8s" % (l["date"], l["hippodrome"][:18], l["gagnant"],
                                                    f(l["modele"]), f(l["cotes"]), f(l["melange"])))
     print()
-    noms = [("modele", "modèle"), ("cotes", "cotes seules"), ("melange", "mélange (70 % cotes)"), ("hasard", "hasard")]
+    noms = [("modele", "modèle"), ("cotes", "cotes seules"), ("melange", "mélange (cotes)"), ("hasard", "hasard")]
     for cle, nom in noms:
         v, n = moyennes[cle]
         print("perte moyenne du vainqueur, %-22s : %s (%d course%s)" % (nom, f(v), n, "" if n == 1 else "s"))

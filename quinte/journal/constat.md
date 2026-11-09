@@ -1,6 +1,6 @@
 # Constat réel : modèle, marché et rapports
 
-Courses terminées exploitables : 92, dont 81 avec les cotes de départ de tous les partants. Écartées : sans rapport gagnant 17, rapport placé incomplet 8.
+Courses terminées exploitables : 92, dont 81 avec les cotes de départ de tous les partants. Écartées : sans rapport gagnant 18, rapport placé incomplet 8.
 Origine des cotes : 38 course(s) relevées avant le départ, 43 relues après la course, 0 autre(s).
 Contrôle : la probabilité du modèle reconstruite s'écarte de celle du registre de 0,0010 en moyenne (0,0050 au plus), à cause des simulations.
 

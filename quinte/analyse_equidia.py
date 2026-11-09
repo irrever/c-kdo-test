@@ -26,10 +26,12 @@ POIDS = {
     "conditions": 0.06,
     "bruits_ecuries": 0.06,
 }
-# Netteté des probabilités (Plackett-Luce), choisie sur les mêmes courses.
-SENSIBILITE = 8.0
-# Part des cotes du jour dans la probabilité finale ; le reste vient du modèle.
-COTES_POIDS = 0.7
+# Netteté des probabilités (Plackett-Luce). 4 depuis le 9 novembre (8 avant) : probabilités moins tranchées.
+SENSIBILITE = 4.0
+# Part des cotes du jour dans la probabilité finale ; le reste vient du modèle. 0,7 jusqu'au 8 novembre.
+COTES_POIDS = 0.9
+# Au trot, les cotes seules : sur nos courses, le modèle fait moins bien que le hasard au trot.
+COTES_POIDS_TROT = 1.0
 SIMULATIONS = 200_000
 SEED = 20261105
 
@@ -144,6 +146,17 @@ def cotes_de(course):
             return None
         cotes[p["num_partant"]] = v
     return cotes
+
+
+def est_trot(discipline):
+    """Vrai pour le trot (attelé ou monté), d'après le nom de la discipline Equidia."""
+    d = (discipline or "").lower()
+    return any(m in d for m in ("attel", "mont", "trot"))
+
+
+def poids_cotes_pour(discipline):
+    """Part des cotes dans le mélange : COTES_POIDS, et les cotes seules au trot."""
+    return COTES_POIDS_TROT if est_trot(discipline) else COTES_POIDS
 
 
 def melanger_cotes(lignes, cotes, poids_cotes=COTES_POIDS):

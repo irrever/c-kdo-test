@@ -277,6 +277,53 @@ def rafraichir_cotes_sans_donnees(date, maintenant, fenetre_minutes=60):
     return maj
 
 
+def _pronostic_avec_cotes(course, cotes):
+    """Pronostic d'une course avec les cotes du moment : le modèle mélangé au marché, la part des cotes dépendant de
+    la discipline (au trot, les cotes seules). Renvoie (pronostic, part des cotes)."""
+    poids = ae.poids_cotes_pour(course.get("discipline"))
+    lignes = ae.melanger_cotes(ae.analyser(course), cotes, poids)
+    probs = ae.probabilites(ae.simuler(lignes, n=SIMULATIONS), lignes)
+    return _pronostic_de(lignes, probs), poids
+
+
+def figer_finaux(date, maintenant, fenetre_minutes=60, ignorer=frozenset()):
+    """Pronostic final des courses de la journée : une heure avant le départ, dès que les cotes de tous les partants
+    sont connues, le pronostic est recalculé avec elles, puis il est figé. Le quinté (ignorer) garde son propre
+    pronostic final. Renvoie le nombre de courses figées."""
+    chemin = fichier(date)
+    if not os.path.exists(chemin):
+        return 0
+    with open(chemin, encoding="utf-8") as f:
+        donnees = json.load(f)
+    figees = 0
+    for x in donnees["courses"]:
+        if x.get("final") or x.get("sans_donnees") or not x.get("ordre") or x["statut"] != "before" or not x["heure"]:
+            continue
+        if (x["r"], x["c"]) in ignorer:
+            continue
+        minutes = (_depart(date, x["heure"]) - maintenant).total_seconds() / 60
+        if not 0 < minutes <= fenetre_minutes:
+            continue
+        try:
+            course = eq.course(date, x["r"], x["c"], fresh=True)
+        except Exception as e:
+            print("pronostic final non figé R%dC%d : %s" % (x["r"], x["c"], e))
+            continue
+        if not course or course.get("type_statut_course_id") != "before":
+            continue
+        cotes = ae.cotes_de(course)
+        if not cotes:  # une cote manque : le pronostic reste celui du modèle
+            continue
+        pronostic, poids = _pronostic_avec_cotes(course, cotes)
+        x.update(pronostic)
+        x["final"] = {"fige_le": maintenant.strftime("%Y-%m-%dT%H:%M"), "part_cotes": poids}
+        figees += 1
+    if figees:
+        with open(chemin, "w", encoding="utf-8") as f:
+            json.dump(donnees, f, ensure_ascii=False, indent=1)
+    return figees
+
+
 def charger(date, calculer=False):
     """Courses de la journée : lues dans le fichier, ou calculées si calculer est vrai (sinon None)."""
     chemin = fichier(date)

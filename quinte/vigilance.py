@@ -2,7 +2,7 @@
 """Zones de vigilance du pronostic final : les chevaux où notre modèle et le marché sont à deux fois d'écart.
 
 Méfiance : le modèle y croit au moins deux fois plus que le marché. À surveiller : le marché y croit au moins deux
-fois plus que le modèle. Les parts sont celles du mélange à 70 % : part du modèle (notes, avec la sensibilité K) et
+fois plus que le modèle. Les parts sont celles du mélange à 90 % (au trot, cotes seules) : part du modèle (notes, avec la sensibilité K) et
 part du marché (cotes, marge retirée). Seuls les chevaux qui ont au moins 6 % de chances dans l'un des
 deux avis sont signalés. Repère simple, pas encore validé sur nos courses.
 """

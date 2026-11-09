@@ -22,6 +22,7 @@ import registre  # noqa: E402
 SORTIE = os.path.join(HERE, "journal", "constat.md")
 TIRAGES = 2000  # rééchantillonnages pour les intervalles à 95 %
 SEED = 20261109
+CHANGEMENT_K = "2026-11-09T21:30"  # à partir de là, le registre porte K = 4 (8 avant)
 FAMILLES = ("plat", "obstacle", "trot", "autre")
 LIBELLES = {
     "hasard": "Hasard",
@@ -112,7 +113,7 @@ def charger(lignes=None):
                 break
             cotes[p["numero"]] = v
         courses.append({
-            "cle": c["cle"], "n": len(partants), "famille": ar.famille(partants[0]["discipline"]),
+            "cle": c["cle"], "calcule_le": c["partants"][0]["calcule_le"], "n": len(partants), "famille": ar.famille(partants[0]["discipline"]),
             "scores": {p["numero"]: float(p["score"]) for p in partants},
             "scores_tous": {p["numero"]: float(p["score"]) for p in c["partants"]},
             "p_registre": {p["numero"]: ar._nombre(p.get("p_victoire")) for p in c["partants"]},
@@ -203,7 +204,8 @@ def rapport(courses, ecartees):
     reprises = sum(1 for c in avec if c["sources"] == {"reprise"})
     ecarts = []  # contrôle sur tous les partants analysés, y compris ceux retirés avant le départ
     for c in courses:
-        pm = _proba_modele(c["scores_tous"], 8.0)
+        K = 4.0 if c["calcule_le"] >= CHANGEMENT_K else 8.0  # chaque ligne du registre porte le K de son calcul
+        pm = _proba_modele(c["scores_tous"], K)
         ecarts += [abs(pm[n] - v) for n, v in c["p_registre"].items() if v is not None]
     L = ["# Constat réel : modèle, marché et rapports", ""]
     L.append("Courses terminées exploitables : %d, dont %d avec les cotes de départ de tous les partants. Écartées : %s."

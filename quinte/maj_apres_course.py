@@ -10,6 +10,7 @@ Pour le quinté du jour :
 - une heure avant le départ, tant que le pronostic final n'est pas figé, le pronostic final est figé avec les cotes ;
 - une fois la course terminée et l'heure de départ + 1 h atteinte, le résultat est enregistré et la page reprise.
 Pour toute la journée, les arrivées sont mises à jour dès qu'elles sont connues.
+Une heure avant chaque départ, le pronostic de la course est figé avec les cotes, une seule fois.
 
 Affiche une ligne d'état commençant par RIEN, ATTENTE, FINAL ou MISE_A_JOUR.
 """
@@ -134,10 +135,21 @@ def _statut_quinte(date, maintenant):
     return "MISE_A_JOUR : %s, départ %s, arrivée %s" % (date, heure, ligne["ordre_reel"])
 
 
+def _course_du_quinte(date):
+    """(r, c) du quinté du jour, d'après son journal, ou None."""
+    chemin = suivi._fichier_pronostic(date)
+    if not os.path.exists(chemin):
+        return None
+    with open(chemin, encoding="utf-8") as f:
+        r, c = [int(x) for x in json.load(f)["course"].replace("R", "").split("C")]
+    return (r, c)
+
+
 def main(argv):
     date, maintenant = _parametres(argv)
     arrivees = False
     cotes = 0
+    finales = 0
     if os.path.exists(suivi._fichier_pronostic(date)):
         arrivees = journee.rafraichir_arrivees(date, maintenant)
         try:
@@ -148,12 +160,22 @@ def main(argv):
             journee.rafraichir_cotes_sans_donnees(date, maintenant)
         except Exception as e:
             print("AVERTISSEMENT : cotes des courses sans pronostic non relevées : %s" % e)
+        try:
+            quinte = _course_du_quinte(date)  # le quinté garde son propre pronostic final, figé par _statut_quinte
+            finales = journee.figer_finaux(date, maintenant, ignorer=frozenset([quinte]) if quinte else frozenset())
+        except Exception as e:
+            print("AVERTISSEMENT : pronostics finals des autres courses non figés : %s" % e)
     ligne = _statut_quinte(date, maintenant)
     if arrivees and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
         # Des courses de la journée viennent de se terminer : la page est reprise avec leurs arrivées.
         quinte_du_jour.charger(date)
         quinte_du_jour.index()
         ligne = "MISE_A_JOUR : arrivées de la journée mises à jour pour %s" % date
+    if finales and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
+        # Des pronostics finals avec cotes viennent d'être figés : la page reprend leur affichage.
+        quinte_du_jour.charger(date)
+        quinte_du_jour.index()
+        ligne = "MISE_A_JOUR : pronostics finals avec cotes figés pour %d course(s) de %s" % (finales, date)
     if cotes and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
         ligne = "MISE_A_JOUR : cotes relevées avant départ pour %d course(s) de %s" % (cotes, date)
     print(ligne)
