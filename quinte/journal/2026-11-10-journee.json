@@ -2260,7 +2260,7 @@
    "heure": "20:28",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "NOUGAYORK",
@@ -3020,7 +3020,7 @@
    "heure": "20:44",
    "distance": 2900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOMINOHE",
@@ -3034,7 +3034,13 @@
     "9": "QUERIDIA MIA",
     "10": "MITCHELL'S COMET"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    4,
+    7,
+    6
+   ],
    "ordre": [
     4,
     7,
