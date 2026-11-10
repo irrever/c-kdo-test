@@ -401,6 +401,12 @@
   .linkrow b { display: block; font-size: 15px; font-weight: 500; }
   .linkbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
   .linkbtns .primary, .linkbtns .secondary { margin-top: 0; }
+  .linkbtns .wide { grid-column: 1 / -1; }
+  /* QR code du lien : fenêtre par-dessus l’écran, code noir sur fond blanc pour rester lisible */
+  .qrveil { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.75); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .qrbox { width: min(340px, 100%); background: #19191D; border: 1px solid var(--line); border-radius: 16px; padding: 20px; text-align: center; }
+  .qrbox b { display: block; font-size: 17px; font-weight: 500; }
+  .qrbox img { display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 12px; background: #fff; image-rendering: pixelated; }
 
   /* Lien et message reçu */
   .linkbox { margin-top: 8px; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--line); font-size: 13px; word-break: break-all; color: #B4B4B8; }
@@ -3422,7 +3428,7 @@ function screenDoneCredits() {
     const envoi = at
       ? `<button class="secondary" data-act="sharelink" data-val="${k}">${n > 1 ? 'Renvoyer' : 'Renvoyer la carte'}</button>`
       : `<button class="primary" data-act="sharelink" data-val="${k}">${n > 1 ? 'Envoyer' : 'Envoyer la carte'}</button>`;
-    return `${etat}<div class="linkbtns">${envoi}<button class="secondary" data-act="copy" data-val="${k}">Copier le lien</button></div>`;
+    return `${etat}<div class="linkbtns">${envoi}<button class="secondary" data-act="copy" data-val="${k}">Copier le lien</button><button class="secondary wide" data-act="qr" data-val="${k}">Afficher le QR code</button></div>`;
   };
   const actions = n > 1
     ? links.map((_, k) => `<div class="linkrow"><b>Carte ${k + 1}</b>${bloc(k)}</div>`).join('')
@@ -3521,10 +3527,68 @@ async function rendreDebit(k, debit) {
   CRED.balance = Number(data.balance);
   CRED.optionCards = Number(data.option_cards) || 0;
 }
-/* Fait sortir le lien k : feuille de partage du téléphone (SMS, WhatsApp…), ou copie.
-   Renvoie 'partage', 'copie', 'annule' ou 'echec'. Appelée au toucher même : le navigateur n’ouvre la feuille de partage que pendant le toucher. */
+/* ---------- QR code du lien ---------- */
+/* Bibliothèque chargée au premier QR code seulement */
+const QR_LIB = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';
+let qrLib = null;
+function chargerQr() {
+  if (window.qrcode) return Promise.resolve();
+  if (!qrLib) {
+    qrLib = new Promise((ok, ko) => {
+      const s = document.createElement('script');
+      s.src = QR_LIB;
+      s.onload = () => (window.qrcode ? ok() : ko(new Error('qr')));
+      s.onerror = () => { qrLib = null; s.remove(); ko(new Error('qr')); };
+      document.head.appendChild(s);
+    });
+  }
+  return qrLib;
+}
+/* Image PNG du QR code : modules noirs sur fond blanc, avec la marge blanche de 4 modules demandée par la norme */
+function qrImage(text) {
+  const q = window.qrcode(0, 'M');
+  q.addData(text);
+  q.make();
+  const n = q.getModuleCount(), m = 4, px = 12;
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = (n + 2 * m) * px;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+  g.fillStyle = '#000';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) g.fillRect((x + m) * px, (y + m) * px, px, px);
+  return cv.toDataURL('image/png');
+}
+function fermerQr() {
+  const v = document.getElementById('qrveil');
+  if (v) v.remove();
+}
+/* Affiche le QR code du lien k : à faire scanner sur place, ou à enregistrer pour l’imprimer */
+function ouvrirQr(k) {
+  fermerQr();
+  const n = S.links.length;
+  const src = qrImage(S.links[k]);
+  const v = document.createElement('div');
+  v.id = 'qrveil'; v.className = 'qrveil';
+  v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true'); v.setAttribute('aria-label', 'QR code de la carte');
+  v.innerHTML = `<div class="qrbox">
+    <b>${n > 1 ? `QR code de la carte ${k + 1}` : 'QR code de la carte'}</b>
+    <img src="${src}" alt="QR code du lien de la carte">
+    <div class="hint">Faites scanner ce code avec l’appareil photo d’un téléphone : la carte s’ouvre.</div>
+    <a class="secondary" href="${src}" download="${n > 1 ? `ckdo-qr-carte-${k + 1}.png` : 'ckdo-qr-carte.png'}">Enregistrer l’image</a>
+    <button class="secondary" data-act="qrclose">Fermer</button>
+  </div>`;
+  /* Toucher le fond sombre ferme la fenêtre */
+  v.addEventListener('click', (e) => { if (e.target === v || e.target.closest('[data-act="qrclose"]')) fermerQr(); });
+  document.body.appendChild(v);
+}
+/* Fait sortir le lien k : feuille de partage du téléphone (SMS, WhatsApp…), copie, ou QR code affiché.
+   Renvoie 'partage', 'copie', 'qr', 'annule' ou 'echec'. Appelée au toucher même : le navigateur n’ouvre la feuille de partage que pendant le toucher. */
 async function sortirLien(k, copie) {
   const link = S.links[k];
+  if (copie === 'qr') {
+    try { await chargerQr(); ouvrirQr(k); return 'qr'; }
+    catch (err) { return 'echec'; }
+  }
   if (!copie && navigator.share) {
     try { await navigator.share(CREDITS ? { url: link } : { url: link, text: 'Une carte c.kdo pour toi !' }); return 'partage'; }
     catch (err) { if (err && err.name === 'AbortError') return 'annule'; }
@@ -3551,7 +3615,7 @@ function revenirEditeur(message) {
   S.created = false; S.soloIds = []; S.links = []; S.link = ''; S.collectionId = '';
   S.step = 'create'; S.error = ''; S.note = message || ''; S.lockedRemote = false;
 }
-/* Envoi du lien k, par partage ou par copie. Le débit se fait au moment où le lien sort. */
+/* Envoi du lien k, par partage, par copie ou par QR code (copie = 'qr'). Le débit se fait au moment où le lien sort. */
 async function envoyerLien(k, copie) {
   if (PARTAGE_EN_COURS || !S.links[k] || !sb) return;
   const cur = envoisList().find((x) => x.id === (S.soloIds || [])[k]);
@@ -3570,8 +3634,10 @@ async function envoyerLien(k, copie) {
   const sortie = await sortirLien(k, copie);
   const r = await debit;
   try {
+    const sorti = sortie === 'partage' || sortie === 'copie' || sortie === 'qr';
     if (r.err) {
-      if (sortie === 'partage' || sortie === 'copie') {
+      if (sortie === 'qr') fermerQr();
+      if (sorti) {
         /* Le lien est sorti sans paiement : on coupe les cartes de cet envoi qui ne sont pas parties */
         const gardees = await supprimerCartes(S.soloIds || []);
         if (gardees.length) S.error = rpcMsg(r.err);
@@ -3579,13 +3645,16 @@ async function envoyerLien(k, copie) {
       } else {
         S.error = rpcMsg(r.err);
       }
-    } else if (sortie === 'partage' || sortie === 'copie') {
+    } else if (sorti) {
       marquerLocal(k, new Date().toISOString());
       if (sortie === 'copie') S.note = 'Lien copié.';
     } else {
       if (r.d.debited) await rendreDebit(k, r.d);
       if (sortie === 'annule') S.note = r.d.debited ? 'Partage annulé. Rien n’a été débité.' : 'Partage annulé.';
-      else S.error = r.d.debited ? 'Le lien n’a pas pu être copié. Rien n’a été débité.' : 'Le lien n’a pas pu être copié.';
+      else {
+        const quoi = copie === 'qr' ? 'Le QR code n’a pas pu être affiché.' : 'Le lien n’a pas pu être copié.';
+        S.error = r.d.debited ? `${quoi} Rien n’a été débité.` : quoi;
+      }
     }
   } catch (err) {
     S.error = rpcMsg(err);
@@ -4579,6 +4648,8 @@ app.addEventListener('click', (e) => {
   }
   if (act === 'sharelink') return envoyerLien(v === undefined ? 0 : Number(v), false);
   if (act === 'copy') return CREDITS ? envoyerLien(v === undefined ? 0 : Number(v), true) : copyLink(el, v === undefined ? undefined : S.links[Number(v)]);
+  if (act === 'qr') return envoyerLien(v === undefined ? 0 : Number(v), 'qr');
+  if (act === 'qrclose') return fermerQr();
   if (act === 'annulerlot') return annulerLot();
   if (act === 'credannul') return annulerUneCarte(v);
   if (act === 'copygrp') return copyGroupLink(el, v);
