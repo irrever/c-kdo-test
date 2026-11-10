@@ -1972,7 +1972,7 @@
    "heure": "18:52",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LYSANDRA",
@@ -1987,7 +1987,13 @@
     "10": "LARISSA DU VIVIER",
     "11": "LUCRECE HAUFOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    4,
+    8,
+    7
+   ],
    "ordre": [
     10,
     7,
@@ -2062,7 +2068,7 @@
    "heure": "19:24",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MEDOC DES GLENAN",
@@ -2710,7 +2716,7 @@
    "heure": "19:08",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "2": "GRAN HABANO",
@@ -2727,7 +2733,13 @@
     "13": "DIEGO D'ARTOIS",
     "14": "TOOGOODFORSCHOOL"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    9,
+    6,
+    13,
+    4
+   ],
    "ordre": [
     3,
     2,
