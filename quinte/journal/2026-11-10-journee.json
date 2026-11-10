@@ -2260,7 +2260,7 @@
    "heure": "20:28",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NOUGAYORK",
@@ -2276,7 +2276,13 @@
     "11": "NOLAN DE PERVENCHE",
     "12": "NETWORK"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    6,
+    11,
+    3
+   ],
    "ordre": [
     6,
     3,
@@ -2351,7 +2357,7 @@
    "heure": "21:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "NASHWA",
