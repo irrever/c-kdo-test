@@ -1772,7 +1772,7 @@
    "heure": "17:43",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "EXPRESS LOVE (SWE)",
@@ -1792,7 +1792,13 @@
     "15": "IDEAL BOY",
     "16": "JAZZ DE PADD"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    3,
+    16,
+    4,
+    11
+   ],
    "ordre": [
     13,
     10,
@@ -2505,7 +2511,7 @@
    "heure": "18:00",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "CAPITOL HILL",
