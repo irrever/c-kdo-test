@@ -1,344 +1,739 @@
 {
  "date": "2026-11-10",
  "retroactif": false,
- "fige_le": "2026-11-09T22:08:14",
+ "fige_le": "2026-11-10T12:20:19",
  "hippodrome": "FONTAINEBLEAU",
  "course": "R1C4",
  "modele": {
   "sensibilite_K": 4.0,
   "poids": {
-   "musique": 0.4,
-   "aptitudes": 0.15,
-   "forme_cheval": 0.15,
-   "chronos": 0.12,
-   "tandem": 0.06,
-   "conditions": 0.06,
-   "bruits_ecuries": 0.06
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
   },
-  "simulations": 200000
+  "simulations": 200000,
+  "part_cotes": 0.9
  },
  "chevaux": [
   {
-   "numero": 5,
-   "nom": "MARBELLESA",
-   "score": 0.7765223761928508,
-   "p_victoire": 0.12722,
-   "p_top3": 0.357075,
-   "p_top5": 0.55263
-  },
-  {
-   "numero": 8,
-   "nom": "KHALINSKHA",
-   "score": 0.7363270681088694,
-   "p_victoire": 0.106945,
-   "p_top3": 0.309185,
-   "p_top5": 0.492695
-  },
-  {
-   "numero": 6,
-   "nom": "WAZIERS",
-   "score": 0.6744494086955254,
-   "p_victoire": 0.08497,
-   "p_top3": 0.249705,
-   "p_top5": 0.41001
-  },
-  {
-   "numero": 10,
-   "nom": "LAITH",
-   "score": 0.6515430017828057,
-   "p_victoire": 0.07742,
-   "p_top3": 0.23167,
-   "p_top5": 0.38266
-  },
-  {
-   "numero": 12,
-   "nom": "MATAKI",
-   "score": 0.6192583621537393,
-   "p_victoire": 0.06788,
-   "p_top3": 0.203645,
-   "p_top5": 0.342165
-  },
-  {
-   "numero": 3,
-   "nom": "GRAND SCOOP",
-   "score": 0.6087109949445325,
-   "p_victoire": 0.064005,
-   "p_top3": 0.19694,
-   "p_top5": 0.33256
-  },
-  {
-   "numero": 7,
-   "nom": "PRINCE AUBOIS",
-   "score": 0.6020629276043757,
-   "p_victoire": 0.062685,
-   "p_top3": 0.19165,
-   "p_top5": 0.32264
-  },
-  {
-   "numero": 13,
-   "nom": "ZAHARA",
-   "score": 0.591089402785022,
-   "p_victoire": 0.060545,
-   "p_top3": 0.184095,
-   "p_top5": 0.3108
-  },
-  {
    "numero": 9,
    "nom": "SCHUMAN",
-   "score": 0.584009995679554,
-   "p_victoire": 0.059475,
-   "p_top3": 0.180295,
-   "p_top5": 0.304465
+   "score": 0.6242697627425925,
+   "proba_cotes": 0.1781896272447957,
+   "proba_melange": 0.16643749474368655,
+   "p_victoire": 0.166105,
+   "p_top3": 0.447375,
+   "p_top5": 0.66092
   },
   {
-   "numero": 2,
-   "nom": "INTERACTIV",
-   "score": 0.5626016372525925,
-   "p_victoire": 0.05431,
-   "p_top3": 0.166405,
-   "p_top5": 0.28411
+   "numero": 5,
+   "nom": "MARBELLESA",
+   "score": 0.7906024932428872,
+   "proba_cotes": 0.11795651380993519,
+   "proba_melange": 0.11796166079057682,
+   "p_victoire": 0.11823,
+   "p_top3": 0.33735,
+   "p_top5": 0.53387
   },
   {
    "numero": 14,
    "nom": "ALPARSLAN",
-   "score": 0.5541000595720992,
-   "p_victoire": 0.052235,
-   "p_top3": 0.161335,
-   "p_top5": 0.27682
-  },
-  {
-   "numero": 4,
-   "nom": "MISTER CHANG",
-   "score": 0.5392013195708139,
-   "p_victoire": 0.050085,
-   "p_top3": 0.153585,
-   "p_top5": 0.261885
-  },
-  {
-   "numero": 1,
-   "nom": "LESSLEPASSER",
-   "score": 0.537484029946211,
-   "p_victoire": 0.04922,
-   "p_top3": 0.151545,
-   "p_top5": 0.259995
+   "score": 0.6099423671927467,
+   "proba_cotes": 0.08374912480505398,
+   "proba_melange": 0.08110313032780096,
+   "p_victoire": 0.080925,
+   "p_top3": 0.24429,
+   "p_top5": 0.40656
   },
   {
    "numero": 16,
    "nom": "FATA MORGANA",
-   "score": 0.48071570245009965,
-   "p_victoire": 0.038105,
-   "p_top3": 0.120075,
-   "p_top5": 0.21123
+   "score": 0.509231565750553,
+   "proba_cotes": 0.08374912480505398,
+   "proba_melange": 0.07920351790811163,
+   "p_victoire": 0.07931,
+   "p_top3": 0.238205,
+   "p_top5": 0.39701
+  },
+  {
+   "numero": 10,
+   "nom": "LAITH",
+   "score": 0.6719475283254789,
+   "proba_cotes": 0.06979093733754498,
+   "proba_melange": 0.0701533740406711,
+   "p_victoire": 0.069365,
+   "p_top3": 0.21437,
+   "p_top5": 0.361385
+  },
+  {
+   "numero": 7,
+   "nom": "PRINCE AUBOIS",
+   "score": 0.6491176679269327,
+   "proba_cotes": 0.06442240369619537,
+   "proba_melange": 0.06468096978233592,
+   "p_victoire": 0.064595,
+   "p_top3": 0.198235,
+   "p_top5": 0.33847
+  },
+  {
+   "numero": 8,
+   "nom": "KHALINSKHA",
+   "score": 0.7528264028334972,
+   "proba_cotes": 0.05982080343218141,
+   "proba_melange": 0.06398455351182641,
+   "p_victoire": 0.06357,
+   "p_top3": 0.195615,
+   "p_top5": 0.33172
   },
   {
    "numero": 11,
    "nom": "ROYALWOOD",
-   "score": 0.3640422970232867,
-   "p_victoire": 0.02383,
-   "p_top3": 0.07645,
-   "p_top5": 0.136845
+   "score": 0.4337939847739807,
+   "proba_cotes": 0.05982080343218141,
+   "proba_melange": 0.05667058142805443,
+   "p_victoire": 0.057425,
+   "p_top3": 0.17679,
+   "p_top5": 0.30226
+  },
+  {
+   "numero": 3,
+   "nom": "GRAND SCOOP",
+   "score": 0.6513659992431415,
+   "proba_cotes": 0.052343203003158735,
+   "proba_melange": 0.053870223485039684,
+   "p_victoire": 0.053925,
+   "p_top3": 0.16761,
+   "p_top5": 0.28961
+  },
+  {
+   "numero": 1,
+   "nom": "LESSLEPASSER",
+   "score": 0.5950308563762,
+   "proba_cotes": 0.052343203003158735,
+   "proba_melange": 0.052506084531994096,
+   "p_victoire": 0.05296,
+   "p_top3": 0.164305,
+   "p_top5": 0.283
+  },
+  {
+   "numero": 12,
+   "nom": "MATAKI",
+   "score": 0.6583626968045209,
+   "proba_cotes": 0.03489546866877249,
+   "proba_melange": 0.03835916363198493,
+   "p_victoire": 0.038675,
+   "p_top3": 0.122385,
+   "p_top5": 0.21573
+  },
+  {
+   "numero": 4,
+   "nom": "MISTER CHANG",
+   "score": 0.5858353804752752,
+   "proba_cotes": 0.03489546866877249,
+   "proba_melange": 0.03660821087909365,
+   "p_victoire": 0.037085,
+   "p_top3": 0.11726,
+   "p_top5": 0.206055
+  },
+  {
+   "numero": 13,
+   "nom": "ZAHARA",
+   "score": 0.6223970148604812,
+   "proba_cotes": 0.032211201848097684,
+   "proba_melange": 0.03501163510855629,
+   "p_victoire": 0.03536,
+   "p_top3": 0.111795,
+   "p_top5": 0.19746
+  },
+  {
+   "numero": 6,
+   "nom": "WAZIERS",
+   "score": 0.6954226725489911,
+   "proba_cotes": 0.02791637493501799,
+   "proba_melange": 0.03318904543449197,
+   "p_victoire": 0.03266,
+   "p_top3": 0.104305,
+   "p_top5": 0.18663
+  },
+  {
+   "numero": 2,
+   "nom": "INTERACTIV",
+   "score": 0.5816503612114201,
+   "proba_cotes": 0.024632095530898228,
+   "proba_melange": 0.02728481320376913,
+   "p_victoire": 0.02677,
+   "p_top3": 0.08643,
+   "p_top5": 0.15651
   },
   {
    "numero": 15,
    "nom": "PAINTELLO",
-   "score": 0.3236023835720471,
-   "p_victoire": 0.02107,
-   "p_top3": 0.066345,
-   "p_top5": 0.11849
+   "score": 0.35158482104991284,
+   "proba_cotes": 0.02326364577918166,
+   "proba_melange": 0.022975541192006475,
+   "p_victoire": 0.02304,
+   "p_top3": 0.07368,
+   "p_top5": 0.13281
   }
  ],
  "ordre_predit": [
+  9,
   5,
-  8,
-  6,
-  10,
-  12
+  14,
+  16,
+  10
  ],
  "combinaisons": {
   "Tiercé": [
    {
     "box": 3,
     "chevaux": [
+     9,
      5,
-     8,
-     6
+     14
     ],
     "combinaisons": 1,
-    "probabilite": 0.009785,
-    "par_combinaison": 0.009785
+    "probabilite": 0.01452,
+    "par_combinaison": 0.01452
    },
    {
     "box": 4,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
-     10
+     14,
+     16
     ],
     "combinaisons": 4,
-    "probabilite": 0.031545,
-    "par_combinaison": 0.00788625
+    "probabilite": 0.0441,
+    "par_combinaison": 0.011025
    },
    {
     "box": 5,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
-     10,
-     12
+     14,
+     16,
+     10
     ],
     "combinaisons": 10,
-    "probabilite": 0.063305,
-    "par_combinaison": 0.0063305
+    "probabilite": 0.08706,
+    "par_combinaison": 0.008706
    },
    {
     "box": 6,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3
+     7
     ],
     "combinaisons": 20,
-    "probabilite": 0.10751,
-    "par_combinaison": 0.0053755
+    "probabilite": 0.14161,
+    "par_combinaison": 0.007080500000000001
    }
   ],
   "Quarté": [
    {
     "box": 4,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
-     10
+     14,
+     16
     ],
     "combinaisons": 1,
-    "probabilite": 0.004415,
-    "par_combinaison": 0.004415
+    "probabilite": 0.00676,
+    "par_combinaison": 0.00676
    },
    {
     "box": 5,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
-     10,
-     12
+     14,
+     16,
+     10
     ],
     "combinaisons": 5,
-    "probabilite": 0.015715,
-    "par_combinaison": 0.003143
+    "probabilite": 0.024035,
+    "par_combinaison": 0.0048070000000000005
    },
    {
     "box": 6,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3
+     7
     ],
     "combinaisons": 15,
-    "probabilite": 0.03737,
-    "par_combinaison": 0.0024913333333333332
+    "probabilite": 0.05468,
+    "par_combinaison": 0.0036453333333333333
    },
    {
     "box": 7,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3,
-     7
+     7,
+     8
     ],
     "combinaisons": 35,
-    "probabilite": 0.072885,
-    "par_combinaison": 0.0020824285714285714
+    "probabilite": 0.103135,
+    "par_combinaison": 0.002946714285714286
    }
   ],
   "Quinté": [
    {
     "box": 5,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
-     10,
-     12
+     14,
+     16,
+     10
     ],
     "combinaisons": 1,
-    "probabilite": 0.002265,
-    "par_combinaison": 0.002265
+    "probabilite": 0.003845,
+    "par_combinaison": 0.003845
    },
    {
     "box": 6,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3
+     7
     ],
     "combinaisons": 6,
-    "probabilite": 0.00983,
-    "par_combinaison": 0.0016383333333333334
+    "probabilite": 0.0158,
+    "par_combinaison": 0.0026333333333333334
    },
    {
     "box": 7,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3,
-     7
+     7,
+     8
     ],
     "combinaisons": 21,
-    "probabilite": 0.026825,
-    "par_combinaison": 0.0012773809523809524
+    "probabilite": 0.041625,
+    "par_combinaison": 0.0019821428571428572
    },
    {
     "box": 8,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3,
      7,
-     13
+     8,
+     11
     ],
     "combinaisons": 56,
-    "probabilite": 0.05798,
-    "par_combinaison": 0.0010353571428571428
+    "probabilite": 0.08529,
+    "par_combinaison": 0.0015230357142857144
    },
    {
     "box": 9,
     "chevaux": [
+     9,
      5,
-     8,
-     6,
+     14,
+     16,
      10,
-     12,
-     3,
      7,
-     13,
-     9
+     8,
+     11,
+     3
     ],
     "combinaisons": 126,
-    "probabilite": 0.109735,
-    "par_combinaison": 0.0008709126984126984
+    "probabilite": 0.151425,
+    "par_combinaison": 0.0012017857142857143
    }
   ]
+ },
+ "pronostic_soir": {
+  "fige_le": "2026-11-09T22:08:14",
+  "modele": {
+   "sensibilite_K": 4.0,
+   "poids": {
+    "musique": 0.4,
+    "aptitudes": 0.15,
+    "forme_cheval": 0.15,
+    "chronos": 0.12,
+    "tandem": 0.06,
+    "conditions": 0.06,
+    "bruits_ecuries": 0.06
+   },
+   "simulations": 200000
+  },
+  "chevaux": [
+   {
+    "numero": 5,
+    "nom": "MARBELLESA",
+    "score": 0.7765223761928508,
+    "p_victoire": 0.12722,
+    "p_top3": 0.357075,
+    "p_top5": 0.55263
+   },
+   {
+    "numero": 8,
+    "nom": "KHALINSKHA",
+    "score": 0.7363270681088694,
+    "p_victoire": 0.106945,
+    "p_top3": 0.309185,
+    "p_top5": 0.492695
+   },
+   {
+    "numero": 6,
+    "nom": "WAZIERS",
+    "score": 0.6744494086955254,
+    "p_victoire": 0.08497,
+    "p_top3": 0.249705,
+    "p_top5": 0.41001
+   },
+   {
+    "numero": 10,
+    "nom": "LAITH",
+    "score": 0.6515430017828057,
+    "p_victoire": 0.07742,
+    "p_top3": 0.23167,
+    "p_top5": 0.38266
+   },
+   {
+    "numero": 12,
+    "nom": "MATAKI",
+    "score": 0.6192583621537393,
+    "p_victoire": 0.06788,
+    "p_top3": 0.203645,
+    "p_top5": 0.342165
+   },
+   {
+    "numero": 3,
+    "nom": "GRAND SCOOP",
+    "score": 0.6087109949445325,
+    "p_victoire": 0.064005,
+    "p_top3": 0.19694,
+    "p_top5": 0.33256
+   },
+   {
+    "numero": 7,
+    "nom": "PRINCE AUBOIS",
+    "score": 0.6020629276043757,
+    "p_victoire": 0.062685,
+    "p_top3": 0.19165,
+    "p_top5": 0.32264
+   },
+   {
+    "numero": 13,
+    "nom": "ZAHARA",
+    "score": 0.591089402785022,
+    "p_victoire": 0.060545,
+    "p_top3": 0.184095,
+    "p_top5": 0.3108
+   },
+   {
+    "numero": 9,
+    "nom": "SCHUMAN",
+    "score": 0.584009995679554,
+    "p_victoire": 0.059475,
+    "p_top3": 0.180295,
+    "p_top5": 0.304465
+   },
+   {
+    "numero": 2,
+    "nom": "INTERACTIV",
+    "score": 0.5626016372525925,
+    "p_victoire": 0.05431,
+    "p_top3": 0.166405,
+    "p_top5": 0.28411
+   },
+   {
+    "numero": 14,
+    "nom": "ALPARSLAN",
+    "score": 0.5541000595720992,
+    "p_victoire": 0.052235,
+    "p_top3": 0.161335,
+    "p_top5": 0.27682
+   },
+   {
+    "numero": 4,
+    "nom": "MISTER CHANG",
+    "score": 0.5392013195708139,
+    "p_victoire": 0.050085,
+    "p_top3": 0.153585,
+    "p_top5": 0.261885
+   },
+   {
+    "numero": 1,
+    "nom": "LESSLEPASSER",
+    "score": 0.537484029946211,
+    "p_victoire": 0.04922,
+    "p_top3": 0.151545,
+    "p_top5": 0.259995
+   },
+   {
+    "numero": 16,
+    "nom": "FATA MORGANA",
+    "score": 0.48071570245009965,
+    "p_victoire": 0.038105,
+    "p_top3": 0.120075,
+    "p_top5": 0.21123
+   },
+   {
+    "numero": 11,
+    "nom": "ROYALWOOD",
+    "score": 0.3640422970232867,
+    "p_victoire": 0.02383,
+    "p_top3": 0.07645,
+    "p_top5": 0.136845
+   },
+   {
+    "numero": 15,
+    "nom": "PAINTELLO",
+    "score": 0.3236023835720471,
+    "p_victoire": 0.02107,
+    "p_top3": 0.066345,
+    "p_top5": 0.11849
+   }
+  ],
+  "ordre_predit": [
+   5,
+   8,
+   6,
+   10,
+   12
+  ],
+  "combinaisons": {
+   "Tiercé": [
+    {
+     "box": 3,
+     "chevaux": [
+      5,
+      8,
+      6
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.009785,
+     "par_combinaison": 0.009785
+    },
+    {
+     "box": 4,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10
+     ],
+     "combinaisons": 4,
+     "probabilite": 0.031545,
+     "par_combinaison": 0.00788625
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12
+     ],
+     "combinaisons": 10,
+     "probabilite": 0.063305,
+     "par_combinaison": 0.0063305
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3
+     ],
+     "combinaisons": 20,
+     "probabilite": 0.10751,
+     "par_combinaison": 0.0053755
+    }
+   ],
+   "Quarté": [
+    {
+     "box": 4,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.004415,
+     "par_combinaison": 0.004415
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12
+     ],
+     "combinaisons": 5,
+     "probabilite": 0.015715,
+     "par_combinaison": 0.003143
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3
+     ],
+     "combinaisons": 15,
+     "probabilite": 0.03737,
+     "par_combinaison": 0.0024913333333333332
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3,
+      7
+     ],
+     "combinaisons": 35,
+     "probabilite": 0.072885,
+     "par_combinaison": 0.0020824285714285714
+    }
+   ],
+   "Quinté": [
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.002265,
+     "par_combinaison": 0.002265
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3
+     ],
+     "combinaisons": 6,
+     "probabilite": 0.00983,
+     "par_combinaison": 0.0016383333333333334
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3,
+      7
+     ],
+     "combinaisons": 21,
+     "probabilite": 0.026825,
+     "par_combinaison": 0.0012773809523809524
+    },
+    {
+     "box": 8,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3,
+      7,
+      13
+     ],
+     "combinaisons": 56,
+     "probabilite": 0.05798,
+     "par_combinaison": 0.0010353571428571428
+    },
+    {
+     "box": 9,
+     "chevaux": [
+      5,
+      8,
+      6,
+      10,
+      12,
+      3,
+      7,
+      13,
+      9
+     ],
+     "combinaisons": 126,
+     "probabilite": 0.109735,
+     "par_combinaison": 0.0008709126984126984
+    }
+   ]
+  }
+ },
+ "final": {
+  "fige_le": "2026-11-10T12:20:19",
+  "cotes": {
+   "1": 16.0,
+   "2": 34.0,
+   "3": 16.0,
+   "4": 24.0,
+   "5": 7.1,
+   "6": 30.0,
+   "7": 13.0,
+   "8": 14.0,
+   "9": 4.7,
+   "10": 12.0,
+   "11": 14.0,
+   "12": 24.0,
+   "13": 26.0,
+   "14": 10.0,
+   "15": 36.0,
+   "16": 10.0
+  },
+  "part_cotes": 0.9
  }
 }

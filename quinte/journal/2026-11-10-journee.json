@@ -191,7 +191,7 @@
    "heure": "13:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LA BELLE ISOLA",
@@ -206,7 +206,13 @@
     "10": "DONT YOU THINK",
     "11": "SKAROS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    2,
+    9,
+    3
+   ],
    "ordre": [
     1,
     5,
@@ -940,7 +946,7 @@
    "heure": "12:52",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NEWTON DE BELFOND",
@@ -957,7 +963,13 @@
     "12": "NOVATEUR",
     "13": "NOBLE DIABLE MEF"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    5,
+    13,
+    11
+   ],
    "ordre": [
     10,
     7,
