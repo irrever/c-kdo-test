@@ -10,7 +10,7 @@
    "heure": "12:00",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "YACOMO",
@@ -21,7 +21,13 @@
     "6": "STARGATOR",
     "7": "SHUNSHOKU"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    2,
+    4,
+    1
+   ],
    "ordre": [
     7,
     5,
