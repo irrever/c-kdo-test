@@ -783,7 +783,7 @@
    "heure": "16:50",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "EAGLE GATE",
@@ -802,7 +802,13 @@
     "14": "UNE PEINTURE",
     "15": "COOLMEEN ROYAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    4,
+    6,
+    11
+   ],
    "ordre": [
     8,
     5,
@@ -1669,7 +1675,7 @@
    "heure": "17:07",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "KOBA D'HILAIRE",
