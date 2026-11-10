@@ -487,7 +487,7 @@
    "heure": "15:05",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MENKENT",
@@ -503,7 +503,13 @@
     "11": "LEGENDFLIES",
     "12": "AUTRICHE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    3,
+    6,
+    12
+   ],
    "ordre": [
     6,
     4,
@@ -1257,7 +1263,7 @@
    "heure": "14:47",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NARCO DRY",
@@ -1271,7 +1277,13 @@
     "9": "NEW HAUFOR",
     "10": "NASH"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    6,
+    4,
+    10
+   ],
    "ordre": [
     6,
     10,
