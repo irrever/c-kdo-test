@@ -2357,7 +2357,7 @@
    "heure": "21:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NASHWA",
@@ -2373,7 +2373,13 @@
     "11": "NAMI JIEL",
     "12": "NEBELINE LEMAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    1,
+    9,
+    11
+   ],
    "ordre": [
     1,
     5,
