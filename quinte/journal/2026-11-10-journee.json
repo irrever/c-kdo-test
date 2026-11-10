@@ -584,7 +584,7 @@
    "heure": "15:40",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JOUR POLAIRE",
@@ -601,7 +601,13 @@
     "12": "URCHIN",
     "13": "GALASSI"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    5,
+    6,
+    12,
+    8
+   ],
    "ordre": [
     7,
     8,
@@ -676,7 +682,7 @@
    "heure": "16:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "REGALIEN",
@@ -1457,7 +1463,7 @@
    "heure": "15:57",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MEVOILA VIVANCIERE",
@@ -1474,7 +1480,13 @@
     "12": "MALINE DES LANDES",
     "13": "MISS DE BAILLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    10,
+    9,
+    11,
+    5
+   ],
    "ordre": [
     10,
     12,
