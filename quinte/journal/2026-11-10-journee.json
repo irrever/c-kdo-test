@@ -1972,7 +1972,7 @@
    "heure": "18:52",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "LYSANDRA",
@@ -2611,7 +2611,7 @@
    "heure": "18:35",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "RUFFANO BELLO",
@@ -2629,7 +2629,13 @@
     "13": "HELL S THREAT",
     "14": "KIRKENDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    8,
+    1,
+    6,
+    9
+   ],
    "ordre": [
     6,
     12,
