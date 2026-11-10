@@ -2068,7 +2068,7 @@
    "heure": "19:24",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MEDOC DES GLENAN",
@@ -2084,7 +2084,13 @@
     "11": "MIKI DU POMMEREUX",
     "12": "MOLITA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    9,
+    10,
+    6
+   ],
    "ordre": [
     7,
     4,
@@ -2814,7 +2820,7 @@
    "heure": "19:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NIIA",
@@ -2831,7 +2837,13 @@
     "12": "ROSA TREZY",
     "13": "MADDOX"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    11,
+    4,
+    3
+   ],
    "ordre": [
     2,
     1,
