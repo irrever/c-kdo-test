@@ -1,0 +1,212 @@
+{
+  "box": [
+    5,
+    7,
+    4,
+    10,
+    14,
+    15
+  ],
+  "top5": [
+    5,
+    7,
+    4,
+    10,
+    13
+  ],
+  "a_jouer": [
+    14
+  ],
+  "a_eviter": [
+    13,
+    1,
+    3,
+    11,
+    8
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 5,
+      "nom": "XILOFONO",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4845,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "SIGTUNA",
+      "rang": 2,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4245,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "SHARP RISE",
+      "rang": 3,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4077,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "BRITANIA",
+      "rang": 4,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3824,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "BLACK ULTRA",
+      "rang": 5,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3682,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "SPANISH LIGHT",
+      "rang": 6,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3643,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "AGADOR",
+      "rang": 7,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3536,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "GEORGES VILLE",
+      "rang": 8,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3349,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "SWISS MONEY",
+      "rang": 9,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3115,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "POCA GEN",
+      "rang": 10,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.307,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "SPANISH BREEZE CEN",
+      "rang": 11,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2634,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "KING TREZY",
+      "rang": 12,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2418,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "LOHENGREEN",
+      "rang": 13,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2295,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "ZILYA",
+      "rang": 14,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2082,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "NOLITO",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2041,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "GOLD PLAYER",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1143,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-11",
+  "r": 1,
+  "c": 3,
+  "hippodrome": "TOULOUSE  ",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-10T22:03:32+00:00"
+}
