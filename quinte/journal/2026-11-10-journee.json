@@ -1873,7 +1873,7 @@
    "heure": "18:17",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LUPIN DU BOURG",
@@ -1891,7 +1891,13 @@
     "13": "LE PORTO",
     "14": "LOOKING DU CAIEU"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    13,
+    12,
+    11,
+    10
+   ],
    "ordre": [
     11,
     12,
@@ -2511,7 +2517,7 @@
    "heure": "18:00",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CAPITOL HILL",
@@ -2524,7 +2530,13 @@
     "8": "NUITS PARISIENNES",
     "9": "CATHERINE LA MER"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    5,
+    1,
+    2
+   ],
    "ordre": [
     5,
     1,
@@ -2599,7 +2611,7 @@
    "heure": "18:35",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 14,
    "noms": {
     "1": "RUFFANO BELLO",
