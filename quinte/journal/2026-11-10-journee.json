@@ -287,7 +287,7 @@
    "heure": "13:55",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LESSLEPASSER",
@@ -307,7 +307,13 @@
     "15": "PAINTELLO",
     "16": "FATA MORGANA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    15,
+    5,
+    13
+   ],
    "ordre": [
     5,
     8,
@@ -1145,7 +1151,7 @@
    "heure": "14:12",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "INDICE DE MALOUY",
