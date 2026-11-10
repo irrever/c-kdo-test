@@ -2165,7 +2165,7 @@
    "heure": "19:56",
    "distance": 2550,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "L'OURS",
@@ -2179,7 +2179,13 @@
     "9": "LISA DU HEURT",
     "10": "LADY DES VALOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    8,
+    9,
+    3
+   ],
    "ordre": [
     6,
     10,
@@ -2918,7 +2924,7 @@
    "heure": "20:12",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ZITTO",
@@ -2933,7 +2939,13 @@
     "10": "RENVERSANTE",
     "11": "CAPOUCHINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    5,
+    4,
+    2
+   ],
    "ordre": [
     5,
     8,
