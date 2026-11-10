@@ -388,7 +388,7 @@
    "heure": "14:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ALBERTINELLI",
@@ -406,7 +406,13 @@
     "14": "DENVER CHOP",
     "15": "KOREM"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    8,
+    5,
+    14
+   ],
    "ordre": [
     9,
     7,
@@ -1151,7 +1157,7 @@
    "heure": "14:12",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "INDICE DE MALOUY",
@@ -1170,7 +1176,13 @@
     "14": "IXOR DE L'ITON",
     "15": "JIRI PACHA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    10,
+    9,
+    4
+   ],
    "ordre": [
     12,
     10,
