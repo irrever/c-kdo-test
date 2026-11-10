@@ -95,7 +95,7 @@
    "heure": "12:35",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KESKAVIEL",
@@ -110,7 +110,13 @@
     "10": "MUHAATHER",
     "11": "EMILIE ROMAGNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    10,
+    4,
+    2
+   ],
    "ordre": [
     6,
     8,
@@ -835,7 +841,7 @@
    "heure": "12:17",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "OSCAR FOUGERAY",
@@ -853,7 +859,13 @@
     "13": "ONEY DE MAC",
     "14": "OTHELO DE LA LONDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    4,
+    9,
+    12
+   ],
    "ordre": [
     14,
     8,
