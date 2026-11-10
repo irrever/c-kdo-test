@@ -1675,7 +1675,7 @@
    "heure": "17:07",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KOBA D'HILAIRE",
@@ -1691,7 +1691,13 @@
     "11": "KIRA DE CAHOT",
     "12": "KONFINEMENT"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    9,
+    3,
+    8,
+    2
+   ],
    "ordre": [
     1,
     9,
@@ -1766,7 +1772,7 @@
    "heure": "17:43",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "EXPRESS LOVE (SWE)",
@@ -2406,7 +2412,7 @@
    "heure": "17:25",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "2": "HANDHY",
@@ -2418,7 +2424,13 @@
     "8": "BRAMANTE",
     "9": "SILVER CONDOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    7,
+    4,
+    6
+   ],
    "ordre": [
     2,
     4,
