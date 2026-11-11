@@ -200,7 +200,7 @@
    "heure": "15:15",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "AGADOR",
@@ -1517,7 +1517,7 @@
    "heure": "14:58",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "KARAFON",
@@ -1526,7 +1526,13 @@
     "4": "LA P'TITE SOEUR",
     "5": "LA FLEUR AU FUSIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    2,
+    4,
+    3
+   ],
    "ordre": [
     1,
     4,
@@ -2159,7 +2165,7 @@
    "heure": "14:50",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KATE DES GENIEVRES",
@@ -2177,7 +2183,13 @@
     "13": "MONTE CRISTO",
     "14": "MARVEL MAX"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    10,
+    13,
+    9
+   ],
    "ordre": [
     8,
     3,
@@ -3993,7 +4005,7 @@
    "heure": "14:25",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MANSSOURIO",
@@ -4010,7 +4022,13 @@
     "12": "MONTE CINTO",
     "13": "LILI FOR MOMS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    1,
+    10,
+    2
+   ],
    "ordre": [
     13,
     5,
@@ -4085,7 +4103,7 @@
    "heure": "14:55",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "MALINE DE GRISSAY",
@@ -4096,7 +4114,13 @@
     "6": "BAHIARY",
     "7": "MIGHTY RAFFLES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    1,
+    4,
+    7
+   ],
    "ordre": [
     5,
     4,
@@ -5012,7 +5036,7 @@
    "heure": "14:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SWIFT ASCEND",
@@ -5028,7 +5052,13 @@
     "11": "DARYL FLASH",
     "12": "SPEEDY SMARTIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    8,
+    1,
+    11
+   ],
    "ordre": [
     5,
     12,
@@ -5103,7 +5133,7 @@
    "heure": "15:15",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "POPE CODY",
@@ -6469,7 +6499,7 @@
    "heure": "14:40",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NUIT DU DER",
@@ -6485,7 +6515,13 @@
     "11": "NIGHT LOCO",
     "12": "NATIVE DU VAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    12,
+    9,
+    1,
+    8
+   ],
    "ordre": [
     2,
     10,
@@ -6560,7 +6596,7 @@
    "heure": "15:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "JUVAMINE RENARDIER",
@@ -7119,7 +7155,7 @@
    "heure": "14:30",
    "distance": 2775,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LUAP D'ORTIGE",
@@ -7135,7 +7171,13 @@
     "11": "L'ECU DALAMEDA",
     "12": "LA QUICK"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    1,
+    4,
+    10,
+    6
+   ],
    "ordre": [
     10,
     8,
@@ -7210,7 +7252,7 @@
    "heure": "15:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SPORT COUPE",
@@ -7223,7 +7265,13 @@
     "8": "THE DIG",
     "9": "ROSADORA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    9,
+    5,
+    2
+   ],
    "ordre": [
     4,
     1,
@@ -7972,7 +8020,7 @@
    "heure": "14:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "ISIDORO DIDAN",
@@ -7994,7 +8042,13 @@
     "17": "JOKER DE CHOISEL",
     "18": "IRRESISTIBLE PAJ"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    10,
+    12,
+    15,
+    13
+   ],
    "ordre": [
     16,
     12,
@@ -8069,7 +8123,7 @@
    "heure": "15:00",
    "distance": 3025,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "IDEFIX HERBLINAIE",
@@ -8089,7 +8143,13 @@
     "15": "IVAR D'AURCY",
     "16": "HASARD BLOND"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    2,
+    16,
+    12,
+    1
+   ],
    "ordre": [
     10,
     15,
