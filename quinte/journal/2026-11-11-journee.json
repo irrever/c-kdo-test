@@ -3876,7 +3876,7 @@
    "heure": "22:22",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "N'JOY MADRIK",
@@ -3896,7 +3896,13 @@
     "15": "NILL TRY",
     "16": "NASHVILLE SMART"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    9,
+    15,
+    2,
+    11
+   ],
    "ordre": [
     14,
     5,
