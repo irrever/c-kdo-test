@@ -789,7 +789,7 @@
    "heure": "18:45",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "SOUPIR",
@@ -807,7 +807,13 @@
     "13": "MA TORNADE",
     "15": "PINTXOPOTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    10,
+    8,
+    15
+   ],
    "ordre": [
     6,
     2,
@@ -2890,7 +2896,7 @@
    "heure": "19:02",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "KROSKOF DE GUEZ",
@@ -3163,7 +3169,7 @@
    "heure": "18:45",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KURT DE LA CEZE",
@@ -3181,7 +3187,13 @@
     "13": "JIJI DOUZOU",
     "14": "KABOBBY SANT"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    10,
+    5,
+    11
+   ],
    "ordre": [
     2,
     5,
@@ -5511,7 +5523,7 @@
    "heure": "18:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "WERUWERU",
@@ -5527,7 +5539,13 @@
     "11": "TISSI HALL",
     "12": "INTERNATIONAL TRAP"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    12,
+    6,
+    3
+   ],
    "ordre": [
     9,
     1,
@@ -5602,7 +5620,7 @@
    "heure": "19:03",
    "distance": 2140,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "MINDELO",
