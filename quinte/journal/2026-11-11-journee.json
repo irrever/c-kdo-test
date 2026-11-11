@@ -3776,7 +3776,7 @@
    "heure": "21:52",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "TARDIF DE L'ERVE",
@@ -3795,7 +3795,13 @@
     "14": "TOTHEMOON D'HUIN",
     "15": "TRES BELLE JP"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    14,
+    4,
+    11
+   ],
    "ordre": [
     11,
     3,
@@ -6336,7 +6342,7 @@
    "heure": "21:51",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "COINS GLENN",
@@ -6352,7 +6358,13 @@
     "11": "MIDNIGHT MADNESS",
     "12": "LASAGNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    8,
+    11,
+    12
+   ],
    "ordre": [
     6,
     9,
