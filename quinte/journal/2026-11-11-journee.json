@@ -588,7 +588,7 @@
    "heure": "17:35",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KNUCKLE",
@@ -608,7 +608,13 @@
     "15": "EYE OF THE TIGER",
     "16": "MEXICAN DREAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    9,
+    14,
+    10
+   ],
    "ordre": [
     8,
     13,
@@ -683,7 +689,7 @@
    "heure": "18:10",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "TAMAGHU",
@@ -2679,7 +2685,7 @@
    "heure": "17:52",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MORNINGSUN DU RHIN",
@@ -2696,7 +2702,13 @@
     "12": "MYSTERE TURGOT",
     "13": "MOULU JIHEM"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    8,
+    10,
+    4,
+    13
+   ],
    "ordre": [
     11,
     10,
@@ -5393,7 +5405,7 @@
    "heure": "18:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 9,
    "noms": {
     "1": "CATCH A WAVE",
