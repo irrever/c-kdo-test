@@ -3579,7 +3579,7 @@
    "heure": "20:52",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NOBLE NOVEMBER",
@@ -3594,7 +3594,13 @@
     "10": "PARTOUCHE D'EREBUS",
     "11": "MAGIC RIVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    8,
+    10,
+    4
+   ],
    "ordre": [
     2,
     8,
@@ -6039,7 +6045,7 @@
    "heure": "20:41",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "FARLOW SELVA",
@@ -6055,7 +6061,13 @@
     "11": "IKE ZET",
     "12": "BEAUTY EVO"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    3,
+    5,
+    2,
+    9
+   ],
    "ordre": [
     11,
     8,
@@ -6130,7 +6142,7 @@
    "heure": "21:03",
    "distance": 2640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "H.C.'S CRAZY HORSE",
@@ -6142,7 +6154,11 @@
     "7": "JIKKEN",
     "8": "DUNDEE AS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    8
+   ],
    "ordre": [
     8,
     7,
