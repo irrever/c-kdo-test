@@ -1023,7 +1023,7 @@
    "heure": "12:18",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SORELINO",
@@ -1039,7 +1039,13 @@
     "11": "ANNALIGHT",
     "12": "LADY IN RED"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    8,
+    5,
+    11
+   ],
    "ordre": [
     10,
     5,
@@ -1728,7 +1734,7 @@
    "heure": "12:34",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "NOUBLIPASLESFLEURS",
@@ -4546,7 +4552,7 @@
    "heure": "12:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "ARGENTO OCEAN",
@@ -7440,7 +7446,7 @@
    "heure": "12:30",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "OLYMPE DU PONT",
@@ -7458,7 +7464,13 @@
     "13": "OPERA WOOD",
     "14": "OFFICINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    13,
+    11,
+    10
+   ],
    "ordre": [
     10,
     11,
