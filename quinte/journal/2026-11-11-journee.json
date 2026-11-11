@@ -1213,7 +1213,7 @@
    "heure": "13:22",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "VERDANSK",
@@ -1233,7 +1233,13 @@
     "15": "WHAT ELSE CHOP",
     "16": "WILMOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    5,
+    10,
+    14
+   ],
    "ordre": [
     8,
     4,
@@ -1835,7 +1841,7 @@
    "heure": "13:06",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "1": "IT'S YOUR CHOICE",
@@ -1856,7 +1862,13 @@
     "16": "NANSHAN",
     "17": "L'ASTROBALE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    17,
+    7,
+    3
+   ],
    "ordre": [
     13,
     1,
@@ -1931,7 +1943,7 @@
    "heure": "13:38",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "SPLENDIOSE",
@@ -3773,7 +3785,7 @@
    "heure": "13:25",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "HAPPY TAJ",
@@ -3787,7 +3799,13 @@
     "10": "WITHNEY",
     "11": "OBSCURE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    1,
+    11,
+    10
+   ],
    "ordre": [
     8,
     2,
@@ -4661,7 +4679,7 @@
    "heure": "13:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ACE",
@@ -4677,7 +4695,13 @@
     "11": "CHEERFUL WONGCHOY",
     "12": "AESTHETICISM"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    7,
+    1,
+    6,
+    8
+   ],
    "ordre": [
     3,
     7,
@@ -4752,7 +4776,7 @@
    "heure": "13:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "AKERMANIS GOLD",
@@ -6105,7 +6129,7 @@
    "heure": "13:10",
    "distance": 2000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "OK D'EURVAD",
@@ -6117,7 +6141,13 @@
     "7": "OMAN D'ORLY",
     "8": "OVER TRACK"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    1,
+    8,
+    7
+   ],
    "ordre": [
     1,
     2,
@@ -6832,7 +6862,7 @@
    "heure": "13:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MIDDLE STAR",
@@ -7668,7 +7698,7 @@
    "heure": "13:30",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "NANCIA DU LUPIN",
