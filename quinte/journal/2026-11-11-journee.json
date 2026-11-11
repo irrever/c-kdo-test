@@ -301,7 +301,7 @@
    "heure": "15:50",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NEW BILL",
@@ -316,7 +316,13 @@
     "10": "SAINT MARC",
     "11": "MAKA DES GRANGES"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    10,
+    3,
+    6,
+    8
+   ],
    "ordre": [
     8,
     3,
@@ -2270,7 +2276,7 @@
    "heure": "15:30",
    "distance": 5400,
    "discipline": "Cross",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KLITCHKO DE BELAIR",
@@ -2284,7 +2290,13 @@
     "9": "BELABRA",
     "10": "LISETTE D'ESTRUVAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    4,
+    8,
+    7
+   ],
    "ordre": [
     3,
     1,
@@ -2359,7 +2371,7 @@
    "heure": "16:07",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "LASCAR DE YOR",
@@ -4292,7 +4304,7 @@
    "heure": "16:00",
    "distance": 3600,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "STAR CARIBEAN",
@@ -4305,7 +4317,13 @@
     "8": "MON BONHEUR",
     "9": "MISS GREEN FEVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    4,
+    3,
+    8
+   ],
    "ordre": [
     1,
     4,
@@ -5242,7 +5260,7 @@
    "heure": "15:50",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "HELENE FEELING",
@@ -5258,7 +5276,13 @@
     "11": "REGAL GEM",
     "12": "FORTUNATE SON"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    2,
+    5,
+    8
+   ],
    "ordre": [
     12,
     7,
@@ -6715,7 +6739,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MASTER KING",
@@ -6735,7 +6759,13 @@
     "15": "MIMOSA DE LARRE",
     "16": "MAN OF WOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    13,
+    11,
+    16
+   ],
    "ordre": [
     13,
     11,
@@ -6810,7 +6840,7 @@
    "heure": "16:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "GYPSIE MAGIQUE",
@@ -7370,7 +7400,7 @@
    "heure": "15:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JOJO DE BOURGOGNE",
@@ -7390,7 +7420,13 @@
     "15": "IMPACT DE L'ITON",
     "16": "INGLETON DE BRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    9,
+    14,
+    5
+   ],
    "ordre": [
     10,
     15,
@@ -7465,7 +7501,7 @@
    "heure": "16:00",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KOREANE DELICE",
@@ -7485,7 +7521,13 @@
     "15": "JOKER DU MIDI",
     "16": "JUPITER FRANCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    5,
+    7,
+    1,
+    2
+   ],
    "ordre": [
     7,
     16,
@@ -8248,7 +8290,7 @@
    "heure": "15:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAT DES CHARRONS",
@@ -8266,7 +8308,13 @@
     "13": "MISS DAM LORRAINE",
     "14": "MARITZA DU PERCHE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    14,
+    11,
+    2,
+    6
+   ],
    "ordre": [
     2,
     3,
@@ -8341,7 +8389,7 @@
    "heure": "16:00",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "MORANT DAIRPET",
