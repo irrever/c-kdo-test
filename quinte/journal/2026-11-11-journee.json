@@ -10,7 +10,7 @@
    "heure": "13:58",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "WILDCATTING",
@@ -25,7 +25,13 @@
     "10": "BRIOLETTE",
     "11": "CLEMENTINA CEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    11,
+    8,
+    7,
+    2
+   ],
    "ordre": [
     4,
     8,
@@ -1314,7 +1320,7 @@
    "heure": "13:54",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MARY POPPINS",
@@ -1326,7 +1332,13 @@
     "7": "MAURA MAGUIRE",
     "8": "FUJI HANA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    7,
+    4,
+    5
+   ],
    "ordre": [
     1,
     5,
@@ -1943,7 +1955,7 @@
    "heure": "13:38",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "SPLENDIOSE",
@@ -1957,7 +1969,13 @@
     "9": "KINGS DECREE",
     "10": "TRUE LOVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    1,
+    9,
+    3
+   ],
    "ordre": [
     1,
     6,
@@ -2032,7 +2050,7 @@
    "heure": "14:15",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "THE PRINCE",
@@ -3880,7 +3898,7 @@
    "heure": "13:55",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "VACQUERA",
@@ -3890,7 +3908,13 @@
     "5": "AGUILERA",
     "6": "KARA LA VIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    3,
+    6,
+    2
+   ],
    "ordre": [
     2,
     1,
@@ -4776,7 +4800,7 @@
    "heure": "13:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AKERMANIS GOLD",
@@ -4792,7 +4816,13 @@
     "11": "SURE JOYFUL",
     "12": "HAPPY PROMISE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    10,
+    3,
+    12,
+    4
+   ],
    "ordre": [
     1,
     11,
@@ -4867,7 +4897,7 @@
    "heure": "14:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "FORERUNNER",
@@ -6222,7 +6252,7 @@
    "heure": "13:40",
    "distance": 2000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "OLBIA SPEED",
@@ -6237,7 +6267,13 @@
     "11": "ORCHESTRA DI PAO",
     "12": "OUATE DU CHENE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    2,
+    11,
+    12
+   ],
    "ordre": [
     1,
     2,
@@ -6312,7 +6348,7 @@
    "heure": "14:10",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "NICKEL DES ARRIS",
@@ -6862,7 +6898,7 @@
    "heure": "13:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MIDDLE STAR",
@@ -6879,7 +6915,13 @@
     "12": "MISAKI D'OURVILLE",
     "13": "MIDLAND D'OYSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    12,
+    5,
+    3,
+    2
+   ],
    "ordre": [
     12,
     10,
@@ -6954,7 +6996,7 @@
    "heure": "14:00",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "TARASOFT",
@@ -6966,7 +7008,13 @@
     "7": "SCHWANGAU",
     "8": "LITTLE HAVANA"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    4,
+    1,
+    6
+   ],
    "ordre": [
     8,
     3,
@@ -7698,7 +7746,7 @@
    "heure": "13:30",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NANCIA DU LUPIN",
@@ -7716,7 +7764,13 @@
     "13": "NINA DE SUBLIGNY",
     "14": "NAUSICA DE CHANJAC"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    12,
+    9,
+    14,
+    2
+   ],
    "ordre": [
     8,
     11,
@@ -7791,7 +7845,7 @@
    "heure": "14:00",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KAMELA FLIGNY",
@@ -7807,7 +7861,13 @@
     "11": "KERIDA DE MARZY",
     "12": "KALITY LOVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    11,
+    9,
+    12
+   ],
    "ordre": [
     3,
     6,

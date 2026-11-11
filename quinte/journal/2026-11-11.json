@@ -1,7 +1,7 @@
 {
  "date": "2026-11-11",
  "retroactif": false,
- "fige_le": "2026-11-10T22:03:34",
+ "fige_le": "2026-11-11T13:20:47",
  "hippodrome": "TOULOUSE  ",
  "course": "R1C3",
  "modele": {
@@ -15,330 +15,725 @@
    "conditions": 0.075,
    "bruits_ecuries": 0.075
   },
-  "simulations": 200000
+  "simulations": 200000,
+  "part_cotes": 0.9
  },
  "chevaux": [
-  {
-   "numero": 5,
-   "nom": "XILOFONO",
-   "score": 0.7433418279369141,
-   "p_victoire": 0.10643,
-   "p_top3": 0.305285,
-   "p_top5": 0.48449
-  },
-  {
-   "numero": 7,
-   "nom": "SIGTUNA",
-   "score": 0.7002029854810853,
-   "p_victoire": 0.088355,
-   "p_top3": 0.26074,
-   "p_top5": 0.4245
-  },
-  {
-   "numero": 4,
-   "nom": "SHARP RISE",
-   "score": 0.6872229162406646,
-   "p_victoire": 0.08554,
-   "p_top3": 0.24958,
-   "p_top5": 0.40768
-  },
   {
    "numero": 10,
    "nom": "BRITANIA",
    "score": 0.6670017080740043,
-   "p_victoire": 0.07784,
-   "p_top3": 0.23177,
-   "p_top5": 0.382355
-  },
-  {
-   "numero": 13,
-   "nom": "BLACK ULTRA",
-   "score": 0.6549206722669771,
-   "p_victoire": 0.07498,
-   "p_top3": 0.222865,
-   "p_top5": 0.368215
-  },
-  {
-   "numero": 15,
-   "nom": "SPANISH LIGHT",
-   "score": 0.650451042590407,
-   "p_victoire": 0.072605,
-   "p_top3": 0.21925,
-   "p_top5": 0.364265
-  },
-  {
-   "numero": 1,
-   "nom": "AGADOR",
-   "score": 0.6436051278139848,
-   "p_victoire": 0.07077,
-   "p_top3": 0.21265,
-   "p_top5": 0.353615
-  },
-  {
-   "numero": 14,
-   "nom": "GEORGES VILLE",
-   "score": 0.6279778404654223,
-   "p_victoire": 0.066585,
-   "p_top3": 0.201165,
-   "p_top5": 0.334915
-  },
-  {
-   "numero": 16,
-   "nom": "SWISS MONEY",
-   "score": 0.6046424149490331,
-   "p_victoire": 0.061855,
-   "p_top3": 0.18577,
-   "p_top5": 0.311545
-  },
-  {
-   "numero": 2,
-   "nom": "POCA GEN",
-   "score": 0.5995373807804719,
-   "p_victoire": 0.05979,
-   "p_top3": 0.181545,
-   "p_top5": 0.30703
-  },
-  {
-   "numero": 3,
-   "nom": "SPANISH BREEZE CEN",
-   "score": 0.5545754544999353,
-   "p_victoire": 0.050025,
-   "p_top3": 0.15401,
-   "p_top5": 0.26344
+   "proba_cotes": 0.17880352789294596,
+   "proba_melange": 0.16874578031598916,
+   "p_victoire": 0.16823,
+   "p_top3": 0.457,
+   "p_top5": 0.676275
   },
   {
    "numero": 11,
    "nom": "KING TREZY",
    "score": 0.5312157637723481,
-   "p_victoire": 0.046225,
-   "p_top3": 0.14195,
-   "p_top5": 0.241755
+   "proba_cotes": 0.17150542471364202,
+   "proba_melange": 0.15889918300963202,
+   "p_victoire": 0.15904,
+   "p_top3": 0.433985,
+   "p_top5": 0.65336
+  },
+  {
+   "numero": 3,
+   "nom": "SPANISH BREEZE CEN",
+   "score": 0.5545754544999353,
+   "proba_cotes": 0.09337517567742733,
+   "proba_melange": 0.0890270429922469,
+   "p_victoire": 0.08991,
+   "p_top3": 0.26942,
+   "p_top5": 0.445985
   },
   {
    "numero": 8,
    "nom": "LOHENGREEN",
    "score": 0.5160716316002383,
-   "p_victoire": 0.04327,
-   "p_top3": 0.1333,
-   "p_top5": 0.22952
+   "proba_cotes": 0.07639787100880419,
+   "proba_melange": 0.07303527856415727,
+   "p_victoire": 0.07243,
+   "p_top3": 0.22391,
+   "p_top5": 0.381055
   },
   {
-   "numero": 9,
-   "nom": "ZILYA",
-   "score": 0.49187483331918874,
-   "p_victoire": 0.03816,
-   "p_top3": 0.11924,
-   "p_top5": 0.20824
+   "numero": 5,
+   "nom": "XILOFONO",
+   "score": 0.7433418279369141,
+   "proba_cotes": 0.06464435239206508,
+   "proba_melange": 0.06879608519331815,
+   "p_victoire": 0.068125,
+   "p_top3": 0.212755,
+   "p_top5": 0.36362
+  },
+  {
+   "numero": 7,
+   "nom": "SIGTUNA",
+   "score": 0.7002029854810853,
+   "proba_cotes": 0.06464435239206508,
+   "proba_melange": 0.06711354669554193,
+   "p_victoire": 0.066795,
+   "p_top3": 0.20626,
+   "p_top5": 0.3555
+  },
+  {
+   "numero": 13,
+   "nom": "BLACK ULTRA",
+   "score": 0.6549206722669771,
+   "proba_cotes": 0.06464435239206508,
+   "proba_melange": 0.06563349006690959,
+   "p_victoire": 0.066115,
+   "p_top3": 0.20381,
+   "p_top5": 0.347905
+  },
+  {
+   "numero": 1,
+   "nom": "AGADOR",
+   "score": 0.6436051278139848,
+   "proba_cotes": 0.044230346373518206,
+   "proba_melange": 0.046931040744120196,
+   "p_victoire": 0.04692,
+   "p_top3": 0.149885,
+   "p_top5": 0.262075
+  },
+  {
+   "numero": 14,
+   "nom": "GEORGES VILLE",
+   "score": 0.6279778404654223,
+   "proba_cotes": 0.042018829054842305,
+   "proba_melange": 0.044509009006771634,
+   "p_victoire": 0.044785,
+   "p_top3": 0.14178,
+   "p_top5": 0.251285
+  },
+  {
+   "numero": 15,
+   "nom": "SPANISH LIGHT",
+   "score": 0.650451042590407,
+   "proba_cotes": 0.03361506324387384,
+   "proba_melange": 0.03757505515856466,
+   "p_victoire": 0.03781,
+   "p_top3": 0.12093,
+   "p_top5": 0.21548
   },
   {
    "numero": 6,
    "nom": "NOLITO",
    "score": 0.4852389964133266,
-   "p_victoire": 0.03716,
-   "p_top3": 0.116665,
-   "p_top5": 0.204105
+   "proba_cotes": 0.036538112221602,
+   "proba_melange": 0.03666521885766377,
+   "p_victoire": 0.03696,
+   "p_top3": 0.1187,
+   "p_top5": 0.211735
+  },
+  {
+   "numero": 2,
+   "nom": "POCA GEN",
+   "score": 0.5995373807804719,
+   "proba_cotes": 0.03361506324387384,
+   "proba_melange": 0.03622602548655118,
+   "p_victoire": 0.036695,
+   "p_top3": 0.117255,
+   "p_top5": 0.209275
   },
   {
    "numero": 12,
    "nom": "GOLD PLAYER",
    "score": 0.3275964635636422,
-   "p_victoire": 0.02041,
-   "p_top3": 0.064215,
-   "p_top5": 0.11433
+   "proba_cotes": 0.03501569087903525,
+   "proba_melange": 0.033526659904382056,
+   "p_victoire": 0.03358,
+   "p_top3": 0.10817,
+   "p_top5": 0.19376
+  },
+  {
+   "numero": 9,
+   "nom": "ZILYA",
+   "score": 0.49187483331918874,
+   "proba_cotes": 0.027108921970866,
+   "proba_melange": 0.02828064963373816,
+   "p_victoire": 0.027845,
+   "p_top3": 0.090265,
+   "p_top5": 0.165195
+  },
+  {
+   "numero": 4,
+   "nom": "SHARP RISE",
+   "score": 0.6872229162406646,
+   "proba_cotes": 0.019099467752201046,
+   "proba_melange": 0.02567114954177687,
+   "p_victoire": 0.025095,
+   "p_top3": 0.082285,
+   "p_top5": 0.151135
+  },
+  {
+   "numero": 16,
+   "nom": "SWISS MONEY",
+   "score": 0.6046424149490331,
+   "proba_cotes": 0.014743448791172736,
+   "proba_melange": 0.019364784828636437,
+   "p_victoire": 0.019665,
+   "p_top3": 0.06359,
+   "p_top5": 0.11636
   }
  ],
  "ordre_predit": [
-  5,
-  7,
-  4,
   10,
-  13
+  11,
+  3,
+  8,
+  5
  ],
  "combinaisons": {
   "Tiercé": [
    {
     "box": 3,
     "chevaux": [
-     5,
-     7,
-     4
+     10,
+     11,
+     3
     ],
     "combinaisons": 1,
-    "probabilite": 0.006465,
-    "par_combinaison": 0.006465
+    "probabilite": 0.023205,
+    "par_combinaison": 0.023205
    },
    {
     "box": 4,
     "chevaux": [
-     5,
-     7,
-     4,
-     10
+     10,
+     11,
+     3,
+     8
     ],
     "combinaisons": 4,
-    "probabilite": 0.022725,
-    "par_combinaison": 0.00568125
+    "probabilite": 0.06038,
+    "par_combinaison": 0.015095
    },
    {
     "box": 5,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13
+     11,
+     3,
+     8,
+     5
     ],
     "combinaisons": 10,
-    "probabilite": 0.05134,
-    "par_combinaison": 0.005134
+    "probabilite": 0.11297,
+    "par_combinaison": 0.011297
    },
    {
     "box": 6,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13,
-     15
+     11,
+     3,
+     8,
+     5,
+     7
     ],
     "combinaisons": 20,
-    "probabilite": 0.094735,
-    "par_combinaison": 0.00473675
+    "probabilite": 0.180805,
+    "par_combinaison": 0.00904025
    }
   ],
   "Quarté": [
    {
     "box": 4,
     "chevaux": [
-     5,
-     7,
-     4,
-     10
+     10,
+     11,
+     3,
+     8
     ],
     "combinaisons": 1,
-    "probabilite": 0.002865,
-    "par_combinaison": 0.002865
+    "probabilite": 0.01028,
+    "par_combinaison": 0.01028
    },
    {
     "box": 5,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13
+     11,
+     3,
+     8,
+     5
     ],
     "combinaisons": 5,
-    "probabilite": 0.01189,
-    "par_combinaison": 0.002378
+    "probabilite": 0.03413,
+    "par_combinaison": 0.0068260000000000005
    },
    {
     "box": 6,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13,
-     15
+     11,
+     3,
+     8,
+     5,
+     7
     ],
     "combinaisons": 15,
-    "probabilite": 0.031835,
-    "par_combinaison": 0.0021223333333333333
+    "probabilite": 0.07698,
+    "par_combinaison": 0.005132
    },
    {
     "box": 7,
     "chevaux": [
+     10,
+     11,
+     3,
+     8,
      5,
      7,
-     4,
-     10,
-     13,
-     15,
-     1
+     13
     ],
     "combinaisons": 35,
-    "probabilite": 0.06634,
-    "par_combinaison": 0.0018954285714285713
+    "probabilite": 0.143065,
+    "par_combinaison": 0.004087571428571428
    }
   ],
   "Quinté": [
    {
     "box": 5,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13
+     11,
+     3,
+     8,
+     5
     ],
     "combinaisons": 1,
-    "probabilite": 0.001575,
-    "par_combinaison": 0.001575
+    "probabilite": 0.006045,
+    "par_combinaison": 0.006045
    },
    {
     "box": 6,
     "chevaux": [
-     5,
-     7,
-     4,
      10,
-     13,
-     15
+     11,
+     3,
+     8,
+     5,
+     7
     ],
     "combinaisons": 6,
-    "probabilite": 0.00808,
-    "par_combinaison": 0.0013466666666666668
+    "probabilite": 0.02456,
+    "par_combinaison": 0.004093333333333333
    },
    {
     "box": 7,
     "chevaux": [
+     10,
+     11,
+     3,
+     8,
      5,
      7,
-     4,
-     10,
-     13,
-     15,
-     1
+     13
     ],
     "combinaisons": 21,
-    "probabilite": 0.02391,
-    "par_combinaison": 0.0011385714285714287
+    "probabilite": 0.06402,
+    "par_combinaison": 0.0030485714285714283
    },
    {
     "box": 8,
     "chevaux": [
+     10,
+     11,
+     3,
+     8,
      5,
      7,
-     4,
-     10,
      13,
-     15,
-     1,
-     14
+     1
     ],
     "combinaisons": 56,
-    "probabilite": 0.05551,
-    "par_combinaison": 0.00099125
+    "probabilite": 0.115165,
+    "par_combinaison": 0.002056517857142857
    },
    {
     "box": 9,
     "chevaux": [
+     10,
+     11,
+     3,
+     8,
      5,
      7,
-     4,
-     10,
      13,
-     15,
      1,
-     14,
-     16
+     14
     ],
     "combinaisons": 126,
-    "probabilite": 0.107025,
-    "par_combinaison": 0.0008494047619047618
+    "probabilite": 0.18433,
+    "par_combinaison": 0.001462936507936508
    }
   ]
+ },
+ "pronostic_soir": {
+  "fige_le": "2026-11-10T22:03:34",
+  "modele": {
+   "sensibilite_K": 4.0,
+   "poids": {
+    "musique": 0.25,
+    "aptitudes": 0.1875,
+    "forme_cheval": 0.1875,
+    "chronos": 0.15,
+    "tandem": 0.075,
+    "conditions": 0.075,
+    "bruits_ecuries": 0.075
+   },
+   "simulations": 200000
+  },
+  "chevaux": [
+   {
+    "numero": 5,
+    "nom": "XILOFONO",
+    "score": 0.7433418279369141,
+    "p_victoire": 0.10643,
+    "p_top3": 0.305285,
+    "p_top5": 0.48449
+   },
+   {
+    "numero": 7,
+    "nom": "SIGTUNA",
+    "score": 0.7002029854810853,
+    "p_victoire": 0.088355,
+    "p_top3": 0.26074,
+    "p_top5": 0.4245
+   },
+   {
+    "numero": 4,
+    "nom": "SHARP RISE",
+    "score": 0.6872229162406646,
+    "p_victoire": 0.08554,
+    "p_top3": 0.24958,
+    "p_top5": 0.40768
+   },
+   {
+    "numero": 10,
+    "nom": "BRITANIA",
+    "score": 0.6670017080740043,
+    "p_victoire": 0.07784,
+    "p_top3": 0.23177,
+    "p_top5": 0.382355
+   },
+   {
+    "numero": 13,
+    "nom": "BLACK ULTRA",
+    "score": 0.6549206722669771,
+    "p_victoire": 0.07498,
+    "p_top3": 0.222865,
+    "p_top5": 0.368215
+   },
+   {
+    "numero": 15,
+    "nom": "SPANISH LIGHT",
+    "score": 0.650451042590407,
+    "p_victoire": 0.072605,
+    "p_top3": 0.21925,
+    "p_top5": 0.364265
+   },
+   {
+    "numero": 1,
+    "nom": "AGADOR",
+    "score": 0.6436051278139848,
+    "p_victoire": 0.07077,
+    "p_top3": 0.21265,
+    "p_top5": 0.353615
+   },
+   {
+    "numero": 14,
+    "nom": "GEORGES VILLE",
+    "score": 0.6279778404654223,
+    "p_victoire": 0.066585,
+    "p_top3": 0.201165,
+    "p_top5": 0.334915
+   },
+   {
+    "numero": 16,
+    "nom": "SWISS MONEY",
+    "score": 0.6046424149490331,
+    "p_victoire": 0.061855,
+    "p_top3": 0.18577,
+    "p_top5": 0.311545
+   },
+   {
+    "numero": 2,
+    "nom": "POCA GEN",
+    "score": 0.5995373807804719,
+    "p_victoire": 0.05979,
+    "p_top3": 0.181545,
+    "p_top5": 0.30703
+   },
+   {
+    "numero": 3,
+    "nom": "SPANISH BREEZE CEN",
+    "score": 0.5545754544999353,
+    "p_victoire": 0.050025,
+    "p_top3": 0.15401,
+    "p_top5": 0.26344
+   },
+   {
+    "numero": 11,
+    "nom": "KING TREZY",
+    "score": 0.5312157637723481,
+    "p_victoire": 0.046225,
+    "p_top3": 0.14195,
+    "p_top5": 0.241755
+   },
+   {
+    "numero": 8,
+    "nom": "LOHENGREEN",
+    "score": 0.5160716316002383,
+    "p_victoire": 0.04327,
+    "p_top3": 0.1333,
+    "p_top5": 0.22952
+   },
+   {
+    "numero": 9,
+    "nom": "ZILYA",
+    "score": 0.49187483331918874,
+    "p_victoire": 0.03816,
+    "p_top3": 0.11924,
+    "p_top5": 0.20824
+   },
+   {
+    "numero": 6,
+    "nom": "NOLITO",
+    "score": 0.4852389964133266,
+    "p_victoire": 0.03716,
+    "p_top3": 0.116665,
+    "p_top5": 0.204105
+   },
+   {
+    "numero": 12,
+    "nom": "GOLD PLAYER",
+    "score": 0.3275964635636422,
+    "p_victoire": 0.02041,
+    "p_top3": 0.064215,
+    "p_top5": 0.11433
+   }
+  ],
+  "ordre_predit": [
+   5,
+   7,
+   4,
+   10,
+   13
+  ],
+  "combinaisons": {
+   "Tiercé": [
+    {
+     "box": 3,
+     "chevaux": [
+      5,
+      7,
+      4
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.006465,
+     "par_combinaison": 0.006465
+    },
+    {
+     "box": 4,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10
+     ],
+     "combinaisons": 4,
+     "probabilite": 0.022725,
+     "par_combinaison": 0.00568125
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13
+     ],
+     "combinaisons": 10,
+     "probabilite": 0.05134,
+     "par_combinaison": 0.005134
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15
+     ],
+     "combinaisons": 20,
+     "probabilite": 0.094735,
+     "par_combinaison": 0.00473675
+    }
+   ],
+   "Quarté": [
+    {
+     "box": 4,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.002865,
+     "par_combinaison": 0.002865
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13
+     ],
+     "combinaisons": 5,
+     "probabilite": 0.01189,
+     "par_combinaison": 0.002378
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15
+     ],
+     "combinaisons": 15,
+     "probabilite": 0.031835,
+     "par_combinaison": 0.0021223333333333333
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15,
+      1
+     ],
+     "combinaisons": 35,
+     "probabilite": 0.06634,
+     "par_combinaison": 0.0018954285714285713
+    }
+   ],
+   "Quinté": [
+    {
+     "box": 5,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.001575,
+     "par_combinaison": 0.001575
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15
+     ],
+     "combinaisons": 6,
+     "probabilite": 0.00808,
+     "par_combinaison": 0.0013466666666666668
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15,
+      1
+     ],
+     "combinaisons": 21,
+     "probabilite": 0.02391,
+     "par_combinaison": 0.0011385714285714287
+    },
+    {
+     "box": 8,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15,
+      1,
+      14
+     ],
+     "combinaisons": 56,
+     "probabilite": 0.05551,
+     "par_combinaison": 0.00099125
+    },
+    {
+     "box": 9,
+     "chevaux": [
+      5,
+      7,
+      4,
+      10,
+      13,
+      15,
+      1,
+      14,
+      16
+     ],
+     "combinaisons": 126,
+     "probabilite": 0.107025,
+     "par_combinaison": 0.0008494047619047618
+    }
+   ]
+  }
+ },
+ "final": {
+  "fige_le": "2026-11-11T13:20:47",
+  "cotes": {
+   "1": 19.0,
+   "2": 25.0,
+   "3": 9.0,
+   "4": 44.0,
+   "5": 13.0,
+   "6": 23.0,
+   "7": 13.0,
+   "8": 11.0,
+   "9": 31.0,
+   "10": 4.7,
+   "11": 4.9,
+   "12": 24.0,
+   "13": 13.0,
+   "14": 20.0,
+   "15": 25.0,
+   "16": 57.0
+  },
+  "part_cotes": 0.9
  }
 }
