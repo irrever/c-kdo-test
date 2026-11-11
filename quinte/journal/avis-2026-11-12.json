@@ -1,0 +1,212 @@
+{
+  "box": [
+    2,
+    11,
+    10,
+    12,
+    7,
+    9
+  ],
+  "top5": [
+    2,
+    13,
+    11,
+    10,
+    12
+  ],
+  "a_jouer": [
+    7,
+    9,
+    5
+  ],
+  "a_eviter": [
+    13,
+    6,
+    1
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 2,
+      "nom": "FRANK GIO",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.6262,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "MADRID HAUFOR",
+      "rang": 2,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4403,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "LIBERTE DE CHOISEL",
+      "rang": 3,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4312,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "LANCIER DU GOUTIER",
+      "rang": 4,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3855,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "LORD DU BASSIN",
+      "rang": 5,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.342,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "LIZA JOSSELYN",
+      "rang": 6,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3374,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "BULLET THE BLUESKY",
+      "rang": 7,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3241,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "MAGIC NIGHT",
+      "rang": 8,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3196,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "LOMBOK JIEL",
+      "rang": 9,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3063,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "MAITRE JACQUES",
+      "rang": 10,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2928,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "L'AS DESBOIS",
+      "rang": 11,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2705,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "FALCO KILLER GAR",
+      "rang": 12,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2606,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "MILA DES COUPERIES",
+      "rang": 13,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2053,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "LIONHEART",
+      "rang": 14,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1609,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "L'ECRIN D'OR",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1573,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "KOOGOO GAAGAA",
+      "rang": 16,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1402,
+      "categorie": "délaissé",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-12",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-11T22:03:13+00:00"
+}
