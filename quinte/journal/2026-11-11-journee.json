@@ -106,7 +106,7 @@
    "heure": "14:33",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SPACE'X",
@@ -119,7 +119,13 @@
     "8": "SEXXY",
     "9": "BLUE BLOSSOM CEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    9,
+    4,
+    5,
+    1
+   ],
    "ordre": [
     9,
     1,
@@ -1413,7 +1419,7 @@
    "heure": "14:24",
    "distance": 2350,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MORSAN",
@@ -1430,7 +1436,13 @@
     "12": "LADY MADEIRA",
     "13": "COLE CHOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    11,
+    8,
+    9
+   ],
    "ordre": [
     3,
     1,
@@ -2050,7 +2062,7 @@
    "heure": "14:15",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "THE PRINCE",
@@ -2066,7 +2078,13 @@
     "12": "MATIGNON LEON",
     "13": "BRAQUEUR"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    10,
+    7,
+    6,
+    4
+   ],
    "ordre": [
     6,
     1,
@@ -3975,7 +3993,7 @@
    "heure": "14:25",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MANSSOURIO",
@@ -4897,7 +4915,7 @@
    "heure": "14:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "FORERUNNER",
@@ -4913,7 +4931,13 @@
     "11": "WINNING MACHINE",
     "12": "TOP TO SKY"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    7,
+    1,
+    8,
+    12
+   ],
    "ordre": [
     11,
     4,
@@ -4988,7 +5012,7 @@
    "heure": "14:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "SWIFT ASCEND",
@@ -6348,7 +6372,7 @@
    "heure": "14:10",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NICKEL DES ARRIS",
@@ -6364,7 +6388,13 @@
     "11": "NASKANO",
     "12": "NEROS DU CHENE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    7,
+    5,
+    10
+   ],
    "ordre": [
     9,
     6,
@@ -6439,7 +6469,7 @@
    "heure": "14:40",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "NUIT DU DER",
@@ -7089,7 +7119,7 @@
    "heure": "14:30",
    "distance": 2775,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "LUAP D'ORTIGE",
@@ -7942,7 +7972,7 @@
    "heure": "14:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 18,
    "noms": {
     "1": "ISIDORO DIDAN",
