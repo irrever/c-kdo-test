@@ -929,7 +929,7 @@
    "heure": "11:46",
    "distance": 3500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LIBERTE SACHA",
@@ -942,7 +942,13 @@
     "8": "BRISE D'ETEL",
     "9": "VOIXDEGINO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    5,
+    3,
+    8
+   ],
    "ordre": [
     2,
     4,
@@ -1017,7 +1023,7 @@
    "heure": "12:18",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "SORELINO",
@@ -1532,7 +1538,7 @@
    "heure": "11:30",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "RHELIGOR",
@@ -1544,7 +1550,13 @@
     "7": "MARIO DES BROSSES",
     "8": "STELLINA ROSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    6,
+    3,
+    8
+   ],
    "ordre": [
     4,
     1,
@@ -1619,7 +1631,7 @@
    "heure": "12:02",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KENTUCKY D'ALCO",
@@ -1635,7 +1647,13 @@
     "11": "KALANIEL",
     "12": "YAFTAGOLD"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    2,
+    7,
+    11
+   ],
    "ordre": [
     2,
     4,
@@ -4335,7 +4353,7 @@
    "heure": "11:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CIRCUIT CENTURY",
@@ -4351,7 +4369,13 @@
     "11": "ONLY U",
     "12": "WINDICATOR FAMILY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    11,
+    12,
+    8
+   ],
    "ordre": [
     6,
     12,
@@ -4426,7 +4450,7 @@
    "heure": "12:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KING ALLOY",
@@ -4442,7 +4466,12 @@
     "11": "BLUE BARON",
     "12": "CHILL MASTER"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    10,
+    12
+   ],
    "ordre": [
     7,
     10,
