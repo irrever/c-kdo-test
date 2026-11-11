@@ -3675,7 +3675,7 @@
    "heure": "21:22",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LYS D'AVRIL",
@@ -3695,7 +3695,13 @@
     "15": "SAM D'HOEVE",
     "16": "TREK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    7,
+    6,
+    16
+   ],
    "ordre": [
     13,
     6,
@@ -6233,7 +6239,7 @@
    "heure": "21:26",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ALWAYS V.G.",
@@ -6249,7 +6255,13 @@
     "11": "FLIGHT POWER W.F.",
     "12": "DIGGINS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    10,
+    3,
+    9
+   ],
    "ordre": [
     7,
     9,
