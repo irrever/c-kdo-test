@@ -588,7 +588,7 @@
    "heure": "17:35",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "KNUCKLE",
@@ -2579,7 +2579,7 @@
    "heure": "17:17",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LA BRIERE",
@@ -2598,7 +2598,13 @@
     "14": "LILY CARNOIS",
     "15": "LIBERATA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    8,
+    3,
+    15
+   ],
    "ordre": [
     7,
     10,
