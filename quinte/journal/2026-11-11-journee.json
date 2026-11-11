@@ -2896,7 +2896,7 @@
    "heure": "19:02",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "KROSKOF DE GUEZ",
@@ -2908,7 +2908,13 @@
     "7": "KHEOPS DU LOISIR",
     "8": "KLEOPATRE D'ALFORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    5,
+    7,
+    2
+   ],
    "ordre": [
     5,
     8,
@@ -2983,7 +2989,7 @@
    "heure": "19:34",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "NIKITA BOND",
@@ -3268,7 +3274,7 @@
    "heure": "19:18",
    "distance": 1750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NEVER GIVE UP ALLY",
@@ -3288,7 +3294,13 @@
     "15": "RONNY D'HOEVE",
     "16": "TECH NICKIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    11,
+    2,
+    9,
+    16
+   ],
    "ordre": [
     5,
     11,
@@ -3363,7 +3375,7 @@
    "heure": "19:50",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 11,
    "noms": {
     "1": "OMER VAN HALBEEK",
@@ -5620,7 +5632,7 @@
    "heure": "19:03",
    "distance": 2140,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MINDELO",
@@ -5636,7 +5648,13 @@
     "11": "MATAMOROS",
     "12": "KING CHAOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    9,
+    12,
+    4,
+    5
+   ],
    "ordre": [
     10,
     5,
@@ -5711,7 +5729,7 @@
    "heure": "19:27",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "BARN BANK",
@@ -5726,7 +5744,13 @@
     "10": "PETITE SIRAH",
     "11": "MEYDAN SILVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    11,
+    7,
+    8
+   ],
    "ordre": [
     8,
     1,
