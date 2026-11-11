@@ -2989,7 +2989,7 @@
    "heure": "19:34",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NIKITA BOND",
@@ -3009,7 +3009,13 @@
     "15": "NOBLE DE TESSEL",
     "16": "NORIA DU VALLON"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    14,
+    4,
+    9,
+    12
+   ],
    "ordre": [
     7,
     1,
@@ -3084,7 +3090,7 @@
    "heure": "20:06",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "KIMBRA DJOC",
@@ -3375,7 +3381,7 @@
    "heure": "19:50",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "OMER VAN HALBEEK",
@@ -3390,7 +3396,13 @@
     "10": "JALAKITE SIVED",
     "11": "HILLSBOROUGH"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    3,
+    11,
+    2
+   ],
    "ordre": [
     9,
     5,
@@ -5825,7 +5837,7 @@
    "heure": "19:51",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "S.G.EMPRESS",
@@ -5837,7 +5849,13 @@
     "7": "J.H.ELLEN",
     "8": "GLAMOUR QUEEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    4,
+    2,
+    6
+   ],
    "ordre": [
     5,
     1,
@@ -5912,7 +5930,7 @@
    "heure": "20:13",
    "distance": 2640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "PURE VANESSA",
