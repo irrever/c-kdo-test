@@ -689,7 +689,7 @@
    "heure": "18:10",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "TAMAGHU",
@@ -708,7 +708,13 @@
     "14": "NOUS TROIS",
     "15": "PEYRASSOL"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    15,
+    8,
+    10,
+    7
+   ],
    "ordre": [
     7,
     14,
@@ -783,7 +789,7 @@
    "heure": "18:45",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 14,
    "noms": {
     "1": "SOUPIR",
@@ -2783,7 +2789,7 @@
    "heure": "18:27",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MONIE DU LOISIR",
@@ -2803,7 +2809,13 @@
     "15": "MARELLA DALEO",
     "16": "MY LADY ISLAND"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    2,
+    11,
+    7
+   ],
    "ordre": [
     13,
     16,
@@ -5405,7 +5417,7 @@
    "heure": "18:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CATCH A WAVE",
@@ -5418,7 +5430,13 @@
     "8": "EMELIE EAGLE",
     "9": "E.S.PIECE OF CAKE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    2,
+    5,
+    8
+   ],
    "ordre": [
     5,
     3,
@@ -5493,7 +5511,7 @@
    "heure": "18:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "WERUWERU",
