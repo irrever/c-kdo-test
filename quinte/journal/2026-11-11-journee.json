@@ -3090,7 +3090,7 @@
    "heure": "20:06",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KIMBRA DJOC",
@@ -3106,7 +3106,13 @@
     "11": "INJECTABLE",
     "12": "HAMILTON FOUTEAU"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    8,
+    11,
+    5
+   ],
    "ordre": [
     8,
     5,
@@ -3477,7 +3483,7 @@
    "heure": "20:22",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ESPOIR MARY JANES",
@@ -3492,7 +3498,13 @@
     "10": "JOKER DU NORD",
     "11": "LINO DE L'ORMERIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    5,
+    11,
+    7,
+    6
+   ],
    "ordre": [
     3,
     7,
@@ -5930,7 +5942,7 @@
    "heure": "20:13",
    "distance": 2640,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "PURE VANESSA",
@@ -5946,7 +5958,13 @@
     "11": "UPPER TILE",
     "12": "JOHN WICK"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    6,
+    4,
+    7
+   ],
    "ordre": [
     1,
     9,
@@ -6021,7 +6039,7 @@
    "heure": "20:41",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "FARLOW SELVA",
