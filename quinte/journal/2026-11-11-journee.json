@@ -834,7 +834,7 @@
    "heure": "11:14",
    "distance": 1550,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "VENEZIA QUEEN",
@@ -848,7 +848,13 @@
     "9": "MATINERA",
     "10": "BAERBEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    2,
+    1,
+    8
+   ],
    "ordre": [
     3,
     7,
@@ -1526,7 +1532,7 @@
    "heure": "11:30",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "RHELIGOR",
@@ -4329,7 +4335,7 @@
    "heure": "11:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "CIRCUIT CENTURY",
