@@ -200,7 +200,7 @@
    "heure": "15:15",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "AGADOR",
@@ -220,7 +220,13 @@
     "15": "SPANISH LIGHT",
     "16": "SWISS MONEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    7,
+    9,
+    6
+   ],
    "ordre": [
     5,
     7,
@@ -2264,7 +2270,7 @@
    "heure": "15:30",
    "distance": 5400,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "KLITCHKO DE BELAIR",
@@ -4188,7 +4194,7 @@
    "heure": "15:25",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NUNCASINTI D'ALESA",
@@ -4205,7 +4211,13 @@
     "13": "NOISETTE MOME",
     "14": "NATURALLY DORRELLS"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    12,
+    9,
+    5,
+    7
+   ],
    "ordre": [
     3,
     1,
@@ -5133,7 +5145,7 @@
    "heure": "15:15",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "POPE CODY",
@@ -5149,7 +5161,13 @@
     "11": "SHOOTING TO TOP",
     "12": "HYMNBOOK"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    11,
+    4,
+    10,
+    7
+   ],
    "ordre": [
     11,
     2,
@@ -6596,7 +6614,7 @@
    "heure": "15:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JUVAMINE RENARDIER",
@@ -6616,7 +6634,13 @@
     "15": "KRUNCHY",
     "16": "KEN FERFAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    2,
+    15,
+    11,
+    1
+   ],
    "ordre": [
     5,
     14,
@@ -6691,7 +6715,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "MASTER KING",
@@ -7346,7 +7370,7 @@
    "heure": "15:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "JOJO DE BOURGOGNE",
@@ -8224,7 +8248,7 @@
    "heure": "15:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "MAT DES CHARRONS",
