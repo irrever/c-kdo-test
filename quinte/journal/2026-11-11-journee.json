@@ -1120,7 +1120,7 @@
    "heure": "12:50",
    "distance": 2350,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "ONKEL VOLLI",
@@ -1132,7 +1132,13 @@
     "7": "FREEZE",
     "8": "CAMELOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    6,
+    4,
+    8
+   ],
    "ordre": [
     5,
     1,
@@ -1734,7 +1740,7 @@
    "heure": "12:34",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOUBLIPASLESFLEURS",
@@ -1748,7 +1754,13 @@
     "9": "TAJMALY",
     "10": "NOUMEA DES CHAMPS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    3,
+    5,
+    2
+   ],
    "ordre": [
     1,
     4,
@@ -1823,7 +1835,7 @@
    "heure": "13:06",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 17,
    "noms": {
     "1": "IT'S YOUR CHOICE",
@@ -4552,7 +4564,7 @@
    "heure": "12:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ARGENTO OCEAN",
@@ -4568,7 +4580,13 @@
     "11": "MASTER PHOENIX",
     "12": "LEGEND STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    8,
+    1,
+    4
+   ],
    "ordre": [
     2,
     3,
@@ -4643,7 +4661,7 @@
    "heure": "13:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "ACE",
@@ -6087,7 +6105,7 @@
    "heure": "13:10",
    "distance": 2000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "OK D'EURVAD",
@@ -6729,7 +6747,7 @@
    "heure": "13:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "BELLA JOSEPHINE",
@@ -6740,7 +6758,13 @@
     "6": "QUEEN NZINGA",
     "7": "MERI SIVA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    1,
+    6,
+    3
+   ],
    "ordre": [
     5,
     4,
@@ -7545,7 +7569,7 @@
    "heure": "13:00",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NINO DE SAINT JEAN",
@@ -7563,7 +7587,13 @@
     "13": "NOUVEAU PRINCE",
     "14": "NABUCHODONOSOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    13,
+    7,
+    8,
+    9
+   ],
    "ordre": [
     13,
     11,
