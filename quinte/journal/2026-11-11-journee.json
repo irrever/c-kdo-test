@@ -397,7 +397,7 @@
    "heure": "16:25",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "INDALIMOS",
@@ -411,7 +411,13 @@
     "10": "SPIRIT OF ZARAK",
     "11": "OZONE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    3,
+    2,
+    8,
+    4
+   ],
    "ordre": [
     10,
     2,
@@ -2371,7 +2377,7 @@
    "heure": "16:07",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LASCAR DE YOR",
@@ -2385,7 +2391,13 @@
     "9": "LOVE LAND LOVA",
     "10": "LOOKING SIXTY ONE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    9,
+    8,
+    3
+   ],
    "ordre": [
     7,
     10,
@@ -2460,7 +2472,7 @@
    "heure": "16:42",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "ILLUSTRE DE CHENOU",
@@ -4398,7 +4410,7 @@
    "heure": "16:30",
    "distance": 4200,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "KASADEPAPEL",
@@ -6840,7 +6852,7 @@
    "heure": "16:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "GYPSIE MAGIQUE",
@@ -6858,7 +6870,13 @@
     "13": "IZAAK DE NAPPES",
     "14": "HOOKER DU PECH"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    6,
+    1,
+    3
+   ],
    "ordre": [
     5,
     6,
@@ -7602,7 +7620,7 @@
    "heure": "16:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KYOTO DES DURIEZ",
@@ -7617,7 +7635,13 @@
     "10": "KYRIELLE D'ALBRET",
     "11": "HATOUT DE CONNEE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    7,
+    10,
+    5
+   ],
    "ordre": [
     4,
     11,
@@ -8389,7 +8413,7 @@
    "heure": "16:00",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MORANT DAIRPET",
@@ -8407,7 +8431,13 @@
     "13": "MIRACULOUS DANOVER",
     "14": "MYSTIC DARK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    12,
+    14,
+    9,
+    11
+   ],
    "ordre": [
     12,
     14,
