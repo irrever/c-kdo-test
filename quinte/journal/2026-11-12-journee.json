@@ -307,7 +307,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "IDUNN",
@@ -325,7 +325,13 @@
     "13": "JALMAROSA",
     "14": "JAB KISS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    11,
+    9,
+    12,
+    5
+   ],
    "ordre": [
     3,
     12,
@@ -400,7 +406,7 @@
    "heure": "16:15",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "MINA DRY",
@@ -1883,7 +1889,7 @@
    "heure": "15:57",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "CENTRAL PARK WEST",
@@ -1897,7 +1903,13 @@
     "9": "MEMENTO MORI",
     "10": "NAKED MEMORIES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    6,
+    7,
+    8
+   ],
    "ordre": [
     3,
     1,
