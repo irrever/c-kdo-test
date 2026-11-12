@@ -846,7 +846,7 @@
    "heure": "11:05",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 6,
    "noms": {
     "1": "GENERAL MARCEAUX",
