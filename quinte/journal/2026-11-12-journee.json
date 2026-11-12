@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LOMBOK JIEL",
@@ -30,7 +30,13 @@
     "15": "MILA DES COUPERIES",
     "16": "L'ECRIN D'OR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    13,
+    6,
+    12
+   ],
    "ordre": [
     2,
     13,
@@ -1578,7 +1584,7 @@
    "heure": "14:12",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "STEP MORNING",
