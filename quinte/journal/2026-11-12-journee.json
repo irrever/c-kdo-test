@@ -2404,7 +2404,7 @@
    "heure": "18:51",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JAMAIS",
@@ -2422,7 +2422,13 @@
     "13": "IZIASLAV TEK",
     "14": "HILTON DU HOULET"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    12,
+    8,
+    11
+   ],
    "ordre": [
     9,
     6,
@@ -2871,7 +2877,7 @@
    "heure": "18:40",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "ORION DU PONTHIEU",
@@ -2888,7 +2894,13 @@
     "12": "ONDINA BM",
     "13": "ODISEO DE FONT"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    1,
+    13,
+    3
+   ],
    "ordre": [
     13,
     9,
@@ -2963,7 +2975,7 @@
    "heure": "19:07",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "FAVARY",
@@ -3420,7 +3432,7 @@
    "heure": "19:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "DRAIN THE BOURBON",
@@ -3430,7 +3442,12 @@
     "5": "I LIKE TO PARTY",
     "6": "CANDOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    3,
+    2
+   ],
    "ordre": [
     4,
     2,
