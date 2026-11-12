@@ -1202,7 +1202,7 @@
    "heure": "13:09",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "GO FOR JET",
@@ -1217,7 +1217,13 @@
     "10": "JIVARO D'HERMINE",
     "11": "HIDEIRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    3,
+    5,
+    2,
+    7
+   ],
    "ordre": [
     2,
     3,
@@ -1478,7 +1484,7 @@
    "heure": "13:27",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PAPILLE D'ARGENT",
@@ -1491,7 +1497,13 @@
     "8": "KENJI",
     "9": "MAESTRO CHOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    4,
+    8,
+    7
+   ],
    "ordre": [
     2,
     3,
