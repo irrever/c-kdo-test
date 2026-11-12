@@ -803,7 +803,7 @@
    "heure": "18:35",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MARIO DE LOU",
@@ -819,7 +819,12 @@
     "11": "MARABOU DODVILLE",
     "12": "MOJI DE VANDEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    4,
+    8
+   ],
    "ordre": [
     11,
     8,
@@ -2300,7 +2305,7 @@
    "heure": "18:17",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NORMA CASTELLE",
@@ -2318,7 +2323,13 @@
     "13": "NUIT DE FOLIE",
     "14": "NEW LIFE CHARDET"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    11,
+    2,
+    3,
+    12
+   ],
    "ordre": [
     3,
     13,
@@ -2860,7 +2871,7 @@
    "heure": "18:40",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "ORION DU PONTHIEU",
