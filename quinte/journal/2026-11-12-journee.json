@@ -3389,7 +3389,7 @@
    "heure": "21:15",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NUREDDUNA SES",
@@ -3405,7 +3405,13 @@
     "11": "ILLA DE FLO",
     "12": "NUVOL KINTON"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    6,
+    3,
+    12
+   ],
    "ordre": [
     9,
     8,
@@ -3899,7 +3905,7 @@
    "heure": "21:26",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "FORGOTTEN ABOUT",
@@ -3919,7 +3925,13 @@
     "15": "NOW OR NEVERMORE",
     "16": "TRUSTY TROUTMAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    6,
+    7,
+    8
+   ],
    "ordre": [
     5,
     3,
@@ -4263,7 +4275,7 @@
    "heure": "21:00",
    "distance": 900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "KOSANTA",
@@ -4276,7 +4288,13 @@
     "8": "GOOD VICTORY",
     "9": "MISS SPRING"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    5,
+    8,
+    6
+   ],
    "ordre": [
     4,
     1,
@@ -4351,7 +4369,7 @@
    "heure": "21:30",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "EL MEJOR DE MARIO",
@@ -4363,7 +4381,12 @@
     "7": "CHARLY CHARLY",
     "8": "CORRE CALATO"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    6,
+    7
+   ],
    "ordre": [
     3,
     5,
