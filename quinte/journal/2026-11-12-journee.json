@@ -307,7 +307,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "IDUNN",
@@ -1788,7 +1788,7 @@
    "heure": "15:22",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "BEAUTIFUL MEMORY",
@@ -1802,7 +1802,13 @@
     "9": "FELICIA STORM",
     "10": "LOCH AWE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    3,
+    1,
+    5
+   ],
    "ordre": [
     6,
     2,
