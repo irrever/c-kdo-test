@@ -501,7 +501,7 @@
    "heure": "16:50",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "MORNING NEWS",
@@ -523,7 +523,13 @@
     "17": "MIROITANTE DE PADD",
     "18": "MERIBEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    2,
+    4,
+    15,
+    7
+   ],
    "ordre": [
     2,
     15,
@@ -2084,7 +2090,7 @@
    "heure": "17:07",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "MORGANE DE HOERDT",
