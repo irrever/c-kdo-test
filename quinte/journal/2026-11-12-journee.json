@@ -1105,7 +1105,7 @@
    "heure": "12:34",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KOLD D'ECHAL",
@@ -1121,7 +1121,13 @@
     "11": "LIBERTY D'OURVILLE",
     "12": "NOBLE RUSH FLEVO"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    4,
+    9,
+    1
+   ],
    "ordre": [
     9,
     4,
@@ -1196,7 +1202,7 @@
    "heure": "13:09",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "GO FOR JET",
@@ -1379,7 +1385,7 @@
    "heure": "12:52",
    "distance": 2800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MARTINVAST",
@@ -1391,7 +1397,13 @@
     "7": "ZARALADY",
     "8": "YUNA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    8,
+    7,
+    2
+   ],
    "ordre": [
     5,
     6,
