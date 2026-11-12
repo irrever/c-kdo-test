@@ -4669,7 +4669,7 @@
    "heure": "23:00",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "VELA AZUL",
@@ -4682,7 +4682,13 @@
     "8": "MERCENARIA",
     "9": "CHARMING STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    9,
+    3,
+    5
+   ],
    "ordre": [
     9,
     7,
