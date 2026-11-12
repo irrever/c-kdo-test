@@ -210,7 +210,7 @@
    "heure": "15:05",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "UNDER PRESSURE",
@@ -226,7 +226,13 @@
     "12": "NYMPHE D'ELLE",
     "13": "NIKKI BEACH JISCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    13,
+    9,
+    8
+   ],
    "ordre": [
     13,
     9,
@@ -1684,7 +1690,7 @@
    "heure": "14:47",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "CADEAU DE NOEL",
@@ -1701,7 +1707,13 @@
     "12": "MADAME MAGIC",
     "13": "NUGHAYA FAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    3,
+    2,
+    8
+   ],
    "ordre": [
     7,
     9,
