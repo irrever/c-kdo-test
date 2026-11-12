@@ -1008,7 +1008,7 @@
    "heure": "11:59",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KADIRA",
@@ -1024,7 +1024,13 @@
     "11": "MOODY GEM",
     "12": "MAMZELLE ZIZOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    8,
+    9,
+    11
+   ],
    "ordre": [
     5,
     12,
@@ -1099,7 +1105,7 @@
    "heure": "12:34",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "KOLD D'ECHAL",
@@ -1280,7 +1286,7 @@
    "heure": "12:17",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "FEEL WELL",
@@ -1292,7 +1298,13 @@
     "7": "QUEEN LAGERTHA",
     "8": "FOOT LOOSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    3,
+    8,
+    4
+   ],
    "ordre": [
     5,
     4,
