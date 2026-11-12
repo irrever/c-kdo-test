@@ -4099,7 +4099,7 @@
    "heure": "22:25",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CHARLIE FOXTROT",
@@ -4111,7 +4111,13 @@
     "7": "RISK IT",
     "8": "ZAMBEZI"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    6,
+    8,
+    7
+   ],
    "ordre": [
     1,
     4,
@@ -4561,7 +4567,7 @@
    "heure": "22:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "INDIAN POET",
