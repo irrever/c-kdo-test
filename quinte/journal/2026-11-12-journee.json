@@ -4192,7 +4192,7 @@
    "heure": "22:55",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "RISK MANAGER",
@@ -4212,7 +4212,13 @@
     "15": "DEBT PAID",
     "16": "THE MINKSTER"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    4,
+    2,
+    9,
+    13
+   ],
    "ordre": [
     15,
     3,
@@ -4567,7 +4573,7 @@
    "heure": "22:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "INDIAN POET",
@@ -4582,7 +4588,13 @@
     "10": "MI TIO RAUL",
     "11": "DESENFRENADO"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    1,
+    2,
+    4
+   ],
    "ordre": [
     10,
     6,
@@ -4657,7 +4669,7 @@
    "heure": "23:00",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "VELA AZUL",
