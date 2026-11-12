@@ -703,7 +703,7 @@
    "heure": "18:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KING GEORGES",
@@ -722,7 +722,13 @@
     "14": "KROONER D'HERIPRE",
     "15": "JERZINHO SPORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    15,
+    11,
+    9
+   ],
    "ordre": [
     12,
     9,
@@ -2195,7 +2201,7 @@
    "heure": "17:42",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NORDIC VICKING",
@@ -2213,7 +2219,13 @@
     "13": "NEVADA PIERJI",
     "14": "NECTAR DU DOME"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    7,
+    12,
+    13
+   ],
    "ordre": [
     14,
     12,
