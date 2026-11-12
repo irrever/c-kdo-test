@@ -2802,7 +2802,7 @@
    "heure": "20:59",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JEROM BUTTERFLY",
@@ -2820,7 +2820,13 @@
     "13": "IMEA DE LA POTEL",
     "14": "JAMBAVAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    3,
+    4,
+    1
+   ],
    "ordre": [
     3,
     11,
@@ -3288,7 +3294,7 @@
    "heure": "20:43",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "HORNADO BELLO",
@@ -3302,7 +3308,13 @@
     "9": "JEROMINUS TURGOT",
     "10": "HIT MONEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    9,
+    7,
+    1
+   ],
    "ordre": [
     2,
     4,
@@ -3377,7 +3389,7 @@
    "heure": "21:15",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "NUREDDUNA SES",
@@ -3802,7 +3814,7 @@
    "heure": "20:57",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "HATHAWAY",
@@ -3813,7 +3825,13 @@
     "6": "ORDER RESTORED",
     "7": "BELLA LUNA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     6,
     2,
@@ -4245,7 +4263,7 @@
    "heure": "21:00",
    "distance": 900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "KOSANTA",
