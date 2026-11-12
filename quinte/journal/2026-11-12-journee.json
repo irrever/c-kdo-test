@@ -923,7 +923,7 @@
    "heure": "11:32",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "KEEP AND GO",
@@ -934,7 +934,13 @@
     "6": "ESPADA",
     "7": "DIAMANTE ROSS"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    1,
+    5,
+    2
+   ],
    "ordre": [
     1,
     3,
@@ -1002,7 +1008,7 @@
    "heure": "11:59",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "KADIRA",
