@@ -1,0 +1,231 @@
+{
+  "box": [
+    17,
+    5,
+    2,
+    6,
+    18,
+    3
+  ],
+  "top5": [
+    17,
+    5,
+    13,
+    2,
+    8
+  ],
+  "a_jouer": [],
+  "a_eviter": [
+    13,
+    8,
+    4,
+    12
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 17,
+      "nom": "ELEONORA GRIF",
+      "rang": 1,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5629,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "KING LOOK",
+      "rang": 2,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.4966,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "COSMEA",
+      "rang": 3,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4753,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "KATIA DHELPA",
+      "rang": 4,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4391,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "SAVASTANO",
+      "rang": 5,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3424,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "EMINENT KRONOS",
+      "rang": 6,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3153,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "KINGSTON DE BLARY",
+      "rang": 7,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2978,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 18,
+      "nom": "PURE STEEL",
+      "rang": 8,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2682,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "KAZY MERITE",
+      "rang": 9,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.268,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "KAISER DES GRANGES",
+      "rang": 10,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2611,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "QUINTUS TOOMA",
+      "rang": 11,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2432,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "JUBII VANG",
+      "rang": 12,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2189,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "KOQUERY DU BUISSON",
+      "rang": 13,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1983,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "KOOL AND THE GANG",
+      "rang": 14,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1946,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "KELLY JANE",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.13,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "I CAN WIN GARDENIA",
+      "rang": 16,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.109,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "KHARTOUM DE LA FYE",
+      "rang": 17,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.0942,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "NO TALKING YOU",
+      "rang": 18,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.085,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-13",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "fige_le_utc": "2026-11-12T22:03:24+00:00"
+}

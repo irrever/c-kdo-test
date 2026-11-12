@@ -1,0 +1,195 @@
+{
+  "date": "2026-11-13",
+  "r": 1,
+  "c": 4,
+  "url": "https://www.equidia.fr/courses/2026-11-13/R1/C4",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-12T22:03:22+00:00",
+  "presse": {
+    "parier": [
+      6,
+      8,
+      5,
+      2,
+      13,
+      17,
+      12,
+      4
+    ],
+    "cinq": null,
+    "bases": [
+      6,
+      8,
+      5
+    ],
+    "outsiders": [
+      18,
+      3,
+      7,
+      11,
+      16,
+      15,
+      1
+    ],
+    "belles": [
+      2,
+      13,
+      17,
+      12,
+      4
+    ],
+    "delaisses": [
+      14,
+      10,
+      9
+    ]
+  },
+  "notre": [
+    {
+      "numero": 17,
+      "nom": "ELEONORA GRIF",
+      "score": 0.8024,
+      "rang": 1,
+      "p_victoire": 0.1305,
+      "p_top5": 0.5629
+    },
+    {
+      "numero": 5,
+      "nom": "KING LOOK",
+      "score": 0.7579,
+      "rang": 2,
+      "p_victoire": 0.1083,
+      "p_top5": 0.4966
+    },
+    {
+      "numero": 13,
+      "nom": "COSMEA",
+      "score": 0.7423,
+      "rang": 3,
+      "p_victoire": 0.1029,
+      "p_top5": 0.4753
+    },
+    {
+      "numero": 2,
+      "nom": "KATIA DHELPA",
+      "score": 0.7158,
+      "rang": 4,
+      "p_victoire": 0.0928,
+      "p_top5": 0.4391
+    },
+    {
+      "numero": 8,
+      "nom": "SAVASTANO",
+      "score": 0.6365,
+      "rang": 5,
+      "p_victoire": 0.0668,
+      "p_top5": 0.3424
+    },
+    {
+      "numero": 6,
+      "nom": "EMINENT KRONOS",
+      "score": 0.6116,
+      "rang": 6,
+      "p_victoire": 0.0603,
+      "p_top5": 0.3153
+    },
+    {
+      "numero": 4,
+      "nom": "KINGSTON DE BLARY",
+      "score": 0.5978,
+      "rang": 7,
+      "p_victoire": 0.0572,
+      "p_top5": 0.2978
+    },
+    {
+      "numero": 18,
+      "nom": "PURE STEEL",
+      "score": 0.5666,
+      "rang": 8,
+      "p_victoire": 0.0511,
+      "p_top5": 0.2682
+    },
+    {
+      "numero": 3,
+      "nom": "KAZY MERITE",
+      "score": 0.5665,
+      "rang": 9,
+      "p_victoire": 0.0508,
+      "p_top5": 0.268
+    },
+    {
+      "numero": 1,
+      "nom": "KAISER DES GRANGES",
+      "score": 0.5568,
+      "rang": 10,
+      "p_victoire": 0.0492,
+      "p_top5": 0.2611
+    },
+    {
+      "numero": 12,
+      "nom": "QUINTUS TOOMA",
+      "score": 0.5372,
+      "rang": 11,
+      "p_victoire": 0.0454,
+      "p_top5": 0.2432
+    },
+    {
+      "numero": 15,
+      "nom": "JUBII VANG",
+      "score": 0.5078,
+      "rang": 12,
+      "p_victoire": 0.0405,
+      "p_top5": 0.2189
+    },
+    {
+      "numero": 14,
+      "nom": "KOQUERY DU BUISSON",
+      "score": 0.4792,
+      "rang": 13,
+      "p_victoire": 0.0363,
+      "p_top5": 0.1983
+    },
+    {
+      "numero": 9,
+      "nom": "KOOL AND THE GANG",
+      "score": 0.4767,
+      "rang": 14,
+      "p_victoire": 0.0355,
+      "p_top5": 0.1946
+    },
+    {
+      "numero": 7,
+      "nom": "KELLY JANE",
+      "score": 0.3693,
+      "rang": 15,
+      "p_victoire": 0.0228,
+      "p_top5": 0.13
+    },
+    {
+      "numero": 11,
+      "nom": "I CAN WIN GARDENIA",
+      "score": 0.3193,
+      "rang": 16,
+      "p_victoire": 0.0187,
+      "p_top5": 0.109
+    },
+    {
+      "numero": 10,
+      "nom": "KHARTOUM DE LA FYE",
+      "score": 0.2881,
+      "rang": 17,
+      "p_victoire": 0.0162,
+      "p_top5": 0.0942
+    },
+    {
+      "numero": 16,
+      "nom": "NO TALKING YOU",
+      "score": 0.2548,
+      "rang": 18,
+      "p_victoire": 0.0148,
+      "p_top5": 0.085
+    }
+  ]
+}

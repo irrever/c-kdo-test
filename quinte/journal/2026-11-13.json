@@ -1,0 +1,360 @@
+{
+ "date": "2026-11-13",
+ "retroactif": false,
+ "fige_le": "2026-11-12T22:03:26",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 17,
+   "nom": "ELEONORA GRIF",
+   "score": 0.8024496694449849,
+   "p_victoire": 0.130465,
+   "p_top3": 0.365645,
+   "p_top5": 0.56294
+  },
+  {
+   "numero": 5,
+   "nom": "KING LOOK",
+   "score": 0.7578865788011222,
+   "p_victoire": 0.108265,
+   "p_top3": 0.31209,
+   "p_top5": 0.4966
+  },
+  {
+   "numero": 13,
+   "nom": "COSMEA",
+   "score": 0.7422656401658667,
+   "p_victoire": 0.102945,
+   "p_top3": 0.296425,
+   "p_top5": 0.47535
+  },
+  {
+   "numero": 2,
+   "nom": "KATIA DHELPA",
+   "score": 0.7158083977879953,
+   "p_victoire": 0.09284,
+   "p_top3": 0.271545,
+   "p_top5": 0.439105
+  },
+  {
+   "numero": 8,
+   "nom": "SAVASTANO",
+   "score": 0.6364852945724282,
+   "p_victoire": 0.06676,
+   "p_top3": 0.203775,
+   "p_top5": 0.34245
+  },
+  {
+   "numero": 6,
+   "nom": "EMINENT KRONOS",
+   "score": 0.6115558143386646,
+   "p_victoire": 0.060325,
+   "p_top3": 0.185435,
+   "p_top5": 0.315325
+  },
+  {
+   "numero": 4,
+   "nom": "KINGSTON DE BLARY",
+   "score": 0.5977579965950425,
+   "p_victoire": 0.05716,
+   "p_top3": 0.17504,
+   "p_top5": 0.29778
+  },
+  {
+   "numero": 18,
+   "nom": "PURE STEEL",
+   "score": 0.5666061880760763,
+   "p_victoire": 0.05114,
+   "p_top3": 0.157145,
+   "p_top5": 0.268165
+  },
+  {
+   "numero": 3,
+   "nom": "KAZY MERITE",
+   "score": 0.566513276917858,
+   "p_victoire": 0.050775,
+   "p_top3": 0.15726,
+   "p_top5": 0.267955
+  },
+  {
+   "numero": 1,
+   "nom": "KAISER DES GRANGES",
+   "score": 0.5567959096591251,
+   "p_victoire": 0.049165,
+   "p_top3": 0.15106,
+   "p_top5": 0.26111
+  },
+  {
+   "numero": 12,
+   "nom": "QUINTUS TOOMA",
+   "score": 0.5371805066657561,
+   "p_victoire": 0.04535,
+   "p_top3": 0.14077,
+   "p_top5": 0.243225
+  },
+  {
+   "numero": 15,
+   "nom": "JUBII VANG",
+   "score": 0.5078485550123891,
+   "p_victoire": 0.040495,
+   "p_top3": 0.12672,
+   "p_top5": 0.218875
+  },
+  {
+   "numero": 14,
+   "nom": "KOQUERY DU BUISSON",
+   "score": 0.47916749984989204,
+   "p_victoire": 0.036285,
+   "p_top3": 0.11365,
+   "p_top5": 0.198335
+  },
+  {
+   "numero": 9,
+   "nom": "KOOL AND THE GANG",
+   "score": 0.476691989382004,
+   "p_victoire": 0.03554,
+   "p_top3": 0.111245,
+   "p_top5": 0.19461
+  },
+  {
+   "numero": 7,
+   "nom": "KELLY JANE",
+   "score": 0.36933258307434547,
+   "p_victoire": 0.02278,
+   "p_top3": 0.072525,
+   "p_top5": 0.129975
+  },
+  {
+   "numero": 11,
+   "nom": "I CAN WIN GARDENIA",
+   "score": 0.3192587034693059,
+   "p_victoire": 0.01871,
+   "p_top3": 0.060335,
+   "p_top5": 0.109035
+  },
+  {
+   "numero": 10,
+   "nom": "KHARTOUM DE LA FYE",
+   "score": 0.28812726561516044,
+   "p_victoire": 0.01619,
+   "p_top3": 0.052255,
+   "p_top5": 0.09418
+  },
+  {
+   "numero": 16,
+   "nom": "NO TALKING YOU",
+   "score": 0.2548261126459798,
+   "p_victoire": 0.01481,
+   "p_top3": 0.04708,
+   "p_top5": 0.084985
+  }
+ ],
+ "ordre_predit": [
+  17,
+  5,
+  13,
+  2,
+  8
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     17,
+     5,
+     13
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.012845,
+    "par_combinaison": 0.012845
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.043545,
+    "par_combinaison": 0.01088625
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.082805,
+    "par_combinaison": 0.0082805
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.131155,
+    "par_combinaison": 0.006557749999999999
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00715,
+    "par_combinaison": 0.00715
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.02312,
+    "par_combinaison": 0.0046240000000000005
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.049545,
+    "par_combinaison": 0.003303
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6,
+     4
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.089285,
+    "par_combinaison": 0.002551
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00377,
+    "par_combinaison": 0.00377
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.014185,
+    "par_combinaison": 0.0023641666666666668
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6,
+     4
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.03456,
+    "par_combinaison": 0.0016457142857142857
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6,
+     4,
+     18
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.066855,
+    "par_combinaison": 0.0011938392857142857
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     17,
+     5,
+     13,
+     2,
+     8,
+     6,
+     4,
+     18,
+     3
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.11666,
+    "par_combinaison": 0.0009258730158730159
+   }
+  ]
+ }
+}
