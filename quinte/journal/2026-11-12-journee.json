@@ -2503,7 +2503,7 @@
    "heure": "19:23",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KING OF RACE",
@@ -2521,7 +2521,13 @@
     "13": "JOYEUX CORDIERE",
     "14": "KAMARAN MADRIK"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    14,
+    5,
+    3,
+    4
+   ],
    "ordre": [
     7,
     4,
@@ -2975,7 +2981,7 @@
    "heure": "19:07",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "FAVARY",
@@ -2990,7 +2996,13 @@
     "10": "HOLD UP NOCTURNE",
     "11": "ILLENC DES BOSC"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    2,
+    1,
+    8
+   ],
    "ordre": [
     4,
     6,
@@ -3065,7 +3077,7 @@
    "heure": "19:39",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "HELENA DIR",
@@ -3508,7 +3520,7 @@
    "heure": "19:29",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "JUSTIFIED GIFT",
@@ -3518,7 +3530,12 @@
     "5": "ORAIA",
     "6": "FULL DOLLY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    6,
+    2
+   ],
    "ordre": [
     3,
     5,
