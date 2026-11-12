@@ -406,7 +406,7 @@
    "heure": "16:15",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MINA DRY",
@@ -420,7 +420,13 @@
     "9": "MUNHOA VEDAQUAISE",
     "10": "MISS DES BESACES"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    7,
+    10,
+    3
+   ],
    "ordre": [
     9,
     10,
@@ -1984,7 +1990,7 @@
    "heure": "16:32",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SWEET AS",
@@ -1997,7 +2003,13 @@
     "8": "BLU METAL JACKET",
     "9": "PERMENTON"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    6,
+    3,
+    5
+   ],
    "ordre": [
     3,
     8,
