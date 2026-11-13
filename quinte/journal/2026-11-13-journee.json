@@ -742,7 +742,7 @@
    "heure": "10:25",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "ALWATHEEQ",
@@ -753,7 +753,13 @@
     "6": "TIGER THAL FAL",
     "7": "MONATENDU"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    3,
+    6,
+    7
+   ],
    "ordre": [
     2,
     7,
@@ -1090,7 +1096,7 @@
    "heure": "10:40",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "MOLENE DE L'ITON",
