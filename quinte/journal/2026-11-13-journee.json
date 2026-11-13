@@ -3268,7 +3268,7 @@
    "heure": "18:05",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "KLINT D'ESPOIR",
@@ -3915,7 +3915,7 @@
    "heure": "17:47",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PASSOA TRANSS R",
@@ -3928,7 +3928,13 @@
     "8": "PEGGY BOKO",
     "9": "BROWNIE DIAMANT"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    1,
+    9,
+    6
+   ],
    "ordre": [
     8,
     9,
