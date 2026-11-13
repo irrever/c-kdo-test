@@ -922,7 +922,7 @@
    "heure": "11:27",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SEABELLE FAL",
@@ -937,7 +937,13 @@
     "10": "LASTRAGLAN FAL",
     "11": "DEPOR QUEEN GRINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    8,
+    10,
+    4
+   ],
    "ordre": [
     6,
     5,
@@ -1198,7 +1204,7 @@
    "heure": "11:11",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NOUBA DU CABARET",
@@ -1218,7 +1224,13 @@
     "15": "NEED YOU SAMAC",
     "16": "NEWTON CASTELETS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    13,
+    11,
+    6
+   ],
    "ordre": [
     5,
     12,
@@ -1293,7 +1305,7 @@
    "heure": "11:43",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "MUSTANG VENESI",
