@@ -827,7 +827,7 @@
    "heure": "10:55",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "GHALI LISIO",
@@ -841,7 +841,13 @@
     "9": "MAFLAME",
     "10": "HERDASSINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    4,
+    2,
+    7
+   ],
    "ordre": [
     2,
     1,
@@ -1096,7 +1102,7 @@
    "heure": "10:40",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MOLENE DE L'ITON",
@@ -1111,7 +1117,13 @@
     "10": "MAGYC BERRY",
     "11": "LAMIRAL D'ERABLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    6,
+    4,
+    3,
+    10
+   ],
    "ordre": [
     8,
     7,
@@ -1186,7 +1198,7 @@
    "heure": "11:11",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "NOUBA DU CABARET",
