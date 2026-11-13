@@ -113,7 +113,7 @@
    "heure": "18:58",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "LOVELY JENILOU",
@@ -3372,7 +3372,7 @@
    "heure": "18:40",
    "distance": 2950,
    "discipline": "Monté",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LUGOS DE MONTAURAN",
@@ -3385,7 +3385,13 @@
     "8": "KANCAENNAISE",
     "9": "KAISER DU CHATELET"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    4,
+    8,
+    5
+   ],
    "ordre": [
     9,
     6,
@@ -4106,7 +4112,7 @@
    "heure": "18:50",
    "distance": 2100,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NIRVANA FASHION",
@@ -4117,7 +4123,13 @@
     "6": "GREGOR",
     "7": "FLEURON D'ACADIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    5,
+    3,
+    4
+   ],
    "ordre": [
     4,
     6,
