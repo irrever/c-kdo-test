@@ -405,7 +405,7 @@
    "heure": "20:50",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MELO DU LOCHEUR",
@@ -419,7 +419,13 @@
     "9": "MADIBA DE BELLANDE",
     "10": "MILORD DES ARRIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    5,
+    1,
+    8
+   ],
    "ordre": [
     3,
     7,
@@ -4499,7 +4505,7 @@
    "heure": "21:07",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "MILORD DES MONGES (FR)",
