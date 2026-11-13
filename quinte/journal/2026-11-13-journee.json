@@ -113,7 +113,7 @@
    "heure": "18:58",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LOVELY JENILOU",
@@ -126,7 +126,13 @@
     "9": "LIBERTE DU GOUTIER",
     "10": "LISBONNE DRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    10,
+    4,
+    6
+   ],
    "ordre": [
     9,
     10,
@@ -201,7 +207,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "MILLE SABORDS DIVO",
@@ -3466,7 +3472,7 @@
    "heure": "19:15",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NABAB DES PLEIGNES",
@@ -3484,7 +3490,13 @@
     "13": "NAVONA PIAZZA",
     "14": "NOUNASSIMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    7,
+    11,
+    1
+   ],
    "ordre": [
     12,
     1,
@@ -4197,7 +4209,7 @@
    "heure": "19:18",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "OLYMPUS DRAGON",
@@ -4208,7 +4220,13 @@
     "6": "ORKAN BO",
     "7": "FEUDALE DEGLI DEI"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    3,
+    6,
+    7
+   ],
    "ordre": [
     5,
     1,
