@@ -1410,7 +1410,7 @@
    "heure": "12:15",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ISIS DU LEARD",
@@ -1426,7 +1426,13 @@
     "11": "JENNY LEGEND",
     "12": "INDY VET"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    9,
+    12,
+    8
+   ],
    "ordre": [
     7,
     4,
@@ -1956,7 +1962,7 @@
    "heure": "12:33",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "SHUWAIB",
