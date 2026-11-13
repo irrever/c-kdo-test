@@ -1507,7 +1507,7 @@
    "heure": "12:50",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MANON DE BUSSET",
@@ -1523,7 +1523,13 @@
     "11": "MAVERICK ELLIS",
     "12": "MOSCANTIDA PEAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    12,
+    5,
+    8,
+    10
+   ],
    "ordre": [
     5,
     8,
@@ -1962,7 +1968,7 @@
    "heure": "12:33",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SHUWAIB",
@@ -1975,7 +1981,13 @@
     "8": "PRINCE DES DUCS",
     "9": "GRAND ASSEMBLAGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    8,
+    5,
+    1
+   ],
    "ordre": [
     8,
     3,
@@ -2050,7 +2062,7 @@
    "heure": "13:08",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "OSMOSE PRECIEUSE",
