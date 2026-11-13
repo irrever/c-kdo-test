@@ -1,0 +1,187 @@
+{
+  "date": "2026-11-14",
+  "r": 1,
+  "c": 4,
+  "url": "https://www.equidia.fr/courses/2026-11-14/R1/C4",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "15:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-13T22:03:35+00:00",
+  "presse": {
+    "parier": [
+      17,
+      15,
+      8,
+      11,
+      13,
+      7,
+      5,
+      6
+    ],
+    "cinq": null,
+    "bases": [
+      17,
+      15
+    ],
+    "outsiders": [
+      3,
+      14,
+      2,
+      10,
+      9,
+      12,
+      4
+    ],
+    "belles": [
+      8,
+      11,
+      13,
+      7,
+      5,
+      6
+    ],
+    "delaisses": [
+      16,
+      18,
+      1
+    ]
+  },
+  "notre": [
+    {
+      "numero": 8,
+      "nom": "KALINE DU LOCHEUR",
+      "score": 0.8653,
+      "rang": 1,
+      "p_victoire": 0.1474,
+      "p_top5": 0.6205
+    },
+    {
+      "numero": 15,
+      "nom": "JAIFA DE L'ITON",
+      "score": 0.8489,
+      "rang": 2,
+      "p_victoire": 0.1388,
+      "p_top5": 0.5961
+    },
+    {
+      "numero": 17,
+      "nom": "KOUFRA IRIS'EYES",
+      "score": 0.7852,
+      "rang": 3,
+      "p_victoire": 0.1071,
+      "p_top5": 0.5031
+    },
+    {
+      "numero": 5,
+      "nom": "KASSYA",
+      "score": 0.7847,
+      "rang": 4,
+      "p_victoire": 0.107,
+      "p_top5": 0.5026
+    },
+    {
+      "numero": 7,
+      "nom": "KOMERE DE CORDAY",
+      "score": 0.6672,
+      "rang": 5,
+      "p_victoire": 0.0664,
+      "p_top5": 0.3495
+    },
+    {
+      "numero": 13,
+      "nom": "KEY LADY",
+      "score": 0.5843,
+      "rang": 6,
+      "p_victoire": 0.0478,
+      "p_top5": 0.2639
+    },
+    {
+      "numero": 3,
+      "nom": "KALISKANA",
+      "score": 0.5626,
+      "rang": 7,
+      "p_victoire": 0.044,
+      "p_top5": 0.2417
+    },
+    {
+      "numero": 4,
+      "nom": "KANAKA DE BUSSET",
+      "score": 0.5606,
+      "rang": 8,
+      "p_victoire": 0.0442,
+      "p_top5": 0.2422
+    },
+    {
+      "numero": 14,
+      "nom": "JALOUZ D'OLIVERIE",
+      "score": 0.5438,
+      "rang": 9,
+      "p_victoire": 0.0407,
+      "p_top5": 0.2276
+    },
+    {
+      "numero": 9,
+      "nom": "HUDSON BAIE",
+      "score": 0.5374,
+      "rang": 10,
+      "p_victoire": 0.0401,
+      "p_top5": 0.2231
+    },
+    {
+      "numero": 6,
+      "nom": "KALITA D'HENINEL",
+      "score": 0.5211,
+      "rang": 11,
+      "p_victoire": 0.0374,
+      "p_top5": 0.2112
+    },
+    {
+      "numero": 2,
+      "nom": "KAPUSHA MIP",
+      "score": 0.5161,
+      "rang": 12,
+      "p_victoire": 0.037,
+      "p_top5": 0.2072
+    },
+    {
+      "numero": 11,
+      "nom": "JAFLOSA GIRL",
+      "score": 0.5113,
+      "rang": 13,
+      "p_victoire": 0.0363,
+      "p_top5": 0.2044
+    },
+    {
+      "numero": 10,
+      "nom": "KALMIA QUICK",
+      "score": 0.5104,
+      "rang": 14,
+      "p_victoire": 0.0356,
+      "p_top5": 0.2011
+    },
+    {
+      "numero": 16,
+      "nom": "IDREAMIS",
+      "score": 0.4948,
+      "rang": 15,
+      "p_victoire": 0.0333,
+      "p_top5": 0.1916
+    },
+    {
+      "numero": 12,
+      "nom": "IN RACE LORRAINE",
+      "score": 0.4746,
+      "rang": 16,
+      "p_victoire": 0.0304,
+      "p_top5": 0.177
+    },
+    {
+      "numero": 18,
+      "nom": "JEZABELLE BIE",
+      "score": 0.0715,
+      "rang": 17,
+      "p_victoire": 0.0064,
+      "p_top5": 0.0372
+    }
+  ]
+}

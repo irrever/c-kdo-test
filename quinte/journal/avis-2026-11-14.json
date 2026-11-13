@@ -1,0 +1,223 @@
+{
+  "box": [
+    8,
+    15,
+    7,
+    2,
+    10,
+    3
+  ],
+  "top5": [
+    8,
+    15,
+    17,
+    5,
+    7
+  ],
+  "a_jouer": [
+    2,
+    10
+  ],
+  "a_eviter": [
+    17,
+    5,
+    13,
+    11
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 8,
+      "nom": "KALINE DU LOCHEUR",
+      "rang": 1,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.6205,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "JAIFA DE L'ITON",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5961,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 17,
+      "nom": "KOUFRA IRIS'EYES",
+      "rang": 3,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5031,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "KASSYA",
+      "rang": 4,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5026,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "KOMERE DE CORDAY",
+      "rang": 5,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3495,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "KEY LADY",
+      "rang": 6,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2639,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "KALISKANA",
+      "rang": 7,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2417,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "KANAKA DE BUSSET",
+      "rang": 8,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2422,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "JALOUZ D'OLIVERIE",
+      "rang": 9,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2276,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "HUDSON BAIE",
+      "rang": 10,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2231,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "KALITA D'HENINEL",
+      "rang": 11,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2112,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "KAPUSHA MIP",
+      "rang": 12,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2072,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "JAFLOSA GIRL",
+      "rang": 13,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2044,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 10,
+      "nom": "KALMIA QUICK",
+      "rang": 14,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2011,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "IDREAMIS",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1916,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "IN RACE LORRAINE",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.177,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 18,
+      "nom": "JEZABELLE BIE",
+      "rang": 17,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.0372,
+      "categorie": "délaissé",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-14",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-13T22:03:39+00:00"
+}
