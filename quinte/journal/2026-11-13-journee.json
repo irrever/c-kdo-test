@@ -500,7 +500,7 @@
    "heure": "21:25",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ORIELLA DU NOYER",
@@ -516,7 +516,13 @@
     "11": "ONE MORE LIFE",
     "12": "ONELLE LANDING"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    9,
+    1,
+    5
+   ],
    "ordre": [
     7,
     8,
@@ -4505,7 +4511,7 @@
    "heure": "21:07",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MILORD DES MONGES (FR)",
@@ -4520,7 +4526,13 @@
     "10": "KEEN ON SMART",
     "11": "LUMINEUSE WELL"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    6,
+    1,
+    5
+   ],
    "ordre": [
     6,
     7,
@@ -4595,7 +4607,7 @@
    "heure": "21:42",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "ROYAL EXPRESS",
