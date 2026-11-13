@@ -1604,7 +1604,7 @@
    "heure": "13:25",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LINDY D'OURVILLE",
@@ -1624,7 +1624,13 @@
     "15": "LARGO DE JOUDES",
     "16": "LOLA LOULOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    14,
+    12,
+    10,
+    4
+   ],
    "ordre": [
     13,
     12,
@@ -2062,7 +2068,7 @@
    "heure": "13:08",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "OSMOSE PRECIEUSE",
@@ -2076,7 +2082,13 @@
     "9": "VIVIANNE",
     "10": "SIMPLY FLAWLESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    7,
+    10,
+    9
+   ],
    "ordre": [
     4,
     3,
@@ -2151,7 +2163,7 @@
    "heure": "13:43",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "LE SAGE",
