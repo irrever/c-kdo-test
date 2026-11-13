@@ -2473,7 +2473,7 @@
    "heure": "15:28",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ANIELSKA",
@@ -2491,7 +2491,13 @@
     "13": "L'ENNEMI",
     "14": "SOHO VICKY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    6,
+    9,
+    7
+   ],
    "ordre": [
     11,
     12,
@@ -2566,7 +2572,7 @@
    "heure": "16:03",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "HAPPY HUNTER",
@@ -2583,7 +2589,13 @@
     "13": "HAKASTE",
     "14": "COEUR DE ROUME"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    8,
+    10,
+    5
+   ],
    "ordre": [
     3,
     14,
@@ -2854,7 +2866,7 @@
    "heure": "15:45",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "MUSTANG DE LAPENCH",
@@ -2876,7 +2888,13 @@
     "17": "MAGIC DU VALLON",
     "18": "MALVERN DE GUEZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    18,
+    15,
+    9
+   ],
    "ordre": [
     4,
     7,
@@ -2951,7 +2969,7 @@
    "heure": "16:20",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "KABYLIE DES EDEL",
@@ -3499,7 +3517,7 @@
    "heure": "16:00",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LIVE IS LIFE",
@@ -3511,7 +3529,13 @@
     "7": "MAKEMYDAY ROLLEMAN",
     "8": "SALINA MEERSWAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    8,
+    2,
+    4
+   ],
    "ordre": [
     3,
     5,
