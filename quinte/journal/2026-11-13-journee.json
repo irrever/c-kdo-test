@@ -597,7 +597,7 @@
    "heure": "22:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NOMINEE",
@@ -614,7 +614,13 @@
     "12": "NYMPHE DAXEL",
     "13": "NINA DE LA DUNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    9,
+    13,
+    7
+   ],
    "ordre": [
     12,
     9,
@@ -4607,7 +4613,7 @@
    "heure": "21:42",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "ROYAL EXPRESS",
@@ -4619,7 +4625,13 @@
     "7": "RAGAZZA DI ROB",
     "8": "REGINA WESCCO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    6,
+    3,
+    7
+   ],
    "ordre": [
     1,
     7,
