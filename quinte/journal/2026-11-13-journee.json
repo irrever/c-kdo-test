@@ -1018,7 +1018,7 @@
    "heure": "12:05",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ARABIA",
@@ -1033,7 +1033,13 @@
     "10": "MAUI SPIRIT",
     "11": "SUDERSEE MOOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    7,
+    2,
+    4
+   ],
    "ordre": [
     1,
     8,
@@ -1305,7 +1311,7 @@
    "heure": "11:43",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MUSTANG VENESI",
@@ -1323,7 +1329,13 @@
     "13": "MY BEAUTIFUL",
     "14": "MACLAREN D'ALESA"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    12,
+    1,
+    8,
+    2
+   ],
    "ordre": [
     6,
     9,
@@ -1398,7 +1410,7 @@
    "heure": "12:15",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "ISIS DU LEARD",
@@ -1859,7 +1871,7 @@
    "heure": "11:59",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "DORIANELLO",
@@ -1870,7 +1882,13 @@
     "6": "NOBLE AMBER",
     "7": "LORIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    6,
+    5,
+    1
+   ],
    "ordre": [
     3,
     1,
