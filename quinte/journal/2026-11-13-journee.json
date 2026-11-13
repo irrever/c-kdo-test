@@ -2670,7 +2670,7 @@
    "heure": "16:38",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "YOUNG AND PROUD",
@@ -2969,7 +2969,7 @@
    "heure": "16:20",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KABYLIE DES EDEL",
@@ -2989,7 +2989,13 @@
     "15": "JAZZ PAT",
     "16": "JEFF DE MONPAZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    14,
+    15,
+    10,
+    11
+   ],
    "ordre": [
     15,
     16,
@@ -3610,7 +3616,7 @@
    "heure": "16:24",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SPECIAL SCHERMER",
@@ -3622,7 +3628,13 @@
     "7": "SHIKARA BOKO",
     "8": "AMORE BAROSSO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    6,
+    3,
+    7
+   ],
    "ordre": [
     7,
     5,
