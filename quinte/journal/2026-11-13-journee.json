@@ -695,7 +695,7 @@
    "heure": "22:25",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NYMPHE BLUE",
@@ -709,7 +709,13 @@
     "9": "NUEVA DE VANDEL",
     "10": "NOVA JOSSELYN"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    10,
+    5,
+    7,
+    3
+   ],
    "ordre": [
     7,
     6,
