@@ -3173,7 +3173,7 @@
    "heure": "17:30",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LEON JERSOP",
@@ -3187,7 +3187,13 @@
     "9": "LEADER BAROQUE",
     "10": "LOBSTER CLUB"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    3,
+    5,
+    9
+   ],
    "ordre": [
     10,
     7,
@@ -3909,7 +3915,7 @@
    "heure": "17:47",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "PASSOA TRANSS R",
