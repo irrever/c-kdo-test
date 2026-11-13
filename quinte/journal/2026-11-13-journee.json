@@ -207,7 +207,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MILLE SABORDS DIVO",
@@ -221,7 +221,13 @@
     "9": "MOZART SAUTONNE",
     "10": "MAMBO DE JAUDRAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    3,
+    7,
+    4
+   ],
    "ordre": [
     9,
     6,
@@ -296,7 +302,7 @@
    "heure": "20:15",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 18,
    "noms": {
     "1": "KAISER DES GRANGES",
@@ -4294,7 +4300,7 @@
    "heure": "19:49",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MAGIC MOMENT",
@@ -4309,7 +4315,13 @@
     "10": "REX SCOTT",
     "11": "FIFTY SIXTY SOX"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    9,
+    8,
+    6
+   ],
    "ordre": [
     3,
     2,
