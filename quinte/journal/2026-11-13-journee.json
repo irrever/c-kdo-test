@@ -1705,7 +1705,7 @@
    "heure": "14:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KATY DU CHERISAY",
@@ -1725,7 +1725,13 @@
     "15": "KASHMIR DU GERS",
     "16": "KATHARINA DE MAI"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    16,
+    7,
+    10
+   ],
    "ordre": [
     15,
     16,
@@ -1800,7 +1806,7 @@
    "heure": "14:35",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LORD DE LOIRON",
@@ -1814,7 +1820,13 @@
     "9": "HENRIQUE",
     "10": "LORD DELO"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    2,
+    1,
+    8,
+    4
+   ],
    "ordre": [
     8,
     2,
@@ -2163,7 +2175,7 @@
    "heure": "13:43",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LE SAGE",
@@ -2181,7 +2193,13 @@
     "13": "EL CANEY",
     "14": "ZAMASIYA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    12,
+    6,
+    13
+   ],
    "ordre": [
     4,
     10,
@@ -2256,7 +2274,7 @@
    "heure": "14:18",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "AMILA",
@@ -2275,7 +2293,13 @@
     "14": "CHIPRANA",
     "15": "BROMUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    7,
+    9,
+    11
+   ],
    "ordre": [
     1,
     8,
@@ -2350,7 +2374,7 @@
    "heure": "14:53",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NANCY DES PLACES",
@@ -2368,7 +2392,13 @@
     "14": "MEYN ZUN",
     "15": "MISS TECH"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    9,
+    14,
+    6
+   ],
    "ordre": [
     1,
     5,
@@ -2722,7 +2752,7 @@
    "heure": "15:10",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "1": "MIA DU SABLE",
@@ -2743,7 +2773,13 @@
     "16": "MUTINE DE FRECA",
     "17": "MATARIKI"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    16,
+    17,
+    14,
+    2
+   ],
    "ordre": [
     14,
     16,
