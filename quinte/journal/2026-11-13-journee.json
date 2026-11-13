@@ -2670,7 +2670,7 @@
    "heure": "16:38",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "YOUNG AND PROUD",
@@ -2689,7 +2689,13 @@
     "14": "KEEN APPROACH",
     "15": "RUE DE L'ODEON"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    3,
+    7,
+    11
+   ],
    "ordre": [
     11,
     2,
@@ -3070,7 +3076,7 @@
    "heure": "16:55",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LA KIFFANCE",
@@ -3086,7 +3092,13 @@
     "11": "LIBERTY NOIRE",
     "12": "LIKE A DESTINY"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    2,
+    10,
+    3,
+    6
+   ],
    "ordre": [
     11,
     10,
@@ -3161,7 +3173,7 @@
    "heure": "17:30",
    "distance": 2950,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "LEON JERSOP",
@@ -3709,7 +3721,7 @@
    "heure": "16:48",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SANDRA'S WISH",
@@ -3721,7 +3733,13 @@
     "7": "SIAN KA'AN SB",
     "8": "SPLENDID STEEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    8,
+    3,
+    4
+   ],
    "ordre": [
     7,
     3,
@@ -3796,7 +3814,7 @@
    "heure": "17:12",
    "distance": 3100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "VILLENEUF",
@@ -3810,7 +3828,13 @@
     "9": "HOOPER DES CHASSES (FR)",
     "10": "FLOREAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    1,
+    10,
+    6
+   ],
    "ordre": [
     4,
     5,
