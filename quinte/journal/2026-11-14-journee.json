@@ -3709,7 +3709,7 @@
    "heure": "20:37",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "EVERSTAR",
@@ -3726,7 +3726,13 @@
     "12": "MEKTOUB ELMY",
     "13": "TSUKI"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    3,
+    11,
+    9
+   ],
    "ordre": [
     13,
     3,
@@ -3801,7 +3807,7 @@
    "heure": "21:09",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "LOFSONGUR ISLANDE",
@@ -4282,7 +4288,7 @@
    "heure": "20:53",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "COMO LA LUNA",
@@ -4302,7 +4308,13 @@
     "15": "LA RUMBERA",
     "16": "KATIE MELUA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    4,
+    8,
+    14,
+    11
+   ],
    "ordre": [
     9,
     5,
@@ -6965,7 +6977,7 @@
    "heure": "20:50",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SCIENCE ROCKETS",
@@ -6976,7 +6988,13 @@
     "6": "OPERATNTHUNDERBOLT",
     "7": "ROCKINGHAM JOE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    1,
+    7,
+    6
+   ],
    "ordre": [
     5,
     2,
