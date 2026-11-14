@@ -3616,7 +3616,7 @@
    "heure": "20:05",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LE TRIOMPHANT",
@@ -3631,7 +3631,13 @@
     "10": "TALIA FAL",
     "12": "BREIZH STORY"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    8,
+    6,
+    3
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -3703,7 +3709,7 @@
    "heure": "20:37",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "EVERSTAR",
@@ -4176,7 +4182,7 @@
    "heure": "20:21",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NO ME PILLA",
@@ -4195,7 +4201,13 @@
     "14": "LUCERO ROJO",
     "15": "BEHIND THE SUN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    11,
+    8,
+    6,
+    12
+   ],
    "ordre": [
     11,
     5,
@@ -6860,7 +6872,7 @@
    "heure": "20:20",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MALA AMIGA",
@@ -6872,7 +6884,13 @@
     "7": "SHEPPING NACHES",
     "8": "PROMENADE QUEEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    3,
+    2,
+    6
+   ],
    "ordre": [
     5,
     2,
