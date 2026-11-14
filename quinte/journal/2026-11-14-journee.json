@@ -1118,7 +1118,7 @@
    "heure": "12:10",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KAPTA JELOCA",
@@ -1137,7 +1137,13 @@
     "15": "KOOL DU CHATELET",
     "16": "KISS D'EREVAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    12,
+    14,
+    15
+   ],
    "ordre": [
     3,
     1,
@@ -1212,7 +1218,7 @@
    "heure": "12:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "HELEN DES OUBEAUX",
@@ -2069,7 +2075,7 @@
    "heure": "12:32",
    "distance": 1550,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "EL PASO T",
@@ -2082,7 +2088,13 @@
     "8": "ASHALEEA DU NIL",
     "9": "VALENTINA P"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    2,
+    3,
+    1
+   ],
    "ordre": [
     3,
     2,
@@ -2252,7 +2264,7 @@
    "heure": "12:28",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "LE SIRE",
@@ -4790,7 +4802,7 @@
    "heure": "12:30",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NOBEL DU CHENE",
@@ -4808,7 +4820,13 @@
     "13": "NIKKY FAC",
     "14": "NAYA AU CROSNIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    13,
+    6,
+    7,
+    9
+   ],
    "ordre": [
     6,
     9,
