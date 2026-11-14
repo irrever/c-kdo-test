@@ -107,7 +107,7 @@
    "heure": "13:58",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NEW YEAR'S DAY (G)",
@@ -125,7 +125,13 @@
     "13": "NOVA JENILOU",
     "14": "NINA JAVO"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    4,
+    6,
+    8,
+    5
+   ],
    "ordre": [
     13,
     6,
@@ -1425,7 +1431,7 @@
    "heure": "13:49",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ILLEGITIME PRINCE",
@@ -1439,7 +1445,13 @@
     "9": "ILTON BEAUREGARD",
     "10": "ICARE DE MONTFORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    6,
+    3,
+    2
+   ],
    "ordre": [
     6,
     2,
@@ -2479,7 +2491,7 @@
    "heure": "13:40",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "ALICE'S SAGA",
@@ -2492,7 +2504,13 @@
     "8": "ALMARITA",
     "9": "RUNNIN'BLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    6,
+    5,
+    2
+   ],
    "ordre": [
     1,
     3,
@@ -2567,7 +2585,7 @@
    "heure": "14:15",
    "distance": 4300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "OAK CREEK",
@@ -5126,7 +5144,7 @@
    "heure": "14:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MARBELLA DREAM",
@@ -5142,7 +5160,13 @@
     "11": "MENEUSE DE HOUELLE",
     "12": "MELLYNGA"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    7,
+    11,
+    10,
+    6
+   ],
    "ordre": [
     7,
     10,
@@ -5592,7 +5616,7 @@
    "heure": "13:35",
    "distance": 5000,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "HERAKLES WESTWOOD",
@@ -5608,7 +5632,13 @@
     "11": "AWAYTHELAD",
     "12": "LADIES WELL"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    8,
+    12,
+    11
+   ],
    "ordre": [
     4,
     12,
@@ -5683,7 +5713,7 @@
    "heure": "14:10",
    "distance": 3300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "ADMIRAL WILL BROWN",
