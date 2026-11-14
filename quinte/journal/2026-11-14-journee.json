@@ -306,7 +306,7 @@
    "heure": "15:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "2": "KAPUSHA MIP",
@@ -327,7 +327,13 @@
     "17": "KOUFRA IRIS'EYES",
     "18": "JEZABELLE BIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    13,
+    5,
+    3,
+    2
+   ],
    "ordre": [
     8,
     15,
@@ -2796,7 +2802,7 @@
    "heure": "15:32",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MIDSHIP",
@@ -5365,7 +5371,7 @@
    "heure": "15:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MICA DE FARCHAT",
@@ -5383,7 +5389,13 @@
     "13": "MANUELO BELLO",
     "14": "MEKONG"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    14,
+    6,
+    11,
+    10
+   ],
    "ordre": [
     12,
     10,
@@ -5458,7 +5470,7 @@
    "heure": "15:30",
    "distance": 2450,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 18,
    "noms": {
     "1": "LASCAUX DU NOYER",
@@ -5921,7 +5933,7 @@
    "heure": "15:20",
    "distance": 4050,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MATATA",
@@ -5940,7 +5952,12 @@
     "14": "TORNEO",
     "15": "DUNKERQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    14,
+    1
+   ],
    "ordre": [
     12,
     15,
