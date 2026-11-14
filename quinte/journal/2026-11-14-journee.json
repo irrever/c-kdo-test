@@ -504,7 +504,7 @@
    "heure": "16:25",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "IBILI D'OCCAGNES",
@@ -521,7 +521,13 @@
     "12": "JUSTE SNOB",
     "13": "HASHTAG SIMONI"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    11,
+    6,
+    9,
+    7
+   ],
    "ordre": [
     8,
     5,
@@ -2906,7 +2912,7 @@
    "heure": "16:07",
    "distance": 4800,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "KIRIKOU DES MERS",
@@ -2919,7 +2925,13 @@
     "8": "COEUR D'AMOUR",
     "9": "LEADER SPORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    7,
+    9,
+    4
+   ],
    "ordre": [
     5,
     4,
@@ -2994,7 +3006,7 @@
    "heure": "16:42",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "JEUNE COKO",
@@ -5585,7 +5597,7 @@
    "heure": "16:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KETTY DU BREUCQ",
@@ -5601,7 +5613,13 @@
     "13": "KRYSTAL DU RUEL",
     "14": "KAVALO BELLO"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    13,
+    5,
+    12,
+    11
+   ],
    "ordre": [
     12,
     8,
@@ -6050,7 +6068,7 @@
    "heure": "15:55",
    "distance": 4800,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ACE OF SPADES",
@@ -6070,7 +6088,13 @@
     "15": "MOON MISSION",
     "16": "WILLIAM YEATS"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    16,
+    2,
+    5,
+    8
+   ],
    "ordre": [
     16,
     14,
@@ -6145,7 +6169,7 @@
    "heure": "16:30",
    "distance": 4200,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "DAYLATEDOLLARSHORT",
