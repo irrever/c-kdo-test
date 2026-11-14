@@ -206,7 +206,7 @@
    "heure": "14:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NIARKOS DU CEBE",
@@ -225,7 +225,13 @@
     "14": "NAKALOUN",
     "15": "NEW YORK D'OYSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    13,
+    3,
+    6,
+    4
+   ],
    "ordre": [
     13,
     10,
@@ -300,7 +306,7 @@
    "heure": "15:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 17,
    "noms": {
     "2": "KAPUSHA MIP",
@@ -2691,7 +2697,7 @@
    "heure": "14:50",
    "distance": 3500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JARDIN PATURLE",
@@ -2709,7 +2715,13 @@
     "13": "NAUSICAA KARWIN",
     "14": "LA DUCASSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    12,
+    6,
+    11
+   ],
    "ordre": [
     2,
     6,
@@ -5253,7 +5265,7 @@
    "heure": "14:30",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LIOR DE SASSY",
@@ -5272,7 +5284,13 @@
     "15": "LEO PERRINE",
     "16": "LOST DES COUPERIES"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    15,
+    11,
+    10,
+    7
+   ],
    "ordre": [
     9,
     15,
@@ -5347,7 +5365,7 @@
    "heure": "15:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "MICA DE FARCHAT",
@@ -5819,7 +5837,7 @@
    "heure": "14:45",
    "distance": 3200,
    "discipline": "Steeple Chase",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "KABRAL DU MATHAN",
@@ -5830,7 +5848,12 @@
     "6": "WORKAHEAD",
     "7": "FOLIE GOLITH"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    7,
+    5
+   ],
    "ordre": [
     3,
     4,
