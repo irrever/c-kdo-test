@@ -4595,7 +4595,7 @@
    "heure": "22:25",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ANNCIATORE",
@@ -4614,7 +4614,13 @@
     "14": "FLACA DANY",
     "15": "VAMOS MAQUINA"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    8,
+    9,
+    14,
+    7
+   ],
    "ordre": [
     9,
     7,
@@ -7259,7 +7265,7 @@
    "heure": "22:21",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "ICELANDER",
@@ -7271,7 +7277,13 @@
     "7": "PEPPERMINT MAN",
     "8": "GUNS AND COFFEE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    4,
+    1,
+    3
+   ],
    "ordre": [
     8,
     5,
