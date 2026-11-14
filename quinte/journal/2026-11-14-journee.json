@@ -1025,7 +1025,7 @@
    "heure": "11:38",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MALICE BLEUE",
@@ -1037,7 +1037,13 @@
     "7": "MIDNIGHT EXPRESS",
     "8": "MATIGNON"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    1,
+    3,
+    6
+   ],
    "ordre": [
     7,
     2,
@@ -1112,7 +1118,7 @@
    "heure": "12:10",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "KAPTA JELOCA",
@@ -1970,7 +1976,7 @@
    "heure": "12:00",
    "distance": 2300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "REVENTADOR",
@@ -1982,7 +1988,13 @@
     "7": "SAPRISTI",
     "8": "MAGIC TOPISSIMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    4,
+    2,
+    7
+   ],
    "ordre": [
     3,
     5,
@@ -2145,7 +2157,7 @@
    "heure": "11:54",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MICAWBER",
@@ -2159,7 +2171,13 @@
     "9": "MOTU KOTA",
     "10": "MAIMIX"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    1,
+    6,
+    4
+   ],
    "ordre": [
     1,
     3,
@@ -4669,7 +4687,7 @@
    "heure": "12:00",
    "distance": 2450,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "MARCO DU VERGER",
@@ -4691,7 +4709,13 @@
     "17": "MEMPHIS GRIFF",
     "18": "MISTER COMMANDERIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    10,
+    15,
+    2
+   ],
    "ordre": [
     7,
     11,
