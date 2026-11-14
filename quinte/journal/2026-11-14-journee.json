@@ -1218,7 +1218,7 @@
    "heure": "12:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "HELEN DES OUBEAUX",
@@ -1237,7 +1237,13 @@
     "14": "GOLDEN VISAIS",
     "15": "GEANT SARTHOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    6,
+    2,
+    8
+   ],
    "ordre": [
     7,
     5,
@@ -2264,7 +2270,7 @@
    "heure": "12:28",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LE SIRE",
@@ -2282,7 +2288,13 @@
     "13": "THE FIST",
     "14": "KASYMIR"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    7,
+    9,
+    6,
+    4
+   ],
    "ordre": [
     9,
     2,
@@ -2357,7 +2369,7 @@
    "heure": "13:03",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "AFFORTUNATO",
@@ -4901,7 +4913,7 @@
    "heure": "13:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "NUIT DE PAQUES",
