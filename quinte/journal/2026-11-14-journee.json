@@ -930,7 +930,7 @@
    "heure": "11:06",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOLANN DES AGETS",
@@ -944,7 +944,13 @@
     "9": "NATALIA JAMES",
     "10": "NIGHT OF CARLESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    8,
+    1,
+    5
+   ],
    "ordre": [
     10,
     9,
@@ -1019,7 +1025,7 @@
    "heure": "11:38",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "MALICE BLEUE",
@@ -1866,7 +1872,7 @@
    "heure": "11:22",
    "distance": 950,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "DARINICE",
@@ -1883,7 +1889,13 @@
     "13": "DIEPPE",
     "14": "MOONLIGHT DREAMER"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    2,
+    12,
+    14
+   ],
    "ordre": [
     2,
     1,
