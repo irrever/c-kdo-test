@@ -602,7 +602,7 @@
    "heure": "17:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "DIVA DEL RONCO",
@@ -619,7 +619,13 @@
     "12": "KING OPERA",
     "13": "HUBBLE DU VIVIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    8,
+    3,
+    13,
+    5
+   ],
    "ordre": [
     8,
     13,
@@ -694,7 +700,7 @@
    "heure": "17:35",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "ROCKY OASIS",
@@ -3103,7 +3109,7 @@
    "heure": "17:17",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KER WELEN",
@@ -3123,7 +3129,13 @@
     "15": "VESCO",
     "16": "BAIKAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    4,
+    16,
+    8
+   ],
    "ordre": [
     4,
     7,
@@ -6273,7 +6285,7 @@
    "heure": "17:00",
    "distance": 3300,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "CLOVELLY CHARM",
@@ -6292,7 +6304,13 @@
     "14": "SHE WAS THE ONE",
     "15": "SOLERETTA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    15,
+    1,
+    7
+   ],
    "ordre": [
     2,
     3,
