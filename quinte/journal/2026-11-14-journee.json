@@ -4795,7 +4795,7 @@
    "heure": "23:25",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "PAJOMA",
@@ -4814,7 +4814,13 @@
     "14": "GOOD NEPRO",
     "15": "VELOCIRAPTOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    2,
+    9,
+    5
+   ],
    "ordre": [
     14,
     7,
@@ -7457,7 +7463,7 @@
    "heure": "23:20",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SARATOGA FLASH",
@@ -7473,7 +7479,13 @@
     "11": "DEGREE OF RISK",
     "12": "GIFTEDBYDESIGN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    1,
+    8,
+    9
+   ],
    "ordre": [
     6,
     8,
