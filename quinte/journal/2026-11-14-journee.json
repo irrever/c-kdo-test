@@ -1564,7 +1564,7 @@
    "heure": "09:45",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "2": "TREVANION",
@@ -1581,7 +1581,13 @@
     "13": "NI CHAUD NI FROID",
     "14": "ORIENTAL PRINCESSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    7,
+    9,
+    5
+   ],
    "ordre": [
     2,
     12,
