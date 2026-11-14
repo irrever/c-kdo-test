@@ -1,0 +1,204 @@
+{
+  "box": [
+    4,
+    12,
+    5,
+    2,
+    7,
+    6
+  ],
+  "top5": [
+    4,
+    9,
+    12,
+    5,
+    2
+  ],
+  "a_jouer": [
+    5,
+    2,
+    7,
+    6
+  ],
+  "a_eviter": [
+    9,
+    1,
+    8,
+    11,
+    13
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 4,
+      "nom": "ROYAL SAGA",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4457,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "KOLOKICO",
+      "rang": 2,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4218,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "FEU DE DIEU",
+      "rang": 3,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4121,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "KALIBRE",
+      "rang": 4,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4051,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "AMY DU KIFF",
+      "rang": 5,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3934,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "KILOMETRE ILLIMITE",
+      "rang": 6,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3879,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "JOHNNY ROQUE",
+      "rang": 7,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3557,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "BON GARCON",
+      "rang": 8,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3504,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "JUNTOS GANAMOS",
+      "rang": 9,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3359,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "LE PETIT CHEVAL",
+      "rang": 10,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3195,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "TOSCANA DU BERLAIS",
+      "rang": 11,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2968,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "LACOKOKELDY",
+      "rang": 12,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2781,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "GINJA DES TAILLONS",
+      "rang": 13,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.236,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "KIVALA DU BERLAIS",
+      "rang": 14,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2033,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "JOJO LAPIN",
+      "rang": 15,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.1584,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-15",
+  "r": 1,
+  "c": 6,
+  "hippodrome": "AUTEUIL",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-14T22:03:23+00:00"
+}

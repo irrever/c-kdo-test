@@ -1,0 +1,168 @@
+{
+  "date": "2026-11-15",
+  "r": 1,
+  "c": 6,
+  "url": "https://www.equidia.fr/courses/2026-11-15/R1/C6",
+  "hippodrome": "AUTEUIL",
+  "heure_depart": "15:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-14T22:03:21+00:00",
+  "presse": {
+    "parier": [
+      13,
+      4,
+      9,
+      12,
+      11,
+      8,
+      1,
+      15
+    ],
+    "cinq": null,
+    "bases": [
+      13,
+      4,
+      9
+    ],
+    "outsiders": [
+      7,
+      3,
+      2,
+      5,
+      10,
+      6
+    ],
+    "belles": [
+      12,
+      11,
+      8,
+      1,
+      15
+    ],
+    "delaisses": [
+      14
+    ]
+  },
+  "notre": [
+    {
+      "numero": 4,
+      "nom": "ROYAL SAGA",
+      "score": 0.7233,
+      "rang": 1,
+      "p_victoire": 0.0947,
+      "p_top5": 0.4457
+    },
+    {
+      "numero": 9,
+      "nom": "KOLOKICO",
+      "score": 0.7064,
+      "rang": 2,
+      "p_victoire": 0.0867,
+      "p_top5": 0.4218
+    },
+    {
+      "numero": 12,
+      "nom": "FEU DE DIEU",
+      "score": 0.6991,
+      "rang": 3,
+      "p_victoire": 0.0858,
+      "p_top5": 0.4121
+    },
+    {
+      "numero": 5,
+      "nom": "KALIBRE",
+      "score": 0.6936,
+      "rang": 4,
+      "p_victoire": 0.0835,
+      "p_top5": 0.4051
+    },
+    {
+      "numero": 2,
+      "nom": "AMY DU KIFF",
+      "score": 0.6833,
+      "rang": 5,
+      "p_victoire": 0.0808,
+      "p_top5": 0.3934
+    },
+    {
+      "numero": 7,
+      "nom": "KILOMETRE ILLIMITE",
+      "score": 0.6793,
+      "rang": 6,
+      "p_victoire": 0.078,
+      "p_top5": 0.3879
+    },
+    {
+      "numero": 10,
+      "nom": "JOHNNY ROQUE",
+      "score": 0.6537,
+      "rang": 7,
+      "p_victoire": 0.0712,
+      "p_top5": 0.3557
+    },
+    {
+      "numero": 1,
+      "nom": "BON GARCON",
+      "score": 0.6502,
+      "rang": 8,
+      "p_victoire": 0.0698,
+      "p_top5": 0.3504
+    },
+    {
+      "numero": 8,
+      "nom": "JUNTOS GANAMOS",
+      "score": 0.6351,
+      "rang": 9,
+      "p_victoire": 0.0665,
+      "p_top5": 0.3359
+    },
+    {
+      "numero": 11,
+      "nom": "LE PETIT CHEVAL",
+      "score": 0.62,
+      "rang": 10,
+      "p_victoire": 0.0628,
+      "p_top5": 0.3195
+    },
+    {
+      "numero": 3,
+      "nom": "TOSCANA DU BERLAIS",
+      "score": 0.5977,
+      "rang": 11,
+      "p_victoire": 0.0575,
+      "p_top5": 0.2968
+    },
+    {
+      "numero": 15,
+      "nom": "LACOKOKELDY",
+      "score": 0.5782,
+      "rang": 12,
+      "p_victoire": 0.0532,
+      "p_top5": 0.2781
+    },
+    {
+      "numero": 14,
+      "nom": "GINJA DES TAILLONS",
+      "score": 0.535,
+      "rang": 13,
+      "p_victoire": 0.044,
+      "p_top5": 0.236
+    },
+    {
+      "numero": 13,
+      "nom": "KIVALA DU BERLAIS",
+      "score": 0.4903,
+      "rang": 14,
+      "p_victoire": 0.0368,
+      "p_top5": 0.2033
+    },
+    {
+      "numero": 6,
+      "nom": "JOJO LAPIN",
+      "score": 0.4258,
+      "rang": 15,
+      "p_victoire": 0.0286,
+      "p_top5": 0.1584
+    }
+  ]
+}
