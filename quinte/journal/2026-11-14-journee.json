@@ -4695,7 +4695,7 @@
    "heure": "22:55",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NIETO DEL SHEIK",
@@ -4714,7 +4714,13 @@
     "14": "ESTERIOS",
     "15": "JETS DADDY"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    11,
+    1,
+    5,
+    9
+   ],
    "ordre": [
     6,
     11,
@@ -7358,7 +7364,7 @@
    "heure": "22:50",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SCOTTISH LASS",
@@ -7370,7 +7376,13 @@
     "7": "CLASSIC GENES",
     "8": "HOT ROD HONEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    8,
+    1,
+    7
+   ],
    "ordre": [
     6,
     7,
