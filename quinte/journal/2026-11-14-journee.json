@@ -4495,7 +4495,7 @@
    "heure": "21:55",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "SCOTISH QUEEN",
@@ -4514,7 +4514,13 @@
     "14": "HUGO EL TERRIBLE",
     "15": "NARANJITA DULCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    2,
+    9,
+    6,
+    15
+   ],
    "ordre": [
     7,
     15,
@@ -7168,7 +7174,7 @@
    "heure": "21:51",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "TIFFANY GOLD",
@@ -7179,7 +7185,13 @@
     "6": "FANTASTIC FLAME",
     "7": "VINDICATE CHA CHA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    7,
+    6,
+    5
+   ],
    "ordre": [
     4,
     1,
