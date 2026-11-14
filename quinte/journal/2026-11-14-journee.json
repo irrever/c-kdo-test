@@ -3520,7 +3520,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "NEBEK BLAGNY",
@@ -3634,32 +3634,32 @@
     {
      "numero": 1,
      "nom": "LE TRIOMPHANT",
-     "cote": 30.0
+     "cote": 31.0
     },
     {
      "numero": 2,
      "nom": "VOCIAL FAL",
-     "cote": 16.0
+     "cote": 14.0
     },
     {
      "numero": 3,
      "nom": "MELEKS",
-     "cote": 12.0
+     "cote": 9.0
     },
     {
      "numero": 4,
      "nom": "VIKTOR RAPIDE",
-     "cote": 29.0
+     "cote": 30.0
     },
     {
      "numero": 5,
      "nom": "SACRED SONG",
-     "cote": 36.0
+     "cote": 39.0
     },
     {
      "numero": 6,
      "nom": "YES OR NO",
-     "cote": 17.0
+     "cote": 15.0
     },
     {
      "numero": 7,
@@ -3679,7 +3679,7 @@
     {
      "numero": 10,
      "nom": "TALIA FAL",
-     "cote": 5.8
+     "cote": 6.9
     },
     {
      "numero": 12,
@@ -3687,7 +3687,7 @@
      "cote": 2.1
     }
    ],
-   "cotes_releve": "2026-11-14T19:16"
+   "cotes_releve": "2026-11-14T19:45"
   },
   {
    "r": 6,
@@ -3976,7 +3976,7 @@
    "heure": "19:17",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "ZIP COCHISE",
@@ -3989,7 +3989,13 @@
     "8": "LONKO",
     "9": "CLACO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    4,
+    2,
+    5
+   ],
    "ordre": [
     4,
     2,
@@ -6664,7 +6670,7 @@
    "heure": "19:22",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "STARSHIP STELLA",
@@ -6675,7 +6681,13 @@
     "6": "EXTRA SUGAR",
     "7": "CARAMEL BLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    5,
+    7,
+    3
+   ],
    "ordre": [
     2,
     6,
