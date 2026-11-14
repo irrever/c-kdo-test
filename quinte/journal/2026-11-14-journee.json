@@ -206,7 +206,7 @@
    "heure": "14:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "NIARKOS DU CEBE",
@@ -1526,7 +1526,7 @@
    "heure": "14:19",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JOKER JOLI",
@@ -1543,7 +1543,13 @@
     "12": "JO DE CAZOULENE",
     "13": "JUST FOR YOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    8,
+    12,
+    3
+   ],
    "ordre": [
     12,
     9,
@@ -2585,7 +2591,7 @@
    "heure": "14:15",
    "distance": 4300,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "OAK CREEK",
@@ -2604,7 +2610,13 @@
     "14": "QUICK DADDY",
     "15": "JOSIE D 'AJONC"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    3,
+    5,
+    10
+   ],
    "ordre": [
     7,
     5,
@@ -5241,7 +5253,7 @@
    "heure": "14:30",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "LIOR DE SASSY",
@@ -5713,7 +5725,7 @@
    "heure": "14:10",
    "distance": 3300,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "ADMIRAL WILL BROWN",
@@ -5726,7 +5738,13 @@
     "8": "MIX MATCH",
     "9": "TINY RIOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    5,
+    7,
+    1
+   ],
    "ordre": [
     3,
     8,
@@ -5801,7 +5819,7 @@
    "heure": "14:45",
    "distance": 3200,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 7,
    "noms": {
     "1": "KABRAL DU MATHAN",
