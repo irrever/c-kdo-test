@@ -10,7 +10,7 @@
    "heure": "13:23",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAEVA DES PRES",
@@ -26,7 +26,13 @@
     "11": "MY LOVELY LADY",
     "12": "MALINE DES ARRIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    11,
+    8,
+    10
+   ],
    "ordre": [
     8,
     11,
@@ -1318,7 +1324,7 @@
    "heure": "13:17",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "L'HEBUS",
@@ -1338,7 +1344,13 @@
     "15": "LYS DU CAIEU",
     "16": "LITTLE ATOUT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    2,
+    4,
+    14
+   ],
    "ordre": [
     2,
     6,
@@ -2369,7 +2381,7 @@
    "heure": "13:03",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "AFFORTUNATO",
@@ -2386,7 +2398,13 @@
     "12": "BAKARELO",
     "13": "BENI GODS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    2,
+    12,
+    3,
+    4
+   ],
    "ordre": [
     2,
     12,
@@ -2461,7 +2479,7 @@
    "heure": "13:40",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "ALICE'S SAGA",
@@ -4913,7 +4931,7 @@
    "heure": "13:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NUIT DE PAQUES",
@@ -4931,7 +4949,13 @@
     "13": "NAVARRO ECUS",
     "14": "NACHO SOUVERAIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    4,
+    7,
+    13
+   ],
    "ordre": [
     8,
     2,
@@ -5006,7 +5030,7 @@
    "heure": "13:30",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MEGANE DE VALMONT",
@@ -5021,7 +5045,13 @@
     "11": "MIBORA BUISSONAY",
     "12": "MURCIELAGO MIJO"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    11,
+    4,
+    8
+   ],
    "ordre": [
     5,
     11,
@@ -5562,7 +5592,7 @@
    "heure": "13:35",
    "distance": 5000,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "HERAKLES WESTWOOD",
