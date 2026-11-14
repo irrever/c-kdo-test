@@ -3807,7 +3807,7 @@
    "heure": "21:09",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LOFSONGUR ISLANDE",
@@ -3819,7 +3819,13 @@
     "7": "BY FAR",
     "8": "ISTOUTIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    7,
+    8,
+    2
+   ],
    "ordre": [
     5,
     2,
@@ -4389,7 +4395,7 @@
    "heure": "21:25",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "VAI BENE COSI",
@@ -4408,7 +4414,13 @@
     "14": "HIERRO FUNDIDO",
     "15": "PODEROSA NOBLEZA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    12,
+    8,
+    14,
+    3
+   ],
    "ordre": [
     1,
     4,
@@ -7062,7 +7074,7 @@
    "heure": "21:21",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LADY CROSS",
@@ -7075,7 +7087,13 @@
     "8": "FULLY EXCLUSIVE",
     "9": "BESSAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    6,
+    3,
+    2
+   ],
    "ordre": [
     1,
     6,
