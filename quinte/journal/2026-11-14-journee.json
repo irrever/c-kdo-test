@@ -3419,7 +3419,7 @@
    "heure": "19:01",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KATARAFINA",
@@ -3439,7 +3439,13 @@
     "15": "SANPEDRO",
     "16": "GALIWAY D'ANGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    2,
+    10,
+    13
+   ],
    "ordre": [
     5,
     11,
@@ -3624,8 +3630,64 @@
    "top": [],
    "sans_donnees": true,
    "conditions": "Pour poulains entiers, hongres et pouliches de 2 ans n'ayant jamais couru. Poids : 58 kg.",
-   "cotes": [],
-   "cotes_releve": "2026-11-13T23:03:41+01:00"
+   "cotes": [
+    {
+     "numero": 1,
+     "nom": "LE TRIOMPHANT",
+     "cote": 30.0
+    },
+    {
+     "numero": 2,
+     "nom": "VOCIAL FAL",
+     "cote": 16.0
+    },
+    {
+     "numero": 3,
+     "nom": "MELEKS",
+     "cote": 12.0
+    },
+    {
+     "numero": 4,
+     "nom": "VIKTOR RAPIDE",
+     "cote": 29.0
+    },
+    {
+     "numero": 5,
+     "nom": "SACRED SONG",
+     "cote": 36.0
+    },
+    {
+     "numero": 6,
+     "nom": "YES OR NO",
+     "cote": 17.0
+    },
+    {
+     "numero": 7,
+     "nom": "ACQUIRED",
+     "cote": 18.0
+    },
+    {
+     "numero": 8,
+     "nom": "VENETIAN BELLE",
+     "cote": 11.0
+    },
+    {
+     "numero": 9,
+     "nom": "STELLA BEAUTY",
+     "cote": 10.0
+    },
+    {
+     "numero": 10,
+     "nom": "TALIA FAL",
+     "cote": 5.8
+    },
+    {
+     "numero": 12,
+     "nom": "BREIZH STORY",
+     "cote": 2.1
+    }
+   ],
+   "cotes_releve": "2026-11-14T19:16"
   },
   {
    "r": 6,
@@ -3814,7 +3876,7 @@
    "heure": "18:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "TEMAUKEL",
@@ -3833,7 +3895,13 @@
     "14": "BERNOULLI",
     "15": "GRAN SAMIR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    15,
+    14,
+    10,
+    12
+   ],
    "ordre": [
     8,
     12,
@@ -6503,7 +6571,7 @@
    "heure": "18:53",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "TALL STORY",
@@ -6515,7 +6583,13 @@
     "7": "FINEST GAMBLE",
     "8": "ESPERANZITO"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    3,
+    1,
+    8
+   ],
    "ordre": [
     7,
     8,
