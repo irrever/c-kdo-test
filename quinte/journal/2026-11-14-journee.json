@@ -408,7 +408,7 @@
    "heure": "15:50",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MILAN DU BOSQUET",
@@ -423,7 +423,13 @@
     "10": "MUSCLE DREAM",
     "11": "MEYDAN VOIRONS"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    7,
+    5,
+    6
+   ],
    "ordre": [
     11,
     2,
@@ -2802,7 +2808,7 @@
    "heure": "15:32",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MIDSHIP",
@@ -2819,7 +2825,13 @@
     "12": "SKOAZ",
     "13": "LILY DES CHAMPS"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    10,
+    12,
+    7,
+    3
+   ],
    "ordre": [
     2,
     3,
@@ -2894,7 +2906,7 @@
    "heure": "16:07",
    "distance": 4800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "KIRIKOU DES MERS",
@@ -5470,7 +5482,7 @@
    "heure": "15:30",
    "distance": 2450,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "LASCAUX DU NOYER",
@@ -5492,7 +5504,13 @@
     "17": "LORD OF WIND",
     "18": "LARABELLO DE LOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    16,
+    17,
+    12,
+    10
+   ],
    "ordre": [
     14,
     10,
@@ -5567,7 +5585,7 @@
    "heure": "16:00",
    "distance": 2450,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "KETTY DU BREUCQ",
@@ -6032,7 +6050,7 @@
    "heure": "15:55",
    "distance": 4800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "ACE OF SPADES",
