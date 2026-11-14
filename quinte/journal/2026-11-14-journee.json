@@ -837,7 +837,7 @@
    "heure": "10:34",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "LILIBETH SMART",
@@ -1662,7 +1662,7 @@
    "heure": "10:16",
    "distance": 1550,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NANISKA PARK",
@@ -1680,7 +1680,13 @@
     "13": "TANINKA",
     "14": "VIOLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    6,
+    9,
+    10,
+    5
+   ],
    "ordre": [
     8,
     6,
