@@ -798,7 +798,7 @@
    "heure": "18:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "JASMINE DE VAU",
@@ -810,7 +810,13 @@
     "7": "JE TE CHERCHE",
     "8": "JIZOU D'ETANG"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    7,
+    1,
+    3
+   ],
    "ordre": [
     8,
     7,
@@ -3315,7 +3321,7 @@
    "heure": "18:27",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "CIRQUE ETOILE",
@@ -3332,7 +3338,13 @@
     "12": "NONO DE BEAUCHENE",
     "13": "ROMAN SONG"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    9,
+    3,
+    6,
+    5
+   ],
    "ordre": [
     12,
     13,
@@ -3802,7 +3814,7 @@
    "heure": "18:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "TEMAUKEL",
@@ -6397,7 +6409,7 @@
    "heure": "18:23",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SISTA SOL",
@@ -6410,7 +6422,13 @@
     "8": "SHAMROCK QUEEN",
     "9": "LOYALIST"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    9,
+    6,
+    1
+   ],
    "ordre": [
     7,
     4,
