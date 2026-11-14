@@ -602,7 +602,7 @@
    "heure": "17:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "DIVA DEL RONCO",
@@ -3006,7 +3006,7 @@
    "heure": "16:42",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "JEUNE COKO",
@@ -3022,7 +3022,13 @@
     "11": "HERALISTE",
     "12": "ITIEPY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    1,
+    7,
+    6
+   ],
    "ordre": [
     1,
     6,
@@ -6169,7 +6175,7 @@
    "heure": "16:30",
    "distance": 4200,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "DAYLATEDOLLARSHORT",
@@ -6186,7 +6192,13 @@
     "12": "GUCHEN",
     "13": "GIVE HIM A CHANCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    1,
+    5,
+    3
+   ],
    "ordre": [
     7,
     1,
@@ -6261,7 +6273,7 @@
    "heure": "17:00",
    "distance": 3300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "CLOVELLY CHARM",
