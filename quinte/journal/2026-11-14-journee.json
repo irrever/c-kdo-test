@@ -700,7 +700,7 @@
    "heure": "17:35",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "ROCKY OASIS",
@@ -717,7 +717,13 @@
     "12": "KELVALSE CASTELETS",
     "13": "KANSAS QUESNOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    4,
+    5,
+    13,
+    8
+   ],
    "ordre": [
     3,
     9,
@@ -792,7 +798,7 @@
    "heure": "18:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "JASMINE DE VAU",
@@ -3210,7 +3216,7 @@
    "heure": "17:52",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "SPRINGBOKS",
@@ -3228,7 +3234,13 @@
     "14": "DELTA SPIRIT",
     "15": "BAILEYS ECLAIR"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    15,
+    2,
+    4
+   ],
    "ordre": [
     1,
     15,
