@@ -10,7 +10,7 @@
    "heure": "12:13",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "WEBCAM",
@@ -23,7 +23,13 @@
     "8": "MERVEILLE ALLEN",
     "9": "MENTION SPECIALE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    7,
+    9,
+    1
+   ],
    "ordre": [
     4,
     1,
@@ -1011,7 +1017,7 @@
    "heure": "12:11",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NERA'S BEST GUY",
@@ -1025,7 +1031,13 @@
     "9": "OGI CROWDTROTTER",
     "10": "AWESOME GARDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    6,
+    7,
+    2
+   ],
    "ordre": [
     3,
     5,
@@ -1100,7 +1112,7 @@
    "heure": "12:43",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 8,
    "noms": {
     "1": "DABIH ETOILE",
@@ -1477,7 +1489,7 @@
    "heure": "12:30",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "JUSTIN DES MARAIS",
@@ -5841,7 +5853,7 @@
    "heure": "12:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NUIT DES ILES",
@@ -5857,7 +5869,13 @@
     "11": "NANA DE CURRAIZE",
     "12": "NESTORIUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    12,
+    10,
+    9,
+    2
+   ],
    "ordre": [
     8,
     4,
