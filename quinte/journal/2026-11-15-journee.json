@@ -737,7 +737,7 @@
    "heure": "10:35",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "KNOWU CUCU",
@@ -750,7 +750,13 @@
     "8": "SECRET VENUS",
     "9": "MISTERGOODNEWS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    1,
+    5,
+    6
+   ],
    "ordre": [
     8,
     1,
@@ -825,7 +831,7 @@
    "heure": "11:07",
    "distance": 3100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "SUPER CROWN",
@@ -1169,7 +1175,7 @@
    "heure": "10:51",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MARMOTTAN",
@@ -1185,7 +1191,13 @@
     "11": "MISTER DU CHOQUEL",
     "12": "MANHATTAN EMGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    11,
+    10,
+    7
+   ],
    "ordre": [
     12,
     11,
