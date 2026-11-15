@@ -393,7 +393,7 @@
    "heure": "14:33",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "KING DALEE",
@@ -406,7 +406,13 @@
     "8": "HURON BLEU",
     "9": "VARSOVIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    7,
+    1,
+    3
+   ],
    "ordre": [
     8,
     4,
@@ -481,7 +487,7 @@
    "heure": "15:15",
    "distance": 5500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "BON GARCON",
@@ -1916,7 +1922,7 @@
    "heure": "14:35",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "JEZABEL DE LORGERE",
@@ -1930,7 +1936,13 @@
     "9": "JILPA KALONIG",
     "10": "IVANHOE DU FIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    5,
+    3,
+    10
+   ],
    "ordre": [
     1,
     5,
@@ -2198,7 +2210,7 @@
    "heure": "14:50",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KITTY RANAISE",
@@ -2218,7 +2230,13 @@
     "15": "KENTUCKY VALLEY",
     "16": "KADIX DEL PHEDO"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    15,
+    2,
+    14,
+    1
+   ],
    "ordre": [
     13,
     7,
@@ -4460,7 +4478,7 @@
    "heure": "15:00",
    "distance": 4200,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 6,
    "noms": {
     "1": "PORZMAN",
@@ -5012,7 +5030,7 @@
    "heure": "15:00",
    "distance": 3200,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "PUTAPOUNDINTHEJAR",
@@ -6335,7 +6353,7 @@
    "heure": "14:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "2": "LIKE DESBOIS",
@@ -6354,7 +6372,13 @@
     "15": "LE GRAND MASSIF",
     "16": "LOVA DE BOURGOGNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    10,
+    5,
+    11
+   ],
    "ordre": [
     14,
     10,
@@ -6429,7 +6453,7 @@
    "heure": "15:00",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "KALYPSO MADRIK",
@@ -7098,7 +7122,7 @@
    "heure": "14:50",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NICES MAGNIFIQUE",
@@ -7114,7 +7138,13 @@
     "11": "NIGHT SNOW",
     "12": "NOCEDICOCCO FONT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    5,
+    10,
+    7,
+    1
+   ],
    "ordre": [
     1,
     2,
@@ -7948,7 +7978,7 @@
    "heure": "14:50",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NANABELL DE MEAUCE",
@@ -7964,7 +7994,13 @@
     "11": "NISKA DES ARRIS",
     "12": "NEWTON DRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    11,
+    9,
+    6,
+    8
+   ],
    "ordre": [
     7,
     5,
