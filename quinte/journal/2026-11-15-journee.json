@@ -298,7 +298,7 @@
    "heure": "13:58",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "FIUMICCINO",
@@ -312,7 +312,13 @@
     "9": "MILLARES",
     "10": "MELISSE DU MATHAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    10,
+    4,
+    2
+   ],
    "ordre": [
     6,
     3,
@@ -1709,7 +1715,7 @@
    "heure": "13:35",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KALPINA ORIENTALE",
@@ -1728,7 +1734,13 @@
     "14": "KALINA STAR",
     "15": "KOUBA BLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    9,
+    1,
+    5,
+    14
+   ],
    "ordre": [
     15,
     14,
@@ -1803,7 +1815,7 @@
    "heure": "14:05",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "KITO DU BOUILLON",
@@ -1987,7 +1999,7 @@
    "heure": "13:40",
    "distance": 2050,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "OFORTUNA",
@@ -2002,7 +2014,13 @@
     "10": "OBRA TEJY",
     "11": "OREGON TRAIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    9,
+    2,
+    6
+   ],
    "ordre": [
     1,
     2,
@@ -2077,7 +2095,7 @@
    "heure": "14:15",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "KRAC AU VENT",
@@ -4312,7 +4330,7 @@
    "heure": "14:00",
    "distance": 3600,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 4,
    "noms": {
     "1": "MERIS CHOP",
@@ -4775,7 +4793,7 @@
    "heure": "13:50",
    "distance": 3300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "AIRDS MOSS",
@@ -4793,7 +4811,13 @@
     "13": "TIDE IS TURNING",
     "14": "WOLF RAYET"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    14,
+    4,
+    10,
+    2
+   ],
    "ordre": [
     5,
     8,
@@ -6184,7 +6208,7 @@
    "heure": "14:00",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "LYOUBOV SEVEN",
@@ -6846,7 +6870,7 @@
    "heure": "13:50",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NAWAK",
@@ -6862,7 +6886,13 @@
     "11": "NEO DOM",
     "12": "NINJA UP STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    2,
+    11,
+    5
+   ],
    "ordre": [
     1,
     2,
@@ -7683,7 +7713,7 @@
    "heure": "13:50",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MADE IN DIGEO",
@@ -7701,7 +7731,13 @@
     "13": "MAYA DE SEVRE",
     "14": "MUSTANG D'ERI"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    13,
+    6,
+    12
+   ],
    "ordre": [
     4,
     9,
