@@ -4063,7 +4063,7 @@
    "heure": "21:45",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 20,
    "noms": {
     "1": "ART NOU",
@@ -4087,7 +4087,13 @@
     "19": "HOLD ME TIGHT",
     "20": "CUENCA DEL SALADO"
    },
-   "arrivee": [],
+   "arrivee": [
+    18,
+    14,
+    1,
+    9,
+    20
+   ],
    "ordre": [
     14,
     8,
@@ -5608,7 +5614,7 @@
    "heure": "21:30",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "FITZ",
@@ -5627,7 +5633,13 @@
     "14": "PERDIDO NO ESPACO",
     "15": "OLYMPIC PEDRO"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    12,
+    9,
+    14
+   ],
    "ordre": [
     12,
     14,
@@ -5702,7 +5714,7 @@
    "heure": "22:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "BLACK DOG",
@@ -5718,7 +5730,13 @@
     "11": "LAUCHI",
     "12": "FIRST AVENUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    5,
+    6,
+    4
+   ],
    "ordre": [
     6,
     11,
