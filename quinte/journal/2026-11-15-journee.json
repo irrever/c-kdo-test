@@ -4262,7 +4262,7 @@
    "heure": "22:45",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "BRUNNHILDE",
@@ -4274,7 +4274,13 @@
     "7": "EASY BEACH",
     "8": "TEEN ANGEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    4,
+    6,
+    8
+   ],
    "ordre": [
     6,
     5,
@@ -5817,7 +5823,7 @@
    "heure": "22:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "AUREO W",
@@ -5834,7 +5840,13 @@
     "12": "BORDON LINO",
     "13": "FILIPPO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    8,
+    4,
+    11
+   ],
    "ordre": [
     12,
     2,
@@ -5909,7 +5921,7 @@
    "heure": "23:00",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "DOCTORA SURENA",
