@@ -3489,7 +3489,7 @@
    "heure": "21:00",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "VERTIGO POMPADOUR AA",
@@ -3500,7 +3500,13 @@
     "6": "HINSILAYA AA",
     "7": "ALLURE AREDIENNE AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    4,
+    2,
+    6
+   ],
    "ordre": [
     7,
     6,
@@ -3894,7 +3900,7 @@
    "heure": "20:44",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "INFLAMABLE JOY",
@@ -3907,7 +3913,13 @@
     "8": "THE GUANTECITO",
     "9": "BIG SPIRIT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    4,
+    8,
+    1
+   ],
    "ordre": [
     2,
     1,
@@ -3982,7 +3994,7 @@
    "heure": "21:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 5,
    "noms": {
     "1": "GRIKOR",
