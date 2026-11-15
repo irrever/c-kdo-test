@@ -3205,7 +3205,7 @@
    "heure": "19:24",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LOUXOR PONTADOUR AA",
@@ -3219,7 +3219,13 @@
     "9": "GALAAREEFA UP AA",
     "10": "NO WAR LABOUEYRIE AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    1,
+    4,
+    8
+   ],
    "ordre": [
     10,
     1,
@@ -3648,7 +3654,7 @@
    "heure": "19:08",
    "distance": 800,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "AMIGUITA BOTONA",
@@ -3657,7 +3663,13 @@
     "4": "MONTERA PASS",
     "5": "YASHKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    1,
+    3,
+    5
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -3699,7 +3711,7 @@
    "heure": "19:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "CASH FLOW",
