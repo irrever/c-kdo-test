@@ -4355,7 +4355,7 @@
    "heure": "23:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CAPITALIST",
@@ -4367,7 +4367,13 @@
     "7": "MOTORCITO",
     "8": "WILLIAM ORPEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    1,
+    7,
+    6
+   ],
    "ordre": [
     8,
     7,
@@ -5921,7 +5927,7 @@
    "heure": "23:00",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "DOCTORA SURENA",
@@ -5940,7 +5946,13 @@
     "14": "HAT LADY",
     "15": "HAPPY KOLLER"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    13,
+    1,
+    12
+   ],
    "ordre": [
     7,
     9,
@@ -6015,7 +6027,7 @@
    "heure": "23:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 17,
    "noms": {
     "1": "DEREK",
