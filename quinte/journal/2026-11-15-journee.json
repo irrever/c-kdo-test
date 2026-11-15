@@ -684,7 +684,7 @@
    "heure": "16:35",
    "distance": 4300,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LOQUAS",
@@ -704,7 +704,13 @@
     "15": "BELIZE",
     "16": "ESASTAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    13,
+    3,
+    11,
+    8
+   ],
    "ordre": [
     5,
     2,
@@ -2521,7 +2527,7 @@
    "heure": "16:53",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NOLITA LOMIG",
@@ -2534,7 +2540,13 @@
     "8": "NUMBER WAY",
     "9": "NIKO DE TIMBOEUF"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    9,
+    2,
+    1
+   ],
    "ordre": [
     8,
     5,
@@ -2796,7 +2808,7 @@
    "heure": "17:10",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "BINOTTO",
@@ -4723,7 +4735,7 @@
    "heure": "16:30",
    "distance": 3650,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "HARDI BLUE TROIS AA",
@@ -4735,7 +4747,13 @@
     "7": "DEMOISEL DE PARIS",
     "8": "DEMON VERT"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    2,
+    1,
+    6
+   ],
    "ordre": [
     6,
     7,
@@ -4810,7 +4828,7 @@
    "heure": "17:00",
    "distance": 4200,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "MIRAGE DES OBEAUX",
@@ -4819,7 +4837,13 @@
     "4": "MARBEUF",
     "5": "MILADY ROYALE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
    "ordre": [
     2,
     1,
@@ -5364,7 +5388,7 @@
    "heure": "16:45",
    "distance": 3300,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BERKSTAR",
@@ -5381,7 +5405,13 @@
     "12": "RESCHEDULED",
     "13": "WILLOW TIDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    10,
+    13,
+    6
+   ],
    "ordre": [
     7,
     1,
@@ -7588,7 +7618,7 @@
    "heure": "16:50",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KOLORADO BELLO",
@@ -7606,7 +7636,13 @@
     "13": "KANSAS DJOB",
     "14": "IDEAL D'ATTAQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    13,
+    12,
+    11,
+    8
+   ],
    "ordre": [
     11,
     10,
@@ -8478,7 +8514,7 @@
    "heure": "16:50",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JOVIAL DE ROCK",
@@ -8498,7 +8534,13 @@
     "15": "IN VIVO",
     "16": "IRON MAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    3,
+    14,
+    16,
+    1
+   ],
    "ordre": [
     13,
     16,
