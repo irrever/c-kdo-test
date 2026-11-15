@@ -3396,7 +3396,7 @@
    "heure": "20:28",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LORD OF WAR",
@@ -3408,7 +3408,13 @@
     "7": "GREY TORNADO",
     "8": "CHIMERIQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    5,
+    7,
+    3
+   ],
    "ordre": [
     4,
     7,
@@ -3811,7 +3817,7 @@
    "heure": "20:12",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "HEROINA DEL SUR",
@@ -3821,7 +3827,13 @@
     "5": "MUJER PERDIDA",
     "6": "SWEET SABRINA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    5,
+    2,
+    3
+   ],
    "ordre": [
     6,
     1,
@@ -3882,7 +3894,7 @@
    "heure": "20:44",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "INFLAMABLE JOY",
