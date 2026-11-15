@@ -587,7 +587,7 @@
    "heure": "15:55",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ITS NOW",
@@ -603,7 +603,13 @@
     "11": "MYSOKO STAR",
     "12": "DELMEGAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    1,
+    11,
+    5
+   ],
    "ordre": [
     8,
     12,
@@ -2317,7 +2323,7 @@
    "heure": "15:35",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LOVINA PERRINE",
@@ -2336,7 +2342,13 @@
     "14": "LE MIRACLE",
     "15": "LOLO DU VELO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    7,
+    8,
+    3
+   ],
    "ordre": [
     11,
     12,
@@ -2411,7 +2423,7 @@
    "heure": "16:15",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "MIYA DE JOUDES",
@@ -4637,7 +4649,7 @@
    "heure": "16:00",
    "distance": 3600,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "LUPIN D'OC AA",
@@ -4646,7 +4658,12 @@
     "4": "MICMAC DE BRABOIS AA",
     "5": "MORDERIRE AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    1,
+    4
+   ],
    "ordre": [
     2,
     1,
@@ -5142,7 +5159,7 @@
    "heure": "15:35",
    "distance": 5500,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "RESPLENDENT GREY",
@@ -5155,7 +5172,13 @@
     "8": "HOLOKEA",
     "9": "U CANT BE SERIOUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    4,
+    2,
+    7
+   ],
    "ordre": [
     5,
     4,
@@ -5230,7 +5253,7 @@
    "heure": "16:10",
    "distance": 3300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 20,
    "noms": {
     "1": "IBERICO LORD",
@@ -6574,7 +6597,7 @@
    "heure": "15:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JINGLE KOP",
@@ -6594,7 +6617,13 @@
     "15": "JEDI DES BROUETS",
     "16": "IDEAL DELADOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    5,
+    6,
+    7,
+    12
+   ],
    "ordre": [
     13,
     15,
@@ -7345,7 +7374,7 @@
    "heure": "15:50",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MOON SLAP",
@@ -7361,7 +7390,13 @@
     "11": "MAGA DE BOISNEY",
     "12": "MISS DES SABLETTES"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    11,
+    7,
+    9,
+    6
+   ],
    "ordre": [
     9,
     7,
@@ -8213,7 +8248,7 @@
    "heure": "15:50",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "LA VITA VEETA",
@@ -8235,7 +8270,13 @@
     "17": "LAURO FLIGNY",
     "18": "LUI DU DONJON"
    },
-   "arrivee": [],
+   "arrivee": [
+    18,
+    12,
+    3,
+    14,
+    11
+   ],
    "ordre": [
     10,
     16,
