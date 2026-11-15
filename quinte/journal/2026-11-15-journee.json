@@ -104,7 +104,7 @@
    "heure": "12:48",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LUCKY NONANTAIS",
@@ -117,7 +117,13 @@
     "8": "NEVERCHANGEDOCTOR",
     "9": "LOUBA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    5,
+    1,
+    4
+   ],
    "ordre": [
     7,
     8,
@@ -1112,7 +1118,7 @@
    "heure": "12:43",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "DABIH ETOILE",
@@ -1124,7 +1130,13 @@
     "7": "GLOBAL BRAVEHEART",
     "8": "LAWRENCE BOKO"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    6,
+    4,
+    1
+   ],
    "ordre": [
     8,
     6,
@@ -1489,7 +1501,7 @@
    "heure": "12:30",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JUSTIN DES MARAIS",
@@ -1509,7 +1521,13 @@
     "15": "JAGUAR ATOUT",
     "16": "JOURNEE A LA GRAVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    1,
+    13,
+    12
+   ],
    "ordre": [
     7,
     14,
@@ -1584,7 +1602,7 @@
    "heure": "13:05",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "IBIS QUICK",
@@ -5950,7 +5968,7 @@
    "heure": "13:00",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NEMESIS DU LOISIR",
@@ -5966,7 +5984,13 @@
     "11": "NORIA DU VALLON",
     "12": "NANKIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    11,
+    2,
+    5
+   ],
    "ordre": [
     4,
     12,
@@ -6602,7 +6626,7 @@
    "heure": "12:50",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LANTANA DE HOUELLE",
@@ -6620,7 +6644,13 @@
     "13": "LA TRINITE NEMO",
     "14": "LATINO PURA VIDA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    14,
+    9,
+    12,
+    7
+   ],
    "ordre": [
     10,
     3,
@@ -7427,7 +7457,7 @@
    "heure": "12:50",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "OBOLE D'ERABLE",
@@ -7443,7 +7473,13 @@
     "11": "OMANEA",
     "12": "OUESSANT SIBEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    10,
+    11,
+    7,
+    12
+   ],
    "ordre": [
     1,
     2,
