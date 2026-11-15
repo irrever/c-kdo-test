@@ -3994,7 +3994,7 @@
    "heure": "21:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "GRIKOR",
@@ -4003,7 +4003,13 @@
     "4": "REAL WORLD",
     "5": "YAK SPORT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     3,
     2,
@@ -4057,7 +4063,7 @@
    "heure": "21:45",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 20,
    "noms": {
     "1": "ART NOU",
@@ -5602,7 +5608,7 @@
    "heure": "21:30",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "FITZ",
