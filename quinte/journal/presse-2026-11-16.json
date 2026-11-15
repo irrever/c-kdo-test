@@ -1,0 +1,167 @@
+{
+  "date": "2026-11-16",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-16/R1/C1",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-15T22:03:16+00:00",
+  "presse": {
+    "parier": [
+      4,
+      8,
+      6,
+      10,
+      3,
+      2,
+      14,
+      5
+    ],
+    "cinq": null,
+    "bases": [
+      4
+    ],
+    "outsiders": [
+      9,
+      1,
+      13,
+      15,
+      11,
+      7,
+      12
+    ],
+    "belles": [
+      8,
+      6,
+      10,
+      3,
+      2,
+      14,
+      5
+    ],
+    "delaisses": []
+  },
+  "notre": [
+    {
+      "numero": 10,
+      "nom": "DOMENIK JET",
+      "score": 0.8808,
+      "rang": 1,
+      "p_victoire": 0.1753,
+      "p_top5": 0.6882
+    },
+    {
+      "numero": 4,
+      "nom": "HARPY",
+      "score": 0.7929,
+      "rang": 2,
+      "p_victoire": 0.1244,
+      "p_top5": 0.5582
+    },
+    {
+      "numero": 2,
+      "nom": "JAZZ D'OURVILLE",
+      "score": 0.6937,
+      "rang": 3,
+      "p_victoire": 0.0837,
+      "p_top5": 0.4206
+    },
+    {
+      "numero": 1,
+      "nom": "ILIANO DES PLAINES",
+      "score": 0.6879,
+      "rang": 4,
+      "p_victoire": 0.0812,
+      "p_top5": 0.4115
+    },
+    {
+      "numero": 5,
+      "nom": "JAVA DES CAILLONS",
+      "score": 0.6626,
+      "rang": 5,
+      "p_victoire": 0.0728,
+      "p_top5": 0.3808
+    },
+    {
+      "numero": 3,
+      "nom": "DESTINO D.J.",
+      "score": 0.6192,
+      "rang": 6,
+      "p_victoire": 0.0617,
+      "p_top5": 0.3299
+    },
+    {
+      "numero": 6,
+      "nom": "JEWEL DE BANVILLE",
+      "score": 0.6147,
+      "rang": 7,
+      "p_victoire": 0.0607,
+      "p_top5": 0.3231
+    },
+    {
+      "numero": 14,
+      "nom": "ISIS DE POULINE",
+      "score": 0.6046,
+      "rang": 8,
+      "p_victoire": 0.0586,
+      "p_top5": 0.3129
+    },
+    {
+      "numero": 8,
+      "nom": "KAXIG IN",
+      "score": 0.5788,
+      "rang": 9,
+      "p_victoire": 0.0529,
+      "p_top5": 0.2888
+    },
+    {
+      "numero": 9,
+      "nom": "I LOVE JOSSELYN",
+      "score": 0.572,
+      "rang": 10,
+      "p_victoire": 0.0516,
+      "p_top5": 0.2818
+    },
+    {
+      "numero": 7,
+      "nom": "IQUEM",
+      "score": 0.5433,
+      "rang": 11,
+      "p_victoire": 0.0464,
+      "p_top5": 0.2547
+    },
+    {
+      "numero": 11,
+      "nom": "DILVA JET",
+      "score": 0.5383,
+      "rang": 12,
+      "p_victoire": 0.0452,
+      "p_top5": 0.2503
+    },
+    {
+      "numero": 15,
+      "nom": "JAG HAUFOR",
+      "score": 0.4988,
+      "rang": 13,
+      "p_victoire": 0.0375,
+      "p_top5": 0.2158
+    },
+    {
+      "numero": 13,
+      "nom": "MAX OCCAGNES",
+      "score": 0.4378,
+      "rang": 14,
+      "p_victoire": 0.0293,
+      "p_top5": 0.1726
+    },
+    {
+      "numero": 12,
+      "nom": "JUNKIE (SWE)",
+      "score": 0.3183,
+      "rang": 15,
+      "p_victoire": 0.0188,
+      "p_top5": 0.1109
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "box": [
+    2,
+    1,
+    5,
+    6,
+    14,
+    9
+  ],
+  "top5": [
+    10,
+    4,
+    2,
+    1,
+    5
+  ],
+  "a_jouer": [],
+  "a_eviter": [
+    10,
+    4,
+    3,
+    8
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 10,
+      "nom": "DOMENIK JET",
+      "rang": 1,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.6882,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "HARPY",
+      "rang": 2,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5582,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "JAZZ D'OURVILLE",
+      "rang": 3,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4206,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "ILIANO DES PLAINES",
+      "rang": 4,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4115,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "JAVA DES CAILLONS",
+      "rang": 5,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3808,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "DESTINO D.J.",
+      "rang": 6,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3299,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "JEWEL DE BANVILLE",
+      "rang": 7,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3231,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "ISIS DE POULINE",
+      "rang": 8,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3129,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "KAXIG IN",
+      "rang": 9,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2888,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "I LOVE JOSSELYN",
+      "rang": 10,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2818,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "IQUEM",
+      "rang": 11,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2547,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "DILVA JET",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2503,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "JAG HAUFOR",
+      "rang": 13,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2158,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "MAX OCCAGNES",
+      "rang": 14,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1726,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "JUNKIE (SWE)",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1109,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-16",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-15T22:03:17+00:00"
+}
