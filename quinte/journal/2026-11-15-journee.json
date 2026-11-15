@@ -198,7 +198,7 @@
    "heure": "13:23",
    "distance": 4300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MAGIC FLIGHT",
@@ -217,7 +217,13 @@
     "14": "JUMPER BAIE",
     "15": "FOR FRIENDSHIP"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    6,
+    14,
+    12
+   ],
    "ordre": [
     3,
     15,
@@ -1602,7 +1608,7 @@
    "heure": "13:05",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "IBIS QUICK",
@@ -1622,7 +1628,13 @@
     "15": "HOCKFELER DU MESLE",
     "16": "GRAHIKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    4,
+    2,
+    9
+   ],
    "ordre": [
     5,
     8,
@@ -1697,7 +1709,7 @@
    "heure": "13:35",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "KALPINA ORIENTALE",
@@ -1975,7 +1987,7 @@
    "heure": "13:40",
    "distance": 2050,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "OFORTUNA",
@@ -4206,7 +4218,7 @@
    "heure": "13:30",
    "distance": 3450,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SUBLI CHOPE",
@@ -4219,7 +4231,13 @@
     "8": "ROSE EGLANTINE",
     "9": "LOUDEJUMI"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    8,
+    9,
+    3
+   ],
    "ordre": [
     5,
     6,
@@ -6065,7 +6083,7 @@
    "heure": "13:30",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MARTEL",
@@ -6085,7 +6103,13 @@
     "15": "MOME DES ANDRAUX",
     "16": "MUSTANG BROUETS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    16,
+    11,
+    4
+   ],
    "ordre": [
     13,
     14,
@@ -6725,7 +6749,7 @@
    "heure": "13:20",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NASDAQ SMART",
@@ -6741,7 +6765,13 @@
     "11": "NESTOR DE VIVOIN",
     "12": "NARCISSE BUROIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    3,
+    12,
+    8,
+    9
+   ],
    "ordre": [
     1,
     2,
@@ -7554,7 +7584,7 @@
    "heure": "13:20",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KASIMIR DU BOIS",
@@ -7572,7 +7602,13 @@
     "13": "KALINE DE SOYORA",
     "14": "KUROS PONT VAUTIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    1,
+    2,
+    12,
+    7
+   ],
    "ordre": [
     12,
     7,
