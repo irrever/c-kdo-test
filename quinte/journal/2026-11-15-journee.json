@@ -10,7 +10,7 @@
    "heure": "12:13",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "WEBCAM",
@@ -916,7 +916,7 @@
    "heure": "11:39",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "SHERIE'S EXPRESS",
@@ -930,7 +930,13 @@
     "9": "CUORE",
     "10": "FRIEDA BR"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    5,
+    1,
+    6,
+    7
+   ],
    "ordre": [
     10,
     5,
@@ -1005,7 +1011,7 @@
    "heure": "12:11",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "NERA'S BEST GUY",
@@ -1372,7 +1378,7 @@
    "heure": "11:55",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LAZIO BUROIS",
@@ -1390,7 +1396,13 @@
     "13": "LUMINOUS STAR",
     "14": "LOUP INDIEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    12,
+    10,
+    8,
+    3
+   ],
    "ordre": [
     14,
     10,
