@@ -2722,7 +2722,7 @@
    "heure": "18:03",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MATRERO",
@@ -2910,7 +2910,7 @@
    "heure": "17:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MIKEY",
@@ -2926,7 +2926,13 @@
     "11": "VIRIMOON ETOILE",
     "12": "DADAS BOY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    9,
+    12,
+    5
+   ],
    "ordre": [
     6,
     10,
@@ -3632,8 +3638,34 @@
    "top": [],
    "sans_donnees": true,
    "conditions": "Pour pur sang femelle de deux ans (Allocations distribuées aux 5 premiers). Le s informations concernant les partants sont communiquées sous la responsabilit é de l'autorité hippique du pays dans lequel la course est organisée.",
-   "cotes": [],
-   "cotes_releve": "2026-11-14T23:03:29+01:00"
+   "cotes": [
+    {
+     "numero": 1,
+     "nom": "AMIGUITA BOTONA",
+     "cote": 12.0
+    },
+    {
+     "numero": 2,
+     "nom": "BEDOLLA",
+     "cote": 4.1
+    },
+    {
+     "numero": 3,
+     "nom": "GREYSI",
+     "cote": 7.3
+    },
+    {
+     "numero": 4,
+     "nom": "MONTERA PASS",
+     "cote": 1.7
+    },
+    {
+     "numero": 5,
+     "nom": "YASHKA",
+     "cote": 7.9
+    }
+   ],
+   "cotes_releve": "2026-11-15T18:15"
   },
   {
    "r": 6,
