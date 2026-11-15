@@ -3300,7 +3300,7 @@
    "heure": "19:56",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "WATHAB",
@@ -3315,7 +3315,13 @@
     "10": "BELLA AL SHAHANIA",
     "11": "FI ALLAYLI"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    9,
+    3,
+    6,
+    10
+   ],
    "ordre": [
     1,
     3,
@@ -3711,7 +3717,7 @@
    "heure": "19:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CASH FLOW",
@@ -3724,7 +3730,13 @@
     "8": "STAR BOY",
     "9": "BALTI"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    7,
+    1,
+    5
+   ],
    "ordre": [
     1,
     4,
@@ -3799,7 +3811,7 @@
    "heure": "20:12",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 6,
    "noms": {
     "1": "HEROINA DEL SUR",
