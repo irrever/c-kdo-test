@@ -684,7 +684,7 @@
    "heure": "16:35",
    "distance": 4300,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "LOQUAS",
@@ -2423,7 +2423,7 @@
    "heure": "16:15",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MIYA DE JOUDES",
@@ -2440,7 +2440,13 @@
     "12": "MARINELLA VRIE",
     "13": "MELLOW SPEED"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    13,
+    4,
+    10,
+    1
+   ],
    "ordre": [
     10,
     8,
@@ -4717,7 +4723,7 @@
    "heure": "16:30",
    "distance": 3650,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "HARDI BLUE TROIS AA",
@@ -5253,7 +5259,7 @@
    "heure": "16:10",
    "distance": 3300,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 20,
    "noms": {
     "1": "IBERICO LORD",
@@ -5277,7 +5283,13 @@
     "19": "THE HARDEST GEEZER",
     "20": "DAY TRADER"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    17,
+    14,
+    10,
+    15
+   ],
    "ordre": [
     9,
     2,
@@ -5352,7 +5364,7 @@
    "heure": "16:45",
    "distance": 3300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "BERKSTAR",
@@ -6698,7 +6710,7 @@
    "heure": "16:00",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KOKIN DE ROUAISSE",
@@ -6715,7 +6727,13 @@
     "12": "JULIANA DU LOISIR",
     "13": "JEUX D'ACTION"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    11,
+    2,
+    4
+   ],
    "ordre": [
     4,
     8,
@@ -7471,7 +7489,7 @@
    "heure": "16:20",
    "distance": 3300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "THAT'S IT",
@@ -7489,7 +7507,13 @@
     "13": "KAROLINE CALINE",
     "14": "KACEY BELL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    4,
+    5,
+    10,
+    9
+   ],
    "ordre": [
     3,
     13,
@@ -8351,7 +8375,7 @@
    "heure": "16:20",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "LUTECE DE SIENNE",
@@ -8373,7 +8397,13 @@
     "17": "LADY FLO DE MAX",
     "18": "LUDO PAROYO"
    },
-   "arrivee": [],
+   "arrivee": [
+    18,
+    10,
+    12,
+    6,
+    16
+   ],
    "ordre": [
     15,
     17,
