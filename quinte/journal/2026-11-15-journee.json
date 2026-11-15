@@ -831,7 +831,7 @@
    "heure": "11:07",
    "distance": 3100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SUPER CROWN",
@@ -842,7 +842,13 @@
     "6": "POWER HILL",
     "7": "HULKEN SISU"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    2,
+    6,
+    7
+   ],
    "ordre": [
     3,
     4,
@@ -910,7 +916,7 @@
    "heure": "11:39",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "SHERIE'S EXPRESS",
@@ -1272,7 +1278,7 @@
    "heure": "11:23",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NINON DU GUELIER",
@@ -1285,7 +1291,13 @@
     "8": "NOT ALONE",
     "9": "NANO UP STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    5,
+    7,
+    8
+   ],
    "ordre": [
     9,
     3,
