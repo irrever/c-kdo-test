@@ -3106,7 +3106,7 @@
    "heure": "18:52",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "GHAITH MAJAN",
@@ -3124,7 +3124,13 @@
     "13": "NAHANNI",
     "14": "MANEEHA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    1,
+    13,
+    14
+   ],
    "ordre": [
     11,
     1,
@@ -3544,7 +3550,7 @@
    "heure": "18:36",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BARDERO",
@@ -3561,7 +3567,13 @@
     "12": "LOS GIRASOLES",
     "13": "TANGO Y BLUES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    11,
+    13,
+    2
+   ],
    "ordre": [
     2,
     5,
@@ -3636,7 +3648,7 @@
    "heure": "19:08",
    "distance": 800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 5,
    "noms": {
     "1": "AMIGUITA BOTONA",
