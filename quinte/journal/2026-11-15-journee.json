@@ -4168,7 +4168,7 @@
    "heure": "22:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "EDITOR DEL SUR",
@@ -4181,7 +4181,13 @@
     "8": "LEGATUS",
     "9": "BETTER NOW"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    7,
+    1,
+    8
+   ],
    "ordre": [
     3,
     8,
@@ -5811,7 +5817,7 @@
    "heure": "22:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "AUREO W",
