@@ -751,7 +751,7 @@
    "heure": "11:05",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "HASMART FAL",
@@ -763,7 +763,13 @@
     "7": "MAYOUM FAL",
     "8": "ALFIYAH"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    2,
+    8,
+    7
+   ],
    "ordre": [
     6,
     1,
