@@ -503,7 +503,7 @@
    "heure": "16:50",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LOU DU DERBY",
@@ -519,7 +519,13 @@
     "11": "LADIVA DE VILLABON",
     "12": "LUCIA DI JENILAT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    6,
+    3,
+    4
+   ],
    "ordre": [
     6,
     1,
@@ -2095,7 +2101,7 @@
    "heure": "17:07",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "GIOVANNI GIORGIO",
@@ -5463,7 +5469,7 @@
    "heure": "16:40",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "JAGUAR RANAIS",
@@ -5482,7 +5488,13 @@
     "14": "KOOL DU PORHOET",
     "15": "JASPER DU BELLAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    5,
+    12,
+    8
+   ],
    "ordre": [
     8,
     13,
