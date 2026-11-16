@@ -600,7 +600,7 @@
    "heure": "17:25",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LOUBIANA DU BOURG",
@@ -618,7 +618,13 @@
     "13": "LA KIFFANCE PIYA",
     "14": "LA CALLAS"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    13,
+    2,
+    10,
+    8
+   ],
    "ordre": [
     6,
     13,
@@ -2101,7 +2107,7 @@
    "heure": "17:07",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "GIOVANNI GIORGIO",
@@ -2117,7 +2123,13 @@
     "11": "WARRIOR GAMES",
     "12": "BRONZE LUCY"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    1,
+    7,
+    8
+   ],
    "ordre": [
     3,
     10,
@@ -2192,7 +2204,7 @@
    "heure": "17:42",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 10,
    "noms": {
     "1": "SOAN",
