@@ -4603,7 +4603,7 @@
    "heure": "23:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "AMOR FURTIVO",
