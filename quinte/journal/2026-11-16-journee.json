@@ -2305,7 +2305,7 @@
    "heure": "18:20",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "COME ALONE",
@@ -2318,7 +2318,13 @@
     "8": "ROSISSIM",
     "9": "NIGHT OF THE OPERA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    2,
+    7,
+    4
+   ],
    "ordre": [
     1,
     6,
@@ -2709,7 +2715,7 @@
    "heure": "18:37",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "HORSY ROYAL",
