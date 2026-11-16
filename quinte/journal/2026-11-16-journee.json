@@ -3332,7 +3332,7 @@
    "heure": "21:42",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KISS ME MENCOURT",
@@ -3350,7 +3350,13 @@
     "13": "KAPTAIN DE CRISTAL",
     "14": "JULIANO DE GLANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    2,
+    1,
+    14
+   ],
    "ordre": [
     1,
     12,
@@ -4401,7 +4407,7 @@
    "heure": "22:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MAGNUS AURELIUS",
@@ -4416,7 +4422,13 @@
     "10": "BAD BUNNY",
     "11": "SISI STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    10,
+    9,
+    11
+   ],
    "ordre": [
     10,
     1,
