@@ -4503,7 +4503,7 @@
    "heure": "22:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ANTUMBRA",
@@ -4522,7 +4522,13 @@
     "14": "SI TRATO",
     "15": "TAMO DALEKO"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    2,
+    9,
+    8
+   ],
    "ordre": [
     7,
     14,
