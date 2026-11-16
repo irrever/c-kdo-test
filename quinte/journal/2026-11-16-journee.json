@@ -1133,7 +1133,7 @@
    "heure": "13:11",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "IBN DOR FAL",
@@ -1147,7 +1147,13 @@
     "9": "MUNABIR FAL",
     "10": "OULD AL LOUB FAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    5,
+    2,
+    3
+   ],
    "ordre": [
     5,
     2,
@@ -1481,7 +1487,7 @@
    "heure": "13:27",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MEVOILA A VASSY",
@@ -1497,7 +1503,13 @@
     "11": "MARJO",
     "12": "MILASBIE DE PAIX"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    2,
+    6,
+    4,
+    12
+   ],
    "ordre": [
     1,
     4,
@@ -3355,7 +3367,7 @@
    "heure": "13:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MERVEILLE DU FRENE",
@@ -3371,7 +3383,13 @@
     "11": "MUSE DU LOISIR",
     "12": "MUFASA ACE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    10,
+    3,
+    9
+   ],
    "ordre": [
     10,
     12,
@@ -3446,7 +3464,7 @@
    "heure": "13:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "NOBLESSE DES ARCS",
@@ -4647,7 +4665,7 @@
    "heure": "13:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NINO MOUROTAIS",
@@ -4665,7 +4683,13 @@
     "13": "NUEVA CHICA GIO",
     "14": "NUTIN JOY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    12,
+    11,
+    4
+   ],
    "ordre": [
     2,
     7,
@@ -4740,7 +4764,7 @@
    "heure": "13:40",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "MILLENIUM AVIS",
