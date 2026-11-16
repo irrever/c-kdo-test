@@ -699,7 +699,7 @@
    "heure": "18:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAGIQUE HAUFOR",
@@ -717,7 +717,13 @@
     "13": "MACANA MONNERIE",
     "14": "MYSTIC DES FORGES"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    12,
+    4,
+    9
+   ],
    "ordre": [
     6,
     11,
@@ -2204,7 +2210,7 @@
    "heure": "17:42",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "SOAN",
@@ -2218,7 +2224,13 @@
     "9": "CERVARO",
     "10": "NEW WAY BABY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    2,
+    3,
+    1
+   ],
    "ordre": [
     4,
     2,
