@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ILIANO DES PLAINES",
@@ -29,7 +29,13 @@
     "14": "ISIS DE POULINE",
     "15": "JAG HAUFOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    13,
+    10,
+    14
+   ],
    "ordre": [
     10,
     4,
@@ -1584,7 +1590,7 @@
    "heure": "14:12",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "NOUGAWAY",
@@ -3464,7 +3470,7 @@
    "heure": "13:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOBLESSE DES ARCS",
@@ -3478,7 +3484,13 @@
     "11": "NAEL D'AVEL",
     "12": "NALIANO D'ECHAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    5,
+    8,
+    6,
+    3
+   ],
    "ordre": [
     11,
     5,
@@ -3553,7 +3565,7 @@
    "heure": "14:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "MELODIE DES ARCS",
@@ -4764,7 +4776,7 @@
    "heure": "13:40",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MILLENIUM AVIS",
@@ -4784,7 +4796,13 @@
     "15": "MALICE DES RACQUES",
     "16": "MON AMOUR"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    8,
+    14,
+    7
+   ],
    "ordre": [
     13,
     3,
@@ -4859,7 +4877,7 @@
    "heure": "14:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "MATCH OF THE DAY",
