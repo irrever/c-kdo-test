@@ -3235,7 +3235,7 @@
    "heure": "21:17",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LIPINSKA",
@@ -3251,7 +3251,13 @@
     "11": "LARABIEN",
     "12": "LITTLE CASH"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    11,
+    12,
+    8,
+    3
+   ],
    "ordre": [
     12,
     7,
@@ -3326,7 +3332,7 @@
    "heure": "21:42",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "KISS ME MENCOURT",
@@ -4299,7 +4305,7 @@
    "heure": "21:30",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "GALWAY GIRL",
@@ -4314,7 +4320,13 @@
     "10": "BESOS DE MIEL",
     "11": "GIVE LIFE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    8,
+    1,
+    4
+   ],
    "ordre": [
     11,
     9,
