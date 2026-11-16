@@ -1,7 +1,7 @@
 {
  "date": "2026-11-16",
  "retroactif": false,
- "fige_le": "2026-11-15T22:03:24",
+ "fige_le": "2026-11-16T12:19:38",
  "hippodrome": "PARIS-VINCENNES",
  "course": "R1C1",
  "modele": {
@@ -15,136 +15,167 @@
    "conditions": 0.075,
    "bruits_ecuries": 0.075
   },
-  "simulations": 200000
+  "simulations": 200000,
+  "part_cotes": 0.9
  },
  "chevaux": [
   {
    "numero": 10,
    "nom": "DOMENIK JET",
    "score": 0.8808466653368446,
-   "p_victoire": 0.17533,
-   "p_top3": 0.469375,
-   "p_top5": 0.68821
+   "proba_cotes": 0.19703025460202309,
+   "proba_melange": 0.1949375571948355,
+   "p_victoire": 0.19414,
+   "p_top3": 0.51954,
+   "p_top5": 0.75347
   },
   {
    "numero": 4,
    "nom": "HARPY",
    "score": 0.7928882130965217,
-   "p_victoire": 0.124405,
-   "p_top3": 0.354165,
-   "p_top5": 0.558205
+   "proba_cotes": 0.1765062697476457,
+   "proba_melange": 0.17124269488005253,
+   "p_victoire": 0.17183,
+   "p_top3": 0.47379,
+   "p_top5": 0.709665
   },
   {
    "numero": 2,
    "nom": "JAZZ D'OURVILLE",
    "score": 0.6937098946930489,
-   "p_victoire": 0.083745,
-   "p_top3": 0.252515,
-   "p_top5": 0.42064
-  },
-  {
-   "numero": 1,
-   "nom": "ILIANO DES PLAINES",
-   "score": 0.68785110215553,
-   "p_victoire": 0.081175,
-   "p_top3": 0.245505,
-   "p_top5": 0.41154
-  },
-  {
-   "numero": 5,
-   "nom": "JAVA DES CAILLONS",
-   "score": 0.6625635676827772,
-   "p_victoire": 0.072755,
-   "p_top3": 0.22547,
-   "p_top5": 0.38077
-  },
-  {
-   "numero": 3,
-   "nom": "DESTINO D.J.",
-   "score": 0.6191542572996078,
-   "p_victoire": 0.06165,
-   "p_top3": 0.190705,
-   "p_top5": 0.32994
+   "proba_cotes": 0.11147764405114463,
+   "proba_melange": 0.10866050452252506,
+   "p_victoire": 0.109005,
+   "p_top3": 0.32794,
+   "p_top5": 0.542935
   },
   {
    "numero": 6,
    "nom": "JEWEL DE BANVILLE",
    "score": 0.614749532495052,
-   "p_victoire": 0.060655,
-   "p_top3": 0.18893,
-   "p_top5": 0.3231
-  },
-  {
-   "numero": 14,
-   "nom": "ISIS DE POULINE",
-   "score": 0.6046455195816819,
-   "p_victoire": 0.0586,
-   "p_top3": 0.18214,
-   "p_top5": 0.31289
+   "proba_cotes": 0.11296401263849323,
+   "proba_melange": 0.10774209520705606,
+   "p_victoire": 0.106745,
+   "p_top3": 0.32491,
+   "p_top5": 0.53959
   },
   {
    "numero": 8,
    "nom": "KAXIG IN",
    "score": 0.5788052719528413,
-   "p_victoire": 0.05292,
-   "p_top3": 0.164855,
-   "p_top5": 0.28875
+   "proba_cotes": 0.09738276951594245,
+   "proba_melange": 0.09290548653967129,
+   "p_victoire": 0.09302,
+   "p_top3": 0.286615,
+   "p_top5": 0.48634
   },
   {
-   "numero": 9,
-   "nom": "I LOVE JOSSELYN",
-   "score": 0.5719504420267025,
-   "p_victoire": 0.051585,
-   "p_top3": 0.16191,
-   "p_top5": 0.28177
+   "numero": 3,
+   "nom": "DESTINO D.J.",
+   "score": 0.6191542572996078,
+   "proba_cotes": 0.06517154575297687,
+   "proba_melange": 0.06483684912794112,
+   "p_victoire": 0.064965,
+   "p_top3": 0.207565,
+   "p_top5": 0.36736
   },
   {
-   "numero": 7,
-   "nom": "IQUEM",
-   "score": 0.5433032842502691,
-   "p_victoire": 0.046355,
-   "p_top3": 0.145825,
-   "p_top5": 0.254675
-  },
-  {
-   "numero": 11,
-   "nom": "DILVA JET",
-   "score": 0.5383154010643283,
-   "p_victoire": 0.04525,
-   "p_top3": 0.142515,
-   "p_top5": 0.250285
+   "numero": 5,
+   "nom": "JAVA DES CAILLONS",
+   "score": 0.6625635676827772,
+   "proba_cotes": 0.056482006319246617,
+   "proba_melange": 0.05818860568152695,
+   "p_victoire": 0.058585,
+   "p_top3": 0.188035,
+   "p_top5": 0.337395
   },
   {
    "numero": 15,
    "nom": "JAG HAUFOR",
    "score": 0.49883192055129244,
-   "p_victoire": 0.037455,
-   "p_top3": 0.120335,
-   "p_top5": 0.215815
+   "proba_cotes": 0.042361504739434966,
+   "proba_melange": 0.04194602721533466,
+   "p_victoire": 0.042125,
+   "p_top3": 0.137475,
+   "p_top5": 0.253005
+  },
+  {
+   "numero": 7,
+   "nom": "IQUEM",
+   "score": 0.5433032842502691,
+   "proba_cotes": 0.032585772876488436,
+   "proba_melange": 0.03389170950034578,
+   "p_victoire": 0.0346,
+   "p_top3": 0.114105,
+   "p_top5": 0.211195
+  },
+  {
+   "numero": 14,
+   "nom": "ISIS DE POULINE",
+   "score": 0.6046455195816819,
+   "proba_cotes": 0.024206574136819977,
+   "proba_melange": 0.027619788940450203,
+   "p_victoire": 0.028105,
+   "p_top3": 0.093,
+   "p_top5": 0.17438
+  },
+  {
+   "numero": 1,
+   "nom": "ILIANO DES PLAINES",
+   "score": 0.68785110215553,
+   "proba_cotes": 0.017650626974764567,
+   "proba_melange": 0.024023229395884978,
+   "p_victoire": 0.02358,
+   "p_top3": 0.08038,
+   "p_top5": 0.151455
+  },
+  {
+   "numero": 9,
+   "nom": "I LOVE JOSSELYN",
+   "score": 0.5719504420267025,
+   "proba_cotes": 0.02017214511401665,
+   "proba_melange": 0.023273631407907162,
+   "p_victoire": 0.023025,
+   "p_top3": 0.076885,
+   "p_top5": 0.14656
   },
   {
    "numero": 13,
    "nom": "MAX OCCAGNES",
    "score": 0.437833584698344,
-   "p_victoire": 0.02931,
-   "p_top3": 0.09506,
-   "p_top5": 0.17255
+   "proba_cotes": 0.017650626974764567,
+   "proba_melange": 0.01887903421428322,
+   "p_victoire": 0.01876,
+   "p_top3": 0.06308,
+   "p_top5": 0.121535
   },
   {
    "numero": 12,
    "nom": "JUNKIE (SWE)",
    "score": 0.318333467539375,
-   "p_victoire": 0.01881,
-   "p_top3": 0.060695,
-   "p_top5": 0.11086
+   "proba_cotes": 0.01802617222954679,
+   "proba_melange": 0.018079571943731044,
+   "p_victoire": 0.01753,
+   "p_top3": 0.060025,
+   "p_top5": 0.11522
+  },
+  {
+   "numero": 11,
+   "nom": "DILVA JET",
+   "score": 0.5383154010643283,
+   "proba_cotes": 0.010332074326691455,
+   "proba_melange": 0.013773214228454445,
+   "p_victoire": 0.013985,
+   "p_top3": 0.046655,
+   "p_top5": 0.089895
   }
  ],
  "ordre_predit": [
   10,
   4,
   2,
-  1,
-  5
+  6,
+  8
  ],
  "combinaisons": {
   "Tiercé": [
@@ -156,8 +187,8 @@
      2
     ],
     "combinaisons": 1,
-    "probabilite": 0.01698,
-    "par_combinaison": 0.01698
+    "probabilite": 0.038265,
+    "par_combinaison": 0.038265
    },
    {
     "box": 4,
@@ -165,11 +196,11 @@
      10,
      4,
      2,
-     1
+     6
     ],
     "combinaisons": 4,
-    "probabilite": 0.05078,
-    "par_combinaison": 0.012695
+    "probabilite": 0.116775,
+    "par_combinaison": 0.02919375
    },
    {
     "box": 5,
@@ -177,12 +208,12 @@
      10,
      4,
      2,
-     1,
-     5
+     6,
+     8
     ],
     "combinaisons": 10,
-    "probabilite": 0.10035,
-    "par_combinaison": 0.010034999999999999
+    "probabilite": 0.225525,
+    "par_combinaison": 0.0225525
    },
    {
     "box": 6,
@@ -190,13 +221,13 @@
      10,
      4,
      2,
-     1,
-     5,
+     6,
+     8,
      3
     ],
     "combinaisons": 20,
-    "probabilite": 0.158055,
-    "par_combinaison": 0.00790275
+    "probabilite": 0.33099,
+    "par_combinaison": 0.0165495
    }
   ],
   "Quarté": [
@@ -206,11 +237,11 @@
      10,
      4,
      2,
-     1
+     6
     ],
     "combinaisons": 1,
-    "probabilite": 0.00825,
-    "par_combinaison": 0.00825
+    "probabilite": 0.028,
+    "par_combinaison": 0.028
    },
    {
     "box": 5,
@@ -218,12 +249,12 @@
      10,
      4,
      2,
-     1,
-     5
+     6,
+     8
     ],
     "combinaisons": 5,
-    "probabilite": 0.02933,
-    "par_combinaison": 0.005866
+    "probabilite": 0.09741,
+    "par_combinaison": 0.019482
    },
    {
     "box": 6,
@@ -231,13 +262,13 @@
      10,
      4,
      2,
-     1,
-     5,
+     6,
+     8,
      3
     ],
     "combinaisons": 15,
-    "probabilite": 0.063905,
-    "par_combinaison": 0.004260333333333334
+    "probabilite": 0.185725,
+    "par_combinaison": 0.012381666666666668
    },
    {
     "box": 7,
@@ -245,14 +276,14 @@
      10,
      4,
      2,
-     1,
-     5,
+     6,
+     8,
      3,
-     6
+     5
     ],
     "combinaisons": 35,
-    "probabilite": 0.11577,
-    "par_combinaison": 0.003307714285714286
+    "probabilite": 0.296335,
+    "par_combinaison": 0.008466714285714286
    }
   ],
   "Quinté": [
@@ -262,12 +293,12 @@
      10,
      4,
      2,
-     1,
-     5
+     6,
+     8
     ],
     "combinaisons": 1,
-    "probabilite": 0.00501,
-    "par_combinaison": 0.00501
+    "probabilite": 0.02628,
+    "par_combinaison": 0.02628
    },
    {
     "box": 6,
@@ -275,13 +306,13 @@
      10,
      4,
      2,
-     1,
-     5,
+     6,
+     8,
      3
     ],
     "combinaisons": 6,
-    "probabilite": 0.019455,
-    "par_combinaison": 0.0032425
+    "probabilite": 0.082425,
+    "par_combinaison": 0.0137375
    },
    {
     "box": 7,
@@ -289,14 +320,14 @@
      10,
      4,
      2,
-     1,
-     5,
+     6,
+     8,
      3,
-     6
+     5
     ],
     "combinaisons": 21,
-    "probabilite": 0.048575,
-    "par_combinaison": 0.0023130952380952382
+    "probabilite": 0.174425,
+    "par_combinaison": 0.008305952380952381
    },
    {
     "box": 8,
@@ -304,15 +335,15 @@
      10,
      4,
      2,
-     1,
-     5,
-     3,
      6,
-     14
+     8,
+     3,
+     5,
+     15
     ],
     "combinaisons": 56,
-    "probabilite": 0.09954,
-    "par_combinaison": 0.0017775
+    "probabilite": 0.273535,
+    "par_combinaison": 0.004884553571428571
    },
    {
     "box": 9,
@@ -320,17 +351,370 @@
      10,
      4,
      2,
-     1,
-     5,
-     3,
      6,
-     14,
-     8
+     8,
+     3,
+     5,
+     15,
+     7
     ],
     "combinaisons": 126,
-    "probabilite": 0.173185,
-    "par_combinaison": 0.001374484126984127
+    "probabilite": 0.37838,
+    "par_combinaison": 0.003003015873015873
    }
   ]
+ },
+ "pronostic_soir": {
+  "fige_le": "2026-11-15T22:03:24",
+  "modele": {
+   "sensibilite_K": 4.0,
+   "poids": {
+    "musique": 0.25,
+    "aptitudes": 0.1875,
+    "forme_cheval": 0.1875,
+    "chronos": 0.15,
+    "tandem": 0.075,
+    "conditions": 0.075,
+    "bruits_ecuries": 0.075
+   },
+   "simulations": 200000
+  },
+  "chevaux": [
+   {
+    "numero": 10,
+    "nom": "DOMENIK JET",
+    "score": 0.8808466653368446,
+    "p_victoire": 0.17533,
+    "p_top3": 0.469375,
+    "p_top5": 0.68821
+   },
+   {
+    "numero": 4,
+    "nom": "HARPY",
+    "score": 0.7928882130965217,
+    "p_victoire": 0.124405,
+    "p_top3": 0.354165,
+    "p_top5": 0.558205
+   },
+   {
+    "numero": 2,
+    "nom": "JAZZ D'OURVILLE",
+    "score": 0.6937098946930489,
+    "p_victoire": 0.083745,
+    "p_top3": 0.252515,
+    "p_top5": 0.42064
+   },
+   {
+    "numero": 1,
+    "nom": "ILIANO DES PLAINES",
+    "score": 0.68785110215553,
+    "p_victoire": 0.081175,
+    "p_top3": 0.245505,
+    "p_top5": 0.41154
+   },
+   {
+    "numero": 5,
+    "nom": "JAVA DES CAILLONS",
+    "score": 0.6625635676827772,
+    "p_victoire": 0.072755,
+    "p_top3": 0.22547,
+    "p_top5": 0.38077
+   },
+   {
+    "numero": 3,
+    "nom": "DESTINO D.J.",
+    "score": 0.6191542572996078,
+    "p_victoire": 0.06165,
+    "p_top3": 0.190705,
+    "p_top5": 0.32994
+   },
+   {
+    "numero": 6,
+    "nom": "JEWEL DE BANVILLE",
+    "score": 0.614749532495052,
+    "p_victoire": 0.060655,
+    "p_top3": 0.18893,
+    "p_top5": 0.3231
+   },
+   {
+    "numero": 14,
+    "nom": "ISIS DE POULINE",
+    "score": 0.6046455195816819,
+    "p_victoire": 0.0586,
+    "p_top3": 0.18214,
+    "p_top5": 0.31289
+   },
+   {
+    "numero": 8,
+    "nom": "KAXIG IN",
+    "score": 0.5788052719528413,
+    "p_victoire": 0.05292,
+    "p_top3": 0.164855,
+    "p_top5": 0.28875
+   },
+   {
+    "numero": 9,
+    "nom": "I LOVE JOSSELYN",
+    "score": 0.5719504420267025,
+    "p_victoire": 0.051585,
+    "p_top3": 0.16191,
+    "p_top5": 0.28177
+   },
+   {
+    "numero": 7,
+    "nom": "IQUEM",
+    "score": 0.5433032842502691,
+    "p_victoire": 0.046355,
+    "p_top3": 0.145825,
+    "p_top5": 0.254675
+   },
+   {
+    "numero": 11,
+    "nom": "DILVA JET",
+    "score": 0.5383154010643283,
+    "p_victoire": 0.04525,
+    "p_top3": 0.142515,
+    "p_top5": 0.250285
+   },
+   {
+    "numero": 15,
+    "nom": "JAG HAUFOR",
+    "score": 0.49883192055129244,
+    "p_victoire": 0.037455,
+    "p_top3": 0.120335,
+    "p_top5": 0.215815
+   },
+   {
+    "numero": 13,
+    "nom": "MAX OCCAGNES",
+    "score": 0.437833584698344,
+    "p_victoire": 0.02931,
+    "p_top3": 0.09506,
+    "p_top5": 0.17255
+   },
+   {
+    "numero": 12,
+    "nom": "JUNKIE (SWE)",
+    "score": 0.318333467539375,
+    "p_victoire": 0.01881,
+    "p_top3": 0.060695,
+    "p_top5": 0.11086
+   }
+  ],
+  "ordre_predit": [
+   10,
+   4,
+   2,
+   1,
+   5
+  ],
+  "combinaisons": {
+   "Tiercé": [
+    {
+     "box": 3,
+     "chevaux": [
+      10,
+      4,
+      2
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.01698,
+     "par_combinaison": 0.01698
+    },
+    {
+     "box": 4,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1
+     ],
+     "combinaisons": 4,
+     "probabilite": 0.05078,
+     "par_combinaison": 0.012695
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5
+     ],
+     "combinaisons": 10,
+     "probabilite": 0.10035,
+     "par_combinaison": 0.010034999999999999
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3
+     ],
+     "combinaisons": 20,
+     "probabilite": 0.158055,
+     "par_combinaison": 0.00790275
+    }
+   ],
+   "Quarté": [
+    {
+     "box": 4,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.00825,
+     "par_combinaison": 0.00825
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5
+     ],
+     "combinaisons": 5,
+     "probabilite": 0.02933,
+     "par_combinaison": 0.005866
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3
+     ],
+     "combinaisons": 15,
+     "probabilite": 0.063905,
+     "par_combinaison": 0.004260333333333334
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3,
+      6
+     ],
+     "combinaisons": 35,
+     "probabilite": 0.11577,
+     "par_combinaison": 0.003307714285714286
+    }
+   ],
+   "Quinté": [
+    {
+     "box": 5,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.00501,
+     "par_combinaison": 0.00501
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3
+     ],
+     "combinaisons": 6,
+     "probabilite": 0.019455,
+     "par_combinaison": 0.0032425
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3,
+      6
+     ],
+     "combinaisons": 21,
+     "probabilite": 0.048575,
+     "par_combinaison": 0.0023130952380952382
+    },
+    {
+     "box": 8,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3,
+      6,
+      14
+     ],
+     "combinaisons": 56,
+     "probabilite": 0.09954,
+     "par_combinaison": 0.0017775
+    },
+    {
+     "box": 9,
+     "chevaux": [
+      10,
+      4,
+      2,
+      1,
+      5,
+      3,
+      6,
+      14,
+      8
+     ],
+     "combinaisons": 126,
+     "probabilite": 0.173185,
+     "par_combinaison": 0.001374484126984127
+    }
+   ]
+  }
+ },
+ "final": {
+  "fige_le": "2026-11-16T12:19:38",
+  "cotes": {
+   "1": 48.0,
+   "2": 7.6,
+   "3": 13.0,
+   "4": 4.8,
+   "5": 15.0,
+   "6": 7.5,
+   "7": 26.0,
+   "8": 8.7,
+   "9": 42.0,
+   "10": 4.3,
+   "11": 82.0,
+   "12": 47.0,
+   "13": 48.0,
+   "14": 35.0,
+   "15": 20.0
+  },
+  "part_cotes": 0.9
  }
 }

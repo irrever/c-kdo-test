@@ -1034,7 +1034,7 @@
    "heure": "12:39",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ESCALATOR",
@@ -1052,7 +1052,13 @@
     "13": "SIZOUT",
     "14": "BABY BEACH"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    1,
+    7,
+    9
+   ],
    "ordre": [
     10,
     1,
@@ -1127,7 +1133,7 @@
    "heure": "13:11",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "IBN DOR FAL",
@@ -1398,7 +1404,7 @@
    "heure": "12:55",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "SULEO",
@@ -1408,7 +1414,13 @@
     "5": "NOBLE ENVOY",
     "6": "QUEEN STAGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    1,
+    5,
+    3
+   ],
    "ordre": [
     1,
     4,
@@ -3246,7 +3258,7 @@
    "heure": "12:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAGMA",
@@ -3262,7 +3274,13 @@
     "11": "MARIO BELLO",
     "12": "MEMPHIS D'ECHAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    9,
+    4,
+    6,
+    3
+   ],
    "ordre": [
     12,
     3,
@@ -3337,7 +3355,7 @@
    "heure": "13:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "MERVEILLE DU FRENE",
@@ -4530,7 +4548,7 @@
    "heure": "12:40",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NIKITA NUEVA",
@@ -4548,7 +4566,13 @@
     "13": "NO LIMIT D'AMOUR",
     "14": "NIKO ONE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    1,
+    6,
+    3
+   ],
    "ordre": [
     13,
     5,
@@ -4623,7 +4647,7 @@
    "heure": "13:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "NINO MOUROTAIS",
