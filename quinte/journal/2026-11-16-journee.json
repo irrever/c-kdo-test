@@ -110,7 +110,7 @@
    "heure": "14:30",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NISKO D'ELCE",
@@ -126,7 +126,13 @@
     "11": "NECKLACE",
     "12": "NEWMAN TURGOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    10,
+    5,
+    12,
+    1
+   ],
    "ordre": [
     9,
     2,
@@ -1590,7 +1596,7 @@
    "heure": "14:12",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NOUGAWAY",
@@ -1603,7 +1609,13 @@
     "8": "SHALIMAR",
     "9": "IN TECHNICOLOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    4,
+    2,
+    1
+   ],
    "ordre": [
     7,
     9,
@@ -3565,7 +3577,7 @@
    "heure": "14:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MELODIE DES ARCS",
@@ -3581,7 +3593,13 @@
     "11": "MALUMA D'ANGIS",
     "12": "MATCH BOCNEUF"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    11,
+    7,
+    6,
+    12
+   ],
    "ordre": [
     12,
     9,
@@ -3656,7 +3674,7 @@
    "heure": "14:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "LEWIS D'ESPOIR",
@@ -4877,7 +4895,7 @@
    "heure": "14:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MATCH OF THE DAY",
@@ -4897,7 +4915,13 @@
     "15": "MEFIANCE DU NOYER",
     "16": "MIESQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    3,
+    8,
+    11
+   ],
    "ordre": [
     2,
     1,
@@ -4972,7 +4996,7 @@
    "heure": "14:40",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "KENZO DE CAZOULENE",
