@@ -3135,7 +3135,7 @@
    "heure": "20:47",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "JOKE DU HOUSSEL",
@@ -3154,7 +3154,13 @@
     "14": "IDEAL DU BRIEU",
     "15": "IVES DES GLENAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    2,
+    4,
+    3,
+    14
+   ],
    "ordre": [
     7,
     1,
@@ -4195,7 +4201,7 @@
    "heure": "21:00",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "GRAND PA LINDO",
@@ -4212,7 +4218,13 @@
     "12": "GENESIS",
     "13": "SEVERUS SNAPE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    10,
+    7,
+    3,
+    8
+   ],
    "ordre": [
     10,
     7,
