@@ -207,7 +207,7 @@
    "heure": "15:05",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NAPS",
@@ -226,7 +226,12 @@
     "14": "NEEL TURGOT",
     "15": "NORMAN DE BLARY"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    14,
+    6,
+    8
+   ],
    "ordre": [
     14,
     3,
@@ -1690,7 +1695,7 @@
    "heure": "14:47",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "GAR'N GIN",
@@ -1709,7 +1714,13 @@
     "14": "GIVE ME A SHIVERS",
     "15": "LADY ANGE WIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    15,
+    14,
+    10
+   ],
    "ordre": [
     4,
     15,
@@ -3674,7 +3685,7 @@
    "heure": "14:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LEWIS D'ESPOIR",
@@ -3694,7 +3705,13 @@
     "15": "LORD MIL",
     "16": "LILAS DU MELEUC"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    10,
+    11,
+    15,
+    6
+   ],
    "ordre": [
     12,
     14,
@@ -3769,7 +3786,7 @@
    "heure": "15:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 16,
    "noms": {
     "1": "KAISER LUDOIS",
@@ -4996,7 +5013,7 @@
    "heure": "14:40",
    "distance": 2625,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KENZO DE CAZOULENE",
@@ -5016,7 +5033,13 @@
     "15": "JACODUS DU MELEUC",
     "16": "IGOR DE LA MORELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    12,
+    13,
+    3,
+    6
+   ],
    "ordre": [
     11,
     13,
@@ -5091,7 +5114,7 @@
    "heure": "15:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "LIGHT FEELING",
