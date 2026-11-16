@@ -403,7 +403,7 @@
    "heure": "16:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NOMADE VRIE",
@@ -422,7 +422,13 @@
     "14": "NOBLESSE MIKA",
     "15": "NIKITA DES ARRIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    11,
+    7,
+    5,
+    15
+   ],
    "ordre": [
     11,
     10,
@@ -1994,7 +2000,7 @@
    "heure": "16:32",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "SENORITO",
@@ -2008,7 +2014,13 @@
     "9": "LADY VITESSE",
     "10": "IRBIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    2,
+    4,
+    3
+   ],
    "ordre": [
     1,
     2,
@@ -4001,7 +4013,7 @@
    "heure": "16:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "IPANO STAR",
@@ -4018,7 +4030,13 @@
     "12": "JOLI DE CONNEE",
     "13": "JOB KERVILOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    13,
+    1,
+    6,
+    12
+   ],
    "ordre": [
     5,
     13,
@@ -5345,7 +5363,7 @@
    "heure": "16:10",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ILTON DU BRAY",
@@ -5364,7 +5382,13 @@
     "14": "PICOBELLO",
     "15": "IBIS D'OR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    12,
+    2,
+    14
+   ],
    "ordre": [
     6,
     5,
