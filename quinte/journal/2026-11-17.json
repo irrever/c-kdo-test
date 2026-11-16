@@ -1,0 +1,344 @@
+{
+ "date": "2026-11-17",
+ "retroactif": false,
+ "fige_le": "2026-11-16T22:03:20",
+ "hippodrome": "CHANTILLY",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 4,
+   "nom": "JUSEARTH FAL",
+   "score": 0.8017922700373402,
+   "p_victoire": 0.117445,
+   "p_top3": 0.33534,
+   "p_top5": 0.52762
+  },
+  {
+   "numero": 7,
+   "nom": "DUBALAA",
+   "score": 0.7860816357076176,
+   "p_victoire": 0.108815,
+   "p_top3": 0.31512,
+   "p_top5": 0.50301
+  },
+  {
+   "numero": 8,
+   "nom": "FREERIDER",
+   "score": 0.7722011381027662,
+   "p_victoire": 0.104395,
+   "p_top3": 0.301335,
+   "p_top5": 0.48389
+  },
+  {
+   "numero": 1,
+   "nom": "FERRARI FEVER",
+   "score": 0.751372148764149,
+   "p_victoire": 0.096155,
+   "p_top3": 0.28135,
+   "p_top5": 0.45537
+  },
+  {
+   "numero": 2,
+   "nom": "OLYMPIC MESSAGE",
+   "score": 0.7029421054754944,
+   "p_victoire": 0.07825,
+   "p_top3": 0.236185,
+   "p_top5": 0.39289
+  },
+  {
+   "numero": 14,
+   "nom": "MUENCHEN",
+   "score": 0.6949353146135652,
+   "p_victoire": 0.07599,
+   "p_top3": 0.22913,
+   "p_top5": 0.38233
+  },
+  {
+   "numero": 3,
+   "nom": "THOR LIGHTNING",
+   "score": 0.6617711386598981,
+   "p_victoire": 0.06649,
+   "p_top3": 0.202575,
+   "p_top5": 0.34109
+  },
+  {
+   "numero": 12,
+   "nom": "CANENA",
+   "score": 0.6430305842285345,
+   "p_victoire": 0.062645,
+   "p_top3": 0.190745,
+   "p_top5": 0.32174
+  },
+  {
+   "numero": 5,
+   "nom": "CHARENGO",
+   "score": 0.601686332965778,
+   "p_victoire": 0.05292,
+   "p_top3": 0.16315,
+   "p_top5": 0.281135
+  },
+  {
+   "numero": 9,
+   "nom": "FRANCISCANO",
+   "score": 0.5880737018945459,
+   "p_victoire": 0.04999,
+   "p_top3": 0.154455,
+   "p_top5": 0.266805
+  },
+  {
+   "numero": 11,
+   "nom": "MONTGAUDRY",
+   "score": 0.5604935766423831,
+   "p_victoire": 0.045095,
+   "p_top3": 0.140645,
+   "p_top5": 0.243145
+  },
+  {
+   "numero": 16,
+   "nom": "COKTAIL",
+   "score": 0.4851644746474442,
+   "p_victoire": 0.03337,
+   "p_top3": 0.1052,
+   "p_top5": 0.18555
+  },
+  {
+   "numero": 13,
+   "nom": "PUMALIN PARK",
+   "score": 0.4657276194704372,
+   "p_victoire": 0.030695,
+   "p_top3": 0.096685,
+   "p_top5": 0.170765
+  },
+  {
+   "numero": 10,
+   "nom": "FAST RAAJ",
+   "score": 0.45275516974515273,
+   "p_victoire": 0.028585,
+   "p_top3": 0.09114,
+   "p_top5": 0.162935
+  },
+  {
+   "numero": 6,
+   "nom": "DIVINE CHRISNAT",
+   "score": 0.4439134193925553,
+   "p_victoire": 0.027345,
+   "p_top3": 0.087895,
+   "p_top5": 0.15778
+  },
+  {
+   "numero": 15,
+   "nom": "FOU FURIEUX",
+   "score": 0.3794587070489706,
+   "p_victoire": 0.021815,
+   "p_top3": 0.06905,
+   "p_top5": 0.123945
+  }
+ ],
+ "ordre_predit": [
+  4,
+  7,
+  8,
+  1,
+  2
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     4,
+     7,
+     8
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.011485,
+    "par_combinaison": 0.011485
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.04141,
+    "par_combinaison": 0.0103525
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.08602,
+    "par_combinaison": 0.008602
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.14901,
+    "par_combinaison": 0.0074505000000000005
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00671,
+    "par_combinaison": 0.00671
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.02482,
+    "par_combinaison": 0.004964
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.06024,
+    "par_combinaison": 0.0040160000000000005
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14,
+     3
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.113505,
+    "par_combinaison": 0.003243
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00422,
+    "par_combinaison": 0.00422
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.0187,
+    "par_combinaison": 0.003116666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14,
+     3
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.048675,
+    "par_combinaison": 0.002317857142857143
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14,
+     3,
+     12
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.10051,
+    "par_combinaison": 0.0017948214285714286
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     4,
+     7,
+     8,
+     1,
+     2,
+     14,
+     3,
+     12,
+     5
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.17188,
+    "par_combinaison": 0.0013641269841269841
+   }
+  ]
+ }
+}

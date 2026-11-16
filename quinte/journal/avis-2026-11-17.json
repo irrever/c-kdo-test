@@ -1,0 +1,210 @@
+{
+  "box": [
+    4,
+    7,
+    8,
+    2,
+    16,
+    3
+  ],
+  "top5": [
+    4,
+    7,
+    8,
+    1,
+    2
+  ],
+  "a_jouer": [
+    16
+  ],
+  "a_eviter": [
+    1,
+    14,
+    9
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 4,
+      "nom": "JUSEARTH FAL",
+      "rang": 1,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5276,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "DUBALAA",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.503,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "FREERIDER",
+      "rang": 3,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4839,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "FERRARI FEVER",
+      "rang": 4,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4554,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "OLYMPIC MESSAGE",
+      "rang": 5,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3929,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "MUENCHEN",
+      "rang": 6,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3823,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "THOR LIGHTNING",
+      "rang": 7,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3411,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "CANENA",
+      "rang": 8,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3217,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "CHARENGO",
+      "rang": 9,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2811,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "FRANCISCANO",
+      "rang": 10,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2668,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "MONTGAUDRY",
+      "rang": 11,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2431,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "COKTAIL",
+      "rang": 12,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.1855,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "PUMALIN PARK",
+      "rang": 13,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1708,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "FAST RAAJ",
+      "rang": 14,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1629,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "DIVINE CHRISNAT",
+      "rang": 15,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1578,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "FOU FURIEUX",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1239,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-17",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "CHANTILLY",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-16T22:03:13+00:00"
+}
