@@ -2654,7 +2654,7 @@
    "heure": "20:31",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "TIPERE",
@@ -2665,7 +2665,13 @@
     "6": "EXTRAWELL",
     "7": "OREA DE ROMAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    3,
+    5,
+    4
+   ],
    "ordre": [
     2,
     5,
@@ -3035,7 +3041,7 @@
    "heure": "20:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NEWDEAL SAUTREUIL",
@@ -3048,7 +3054,13 @@
     "8": "NITRY ATALANTE",
     "9": "NOTUS DU COGLAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    3,
+    2,
+    4
+   ],
    "ordre": [
     7,
     1,
