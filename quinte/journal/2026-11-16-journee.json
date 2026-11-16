@@ -1034,7 +1034,7 @@
    "heure": "12:39",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "ESCALATOR",
@@ -1313,7 +1313,7 @@
    "heure": "12:23",
    "distance": 1950,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "TIPINSO",
@@ -1324,7 +1324,13 @@
     "6": "LYCKAS",
     "7": "TAMAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    2,
+    5,
+    4
+   ],
    "ordre": [
     7,
     1,
@@ -3240,7 +3246,7 @@
    "heure": "12:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "MAGMA",
@@ -4524,7 +4530,7 @@
    "heure": "12:40",
    "distance": 2575,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "NIKITA NUEVA",
