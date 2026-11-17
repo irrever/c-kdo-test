@@ -685,7 +685,7 @@
    "heure": "16:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "PRECIOSO",
@@ -704,7 +704,13 @@
     "14": "SPRING HEART",
     "15": "SIGHISH"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    7,
+    4,
+    6,
+    15
+   ],
    "ordre": [
     4,
     1,
@@ -1928,7 +1934,7 @@
    "heure": "15:57",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MILORD DE LA FONTE",
@@ -1942,7 +1948,13 @@
     "9": "MANDELA SEVEN",
     "10": "MARC AURELE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    10,
+    7,
+    1,
+    8
+   ],
    "ordre": [
     7,
     8,
@@ -2017,7 +2029,7 @@
    "heure": "16:32",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "KALINE FOUR",
