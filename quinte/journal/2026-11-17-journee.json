@@ -585,7 +585,7 @@
    "heure": "15:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "RUBENESQUE",
@@ -604,7 +604,13 @@
     "14": "DEVIL'STORY",
     "15": "RITMICA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    6,
+    13,
+    5
+   ],
    "ordre": [
     1,
     6,
@@ -1528,7 +1534,7 @@
    "heure": "15:47",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NARANDJA DE MEE",
@@ -1546,7 +1552,13 @@
     "14": "TIOTE GARY",
     "15": "FINEST CUP"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    11,
+    3,
+    10
+   ],
    "ordre": [
     5,
     15,
@@ -1916,7 +1928,7 @@
    "heure": "15:57",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "MILORD DE LA FONTE",
