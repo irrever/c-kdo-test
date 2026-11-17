@@ -2128,7 +2128,7 @@
    "heure": "17:07",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MAESTRO DE BRION",
@@ -2143,7 +2143,13 @@
     "10": "MARECHAL TURGOT",
     "11": "MISTER MORO"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    11,
+    8,
+    7
+   ],
    "ordre": [
     6,
     1,
@@ -2500,7 +2506,7 @@
    "heure": "17:24",
    "distance": 2150,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "PUMPY GIRL",
