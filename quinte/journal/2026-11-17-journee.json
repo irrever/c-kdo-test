@@ -191,7 +191,7 @@
    "heure": "13:10",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LUCHO",
@@ -206,7 +206,13 @@
     "10": "LAVANIA",
     "11": "PUNTA ROJA"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    5,
+    1,
+    3,
+    11
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
@@ -1124,7 +1130,7 @@
    "heure": "13:27",
    "distance": 2300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NECTAR DE MIRANDE",
@@ -1138,7 +1144,13 @@
     "9": "NAPOLI",
     "10": "NOEL DE REVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    2,
+    5,
+    6
+   ],
    "ordre": [
     5,
     1,
