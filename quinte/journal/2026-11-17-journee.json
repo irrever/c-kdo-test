@@ -385,7 +385,7 @@
    "heure": "14:30",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "CEMBALLO",
@@ -404,7 +404,13 @@
     "14": "BERINGIA",
     "15": "ALPENGEIST"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    1,
+    14,
+    4
+   ],
    "ordre": [
     2,
     1,
@@ -479,7 +485,7 @@
    "heure": "15:05",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 15,
    "noms": {
     "1": "NEWKIDONTHEBLOCK",
@@ -1325,7 +1331,7 @@
    "heure": "14:37",
    "distance": 3800,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "AULKO",
@@ -1340,7 +1346,13 @@
     "10": "L'ETOILEE",
     "11": "ADSUM"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    5,
+    7,
+    9
+   ],
    "ordre": [
     5,
     8,
@@ -1415,7 +1427,7 @@
    "heure": "15:12",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "KAVIK",
@@ -1693,7 +1705,7 @@
    "heure": "14:47",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NACRE DU GERS",
@@ -1710,7 +1722,13 @@
     "12": "NOKITA DU RIB",
     "13": "NIKALY D'EOLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    7,
+    8,
+    2,
+    11
+   ],
    "ordre": [
     3,
     5,
