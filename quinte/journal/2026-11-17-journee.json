@@ -485,7 +485,7 @@
    "heure": "15:05",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NEWKIDONTHEBLOCK",
@@ -504,7 +504,13 @@
     "14": "AMBRA ANTICA",
     "15": "HERODION"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    7,
+    4,
+    11,
+    5
+   ],
    "ordre": [
     1,
     10,
@@ -1427,7 +1433,7 @@
    "heure": "15:12",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KAVIK",
@@ -1441,7 +1447,13 @@
     "9": "KADA LATROBE",
     "10": "MATELINE DE GUYE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    4,
+    5,
+    9
+   ],
    "ordre": [
     5,
     2,
@@ -1803,7 +1815,7 @@
    "heure": "15:22",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NEW DREAM OF GLORY",
@@ -1823,7 +1835,13 @@
     "15": "NADAL D'OLIVERIE",
     "16": "NECK OUEST"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    6,
+    4,
+    3,
+    7
+   ],
    "ordre": [
     7,
     1,
