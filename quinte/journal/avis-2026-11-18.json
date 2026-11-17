@@ -1,0 +1,231 @@
+{
+  "box": [
+    8,
+    1,
+    14,
+    13,
+    2,
+    15
+  ],
+  "top5": [
+    8,
+    1,
+    14,
+    13,
+    9
+  ],
+  "a_jouer": [],
+  "a_eviter": [
+    9,
+    12,
+    6,
+    3
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 8,
+      "nom": "IALTO D'HERTALS",
+      "rang": 1,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.6119,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "KEMIA DU CHENE",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5372,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "HULYSSE DIGEO",
+      "rang": 3,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4855,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "IDEAL DU ROCHER",
+      "rang": 4,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.4472,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "ISOFOU DU CHENE",
+      "rang": 5,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4263,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "JINGLE DU PONT",
+      "rang": 6,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4038,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "IGUANE DE CAPONET",
+      "rang": 7,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3848,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "ILEO PIERJI",
+      "rang": 8,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2852,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "JUSTIN BOLD",
+      "rang": 9,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1916,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "HAMILTON DU HAM",
+      "rang": 10,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1794,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "LIGHT MY FIRE",
+      "rang": 11,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1796,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "HELIOS SI",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1754,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "HIDALGO DES NOES",
+      "rang": 13,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1645,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "J'AIME LE FOOT",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1487,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "LOULOU DE MYE",
+      "rang": 15,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1154,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "JEROBOAM D'ERABLE",
+      "rang": 16,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1125,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 18,
+      "nom": "INA DU RIB",
+      "rang": 17,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.08,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 17,
+      "nom": "JEAN BALTHAZAR",
+      "rang": 18,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.0711,
+      "categorie": "délaissé",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-18",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "MAUQUENCHY",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-17T22:03:17+00:00"
+}

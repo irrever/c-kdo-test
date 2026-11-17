@@ -1,0 +1,195 @@
+{
+  "date": "2026-11-18",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-18/R1/C1",
+  "hippodrome": "MAUQUENCHY",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-17T22:03:15+00:00",
+  "presse": {
+    "parier": [
+      9,
+      3,
+      13,
+      14,
+      12,
+      8,
+      1,
+      6
+    ],
+    "cinq": null,
+    "bases": [
+      9,
+      3
+    ],
+    "outsiders": [
+      2,
+      5,
+      10,
+      11,
+      4
+    ],
+    "belles": [
+      13,
+      14,
+      12,
+      8,
+      1,
+      6
+    ],
+    "delaisses": [
+      7,
+      15,
+      16,
+      17,
+      18
+    ]
+  },
+  "notre": [
+    {
+      "numero": 8,
+      "nom": "IALTO D'HERTALS",
+      "score": 0.8293,
+      "rang": 1,
+      "p_victoire": 0.1446,
+      "p_top5": 0.6119
+    },
+    {
+      "numero": 1,
+      "nom": "KEMIA DU CHENE",
+      "score": 0.7795,
+      "rang": 2,
+      "p_victoire": 0.1186,
+      "p_top5": 0.5372
+    },
+    {
+      "numero": 14,
+      "nom": "HULYSSE DIGEO",
+      "score": 0.7424,
+      "rang": 3,
+      "p_victoire": 0.1028,
+      "p_top5": 0.4855
+    },
+    {
+      "numero": 13,
+      "nom": "IDEAL DU ROCHER",
+      "score": 0.7154,
+      "rang": 4,
+      "p_victoire": 0.0919,
+      "p_top5": 0.4472
+    },
+    {
+      "numero": 9,
+      "nom": "ISOFOU DU CHENE",
+      "score": 0.6989,
+      "rang": 5,
+      "p_victoire": 0.0851,
+      "p_top5": 0.4263
+    },
+    {
+      "numero": 12,
+      "nom": "JINGLE DU PONT",
+      "score": 0.6822,
+      "rang": 6,
+      "p_victoire": 0.0805,
+      "p_top5": 0.4038
+    },
+    {
+      "numero": 6,
+      "nom": "IGUANE DE CAPONET",
+      "score": 0.6685,
+      "rang": 7,
+      "p_victoire": 0.0767,
+      "p_top5": 0.3848
+    },
+    {
+      "numero": 2,
+      "nom": "ILEO PIERJI",
+      "score": 0.5778,
+      "rang": 8,
+      "p_victoire": 0.053,
+      "p_top5": 0.2852
+    },
+    {
+      "numero": 15,
+      "nom": "JUSTIN BOLD",
+      "score": 0.4652,
+      "rang": 9,
+      "p_victoire": 0.0343,
+      "p_top5": 0.1916
+    },
+    {
+      "numero": 7,
+      "nom": "HAMILTON DU HAM",
+      "score": 0.4472,
+      "rang": 10,
+      "p_victoire": 0.0315,
+      "p_top5": 0.1794
+    },
+    {
+      "numero": 3,
+      "nom": "LIGHT MY FIRE",
+      "score": 0.4464,
+      "rang": 11,
+      "p_victoire": 0.0315,
+      "p_top5": 0.1796
+    },
+    {
+      "numero": 4,
+      "nom": "HELIOS SI",
+      "score": 0.441,
+      "rang": 12,
+      "p_victoire": 0.0312,
+      "p_top5": 0.1754
+    },
+    {
+      "numero": 11,
+      "nom": "HIDALGO DES NOES",
+      "score": 0.4244,
+      "rang": 13,
+      "p_victoire": 0.0293,
+      "p_top5": 0.1645
+    },
+    {
+      "numero": 10,
+      "nom": "J'AIME LE FOOT",
+      "score": 0.3994,
+      "rang": 14,
+      "p_victoire": 0.0252,
+      "p_top5": 0.1487
+    },
+    {
+      "numero": 5,
+      "nom": "LOULOU DE MYE",
+      "score": 0.3311,
+      "rang": 15,
+      "p_victoire": 0.0196,
+      "p_top5": 0.1154
+    },
+    {
+      "numero": 16,
+      "nom": "JEROBOAM D'ERABLE",
+      "score": 0.3223,
+      "rang": 16,
+      "p_victoire": 0.0189,
+      "p_top5": 0.1125
+    },
+    {
+      "numero": 18,
+      "nom": "INA DU RIB",
+      "score": 0.2379,
+      "rang": 17,
+      "p_victoire": 0.0133,
+      "p_top5": 0.08
+    },
+    {
+      "numero": 17,
+      "nom": "JEAN BALTHAZAR",
+      "score": 0.2039,
+      "rang": 18,
+      "p_victoire": 0.0121,
+      "p_top5": 0.0711
+    }
+  ]
+}
