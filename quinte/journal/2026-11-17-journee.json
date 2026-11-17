@@ -3726,7 +3726,7 @@
    "heure": "22:30",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LITTLEBOY D'HOLLOW",
@@ -3743,7 +3743,13 @@
     "12": "BELLISSIMA UNICA",
     "13": "RENQUELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    2,
+    5,
+    13
+   ],
    "ordre": [
     10,
     7,
@@ -4172,7 +4178,7 @@
    "heure": "22:45",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JUDGE ROOM",
@@ -4189,7 +4195,13 @@
     "12": "LA MELYTANS",
     "13": "VAN DER SAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    1,
+    7,
+    9,
+    2
+   ],
    "ordre": [
     5,
     2,
@@ -4264,7 +4276,7 @@
    "heure": "23:15",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 10,
    "noms": {
     "1": "ROJO JAMAS",
