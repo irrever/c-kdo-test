@@ -2029,7 +2029,7 @@
    "heure": "16:32",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KALINE FOUR",
@@ -2047,7 +2047,13 @@
     "13": "KOTKITA GIRL",
     "14": "KINGALA"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    9,
+    14,
+    2,
+    8
+   ],
    "ordre": [
     12,
     14,
@@ -2398,7 +2404,7 @@
    "heure": "16:49",
    "distance": 2150,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KING MOTIF",
@@ -2413,7 +2419,13 @@
     "10": "MR HARPIN",
     "11": "FETE JOYEUSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    1,
+    10,
+    2,
+    9
+   ],
    "ordre": [
     7,
     1,
