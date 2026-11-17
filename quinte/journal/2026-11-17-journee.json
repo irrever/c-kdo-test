@@ -3625,7 +3625,7 @@
    "heure": "22:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "SHADOW WILKES",
@@ -3645,7 +3645,13 @@
     "15": "TIMOBELL",
     "16": "UMANI BASKET TRAFO"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    14,
+    2,
+    12,
+    11
+   ],
    "ordre": [
     14,
     9,
@@ -3720,7 +3726,7 @@
    "heure": "22:30",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "LITTLEBOY D'HOLLOW",
@@ -4069,7 +4075,7 @@
    "heure": "22:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CHARMING STAR",
@@ -4085,7 +4091,13 @@
     "11": "DEJAME A UNA",
     "12": "PRINCIPE DE ORO"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    12,
+    2,
+    1,
+    5
+   ],
    "ordre": [
     12,
     1,
@@ -4160,7 +4172,7 @@
    "heure": "22:45",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "JUDGE ROOM",
