@@ -95,7 +95,7 @@
    "heure": "12:35",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "SEVENSIX",
@@ -209,60 +209,60 @@
     {
      "numero": 1,
      "nom": "LUCHO",
-     "cote": 5.6
+     "cote": 5.5
     },
     {
      "numero": 2,
      "nom": "MESSIER",
-     "cote": 28.0
+     "cote": 30.0
     },
     {
      "numero": 3,
      "nom": "SCINTILLO",
-     "cote": 10.0
+     "cote": 11.0
     },
     {
      "numero": 4,
      "nom": "LEGOLAS GOLD",
-     "cote": 18.0
+     "cote": 24.0
     },
     {
      "numero": 5,
      "nom": "DIAMOND SUN",
-     "cote": 8.3
+     "cote": 10.0
     },
     {
      "numero": 6,
      "nom": "QEMAS",
-     "cote": 9.1
+     "cote": 8.9
     },
     {
      "numero": 7,
      "nom": "KALLISTE",
-     "cote": 7.1
+     "cote": 5.4
     },
     {
      "numero": 8,
      "nom": "VILAMOURA",
-     "cote": 15.0
+     "cote": 19.0
     },
     {
      "numero": 9,
      "nom": "JOLLY'S FRIEND",
-     "cote": 6.7
+     "cote": 7.3
     },
     {
      "numero": 10,
      "nom": "LAVANIA",
-     "cote": 5.2
+     "cote": 4.5
     },
     {
      "numero": 11,
      "nom": "PUNTA ROJA",
-     "cote": 45.0
+     "cote": 44.0
     }
    ],
-   "cotes_releve": "2026-11-17T12:15"
+   "cotes_releve": "2026-11-17T12:45"
   },
   {
    "r": 1,
@@ -924,7 +924,7 @@
    "heure": "12:17",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "OLECOEUR DU MAUPAS",
@@ -943,7 +943,13 @@
     "14": "TOUTSUITE",
     "15": "DAWIYA"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    1,
+    2,
+    15,
+    8
+   ],
    "ordre": [
     1,
     10,
