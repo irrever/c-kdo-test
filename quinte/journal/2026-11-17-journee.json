@@ -3532,7 +3532,7 @@
    "heure": "21:30",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "KIEFFER KERGUILERM",
@@ -3545,7 +3545,12 @@
     "8": "MYSTERE D'ERPION",
     "9": "PRINCE CANTHIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    4,
+    6
+   ],
    "ordre": [
     2,
     1,
@@ -3620,7 +3625,7 @@
    "heure": "22:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "SHADOW WILKES",
@@ -3995,7 +4000,7 @@
    "heure": "21:45",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "WHITE SPIRIT",
@@ -4004,7 +4009,13 @@
     "4": "COPAYAPU",
     "5": "PECADO INCONFESABLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    5,
+    3,
+    1
+   ],
    "ordre": [
     5,
     4,
@@ -4058,7 +4069,7 @@
    "heure": "22:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "CHARMING STAR",
