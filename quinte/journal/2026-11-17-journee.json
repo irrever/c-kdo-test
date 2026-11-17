@@ -681,7 +681,7 @@
    "heure": "11:12",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "KERHOULEN",
@@ -692,7 +692,13 @@
     "6": "ANGEL BREIZH",
     "7": "ELLYRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    7,
+    4,
+    6
+   ],
    "ordre": [
     4,
     2,
@@ -760,7 +766,7 @@
    "heure": "11:42",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "DADDY LUX",
