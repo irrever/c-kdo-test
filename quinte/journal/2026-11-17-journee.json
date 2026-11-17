@@ -2322,7 +2322,7 @@
    "heure": "18:17",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NEW GIRL DU MATIN",
@@ -2341,7 +2341,13 @@
     "14": "NICE HAUFOR",
     "15": "NIKITA JIEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    4,
+    5,
+    8,
+    7
+   ],
    "ordre": [
     14,
     2,
@@ -2608,7 +2614,7 @@
    "heure": "17:59",
    "distance": 2150,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "PAIUTE",
@@ -2620,7 +2626,13 @@
     "7": "WHITE MIRACLE",
     "8": "BI BOISY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    2,
+    3,
+    8
+   ],
    "ordre": [
     1,
     5,
@@ -2695,7 +2707,7 @@
    "heure": "18:34",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "ALMUNECAR",
