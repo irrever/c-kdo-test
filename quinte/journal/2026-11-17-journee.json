@@ -2707,7 +2707,7 @@
    "heure": "18:34",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ALMUNECAR",
@@ -2722,7 +2722,13 @@
     "10": "MANUIA",
     "11": "CORRICELLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    7,
+    4,
+    1
+   ],
    "ordre": [
     2,
     10,
@@ -2797,7 +2803,7 @@
    "heure": "19:07",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 7,
    "noms": {
     "1": "CHERIMINE",
@@ -3018,7 +3024,7 @@
    "heure": "18:51",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "OVIEDO BASE",
