@@ -385,7 +385,7 @@
    "heure": "14:30",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "CEMBALLO",
@@ -1325,7 +1325,7 @@
    "heure": "14:37",
    "distance": 3800,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "AULKO",
@@ -1597,7 +1597,7 @@
    "heure": "14:12",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "OPERA WOOD",
@@ -1612,7 +1612,13 @@
     "10": "OTHELLO DAIRPET",
     "11": "ONE DAYDREAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    4,
+    1,
+    7
+   ],
    "ordre": [
     4,
     5,
