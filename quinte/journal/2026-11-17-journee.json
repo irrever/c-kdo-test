@@ -3340,7 +3340,7 @@
    "heure": "20:27",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JARLY DE DUFFEL",
@@ -3358,7 +3358,13 @@
     "13": "ULRIK DE VIKING",
     "14": "TREK"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    10,
+    11,
+    13
+   ],
    "ordre": [
     10,
     7,
@@ -3433,7 +3439,7 @@
    "heure": "21:00",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "LEGENDE DU BERRE",
@@ -3795,7 +3801,7 @@
    "heure": "20:45",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ASTROAZURRO",
@@ -3809,7 +3815,13 @@
     "9": "EL CATIMBA",
     "10": "SIMONE BULL"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    4,
+    9,
+    2
+   ],
    "ordre": [
     9,
     10,
