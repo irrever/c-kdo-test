@@ -2888,7 +2888,7 @@
    "heure": "19:39",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "GWO KA",
@@ -2898,7 +2898,13 @@
     "5": "NICK BOUTIQUE",
     "6": "QUEEN LAURIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    4,
+    3,
+    2
+   ],
    "ordre": [
     4,
     1,
@@ -3129,7 +3135,7 @@
    "heure": "19:23",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LUCIOLE D'ENOGAT",
@@ -3148,7 +3154,13 @@
     "14": "KISMIE JOKE",
     "15": "MISS DE REUX"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    7,
+    13,
+    5,
+    6
+   ],
    "ordre": [
     7,
     5,
@@ -3223,7 +3235,7 @@
    "heure": "19:55",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MEDOC",
@@ -3241,7 +3253,13 @@
     "13": "LOVER DREAM",
     "14": "MAJOR DE CONDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    12,
+    7,
+    9,
+    13
+   ],
    "ordre": [
     8,
     9,
