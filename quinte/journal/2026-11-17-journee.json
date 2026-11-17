@@ -2803,7 +2803,7 @@
    "heure": "19:07",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "CHERIMINE",
@@ -2814,7 +2814,13 @@
     "6": "PLEASANT RISK",
     "7": "PAINTNAK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    4,
+    1,
+    7
+   ],
    "ordre": [
     6,
     7,
@@ -3024,7 +3030,7 @@
    "heure": "18:51",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "OVIEDO BASE",
@@ -3042,7 +3048,13 @@
     "13": "NICE PRESENT",
     "14": "HARRY COHIAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    10,
+    13,
+    4
+   ],
    "ordre": [
     2,
     9,
@@ -3117,7 +3129,7 @@
    "heure": "19:23",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "LUCIOLE D'ENOGAT",
