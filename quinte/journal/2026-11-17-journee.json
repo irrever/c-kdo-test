@@ -3439,7 +3439,7 @@
    "heure": "21:00",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LEGENDE DU BERRE",
@@ -3451,7 +3451,13 @@
     "7": "L'ELITE DU CHOQUEL",
     "8": "LADY OF DURBUY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    5,
+    7,
+    8
+   ],
    "ordre": [
     2,
     4,
@@ -3526,7 +3532,7 @@
    "heure": "21:30",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "KIEFFER KERGUILERM",
@@ -3896,7 +3902,7 @@
    "heure": "21:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CELTIC STORM",
@@ -3908,7 +3914,13 @@
     "7": "ABIEL",
     "8": "REY MANUEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    3,
+    2,
+    7
+   ],
    "ordre": [
     3,
     1,
@@ -3983,7 +3995,7 @@
    "heure": "21:45",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 5,
    "noms": {
     "1": "WHITE SPIRIT",
