@@ -95,7 +95,7 @@
    "heure": "12:35",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SEVENSIX",
@@ -110,7 +110,13 @@
     "10": "AIR DANCER",
     "11": "DICANTO"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    5,
+    9,
+    2
+   ],
    "ordre": [
     2,
     7,
@@ -185,7 +191,7 @@
    "heure": "13:10",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "LUCHO",
@@ -1024,7 +1030,7 @@
    "heure": "12:52",
    "distance": 2100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SWIFT FLIGHT",
@@ -1037,7 +1043,13 @@
     "8": "SCAT LADY",
     "9": "XIOMARA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    2,
+    8,
+    4
+   ],
    "ordre": [
     3,
     2,
