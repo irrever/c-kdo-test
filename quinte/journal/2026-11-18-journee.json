@@ -3773,7 +3773,7 @@
    "heure": "21:30",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MARHABA THE CHAMP",
@@ -3790,7 +3790,13 @@
     "12": "MIDNIGHT MEDIA",
     "13": "WE RIDE AT DAWN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    8,
+    6,
+    2
+   ],
    "ordre": [
     8,
     10,
@@ -5518,7 +5524,7 @@
    "heure": "21:51",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CASHMAN J.R.",
@@ -5534,7 +5540,13 @@
     "11": "EAGLE ROCK",
     "12": "COMES WITH AGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    10,
+    9,
+    7,
+    6
+   ],
    "ordre": [
     7,
     8,
@@ -5609,7 +5621,7 @@
    "heure": "22:00",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "OTRA VEZ PITUCO",
