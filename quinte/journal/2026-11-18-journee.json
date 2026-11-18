@@ -5817,7 +5817,7 @@
    "heure": "23:00",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MORINGA",
@@ -5831,7 +5831,13 @@
     "9": "IMPERIO BABILONICO",
     "10": "ERICINA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    2,
+    10,
+    4
+   ],
    "ordre": [
     2,
     10,
