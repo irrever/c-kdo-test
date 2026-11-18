@@ -736,7 +736,7 @@
    "heure": "12:25",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SARMAD",
@@ -747,7 +747,13 @@
     "6": "SOMEONE",
     "7": "CHARMINGSTAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    3,
+    6,
+    2
+   ],
    "ordre": [
     2,
     3,
@@ -1538,7 +1544,7 @@
    "heure": "12:10",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "GOLDEN FRIENDSHIP",
@@ -1554,7 +1560,13 @@
     "11": "GIMME FIVE",
     "12": "THOUSAND CUPS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    10,
+    5,
+    12
+   ],
    "ordre": [
     9,
     3,
@@ -1629,7 +1641,7 @@
    "heure": "12:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "SUPER SIXTY",
