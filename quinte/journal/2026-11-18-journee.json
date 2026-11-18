@@ -582,7 +582,7 @@
    "heure": "17:25",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "TOSCANA SOUTHWIND",
@@ -600,7 +600,13 @@
     "13": "ICI PARIS EFJI",
     "14": "JAZZMAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    14,
+    11,
+    7,
+    10
+   ],
    "ordre": [
     6,
     2,
@@ -2487,7 +2493,7 @@
    "heure": "17:42",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "THE WASP",
@@ -3022,7 +3028,7 @@
    "heure": "17:25",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "TREDEGAR SQUARE",
@@ -3038,7 +3044,13 @@
     "11": "MISS ROXIE HART",
     "12": "HARRIET VANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     2,
     1,
