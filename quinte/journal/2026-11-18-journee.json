@@ -898,7 +898,7 @@
    "heure": "13:27",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "BLUE SEA",
@@ -911,7 +911,13 @@
     "8": "LIEBERMAN RUN",
     "9": "SARWAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    9,
+    2,
+    8
+   ],
    "ordre": [
     3,
     8,
@@ -1744,7 +1750,7 @@
    "heure": "13:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SUPER UNICORN",
@@ -1760,7 +1766,13 @@
     "11": "LUCKY TOGETHER",
     "12": "RED BRICK WARRIOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    12,
+    8,
+    5,
+    11
+   ],
    "ordre": [
     12,
     9,
@@ -1835,7 +1847,7 @@
    "heure": "13:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "KING LOTUS",
@@ -3795,7 +3807,7 @@
    "heure": "13:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NABAB D'ORCO",
@@ -3815,7 +3827,13 @@
     "15": "NATIVEDARCHE",
     "16": "NEW HOT SUMMER"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    15,
+    14,
+    3,
+    11
+   ],
    "ordre": [
     9,
     14,
