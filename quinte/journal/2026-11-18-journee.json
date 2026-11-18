@@ -821,7 +821,7 @@
    "heure": "12:55",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "SKA DE L'AIGLE",
@@ -831,7 +831,13 @@
     "5": "AINHOA GOLDWIN",
     "6": "GLOSSY GWEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    4,
+    1,
+    5
+   ],
    "ordre": [
     4,
     6,
@@ -1641,7 +1647,7 @@
    "heure": "12:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SUPER SIXTY",
@@ -1657,7 +1663,13 @@
     "11": "BETTER AND BETTER",
     "12": "SHOW ME YOUR LOVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    8,
+    12,
+    4,
+    1
+   ],
    "ordre": [
     6,
     7,
@@ -1732,7 +1744,7 @@
    "heure": "13:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "SUPER UNICORN",
@@ -3688,7 +3700,7 @@
    "heure": "13:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ONDINE FRANCE",
@@ -3702,7 +3714,13 @@
     "9": "OKANAGAN",
     "10": "ODALYS DE COUZAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    5,
+    10,
+    6
+   ],
    "ordre": [
     4,
     5,

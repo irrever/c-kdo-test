@@ -1,7 +1,7 @@
 {
  "date": "2026-11-18",
  "retroactif": false,
- "fige_le": "2026-11-17T22:03:21",
+ "fige_le": "2026-11-18T12:17:46",
  "hippodrome": "MAUQUENCHY",
  "course": "R1C1",
  "modele": {
@@ -15,346 +15,763 @@
    "conditions": 0.075,
    "bruits_ecuries": 0.075
   },
-  "simulations": 200000
+  "simulations": 200000,
+  "part_cotes": 0.9
  },
  "chevaux": [
   {
-   "numero": 8,
-   "nom": "IALTO D'HERTALS",
-   "score": 0.8292602482643318,
-   "p_victoire": 0.14459,
-   "p_top3": 0.40245,
-   "p_top5": 0.611885
-  },
-  {
-   "numero": 1,
-   "nom": "KEMIA DU CHENE",
-   "score": 0.7794936984748674,
-   "p_victoire": 0.118555,
-   "p_top3": 0.338715,
-   "p_top5": 0.537175
+   "numero": 9,
+   "nom": "ISOFOU DU CHENE",
+   "score": 0.698877862138628,
+   "proba_cotes": 0.24245482679152647,
+   "proba_melange": 0.22681329358530172,
+   "p_victoire": 0.226015,
+   "p_top3": 0.58024,
+   "p_top5": 0.81187
   },
   {
    "numero": 14,
    "nom": "HULYSSE DIGEO",
    "score": 0.7423573738929868,
-   "p_victoire": 0.10276,
-   "p_top3": 0.3001,
-   "p_top5": 0.485465
+   "proba_cotes": 0.13686966028553915,
+   "proba_melange": 0.13342103311849127,
+   "p_victoire": 0.133845,
+   "p_top3": 0.39523,
+   "p_top5": 0.63371
   },
   {
    "numero": 13,
    "nom": "IDEAL DU ROCHER",
    "score": 0.7154184160622424,
-   "p_victoire": 0.091885,
-   "p_top3": 0.27226,
-   "p_top5": 0.44717
+   "proba_cotes": 0.11785998524588094,
+   "proba_melange": 0.11526644646172293,
+   "p_victoire": 0.11572,
+   "p_top3": 0.34904,
+   "p_top5": 0.577965
   },
   {
-   "numero": 9,
-   "nom": "ISOFOU DU CHENE",
-   "score": 0.698877862138628,
-   "p_victoire": 0.08514,
-   "p_top3": 0.25811,
-   "p_top5": 0.42629
+   "numero": 1,
+   "nom": "KEMIA DU CHENE",
+   "score": 0.7794936984748674,
+   "proba_cotes": 0.10348681631345644,
+   "proba_melange": 0.10501609589610911,
+   "p_victoire": 0.10403,
+   "p_top3": 0.322175,
+   "p_top5": 0.54337
+  },
+  {
+   "numero": 8,
+   "nom": "IALTO D'HERTALS",
+   "score": 0.8292602482643318,
+   "proba_cotes": 0.09643089701935713,
+   "proba_melange": 0.10128204085669587,
+   "p_victoire": 0.1015,
+   "p_top3": 0.313275,
+   "p_top5": 0.528985
   },
   {
    "numero": 12,
    "nom": "JINGLE DU PONT",
    "score": 0.6822382363418324,
-   "p_victoire": 0.08047,
-   "p_top3": 0.24171,
-   "p_top5": 0.40379
+   "proba_cotes": 0.09867347601980729,
+   "proba_melange": 0.09685605390947279,
+   "p_victoire": 0.097145,
+   "p_top3": 0.300995,
+   "p_top5": 0.51352
   },
   {
    "numero": 6,
    "nom": "IGUANE DE CAPONET",
    "score": 0.6684511991280145,
-   "p_victoire": 0.07674,
-   "p_top3": 0.231365,
-   "p_top5": 0.38484
-  },
-  {
-   "numero": 2,
-   "nom": "ILEO PIERJI",
-   "score": 0.5778019648870625,
-   "p_victoire": 0.05297,
-   "p_top3": 0.165295,
-   "p_top5": 0.285205
-  },
-  {
-   "numero": 15,
-   "nom": "JUSTIN BOLD",
-   "score": 0.46520978903912635,
-   "p_victoire": 0.034255,
-   "p_top3": 0.10792,
-   "p_top5": 0.19164
-  },
-  {
-   "numero": 7,
-   "nom": "HAMILTON DU HAM",
-   "score": 0.4472354666279865,
-   "p_victoire": 0.031485,
-   "p_top3": 0.10029,
-   "p_top5": 0.179425
+   "proba_cotes": 0.0652762995207956,
+   "proba_melange": 0.06636667580618336,
+   "p_victoire": 0.066915,
+   "p_top3": 0.21589,
+   "p_top5": 0.387185
   },
   {
    "numero": 3,
    "nom": "LIGHT MY FIRE",
    "score": 0.44638926153647374,
-   "p_victoire": 0.031485,
-   "p_top3": 0.10117,
-   "p_top5": 0.179555
+   "proba_cotes": 0.04466273125107067,
+   "proba_melange": 0.04333032271669759,
+   "p_victoire": 0.04378,
+   "p_top3": 0.145195,
+   "p_top5": 0.26984
   },
   {
-   "numero": 4,
-   "nom": "HELIOS SI",
-   "score": 0.4410366940319459,
-   "p_victoire": 0.031225,
-   "p_top3": 0.09934,
-   "p_top5": 0.17545
-  },
-  {
-   "numero": 11,
-   "nom": "HIDALGO DES NOES",
-   "score": 0.4243739457666618,
-   "p_victoire": 0.02927,
-   "p_top3": 0.091725,
-   "p_top5": 0.16453
+   "numero": 2,
+   "nom": "ILEO PIERJI",
+   "score": 0.5778019648870625,
+   "proba_cotes": 0.03857235880774285,
+   "proba_melange": 0.04001624097024458,
+   "p_victoire": 0.040205,
+   "p_top3": 0.133335,
+   "p_top5": 0.24966
   },
   {
    "numero": 10,
    "nom": "J'AIME LE FOOT",
    "score": 0.3993535749579046,
-   "p_victoire": 0.02517,
-   "p_top3": 0.082135,
-   "p_top5": 0.14865
+   "proba_cotes": 0.008839498893441069,
+   "proba_melange": 0.010551944642093136,
+   "p_victoire": 0.010025,
+   "p_top3": 0.03548,
+   "p_top5": 0.07024
+  },
+  {
+   "numero": 7,
+   "nom": "HAMILTON DU HAM",
+   "score": 0.4472354666279865,
+   "proba_cotes": 0.00815953744009945,
+   "proba_melange": 0.010488073828144238,
+   "p_victoire": 0.010635,
+   "p_top3": 0.035915,
+   "p_top5": 0.070805
   },
   {
    "numero": 5,
    "nom": "LOULOU DE MYE",
    "score": 0.3311285835780461,
-   "p_victoire": 0.019645,
-   "p_top3": 0.06359,
-   "p_top5": 0.115435
+   "proba_cotes": 0.008839498893441069,
+   "proba_melange": 0.009931844685831078,
+   "p_victoire": 0.009915,
+   "p_top3": 0.03403,
+   "p_top5": 0.06686
+  },
+  {
+   "numero": 11,
+   "nom": "HIDALGO DES NOES",
+   "score": 0.4243739457666618,
+   "proba_cotes": 0.0069556712604126455,
+   "proba_melange": 0.00912979890779047,
+   "p_victoire": 0.00901,
+   "p_top3": 0.03103,
+   "p_top5": 0.061465
+  },
+  {
+   "numero": 4,
+   "nom": "HELIOS SI",
+   "score": 0.4410366940319459,
+   "proba_cotes": 0.00540504390936524,
+   "proba_melange": 0.007932020404432699,
+   "p_victoire": 0.007595,
+   "p_top3": 0.0271,
+   "p_top5": 0.05387
+  },
+  {
+   "numero": 15,
+   "nom": "JUSTIN BOLD",
+   "score": 0.46520978903912635,
+   "proba_cotes": 0.004962525694563407,
+   "proba_melange": 0.007845169184437062,
+   "p_victoire": 0.00777,
+   "p_top3": 0.02647,
+   "p_top5": 0.052575
   },
   {
    "numero": 16,
    "nom": "JEROBOAM D'ERABLE",
    "score": 0.3223079663518198,
-   "p_victoire": 0.01894,
-   "p_top3": 0.06144,
-   "p_top5": 0.11247
+   "proba_cotes": 0.004442889496179805,
+   "proba_melange": 0.005906383395521678,
+   "p_victoire": 0.00584,
+   "p_top3": 0.020415,
+   "p_top5": 0.040495
   },
   {
    "numero": 18,
    "nom": "INA DU RIB",
    "score": 0.23790572941388954,
-   "p_victoire": 0.013305,
-   "p_top3": 0.04357,
-   "p_top5": 0.07996
+   "proba_cotes": 0.004767370189721026,
+   "proba_melange": 0.005651787087198003,
+   "p_victoire": 0.005665,
+   "p_top3": 0.01976,
+   "p_top5": 0.0392
   },
   {
    "numero": 17,
    "nom": "JEAN BALTHAZAR",
    "score": 0.20388041511573549,
-   "p_victoire": 0.01211,
-   "p_top3": 0.038815,
-   "p_top5": 0.071065
+   "proba_cotes": 0.0033409129675997743,
+   "proba_melange": 0.004194774543632426,
+   "p_victoire": 0.00439,
+   "p_top3": 0.014425,
+   "p_top5": 0.028385
   }
  ],
  "ordre_predit": [
-  8,
-  1,
+  9,
   14,
   13,
-  9
+  1,
+  8
  ],
  "combinaisons": {
   "Tiercé": [
    {
     "box": 3,
     "chevaux": [
-     8,
-     1,
-     14
+     9,
+     14,
+     13
     ],
     "combinaisons": 1,
-    "probabilite": 0.0159,
-    "par_combinaison": 0.0159
+    "probabilite": 0.036785,
+    "par_combinaison": 0.036785
    },
    {
     "box": 4,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
-     13
+     13,
+     1
     ],
     "combinaisons": 4,
-    "probabilite": 0.05138,
-    "par_combinaison": 0.012845
+    "probabilite": 0.112305,
+    "par_combinaison": 0.02807625
    },
    {
     "box": 5,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9
+     1,
+     8
     ],
     "combinaisons": 10,
-    "probabilite": 0.109275,
-    "par_combinaison": 0.0109275
+    "probabilite": 0.231135,
+    "par_combinaison": 0.023113500000000002
    },
    {
     "box": 6,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12
     ],
     "combinaisons": 20,
-    "probabilite": 0.187895,
-    "par_combinaison": 0.00939475
+    "probabilite": 0.39749,
+    "par_combinaison": 0.0198745
    }
   ],
   "Quarté": [
    {
     "box": 4,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
-     13
+     13,
+     1
     ],
     "combinaisons": 1,
-    "probabilite": 0.008815,
-    "par_combinaison": 0.008815
+    "probabilite": 0.02645,
+    "par_combinaison": 0.02645
    },
    {
     "box": 5,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9
+     1,
+     8
     ],
     "combinaisons": 5,
-    "probabilite": 0.03455,
-    "par_combinaison": 0.0069099999999999995
+    "probabilite": 0.100935,
+    "par_combinaison": 0.020187
    },
    {
     "box": 6,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12
     ],
     "combinaisons": 15,
-    "probabilite": 0.084035,
-    "par_combinaison": 0.005602333333333333
+    "probabilite": 0.245065,
+    "par_combinaison": 0.016337666666666667
    },
    {
     "box": 7,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12,
      6
     ],
     "combinaisons": 35,
-    "probabilite": 0.1637,
-    "par_combinaison": 0.004677142857142857
+    "probabilite": 0.40178,
+    "par_combinaison": 0.011479428571428573
    }
   ],
   "Quinté": [
    {
     "box": 5,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9
+     1,
+     8
     ],
     "combinaisons": 1,
-    "probabilite": 0.006425,
-    "par_combinaison": 0.006425
+    "probabilite": 0.027585,
+    "par_combinaison": 0.027585
    },
    {
     "box": 6,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12
     ],
     "combinaisons": 6,
-    "probabilite": 0.028875,
-    "par_combinaison": 0.0048125
+    "probabilite": 0.12504,
+    "par_combinaison": 0.02084
    },
    {
     "box": 7,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12,
      6
     ],
     "combinaisons": 21,
-    "probabilite": 0.079355,
-    "par_combinaison": 0.0037788095238095237
+    "probabilite": 0.27066,
+    "par_combinaison": 0.01288857142857143
    },
    {
     "box": 8,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12,
      6,
-     2
+     3
     ],
     "combinaisons": 56,
-    "probabilite": 0.144125,
-    "par_combinaison": 0.0025736607142857145
+    "probabilite": 0.41406,
+    "par_combinaison": 0.007393928571428571
    },
    {
     "box": 9,
     "chevaux": [
-     8,
-     1,
+     9,
      14,
      13,
-     9,
+     1,
+     8,
      12,
      6,
-     2,
-     15
+     3,
+     2
     ],
     "combinaisons": 126,
-    "probabilite": 0.201615,
-    "par_combinaison": 0.0016001190476190475
+    "probabilite": 0.583655,
+    "par_combinaison": 0.00463218253968254
    }
   ]
+ },
+ "pronostic_soir": {
+  "fige_le": "2026-11-17T22:03:21",
+  "modele": {
+   "sensibilite_K": 4.0,
+   "poids": {
+    "musique": 0.25,
+    "aptitudes": 0.1875,
+    "forme_cheval": 0.1875,
+    "chronos": 0.15,
+    "tandem": 0.075,
+    "conditions": 0.075,
+    "bruits_ecuries": 0.075
+   },
+   "simulations": 200000
+  },
+  "chevaux": [
+   {
+    "numero": 8,
+    "nom": "IALTO D'HERTALS",
+    "score": 0.8292602482643318,
+    "p_victoire": 0.14459,
+    "p_top3": 0.40245,
+    "p_top5": 0.611885
+   },
+   {
+    "numero": 1,
+    "nom": "KEMIA DU CHENE",
+    "score": 0.7794936984748674,
+    "p_victoire": 0.118555,
+    "p_top3": 0.338715,
+    "p_top5": 0.537175
+   },
+   {
+    "numero": 14,
+    "nom": "HULYSSE DIGEO",
+    "score": 0.7423573738929868,
+    "p_victoire": 0.10276,
+    "p_top3": 0.3001,
+    "p_top5": 0.485465
+   },
+   {
+    "numero": 13,
+    "nom": "IDEAL DU ROCHER",
+    "score": 0.7154184160622424,
+    "p_victoire": 0.091885,
+    "p_top3": 0.27226,
+    "p_top5": 0.44717
+   },
+   {
+    "numero": 9,
+    "nom": "ISOFOU DU CHENE",
+    "score": 0.698877862138628,
+    "p_victoire": 0.08514,
+    "p_top3": 0.25811,
+    "p_top5": 0.42629
+   },
+   {
+    "numero": 12,
+    "nom": "JINGLE DU PONT",
+    "score": 0.6822382363418324,
+    "p_victoire": 0.08047,
+    "p_top3": 0.24171,
+    "p_top5": 0.40379
+   },
+   {
+    "numero": 6,
+    "nom": "IGUANE DE CAPONET",
+    "score": 0.6684511991280145,
+    "p_victoire": 0.07674,
+    "p_top3": 0.231365,
+    "p_top5": 0.38484
+   },
+   {
+    "numero": 2,
+    "nom": "ILEO PIERJI",
+    "score": 0.5778019648870625,
+    "p_victoire": 0.05297,
+    "p_top3": 0.165295,
+    "p_top5": 0.285205
+   },
+   {
+    "numero": 15,
+    "nom": "JUSTIN BOLD",
+    "score": 0.46520978903912635,
+    "p_victoire": 0.034255,
+    "p_top3": 0.10792,
+    "p_top5": 0.19164
+   },
+   {
+    "numero": 7,
+    "nom": "HAMILTON DU HAM",
+    "score": 0.4472354666279865,
+    "p_victoire": 0.031485,
+    "p_top3": 0.10029,
+    "p_top5": 0.179425
+   },
+   {
+    "numero": 3,
+    "nom": "LIGHT MY FIRE",
+    "score": 0.44638926153647374,
+    "p_victoire": 0.031485,
+    "p_top3": 0.10117,
+    "p_top5": 0.179555
+   },
+   {
+    "numero": 4,
+    "nom": "HELIOS SI",
+    "score": 0.4410366940319459,
+    "p_victoire": 0.031225,
+    "p_top3": 0.09934,
+    "p_top5": 0.17545
+   },
+   {
+    "numero": 11,
+    "nom": "HIDALGO DES NOES",
+    "score": 0.4243739457666618,
+    "p_victoire": 0.02927,
+    "p_top3": 0.091725,
+    "p_top5": 0.16453
+   },
+   {
+    "numero": 10,
+    "nom": "J'AIME LE FOOT",
+    "score": 0.3993535749579046,
+    "p_victoire": 0.02517,
+    "p_top3": 0.082135,
+    "p_top5": 0.14865
+   },
+   {
+    "numero": 5,
+    "nom": "LOULOU DE MYE",
+    "score": 0.3311285835780461,
+    "p_victoire": 0.019645,
+    "p_top3": 0.06359,
+    "p_top5": 0.115435
+   },
+   {
+    "numero": 16,
+    "nom": "JEROBOAM D'ERABLE",
+    "score": 0.3223079663518198,
+    "p_victoire": 0.01894,
+    "p_top3": 0.06144,
+    "p_top5": 0.11247
+   },
+   {
+    "numero": 18,
+    "nom": "INA DU RIB",
+    "score": 0.23790572941388954,
+    "p_victoire": 0.013305,
+    "p_top3": 0.04357,
+    "p_top5": 0.07996
+   },
+   {
+    "numero": 17,
+    "nom": "JEAN BALTHAZAR",
+    "score": 0.20388041511573549,
+    "p_victoire": 0.01211,
+    "p_top3": 0.038815,
+    "p_top5": 0.071065
+   }
+  ],
+  "ordre_predit": [
+   8,
+   1,
+   14,
+   13,
+   9
+  ],
+  "combinaisons": {
+   "Tiercé": [
+    {
+     "box": 3,
+     "chevaux": [
+      8,
+      1,
+      14
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.0159,
+     "par_combinaison": 0.0159
+    },
+    {
+     "box": 4,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13
+     ],
+     "combinaisons": 4,
+     "probabilite": 0.05138,
+     "par_combinaison": 0.012845
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9
+     ],
+     "combinaisons": 10,
+     "probabilite": 0.109275,
+     "par_combinaison": 0.0109275
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12
+     ],
+     "combinaisons": 20,
+     "probabilite": 0.187895,
+     "par_combinaison": 0.00939475
+    }
+   ],
+   "Quarté": [
+    {
+     "box": 4,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.008815,
+     "par_combinaison": 0.008815
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9
+     ],
+     "combinaisons": 5,
+     "probabilite": 0.03455,
+     "par_combinaison": 0.0069099999999999995
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12
+     ],
+     "combinaisons": 15,
+     "probabilite": 0.084035,
+     "par_combinaison": 0.005602333333333333
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12,
+      6
+     ],
+     "combinaisons": 35,
+     "probabilite": 0.1637,
+     "par_combinaison": 0.004677142857142857
+    }
+   ],
+   "Quinté": [
+    {
+     "box": 5,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.006425,
+     "par_combinaison": 0.006425
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12
+     ],
+     "combinaisons": 6,
+     "probabilite": 0.028875,
+     "par_combinaison": 0.0048125
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12,
+      6
+     ],
+     "combinaisons": 21,
+     "probabilite": 0.079355,
+     "par_combinaison": 0.0037788095238095237
+    },
+    {
+     "box": 8,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12,
+      6,
+      2
+     ],
+     "combinaisons": 56,
+     "probabilite": 0.144125,
+     "par_combinaison": 0.0025736607142857145
+    },
+    {
+     "box": 9,
+     "chevaux": [
+      8,
+      1,
+      14,
+      13,
+      9,
+      12,
+      6,
+      2,
+      15
+     ],
+     "combinaisons": 126,
+     "probabilite": 0.201615,
+     "par_combinaison": 0.0016001190476190475
+    }
+   ]
+  }
+ },
+ "final": {
+  "fige_le": "2026-11-18T12:17:46",
+  "cotes": {
+   "1": 8.2,
+   "2": 22.0,
+   "3": 19.0,
+   "4": 157.0,
+   "5": 96.0,
+   "6": 13.0,
+   "7": 104.0,
+   "8": 8.8,
+   "9": 3.5,
+   "10": 96.0,
+   "11": 122.0,
+   "12": 8.6,
+   "13": 7.2,
+   "14": 6.2,
+   "15": 171.0,
+   "16": 191.0,
+   "17": 254.0,
+   "18": 178.0
+  },
+  "part_cotes": 0.9
  }
 }
