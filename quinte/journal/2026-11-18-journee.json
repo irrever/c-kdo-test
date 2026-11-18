@@ -681,7 +681,7 @@
    "heure": "18:00",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "KAPORAL DE VIETTE",
@@ -703,7 +703,13 @@
     "17": "KID SMILE",
     "18": "KRUGER DU NORD"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    14,
+    18,
+    12,
+    9
+   ],
    "ordre": [
     17,
     7,
@@ -2493,7 +2499,7 @@
    "heure": "17:42",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "canceled",
    "partants": 11,
    "noms": {
     "1": "THE WASP",
@@ -2583,7 +2589,7 @@
    "heure": "18:15",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 9,
    "noms": {
     "1": "TROPA",
@@ -3125,7 +3131,7 @@
    "heure": "18:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AMANDARI",
@@ -3141,7 +3147,13 @@
     "11": "PULL AND PREY",
     "12": "ANGEL FOOTSTEPS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    3,
+    12,
+    2
+   ],
    "ordre": [
     12,
     2,
@@ -4600,7 +4612,7 @@
    "heure": "18:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "BELLAS VIOL",
