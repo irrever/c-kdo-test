@@ -2589,7 +2589,7 @@
    "heure": "18:15",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "canceled",
    "partants": 9,
    "noms": {
     "1": "TROPA",
@@ -2677,7 +2677,7 @@
    "heure": "18:45",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "canceled",
    "partants": 9,
    "noms": {
     "1": "ANNALIGHT",
@@ -3228,7 +3228,7 @@
    "heure": "18:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "DIVINE WHISPER",
@@ -3237,7 +3237,13 @@
     "4": "PAPER VIEW",
     "5": "NIGHTBLOOM"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    2,
+    3,
+    4
+   ],
    "ordre": [
     1,
     2,
@@ -4612,7 +4618,7 @@
    "heure": "18:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "BELLAS VIOL",
@@ -4626,7 +4632,13 @@
     "9": "CONCESSION",
     "10": "NEWTON BLACK"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    6,
+    2,
+    7
+   ],
    "ordre": [
     4,
     6,
@@ -4701,7 +4713,7 @@
    "heure": "18:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "SUNLIGHT PRINCE",
