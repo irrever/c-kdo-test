@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "KEMIA DU CHENE",
@@ -32,7 +32,13 @@
     "17": "JEAN BALTHAZAR",
     "18": "INA DU RIB"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    14,
+    12,
+    8
+   ],
    "ordre": [
     8,
     1,
@@ -992,7 +998,7 @@
    "heure": "14:12",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "DREAMS CHOPE",
@@ -1847,7 +1853,7 @@
    "heure": "13:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KING LOTUS",
@@ -1863,7 +1869,13 @@
     "11": "PHOENIX LIGHT",
     "12": "WORD OF KINDNESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    9,
+    1,
+    3,
+    6
+   ],
    "ordre": [
     5,
     2,
@@ -1938,7 +1950,7 @@
    "heure": "14:10",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SUPERB KING",
@@ -1954,7 +1966,12 @@
     "11": "I AM BACK",
     "12": "EVERSTAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    8,
+    10
+   ],
    "ordre": [
     3,
     2,
@@ -3908,7 +3925,7 @@
    "heure": "14:00",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LATINO DREAM",
@@ -3926,7 +3943,13 @@
     "13": "LUXY BLUE",
     "14": "LASKA DU LIVIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    12,
+    11,
+    7
+   ],
    "ordre": [
     11,
     14,
