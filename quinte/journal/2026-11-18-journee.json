@@ -3674,7 +3674,7 @@
    "heure": "21:00",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "I'M WORKIN ON IT",
@@ -3692,7 +3692,13 @@
     "13": "ENRICHER",
     "14": "SHIHOKU"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    11,
+    4,
+    14,
+    7
+   ],
    "ordre": [
     6,
     10,
@@ -5221,7 +5227,7 @@
    "heure": "20:41",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ROYAL STEEL",
@@ -5237,7 +5243,13 @@
     "11": "GO ON BRODDA",
     "12": "BRILJANT TOLL"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    9,
+    8,
+    11
+   ],
    "ordre": [
     8,
     6,
@@ -5312,7 +5324,7 @@
    "heure": "21:03",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "HATRICK MATCH",
@@ -5328,7 +5340,13 @@
     "11": "FACE THE NEW TIME",
     "12": "DAY TIME TROT"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    6,
+    4,
+    1
+   ],
    "ordre": [
     1,
     9,
