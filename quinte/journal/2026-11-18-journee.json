@@ -214,7 +214,7 @@
    "heure": "15:05",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NICO DU CAIEU",
@@ -225,7 +225,13 @@
     "6": "NISSA LA BELLA",
     "7": "NORMA JEANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    7,
+    1,
+    4
+   ],
    "ordre": [
     5,
     2,
@@ -1100,7 +1106,7 @@
    "heure": "14:47",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ZASTER FOR ALL",
@@ -1119,7 +1125,13 @@
     "14": "LADY PINK",
     "15": "AL RASSOUL"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    4,
+    8,
+    10,
+    12
+   ],
    "ordre": [
     1,
     10,
@@ -2058,7 +2070,7 @@
    "heure": "14:45",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MY DAY MY WAY",
@@ -2074,7 +2086,13 @@
     "11": "PRIME SUCCESS",
     "12": "TURIN CHAMPIONS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    12,
+    3,
+    9
+   ],
    "ordre": [
     6,
     12,
@@ -2149,7 +2167,7 @@
    "heure": "15:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "AURORA LADY",
@@ -4036,7 +4054,7 @@
    "heure": "14:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LADY HEART",
@@ -4054,7 +4072,13 @@
     "13": "LOVE SHACK",
     "14": "LE POULIGUEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    5,
+    7,
+    12,
+    6
+   ],
    "ordre": [
     14,
     13,
@@ -4129,7 +4153,7 @@
    "heure": "15:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MINOS DES CHARRONS",
