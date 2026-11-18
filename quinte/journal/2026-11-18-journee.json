@@ -2765,7 +2765,7 @@
    "heure": "19:15",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "canceled",
    "partants": 10,
    "noms": {
     "1": "NESTORDELABARRIERE",
@@ -3297,7 +3297,7 @@
    "heure": "19:00",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "DIVINE RHYTHM",
@@ -4713,7 +4713,7 @@
    "heure": "18:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SUNLIGHT PRINCE",
@@ -4729,7 +4729,13 @@
     "11": "NERO SILVER",
     "12": "I.D.JUSTICE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    9,
+    1,
+    3
+   ],
    "ordre": [
     12,
     1,
@@ -4804,7 +4810,7 @@
    "heure": "19:03",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "EXPAND YOUR WORLD",
@@ -4820,7 +4826,13 @@
     "11": "DISCLOSURE",
     "12": "JEAN JACQUES"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    8,
+    9,
+    12
+   ],
    "ordre": [
     8,
     2,
