@@ -299,7 +299,7 @@
    "heure": "15:40",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MONSIEUR WILLIAM",
@@ -311,7 +311,13 @@
     "7": "MISSANDEI",
     "8": "MAGICO DE LOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    3,
+    1,
+    6
+   ],
    "ordre": [
     6,
     8,
@@ -386,7 +392,7 @@
    "heure": "16:15",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "KARNA DES BAULTS",
@@ -1307,7 +1313,7 @@
    "heure": "15:57",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "INFINITY CHOP",
@@ -1325,7 +1331,13 @@
     "14": "BLOOMERALL",
     "15": "ALICIA PRINCESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    4,
+    7,
+    3,
+    6
+   ],
    "ordre": [
     6,
     3,
@@ -2270,7 +2282,7 @@
    "heure": "15:50",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "THE HEIR",
@@ -2286,7 +2298,13 @@
     "11": "MEOWTH",
     "12": "SAVVY BRILLIANT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    2,
+    11,
+    4,
+    8
+   ],
    "ordre": [
     2,
     11,
@@ -4357,7 +4375,7 @@
    "heure": "16:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "IPSO SIMARDIERE",
