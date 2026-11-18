@@ -299,7 +299,7 @@
    "heure": "15:40",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "MONSIEUR WILLIAM",
@@ -1206,7 +1206,7 @@
    "heure": "15:22",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LADY DARKA",
@@ -1226,7 +1226,13 @@
     "15": "JUBBAH",
     "16": "VALZAK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    11,
+    9,
+    4
+   ],
    "ordre": [
     10,
     6,
@@ -2167,7 +2173,7 @@
    "heure": "15:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AURORA LADY",
@@ -2183,7 +2189,13 @@
     "11": "VIRTUS GLORY",
     "12": "DEVAS TWELVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    11,
+    4,
+    10
+   ],
    "ordre": [
     11,
     8,
@@ -4153,7 +4165,7 @@
    "heure": "15:00",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MINOS DES CHARRONS",
@@ -4169,7 +4181,13 @@
     "12": "MADISON ATALANTE",
     "13": "MA FELICITE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    2,
+    6,
+    7
+   ],
    "ordre": [
     1,
     6,
@@ -4244,7 +4262,7 @@
    "heure": "15:30",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KALGARY",
@@ -4258,7 +4276,13 @@
     "9": "KOOL DU CHATELET",
     "10": "KAMIL VAN HALBEEK"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    6,
+    2,
+    10
+   ],
    "ordre": [
     2,
     9,
