@@ -5621,7 +5621,7 @@
    "heure": "22:00",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "OTRA VEZ PITUCO",
@@ -5640,7 +5640,13 @@
     "14": "DALE TANQUE",
     "15": "SAMOIDEO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    7,
+    1,
+    11
+   ],
    "ordre": [
     6,
     2,
@@ -5715,7 +5721,7 @@
    "heure": "22:30",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LA TIA ELENA",
@@ -5730,7 +5736,13 @@
     "10": "ALGO LE PASO",
     "11": "MAGUIRE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    1,
+    9,
+    7
+   ],
    "ordre": [
     10,
     6,
