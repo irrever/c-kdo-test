@@ -3590,7 +3590,7 @@
    "heure": "20:30",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SQUIRE DANAGHER",
@@ -3601,7 +3601,12 @@
     "6": "MR FREEDOM",
     "7": "PROVISION"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    7,
+    1
+   ],
    "ordre": [
     3,
     4,
@@ -5120,7 +5125,7 @@
    "heure": "20:13",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "TIGHT REINS",
@@ -5135,7 +5140,13 @@
     "10": "EASY ACTION",
     "11": "ATMOSPERE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    5,
+    1,
+    11
+   ],
    "ordre": [
     2,
     8,
@@ -5210,7 +5221,7 @@
    "heure": "20:41",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "ROYAL STEEL",
