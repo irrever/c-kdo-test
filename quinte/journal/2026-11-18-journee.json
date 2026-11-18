@@ -489,7 +489,7 @@
    "heure": "16:50",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LADY VICTORY",
@@ -501,7 +501,13 @@
     "7": "LOUNA DU LOCHEUR",
     "8": "LEARN TO FLY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    4,
+    6,
+    3
+   ],
    "ordre": [
     8,
     5,
@@ -1418,7 +1424,7 @@
    "heure": "16:32",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "BE TRUE",
@@ -1438,7 +1444,13 @@
     "15": "JARKI",
     "16": "DEW POINT"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    1,
+    6,
+    3,
+    14
+   ],
    "ordre": [
     13,
     3,
@@ -2385,7 +2397,7 @@
    "heure": "17:07",
    "distance": 2200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "canceled",
    "partants": 11,
    "noms": {
     "1": "IN THE ARMY NOW",
