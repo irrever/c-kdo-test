@@ -113,7 +113,7 @@
    "heure": "14:30",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KLASS D'ESPOIR",
@@ -133,7 +133,13 @@
     "15": "JET GIRL",
     "16": "ILLICO DE VAU"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    1,
+    16,
+    14
+   ],
    "ordre": [
     9,
     2,
@@ -998,7 +1004,7 @@
    "heure": "14:12",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "DREAMS CHOPE",
@@ -1013,7 +1019,13 @@
     "12": "IPI TOMBI",
     "13": "VARELA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    12,
+    4,
+    6,
+    7
+   ],
    "ordre": [
     1,
     11,
@@ -2046,7 +2058,7 @@
    "heure": "14:45",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "MY DAY MY WAY",
@@ -4024,7 +4036,7 @@
    "heure": "14:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "LADY HEART",
