@@ -3773,7 +3773,7 @@
    "heure": "21:30",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MARHABA THE CHAMP",
@@ -5421,7 +5421,7 @@
    "heure": "21:26",
    "distance": 2640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "PEPPER CREATION",
@@ -5437,7 +5437,13 @@
     "11": "HENESSI OTAN",
     "12": "READY FOR BOARDING"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    2,
+    6,
+    10
+   ],
    "ordre": [
     7,
     11,
