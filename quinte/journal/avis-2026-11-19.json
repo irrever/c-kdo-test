@@ -1,0 +1,211 @@
+{
+  "box": [
+    3,
+    4,
+    8,
+    6,
+    11,
+    15
+  ],
+  "top5": [
+    3,
+    4,
+    8,
+    6,
+    5
+  ],
+  "a_jouer": [
+    3,
+    4
+  ],
+  "a_eviter": [
+    5,
+    1,
+    13
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 3,
+      "nom": "GET SET",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "CENTRICAL",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4825,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 8,
+      "nom": "FLASH GIRL",
+      "rang": 3,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4264,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "ZARAMIX",
+      "rang": 4,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3806,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "MR FLEURANT",
+      "rang": 5,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3625,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "PLATA D OCTOBRE",
+      "rang": 6,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3628,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "TRABUCO",
+      "rang": 7,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2988,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "COMME QUOI",
+      "rang": 8,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2868,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 16,
+      "nom": "JUST JIM",
+      "rang": 9,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2871,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "AMERICAN GLORY",
+      "rang": 10,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2842,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "BON VIVEUR",
+      "rang": 11,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2546,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "DOUBLE UP",
+      "rang": 12,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2448,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "BAYAMOON",
+      "rang": 13,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2373,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "DOURIANN",
+      "rang": 14,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2202,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "HOMO DEUS",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.206,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "GUILLERETTE",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1653,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-19",
+  "r": 1,
+  "c": 6,
+  "hippodrome": "SAINT-CLOUD",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-18T22:03:16+00:00"
+}
