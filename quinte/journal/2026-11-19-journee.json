@@ -3935,7 +3935,7 @@
    "heure": "22:55",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "COSMIC CREED",
@@ -3949,7 +3949,13 @@
     "9": "R LAST LAUGH",
     "10": "MARIGOLD RUN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    3,
+    9,
+    5
+   ],
    "ordre": [
     4,
     9,
