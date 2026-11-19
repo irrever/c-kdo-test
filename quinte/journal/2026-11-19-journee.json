@@ -3654,7 +3654,7 @@
    "heure": "21:26",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SPUN LEGACY",
@@ -3666,7 +3666,13 @@
     "7": "MI COMPADRE",
     "8": "STORM BACK"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    1,
+    7,
+    3
+   ],
    "ordre": [
     5,
     3,
@@ -4436,7 +4442,7 @@
    "heure": "21:12",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "BERNING BEAUTY",
@@ -4450,7 +4456,13 @@
     "9": "THREE B'S",
     "10": "QUICK TO ACCUSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    6,
+    5,
+    4
+   ],
    "ordre": [
     8,
     3,
@@ -4525,7 +4537,7 @@
    "heure": "21:43",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 13,
    "noms": {
     "1": "PUTONAHAPPYFACE",
