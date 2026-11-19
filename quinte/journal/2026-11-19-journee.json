@@ -906,7 +906,7 @@
    "heure": "16:15",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "VICTORY PACE",
@@ -926,7 +926,13 @@
     "15": "SILVER REEL",
     "16": "SIM CARD"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    7,
+    11,
+    3
+   ],
    "ordre": [
     13,
     16,
@@ -1724,7 +1730,7 @@
    "heure": "16:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 17,
    "noms": {
     "2": "MALIZIOSA",
