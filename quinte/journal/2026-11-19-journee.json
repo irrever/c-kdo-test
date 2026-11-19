@@ -2321,7 +2321,7 @@
    "heure": "20:05",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "NYMPHADORA TONKS",
@@ -2899,7 +2899,7 @@
    "heure": "19:47",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MADEIRA",
@@ -2915,7 +2915,13 @@
     "11": "MISS TAVEL",
     "12": "MARANELLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    9,
+    7,
+    10
+   ],
    "ordre": [
     4,
     1,
@@ -3346,7 +3352,7 @@
    "heure": "19:58",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "TICK TOCK TECH",
@@ -3360,7 +3366,13 @@
     "9": "VERY ENHANCED",
     "10": "CONFIDENCE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    7,
+    8,
+    3
+   ],
    "ordre": [
     7,
     2,
@@ -4125,7 +4137,7 @@
    "heure": "19:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "FULL POUR",
@@ -4136,7 +4148,12 @@
     "6": "GRACE REFORMED",
     "7": "LADY WISDOM"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    1,
+    6
+   ],
    "ordre": [
     5,
     2,
@@ -4204,7 +4221,7 @@
    "heure": "20:10",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "CARMEN AMALIA",
