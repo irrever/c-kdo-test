@@ -104,7 +104,7 @@
    "heure": "11:27",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MY UNIVERSE",
@@ -120,7 +120,13 @@
     "11": "THALIA",
     "12": "SHEARKAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    9,
+    1,
+    4
+   ],
    "ordre": [
     3,
     11,
@@ -953,7 +959,7 @@
    "heure": "11:42",
    "distance": 4600,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "live",
    "partants": 5,
    "noms": {
     "1": "SATURNE PELEM",
