@@ -1730,7 +1730,7 @@
    "heure": "16:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "2": "MALIZIOSA",
@@ -1751,7 +1751,13 @@
     "17": "MA BIMBO",
     "18": "MANILLE D'ERABLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    16,
+    10,
+    8,
+    9
+   ],
    "ordre": [
     15,
     9,
@@ -1826,7 +1832,7 @@
    "heure": "17:08",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "KILLER SUN DRALIAM",
@@ -2380,7 +2386,7 @@
    "heure": "16:50",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KALINE DE VIRE",
@@ -2398,7 +2404,13 @@
     "13": "KETTINA DU CYGNE",
     "14": "KALANSKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    7,
+    2,
+    3
+   ],
    "ordre": [
     13,
     5,
