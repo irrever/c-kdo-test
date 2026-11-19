@@ -604,7 +604,7 @@
    "heure": "14:30",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LONDONPOLO",
@@ -623,7 +623,13 @@
     "14": "LADY GATSBY",
     "16": "CATHERINE LA MER"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    13,
+    4,
+    6
+   ],
    "ordre": [
     4,
     13,
@@ -1329,7 +1335,7 @@
    "heure": "14:12",
    "distance": 3600,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "MATA D'OR",
@@ -1340,7 +1346,13 @@
     "6": "LLOYD D'AUTAN",
     "7": "LOZEN DE LORME"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    4,
+    1,
+    5
+   ],
    "ordre": [
     6,
     5,
