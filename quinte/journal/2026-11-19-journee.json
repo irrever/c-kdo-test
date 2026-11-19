@@ -2124,7 +2124,7 @@
    "heure": "18:55",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ONELLE LANDING",
@@ -2144,7 +2144,13 @@
     "15": "OPALE DU VALLON",
     "16": "ORCHESTRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    14,
+    9,
+    8
+   ],
    "ordre": [
     9,
     6,
@@ -2697,7 +2703,7 @@
    "heure": "18:37",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MILKSHAKE",
@@ -2710,7 +2716,13 @@
     "8": "MINNESOTA",
     "9": "MEETING MESLOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    4,
+    2,
+    1
+   ],
    "ordre": [
     6,
     1,
@@ -2785,7 +2797,7 @@
    "heure": "19:12",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "IRRESISTIBLE LOMIG",
@@ -3152,7 +3164,7 @@
    "heure": "19:00",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "MR RANDY",
@@ -3162,7 +3174,13 @@
     "5": "UNCLE EVCO",
     "6": "GALLO DE FUEGO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    4,
+    1,
+    5
+   ],
    "ordre": [
     2,
     1,
@@ -3928,7 +3946,7 @@
    "heure": "18:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "BANDMASTER",
@@ -3937,7 +3955,12 @@
     "4": "BEAUTY TRUTH GOOD",
     "5": "GIRLS WEAR PEARLS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    5,
+    1
+   ],
    "ordre": [
     4,
     2,
@@ -3991,7 +4014,7 @@
    "heure": "19:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "DR. BROWER",
