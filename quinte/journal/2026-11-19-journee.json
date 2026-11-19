@@ -805,7 +805,7 @@
    "heure": "15:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "ZELMAN",
@@ -1527,7 +1527,7 @@
    "heure": "15:22",
    "distance": 3550,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MATERHORN PARADISE",
@@ -1541,7 +1541,13 @@
     "9": "SAFURA",
     "10": "FLEUR DE FEU"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    5,
+    1,
+    7
+   ],
    "ordre": [
     4,
     3,
