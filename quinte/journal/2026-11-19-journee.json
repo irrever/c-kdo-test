@@ -402,7 +402,7 @@
    "heure": "13:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "BAILEYS BACHELOR",
@@ -1124,7 +1124,7 @@
    "heure": "12:52",
    "distance": 3550,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NUANCE BRUERE",
@@ -1139,7 +1139,13 @@
     "10": "SATURNE DU LUY",
     "11": "I AM WHAT I AM"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    1,
+    11,
+    7
+   ],
    "ordre": [
     7,
     2,
