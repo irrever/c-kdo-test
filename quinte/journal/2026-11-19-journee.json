@@ -10,7 +10,7 @@
    "heure": "10:57",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SONNAZ",
@@ -23,7 +23,13 @@
     "8": "JANAH",
     "9": "UNA REVELACION"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    1,
+    5,
+    4
+   ],
    "ordre": [
     8,
     1,
