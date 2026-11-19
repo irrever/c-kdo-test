@@ -1927,7 +1927,7 @@
    "heure": "17:45",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MILO JO",
@@ -1947,7 +1947,13 @@
     "15": "MENJOY QUICK",
     "16": "MILTON DU CHATELET"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    14,
+    2,
+    8,
+    7
+   ],
    "ordre": [
     3,
     13,
@@ -2586,7 +2592,7 @@
    "heure": "18:02",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LIRELLO",
@@ -2604,7 +2610,13 @@
     "13": "LAVATER GEDE",
     "14": "LUCAS D'AVRIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    2,
+    9,
+    11
+   ],
    "ordre": [
     4,
     5,
