@@ -3747,7 +3747,7 @@
    "heure": "21:55",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CAPITOLA",
@@ -3759,7 +3759,13 @@
     "7": "DAYTON",
     "8": "BOURBON NEAT"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    5,
+    7,
+    6
+   ],
    "ordre": [
     1,
     4,
@@ -4537,7 +4543,7 @@
    "heure": "21:43",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "PUTONAHAPPYFACE",
@@ -4554,7 +4560,12 @@
     "12": "MIS BRUNELLAS",
     "13": "JUST TELL ANNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    10,
+    4,
+    12
+   ],
    "ordre": [
     1,
     9,
@@ -4629,7 +4640,7 @@
    "heure": "22:14",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "STELLA FORTUNA",
