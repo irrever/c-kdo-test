@@ -3840,7 +3840,7 @@
    "heure": "22:25",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LAKEN",
@@ -3854,7 +3854,13 @@
     "9": "LOBBY RENDEZVOUS",
     "10": "CLASSIC GLIDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    7,
+    8,
+    2,
+    5
+   ],
    "ordre": [
     6,
     4,
@@ -4640,7 +4646,7 @@
    "heure": "22:14",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "STELLA FORTUNA",
@@ -4656,7 +4662,12 @@
     "11": "FELIXYN",
     "12": "MOBELLADREAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    11,
+    10,
+    4
+   ],
    "ordre": [
     7,
     11,
