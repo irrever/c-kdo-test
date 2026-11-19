@@ -2225,7 +2225,7 @@
    "heure": "19:30",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "2": "KLOE D'ARRY",
@@ -2240,7 +2240,13 @@
     "11": "KING MAKER",
     "12": "KEZIO JOSSELYN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    5,
+    11,
+    12
+   ],
    "ordre": [
     3,
     5,
@@ -2797,7 +2803,7 @@
    "heure": "19:12",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "IRRESISTIBLE LOMIG",
@@ -2812,7 +2818,13 @@
     "10": "KADO SHINING",
     "11": "JERIKA DE KERYANN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    11,
+    5,
+    9,
+    7
+   ],
    "ordre": [
     8,
     3,
@@ -3241,7 +3253,7 @@
    "heure": "19:29",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "GLAMOUR N GLITZ",
@@ -3253,7 +3265,13 @@
     "7": "BRIDE",
     "8": "HIGH CLASS BROAD"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    4,
+    2,
+    8
+   ],
    "ordre": [
     8,
     7,
@@ -4014,7 +4032,7 @@
    "heure": "19:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "DR. BROWER",
@@ -4027,7 +4045,12 @@
     "8": "DAYTHEMUSICLIVED",
     "9": "FORT GRIFFIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    8,
+    4
+   ],
    "ordre": [
     1,
     4,
@@ -4102,7 +4125,7 @@
    "heure": "19:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "FULL POUR",
