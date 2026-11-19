@@ -805,7 +805,7 @@
    "heure": "15:40",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ZELMAN",
@@ -825,7 +825,13 @@
     "15": "SIR CRATER",
     "16": "JAHIDIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    1,
+    2,
+    11
+   ],
    "ordre": [
     9,
     4,
@@ -900,7 +906,7 @@
    "heure": "16:15",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "VICTORY PACE",
@@ -1622,7 +1628,7 @@
    "heure": "15:57",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NOPUS ONE",
@@ -1637,7 +1643,13 @@
     "10": "NIRJHARA",
     "11": "NEO SAINT LOUP"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    10,
+    9,
+    3
+   ],
    "ordre": [
     8,
     6,
