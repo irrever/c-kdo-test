@@ -704,7 +704,7 @@
    "heure": "15:05",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "FASTER",
@@ -724,7 +724,13 @@
     "15": "EXCESSIVE",
     "16": "THE WHEEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    16,
+    11,
+    9,
+    8
+   ],
    "ordre": [
     4,
     2,
@@ -1420,7 +1426,7 @@
    "heure": "14:47",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "HALITE",
@@ -1440,7 +1446,13 @@
     "15": "GOLD CENT",
     "16": "FILZMOOSERIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    13,
+    15,
+    8,
+    12
+   ],
    "ordre": [
     4,
     8,
