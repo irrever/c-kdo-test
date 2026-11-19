@@ -1,0 +1,168 @@
+{
+  "date": "2026-11-20",
+  "r": 1,
+  "c": 4,
+  "url": "https://www.equidia.fr/courses/2026-11-20/R1/C4",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-19T22:03:13+00:00",
+  "presse": {
+    "parier": [
+      4,
+      5,
+      13,
+      14,
+      11,
+      10,
+      9,
+      1
+    ],
+    "cinq": null,
+    "bases": [
+      4,
+      5,
+      13
+    ],
+    "outsiders": [
+      6,
+      12,
+      3,
+      7,
+      2
+    ],
+    "belles": [
+      14,
+      11,
+      10,
+      9,
+      1
+    ],
+    "delaisses": [
+      8,
+      15
+    ]
+  },
+  "notre": [
+    {
+      "numero": 13,
+      "nom": "KING D'HERMES",
+      "score": 0.8331,
+      "rang": 1,
+      "p_victoire": 0.1265,
+      "p_top5": 0.5783
+    },
+    {
+      "numero": 9,
+      "nom": "KANNABIS JELOCA",
+      "score": 0.826,
+      "rang": 2,
+      "p_victoire": 0.1221,
+      "p_top5": 0.5665
+    },
+    {
+      "numero": 14,
+      "nom": "KANCALAIS",
+      "score": 0.8226,
+      "rang": 3,
+      "p_victoire": 0.1221,
+      "p_top5": 0.5627
+    },
+    {
+      "numero": 4,
+      "nom": "KERVELEAN",
+      "score": 0.7987,
+      "rang": 4,
+      "p_victoire": 0.11,
+      "p_top5": 0.5259
+    },
+    {
+      "numero": 1,
+      "nom": "KING FROMENTRO",
+      "score": 0.7852,
+      "rang": 5,
+      "p_victoire": 0.1034,
+      "p_top5": 0.5066
+    },
+    {
+      "numero": 6,
+      "nom": "KETBERNY",
+      "score": 0.7513,
+      "rang": 6,
+      "p_victoire": 0.0914,
+      "p_top5": 0.4583
+    },
+    {
+      "numero": 5,
+      "nom": "KELLER DE L'ITON",
+      "score": 0.7435,
+      "rang": 7,
+      "p_victoire": 0.0888,
+      "p_top5": 0.4496
+    },
+    {
+      "numero": 11,
+      "nom": "KER POULGWEN",
+      "score": 0.7034,
+      "rang": 8,
+      "p_victoire": 0.0756,
+      "p_top5": 0.3976
+    },
+    {
+      "numero": 10,
+      "nom": "KARMA",
+      "score": 0.5454,
+      "rang": 9,
+      "p_victoire": 0.0406,
+      "p_top5": 0.2319
+    },
+    {
+      "numero": 15,
+      "nom": "JACK DES MALBERAUX",
+      "score": 0.4575,
+      "rang": 10,
+      "p_victoire": 0.0287,
+      "p_top5": 0.1683
+    },
+    {
+      "numero": 3,
+      "nom": "IVON DE LA MONERIE",
+      "score": 0.4421,
+      "rang": 11,
+      "p_victoire": 0.0257,
+      "p_top5": 0.1568
+    },
+    {
+      "numero": 2,
+      "nom": "KOQUERY DU BUISSON",
+      "score": 0.4079,
+      "rang": 12,
+      "p_victoire": 0.0231,
+      "p_top5": 0.1388
+    },
+    {
+      "numero": 7,
+      "nom": "KHARNAS",
+      "score": 0.3721,
+      "rang": 13,
+      "p_victoire": 0.0196,
+      "p_top5": 0.1217
+    },
+    {
+      "numero": 8,
+      "nom": "JORLANDO",
+      "score": 0.2505,
+      "rang": 14,
+      "p_victoire": 0.0122,
+      "p_top5": 0.0757
+    },
+    {
+      "numero": 12,
+      "nom": "KIKI AND CO",
+      "score": 0.1951,
+      "rang": 15,
+      "p_victoire": 0.0101,
+      "p_top5": 0.0613
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "box": [
+    13,
+    4,
+    15,
+    6,
+    5,
+    11
+  ],
+  "top5": [
+    13,
+    9,
+    14,
+    4,
+    1
+  ],
+  "a_jouer": [
+    15
+  ],
+  "a_eviter": [
+    9,
+    14,
+    1,
+    10
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 13,
+      "nom": "KING D'HERMES",
+      "rang": 1,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5783,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "KANNABIS JELOCA",
+      "rang": 2,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5665,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "KANCALAIS",
+      "rang": 3,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5627,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "KERVELEAN",
+      "rang": 4,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5259,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "KING FROMENTRO",
+      "rang": 5,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5066,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "KETBERNY",
+      "rang": 6,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4583,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "KELLER DE L'ITON",
+      "rang": 7,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4496,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "KER POULGWEN",
+      "rang": 8,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3976,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 10,
+      "nom": "KARMA",
+      "rang": 9,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2319,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "JACK DES MALBERAUX",
+      "rang": 10,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.1683,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 3,
+      "nom": "IVON DE LA MONERIE",
+      "rang": 11,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1568,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "KOQUERY DU BUISSON",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1388,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "KHARNAS",
+      "rang": 13,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1217,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 8,
+      "nom": "JORLANDO",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.0757,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "KIKI AND CO",
+      "rang": 15,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.0613,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-20",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "fige_le_utc": "2026-11-19T22:03:15+00:00"
+}
