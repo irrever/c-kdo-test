@@ -1832,7 +1832,7 @@
    "heure": "17:08",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KILLER SUN DRALIAM",
@@ -1846,7 +1846,13 @@
     "9": "KALEDA DE LA COUR",
     "10": "KERSIGAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    10,
+    8,
+    5
+   ],
    "ordre": [
     7,
     4,
@@ -1921,7 +1927,7 @@
    "heure": "17:45",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "MILO JO",
@@ -2485,7 +2491,7 @@
    "heure": "17:25",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KARTER LEWIS",
@@ -2499,7 +2505,13 @@
     "9": "JIM CADE",
     "10": "KEEPSAKE MOSSA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    7,
+    1,
+    2
+   ],
    "ordre": [
     5,
     4,
