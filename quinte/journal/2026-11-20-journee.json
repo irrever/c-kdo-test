@@ -1091,7 +1091,7 @@
    "heure": "13:25",
    "distance": 3700,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOUS AUTRES",
@@ -1105,7 +1105,13 @@
     "9": "SPES MILAME",
     "10": "NOSIKA GRANDCHAMP"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    4,
+    2,
+    7
+   ],
    "ordre": [
     2,
     1,
@@ -1544,7 +1550,7 @@
    "heure": "13:08",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NABIRA",
@@ -1559,7 +1565,13 @@
     "10": "DOLOROSA",
     "11": "ASSEREJE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    5,
+    8,
+    9
+   ],
    "ordre": [
     1,
     4,
@@ -1634,7 +1646,7 @@
    "heure": "13:43",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 6,
    "noms": {
     "1": "WYKEHURST PARK",
