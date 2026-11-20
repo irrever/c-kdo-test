@@ -2135,7 +2135,7 @@
    "heure": "16:38",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ADONIDE",
@@ -2155,7 +2155,13 @@
     "15": "MARTINELLI",
     "16": "EPI"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    11,
+    3,
+    2,
+    13
+   ],
    "ordre": [
     12,
     3,
@@ -2431,7 +2437,7 @@
    "heure": "16:55",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ICE SCOTT",
@@ -2451,7 +2457,13 @@
     "15": "INESKA",
     "16": "JOCONDE TURGOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    12,
+    4,
+    8,
+    16
+   ],
    "ordre": [
     13,
     16,
@@ -2976,7 +2988,7 @@
    "heure": "17:12",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 13,
    "noms": {
     "1": "KAISER DES CHAMPS",
@@ -3943,7 +3955,7 @@
    "heure": "16:50",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SUBSANADOR",
@@ -3955,7 +3967,13 @@
     "7": "SWING VOTE",
     "8": "ELUSIVE TREVOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    6,
+    8,
+    3
+   ],
    "ordre": [
     3,
     8,
