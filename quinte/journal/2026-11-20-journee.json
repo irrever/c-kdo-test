@@ -749,7 +749,7 @@
    "heure": "11:15",
    "distance": 3700,
    "discipline": "Haies",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "DIONYSOS'JAC AA",
@@ -760,7 +760,13 @@
     "6": "LIBERTINE D ALALIA AA",
     "7": "SUN BREIZH AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    1,
+    3,
+    4
+   ],
    "ordre": [
     2,
     1,
@@ -828,7 +834,7 @@
    "heure": "11:45",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 5,
    "noms": {
     "1": "CAMBRONNE",
