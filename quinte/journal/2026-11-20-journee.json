@@ -2538,7 +2538,7 @@
    "heure": "17:30",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "NEMROD KYDE",
@@ -2988,7 +2988,7 @@
    "heure": "17:12",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KAISER DES CHAMPS",
@@ -3005,7 +3005,13 @@
     "12": "KADOLINE WEST",
     "13": "JUNIOUS HEOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    12,
+    5,
+    13
+   ],
    "ordre": [
     2,
     9,
@@ -4048,7 +4054,7 @@
    "heure": "17:25",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MEYDAAN",
@@ -4060,7 +4066,13 @@
     "7": "ZANDVOORT",
     "8": "STRATEGIC FOCUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    2,
+    8,
+    7
+   ],
    "ordre": [
     5,
     1,
