@@ -2538,7 +2538,7 @@
    "heure": "17:30",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NEMROD KYDE",
@@ -2553,7 +2553,13 @@
     "10": "NOUVEAU PRODIGE",
     "11": "NEMO DES BROUETS"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    3,
+    8,
+    7
+   ],
    "ordre": [
     10,
     7,
@@ -2628,7 +2634,7 @@
    "heure": "18:05",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MA SUPERB CHENOU",
@@ -2643,7 +2649,13 @@
     "10": "MOOREA DE CHANLECY",
     "11": "MOGADOR BLEU"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    5,
+    10,
+    9,
+    3
+   ],
    "ordre": [
     11,
     9,
@@ -3086,7 +3098,7 @@
    "heure": "17:47",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOVAK JAKA",
@@ -3100,7 +3112,13 @@
     "9": "JUST BETWEEN US",
     "10": "LADY DU CAMPUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    5,
+    7,
+    9
+   ],
    "ordre": [
     1,
     2,
@@ -4147,7 +4165,7 @@
    "heure": "18:00",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 7,
    "noms": {
     "1": "GUN CARRIAGE",
