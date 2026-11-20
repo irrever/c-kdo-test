@@ -903,7 +903,7 @@
    "heure": "12:15",
    "distance": 3800,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "INSIDE MONTLIOUX",
@@ -916,7 +916,13 @@
     "8": "MAGIC DAVIER",
     "9": "KASTLE PONTADOUR AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    7,
+    4,
+    8
+   ],
    "ordre": [
     6,
     7,
@@ -1439,7 +1445,7 @@
    "heure": "12:33",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MONSIEUR CHARLIE",
@@ -1451,7 +1457,13 @@
     "8": "DRYAS",
     "9": "THE PYRENEES"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    8,
+    7,
+    9,
+    3
+   ],
    "ordre": [
     1,
     9,
