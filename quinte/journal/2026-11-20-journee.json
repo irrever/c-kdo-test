@@ -1283,7 +1283,7 @@
    "heure": "14:35",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MERLE",
@@ -1729,7 +1729,7 @@
    "heure": "14:18",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "PERITO",
@@ -1748,7 +1748,13 @@
     "15": "BARISTO",
     "16": "AGNESI"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    12,
+    9,
+    3,
+    16
+   ],
    "ordre": [
     3,
     4,
@@ -3507,7 +3513,7 @@
    "heure": "14:30",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MUBEED",
@@ -3526,7 +3532,13 @@
     "14": "JAMRA SB",
     "15": "SIHRLAU"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    11,
+    14,
+    15
+   ],
    "ordre": [
     7,
     9,
