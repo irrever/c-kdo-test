@@ -299,7 +299,7 @@
    "heure": "20:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KING FROMENTRO",
@@ -318,7 +318,13 @@
     "14": "KANCALAIS",
     "15": "JACK DES MALBERAUX"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    6,
+    13,
+    9
+   ],
    "ordre": [
     13,
     9,
@@ -3382,7 +3388,7 @@
    "heure": "20:32",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "PAKMEMAR",
@@ -3397,7 +3403,13 @@
     "10": "RONALD SCHERMER",
     "11": "POPPY SCHERMER"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    3,
+    1,
+    11
+   ],
    "ordre": [
     10,
     1,
