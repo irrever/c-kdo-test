@@ -2135,7 +2135,7 @@
    "heure": "16:38",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "ADONIDE",
@@ -2330,7 +2330,7 @@
    "heure": "16:20",
    "distance": 2000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "OUTLAND DE BUSSET",
@@ -2350,7 +2350,13 @@
     "15": "OAKLANDER",
     "16": "OPIUM DU CHATAULT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    16,
+    11,
+    10,
+    5
+   ],
    "ordre": [
     3,
     7,
@@ -3839,7 +3845,7 @@
    "heure": "16:15",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "AASER",
@@ -3856,7 +3862,13 @@
     "12": "MOODY GG",
     "13": "MOSHRIF"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    13,
+    6,
+    3,
+    5
+   ],
    "ordre": [
     10,
     7,
