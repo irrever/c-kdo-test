@@ -10,7 +10,7 @@
    "heure": "18:23",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LERIKA DU CHENE",
@@ -28,7 +28,13 @@
     "13": "LAMBADA GIRL",
     "14": "LEA D'ATOUT"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    11,
+    13,
+    6
+   ],
    "ordre": [
     10,
     4,
@@ -2730,7 +2736,7 @@
    "heure": "18:40",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "LOMBARDO",
@@ -4165,7 +4171,7 @@
    "heure": "18:00",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "GUN CARRIAGE",
@@ -4176,7 +4182,13 @@
     "6": "AWAB",
     "7": "JABAL JAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    2,
+    5,
+    6
+   ],
    "ordre": [
     1,
     2,
