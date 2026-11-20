@@ -109,7 +109,7 @@
    "heure": "18:58",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LEOLIO",
@@ -125,7 +125,13 @@
     "11": "LOBSTER DU BELLAY",
     "12": "LET'S GO VAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    9,
+    2,
+    10
+   ],
    "ordre": [
     10,
     12,
@@ -2736,7 +2742,7 @@
    "heure": "18:40",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LOMBARDO",
@@ -2749,7 +2755,13 @@
     "8": "LOVER MAUZUN",
     "9": "LEI E BELLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    8,
+    3,
+    7
+   ],
    "ordre": [
     3,
     6,
@@ -2824,7 +2836,7 @@
    "heure": "19:15",
    "distance": 2650,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "LOVER STRYCK",
@@ -3199,7 +3211,7 @@
    "heure": "19:15",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 6,
    "noms": {
     "1": "SENIOR LOBELL",
