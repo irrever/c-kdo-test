@@ -206,7 +206,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MAGIC D'AIMTE",
@@ -218,7 +218,13 @@
     "7": "METAVERS ERA",
     "8": "MANNINEN SEVEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    5,
+    3,
+    7
+   ],
    "ordre": [
     2,
     7,
@@ -2836,7 +2842,7 @@
    "heure": "19:15",
    "distance": 2650,
    "discipline": "Monté",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LOVER STRYCK",
@@ -2852,7 +2858,13 @@
     "11": "KALISTA TILOU",
     "12": "LOVE ME DE CERISY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    10,
+    3,
+    6,
+    11
+   ],
    "ordre": [
     10,
     11,
@@ -3211,7 +3223,7 @@
    "heure": "19:15",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "SENIOR LOBELL",
@@ -3221,7 +3233,12 @@
     "5": "NEW WINNER",
     "6": "DIVA NOIR DIAMANT"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    6,
+    5
+   ],
    "ordre": [
     2,
     4,
@@ -3282,7 +3299,7 @@
    "heure": "19:45",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 6,
    "noms": {
     "1": "OAKLEY WOOD",
