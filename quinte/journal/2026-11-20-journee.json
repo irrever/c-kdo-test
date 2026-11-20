@@ -1283,7 +1283,7 @@
    "heure": "14:35",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MERLE",
@@ -1299,7 +1299,13 @@
     "11": "IVAWAI",
     "12": "TORONA RAINBOW"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    4,
+    6,
+    9
+   ],
    "ordre": [
     5,
     6,
@@ -1374,7 +1380,7 @@
    "heure": "15:10",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "MAX VERST",
@@ -1829,7 +1835,7 @@
    "heure": "14:53",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MINKAAS",
@@ -1841,7 +1847,13 @@
     "7": "REINA SIOUX",
     "8": "QUEEN STAGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    6,
+    2,
+    3
+   ],
    "ordre": [
     6,
     8,
@@ -3613,7 +3625,7 @@
    "heure": "15:05",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "LA MAS BONITA",
