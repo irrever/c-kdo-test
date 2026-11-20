@@ -698,7 +698,7 @@
    "heure": "22:25",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "GREENDAY I.T.",
@@ -716,7 +716,13 @@
     "13": "MAGNOLIADARCHE",
     "14": "MEPHISTO DU CLOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    14,
+    2,
+    5,
+    8
+   ],
    "ordre": [
     1,
     12,
