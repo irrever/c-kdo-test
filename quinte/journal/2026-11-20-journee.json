@@ -2035,7 +2035,7 @@
    "heure": "16:03",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "TINMANDER",
@@ -2054,7 +2054,13 @@
     "15": "ROMAN BOY",
     "16": "CHARLESTON DANCER"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    7,
+    13,
+    8,
+    11
+   ],
    "ordre": [
     13,
     11,
@@ -2224,7 +2230,7 @@
    "heure": "15:45",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KUNG FU FAMILY",
@@ -2243,7 +2249,13 @@
     "14": "JAMBEROO",
     "15": "HALDO DE LA CLOUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    7,
+    10,
+    3
+   ],
    "ordre": [
     6,
     7,
@@ -3730,7 +3742,7 @@
    "heure": "15:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "STORMFORGED",
@@ -3746,7 +3758,13 @@
     "11": "KHAMSIN",
     "12": "ONIGHT"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    4,
+    12,
+    7
+   ],
    "ordre": [
     2,
     1,
@@ -3821,7 +3839,7 @@
    "heure": "16:15",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 13,
    "noms": {
     "1": "AASER",
