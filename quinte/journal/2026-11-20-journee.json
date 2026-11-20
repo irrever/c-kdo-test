@@ -299,7 +299,7 @@
    "heure": "20:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "KING FROMENTRO",
@@ -2939,7 +2939,7 @@
    "heure": "19:50",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KARLTON DE JOUX",
@@ -2955,7 +2955,13 @@
     "11": "KATE BRIONNAISE",
     "12": "KARAOKE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    4,
+    5,
+    12,
+    2
+   ],
    "ordre": [
     1,
     6,
@@ -3299,7 +3305,7 @@
    "heure": "19:45",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "OAKLEY WOOD",
@@ -3309,7 +3315,13 @@
     "5": "MYSTICAL SPELL S",
     "6": "NAVAAH LIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    5,
+    3,
+    6
+   ],
    "ordre": [
     1,
     2,
