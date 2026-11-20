@@ -399,7 +399,7 @@
    "heure": "20:50",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "MANDARINE TIVO",
@@ -421,7 +421,13 @@
     "17": "MEGAFLECHE",
     "18": "MERRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    17,
+    9,
+    7,
+    15,
+    10
+   ],
    "ordre": [
     8,
     14,
@@ -3484,7 +3490,7 @@
    "heure": "21:07",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "LADY BLACK ROCHEL (FR)",
