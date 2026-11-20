@@ -834,7 +834,7 @@
    "heure": "11:45",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "CAMBRONNE",
@@ -843,7 +843,13 @@
     "4": "PURPLE LION",
     "5": "STORIA DI ROMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    3,
+    1,
+    5
+   ],
    "ordre": [
     4,
     1,
@@ -897,7 +903,7 @@
    "heure": "12:15",
    "distance": 3800,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "INSIDE MONTLIOUX",
