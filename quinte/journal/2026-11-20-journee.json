@@ -1380,7 +1380,7 @@
    "heure": "15:10",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MAX VERST",
@@ -1394,7 +1394,13 @@
     "9": "VA S'Y MIX",
     "10": "KIRBY"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    7,
+    9,
+    1
+   ],
    "ordre": [
     7,
     10,
@@ -1928,7 +1934,7 @@
    "heure": "15:28",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ZIFULOTT",
@@ -1948,7 +1954,13 @@
     "15": "NIOUININON",
     "16": "MANUAE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    16,
+    1,
+    3,
+    8
+   ],
    "ordre": [
     9,
     5,
@@ -2212,7 +2224,7 @@
    "heure": "15:45",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 15,
    "noms": {
     "1": "KUNG FU FAMILY",
@@ -3625,7 +3637,7 @@
    "heure": "15:05",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LA MAS BONITA",
@@ -3637,7 +3649,13 @@
     "7": "MUKHEEFAH",
     "8": "NEVRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    7,
+    2,
+    3
+   ],
    "ordre": [
     8,
     6,
@@ -3712,7 +3730,7 @@
    "heure": "15:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "STORMFORGED",
