@@ -600,7 +600,7 @@
    "heure": "22:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NEW WORLD",
@@ -617,7 +617,13 @@
     "12": "NERPRUN",
     "13": "NEW ATOUT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    4,
+    9,
+    6
+   ],
    "ordre": [
     12,
     11,
@@ -3589,7 +3595,7 @@
    "heure": "21:42",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "ROZETHA VH",
@@ -3600,7 +3606,13 @@
     "6": "PAM BEUCKENSWIJK",
     "7": "PACO BIANCO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    1,
+    5,
+    2
+   ],
    "ordre": [
     6,
     7,
