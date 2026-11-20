@@ -997,7 +997,7 @@
    "heure": "12:50",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "TOOCOOLTOBECOOL",
@@ -1010,7 +1010,13 @@
     "8": "KUKINHA",
     "9": "NAAD'IN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    4,
+    3,
+    6
+   ],
    "ordre": [
     7,
     9,
@@ -1538,7 +1544,7 @@
    "heure": "13:08",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "NABIRA",
