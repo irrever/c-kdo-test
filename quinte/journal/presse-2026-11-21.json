@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-21",
+  "r": 1,
+  "c": 6,
+  "url": "https://www.equidia.fr/courses/2026-11-21/R1/C6",
+  "hippodrome": "AUTEUIL",
+  "heure_depart": "15:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-20T22:03:14+00:00",
+  "presse": {
+    "parier": [
+      8,
+      1,
+      6,
+      7,
+      9,
+      2,
+      10,
+      12
+    ],
+    "cinq": null,
+    "bases": [
+      8,
+      14
+    ],
+    "outsiders": [
+      12,
+      11,
+      3,
+      13,
+      4,
+      5
+    ],
+    "belles": [
+      1,
+      6,
+      7,
+      9,
+      2,
+      10
+    ],
+    "delaisses": []
+  },
+  "notre": [
+    {
+      "numero": 9,
+      "nom": "MOUSSE DU CHEF",
+      "score": 0.8019,
+      "rang": 1,
+      "p_victoire": 0.135,
+      "p_top5": 0.5914
+    },
+    {
+      "numero": 1,
+      "nom": "SILAWAY",
+      "score": 0.7619,
+      "rang": 2,
+      "p_victoire": 0.114,
+      "p_top5": 0.5312
+    },
+    {
+      "numero": 12,
+      "nom": "BLIDA",
+      "score": 0.7454,
+      "rang": 3,
+      "p_victoire": 0.1079,
+      "p_top5": 0.5068
+    },
+    {
+      "numero": 10,
+      "nom": "EH MAN",
+      "score": 0.7111,
+      "rang": 4,
+      "p_victoire": 0.094,
+      "p_top5": 0.459
+    },
+    {
+      "numero": 3,
+      "nom": "NORMANDY MAN",
+      "score": 0.6753,
+      "rang": 5,
+      "p_victoire": 0.0807,
+      "p_top5": 0.4135
+    },
+    {
+      "numero": 2,
+      "nom": "FALCON JET",
+      "score": 0.6354,
+      "rang": 6,
+      "p_victoire": 0.0692,
+      "p_top5": 0.3615
+    },
+    {
+      "numero": 4,
+      "nom": "HELL STORM",
+      "score": 0.6347,
+      "rang": 7,
+      "p_victoire": 0.0693,
+      "p_top5": 0.36
+    },
+    {
+      "numero": 6,
+      "nom": "TIGRESS DU BERLAIS",
+      "score": 0.6186,
+      "rang": 8,
+      "p_victoire": 0.0649,
+      "p_top5": 0.3433
+    },
+    {
+      "numero": 7,
+      "nom": "RAFFLES PRINCESS",
+      "score": 0.614,
+      "rang": 9,
+      "p_victoire": 0.0639,
+      "p_top5": 0.3381
+    },
+    {
+      "numero": 8,
+      "nom": "PAREIL PAREIL",
+      "score": 0.6069,
+      "rang": 10,
+      "p_victoire": 0.0627,
+      "p_top5": 0.3312
+    },
+    {
+      "numero": 11,
+      "nom": "ELLE A TOUT CA",
+      "score": 0.5943,
+      "rang": 11,
+      "p_victoire": 0.0591,
+      "p_top5": 0.3167
+    },
+    {
+      "numero": 13,
+      "nom": "OPTIMUS",
+      "score": 0.561,
+      "rang": 12,
+      "p_victoire": 0.0507,
+      "p_top5": 0.2821
+    },
+    {
+      "numero": 5,
+      "nom": "LOUMINOS",
+      "score": 0.4148,
+      "rang": 13,
+      "p_victoire": 0.0286,
+      "p_top5": 0.1651
+    }
+  ]
+}

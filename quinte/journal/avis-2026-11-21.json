@@ -1,0 +1,174 @@
+{
+  "box": [
+    9,
+    1,
+    12,
+    10,
+    3,
+    2
+  ],
+  "top5": [
+    9,
+    1,
+    12,
+    10,
+    3
+  ],
+  "a_jouer": [],
+  "a_eviter": [
+    6,
+    7
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 9,
+      "nom": "MOUSSE DU CHEF",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5914,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "SILAWAY",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5312,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "BLIDA",
+      "rang": 3,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5068,
+      "categorie": "outsider",
+      "retenu": true
+    },
+    {
+      "numero": 10,
+      "nom": "EH MAN",
+      "rang": 4,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.459,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "NORMANDY MAN",
+      "rang": 5,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4135,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "FALCON JET",
+      "rang": 6,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3615,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "HELL STORM",
+      "rang": 7,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.36,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "TIGRESS DU BERLAIS",
+      "rang": 8,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3433,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "RAFFLES PRINCESS",
+      "rang": 9,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3381,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "PAREIL PAREIL",
+      "rang": 10,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3312,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 11,
+      "nom": "ELLE A TOUT CA",
+      "rang": 11,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3167,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "OPTIMUS",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2821,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "LOUMINOS",
+      "rang": 13,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.1651,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-21",
+  "r": 1,
+  "c": 6,
+  "hippodrome": "AUTEUIL",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-20T22:03:15+00:00"
+}
