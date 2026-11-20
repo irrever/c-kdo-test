@@ -1186,7 +1186,7 @@
    "heure": "14:00",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ALEXEI",
@@ -1202,7 +1202,13 @@
     "11": "MARQUISE VERA",
     "12": "ROYAL NINIAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    9,
+    12,
+    8
+   ],
    "ordre": [
     2,
     8,
@@ -1646,7 +1652,7 @@
    "heure": "13:43",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "WYKEHURST PARK",
@@ -1656,7 +1662,13 @@
     "5": "CORAL COVE",
     "6": "ELROMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    5,
+    4,
+    6
+   ],
    "ordre": [
     2,
     5,
