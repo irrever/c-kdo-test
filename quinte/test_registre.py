@@ -199,20 +199,18 @@ class TestCaptureCotes(unittest.TestCase):
 
 
 class TestBlocsPage(unittest.TestCase):
-    def test_blocs_de_vigilance_et_modele_seul(self):
+    def test_pronostic_sans_cotes(self):
         import rapport
-        v = {"mefiance": [1], "surveiller": [3], "pm": {1: 0.5, 2: 0.3, 3: 0.2}, "pk": {1: 0.2, 2: 0.4, 3: 0.4},
-             "noms": {1: "ALPHA", 2: "BETA", 3: "GAMMA"}, "cotes": {1: 5.0, 2: 2.5, 3: 2.5}}
-        bloc = rapport._vigilance_html(v)
-        self.assertIn("Méfiance", bloc)
+        course = {"reunion": {"date_reunion": "2026-11-08"}}
+        self.assertEqual(rapport._libelle_pronostic(course, False, None), "Pronostic du soir")
+        self.assertEqual(rapport._libelle_pronostic(course, False, "2026-11-07T21:00"), "Pronostic du soir")
+        self.assertIn("Pronostic figé le jour même", rapport._libelle_pronostic(course, False, "2026-11-08T11:00"))
+        final = {"fige_le": "2026-11-08T13:16:19", "ordre": [6, 8, 1], "noms": {6: "ALPHA", 8: "BETA", 1: "GAMMA"}}
+        bloc = rapport._resume_final_html(final)
         self.assertIn("ALPHA", bloc)
-        self.assertIn("cote 5", bloc)
-        self.assertIn("À surveiller", bloc)
-        self.assertIn("titre d'information", bloc)
-        self.assertEqual(rapport._vigilance_html(None), "")
-        m = {"fige_le": "2026-11-08T08:10:49", "ordre": [1, 2], "noms": {1: "ALPHA", 2: "BETA"},
-             "notes": {1: 0.87, 2: 0.74}}
-        self.assertIn("09 h 10", rapport._modele_seul_html(m))
+        self.assertNotIn("cote", bloc.lower())
+        self.assertEqual(rapport._resume_final_html(None), "")
+        self.assertNotIn("cote", rapport.GABARIT.lower())  # le gabarit de la page ne parle plus de cotes
 
 
 class TestFond(unittest.TestCase):
@@ -443,7 +441,7 @@ class TestEssaisEtQuintes(unittest.TestCase):
             lignes.append(l)
         m = quintes.mesure_course(lignes)
         self.assertEqual(m["rang_median_notre"], 4)  # arrivants classés 1, 2, 4, 5 et 6 chez nous
-        self.assertEqual(m["rang_median_marche"], 3)  # et 1, 2, 3, 4 et 5 au marché
+        self.assertNotIn("rang_median_marche", m)  # le marché ne compte plus dans la mesure
         self.assertEqual(m["couv"][5], 4)
         self.assertEqual(m["couv"][6], 5)
         self.assertEqual(m["boite_complete"], 6)

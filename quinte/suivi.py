@@ -74,46 +74,6 @@ def enregistrer_pronostic(date, retroactif=False):
     return chemin
 
 
-def enregistrer_final(date):
-    """Fige le pronostic final, avec les cotes du moment (une heure avant le départ), une seule fois.
-
-    Le pronostic du soir reste dans le fichier, sous « pronostic_soir ». Les clés principales
-    deviennent celles du pronostic final : c'est lui qui sert au bilan et à la comparaison.
-    """
-    chemin = _fichier_pronostic(date)
-    if not os.path.exists(chemin):
-        enregistrer_pronostic(date)
-    d = json.load(open(chemin, encoding="utf-8"))
-    if "final" in d:
-        return chemin
-    r, c = [int(x) for x in d["course"].replace("R", "").split("C")]
-    course = eq.course(date, r, c, fresh=True)
-    cotes = ae.cotes_de(course)
-    if not cotes:
-        raise SystemExit("Cotes indisponibles pour %s : pronostic final non figé." % date)
-    poids = ae.poids_cotes_pour(course.get("discipline"))
-    lignes = ae.melanger_cotes(ae.analyser(course), cotes, poids)
-    ordres = ae.simuler(lignes)
-    prob = ae.probabilites(ordres, lignes)
-    combis = ae.combinaisons_en_box(ordres, lignes)
-    maintenant = dt.datetime.now().isoformat(timespec="seconds")
-    d["pronostic_soir"] = {k: d[k] for k in ("fige_le", "modele", "chevaux", "ordre_predit", "combinaisons")}
-    d["fige_le"] = maintenant
-    d["modele"] = {"sensibilite_K": ae.SENSIBILITE, "poids": ae.POIDS, "simulations": ae.SIMULATIONS,
-                   "part_cotes": poids}
-    d["chevaux"] = [{"numero": l["numero"], "nom": l["nom"], "score": l["score"],
-                     "proba_cotes": l["proba_cotes"], "proba_melange": l["proba_melange"],
-                     "p_victoire": prob["victoire"][l["numero"]], "p_top3": prob["top3"][l["numero"]],
-                     "p_top5": prob["top5"][l["numero"]]} for l in lignes]
-    d["ordre_predit"] = [l["numero"] for l in lignes[:5]]
-    d["combinaisons"] = combis
-    d["final"] = {"fige_le": maintenant, "cotes": {str(k): v for k, v in cotes.items()}, "part_cotes": poids}
-    with open(chemin, "w", encoding="utf-8") as f:
-        json.dump(d, f, ensure_ascii=False, indent=1)
-    print("pronostic final figé avec les cotes :", chemin)
-    return chemin
-
-
 def _arrivee(date, r, c):
     """Arrivée officielle : liste des numéros classés, ou None si la course n'est pas terminée."""
     course = eq.course(date, r, c, fresh=True)
@@ -229,7 +189,7 @@ def stats_chevaux():
 def comparaison_reelle():
     """Perte du vainqueur sur les courses réelles déjà arrivées, par méthode (plus bas = mieux).
 
-    Méthodes : modèle (pronostic du soir, sans cotes), cotes seules, mélange (pronostic final, cotes mélangées au modèle).
+    Méthode : modèle (pronostic du soir), et hasard pour comparaison.
     Renvoie (lignes course par course, moyennes par méthode avec le nombre de courses connues).
     """
     if not os.path.exists(BILAN):
@@ -254,16 +214,13 @@ def comparaison_reelle():
         j = json.load(open(chemin, encoding="utf-8"))
         gagnant = int(x["ordre_reel"].split("-")[0])
         soir = (j.get("pronostic_soir") or {}).get("chevaux") or j.get("chevaux") or []
-        final = j.get("chevaux") if "final" in j else []
         lignes.append({
             "date": x["date"], "hippodrome": x["hippodrome"], "gagnant": gagnant,
             "partants": int(x["partants"]),
             "modele": perte(proba(soir, gagnant, "p_victoire")),
-            "cotes": perte(proba(final, gagnant, "proba_cotes")),
-            "melange": perte(proba(final, gagnant, "proba_melange")),
         })
     moyennes = {}
-    for cle in ["modele", "cotes", "melange"]:
+    for cle in ["modele"]:
         valeurs = [l[cle] for l in lignes if l[cle] is not None]
         moyennes[cle] = (sum(valeurs) / len(valeurs) if valeurs else None, len(valeurs))
     hasard = [math.log(l["partants"]) for l in lignes]
@@ -272,7 +229,7 @@ def comparaison_reelle():
 
 
 def _afficher_comparaison():
-    """Tableau course par course, puis moyennes : modèle, cotes seules, mélange, hasard."""
+    """Tableau course par course, puis moyennes : modèle et hasard."""
     lignes, moyennes = comparaison_reelle()
     if not lignes:
         return
@@ -281,12 +238,11 @@ def _afficher_comparaison():
         return "%.3f" % v if v is not None else "—"
 
     print()
-    print("%-11s %-18s %-8s %-8s %-8s %-8s" % ("date", "hippodrome", "gagnant", "modèle", "cotes", "mélange"))
+    print("%-11s %-18s %-8s %-8s" % ("date", "hippodrome", "gagnant", "modèle"))
     for l in lignes:
-        print("%-11s %-18s %-8s %-8s %-8s %-8s" % (l["date"], l["hippodrome"][:18], l["gagnant"],
-                                                   f(l["modele"]), f(l["cotes"]), f(l["melange"])))
+        print("%-11s %-18s %-8s %-8s" % (l["date"], l["hippodrome"][:18], l["gagnant"], f(l["modele"])))
     print()
-    noms = [("modele", "modèle"), ("cotes", "cotes seules"), ("melange", "mélange (cotes)"), ("hasard", "hasard")]
+    noms = [("modele", "modèle"), ("hasard", "hasard")]
     for cle, nom in noms:
         v, n = moyennes[cle]
         print("perte moyenne du vainqueur, %-22s : %s (%d course%s)" % (nom, f(v), n, "" if n == 1 else "s"))

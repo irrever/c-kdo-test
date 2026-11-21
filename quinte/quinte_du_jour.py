@@ -64,9 +64,9 @@ def _avis(date):
 def charger(date, final=False, calculer_journee=False):
     """Télécharge le quinté d'une date et écrit sa page.
 
-    Le pronostic du soir est figé dès la première page du jour, sans les cotes, et ne change plus.
-    Sinon : la page reprend cette analyse figée, avec le résultat du moment.
-    Depuis le 21 novembre, final=True est refusé : le pronostic n'utilise plus les cotes.
+    La page affiche le pronostic du soir, figé : il ne change plus, et il n'est pas recalculé avec les cotes.
+    Un pronostic final de l'ancienne méthode, s'il a été figé avant le 21 novembre, reste affiché pour l'historique.
+    final=True est refusé : le pronostic n'utilise plus les cotes.
     """
     if final:
         raise SystemExit("Pronostic final avec les cotes : supprimé le 21 novembre, le pronostic reste sans cotes.")
@@ -82,35 +82,24 @@ def charger(date, final=False, calculer_journee=False):
     with open(chemin_brut, "w", encoding="utf-8") as f:
         f.write(page_brute)
     suivi.enregistrer_pronostic(date)  # sans effet si le pronostic du soir est déjà figé
-    if final:
-        suivi.enregistrer_final(date)
-    course = eq.course(date, r, c, fresh=True)
-    avant_depart = bool(course) and course.get("type_statut_course_id") == "before"
-    import vigilance
-    zones_finales = modele = None
+    soir, historique = None, None
     chemin_journal = suivi._fichier_pronostic(date)
     if os.path.exists(chemin_journal):
         with open(chemin_journal, encoding="utf-8") as f:
             journal = json.load(f)
-        try:
-            zones_finales = vigilance.depuis_journal(journal)
-            modele = vigilance.modele_seul(journal)
-        except Exception as e:  # une zone mal calculée ne doit jamais empêcher la page
-            print("AVERTISSEMENT : zones de vigilance non calculées : %s" % e)
-    page = rapport.generer(chemin_brut, avec_cotes=_final_fige(date),
-                           journee=jr.charger(date, calculer=calculer_journee), fige_le=_fige_le(date),
-                           vigilance=zones_finales, modele=modele, avis=_avis(date))
-    if final:
-        _figer(date, page)
-    elif os.path.exists(_figee(date)):
-        with open(_figee(date), encoding="utf-8") as f:
-            page = rapport.fusionner_resultat(f.read(), page)
-    elif avant_depart:
-        _figer(date, page)  # première page du jour, avant le départ : son analyse est figée ici
+        if "final" in journal:
+            soir = journal.get("pronostic_soir")
+            historique = {"fige_le": journal["final"]["fige_le"], "ordre": journal.get("ordre_predit", []),
+                          "noms": {x["numero"]: x["nom"] for x in journal.get("chevaux", [])}}
+        else:
+            soir = journal
+    page = rapport.generer(chemin_brut, journee=jr.charger(date, calculer=calculer_journee),
+                           fige_le=(soir or {}).get("fige_le"), avis=_avis(date), soir=soir, final=historique)
     sortie = os.path.join(SORTIE, "%s.html" % date)
     with open(sortie, "w", encoding="utf-8") as f:
         f.write(page)
     print("écrit :", sortie)
+    course = eq.course(date, r, c)
     if course and course.get("heure_depart_course"):
         print("depart :", course["heure_depart_course"])
     return sortie

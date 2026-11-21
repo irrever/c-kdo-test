@@ -664,7 +664,7 @@
    "heure": "16:25",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "QUEEN SISTER",
@@ -679,7 +679,13 @@
     "11": "BANDANAS",
     "12": "MADAME LE MAIRE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    4,
+    12,
+    8
+   ],
    "ordre": [
     1,
     8,
@@ -1437,7 +1443,7 @@
    "heure": "15:32",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "1": "ICARE DE LA BASLE",
@@ -1458,7 +1464,13 @@
     "16": "IBROX PARK",
     "17": "HENRIQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    14,
+    5,
+    1,
+    10
+   ],
    "ordre": [
     17,
     9,
@@ -1533,7 +1545,7 @@
    "heure": "16:08",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LELLAMIKA",
@@ -1551,7 +1563,13 @@
     "13": "LAMSOU SAN",
     "14": "LE PORTO"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    2,
+    7,
+    12,
+    8
+   ],
    "ordre": [
     6,
     14,
@@ -1626,7 +1644,7 @@
    "heure": "16:42",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "MABROUCK DE THEZAN",
@@ -3586,7 +3604,7 @@
    "heure": "16:00",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KOUMBA DE LA NADE",
@@ -3606,7 +3624,13 @@
     "15": "KERIBIA DU ROC",
     "16": "KISS ME DE MADKER"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    5,
+    16,
+    12,
+    7
+   ],
    "ordre": [
     16,
     15,
@@ -3681,7 +3705,7 @@
    "heure": "16:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KEROZEN DU VIVIER",
@@ -3700,7 +3724,13 @@
     "14": "KAID MARTIN",
     "15": "KILLER DE CAHOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    10,
+    3,
+    7
+   ],
    "ordre": [
     15,
     12,
@@ -4181,7 +4211,7 @@
    "heure": "16:00",
    "distance": 5140,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "AFFORDALE FURY",
@@ -4192,7 +4222,13 @@
     "6": "KONFUSION",
     "7": "SALVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    4,
+    7,
+    1
+   ],
    "ordre": [
     1,
     3,
@@ -4260,7 +4296,7 @@
    "heure": "16:35",
    "distance": 5140,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "O'CONNELL",
@@ -6382,7 +6418,7 @@
    "heure": "16:10",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "HAUGAIN",
@@ -6399,7 +6435,13 @@
     "12": "JOKER DE MARZY",
     "13": "JAMAICA D'OYSE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    3,
+    13,
+    4
+   ],
    "ordre": [
     8,
     10,
@@ -6474,7 +6516,7 @@
    "heure": "16:40",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "MISS SCARLET",

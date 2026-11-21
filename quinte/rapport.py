@@ -18,373 +18,129 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import analyse_equidia as ae  # noqa: E402
 
-GABARIT = """<!doctype html>
+GABARIT = r"""<!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <title>@@titre_page@@</title>
 @@fond_tete@@
 <style>
-:root{color-scheme:light;
-  --bg:#f5f6f8;--surface:#ffffff;--line:#e3e6ec;--text:#1b2230;--muted:#667085;
-  --or:#1f3a5f;--or-bg:#e9eef5;--bleu:#1f3a5f;--bleu-bg:#e9eef5;
-  --vert:#1f3a5f;--vert-bg:#e9eef5;--violet:#1f3a5f;--violet-bg:#e9eef5;
-  --rouge:#8a3b3b;--rouge-bg:#f7ecec;--gris:#667085;--gris-bg:#f1f3f6;}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
-  padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
-main{max-width:1120px;margin:0 auto;padding-top:20px}
-.hero{background:var(--surface);color:var(--text);border-radius:8px;padding:20px 22px;margin-bottom:14px;border:1px solid var(--line);border-left:3px solid var(--bleu)}
-.hero h1{font-size:22px;margin:0 0 6px}
-.hero p{margin:0;opacity:.92}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:2px 9px;font-size:12px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:14px}
-.card.accent-or{border-left:3px solid var(--or)}
-.card.accent-bleu{border-left:3px solid var(--bleu)}
-.card.accent-vert{border-left:3px solid var(--vert)}
-.card.accent-violet{border-left:3px solid var(--violet)}
-.card.accent-gris{border-left:3px solid var(--gris)}
-h2{font-size:17px;margin:0 0 10px}
-.label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
-.ordre{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-.pastille{min-width:44px;height:44px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-size:16px;color:var(--text);background:var(--surface);border:1px solid var(--line)}
-.zones{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px;margin-bottom:14px;display:flex;gap:4px;overflow-x:auto;white-space:nowrap}
-.zones a{color:var(--bleu);text-decoration:none;font-size:13px;font-weight:600;padding:5px 10px;border-radius:6px}
-.zones a:hover{background:var(--bleu-bg)}
-section{scroll-margin-top:64px}
-.pastille.r1{background:var(--bleu);color:#ffffff;border-color:var(--bleu)}
-.pastille.r2{border-color:var(--bleu)}
-.pastille.box{background:var(--violet)}
-.pastille.gris{background:var(--gris)}
-.jeu-titre{font-size:19px;font-weight:700;color:var(--text)}
-.note{color:var(--muted);font-size:13px;margin:6px 0}
-.wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-tr.favori td{background:var(--bleu-bg)}
-tr.top2 td{background:var(--gris-bg)}
-.barre{height:8px;border-radius:999px;background:var(--gris-bg);overflow:hidden;min-width:90px}
-.barre span{display:block;height:100%;border-radius:999px;background:var(--bleu)}
-.tag{display:inline-block;font-size:12px;border-radius:999px;padding:1px 9px;margin:2px 4px 2px 0}
-.tag.ok{background:var(--gris-bg);color:var(--text)}
-.tag.ko{background:var(--rouge-bg);color:var(--rouge)}
-.tag.info{background:var(--gris-bg);color:var(--muted)}
-.tag.box{background:var(--bleu-bg);color:var(--bleu);border:1px solid var(--bleu)}
-details{border-bottom:1px solid var(--line);padding:10px 0}
-summary{cursor:pointer;font-weight:700}
-details ul{margin:8px 0 0;padding-left:18px;font-size:14px}
-details li{margin-bottom:6px}
-.etapes{counter-reset:etape;list-style:none;padding:0;margin:0}
-.etapes li{counter-increment:etape;position:relative;padding:6px 0 6px 38px;margin-bottom:4px}
-.etapes li::before{content:counter(etape);position:absolute;left:0;top:4px;width:26px;height:26px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
-.rec{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:640px){.rec{grid-template-columns:repeat(3,1fr)}}
-.rec .bloc{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
-.rec .bloc.reco{border:1px solid var(--bleu);background:var(--bleu-bg)}
-.rec .gros{font-size:22px;font-weight:800}
-.foot{color:var(--muted);font-size:12px;margin-top:8px}
-
-.zone-details{padding:0;border-bottom:none;margin-bottom:14px}
-.zone-details > summary{list-style:none;cursor:pointer;display:block;padding:18px 44px 16px 18px;position:relative}
-.zone-details > summary::-webkit-details-marker{display:none}
-.zone-details > summary::after{content:"+";position:absolute;right:18px;top:14px;font-size:22px;line-height:1;color:var(--muted);font-weight:400}
-.zone-details[open] > summary::after{content:"\2212"}
-.zone-details > summary:focus-visible{outline:2px solid var(--bleu);outline-offset:-2px;border-radius:8px}
-.zone-details > summary .label{display:block}
-.zone-details > summary h2{margin:4px 0 0}
-.zone-details > :not(summary){margin-left:18px;margin-right:18px}
-.zone-details > :last-child{margin-bottom:18px}
-
-
-.entete h2{font-size:18px;margin:2px 0 10px;font-weight:600}
-.puces{display:flex;flex-wrap:wrap;gap:6px}
-.puces span{display:inline-block;font-size:12.5px;padding:3px 9px;border:1px solid var(--line);border-radius:4px;color:var(--text);background:var(--gris-bg)}
-
-
-.arr-grand{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px}
-.arr-grand .cell{flex:1 1 110px;min-width:96px;padding:16px 10px;border:1px solid var(--line);border-radius:8px;text-align:center;background:var(--surface)}
-.arr-grand .cell b{display:block;font-size:40px;font-weight:700;line-height:1;color:var(--bleu)}
-.arr-grand .cell .nom{display:block;font-size:12.5px;font-weight:600;margin-top:8px}
-.arr-grand .cell small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
-.retenir{margin:6px 0 0 18px;padding:0;font-size:13.5px}
-.retenir li{margin-bottom:4px}
-.res-tab td.n,.res-tab th.n{text-align:right}
-
-
-.onglets{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
-.onglets button{font:inherit;font-size:13.5px;font-weight:600;padding:8px 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);cursor:pointer}
-.onglets button[aria-selected="true"]{background:var(--bleu);border-color:var(--bleu);color:#ffffff}
-.onglets button:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}
-[hidden]{display:none!important}
-
-
-.partie{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 2px 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
-.partie.resultat{color:var(--bleu);border-bottom-color:var(--bleu)}
-.res-tab{width:100%;border-collapse:collapse;font-size:13.5px}
-.res-tab th,.res-tab td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
-.res-tab td.n,.res-tab th.n{text-align:right;font-variant-numeric:tabular-nums}
-.ok-txt{color:var(--text);font-weight:600}
-.concl{border-left:3px solid var(--bleu);padding:4px 0 4px 12px;margin:8px 0;font-size:13.5px}
-
-
-@media (max-width:820px){
-  .bloc-pari thead{display:none}
-  .bloc-pari table,.bloc-pari tbody{display:block;width:100%}
-  .bloc-pari tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"box tag" "nums nums" "comb chance";gap:6px 8px;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
-  .bloc-pari tr.reco{border-color:var(--bleu)}
-  .bloc-pari td{border:0;padding:0;text-align:left;font-size:13px;background:transparent}
-  .bloc-pari td:nth-child(1){grid-area:box;font-weight:600}
-  .bloc-pari td:nth-child(1)::before{content:"Box "}
-  .bloc-pari td:nth-child(2){grid-area:nums}
-  .bloc-pari td:nth-child(3){grid-area:comb;color:var(--muted)}
-  .bloc-pari td:nth-child(3)::after{content:" combinaison(s)"}
-  .bloc-pari td:nth-child(4){grid-area:chance;text-align:right;font-weight:600}
-  .bloc-pari td:nth-child(6){grid-area:tag;text-align:right}
-  .bloc-pari td.opt{display:none}
+:root{color-scheme:light;--bg:#f2f4f7;--card:#ffffff;--ink:#101828;--muted:#475467;--line:#e4e7ec;--accent:#1849a9;--accent-soft:#eaf1fd;--chip:#f2f4f7;--reco:#e6f4ea}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0c111b;--card:#161e2e;--ink:#f2f4f7;--muted:#aeb8c8;--line:#2a3550;--accent:#7ca6ff;--accent-soft:#1d2b4d;--chip:#222d44;--reco:#18362a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+main{max-width:720px;margin:0 auto;padding-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px;margin:0 0 14px}
+.label{font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:28px;line-height:1.2;margin:2px 0 10px;font-weight:800}
+h2{font-size:22px;line-height:1.3;margin:0 0 10px;font-weight:750}
+h3{font-size:18px;line-height:1.3;margin:20px 0 8px;font-weight:700}
+p{margin:8px 0}
+.note{font-size:16px;color:var(--muted);margin:8px 0}
+.puces{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.puces span{font-size:15px;padding:6px 12px;border-radius:999px;background:var(--chip)}
+.onglets{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:var(--bg);padding:8px 0 10px;margin:0 0 4px}
+.onglets button{font-family:inherit;font-weight:600;font-size:17px;padding:13px 6px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.onglets button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.top5{display:grid;gap:8px;margin-top:12px}
+.top5 > div{display:flex;align-items:center;gap:14px;background:var(--accent-soft);border-radius:14px;padding:10px 14px;min-width:0}
+.top5 b{font-size:28px;line-height:1;color:var(--accent);min-width:36px}
+.top5 small{font-size:17px;line-height:1.3;color:var(--ink);font-weight:600}
+.boite{margin-top:14px;padding:14px;border-radius:14px;border:2px solid var(--accent);background:var(--card)}
+.boite .numeros{font-size:21px;font-weight:750;margin:4px 0;line-height:1.4}
+.liste-simple,.chevaux{list-style:none;margin:0;padding:0}
+.liste-simple li{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:18px}
+.liste-simple li:last-child{border-bottom:0}
+.chevaux{counter-reset:none}
+.cheval{border-top:1px solid var(--line);padding:16px 0}
+.cheval:first-child{border-top:0;padding-top:4px}
+.cheval-tete{display:flex;align-items:center;gap:12px}
+.rang{flex:0 0 38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px}
+.nom{font-size:19px;font-weight:750;line-height:1.25}
+.sous{font-size:15px;color:var(--muted)}
+.mesures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.mesures > div{background:var(--bg);border-radius:12px;padding:8px 4px;text-align:center;min-width:0}
+.mesures b{display:block;font-size:21px;line-height:1.2}
+.mesures small{font-size:14px;color:var(--muted)}
+.barre{height:8px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:10px}
+.barre span{display:block;height:100%;background:var(--accent)}
+.tag{display:inline-block;font-size:14px;padding:2px 10px;border-radius:999px;background:var(--chip);margin:2px 4px 2px 0;vertical-align:middle}
+.tag.np{background:#fde8e8;color:#8a1c1c}
+.tag.box{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font-size:14px;color:var(--muted);font-weight:700;text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.reco td{background:var(--reco)}
+.num-box{display:inline-block;min-width:32px;text-align:center;padding:3px 6px;margin:2px 2px;border-radius:8px;background:var(--chip);font-weight:700}
+.rec{display:grid;gap:10px;margin-top:10px}
+.rec .bloc{border:1px solid var(--line);border-radius:14px;padding:12px}
+.rec .bloc.reco{border-color:var(--accent);background:var(--accent-soft)}
+.rec .gros{font-size:21px;font-weight:800}
+.jeux{list-style:none;margin:0;padding:0}
+.jeux li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.jeux b{white-space:nowrap}
+details{margin:0}
+details > summary{cursor:pointer;list-style:none;font-size:18px;font-weight:700;padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details > summary::-webkit-details-marker{display:none}
+details > summary::after{content:"+";font-size:24px;line-height:1;color:var(--muted);font-weight:400}
+details[open] > summary::after{content:"-"}
+details details{margin-top:10px}
+details ul,details ol{padding-left:20px;font-size:16px;margin:8px 0}
+details li{margin:6px 0}
+.etapes{padding-left:20px;font-size:16px}
+.etapes li{margin:10px 0}
+.arr-grand{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0}
+.arr-grand .cell{background:var(--bg);border-radius:14px;padding:10px 4px;text-align:center;min-width:0}
+.arr-grand .cell b{display:block;font-size:28px;line-height:1.1}
+.arr-grand .cell .nom{display:block;font-size:14px;line-height:1.25}
+.arr-grand .cell small{font-size:13px;color:var(--muted)}
+.recherche-form{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.recherche-form label{font-size:16px;display:grid;gap:6px;min-width:0}
+.recherche-form select,.rech-bouton{font-family:inherit;font-size:17px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%;min-width:0;max-width:100%;text-overflow:ellipsis}
+.rech-bouton{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.pied{margin-top:22px;font-size:15px;color:var(--muted)}
+.fond-bouton{font-family:inherit;font-size:16px;font-weight:600;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.phone-hide{display:none}
+@media (min-width:640px){
+  .phone-hide{display:table-cell}
+  .top5{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .top5 > div{flex-direction:column;text-align:center;padding:10px 4px}
+  .top5 b{font-size:34px;min-width:0}
+  .top5 small{font-size:15px}
+  .nom{font-size:20px}
+  .recherche-form{grid-template-columns:minmax(0,1fr) minmax(0,2fr) auto;align-items:end}
 }
-
-
-.bloc-pari{margin-bottom:18px}
-.bloc-pari h3{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--text)}
-.numeros{display:flex;flex-wrap:wrap;gap:4px}
-.num-box{display:inline-block;min-width:24px;text-align:center;padding:2px 6px;border:1px solid var(--line);border-radius:4px;font-size:12.5px;font-variant-numeric:tabular-nums}
-tr.reco td{background:var(--bleu-bg)}
-tr.reco .num-box{border-color:var(--bleu);color:var(--bleu);font-weight:600}
-.numeros{display:flex;flex-wrap:wrap;gap:4px;min-width:120px}
-@media (max-width:820px){.opt{display:none}.num-box{min-width:20px;padding:1px 4px;font-size:11.5px}.bloc-pari td,.bloc-pari th{padding:6px 3px;font-size:12px}.bloc-pari .numeros{min-width:0;gap:3px}.bloc-pari th{font-size:10px;letter-spacing:.04em}}
-
-
-.layout{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding-top:20px}
-nav.side{position:sticky;top:12px;align-self:start}
-nav.side .grp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:14px 10px 4px}
-nav.side .grp:first-child{margin-top:0}
-nav.side a{display:block;color:var(--muted);text-decoration:none;font-size:14px;padding:7px 10px;border-left:2px solid transparent}
-nav.side a:hover,nav.side a:focus-visible{color:var(--text);border-left-color:var(--bleu)}
-@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}.contenu{min-width:0}nav.side{position:static;display:flex;flex-wrap:wrap;gap:4px;min-width:0}nav.side .grp{display:none}nav.side a{border-left:0;border-bottom:2px solid transparent;padding:6px 8px}}
-section{scroll-margin-top:16px}
-
-.profil{padding-left:22px;margin:0}.profil li{margin-bottom:10px}
-
-/* Raffinement : typographie fine et espacements précis */
-body{font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
-h1{font-size:21px;font-weight:600;letter-spacing:-.01em}
-h2{font-size:15px;font-weight:600;letter-spacing:-.005em}
-.label{font-size:11px;font-weight:600;letter-spacing:.09em}
-.card{border-radius:6px;padding:18px 18px 16px;box-shadow:0 1px 1px rgba(16,24,40,.03)}
-.card.accent-bleu,.card.accent-or,.card.accent-gris,.card.accent-violet{border-left-width:2px}
-.pastille{min-width:40px;height:40px;font-size:15px;font-weight:600;border-radius:6px}
-.note{font-size:12.5px;line-height:1.55}
-table{font-size:13px}
-th{font-size:10.5px;letter-spacing:.08em}
-td,th{padding:8px 6px}
-.tag{font-size:11px;padding:1px 7px;border-radius:3px;letter-spacing:.01em}
-.hero{padding:18px 20px;box-shadow:0 1px 1px rgba(16,24,40,.04)}
-.hero h1{font-size:19px;font-weight:600}
-.chip{border-radius:3px;font-size:11.5px}
-@media (max-width:820px){
-  body{font-size:14px;padding-top:0}
-  .layout{padding-top:12px;gap:14px}
-  nav.side{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;margin:0 -16px;padding:2px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  nav.side::-webkit-scrollbar{display:none}
-  nav.side a{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12.5px;background:var(--surface);white-space:nowrap}
-  nav.side a:hover{border-color:var(--bleu);color:var(--bleu);border-left-color:var(--line)}
-  .card{padding:16px 15px 14px;margin-bottom:12px}
-  .pastille{min-width:36px;height:36px;font-size:14px}
-  .ordre{gap:6px}
-  .hero{padding:16px 16px;margin-bottom:12px}
-  .hero h1{font-size:17px;line-height:1.3}
-  .hero p{font-size:12.5px}
-  .chips{gap:5px}
-  td,th{padding:7px 4px;font-size:12.5px}
-  .note{font-size:12px}
-}
-.recherche-form{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
-.recherche-form label{display:flex;flex-direction:column;gap:4px;flex:1 1 160px;font-size:13px;color:var(--muted)}
-.recherche-form select{font:inherit;font-size:14px;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);width:100%}
-.rech-resultat h3{font-size:16px;margin:12px 0 4px}
-.rech-ordre{font-size:16px;font-weight:600;margin:8px 0}
-.rech-resultat table{width:100%;border-collapse:collapse;font-size:13px}
-.rech-resultat th,.rech-resultat td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
-.rech-resultat th.n,.rech-resultat td.n{text-align:right;font-variant-numeric:tabular-nums}
-.rech-bouton{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border:1px solid var(--bleu);background:var(--bleu);color:#ffffff;border-radius:6px;cursor:pointer;align-self:flex-end}
-.rech-arrivee{font-size:15px;font-weight:600;margin:8px 0 2px}
-.vigilance-liste, .modele-liste { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
-.modele-liste { list-style: none; padding-left: 0; }
-.modele-liste li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
-.vigilance-groupe { display: grid; gap: 6px; margin-top: 12px; }
-.tag.alerte-rouge { color: var(--rouge); background: var(--rouge-bg); }
-.tag.alerte-gris { color: var(--gris); background: var(--gris-bg); }
-/* Refonte reprise de la maquette : palette sarcelle, titres en serif, cartes arrondies, mode sombre */
-:root{color-scheme:light;
-  --bg:#f5f4ef;--surface:#ffffff;--line:#e2e0d8;--text:#1c1f24;--muted:#5f656d;
-  --or:#0d6a5b;--or-bg:#d6ebe5;--bleu:#0d6a5b;--bleu-bg:#d6ebe5;
-  --vert:#0d6a5b;--vert-bg:#d6ebe5;--violet:#0d6a5b;--violet-bg:#d6ebe5;
-  --rouge:#9a4a00;--rouge-bg:#f8e6d2;--gris:#5f656d;--gris-bg:#ebe9e2;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;
-  --bg:#14161a;--surface:#1c1f24;--line:#2d3238;--text:#ececea;--muted:#a3a9b1;
-  --or:#6fd6bf;--or-bg:#1d3a34;--bleu:#6fd6bf;--bleu-bg:#1d3a34;
-  --vert:#6fd6bf;--vert-bg:#1d3a34;--violet:#6fd6bf;--violet-bg:#1d3a34;
-  --rouge:#f2b36b;--rouge-bg:#3a2a1a;--gris:#a3a9b1;--gris-bg:#2a2e34;}}
-:root[data-theme="dark"]{color-scheme:dark;
-  --bg:#14161a;--surface:#1c1f24;--line:#2d3238;--text:#ececea;--muted:#a3a9b1;
-  --or:#6fd6bf;--or-bg:#1d3a34;--bleu:#6fd6bf;--bleu-bg:#1d3a34;
-  --vert:#6fd6bf;--vert-bg:#1d3a34;--violet:#6fd6bf;--violet-bg:#1d3a34;
-  --rouge:#f2b36b;--rouge-bg:#3a2a1a;--gris:#a3a9b1;--gris-bg:#2a2e34;}
-h1{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:26px;font-weight:600;line-height:1.2;letter-spacing:0;text-wrap:balance}
-h2{font-family:ui-serif,Georgia,"Times New Roman",serif;font-size:20px;font-weight:600;line-height:1.25;letter-spacing:0;margin:0 0 8px;text-wrap:balance}
-.hero h1{font-size:24px}
-.entete h2{font-size:22px;font-weight:600;margin:2px 0 10px}
-.card{border-radius:14px;padding:16px;box-shadow:none;border:1px solid var(--line)}
-.card.accent-bleu,.card.accent-or,.card.accent-gris,.card.accent-violet,.card.accent-vert,.hero{border-left:1px solid var(--line)}
-.label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--bleu);background:var(--bleu-bg);border-radius:6px;padding:3px 8px;margin:0 0 6px}
-.badge.gris{color:var(--muted);background:var(--gris-bg)}
-.badge.alerte{color:var(--rouge);background:var(--rouge-bg)}
-.sous{margin:2px 0 8px;font-size:14px;color:var(--muted)}
-.puces span{border-radius:999px;background:transparent;color:var(--muted);font-size:12.5px;padding:3px 10px}
-.tag{border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;letter-spacing:.01em}
-.onglets button{border-radius:8px}
-.barre{height:8px;border-radius:999px;background:var(--gris-bg);min-width:0}
-.barre span{background:var(--bleu)}
-.final-liste,.modele-liste{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
-.final-liste li{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(0,40%);align-items:center;gap:10px}
-.modele-liste li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px}
-.rang{font-variant-numeric:tabular-nums;color:var(--muted)}
-.nom{min-width:0;overflow-wrap:anywhere}
-.nom small{display:block;font-size:12.5px;color:var(--muted)}
-.mesure{display:grid;gap:4px;justify-items:end;min-width:0;font-variant-numeric:tabular-nums}
-.mesure .barre{width:100%}
-.ecarts{margin:8px 0 0;padding-left:18px;display:grid;gap:8px;font-size:14px}
-.vigilance-groupe{display:grid;gap:6px;margin-top:12px}
-.formule{margin:0;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
-.rech-sans{width:fit-content;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--rouge);background:var(--rouge-bg);border-radius:6px;padding:3px 8px;margin:4px 0}
-.rech-soustitre{font-weight:600;margin:10px 0 2px}
-.rech-cotes{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
-.rech-cotes li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding:4px 0}
-.rech-cotes b{font-variant-numeric:tabular-nums;white-space:nowrap}
-.rech-favori{font-weight:600;margin:8px 0 0}
-@@fond_css@@</style></head><body><main>
-
-@@entete@@
-<div class='fond-ligne'>@@fond@@</div>
-@@onglets@@
-@@partie_resultat@@
-@@partie_recherche@@
-<div class="vue" data-vue="analyse">
-@@blocs_final@@
-<section class="card accent-bleu">
-  <div class="label">1 · Quinté+ : les 5 premiers</div>
-  <h2>Ordre d'arrivée probable</h2>
-  <div class="ordre">@@ordre@@</div>
-  <p class="note">Le favori du modèle est <strong>n°@@fav_num@@ @@fav_nom@@</strong> : @@fav_win@@ de chances de gagner, @@fav_top3@@ dans les trois premiers. Les chevaux 2 à 5 sont proches : la course reste ouverte.</p>
+</style></head><body><main>
+<section class="card">
+  <div class="label">@@libelle_jour@@</div>
+  <h1>@@titre_h1@@</h1>
+  <div class="puces">@@puces@@</div>
+  <p class="note">@@statut@@</p>
 </section>
-<section class="card accent-bleu">
-  <div class="label">2 · Analyse des chevaux</div>
-  <h2>Analyse par cheval</h2>
-  <p class="note">Touchez un cheval pour voir ses critères, les commentaires Equidia et les faits de la fiche.</p>
-  @@analyses@@
-</section>
-<section class="card accent-bleu">
-  <div class="label">3 · Tiercé, quarté et quinté</div>
-  <div class="jeu-titre">@@jeu_type@@</div>
-  <p class="note">@@jeu_sel@@</p>
-  <h2 style="margin-top:14px">Ce que je jouerais par type de pari</h2>
-  <div class="rec">@@recommandations@@</div>
-  <p class="note">Recommandation : la taille de box la plus probable, dans une limite de @@budget@@ combinaisons par pari.</p>
-</section>
-<section class="card accent-violet">
-  <div class="label">3.1 · Combinaisons en box</div>
-  <h2>Tiercé, quarté et quinté en box</h2>
-  <p class="note">Un box de k chevaux gagne si les N premiers de l'arrivée sont tous dans le box (désordre). Le nombre de combinaisons est C(k, N). Le quinté en box de 6 à 9 chevaux est le cas des « quintés de plus de 5 chevaux ». L'ordre exact du quinté reste très improbable.</p>
-  @@combinaisons@@
-  <p class="foot">Probabilités estimées par simulation. Elles ne tiennent pas compte des rapports (gains) : une combinaison très probable peut rapporter peu.</p>
-</section>
-<section class="card accent-gris wrap">
-  <div class="label">4 · Couplés, simples placés et trios</div>
-  <h2>Probabilités des jeux simples</h2>
-  <table><thead><tr><th>Jeu</th><th class="num">Probabilité</th></tr></thead><tbody>@@jeux@@</tbody></table>
-</section>
-<section class="card accent-bleu">
-  <div class="label">5 · Distinction du gagnant et du top 5</div>
-  <h2>Distinction du gagnant et du top 5</h2>
-  @@distinction@@
-</section>
-<section class="card accent-gris wrap">
-  <div class="label">6 · Probabilités par cheval</div>
-  <h2>Probabilités par cheval</h2>
-  <table>
-    <thead><tr><th>#</th><th class="num">N°</th><th>Cheval</th><th>Driver</th><th class="num">Note</th><th>1er</th><th>Top 3</th><th class="num">Top 5</th></tr></thead>
-    <tbody>@@lignes@@</tbody>
-  </table>
-</section>
-<section class="card accent-bleu">
-  <div class="label">7 · Profil de la course et difficultés</div>
-  <h2>Profil de la course et difficultés</h2>
-  <p class="note">Ces éléments sont propres à cette course. « Mesuré » vient des données du jour ; « contexte » est une information de référence, non intégrée au calcul.</p>
-  @@profil@@
-</section>
-<section class="card accent-bleu">
-  <div class="label">8.1 · Méthode</div>
-  <h2>Comment le modèle choisit ses chevaux</h2>
-  <ol class="etapes">
-    <li><strong>Musique et notes Equidia</strong> : la musique (les performances passées) pèse 40 % de la note, et les notes Equidia (aptitudes à la distance, forme, chronos, tandem driver-entraîneur, conditions, bruits d'écurie) 60 %.</li>
-    <li><strong>Une note de 0 à 1</strong> par cheval, moyenne pondérée de ces critères. Une donnée absente compte pour la moyenne neutre (0,5).</li>
-    <li><strong>Simulation de 200 000 arrivées</strong> : à chaque tirage, le cheval le mieux noté a le plus de chances de passer en premier, les autres suivent selon leur note (modèle Plackett-Luce, sensibilité K = 4 depuis le 9 novembre, K = 8 avant).</li>
-    <li><strong>Probabilités</strong> : on compte, sur les 200 000 arrivées simulées, combien de fois chaque cheval gagne, finit dans les 3 ou les 5 premiers, et combien de fois chaque combinaison de jeu sort.</li>
-    <li><strong>Pronostic du soir, sans cotes</strong> : le soir, le pronostic est publié à partir de notre analyse, sans les cotes. Depuis le 21 novembre, il n'est plus recalculé avec les cotes, et c'est lui qui est gardé pour le bilan. Du 9 au 21 novembre, un pronostic final mélangeait les cotes (90 %) et notre analyse (10 %) : il reste visible sur les pages de ces jours-là.</li>
-  </ol>
-  <p class="note"><strong>Validation</strong> : les réglages (poids de la musique, sensibilité, part des cotes, abandonnée le 21 novembre) ont été choisis sur 48 courses terminées d'octobre–novembre 2026. Ces mêmes courses ont servi à les choisir : le résultat est donc optimiste. Seul le suivi des prochaines courses, ci-dessous, donnera une mesure indépendante. <strong>Ce qu'il ne prend pas en compte</strong> : la taille du peloton, le déferrage, le changement de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>
-</section>
-<section class="card accent-bleu wrap">
-  <div class="label">8.2 · Ce qui compte, ce qui est testé</div>
-  <h2>Ce qui compte, ce qui est affiché, ce qui a été testé</h2>
-  <table>
-    <thead><tr><th>Critère</th><th>Statut dans la note</th><th>Résultat du test (log-loss, plus bas = mieux)</th></tr></thead>
-    <tbody>
-      <tr><td>Musique (performances passées)</td><td><span class="tag ok">Pris en compte, 40 %</span></td><td>2,34 avec la musique, 2,43 sans (ancien modèle)</td></tr>
-      <tr><td>Notes Equidia : aptitude à la distance, forme, chronos, tandem, conditions, bruits</td><td><span class="tag ok">Pris en compte, 60 %</span></td><td>Incluses dans le 2,34</td></tr>
-      <tr><td>Distance du jour</td><td><span class="tag ok">Via l'aptitude à la distance</span></td><td>Incluse dans les notes</td></tr>
-      <tr><td>Corde (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajoutée au calcul</td></tr>
-      <tr><td>Poids (plat, obstacle)</td><td><span class="tag info">Affiché seulement</span></td><td>Non ajouté au calcul</td></tr>
-      <tr><td>Déferrage, avis de l'entraîneur, classement ELO</td><td><span class="tag info">Affiché seulement</span></td><td>Pas de données historiques pour les tester</td></tr>
-      <tr><td>Cotes du jour</td><td><span class="tag info">Plus utilisées depuis le 21 novembre</span></td><td>2,11 seules, 2,12 mélangées à 70 %, 2,63 au hasard</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Vérifié sur 48 courses terminées (octobre–novembre 2026), perte moyenne du vainqueur : hasard 2,63 ; ancien modèle sans musique 2,43 ; nouveau modèle avec musique 2,34 ; cotes seules 2,11 ; mélange retenu 2,12. Au trot, le poids n'existe pas, donc il n'est pas affiché.</p>
-  <p class="note">@@suivi_reel@@</p>
-</section>
-<section class="card accent-gris wrap">
-  <div class="label">9 · Statistiques des chevaux</div>
-  <h2>Statistiques Equidia de chaque cheval</h2>
-  @@statistiques@@
-</section>
-
-
-
-
-<p class="foot">Notre pronostic n'utilise pas les cotes depuis le 21 novembre. Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
-</div>
+<nav class="onglets" role="tablist" aria-label="Sections">@@onglets@@</nav>
+<div class="vue" data-vue="pronostic">@@pronostic@@</div>
+<div class="vue" data-vue="resultat" hidden>@@resultat@@</div>
+@@recherche@@
+<footer class="pied">
+  <p>@@fond@@</p>
+  <p>Estimations, pas des garanties. Jouer comporte des risques : jeu responsable, interdit aux mineurs.</p>
+</footer>
 </main>
 <script>
 (function(){
-  var boutons=document.querySelectorAll(".onglets button");
+  var boutons = document.querySelectorAll('.onglets button');
   boutons.forEach(function(b){
-    b.addEventListener("click",function(){
-      boutons.forEach(function(x){x.setAttribute("aria-selected", x===b ? "true" : "false");});
-      document.querySelectorAll("[data-vue]").forEach(function(v){ v.hidden = (v.getAttribute("data-vue") !== b.getAttribute("data-cible")); });
-    });
-  });
-  document.querySelectorAll("nav.side a").forEach(function(a){
-    a.addEventListener("click", function(){
-      var cible = document.getElementById(a.getAttribute("href").slice(1));
-      if (cible && cible.tagName === "DETAILS") { cible.open = true; }
+    b.addEventListener('click', function(){
+      boutons.forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      document.querySelectorAll('[data-vue]').forEach(function(v){ v.hidden = v.getAttribute('data-vue') !== b.getAttribute('data-cible'); });
+      window.scrollTo({top: 0, behavior: 'smooth'});
     });
   });
 })();
 </script>
-</body></html>
-"""
+</body></html>"""
 
 LIBELLES = {
     "aptitudes": "Aptitudes à la distance",
@@ -647,21 +403,6 @@ def _statistiques_chevaux(course, lignes):
             "<tbody>%s</tbody></table>" % "".join(lignes_html))
 
 
-def _libelle_pronostic(course, avec_cotes, fige_le):
-    """« Pronostic du soir » s'il a été figé la veille ; sinon l'heure réelle du figement (heure de Paris)."""
-    if avec_cotes:
-        return "Pronostic final, figé une heure avant le départ"
-    if not fige_le:
-        return "Pronostic du soir, sans les cotes"
-    import datetime as dt
-    from zoneinfo import ZoneInfo
-    paris = dt.datetime.fromisoformat(fige_le).replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Paris"))
-    jour_course = (course.get("reunion") or {}).get("date_reunion") or ""
-    if paris.date().isoformat() < jour_course:
-        return "Pronostic du soir, sans les cotes"
-    return "Pronostic figé le jour même à %s, sans les cotes" % paris.strftime("%H h %M")
-
-
 def _entete_html(course, avec_cotes=False, fige_le=None):
     """En-tête du quinté : date, réunion, heure de départ, distance, discipline, partants."""
     import datetime as dt
@@ -783,11 +524,16 @@ def _arrivee_page(course):
 
 
 def _journal_du_jour(date):
-    """Pronostic figé avant la course (journal), ou None s'il n'existe pas."""
+    """Pronostic figé avant la course (journal), ou None s'il n'existe pas. Quand un pronostic final de l'ancienne
+    méthode existe, c'est le pronostic du soir qui est repris : celui qui est affiché sur la page."""
     chemin = os.path.join(JOURNAL_DIR, "%s.json" % date)
     if not os.path.exists(chemin):
         return None
-    return json.load(open(chemin, encoding="utf-8"))
+    d = json.load(open(chemin, encoding="utf-8"))
+    soir = d.get("pronostic_soir")
+    if soir:
+        d = dict(d, **soir)
+    return d
 
 
 def _lignes_rapports(chemin_page, arrivee):
@@ -1010,6 +756,8 @@ def _bloc_officiel(course, lignes, date, arrivee, chemin_page):
         for i, n in enumerate(arrivee[:5]))
 
     j = _journal_du_jour(date)
+    for c in (j or {}).get("chevaux", []):  # un non-partant n'est plus dans la course : son nom vient du pronostic
+        noms.setdefault(c["numero"], c["nom"])
     comparaison = ""
     if j is not None:
         pred = j["ordre_predit"]
@@ -1029,9 +777,7 @@ def _bloc_officiel(course, lignes, date, arrivee, chemin_page):
         "<h2>Arrivée</h2><div class='arr-grand'>%s</div>"
         "<h2 style='margin-top:18px'>Notre choix contre l'arrivée</h2>%s"
         "<h2 style='margin-top:18px'>Réaction du modèle</h2>%s"
-        "<h2 style='margin-top:18px'>Rapports essentiels (mise de base 2 €)</h2>"
-        "<div class='wrap'><table class='res-tab'><thead><tr><th>Pari</th><th>Mode</th><th class='n'>Combinaison</th><th class='n'>Rapport</th></tr></thead>"
-        "<tbody>%s</tbody></table></div></section>") % (grand, comparaison, reaction, rapports)
+        "</section>") % (grand, comparaison, reaction)
     return bloc, publie
 
 
@@ -1094,24 +840,6 @@ def fusionner_resultat(page_figee, page_live):
     return page_live[:j_l] + queue
 
 
-def _suivi_reel_html():
-    """Suivi réel : perte moyenne du vainqueur sur les courses déjà arrivées, par méthode."""
-    import suivi
-    lignes, moyennes = suivi.comparaison_reelle()
-    if not lignes:
-        return "Suivi réel : aucune course arrivée n'est encore enregistrée."
-
-    def f(v):
-        return ("%.2f" % v).replace(".", ",") if v is not None else "—"
-
-    n = len(lignes)
-    m, mc, mm, mh = moyennes["modele"], moyennes["cotes"], moyennes["melange"], moyennes["hasard"]
-    return ("Suivi réel sur %d course%s arrivée%s, perte moyenne du vainqueur : modèle %s (%d), "
-            "cotes seules %s (%d), mélange %s (%d), hasard %s. Plus c'est bas, mieux c'est." % (
-                n, "" if n == 1 else "s", "" if n == 1 else "s",
-                f(m[0]), m[1], f(mc[0]), mc[1], f(mm[0]), mm[1], f(mh[0])))
-
-
 _JS_RECHERCHE = r"""(function(){
   var courses = JSON.parse(document.getElementById('journee-donnees').textContent).courses;
   var selR = document.getElementById('rech-reunion');
@@ -1136,14 +864,10 @@ _JS_RECHERCHE = r"""(function(){
     });
     afficher();
   }
-  function cote(v){ return String(Math.round(v * 10) / 10).replace('.', ','); }
   function libellePronostic(x){
-    if (!x.final) { return 'Notre analyse, figée le soir, sans les cotes.'; }
+    if (!x.final) { return 'Pronostic du soir.'; }
     var heure = x.final.fige_le.slice(11, 13) + ' h ' + x.final.fige_le.slice(14, 16);
-    var part = Math.round(100 * x.final.part_cotes);
-    if (part <= 0) { return 'Notre analyse, figée à ' + heure + ', sans les cotes.'; }
-    if (part >= 100) { return 'Avec les cotes seules (trot), figé à ' + heure + '.'; }
-    return 'Avec les cotes : ' + part + ' % de marché, ' + (100 - part) + ' % de modèle, figé à ' + heure + '.';
+    return 'Pronostic figé à ' + heure + '.';
   }
   function sansPronostic(x){
     var avant = x.statut === 'before';
@@ -1152,30 +876,6 @@ _JS_RECHERCHE = r"""(function(){
       ? "Aucun cheval n'a encore couru. Sans musique ni notes Equidia, le modèle ne peut pas les départager : la page n'affiche donc ni ordre, ni pourcentages."
       : "Aucun cheval n'avait de musique ni de note Equidia : le modèle ne pouvait pas les départager, la page n'a donc affiché ni ordre ni pourcentages."));
     if (x.conditions) { out.appendChild(paragraphe('note', 'Conditions : ' + x.conditions)); }
-    var heure = x.cotes_releve ? x.cotes_releve.slice(11, 13) + ' h ' + x.cotes_releve.slice(14, 16) : '';
-    out.appendChild(paragraphe('rech-soustitre', avant
-      ? 'Cotes' + (heure ? ' à ' + heure : '') + ", à titre d'information"
-      : "Dernières cotes avant le départ, à titre d'information"));
-    out.appendChild(paragraphe('note', "Elles viennent du marché, pas du modèle. Liste dans l'ordre des numéros."));
-    if (x.cotes && x.cotes.length) {
-      var liste = document.createElement('ul');
-      liste.className = 'rech-cotes';
-      x.cotes.forEach(function(h){
-        var li = document.createElement('li');
-        var nom = document.createElement('span');
-        nom.textContent = 'n°' + h.numero + ' ' + h.nom;
-        var valeur = document.createElement('b');
-        valeur.textContent = cote(h.cote);
-        li.appendChild(nom);
-        li.appendChild(valeur);
-        liste.appendChild(li);
-      });
-      out.appendChild(liste);
-      var favori = x.cotes.reduce(function(a, b){ return b.cote < a.cote ? b : a; });
-      out.appendChild(paragraphe('rech-favori', 'Favori des cotes : n°' + favori.numero + ' ' + favori.nom + ', à ' + cote(favori.cote) + '.'));
-    } else {
-      out.appendChild(paragraphe('note', 'Cotes non encore publiées.'));
-    }
   }
   function afficher(){
     vider(out);
@@ -1260,82 +960,6 @@ def _heure_paris(fige_le):
     return t.strftime("%H h %M")
 
 
-def _cote_fr(x):
-    return ("%g" % x).replace(".", ",") if x else "—"
-
-
-def _resume_final_html(v):
-    """Le pronostic final, avec les cotes : les cinq premiers, avec la part de chacun."""
-    if not v:
-        return ""
-    maxi = max(v["melange"].values()) or 1
-    lignes = ""
-    for i, k in enumerate(v["ordre_final"][:5], start=1):
-        lignes += ("<li><span class='rang'>%d</span><span class='nom'><b>n°%s</b> %s<small>cote %s</small></span>"
-                   "<span class='mesure'><span class='barre'><span style='width:%.0f%%'></span></span><b>%s</b></span></li>") % (
-            i, k, html.escape(v["noms"].get(k, "")), _cote_fr(v["cotes"].get(k)),
-            100 * v["melange"][k] / maxi, pct(v["melange"][k]))
-    return ("<section class='card'><span class='badge'>Référence</span><h2>Pronostic final</h2>"
-            "<p class='sous'>Notre analyse, sans les cotes. Figée à %s.</p>"
-            "<ol class='final-liste'>%s</ol></section>") % (_heure_paris(v["fige_le"]), lignes)
-
-
-def _modele_seul_html(m):
-    """Le pronostic du matin, sans cotes, gardé à côté du pronostic final pour comparer."""
-    if not m:
-        return ""
-    lignes = "".join(
-        "<li><span class='rang'>%d</span><span class='nom'><b>n°%s</b> %s</span><span class='note'>%d/100</span></li>" % (
-            i, numero, html.escape(m["noms"].get(numero, "")), round(100 * m["notes"].get(numero, 0)))
-        for i, numero in enumerate(m["ordre"], start=1))
-    return ("<section class='card'><span class='badge gris'>Avis indépendant</span><h2>Modèle seul</h2>"
-            "<p class='sous'>Sans cotes, figé à %s. Gardé pour comparer.</p>"
-            "<ol class='modele-liste'>%s</ol></section>") % (_heure_paris(m["fige_le"]), lignes)
-
-
-def _pourquoi_html(v):
-    """Les trois chevaux dont le rang change le plus entre le modèle seul et le pronostic final."""
-    if not v or not v.get("rang_soir"):
-        return ""
-    communs = [k for k in v["ordre_final"] if k in v["rang_soir"]]
-    if not communs:
-        return ""
-    choisis = sorted(communs, key=lambda k: -abs(v["rang_soir"][k] - v["rang_final"][k]))[:3]
-    items = ""
-    for k in choisis:
-        rs, rf, rm = v["rang_soir"][k], v["rang_final"][k], v["rang_marche"][k]
-        suite = "Le marché le soutient." if rf < rs else "Le marché le juge moins probable."
-        items += ("<li><b>n°%s %s</b> : %s pour le modèle, %s au final. Le marché le classe %s (cote %s). %s</li>") % (
-            k, html.escape(v["noms"].get(k, "")), _ordinal(rs), _ordinal(rf), _ordinal(rm),
-            _cote_fr(v["cotes"].get(k)), suite)
-    return ("<section class='card'><h2>Pourquoi les deux diffèrent</h2>"
-            "<ul class='ecarts'>%s</ul>"
-            "</section>") % items
-
-
-def _vigilance_html(v):
-    """Zones de vigilance du pronostic final : chevaux où le modèle et le marché sont à deux fois d'écart."""
-    if not v:
-        return ""
-
-    def liste(numeros):
-        if not numeros:
-            return "<p class='note'>Aucun cheval dans cette zone.</p>"
-        items = ""
-        for k in numeros:
-            items += "<li><b>n°%s %s</b> : modèle %s, marché %s (cote %s)</li>" % (
-                k, html.escape(v["noms"].get(k, "")), pct(v["pm"][k]), pct(v["pk"][k]), _cote_fr(v["cotes"].get(k)))
-        return "<ul class='ecarts'>%s</ul>" % items
-
-    return ("<section class='card'><h2>Zones de vigilance</h2>"
-            "<p class='sous'>Chevaux où notre modèle et le marché sont à deux fois d'écart au moins, et qui ont au moins 6\u00a0%% de chances dans l'un des deux avis. Le marché sait peut-être quelque chose que nous ignorons.</p>"
-            "<div class='vigilance-groupe'><span class='badge alerte'>Méfiance</span>"
-            "<p class='note'>Le modèle y croit au moins deux fois plus que le marché.</p>%s</div>"
-            "<div class='vigilance-groupe'><span class='badge gris'>À surveiller</span>"
-            "<p class='note'>Le marché y croit au moins deux fois plus que le modèle.</p>%s</div>"
-            "<p class='note'>Repère simple, pas encore validé sur nos courses. Ces écarts sont donnés à titre d'information : ils ne modifient pas notre pronostic.</p></section>") % (liste(v["mefiance"]), liste(v["surveiller"]))
-
-
 FOND_TETE = ("<script>(function(){var t='light';try{if(localStorage.getItem('quinte-fond')==='dark'){t='dark';}}"
              "catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>")
 FOND_CSS = (".fond-ligne{display:flex;justify-content:flex-end;margin:0 0 10px}\n"
@@ -1407,7 +1031,7 @@ def _avis_html(a):
             "<ul><li><b>Notre top 5 :</b> %s.</li>"
             "<li><b>Écartés par la presse, dernière course forte :</b> %s.</li>"
             "<li><b>Retenus par la presse, dernière course hors des 4 premières :</b> %s.</li></ul>"
-            "<p><b>Notre choix :</b> boîte de %d : %s, soit %d combinaisons. La mise dépend des cotes.</p>"
+            "<p><b>Notre choix :</b> boîte de %d : %s, soit %d combinaisons.</p>"
             "<div class='wrap'><table><thead><tr><th class='num'>Rang</th><th class='num'>N°</th><th>Cheval</th>"
             "<th class='num'>Top 5</th><th>Presse</th><th class='num'>Dernière</th><th>Verdict</th></tr></thead>"
             "<tbody>%s</tbody></table></div></div>"
@@ -1415,111 +1039,248 @@ def _avis_html(a):
                  comb(len(a["box"]), 5), "".join(lignes))
 
 
-def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None, avis=None):
-    course = ae.charger_etat(chemin_page)
-    lignes = ae.analyser(course)
-    cotes = ae.cotes_de(course) if avec_cotes else None
-    avec = bool(cotes)
-    if avec:
-        lignes = ae.melanger_cotes(lignes, cotes)
-    ordres = ae.simuler(lignes)
-    prob = ae.probabilites(ordres, lignes)
-    jeux = ae.jeux(ordres, lignes)
-    combis = ae.combinaisons_en_box(ordres, lignes)
-    reco = ae.recommandation_par_type(combis)
-    ordre = [l["numero"] for l in lignes[:5]]
-    favori = lignes[0]
-    par_numero = {p["num_partant"]: p for p in course["partants"]}
+def _critere_cheval(l, p, discipline=""):
+    """Critères d'un cheval, commentaires Equidia et faits de la fiche, dans un bloc replié."""
+    notes = p.get("interne_note_partant") or {}
+    items = []
+    for cle, libelle in LIBELLES.items():
+        v = l["composantes"].get(cle)
+        if v is None:
+            continue
+        commentaire = notes.get(COMMENTAIRES.get(cle, ""), "") or ""
+        texte = "<b>%s</b> : %.0f/100" % (libelle, 100 * v)
+        if commentaire:
+            texte += " — %s" % html.escape(commentaire)
+        items.append("<li>%s</li>" % texte)
+    for fait in _faits_partant(p, discipline):
+        items.append("<li>%s</li>" % html.escape(fait))
+    return ("<details><summary>Critères et commentaires</summary>"
+            "<p class='note'>Musique : %s</p><ul>%s</ul></details>") % (
+                html.escape(l.get("musique") or ""), "".join(items))
 
-    titre = "Quinté : %s R%sC%s — %s" % (
-        course["reunion"]["hippodrome"]["name"], course["reunion"]["num_reunion"],
-        course["num_course_pmu"], course.get("libcourt_prix_course") or "")
-    date = course["reunion"]["date_reunion"]
-    meta = "%s · %s m · %s partants" % (course.get("discipline"), course["distance"], len(lignes))
-    chips = "".join("<span class='chip'>%s</span>" % html.escape(c) for c in [
-        date, course["reunion"]["hippodrome"]["name"], course.get("discipline"),
-        "%s m" % course["distance"], "%d partants" % len(lignes)] if c)
 
-    ordre_html = "".join(_pastille(n, i + 1) for i, n in enumerate(ordre))
-
-    lignes_html = []
-    for i, l in enumerate(lignes, 1):
-        n = l["numero"]
-        classe = "favori" if i == 1 else ("top2" if i <= 3 else "")
-        barre = "<div class='barre'><span style='width:%.1f%%'></span></div>" % (100 * prob["top3"][n])
-        lignes_html.append(
-            "<tr class='%s'><td>%d</td><td class='num'>%s</td><td>%s</td><td>%s</td>"
-            "<td class='num'>%.3f</td><td>%s %s</td><td>%s</td><td class='num'>%s</td></tr>"
-            % (classe, i, n, html.escape(l["nom"]), html.escape(l["driver"] or ""), l["score"],
-               barre, pct(prob["victoire"][n]), pct(prob["top3"][n]), pct(prob["top5"][n])))
-
-    analyses_html = "".join(_analyse_cheval(l, par_numero[l["numero"]], course.get("discipline")) for l in lignes)
-    jeux_html = "".join("<tr><td>%s</td><td class='num'>%s</td></tr>" % (html.escape(k), pct(v))
-                        for k, v in sorted(jeux.items(), key=lambda kv: -kv[1]))
-
-    blocs_combis = []
+def _boites_html(combis, reco):
+    """Tableaux des boîtes de tiercé, quarté et quinté. La boîte recommandée est mise en évidence."""
+    rangs = {"Tiercé": 3, "Quarté": 4, "Quinté": 5}
+    blocs = []
     for type_pari, liste in combis.items():
         reco_box = reco[type_pari]["box"] if type_pari in reco else None
-        lignes_pari = []
+        lignes = []
         for b in liste:
-            est_reco = b["box"] == reco_box
-            numeros = "".join("<span class='num-box'>%d</span>" % x for x in b["chevaux"])
-            libelle = ("<span class='tag box'>Recommandé</span>" if est_reco else "")
-            lignes_pari.append(
-                "<tr class='%s'><td class='num'>%d</td><td><div class='numeros'>%s</div></td>"
-                "<td class='num'>%d</td><td class='num'>%s</td><td class='num opt'>%.3f %%</td><td>%s</td></tr>" % (
-                    "reco" if est_reco else "", b["box"], numeros, b["combinaisons"],
-                    pct(b["probabilite"]), 100 * b["par_combinaison"], libelle))
-        rangs = {"Tiercé": 3, "Quarté": 4, "Quinté": 5}[type_pari]
-        blocs_combis.append(
-            "<div class='bloc-pari'><h3>%s · les %d premiers, dans un box</h3>"
-            "<div class='wrap'><table><thead><tr><th class='num'>Box</th><th>Numéros</th>"
-            "<th class='num'>Comb.</th><th class='num'>Chances</th>"
-            "<th class='num opt'>Par combinaison</th><th></th></tr></thead>"
-            "<tbody>%s</tbody></table></div></div>" % (type_pari, rangs, "".join(lignes_pari)))
-    combis_html = blocs_combis
-    recommandations = "".join(_recommandation_html(t, b) for t, b in reco.items())
-    nom_jeu, phrase_jeu = _jeu_conseille(jeux)
+            est = b["box"] == reco_box
+            numeros = " ".join("<span class='num-box'>%s</span>" % x for x in b["chevaux"])
+            lignes.append(
+                "<tr class='%s'><td class='num'>%d</td><td>%s</td><td class='num'>%d</td>"
+                "<td class='num'>%s</td><td class='num phone-hide'>%.3f %%</td></tr>" % (
+                    "reco" if est else "", b["box"], numeros, b["combinaisons"], pct(b["probabilite"]),
+                    100 * b["par_combinaison"]))
+        blocs.append(
+            "<h3>%s : les %d premiers, dans une boîte</h3><div class='wrap'><table>"
+            "<thead><tr><th class='num'>Boîte</th><th>Chevaux</th><th class='num'>Comb.</th>"
+            "<th class='num'>Chances</th><th class='num phone-hide'>Par comb.</th></tr></thead>"
+            "<tbody>%s</tbody></table></div>" % (type_pari, rangs.get(type_pari, 0), "".join(lignes)))
+    return "".join(blocs)
+
+
+def _jeux_simples_html(jeux):
+    """Les huit jeux simples les plus probables (simples, couplés, trios), du plus probable au moins probable."""
+    lignes = "".join("<li><span>%s</span><b>%s</b></li>" % (html.escape(k), pct(v))
+                     for k, v in sorted(jeux.items(), key=lambda kv: -kv[1])[:8])
+    return "<ul class='jeux'>%s</ul>" % lignes
+
+
+def _methode_html():
+    """Explication du modèle, avec ses poids et sa sensibilité, telle qu'elle est en production."""
+    poids = "".join("<li><b>%s</b> : %s %%</li>" % (
+        html.escape(LIBELLES.get(k, k)), ("%g" % (100 * v)).replace(".", ",")) for k, v in ae.POIDS.items())
+    return ("<p>Le modèle note chaque cheval de 0 à 100, à partir de sept critères. Voici leur poids :</p>"
+            "<ul>%s</ul>"
+            "<ol class='etapes'>"
+            "<li>La note est une moyenne pondérée. Une donnée absente compte pour la moyenne neutre (0,5).</li>"
+            "<li>Simulation de 200 000 arrivées : à chaque tirage, le cheval le mieux noté a le plus de chances de "
+            "passer en premier, les autres suivent selon leur note (sensibilité %s).</li>"
+            "<li>Chances : part des simulations où chaque cheval gagne, finit dans les trois premiers ou dans les "
+            "cinq premiers.</li>"
+            "<li>Le pronostic est celui du soir, figé vers 23 h, et il ne change plus. Un non-partant déclaré après ce "
+            "figement reste signalé dans la liste.</li>"
+            "</ol>"
+            "<p class='note'><b>Validation</b> : les réglages (poids de la musique, sensibilité) ont été choisis sur "
+            "48 courses terminées d'octobre–novembre 2026. Le résultat est donc optimiste : le suivi des courses "
+            "suivantes, ci-dessous, donne la mesure indépendante.</p>"
+            "<p class='note'><b>Ce qui n'est pas pris en compte</b> : la taille du peloton, le déferrage, le changement "
+            "de driver, l'avis de l'entraîneur et le classement ELO de Turfin, faute de les avoir validés.</p>"
+            "<p class='note'>%s</p>") % (
+                "".join(poids), ("%g" % ae.SENSIBILITE), _suivi_reel_html())
+
+
+def _resume_final_html(final):
+    """Historique : le pronostic final figé une heure avant le départ, selon l'ancienne méthode. None si absent."""
+    if not final:
+        return ""
+    items = "".join("<li><span class='rang'>%d</span><span class='nom'>n°%s %s</span></li>" % (
+        i, k, html.escape(final["noms"].get(k, ""))) for i, k in enumerate(final["ordre"][:5], start=1))
+    return ("<section class='card'><div class='label'>Pronostic final · ancienne méthode</div>"
+            "<h2>Figé à %s</h2>"
+            "<p class='note'>Ce pronostic a été figé une heure avant le départ, selon l'ancienne méthode. Il reste "
+            "affiché pour l'historique.</p><ul class='liste-simple'>%s</ul></section>") % (
+                _heure_paris(final["fige_le"]), items)
+
+
+def _suivi_reel_html():
+    """Suivi réel : perte moyenne du vainqueur du modèle et du hasard, sur les courses déjà arrivées."""
+    import suivi
+    lignes, moyennes = suivi.comparaison_reelle()
+    if not lignes:
+        return "Suivi réel : aucune course arrivée n'est encore enregistrée."
+
+    def f(v):
+        return ("%.2f" % v).replace(".", ",") if v is not None else "—"
+
+    n = len(lignes)
+    return ("Suivi réel sur %d course%s arrivée%s, perte moyenne du vainqueur : modèle %s, hasard %s. "
+            "Plus c'est bas, mieux c'est." % (n, "" if n == 1 else "s", "" if n == 1 else "s",
+                                             f(moyennes["modele"][0]), f(moyennes["hasard"][0])))
+
+
+def _libelle_pronostic(course, avec_cotes=False, fige_le=None):
+    """Statut du pronostic affiché : le pronostic du soir, ou l'heure de son figement le jour même (heure de Paris)."""
+    if not fige_le:
+        return "Pronostic du soir"
+    import datetime as dt
+    from zoneinfo import ZoneInfo
+    paris = dt.datetime.fromisoformat(fige_le).replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Paris"))
+    jour_course = (course.get("reunion") or {}).get("date_reunion") or ""
+    if paris.date().isoformat() < jour_course:
+        return "Pronostic du soir"
+    return "Pronostic figé le jour même à %s" % paris.strftime("%H h %M")
+
+
+def generer(chemin_page, avec_cotes=False, journee=None, fige_le=None, vigilance=None, modele=None, avis=None,
+            soir=None, final=None):
+    """Page du quinté. Le pronostic affiché est celui du soir, figé : sans journal, il est calculé à partir de la page
+    de la course. Les cotes n'entrent plus dans la page : avec_cotes, vigilance et modele sont acceptés pour
+    compatibilité et ignorés. final : pronostic final historique (ancienne méthode), s'il existe."""
+    course = ae.charger_etat(chemin_page)
+    lignes_live = ae.analyser(course)
+    ordres = ae.simuler(lignes_live)
+    prob_live = ae.probabilites(ordres, lignes_live)
+    combis_live = ae.combinaisons_en_box(ordres, lignes_live)
+    par_numero = {p["num_partant"]: p for p in course["partants"]}
+    par_live = {l["numero"]: l for l in lignes_live}
+    if soir and soir.get("chevaux"):
+        figes = {c["numero"]: c for c in soir["chevaux"]}
+        classement = sorted(figes, key=lambda n: (-figes[n]["score"], n))
+        noms = {n: figes[n]["nom"] for n in figes}
+        prob = {"victoire": {n: figes[n]["p_victoire"] for n in figes},
+                "top3": {n: figes[n]["p_top3"] for n in figes},
+                "top5": {n: figes[n]["p_top5"] for n in figes}}
+        combis = soir.get("combinaisons") or combis_live
+        ordre = list(soir.get("ordre_predit") or classement[:5])
+    else:
+        classement = [l["numero"] for l in lignes_live]
+        noms = {l["numero"]: l["nom"] for l in lignes_live}
+        prob, combis = prob_live, combis_live
+        ordre = classement[:5]
+    lignes = [par_live[n] for n in classement if n in par_live]
+    jeux = ae.jeux(ordres, lignes) if len(lignes) >= 2 else {}
+    reco = ae.recommandation_par_type(combis)
+    np_set = {n for n, p in par_numero.items() if p.get("statut_part") == "NP"}
+    favori = classement[0]
+
+    reunion = course.get("reunion") or {}
+    hippo = (reunion.get("hippodrome") or {}).get("name") or ""
+    libelle = course.get("libcourt_prix_course") or ""
+    num_reunion = reunion.get("num_reunion")
+    num_course = course.get("num_course_pmu")
+    date_iso = reunion.get("date_reunion") or ""
+    partants = sum(1 for p in course["partants"] if p.get("statut_part") != "NP")
+    puces = [_date_fr(date_iso),
+             ("Départ %s" % course["heure_depart_course"]) if course.get("heure_depart_course") else "",
+             ("%s m" % course["distance"]) if course.get("distance") else "",
+             course.get("discipline") or "",
+             "%d partants" % partants,
+             (course.get("lib_corde_course") or "").replace("Corde ", "corde ")]
+    puces_html = "".join("<span>%s</span>" % html.escape(c) for c in puces if c)
+
+    chevaux_html = []
+    for i, n in enumerate(classement, start=1):
+        p = par_numero.get(n, {})
+        l = par_live.get(n)
+        driver = (l or {}).get("driver") or (p.get("monte") or {}).get("nom_monte") or ""
+        entraineur = (l or {}).get("entraineur") or (p.get("entraineur") or {}).get("nom_entraineur") or ""
+        np_tag = " <span class='tag np'>non-partant</span>" if n in np_set else ""
+        detail = _critere_cheval(l, p, course.get("discipline")) if (l and n not in np_set) else ""
+        chevaux_html.append(
+            "<li class='cheval'><div class='cheval-tete'><span class='rang'>%d</span><div>"
+            "<div class='nom'>n°%s %s%s</div><div class='sous'>%s · %s</div></div></div>"
+            "<div class='mesures'><div><b>%s</b><small>gagner</small></div>"
+            "<div><b>%s</b><small>top 3</small></div><div><b>%s</b><small>top 5</small></div></div>"
+            "<div class='barre'><span style='width:%.1f%%'></span></div>%s</li>" % (
+                i, n, html.escape(noms.get(n, "")), np_tag, html.escape(driver or "—"),
+                html.escape(entraineur or "—"),
+                pct(prob["victoire"].get(n, 0)), pct(prob["top3"].get(n, 0)), pct(prob["top5"].get(n, 0)),
+                100 * prob["top3"].get(n, 0), detail))
+
+    top5 = "".join("<div><b>%d</b><small>%s%s</small></div>" % (
+        n, html.escape(noms.get(n, "")), " (non-partant)" if n in np_set else "") for n in ordre[:5])
+    fav_txt = ("Le favori du modèle est <b>n°%s %s</b> : %s de chances de gagner, %s dans les trois premiers." % (
+        favori, html.escape(noms.get(favori, "")), pct(prob["victoire"].get(favori, 0)),
+        pct(prob["top3"].get(favori, 0))))
+    q = reco.get("Quinté")
+    boite = ""
+    if q:
+        boite = ("<div class='boite'><div class='label'>Quinté désordre · boîte conseillée</div>"
+                 "<div class='numeros'>%s</div><p class='note'>%d combinaison%s · chances estimées : %s</p></div>") % (
+            " · ".join(str(x) for x in q["chevaux"]), q["combinaisons"], "" if q["combinaisons"] == 1 else "s",
+            pct(q["probabilite"]))
+    recos = "".join(_recommandation_html(t, b) for t, b in reco.items())
+
+    pronostic = (
+        "<section class='card'><div class='label'>Notre choix</div><h2>Les cinq premiers</h2>"
+        "<div class='top5'>%s</div><p class='note'>%s</p>%s</section>"
+        "%s"
+        "<section class='card'><div class='label'>Les chevaux</div><h2>Classement du modèle</h2>"
+        "<p class='note'>Touchez un cheval pour voir ses critères et les commentaires Equidia.</p>"
+        "<ol class='chevaux'>%s</ol></section>"
+        "<section class='card'><div class='label'>Jeux</div><h2>Tiercé, quarté, quinté</h2>"
+        "<p class='note'>Recommandé : la taille de boîte la plus probable, dans une limite de %d combinaisons par pari.</p>"
+        "<div class='rec'>%s</div><details><summary>Toutes les boîtes</summary>%s</details></section>"
+        "<section class='card'><div class='label'>Jeux simples</div><h2>Couplés, simples et trios</h2>%s</section>"
+        "<section class='card'><div class='label'>Distinction</div><h2>Le gagnant et le top 5</h2>%s</section>"
+        "<details class='card'><summary>Profil de la course et difficultés</summary>%s</details>"
+        "%s"
+        "<details class='card'><summary>Méthode et suivi</summary>%s</details>"
+        "<details class='card'><summary>Statistiques Equidia</summary>%s</details>"
+    ) % (top5, fav_txt, boite, _resume_final_html(final), "".join(chevaux_html),
+         ae.BUDGET_COMBINAISONS, recos, _boites_html(combis, reco), _jeux_simples_html(jeux),
+         _distinction(lignes, prob), _profil_course(course, lignes, par_numero),
+         ("<details class='card'><summary>Avis combiné : presse et notre modèle</summary>%s</details>" % _avis_html(avis))
+         if avis else "",
+         _methode_html(), _statistiques_chevaux(course, lignes))
+
+    onglets = ("<button type='button' role='tab' data-cible='pronostic' aria-selected='true'>Pronostic</button>"
+               "<button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat</button>")
+    if journee:
+        onglets += "<button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button>"
 
     valeurs = {
-        "titre": html.escape(titre),
-        "titre_page": html.escape("Quinté %s R%sC%s" % (
-            course["reunion"]["hippodrome"]["name"].title(), course["reunion"]["num_reunion"], course["num_course_pmu"])),
-        "date": html.escape(date),
-        "meta": html.escape(meta),
-        "chips": chips,
-        "ordre": ordre_html,
-        "fav_num": favori["numero"],
-        "fav_nom": html.escape(favori["nom"]),
-        "fav_win": pct(prob["victoire"][favori["numero"]]),
-        "fav_top3": pct(prob["top3"][favori["numero"]]),
-        "jeu_type": html.escape(nom_jeu),
-        "jeu_sel": html.escape(phrase_jeu),
-        "recommandations": recommandations,
-        "budget": ae.BUDGET_COMBINAISONS,
-        "profil": _profil_course(course, lignes, par_numero),
-        "distinction": _distinction(lignes, prob),
-        "statistiques": _statistiques_chevaux(course, lignes),
-        "ll_notes": "2,34", "ll_hasard": "2,63", "ll_corde": "—", "ll_poids": "—",
-        "suivi_reel": _suivi_reel_html(),
-        "partie_recherche": ("<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>") if journee else "",
-        "combinaisons": "".join(combis_html),
-        "lignes": "".join(lignes_html),
-        "entete": _entete_html(course, avec, fige_le),
+        "titre_page": html.escape("Quinté %s R%sC%s" % (hippo.title(), num_reunion, num_course)),
+        "libelle_jour": html.escape("Quinté+ du jour · R%s C%s" % (num_reunion, num_course)),
+        "titre_h1": html.escape(("%s · %s" % (hippo, libelle)).strip(" ·")),
+        "puces": puces_html,
+        "statut": html.escape(_libelle_pronostic(course, False, fige_le)),
+        "onglets": onglets,
+        "pronostic": pronostic,
+        "resultat": _partie_resultat(course, lignes, date_iso, chemin_page),
+        "recherche": ("<div class='vue' data-vue='recherche' hidden>" + _recherche_html(journee) + "</div>")
+                     if journee else "",
         "fond": _bouton_fond_html(),
         "fond_tete": FOND_TETE,
-        "fond_css": FOND_CSS,
-        "blocs_final": _avis_html(avis) + _resume_final_html(vigilance) + _modele_seul_html(modele) + _pourquoi_html(vigilance) + _vigilance_html(vigilance),
-        "partie_resultat": "<div class='vue' data-vue='resultat' hidden>" + _partie_resultat(course, lignes, date, chemin_page) + "</div>",
-        "onglets": "<div class='onglets' role='tablist'><button type='button' role='tab' data-cible='analyse' aria-selected='true'>Analyse</button><button type='button' role='tab' data-cible='resultat' aria-selected='false'>Résultat et rapports</button>"
-                    + ("<button type='button' role='tab' data-cible='recherche' aria-selected='false'>Recherche</button>" if journee else "") + "</div>",
-        "analyses": analyses_html,
-        "jeux": jeux_html,
     }
     page = GABARIT
     for cle, valeur in valeurs.items():
         page = page.replace("@@%s@@" % cle, str(valeur))
-    return _ajouter_navigation(page)
+    return page
 
 
 if __name__ == "__main__":

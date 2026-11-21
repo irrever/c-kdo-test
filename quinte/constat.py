@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """Constat réel sur les courses terminées du registre, et bilan de chaque journée.
 
-Sur les mêmes courses, compare le hasard, le modèle (sensibilité 8, puis 4), le favori des cotes, le mélange à 70 % de
-cotes, le réglage du 9 novembre (90 % de cotes, trot aux cotes seules) et notre analyse (sensibilité 4, sans cotes),
-qui est le pronostic en production depuis le 9 novembre au soir.
+Sur les mêmes courses, compare le hasard, le modèle (sensibilité 8) et notre analyse (sensibilité 4), qui est le pronostic en production. Les cotes ne servent plus à rien ici.
 Mesures : perte du vainqueur (plus bas = mieux), taux de top 1 et de top 3, et l'argent : rapport officiel du simple
 gagnant et du simple placé sur le pronostic n°1, pour 1 € par course. Les intervalles à 95 % viennent d'un
 rééchantillonnage des courses.
 
 Usage : python3 quinte/constat.py                    constat global (écrit quinte/journal/constat.md)
         python3 quinte/constat.py --jour AAAA-MM-JJ  bilan d'une journée (écrit quinte/journal/bilan-AAAA-MM-JJ.md)
-        ... --rattraper                              relit d'abord les rapports, cotes et statuts des courses terminées
+        ... --rattraper                              relit d'abord les rapports et statuts des courses terminées
 """
 import json
 import math
@@ -31,19 +29,14 @@ FAMILLES = ("plat", "obstacle", "trot", "autre")
 LIBELLES = {
     "hasard": "Hasard",
     "modele": "Modèle (sensibilité 8)",
-    "favori": "Favori des cotes",
-    "melange": "Mélange à 70 % de cotes",
-    "propose": "Réglage du 9 novembre (sensibilité 4, 90 % cotes, trot aux cotes seules)",
-    "analyse": "Notre analyse (sensibilité 4, sans cotes)",
+    "analyse": "Notre analyse (sensibilité 4)",
 }
 COMPARAISONS = [
-    ("Perte du vainqueur : notre analyse − favori des cotes", "analyse", "favori", 0, "perte"),
-    ("Perte du vainqueur : réglage du 9 novembre − modèle", "propose", "modele", 0, "perte"),
-    ("Perte du vainqueur : favori des cotes − modèle", "favori", "modele", 0, "perte"),
-    ("Top 1 : notre analyse − favori des cotes", "analyse", "favori", 1, "pts"),
-    ("Gagnant pour 1 € : notre analyse − favori des cotes", "analyse", "favori", 3, "pts"),
-    ("Placé pour 1 € : notre analyse − favori des cotes", "analyse", "favori", 4, "pts"),
-    ("Placé pour 1 € : favori des cotes − modèle", "favori", "modele", 4, "pts"),
+    ("Perte du vainqueur : notre analyse − hasard", "analyse", "hasard", 0, "perte"),
+    ("Perte du vainqueur : modèle − notre analyse", "modele", "analyse", 0, "perte"),
+    ("Top 1 : notre analyse − hasard", "analyse", "hasard", 1, "pts"),
+    ("Gagnant pour 1 € : notre analyse − hasard", "analyse", "hasard", 3, "pts"),
+    ("Placé pour 1 € : notre analyse − hasard", "analyse", "hasard", 4, "pts"),
 ]
 
 
@@ -55,32 +48,6 @@ def _proba_modele(scores, K):
     return {n: v / t for n, v in w.items()}
 
 
-def _proba_cotes(cotes):
-    """Probabilité implicite de chaque cheval d'après sa cote : 1 / cote, normalisé."""
-    inverses = {n: 1.0 / c for n, c in cotes.items()}
-    t = sum(inverses.values())
-    return {n: v / t for n, v in inverses.items()}
-
-
-def _melange(c, K, poids):
-    if not c["cotes"]:
-        return None
-    pm = _proba_modele(c["scores"], K)
-    pk = _proba_cotes(c["cotes"])
-    return {n: poids * pk[n] + (1 - poids) * pm[n] for n in pm}
-
-
-def _reglage_9_nov(c):
-    """Le réglage du 9 novembre au soir : modèle à sensibilité 4, mélangé aux cotes (90 %, cotes seules au trot).
-    Les poids sont fixés ici, pour que ce constat ne change pas avec la production."""
-    if not c["cotes"]:
-        return None
-    poids = 1.0 if c["famille"] == "trot" else 0.9
-    pm = _proba_modele(c["scores"], 4.0)
-    pk = _proba_cotes(c["cotes"])
-    return {n: poids * pk[n] + (1 - poids) * pm[n] for n in pm}
-
-
 def _notre_analyse(c):
     """Notre analyse : le modèle seul, sensibilité 4, sans les cotes. C'est le pronostic en production."""
     return _proba_modele(c["scores"], 4.0)
@@ -88,16 +55,12 @@ def _notre_analyse(c):
 
 PROBABILITES = {
     "modele": lambda c: _proba_modele(c["scores"], 8.0),
-    "favori": lambda c: _proba_cotes(c["cotes"]) if c["cotes"] else None,
-    "melange": lambda c: _melange(c, 8.0, 0.7),
-    "propose": _reglage_9_nov,
     "analyse": _notre_analyse,
 }
 
 
 def charger(lignes=None):
-    """Courses terminées exploitables, avec les notes de leurs partants, leurs cotes de départ (si tous les partants en
-    ont), leur vainqueur et leurs rapports officiels. Les non-partants sont retirés ; un cheval disqualifié ou arrêté a
+    """Courses terminées exploitables, avec les notes de leurs partants, leur vainqueur et leurs rapports officiels. Les non-partants sont retirés ; un cheval disqualifié ou arrêté a
     couru et reste dans la course, sans rang. Renvoie (courses, écartées par motif)."""
     lignes = registre.lire() if lignes is None else lignes
     courses = []
@@ -119,18 +82,6 @@ def charger(lignes=None):
         if len(rp) != len(placés):
             ecartees["rapport placé incomplet"] += 1
             continue
-        cotes, sources = {}, set()
-        for p in partants:
-            if ar._nombre(p.get("cote_depart")):
-                v = ar._nombre(p["cote_depart"])
-                sources.add("reprise" if p.get("heure_cote") == "reprise" else "captée")
-            else:
-                v = ar._nombre(p.get("cote"))
-                sources.add("cote du registre")
-            if not v or v <= 0:
-                cotes = None
-                break
-            cotes[p["numero"]] = v
         courses.append({
             "cle": c["cle"], "calcule_le": c["tous"][0]["calcule_le"], "n": len(partants),
             "discipline": partants[0]["discipline"], "hippodrome": partants[0]["hippodrome"],
@@ -141,7 +92,7 @@ def charger(lignes=None):
             "scores_tous": {p["numero"]: float(p["score"]) for p in c["tous"]},
             "p_registre": {p["numero"]: ar._nombre(p.get("p_victoire")) for p in c["tous"]},
             "non_partants": set(c["non_partants"]),
-            "cotes": cotes, "sources": sources, "gagnant": gagnant["numero"], "placés": placés,
+            "gagnant": gagnant["numero"], "placés": placés,
             "rg": rg, "rp": rp,
         })
     ecartees["statut non relevé"] = len(sans_statut)
@@ -150,7 +101,7 @@ def charger(lignes=None):
 
 def evaluer(courses, cle):
     """Par course, pour une variante : (perte du vainqueur, top 1, top 3, gain du gagnant, gain du placé), gains
-    pour 1 € sur le pronostic n°1. None quand une cote manque. Le hasard donne l'espérance : chaque cheval a une
+    pour 1 € sur le pronostic n°1. Le hasard donne l'espérance : chaque cheval a une
     chance sur n d'être choisi."""
     sortie = []
     for c in courses:
@@ -221,26 +172,22 @@ def _ligne_tableau(nom, m):
 
 def rapport(courses, ecartees):
     """Texte du constat global, en Markdown."""
-    avec = [c for c in courses if c["cotes"]]
+    avec = list(courses)
     rng = random.Random(SEED)
     resultats = {k: evaluer(avec, k) for k in LIBELLES}
     toutes = evaluer(courses, "modele")
-    captees = sum(1 for c in avec if c["sources"] == {"captée"})
-    reprises = sum(1 for c in avec if c["sources"] == {"reprise"})
     ecarts = []  # contrôle sur tous les partants analysés, y compris ceux retirés avant le départ
     for c in courses:
         K = 4.0 if c["calcule_le"] >= CHANGEMENT_K else 8.0  # chaque ligne du registre porte le K de son calcul
         pm = _proba_modele(c["scores_tous"], K)
         ecarts += [abs(pm[n] - v) for n, v in c["p_registre"].items() if v is not None]
-    L = ["# Constat réel : modèle, marché et notre analyse", ""]
-    L.append("Courses terminées exploitables : %d, dont %d avec les cotes de départ de tous les partants. Écartées : %s."
-             % (len(courses), len(avec), ", ".join("%s %d" % (motif, n) for motif, n in ecartees.items())))
-    L.append("Origine des cotes : %d course(s) relevées avant le départ, %d relues après la course, %d autre(s)."
-             % (captees, reprises, len(avec) - captees - reprises))
+    L = ["# Constat réel : modèle et notre analyse", ""]
+    L.append("Courses terminées exploitables : %d. Écartées : %s."
+             % (len(courses), ", ".join("%s %d" % (motif, n) for motif, n in ecartees.items())))
     if ecarts:
         L.append("Contrôle : la probabilité du modèle reconstruite s'écarte de celle du registre de %s en moyenne "
                  "(%s au plus), à cause des simulations." % (_fr(sum(ecarts) / len(ecarts), 4), _fr(max(ecarts), 4)))
-    L += ["", "## 1. Sur les %d courses avec cotes complètes" % len(avec), "",
+    L += ["", "## 1. Sur les %d courses terminées" % len(avec), "",
           "| Variante | Perte du vainqueur | Top 1 | Top 3 | Gagnant : bénéfice pour 1 € | Placé : bénéfice pour 1 € |",
           "|---|---:|---:|---:|---:|---:|"]
     for k in LIBELLES:
@@ -254,9 +201,9 @@ def rapport(courses, ecartees):
                 continue
             d, lo, hi = intervalle(xa, xb, k, rng)
             L.append("- %s : %s [intervalle %s ; %s]" % (libelle, _ecart(d, unite), _ecart(lo, unite), _ecart(hi, unite)))
-        L += ["", "## 3. Perte du vainqueur par famille, sur les %d courses avec cotes" % len(avec), "",
-              "| Famille | Courses | Hasard | Modèle | Favori | Mélange | Réglage du 9 nov. | Notre analyse |",
-              "|---|---:|---:|---:|---:|---:|---:|---:|"]
+        L += ["", "## 3. Perte du vainqueur par famille, sur les %d courses terminées" % len(avec), "",
+              "| Famille | Courses | Hasard | Modèle | Notre analyse |",
+              "|---|---:|---:|---:|---:|"]
         for f in FAMILLES:
             sous = [i for i, c in enumerate(avec) if c["famille"] == f]
             if not sous:
@@ -267,9 +214,6 @@ def rapport(courses, ecartees):
                 cellules.append(_fr(sum(xs) / len(xs)) if xs else "—")
             L.append("| %s | %d | %s |" % (f.capitalize(), len(sous), " | ".join(cellules)))
     L += ["", "## Réserves", "",
-          "- Le réglage du 9 novembre a été choisi sur les courses déjà vues : seul un nouveau lot de courses peut le confirmer.",
-          "- Les cotes « relues après la course » sont les dernières cotes avant le départ, telles que la page Equidia les garde. "
-          "Ce ne sont pas des relevés faits pendant la journée.",
           "- Les gains sont ceux de la page Equidia une fois la course terminée : simple gagnant et simple placé, pour 1 € misé.",
           "- Notre analyse est le pronostic en production depuis le 9 novembre au soir : ses résultats sur les courses suivantes "
           "sont dans les bilans quotidiens."]
@@ -325,8 +269,8 @@ def _analyse_au_calcul(c):
 
 
 def bilan_jour(date, entrees=None, quinte=None, lignes=None):
-    """Bilan des courses terminées d'une journée : ce qui était affiché, et notre analyse (sans cotes) recalculée sur
-    les mêmes courses, comparée au favori des cotes. entrees : les courses de la journée (journee.json).
+    """Bilan des courses terminées d'une journée : ce qui était affiché, et notre analyse recalculée sur les mêmes
+    courses. entrees : les courses de la journée (journee.json).
     quinte : (r, c) du quinté du jour."""
     lignes = registre.lire() if lignes is None else lignes
     courses, ecartees = charger([x for x in lignes if x["date"] == date])
@@ -335,40 +279,34 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
         affiche[(int(e["r"]), int(e["c"]))] = [str(n) for n in (e.get("ordre") or [])]
     cq = (int(quinte[0]), int(quinte[1])) if quinte else None
     avec_affiche = [c for c in courses if affiche.get(_cle_course(c))]
-    commun = [c for c in avec_affiche if c["cotes"]]
+    commun = list(avec_affiche)
     resultats = {
         "hasard": evaluer(commun, "hasard"),
         "affiche": [_evaluer_affiche(c, affiche[_cle_course(c)]) for c in commun],
         "analyse": evaluer(commun, "analyse"),
-        "propose": evaluer(commun, "propose"),
-        "favori": evaluer(commun, "favori"),
     }
     tous = [_evaluer_affiche(c, affiche[_cle_course(c)]) for c in avec_affiche]
     autre_que_affiche = sum(1 for c in commun
                             if _ordre_de(PROBABILITES["analyse"](c))[:1]
                             != _affiche_retenu(c, affiche[_cle_course(c)])[:1])
-    autre_que_favori = sum(1 for c in commun
-                           if _ordre_de(PROBABILITES["analyse"](c))[0] != _ordre_de(PROBABILITES["favori"](c))[0])
     raisons = ", ".join("%s %d" % (motif, n) for motif, n in ecartees.items()) or "aucune"
     L = ["# Bilan des courses du %s : ce qui était affiché, et notre analyse" % date, ""]
-    L.append("Courses terminées exploitables : %d, dont %d avec un pronostic affiché et les cotes de tous les partants. "
-             "Écartées : %s." % (len(courses), len(commun), raisons))
+    L.append("Courses terminées exploitables : %d, dont %d avec un pronostic affiché. Écartées : %s."
+             % (len(courses), len(commun), raisons))
     np_courses = [c for c in avec_affiche if set(affiche[_cle_course(c)][:5]) & c["non_partants"]]
     np_top3 = sum(1 for c in avec_affiche for n in affiche[_cle_course(c)][:3] if n in c["non_partants"])
     L.append("Pronostics affichés contenant un non-partant (déclaré après le calcul) : %d course(s) sur %d ; "
              "%d non-partant(s) parmi les trois premiers affichés." % (len(np_courses), len(avec_affiche), np_top3))
-    L += ["", "## 1. Sur les %d courses avec pronostic affiché et cotes" % len(commun), "",
+    L += ["", "## 1. Sur les %d courses avec pronostic affiché" % len(commun), "",
           "| Variante | Perte du vainqueur | Top 1 | Top 3 | Gagnant : bénéfice pour 1 € | Placé : bénéfice pour 1 € |",
           "|---|---:|---:|---:|---:|---:|"]
     L.append(_ligne_tableau("Hasard", moyennes(resultats["hasard"])))
     L.append(_ligne_tableau("Ce qui était affiché", moyennes(resultats["affiche"])))
-    L.append(_ligne_tableau("Notre analyse (sensibilité 4, sans cotes)", moyennes(resultats["analyse"])))
-    L.append(_ligne_tableau("Réglage du 9 novembre (90 % cotes, trot aux cotes seules)", moyennes(resultats["propose"])))
-    L.append(_ligne_tableau("Favori des cotes", moyennes(resultats["favori"])))
+    L.append(_ligne_tableau("Notre analyse (sensibilité 4)", moyennes(resultats["analyse"])))
     L.append(_ligne_tableau("Ce qui était affiché, sur les %d courses avec pronostic" % len(avec_affiche),
                             moyennes(tous)))
-    L += ["", "Notre analyse choisit un autre n° 1 que l'affiché dans %d course(s) sur %d, et un autre que le favori des "
-          "cotes dans %d course(s)." % (autre_que_affiche, len(commun), autre_que_favori)]
+    L += ["", "Notre analyse choisit un autre n° 1 que l'affiché dans %d course(s) sur %d."
+          % (autre_que_affiche, len(commun))]
     L += ["", "## 2. Le quinté du jour", ""]
     course_q = next((c for c in courses if cq and _cle_course(c) == cq), None)
     if cq is None:
@@ -401,13 +339,11 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
     hors_quinte = [c for c in avec_affiche if _cle_course(c) != cq]
     reproduites = sum(1 for c in hors_quinte if _analyse_au_calcul(c)[:5] == affiche[_cle_course(c)][:5])
     L.append("Notre analyse, recalculée à partir des notes enregistrées, reproduit le pronostic affiché sur %d course(s) "
-             "sur %d (hors quinté, dont le pronostic final peut avoir été figé avec les cotes)."
+             "sur %d (hors quinté)."
              % (reproduites, len(hors_quinte)))
     L += ["", "## Réserves", "",
-          "- Notre analyse est recalculée ici à partir des notes et des cotes du registre : c'est un contrôle, pas un "
+          "- Notre analyse est recalculée ici à partir des notes du registre : c'est un contrôle, pas un "
           "pronostic en direct.",
-          "- Les cotes sont celles relevées avant le départ ou relues après la course. Elles ne sont pas forcément celles "
-          "d'un relevé à l'heure fixée.",
           "- Les non-partants sont retirés des calculs et de l'ordre affiché. Un cheval disqualifié ou arrêté a couru : "
           "il reste dans les calculs, sans rang.",
           "- Une seule journée ne suffit pas à conclure : le constat global reste sur plusieurs jours."]

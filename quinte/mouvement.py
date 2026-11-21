@@ -71,10 +71,7 @@ def enregistrer(date):
 
 
 def main(argv):
-    if len(argv) != 2:
-        print("usage : mouvement.py AAAA-MM-JJ")
-        return 2
-    print(enregistrer(argv[1]))
+    print("Mouvement des cotes : arrêté. Les cotes ne servent plus au pronostic et ne sont plus relevées.")
     return 0
 
 

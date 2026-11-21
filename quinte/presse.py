@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Le pronostic de la presse, comparé au nôtre et au marché, quinté par quinté.
+"""Le pronostic de la presse, comparé au nôtre, quinté par quinté.
 
 Procédure, pour chaque quinté :
 1. Avant le départ : `presse.py capturer AAAA-MM-JJ` relève le pronostic publié par Equidia et notre classement du
    moment, et l'écrit dans quinte/journal/presse-AAAA-MM-JJ.json, avec l'heure de la capture (UTC). Un fichier
    existant n'est jamais réécrit : c'est le pré-enregistrement.
-2. Après la course : `presse.py constat AAAA-MM-JJ` compare les arrivants à la presse, à notre classement et au marché
-   (cote de départ), et imprime le tableau. `presse.py cumul` totalise tous les quintés enregistrés.
+2. Après la course : `presse.py constat AAAA-MM-JJ` compare les arrivants à la presse, à notre classement, et imprime le tableau. `presse.py cumul` totalise tous les quintés enregistrés.
 
 Une course déjà courue, sans capture avant le départ, s'enregistre avec `presse.py retro AAAA-MM-JJ R C` : elle est
 marquée « retroactif » et ne vaut pas pré-enregistrement.
@@ -102,23 +101,6 @@ def mesures(ordre, arrivants):
     return len(set(ordre[:BOITE]) & set(arrivants)), max(pos[n] for n in arrivants)
 
 
-def _marche(lignes):
-    """Le classement du marché (cote de départ, à défaut la cote du registre). None si une cote manque.
-    Renvoie aussi les cotes, par numéro."""
-    cote = {}
-    for l in lignes:
-        for champ in ("cote_depart", "cote"):
-            try:
-                v = float(l[champ])
-            except (TypeError, ValueError):
-                continue
-            if v > 0:
-                cote[int(l["numero"])] = v
-                break
-    ordre = sorted(cote, key=lambda n: (cote[n], n)) if len(cote) == len(lignes) else None
-    return ordre, cote
-
-
 def _ecrire(date, donnees):
     os.makedirs(JOURNAL, exist_ok=True)
     with open(chemin(date), "w", encoding="utf-8") as f:
@@ -208,7 +190,7 @@ def _arrivants(arrivee):
 
 
 def constat(date):
-    """Compare les arrivants à la presse, à notre classement et au marché. Renvoie un texte en français."""
+    """Compare les arrivants à la presse et à notre classement. Renvoie un texte en français."""
     d, lignes, arrivee = _charger(date)
     arr5 = _arrivants(arrivee)
     if arr5 is None:
@@ -217,7 +199,6 @@ def constat(date):
     notre = [x["numero"] for x in d["notre"]]
     presse_ordre = ordre_presse(d["presse"])
     presse_ordre += [n for n in notre if n not in presse_ordre]
-    marche, cote = _marche(lignes)
 
     L = ["## Quinté du %s · %s · R%dC%d" % (date, d.get("hippodrome") or "?", d["r"], d["c"]), "",
          "Arrivée : %s." % "-".join(str(n) for n in arr5),
@@ -232,26 +213,20 @@ def constat(date):
             len(pb), len(set(pb) & set(arr5)), "oui" if set(arr5) <= set(pb) else "non"))
     L.append("- Notre classement (sans cotes), top 5 : %d/5 ; boîte de %d : %d/5." % (
         len(set(notre[:5]) & set(arr5)), BOITE, mesures(notre, arr5)[0]))
-    if marche:
-        L.append("- Marché (cote de départ), top 5 : %d/5 ; boîte de %d : %d/5." % (
-            len(set(marche[:5]) & set(arr5)), BOITE, mesures(marche, arr5)[0]))
-    k_m = mesures(marche, arr5)[1] if marche else "—"
-    L.append("- Couverture (rang du dernier arrivant) : presse %d, notre classement %d, marché %s." % (
-        mesures(presse_ordre, arr5)[1], mesures(notre, arr5)[1], k_m))
-    L += ["", "| n° | cheval | arrivée | presse | notre rang | marché | cote |", "|---:|---|---:|---|---:|---:|---:|"]
-    pos_marche = {n: i + 1 for i, n in enumerate(marche)} if marche else {}
+    L.append("- Couverture (rang du dernier arrivant) : presse %d, notre classement %d." % (
+        mesures(presse_ordre, arr5)[1], mesures(notre, arr5)[1]))
+    L += ["", "| n° | cheval | arrivée | presse | notre rang |", "|---:|---|---:|---|---:|"]
     for n in notre:
         a = arrivee.get(n)
         dans_boite = " (boîte)" if d["presse"]["parier"] and n in d["presse"]["parier"] else ""
-        L.append("| %d | %s | %s | %s%s | %d | %s | %s |" % (
-            n, nom.get(n, ""), a if a else "—", categorie(d["presse"], n), dans_boite, notre.index(n) + 1,
-            pos_marche.get(n, "—"), ("%g" % cote[n]).replace(".", ",") if n in cote else "—"))
+        L.append("| %d | %s | %s | %s%s | %d |" % (
+            n, nom.get(n, ""), a if a else "—", categorie(d["presse"], n), dans_boite, notre.index(n) + 1))
     return "\n".join(L) + "\n"
 
 
 def cumul():
-    """Totaux sur tous les quintés enregistrés dont l'arrivée est connue : arrivants dans la boîte de 8 et boîtes
-    complètes, pour la presse, notre classement et le marché."""
+    """Totaux sur tous les quintés enregistrés dont l'arrivée est connue : arrivants dans la boîte et boîtes
+    complètes, pour la presse et notre classement."""
     fichiers = sorted(f for f in os.listdir(JOURNAL) if f.startswith("presse-") and f.endswith(".json"))
     lignes = []
     for f in fichiers:
@@ -263,21 +238,14 @@ def cumul():
         notre = [x["numero"] for x in d["notre"]]
         presse_ordre = ordre_presse(d["presse"])
         presse_ordre += [n for n in notre if n not in presse_ordre]
-        marche, _ = _marche(rows)
-        lignes.append((date, mesures(presse_ordre, arr5), mesures(notre, arr5),
-                       mesures(marche, arr5) if marche else None))
+        lignes.append((date, mesures(presse_ordre, arr5), mesures(notre, arr5)))
     if not lignes:
         return "Aucun quinté avec arrivée enregistré."
     n = len(lignes)
-    avec_m = [x[3] for x in lignes if x[3]]
     texte_ = ("Sur %d quinté(s) avec arrivée, boîte de %d : arrivants dans la boîte en moyenne, presse %.2f, notre "
               "classement %.2f" % (n, BOITE, sum(x[1][0] for x in lignes) / n, sum(x[2][0] for x in lignes) / n))
-    if avec_m:
-        texte_ += ", marché %.2f (sur %d quinté(s))" % (sum(m[0] for m in avec_m) / len(avec_m), len(avec_m))
     texte_ += ". Boîte complète (5 sur 5) : presse %d, notre classement %d" % (
         sum(1 for x in lignes if x[1][1] <= BOITE), sum(1 for x in lignes if x[2][1] <= BOITE))
-    if avec_m:
-        texte_ += ", marché %d" % sum(1 for m in avec_m if m[1] <= BOITE)
     return texte_ + "."
 
 

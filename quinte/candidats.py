@@ -70,56 +70,7 @@ def fr(x, d=2, signe=False):
 
 
 def main():
-    courses, _ = C.charger()
-    avec = [c for c in courses if c["cotes"]]
-    resultats = {}
-    for nom, f in VARIANTES:
-        lignes = []
-        for c in avec:
-            if f is None:
-                n = c["n"]
-                lignes.append((math.log(n), 1 / n, min(3, n) / n, 25 / n, None))
-            else:
-                lignes.append(mesurer(c, f(c), probabilite=(nom != MOYENNE_DES_RANGS)))
-        resultats[nom] = lignes
-
-    L = ["# Propositions de pronostic", "",
-         "%d courses avec cotes complètes (sur %d terminées exploitables). Aucun paramètre n'est ajusté ici : K = 4 "
-         "(notre réglage), mélanges à 70 %% ou 50 %% de cotes, moyenne des rangs du modèle et du marché. Perte plus basse "
-         "= meilleur. Couverture : rang du dernier des cinq arrivants dans le classement, comme dans le constat."
-         % (len(avec), len(courses)), "",
-         "| Variante | Perte du vainqueur | Top 1 | Top 3 | Arrivants dans le top 5 (sur 5) | Couverture ≤ 9 |",
-         "|---|---:|---:|---:|---:|---:|"]
-    for nom, _ in VARIANTES:
-        lg = resultats[nom]
-        perte = [x[0] for x in lg if x[0] is not None]
-        couv = [x[4] for x in lg if x[4] is not None]
-        L.append("| %s | %s | %s %% | %s %% | %s | %s |" % (
-            nom,
-            fr(sum(perte) / len(perte), 3) if perte else "—",
-            fr(100 * sum(x[1] for x in lg) / len(lg), 1), fr(100 * sum(x[2] for x in lg) / len(lg), 1),
-            fr(sum(x[3] for x in lg) / len(lg), 2),
-            fr(100 * sum(1 for v in couv if v <= 9) / len(couv), 1) + " %" if couv else "—"))
-
-    L += ["", "Écarts appariés, intervalle à 95 % (2 000 rééchantillonnages des courses) :", ""]
-    paires = [("Notre analyse, sans cotes (production)", "Favori des cotes"),
-              ("Mélange 70 % cotes, K 4", "Notre analyse, sans cotes (production)"),
-              ("Mélange 70 % cotes, K 4", "Favori des cotes"),
-              (MOYENNE_DES_RANGS, "Notre analyse, sans cotes (production)")]
-    for a, b in paires:
-        m2, lo2, hi2 = ecart(resultats[a], resultats[b], 3)
-        if MOYENNE_DES_RANGS in (a, b):
-            L.append("- %s − %s : arrivants dans le top 5 %s [%s ; %s] (pas de perte pour une moyenne de rangs)." % (
-                a, b, fr(m2, 2, True), fr(lo2, 2, True), fr(hi2, 2, True)))
-            continue
-        m, lo, hi = ecart(resultats[a], resultats[b], 0)
-        L.append("- %s − %s : perte %s [%s ; %s] ; arrivants dans le top 5 %s [%s ; %s]." % (
-            a, b, fr(m, 3, True), fr(lo, 3, True), fr(hi, 3, True), fr(m2, 2, True), fr(lo2, 2, True), fr(hi2, 2, True)))
-    texte = "\n".join(L) + "\n"
-    os.makedirs(os.path.dirname(SORTIE), exist_ok=True)
-    with open(SORTIE, "w", encoding="utf-8") as f:
-        f.write(texte)
-    print(texte)
+    print("Propositions de pronostic : arrêté. Ce rapport comparait des pronostics au marché.")
 
 
 if __name__ == "__main__":

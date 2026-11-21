@@ -13,8 +13,7 @@ Usage :
     python3 quinte/journee.py AAAA-MM-JJ             # calcule la journée, et verse les courses au registre
     python3 quinte/journee.py AAAA-MM-JJ --registre  # verse seulement les courses pas encore parties au registre
     python3 quinte/journee.py AAAA-MM-JJ --completer # ajoute à la journée les réunions publiées depuis son calcul
-    python3 quinte/journee.py AAAA-MM-JJ --cotes     # relève les cotes des courses sans pronostic qui partent dans l'heure
-    python3 quinte/journee.py AAAA-MM-JJ --rattraper # relit les courses terminées : cotes de départ manquantes, rapports
+    python3 quinte/journee.py AAAA-MM-JJ --rattraper # relit les courses terminées : statuts et rapports officiels
     python3 quinte/journee.py AAAA-MM-JJ --statuts   # relit le statut officiel de chaque partant des courses terminées
 """
 import datetime as dt
@@ -99,7 +98,7 @@ def _pronostic_de(lignes, probs):
 
 
 def _pronostic_journal(date, r, c):
-    """Pronostic du quinté du jour, tel que son journal le garde (avec les cotes s'il est final)."""
+    """Pronostic du quinté du jour, tel que son journal le garde (son pronostic final s'il existe)."""
     import suivi
     chemin = suivi._fichier_pronostic(date)
     if not os.path.exists(chemin):
@@ -160,7 +159,7 @@ def analyser_journee(date, ignorer=frozenset()):
                 entree = _entree(course, r, c)
                 if entree["statut"] == "before":
                     lignes, probs = _calcul(course)
-                    cotes = ae.cotes_de(course)
+                    cotes = None  # les cotes ne servent plus au pronostic : elles ne sont plus relevées
                     sans = ae.sans_donnees(lignes)
                     lignes_registre += registre.lignes_de_course(
                         date, r, c, course, lignes, probs, cotes, calcule_le, sans_donnees=sans)
@@ -409,8 +408,8 @@ def relever_statuts(date):
 
 
 def rattraper(date):
-    """Courses terminées de la journée : cotes de départ relues après la course quand elles manquent, et rapports
-    officiels du simple gagnant et du simple placé. Renvoie le nombre de courses relues."""
+    """Courses terminées de la journée : statut officiel de chaque partant, et rapports officiels du simple
+    gagnant et du simple placé. Renvoie le nombre de courses relues."""
     courses = sorted({(int(x["r"]), int(x["c"])) for x in registre.lire() if x["date"] == date and x["arrivee"]})
     relues = 0
     for r, c in courses:
@@ -423,9 +422,6 @@ def rattraper(date):
             continue
         registre.inscrire_statuts(date, {(r, c): statuts_de(course)})
         page = eq.get_html("%s/courses/%s/R%d/C%d" % (eq.BASE, date, r, c))  # la page vient d'être relue : cache
-        cotes = ae.cotes_de(course)
-        if cotes:
-            registre.completer_cotes(date, r, c, cotes)
         registre.inscrire_rapports(date, r, c, eq.rapports_simples(page))
         relues += 1
     return relues
@@ -433,15 +429,12 @@ def rattraper(date):
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    options = ("--registre", "--completer", "--cotes", "--rattraper", "--statuts")
+    options = ("--registre", "--completer", "--rattraper", "--statuts")
     if not args or len(args) > 2 or (len(args) == 2 and args[1] not in options):
         raise SystemExit(__doc__)
     date = args[0]
     if len(args) == 2 and args[1] == "--registre":
         print("registre : %d lignes ajoutées pour %s" % (enregistrer_registre(date), date))
-    elif len(args) == 2 and args[1] == "--cotes":
-        print("cotes relevées pour %d course(s) sans pronostic de %s" % (
-            rafraichir_cotes_sans_donnees(date, dt.datetime.now(PARIS)), date))
     elif len(args) == 2 and args[1] == "--statuts":
         print("statuts relevés pour %s : %d course(s)" % (date, relever_statuts(date)))
     elif len(args) == 2 and args[1] == "--rattraper":
