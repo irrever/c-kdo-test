@@ -189,7 +189,7 @@
    "heure": "13:23",
    "distance": 3500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "BOOM BOOM CIAO",
@@ -201,7 +201,13 @@
     "7": "KINNDAR",
     "8": "LATINO LA NOVERIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    2,
+    6,
+    1
+   ],
    "ordre": [
     5,
     2,
@@ -918,7 +924,7 @@
    "heure": "12:30",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NEW FELLOW",
@@ -934,7 +940,13 @@
     "11": "NAOS DELTO",
     "12": "NEW BOSS"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    3,
+    6,
+    9
+   ],
    "ordre": [
     10,
     2,
@@ -1009,7 +1021,7 @@
    "heure": "13:05",
    "distance": 3000,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "MADISON STAR",
@@ -3030,7 +3042,7 @@
    "heure": "13:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NARCISSE DU LUPIN",
@@ -3048,7 +3060,13 @@
     "13": "NOROIT DU RIB",
     "14": "NOMADE BOY"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    5,
+    12,
+    14
+   ],
    "ordre": [
     6,
     8,
@@ -3685,14 +3703,18 @@
    "heure": "13:05",
    "distance": 4340,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 3,
    "noms": {
     "1": "KOKTAIL DIVIN",
     "2": "LEAVE OF ABSENCE",
     "3": "BE AWARE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    2
+   ],
    "ordre": [
     1,
     3,
@@ -3730,7 +3752,7 @@
    "heure": "13:40",
    "distance": 3280,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "WE'RE RED AND BLUE",
@@ -5674,7 +5696,7 @@
    "heure": "13:10",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "LEON D'OAM",
