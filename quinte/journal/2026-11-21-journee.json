@@ -378,7 +378,7 @@
    "heure": "14:33",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MULOUGHBOY",
@@ -390,7 +390,13 @@
     "7": "FRECKLES",
     "8": "PASSIONATA"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    5,
+    4,
+    7
+   ],
    "ordre": [
     1,
     4,
@@ -1225,7 +1231,7 @@
    "heure": "14:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LANNISTER",
@@ -1241,7 +1247,13 @@
     "11": "LOVE ME TRUE",
     "12": "L'AVENIR"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    12,
+    9,
+    8
+   ],
    "ordre": [
     7,
     6,
@@ -3257,7 +3269,7 @@
    "heure": "14:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MILESIM D'OLIVERIE",
@@ -3275,7 +3287,13 @@
     "13": "MADISON KAT",
     "14": "MAGIC MORNING"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    6,
+    12,
+    10,
+    9
+   ],
    "ordre": [
     11,
     10,
@@ -3350,7 +3368,7 @@
    "heure": "15:00",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAEVA DES LANDIERS",
@@ -3368,7 +3386,13 @@
     "13": "MORENETA",
     "14": "MALBROUK DE L'ISOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    14,
+    12,
+    6,
+    7
+   ],
    "ordre": [
     5,
     4,
@@ -3953,7 +3977,7 @@
    "heure": "14:50",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "GIVE IT TO ME OJ",
@@ -3964,7 +3988,13 @@
     "6": "SMOKERINGINTHEDARK",
     "7": "MY CHIQUITA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    5,
+    6,
+    2
+   ],
    "ordre": [
     3,
     4,
@@ -6027,7 +6057,7 @@
    "heure": "14:40",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MIGHTY DU DOME",
@@ -6043,7 +6073,13 @@
     "11": "MILLE VOLTS JERSOP",
     "12": "MAZOU DE L'ITON"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    5,
+    2,
+    10
+   ],
    "ordre": [
     5,
     4,
