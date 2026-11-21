@@ -3002,7 +3002,7 @@
    "heure": "20:59",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ASHIANAS KING",
@@ -3017,7 +3017,13 @@
     "10": "SOHO VICKY",
     "11": "LORD MIESQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    9,
+    7,
+    5
+   ],
    "ordre": [
     6,
     3,
@@ -4923,7 +4929,7 @@
    "heure": "20:50",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LEO'S ROCKET",
@@ -4935,7 +4941,13 @@
     "7": "STEM CELL",
     "8": "ACTIVITY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    6,
+    8,
+    3
+   ],
    "ordre": [
     2,
     1,
