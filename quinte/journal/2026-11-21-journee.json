@@ -5295,7 +5295,7 @@
    "heure": "22:50",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MOONSTROCITY",
@@ -5308,7 +5308,13 @@
     "8": "ROAR READY",
     "9": "DICIASSETTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    6,
+    3,
+    5
+   ],
    "ordre": [
     5,
     3,
@@ -5735,7 +5741,7 @@
    "heure": "22:45",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "CODICIADO STRIPES",
@@ -5746,7 +5752,13 @@
     "6": "CABALLERO RIDE",
     "7": "TALENTO REAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    5,
+    2,
+    7
+   ],
    "ordre": [
     4,
     2,
