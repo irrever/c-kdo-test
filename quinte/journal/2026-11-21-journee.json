@@ -2231,7 +2231,7 @@
    "heure": "20:13",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NIGHT PIYA",
@@ -2247,7 +2247,13 @@
     "11": "NUIT MAGIQUE",
     "12": "NEW GIRL MELOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    1,
+    11,
+    12
+   ],
    "ordre": [
     11,
     1,
@@ -2900,7 +2906,7 @@
    "heure": "20:29",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "PEARL HARBOUR",
@@ -2915,7 +2921,13 @@
     "10": "MONEY MONEY",
     "11": "COMBERMERE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    8,
+    6,
+    5
+   ],
    "ordre": [
     5,
     6,
@@ -4818,7 +4830,7 @@
    "heure": "20:20",
    "distance": 1670,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "STELLA RUNNER",
@@ -4830,7 +4842,13 @@
     "7": "AILSA'S ANGEL",
     "8": "DOUBLE MAGIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    7,
+    6,
+    4
+   ],
    "ordre": [
     2,
     1,
