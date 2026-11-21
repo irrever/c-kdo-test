@@ -471,7 +471,7 @@
    "heure": "15:15",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "SILAWAY",
@@ -488,7 +488,13 @@
     "12": "BLIDA",
     "13": "OPTIMUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    1,
+    11,
+    5
+   ],
    "ordre": [
     9,
     1,
@@ -1328,7 +1334,7 @@
    "heure": "14:50",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "JUPITER FRANCE",
@@ -3467,7 +3473,7 @@
    "heure": "15:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "JESABELLE DU JOUR",
@@ -4062,7 +4068,7 @@
    "heure": "15:25",
    "distance": 4880,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MATTY'S GETAWAY",
@@ -4076,7 +4082,13 @@
     "9": "GOLD FOR ALEC",
     "10": "EAGLES REPRIEVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    4,
+    3,
+    6
+   ],
    "ordre": [
     1,
     3,
@@ -6154,7 +6166,7 @@
    "heure": "15:10",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MIROS",
@@ -6170,7 +6182,13 @@
     "11": "MAJOR THOMSON",
     "12": "MILORD DU CHATAULT"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    6,
+    2,
+    1,
+    3
+   ],
    "ordre": [
     5,
     8,
