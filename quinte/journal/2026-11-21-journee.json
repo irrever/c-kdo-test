@@ -1940,7 +1940,7 @@
    "heure": "18:37",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "KALA DES RACQUES",
@@ -4407,7 +4407,7 @@
    "heure": "18:23",
    "distance": 1670,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "JERRY POUR",
@@ -4420,7 +4420,13 @@
     "8": "HENRY'S BUDDY",
     "9": "EL DE TOCHO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    3,
+    4,
+    9
+   ],
    "ordre": [
     8,
     7,
