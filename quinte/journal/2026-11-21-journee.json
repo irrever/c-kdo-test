@@ -1839,7 +1839,7 @@
    "heure": "18:02",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MAKYTA",
@@ -1859,7 +1859,13 @@
     "15": "MY DARLING DANOVER",
     "16": "MISS DAM LORRAINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    15,
+    14,
+    10,
+    13
+   ],
    "ordre": [
     5,
     13,
@@ -2387,7 +2393,7 @@
    "heure": "17:44",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "before",
    "partants": 13,
    "noms": {
     "1": "MIA RARE",
