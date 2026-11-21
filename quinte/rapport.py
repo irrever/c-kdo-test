@@ -103,6 +103,8 @@ details li{margin:6px 0}
 .pied{margin-top:22px;font-size:15px;color:var(--muted)}
 .fond-bouton{font-family:inherit;font-size:16px;font-weight:600;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
 .phone-hide{display:none}
+#rech-resultat table th,#rech-resultat table td{white-space:nowrap}
+#rech-resultat table td:nth-child(2){white-space:normal}
 @media (min-width:640px){
   .phone-hide{display:table-cell}
   .top5{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -929,13 +931,21 @@ _JS_RECHERCHE = r"""(function(){
 })();"""
 
 
+def _sans_cotes(course):
+    """Une course de la recherche, sans aucune cote : ni relevé, ni part du marché dans un pronostic final."""
+    donnees = {k: v for k, v in course.items() if k not in ("cotes", "cotes_releve")}
+    if isinstance(donnees.get("final"), dict):
+        donnees["final"] = {k: v for k, v in donnees["final"].items() if k not in ("part_cotes", "cotes")}
+    return donnees
+
+
 def _recherche_html(journee):
     """Onglet Recherche : une réunion et une course de la même journée, avec leur pronostic et leur arrivée."""
     if not journee:
         return ("<section class='card accent-gris'><div class='label'>Recherche</div>"
                 "<h2>Recherche indisponible</h2>"
                 "<p class='note'>Le programme de cette journée n'est pas encore disponible.</p></section>")
-    donnees = json.dumps({"courses": journee}, ensure_ascii=False).replace("</", "<\\/")
+    donnees = json.dumps({"courses": [_sans_cotes(c) for c in journee]}, ensure_ascii=False).replace("</", "<\\/")
     return ("<section class='card accent-bleu recherche'>"
             "<div class='label'>Recherche · même journée</div>"
             "<h2>Trouver une course</h2>"
