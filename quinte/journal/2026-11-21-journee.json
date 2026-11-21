@@ -5022,7 +5022,7 @@
    "heure": "21:21",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "COVERED IN CRYSTAL",
@@ -5036,7 +5036,13 @@
     "9": "WOULD I LIE TO YOU",
     "10": "LUCY'S COOKIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    6,
+    2,
+    10,
+    9
+   ],
    "ordre": [
     6,
     4,
@@ -5452,7 +5458,7 @@
    "heure": "21:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "GIVE IT ALL",
@@ -5465,7 +5471,13 @@
     "8": "THUNDER TIME",
     "9": "ENCALADA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    5,
+    2,
+    8
+   ],
    "ordre": [
     2,
     4,
