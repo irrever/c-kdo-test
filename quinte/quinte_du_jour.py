@@ -65,9 +65,11 @@ def charger(date, final=False, calculer_journee=False):
     """Télécharge le quinté d'une date et écrit sa page.
 
     Le pronostic du soir est figé dès la première page du jour, sans les cotes, et ne change plus.
-    final=True : fige le pronostic avec les cotes du moment, qui devient l'analyse de la page.
     Sinon : la page reprend cette analyse figée, avec le résultat du moment.
+    Depuis le 21 novembre, final=True est refusé : le pronostic n'utilise plus les cotes.
     """
+    if final:
+        raise SystemExit("Pronostic final avec les cotes : supprimé le 21 novembre, le pronostic reste sans cotes.")
     import suivi
     q = eq.quinte_du_jour(date)
     if not q:

@@ -7,11 +7,12 @@ Usage :
     python3 quinte/maj_apres_course.py --maintenant AAAA-MM-JJTHH:MM   # pour tester
 
 Pour le quinté du jour :
-- une heure avant le départ, tant que le pronostic final n'est pas figé, le pronostic final est figé avec les cotes ;
 - une fois la course terminée et l'heure de départ + 1 h atteinte, le résultat est enregistré et la page reprise.
 Pour toute la journée, les arrivées sont mises à jour dès qu'elles sont connues.
+Depuis le 21 novembre, le pronostic n'utilise plus les cotes : il n'y a plus de pronostic final figé avec les cotes.
+Les cotes avant départ continuent d'être relevées, pour la mesure seulement.
 
-Affiche une ligne d'état commençant par RIEN, ATTENTE, FINAL ou MISE_A_JOUR.
+Affiche une ligne d'état commençant par RIEN, ATTENTE ou MISE_A_JOUR.
 """
 import csv
 import datetime as dt
@@ -94,16 +95,6 @@ def _statut_quinte(date, maintenant):
         return "ATTENTE : page de la course %s introuvable" % journal["course"]
     heure = course.get("heure_depart_course")
     if course.get("type_statut_course_id") != "finished":
-        # Pronostic final : figé avec les cotes une heure avant le départ, une seule fois.
-        if heure and "final" not in journal:
-            depart = _depart(date, heure)
-            if depart - dt.timedelta(hours=1) <= maintenant < depart:
-                try:
-                    quinte_du_jour.charger(date, final=True)
-                except SystemExit as e:
-                    return "ATTENTE : pronostic final pas encore figé pour %s (%s)" % (date, e)
-                quinte_du_jour.index()
-                return "FINAL : pronostic figé avec les cotes pour %s (départ %s)" % (date, heure)
         return "ATTENTE : course %s pas encore terminée (statut %s)" % (
             journal["course"], course.get("type_statut_course_id"))
     if not heure:
@@ -154,8 +145,9 @@ def main(argv):
         quinte_du_jour.charger(date)
         quinte_du_jour.index()
         ligne = "MISE_A_JOUR : arrivées de la journée mises à jour pour %s" % date
-    if cotes and not ligne.startswith(("FINAL", "MISE_A_JOUR")):
-        ligne = "MISE_A_JOUR : cotes relevées avant départ pour %d course(s) de %s" % (cotes, date)
+    if cotes:
+        # Les cotes ne servent plus au pronostic : leur relevé ne publie et ne fige rien.
+        ligne = "%s ; cotes relevées avant départ pour %d course(s), à titre de mesure" % (ligne, cotes)
     print(ligne)
 
 
