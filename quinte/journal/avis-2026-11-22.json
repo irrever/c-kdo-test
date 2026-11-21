@@ -1,0 +1,235 @@
+{
+  "box": [
+    16,
+    15,
+    5,
+    10,
+    14,
+    18
+  ],
+  "top5": [
+    16,
+    15,
+    5,
+    10,
+    14
+  ],
+  "a_jouer": [
+    5,
+    18,
+    7,
+    17,
+    3
+  ],
+  "a_eviter": [
+    6,
+    8
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 16,
+      "nom": "FRANK GIO",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4513,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "BORUPS VICTORY",
+      "rang": 2,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.429,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "KANTO AVIS",
+      "rang": 3,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4056,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "FREE TIME JEPSON",
+      "rang": 4,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3647,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "INMAROSA",
+      "rang": 5,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3352,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "LOMBOK JIEL",
+      "rang": 6,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3191,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 18,
+      "nom": "HOOKER BERRY",
+      "rang": 7,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3139,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "HARLEY GEMA",
+      "rang": 8,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2703,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "KRACK TIME ATOUT",
+      "rang": 9,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2639,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "IDEAL LIGNERIES",
+      "rang": 10,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2618,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 17,
+      "nom": "HOKKAIDO JIEL",
+      "rang": 11,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2586,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "KUIPER",
+      "rang": 12,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2353,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "JEANNETTE PRIORY",
+      "rang": 13,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2281,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "LIONHEART",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2109,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 6,
+      "nom": "HARMONY DU RABUTIN",
+      "rang": 15,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2076,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "KEEP GOING",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1518,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 4,
+      "nom": "KING OPERA",
+      "rang": 17,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1529,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "HORATIUS D'ELA",
+      "rang": 18,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.1401,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-22",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-21T22:03:18+00:00"
+}

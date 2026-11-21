@@ -1,0 +1,360 @@
+{
+ "date": "2026-11-22",
+ "retroactif": false,
+ "fige_le": "2026-11-21T22:03:21",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 16,
+   "nom": "FRANK GIO",
+   "score": 0.8122216469674847,
+   "p_victoire": 0.09883,
+   "p_top3": 0.283785,
+   "p_top5": 0.451255
+  },
+  {
+   "numero": 15,
+   "nom": "BORUPS VICTORY",
+   "score": 0.7966221347571858,
+   "p_victoire": 0.091055,
+   "p_top3": 0.26634,
+   "p_top5": 0.42896
+  },
+  {
+   "numero": 5,
+   "nom": "KANTO AVIS",
+   "score": 0.7782393737557983,
+   "p_victoire": 0.08665,
+   "p_top3": 0.25059,
+   "p_top5": 0.40564
+  },
+  {
+   "numero": 10,
+   "nom": "FREE TIME JEPSON",
+   "score": 0.7452768595323432,
+   "p_victoire": 0.074745,
+   "p_top3": 0.221535,
+   "p_top5": 0.36474
+  },
+  {
+   "numero": 14,
+   "nom": "INMAROSA",
+   "score": 0.7194538158225332,
+   "p_victoire": 0.06873,
+   "p_top3": 0.203885,
+   "p_top5": 0.33515
+  },
+  {
+   "numero": 12,
+   "nom": "LOMBOK JIEL",
+   "score": 0.7043495686367813,
+   "p_victoire": 0.063495,
+   "p_top3": 0.191255,
+   "p_top5": 0.31914
+  },
+  {
+   "numero": 18,
+   "nom": "HOOKER BERRY",
+   "score": 0.6991800195523581,
+   "p_victoire": 0.061455,
+   "p_top3": 0.18776,
+   "p_top5": 0.3139
+  },
+  {
+   "numero": 7,
+   "nom": "HARLEY GEMA",
+   "score": 0.6574935791669276,
+   "p_victoire": 0.053045,
+   "p_top3": 0.16019,
+   "p_top5": 0.270315
+  },
+  {
+   "numero": 13,
+   "nom": "KRACK TIME ATOUT",
+   "score": 0.6510367211977764,
+   "p_victoire": 0.051365,
+   "p_top3": 0.156655,
+   "p_top5": 0.2639
+  },
+  {
+   "numero": 11,
+   "nom": "IDEAL LIGNERIES",
+   "score": 0.6471432558338487,
+   "p_victoire": 0.051475,
+   "p_top3": 0.155535,
+   "p_top5": 0.26184
+  },
+  {
+   "numero": 17,
+   "nom": "HOKKAIDO JIEL",
+   "score": 0.6427590931954156,
+   "p_victoire": 0.049875,
+   "p_top3": 0.1526,
+   "p_top5": 0.25856
+  },
+  {
+   "numero": 1,
+   "nom": "KUIPER",
+   "score": 0.6159878816280127,
+   "p_victoire": 0.045125,
+   "p_top3": 0.138195,
+   "p_top5": 0.23529
+  },
+  {
+   "numero": 3,
+   "nom": "JEANNETTE PRIORY",
+   "score": 0.6073625410860494,
+   "p_victoire": 0.043605,
+   "p_top3": 0.133745,
+   "p_top5": 0.22809
+  },
+  {
+   "numero": 9,
+   "nom": "LIONHEART",
+   "score": 0.5842816168339946,
+   "p_victoire": 0.04012,
+   "p_top3": 0.12339,
+   "p_top5": 0.210895
+  },
+  {
+   "numero": 6,
+   "nom": "HARMONY DU RABUTIN",
+   "score": 0.5823319305378489,
+   "p_victoire": 0.03962,
+   "p_top3": 0.12106,
+   "p_top5": 0.207555
+  },
+  {
+   "numero": 8,
+   "nom": "KEEP GOING",
+   "score": 0.4987224978333639,
+   "p_victoire": 0.027385,
+   "p_top3": 0.086455,
+   "p_top5": 0.151765
+  },
+  {
+   "numero": 4,
+   "nom": "KING OPERA",
+   "score": 0.49821741338117326,
+   "p_victoire": 0.027775,
+   "p_top3": 0.08706,
+   "p_top5": 0.15292
+  },
+  {
+   "numero": 2,
+   "nom": "HORATIUS D'ELA",
+   "score": 0.4768698527182978,
+   "p_victoire": 0.02565,
+   "p_top3": 0.079965,
+   "p_top5": 0.140085
+  }
+ ],
+ "ordre_predit": [
+  16,
+  15,
+  5,
+  10,
+  14
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     16,
+     15,
+     5
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.0063,
+    "par_combinaison": 0.0063
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.02147,
+    "par_combinaison": 0.0053675
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.046165,
+    "par_combinaison": 0.0046165
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.080585,
+    "par_combinaison": 0.00402925
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.002635,
+    "par_combinaison": 0.002635
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.010215,
+    "par_combinaison": 0.002043
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.025285,
+    "par_combinaison": 0.0016856666666666665
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12,
+     18
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.050935,
+    "par_combinaison": 0.0014552857142857143
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00128,
+    "par_combinaison": 0.00128
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.00595,
+    "par_combinaison": 0.0009916666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12,
+     18
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.01696,
+    "par_combinaison": 0.0008076190476190476
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12,
+     18,
+     7
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.03516,
+    "par_combinaison": 0.0006278571428571428
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     16,
+     15,
+     5,
+     10,
+     14,
+     12,
+     18,
+     7,
+     13
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.06459,
+    "par_combinaison": 0.0005126190476190476
+   }
+  ]
+ }
+}
