@@ -10,7 +10,7 @@
    "heure": "12:13",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "ISISDELAGARDE AA",
@@ -712,7 +712,7 @@
    "heure": "11:25",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KHEOPS D'AVA",
@@ -728,7 +728,13 @@
     "11": "KEOPS DU CHATAULT",
     "12": "JOLIKOVA D'ARIANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    7,
+    10,
+    12,
+    5
+   ],
    "ordre": [
     11,
     2,
