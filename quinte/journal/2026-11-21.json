@@ -1,7 +1,7 @@
 {
  "date": "2026-11-21",
  "retroactif": false,
- "fige_le": "2026-11-20T22:03:18",
+ "fige_le": "2026-11-21T13:16:19",
  "hippodrome": "AUTEUIL",
  "course": "R1C6",
  "modele": {
@@ -15,306 +15,668 @@
    "conditions": 0.075,
    "bruits_ecuries": 0.075
   },
-  "simulations": 200000
+  "simulations": 200000,
+  "part_cotes": 0.9
  },
  "chevaux": [
-  {
-   "numero": 9,
-   "nom": "MOUSSE DU CHEF",
-   "score": 0.8019436696040915,
-   "p_victoire": 0.135035,
-   "p_top3": 0.381595,
-   "p_top5": 0.5914
-  },
-  {
-   "numero": 1,
-   "nom": "SILAWAY",
-   "score": 0.7619291857853858,
-   "p_victoire": 0.114025,
-   "p_top3": 0.330905,
-   "p_top5": 0.531245
-  },
-  {
-   "numero": 12,
-   "nom": "BLIDA",
-   "score": 0.7453757945350408,
-   "p_victoire": 0.10792,
-   "p_top3": 0.313755,
-   "p_top5": 0.50676
-  },
-  {
-   "numero": 10,
-   "nom": "EH MAN",
-   "score": 0.7110851289763218,
-   "p_victoire": 0.09405,
-   "p_top3": 0.27878,
-   "p_top5": 0.459015
-  },
-  {
-   "numero": 3,
-   "nom": "NORMANDY MAN",
-   "score": 0.6752675624446091,
-   "p_victoire": 0.08067,
-   "p_top3": 0.24645,
-   "p_top5": 0.41347
-  },
-  {
-   "numero": 2,
-   "nom": "FALCON JET",
-   "score": 0.6354473796189367,
-   "p_victoire": 0.069225,
-   "p_top3": 0.2116,
-   "p_top5": 0.36152
-  },
-  {
-   "numero": 4,
-   "nom": "HELL STORM",
-   "score": 0.6346692152617497,
-   "p_victoire": 0.06926,
-   "p_top3": 0.21188,
-   "p_top5": 0.35997
-  },
   {
    "numero": 6,
    "nom": "TIGRESS DU BERLAIS",
    "score": 0.6185571645417528,
-   "p_victoire": 0.06487,
-   "p_top3": 0.201045,
-   "p_top5": 0.343335
-  },
-  {
-   "numero": 7,
-   "nom": "RAFFLES PRINCESS",
-   "score": 0.6139775780868927,
-   "p_victoire": 0.06394,
-   "p_top3": 0.196885,
-   "p_top5": 0.338085
+   "proba_cotes": 0.18650713107285902,
+   "proba_melange": 0.17433423448116783,
+   "p_victoire": 0.173695,
+   "p_top3": 0.471615,
+   "p_top5": 0.69881
   },
   {
    "numero": 8,
    "nom": "PAREIL PAREIL",
    "score": 0.6068965573884468,
-   "p_victoire": 0.06267,
-   "p_top3": 0.192835,
-   "p_top5": 0.331225
+   "proba_cotes": 0.1375872278406337,
+   "proba_melange": 0.13001111848846175,
+   "p_victoire": 0.130325,
+   "p_top3": 0.373,
+   "p_top5": 0.59049
   },
   {
-   "numero": 11,
-   "nom": "ELLE A TOUT CA",
-   "score": 0.5942975548950431,
-   "p_victoire": 0.059105,
-   "p_top3": 0.182985,
-   "p_top5": 0.31673
+   "numero": 1,
+   "nom": "SILAWAY",
+   "score": 0.7619291857853858,
+   "proba_cotes": 0.11043185392471914,
+   "proba_melange": 0.11088320210760902,
+   "p_victoire": 0.11166,
+   "p_top3": 0.328135,
+   "p_top5": 0.53285
   },
   {
-   "numero": 13,
-   "nom": "OPTIMUS",
-   "score": 0.5609740987614041,
-   "p_victoire": 0.05065,
-   "p_top3": 0.159925,
-   "p_top5": 0.282095
+   "numero": 9,
+   "nom": "MOUSSE DU CHEF",
+   "score": 0.8019436696040915,
+   "proba_cotes": 0.08392820898278656,
+   "proba_melange": 0.0890251297014245,
+   "p_victoire": 0.0883,
+   "p_top3": 0.2699,
+   "p_top5": 0.45455
+  },
+  {
+   "numero": 10,
+   "nom": "EH MAN",
+   "score": 0.7110851289763218,
+   "proba_cotes": 0.0865239267863779,
+   "proba_melange": 0.08725074238315399,
+   "p_victoire": 0.08621,
+   "p_top3": 0.265125,
+   "p_top5": 0.447125
+  },
+  {
+   "numero": 2,
+   "nom": "FALCON JET",
+   "score": 0.6354473796189367,
+   "proba_cotes": 0.08392820898278656,
+   "proba_melange": 0.08246597399377723,
+   "p_victoire": 0.08304,
+   "p_top3": 0.2529,
+   "p_top5": 0.427195
+  },
+  {
+   "numero": 7,
+   "nom": "RAFFLES PRINCESS",
+   "score": 0.6139775780868927,
+   "proba_cotes": 0.06994017415232212,
+   "proba_melange": 0.06930639061728747,
+   "p_victoire": 0.06944,
+   "p_top3": 0.216835,
+   "p_top5": 0.373045
+  },
+  {
+   "numero": 12,
+   "nom": "BLIDA",
+   "score": 0.7453757945350408,
+   "proba_cotes": 0.055952139321857705,
+   "proba_melange": 0.06111501524337419,
+   "p_victoire": 0.06157,
+   "p_top3": 0.192925,
+   "p_top5": 0.33704
+  },
+  {
+   "numero": 3,
+   "nom": "NORMANDY MAN",
+   "score": 0.6752675624446091,
+   "proba_cotes": 0.04417274156988766,
+   "proba_melange": 0.04788273752596678,
+   "p_victoire": 0.04794,
+   "p_top3": 0.153235,
+   "p_top5": 0.274545
   },
   {
    "numero": 5,
    "nom": "LOUMINOS",
    "score": 0.41477535548910743,
-   "p_victoire": 0.02858,
-   "p_top3": 0.09136,
-   "p_top5": 0.16515
+   "proba_cotes": 0.0493695346957568,
+   "proba_melange": 0.04729955276561193,
+   "p_victoire": 0.048465,
+   "p_top3": 0.152765,
+   "p_top5": 0.271765
+  },
+  {
+   "numero": 11,
+   "nom": "ELLE A TOUT CA",
+   "score": 0.5942975548950431,
+   "proba_cotes": 0.036490525644689804,
+   "proba_melange": 0.03872022839018857,
+   "p_victoire": 0.03788,
+   "p_top3": 0.123655,
+   "p_top5": 0.224625
+  },
+  {
+   "numero": 13,
+   "nom": "OPTIMUS",
+   "score": 0.5609740987614041,
+   "proba_cotes": 0.02894076171820226,
+   "proba_melange": 0.031191818616859438,
+   "p_victoire": 0.03122,
+   "p_top3": 0.10156,
+   "p_top5": 0.18718
+  },
+  {
+   "numero": 4,
+   "nom": "HELL STORM",
+   "score": 0.6346692152617497,
+   "proba_cotes": 0.0262275653071208,
+   "proba_melange": 0.030513855685117323,
+   "p_victoire": 0.030255,
+   "p_top3": 0.09835,
+   "p_top5": 0.18078
   }
  ],
  "ordre_predit": [
-  9,
+  6,
+  8,
   1,
-  12,
-  10,
-  3
+  9,
+  10
  ],
  "combinaisons": {
   "Tiercé": [
    {
     "box": 3,
     "chevaux": [
-     9,
-     1,
-     12
+     6,
+     8,
+     1
     ],
     "combinaisons": 1,
-    "probabilite": 0.014845,
-    "par_combinaison": 0.014845
+    "probabilite": 0.024325,
+    "par_combinaison": 0.024325
    },
    {
     "box": 4,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
-     10
+     9
     ],
     "combinaisons": 4,
-    "probabilite": 0.049465,
-    "par_combinaison": 0.01236625
+    "probabilite": 0.070415,
+    "par_combinaison": 0.01760375
    },
    {
     "box": 5,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
-     10,
-     3
+     9,
+     10
     ],
     "combinaisons": 10,
-    "probabilite": 0.102085,
-    "par_combinaison": 0.010208499999999999
+    "probabilite": 0.142545,
+    "par_combinaison": 0.0142545
    },
    {
     "box": 6,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2
     ],
     "combinaisons": 20,
-    "probabilite": 0.16542,
-    "par_combinaison": 0.008271
+    "probabilite": 0.240695,
+    "par_combinaison": 0.01203475
    }
   ],
   "Quarté": [
    {
     "box": 4,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
-     10
+     9
     ],
     "combinaisons": 1,
-    "probabilite": 0.00849,
-    "par_combinaison": 0.00849
+    "probabilite": 0.01351,
+    "par_combinaison": 0.01351
    },
    {
     "box": 5,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
-     10,
-     3
+     9,
+     10
     ],
     "combinaisons": 5,
-    "probabilite": 0.03141,
-    "par_combinaison": 0.006282
+    "probabilite": 0.05002,
+    "par_combinaison": 0.010004
    },
    {
     "box": 6,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2
     ],
     "combinaisons": 15,
-    "probabilite": 0.06961,
-    "par_combinaison": 0.004640666666666667
+    "probabilite": 0.11866,
+    "par_combinaison": 0.007910666666666667
    },
    {
     "box": 7,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2,
-     4
+     7
     ],
     "combinaisons": 35,
-    "probabilite": 0.131695,
-    "par_combinaison": 0.003762714285714286
+    "probabilite": 0.214085,
+    "par_combinaison": 0.006116714285714285
    }
   ],
   "Quinté": [
    {
     "box": 5,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
-     10,
-     3
+     9,
+     10
     ],
     "combinaisons": 1,
-    "probabilite": 0.00571,
-    "par_combinaison": 0.00571
+    "probabilite": 0.01055,
+    "par_combinaison": 0.01055
    },
    {
     "box": 6,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2
     ],
     "combinaisons": 6,
-    "probabilite": 0.022575,
-    "par_combinaison": 0.0037625000000000002
+    "probabilite": 0.045775,
+    "par_combinaison": 0.007629166666666667
    },
    {
     "box": 7,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2,
-     4
+     7
     ],
     "combinaisons": 21,
-    "probabilite": 0.05918,
-    "par_combinaison": 0.0028180952380952385
+    "probabilite": 0.11333,
+    "par_combinaison": 0.005396666666666667
    },
    {
     "box": 8,
     "chevaux": [
-     9,
+     6,
+     8,
      1,
-     12,
+     9,
      10,
-     3,
      2,
-     4,
-     6
+     7,
+     12
     ],
     "combinaisons": 56,
-    "probabilite": 0.12425,
-    "par_combinaison": 0.00221875
+    "probabilite": 0.216355,
+    "par_combinaison": 0.003863482142857143
    },
    {
     "box": 9,
     "chevaux": [
-     9,
-     1,
-     12,
-     10,
-     3,
-     2,
-     4,
      6,
-     7
+     8,
+     1,
+     9,
+     10,
+     2,
+     7,
+     12,
+     3
     ],
     "combinaisons": 126,
-    "probabilite": 0.22825,
-    "par_combinaison": 0.0018115079365079365
+    "probabilite": 0.335505,
+    "par_combinaison": 0.002662738095238095
    }
   ]
+ },
+ "pronostic_soir": {
+  "fige_le": "2026-11-20T22:03:18",
+  "modele": {
+   "sensibilite_K": 4.0,
+   "poids": {
+    "musique": 0.25,
+    "aptitudes": 0.1875,
+    "forme_cheval": 0.1875,
+    "chronos": 0.15,
+    "tandem": 0.075,
+    "conditions": 0.075,
+    "bruits_ecuries": 0.075
+   },
+   "simulations": 200000
+  },
+  "chevaux": [
+   {
+    "numero": 9,
+    "nom": "MOUSSE DU CHEF",
+    "score": 0.8019436696040915,
+    "p_victoire": 0.135035,
+    "p_top3": 0.381595,
+    "p_top5": 0.5914
+   },
+   {
+    "numero": 1,
+    "nom": "SILAWAY",
+    "score": 0.7619291857853858,
+    "p_victoire": 0.114025,
+    "p_top3": 0.330905,
+    "p_top5": 0.531245
+   },
+   {
+    "numero": 12,
+    "nom": "BLIDA",
+    "score": 0.7453757945350408,
+    "p_victoire": 0.10792,
+    "p_top3": 0.313755,
+    "p_top5": 0.50676
+   },
+   {
+    "numero": 10,
+    "nom": "EH MAN",
+    "score": 0.7110851289763218,
+    "p_victoire": 0.09405,
+    "p_top3": 0.27878,
+    "p_top5": 0.459015
+   },
+   {
+    "numero": 3,
+    "nom": "NORMANDY MAN",
+    "score": 0.6752675624446091,
+    "p_victoire": 0.08067,
+    "p_top3": 0.24645,
+    "p_top5": 0.41347
+   },
+   {
+    "numero": 2,
+    "nom": "FALCON JET",
+    "score": 0.6354473796189367,
+    "p_victoire": 0.069225,
+    "p_top3": 0.2116,
+    "p_top5": 0.36152
+   },
+   {
+    "numero": 4,
+    "nom": "HELL STORM",
+    "score": 0.6346692152617497,
+    "p_victoire": 0.06926,
+    "p_top3": 0.21188,
+    "p_top5": 0.35997
+   },
+   {
+    "numero": 6,
+    "nom": "TIGRESS DU BERLAIS",
+    "score": 0.6185571645417528,
+    "p_victoire": 0.06487,
+    "p_top3": 0.201045,
+    "p_top5": 0.343335
+   },
+   {
+    "numero": 7,
+    "nom": "RAFFLES PRINCESS",
+    "score": 0.6139775780868927,
+    "p_victoire": 0.06394,
+    "p_top3": 0.196885,
+    "p_top5": 0.338085
+   },
+   {
+    "numero": 8,
+    "nom": "PAREIL PAREIL",
+    "score": 0.6068965573884468,
+    "p_victoire": 0.06267,
+    "p_top3": 0.192835,
+    "p_top5": 0.331225
+   },
+   {
+    "numero": 11,
+    "nom": "ELLE A TOUT CA",
+    "score": 0.5942975548950431,
+    "p_victoire": 0.059105,
+    "p_top3": 0.182985,
+    "p_top5": 0.31673
+   },
+   {
+    "numero": 13,
+    "nom": "OPTIMUS",
+    "score": 0.5609740987614041,
+    "p_victoire": 0.05065,
+    "p_top3": 0.159925,
+    "p_top5": 0.282095
+   },
+   {
+    "numero": 5,
+    "nom": "LOUMINOS",
+    "score": 0.41477535548910743,
+    "p_victoire": 0.02858,
+    "p_top3": 0.09136,
+    "p_top5": 0.16515
+   }
+  ],
+  "ordre_predit": [
+   9,
+   1,
+   12,
+   10,
+   3
+  ],
+  "combinaisons": {
+   "Tiercé": [
+    {
+     "box": 3,
+     "chevaux": [
+      9,
+      1,
+      12
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.014845,
+     "par_combinaison": 0.014845
+    },
+    {
+     "box": 4,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10
+     ],
+     "combinaisons": 4,
+     "probabilite": 0.049465,
+     "par_combinaison": 0.01236625
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3
+     ],
+     "combinaisons": 10,
+     "probabilite": 0.102085,
+     "par_combinaison": 0.010208499999999999
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2
+     ],
+     "combinaisons": 20,
+     "probabilite": 0.16542,
+     "par_combinaison": 0.008271
+    }
+   ],
+   "Quarté": [
+    {
+     "box": 4,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.00849,
+     "par_combinaison": 0.00849
+    },
+    {
+     "box": 5,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3
+     ],
+     "combinaisons": 5,
+     "probabilite": 0.03141,
+     "par_combinaison": 0.006282
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2
+     ],
+     "combinaisons": 15,
+     "probabilite": 0.06961,
+     "par_combinaison": 0.004640666666666667
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2,
+      4
+     ],
+     "combinaisons": 35,
+     "probabilite": 0.131695,
+     "par_combinaison": 0.003762714285714286
+    }
+   ],
+   "Quinté": [
+    {
+     "box": 5,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3
+     ],
+     "combinaisons": 1,
+     "probabilite": 0.00571,
+     "par_combinaison": 0.00571
+    },
+    {
+     "box": 6,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2
+     ],
+     "combinaisons": 6,
+     "probabilite": 0.022575,
+     "par_combinaison": 0.0037625000000000002
+    },
+    {
+     "box": 7,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2,
+      4
+     ],
+     "combinaisons": 21,
+     "probabilite": 0.05918,
+     "par_combinaison": 0.0028180952380952385
+    },
+    {
+     "box": 8,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2,
+      4,
+      6
+     ],
+     "combinaisons": 56,
+     "probabilite": 0.12425,
+     "par_combinaison": 0.00221875
+    },
+    {
+     "box": 9,
+     "chevaux": [
+      9,
+      1,
+      12,
+      10,
+      3,
+      2,
+      4,
+      6,
+      7
+     ],
+     "combinaisons": 126,
+     "probabilite": 0.22825,
+     "par_combinaison": 0.0018115079365079365
+    }
+   ]
+  }
+ },
+ "final": {
+  "fige_le": "2026-11-21T13:16:19",
+  "cotes": {
+   "1": 7.6,
+   "2": 10.0,
+   "3": 19.0,
+   "4": 32.0,
+   "5": 17.0,
+   "6": 4.5,
+   "7": 12.0,
+   "8": 6.1,
+   "9": 10.0,
+   "10": 9.7,
+   "11": 23.0,
+   "12": 15.0,
+   "13": 29.0
+  },
+  "part_cotes": 0.9
  }
 }

@@ -282,7 +282,7 @@
    "heure": "13:58",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LOOPING DU BERLAIS",
@@ -297,7 +297,13 @@
     "11": "SAINT LAURUS",
     "12": "ESPOIR NONANTAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     2,
     4,
@@ -1021,7 +1027,7 @@
    "heure": "13:05",
    "distance": 3000,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MADISON STAR",
@@ -1037,7 +1043,13 @@
     "11": "JACK TEJY",
     "12": "MAASAI"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    12,
+    11,
+    7,
+    10
+   ],
    "ordre": [
     8,
     3,
@@ -1112,7 +1124,7 @@
    "heure": "13:40",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "MAYENNE DU BOCAGE",
@@ -3141,7 +3153,7 @@
    "heure": "14:00",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LARSON DU MARNIS",
@@ -3158,7 +3170,13 @@
     "13": "LABEL GEMA",
     "14": "LYX OF CAMARO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    5,
+    13,
+    9
+   ],
    "ordre": [
     13,
     3,
@@ -3752,7 +3770,7 @@
    "heure": "13:40",
    "distance": 3280,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "WE'RE RED AND BLUE",
@@ -3763,7 +3781,12 @@
     "6": "TIGERS MOON",
     "7": "CALGARY TIGER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    5,
+    3
+   ],
    "ordre": [
     2,
     4,
@@ -3831,7 +3854,7 @@
    "heure": "14:15",
    "distance": 3150,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "3min",
    "partants": 8,
    "noms": {
     "1": "KINGOFTHEFRONTIER",
@@ -5696,7 +5719,7 @@
    "heure": "13:10",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LEON D'OAM",
@@ -5715,7 +5738,13 @@
     "14": "LOULOU DU PRATEL",
     "15": "LALBER"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    4,
+    10,
+    7,
+    9
+   ],
    "ordre": [
     10,
     4,
@@ -5790,7 +5819,7 @@
    "heure": "13:40",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LA PERLE DU CAIEU",
@@ -5806,7 +5835,13 @@
     "11": "LIBERTY ISLAND",
     "12": "L'ANSE NOIRE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    5,
+    4,
+    8
+   ],
    "ordre": [
     2,
     9,
