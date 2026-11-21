@@ -1940,7 +1940,7 @@
    "heure": "18:37",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KALA DES RACQUES",
@@ -1958,7 +1958,13 @@
     "13": "KHEOPS DE L'EST",
     "14": "KISSME COOL D'EB"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    11,
+    9,
+    4
+   ],
    "ordre": [
     6,
     4,
@@ -2033,7 +2039,7 @@
    "heure": "19:09",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "OPALE D'OURVILLE",
@@ -4501,7 +4507,7 @@
    "heure": "18:53",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CLOCK",
@@ -4513,7 +4519,13 @@
     "7": "SPUN BY GRACE",
     "8": "BUTTER B GOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    1,
+    8,
+    7
+   ],
    "ordre": [
     3,
     7,
