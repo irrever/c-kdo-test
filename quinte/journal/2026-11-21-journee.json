@@ -10,7 +10,7 @@
    "heure": "12:13",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "ISISDELAGARDE AA",
@@ -21,7 +21,13 @@
     "6": "STINGO AA",
     "7": "SHERKARA AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    6,
+    2,
+    3
+   ],
    "ordre": [
     1,
     2,
@@ -809,7 +815,7 @@
    "heure": "11:55",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NICE GALAXIE",
@@ -825,7 +831,13 @@
     "11": "NATALIA MELODY",
     "12": "NOUBA DU PREY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    12,
+    10,
+    9
+   ],
    "ordre": [
     9,
     12,
