@@ -5389,7 +5389,7 @@
    "heure": "23:20",
    "distance": 1670,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "DONNADOYAWANNA",
@@ -5401,7 +5401,13 @@
     "7": "CUBAN COWBOY",
     "8": "DARK IDEA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    7,
+    5,
+    4,
+    2
+   ],
    "ordre": [
     2,
     5,
@@ -5826,7 +5832,7 @@
    "heure": "23:15",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "GIRL POWER",
@@ -5839,7 +5845,13 @@
     "8": "WIND GATE",
     "9": "FLY LIKE WIND"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    4,
+    8,
+    1
+   ],
    "ordre": [
     7,
     5,
@@ -5914,7 +5926,7 @@
    "heure": "23:45",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "EXCELLENT CHAMP",
