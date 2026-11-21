@@ -2039,7 +2039,7 @@
    "heure": "19:09",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "OPALE D'OURVILLE",
@@ -2053,7 +2053,13 @@
     "9": "ONE MAN SHOW CENE",
     "10": "ORMELLIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    10,
+    2,
+    7
+   ],
    "ordre": [
     9,
     1,
@@ -2128,7 +2134,7 @@
    "heure": "19:41",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "NARCOS PIYA",
@@ -4600,7 +4606,7 @@
    "heure": "19:22",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NEOPHYTE",
@@ -4611,7 +4617,13 @@
     "6": "FULANITO",
     "7": "LUCKY TWIST"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    2,
+    6,
+    3
+   ],
    "ordre": [
     2,
     7,
