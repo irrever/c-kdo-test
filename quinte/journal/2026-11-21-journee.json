@@ -569,7 +569,7 @@
    "heure": "15:50",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MON COMEDIEN",
@@ -583,7 +583,13 @@
     "9": "JUMBALAYA",
     "10": "MIGHTYWOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    7,
+    5,
+    2
+   ],
    "ordre": [
     3,
     6,
@@ -1334,7 +1340,7 @@
    "heure": "14:50",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "JUPITER FRANCE",
@@ -1350,7 +1356,13 @@
     "11": "JAURESS DE CANI",
     "12": "ICARE DUNGY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    4,
+    2,
+    12
+   ],
    "ordre": [
     6,
     2,
@@ -1425,7 +1437,7 @@
    "heure": "15:32",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 17,
    "noms": {
     "1": "ICARE DE LA BASLE",
@@ -1521,7 +1533,7 @@
    "heure": "16:08",
    "distance": 2500,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "LELLAMIKA",
@@ -3473,7 +3485,7 @@
    "heure": "15:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JESABELLE DU JOUR",
@@ -3493,7 +3505,13 @@
     "15": "JALNA GIRL",
     "16": "KEJAIME DE HOUELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    16,
+    15,
+    12,
+    5
+   ],
    "ordre": [
     16,
     7,
@@ -3568,7 +3586,7 @@
    "heure": "16:00",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "KOUMBA DE LA NADE",
@@ -4163,7 +4181,7 @@
    "heure": "16:00",
    "distance": 5140,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 7,
    "noms": {
     "1": "AFFORDALE FURY",
@@ -6263,7 +6281,7 @@
    "heure": "15:40",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "I LOVE YOU TEK",
@@ -6283,7 +6301,13 @@
     "15": "KRONO DU TRIO",
     "16": "JUST A DREAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    7,
+    8,
+    16
+   ],
    "ordre": [
     7,
     15,
@@ -6358,7 +6382,7 @@
    "heure": "16:10",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "HAUGAIN",
