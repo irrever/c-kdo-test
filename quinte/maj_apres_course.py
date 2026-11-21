@@ -10,7 +10,7 @@ Pour le quinté du jour :
 - une fois la course terminée et l'heure de départ + 1 h atteinte, le résultat est enregistré et la page reprise.
 Pour toute la journée, les arrivées sont mises à jour dès qu'elles sont connues.
 Depuis le 21 novembre, le pronostic n'utilise plus les cotes : il n'y a plus de pronostic final figé avec les cotes.
-Les cotes avant départ continuent d'être relevées, pour la mesure seulement.
+Les cotes ne sont plus relevées avant le départ.
 
 Affiche une ligne d'état commençant par RIEN, ATTENTE ou MISE_A_JOUR.
 """
