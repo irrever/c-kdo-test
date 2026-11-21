@@ -5210,7 +5210,7 @@
    "heure": "22:21",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "POIEMA",
@@ -5221,7 +5221,13 @@
     "6": "LADY ROCKULA",
     "7": "DAKOTA'S LIL AUROR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    4,
+    7,
+    2
+   ],
    "ordre": [
     3,
     6,
@@ -5635,7 +5641,7 @@
    "heure": "22:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "COQUET HIT",
@@ -5648,7 +5654,13 @@
     "8": "RUDENS",
     "9": "AMIGUITA BANQUERA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    5,
+    4,
+    1
+   ],
    "ordre": [
     7,
     5,
