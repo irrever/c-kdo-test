@@ -378,7 +378,7 @@
    "heure": "14:33",
    "distance": 4400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "MULOUGHBOY",
@@ -1124,7 +1124,7 @@
    "heure": "13:40",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MAYENNE DU BOCAGE",
@@ -1144,7 +1144,13 @@
     "15": "MENTION D'HERMES",
     "16": "MANZANA CHENOU"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    2,
+    15,
+    4,
+    3
+   ],
    "ordre": [
     15,
     14,
@@ -3251,7 +3257,7 @@
    "heure": "14:30",
    "distance": 3125,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "MILESIM D'OLIVERIE",
@@ -3854,7 +3860,7 @@
    "heure": "14:15",
    "distance": 3150,
    "discipline": "Haies",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "KINGOFTHEFRONTIER",
@@ -3866,7 +3872,13 @@
     "7": "SPANISH DARLING",
     "8": "WILDE'S LEGACY"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    2,
+    7,
+    6
+   ],
    "ordre": [
     6,
     3,
@@ -5916,7 +5928,7 @@
    "heure": "14:10",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LOUKA DES AULNES",
@@ -5934,7 +5946,13 @@
     "13": "KANSAS DU RIB",
     "14": "LOOPING RENARDIER"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    10,
+    11,
+    13,
+    4
+   ],
    "ordre": [
     5,
     10,
