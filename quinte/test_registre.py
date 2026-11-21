@@ -44,7 +44,7 @@ def _ligne(date, numero, arrivee, p_victoire, poids="", corde="", discipline="Pl
                   "arrivee": "" if arrivee is None else str(arrivee), "p_victoire": str(p_victoire),
                   "p_top3": "0.5", "rang": str(numero),
                   "poids": str(poids) if poids != "" else "", "corde": str(corde) if corde != "" else "",
-                  "cote": str(cote) if cote != "" else ""})
+                  "cote": str(cote) if cote != "" else "", "statut": "DP"})
     return ligne
 
 
@@ -269,6 +269,7 @@ class TestSansDonnees(unittest.TestCase):
             registre.ajouter(registre.lignes_de_course("2026-11-08", r, 1, c, lignes, probs,
                                                        {1: 16.0, 2: 5.7, 3: 9.0}, "t"), chemin)
             registre.mettre_a_jour_arrivees("2026-11-08", r, 1, {1: 1, 2: 2, 3: 3}, chemin)
+        registre.inscrire_statuts("2026-11-08", {(r, 1): {1: "DP", 2: "DP", 3: "DP"} for r in (1, 2)}, chemin)
         self.assertEqual(registre.marquer_sans_donnees("2026-11-08", 1, 1, chemin), 3)
         self.assertEqual(registre.marquer_sans_donnees("2026-11-08", 1, 1, chemin), 0)  # déjà marquée
         texte = ar.rapport(registre.lire(chemin))
@@ -396,7 +397,7 @@ def _ligne_bilan(numero, score, cote, arrivee, rg=None, rp=None):
     ligne.update({"date": "2026-11-08", "r": "1", "c": "1", "discipline": "Plat", "distance": "1900",
                   "partants": "3", "numero": str(numero), "nom": "H%d" % numero, "hippodrome": "X", "heure": "13:00",
                   "calcule_le": "2026-11-08T23:07", "score": str(score), "rang": str(numero), "p_victoire": "0.5",
-                  "cote_depart": str(cote), "heure_cote": "reprise", "arrivee": str(arrivee)})
+                  "cote_depart": str(cote), "heure_cote": "reprise", "arrivee": str(arrivee), "statut": "DP"})
     if rg:
         ligne["rapport_gagnant"] = str(rg)
     if rp:

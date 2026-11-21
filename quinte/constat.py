@@ -10,7 +10,7 @@ rééchantillonnage des courses.
 
 Usage : python3 quinte/constat.py                    constat global (écrit quinte/journal/constat.md)
         python3 quinte/constat.py --jour AAAA-MM-JJ  bilan d'une journée (écrit quinte/journal/bilan-AAAA-MM-JJ.md)
-        ... --rattraper                              relit d'abord les rapports et cotes des courses terminées
+        ... --rattraper                              relit d'abord les rapports, cotes et statuts des courses terminées
 """
 import json
 import math
@@ -96,12 +96,15 @@ PROBABILITES = {
 
 
 def charger(lignes=None):
-    """Courses terminées exploitables, avec leurs notes, leurs cotes de départ (si tous les partants en ont),
-    leur vainqueur et leurs rapports officiels. Renvoie (courses, écartées par motif)."""
+    """Courses terminées exploitables, avec les notes de leurs partants, leurs cotes de départ (si tous les partants en
+    ont), leur vainqueur et leurs rapports officiels. Les non-partants sont retirés ; un cheval disqualifié ou arrêté a
+    couru et reste dans la course, sans rang. Renvoie (courses, écartées par motif)."""
     lignes = registre.lire() if lignes is None else lignes
-    courses, ecartees = [], {"sans rapport gagnant": 0, "rapport placé incomplet": 0}
-    for c in ar.courses_arrivees(lignes):
-        partants = [p for p in c["partants"] if ar._nombre(p["arrivee"]) is not None]  # sans arrivée : non-partant retiré
+    courses = []
+    ecartees = {"sans rapport gagnant": 0, "rapport placé incomplet": 0, "statut non relevé": 0}
+    sans_statut = []
+    for c in ar.courses_arrivees(lignes, sans_statut=sans_statut):
+        partants = c["partants"]
         gagnants = [p for p in partants if ar._nombre(p["arrivee"]) == 1]
         if len(gagnants) != 1:
             continue
@@ -128,18 +131,20 @@ def charger(lignes=None):
                 cotes = None
                 break
             cotes[p["numero"]] = v
-        premier = c["partants"][0]
         courses.append({
-            "cle": c["cle"], "calcule_le": premier["calcule_le"], "n": len(partants),
+            "cle": c["cle"], "calcule_le": c["tous"][0]["calcule_le"], "n": len(partants),
             "discipline": partants[0]["discipline"], "hippodrome": partants[0]["hippodrome"],
             "heure": partants[0]["heure"], "famille": ar.famille(partants[0]["discipline"]),
-            "places": {p["numero"]: ar._nombre(p["arrivee"]) for p in partants},
+            "places": {p["numero"]: ar._nombre(p["arrivee"]) for p in partants if ar._nombre(p["arrivee"]) is not None},
             "scores": {p["numero"]: float(p["score"]) for p in partants},
-            "scores_tous": {p["numero"]: float(p["score"]) for p in c["partants"]},
-            "p_registre": {p["numero"]: ar._nombre(p.get("p_victoire")) for p in c["partants"]},
+            # contrôle seulement : tous les partants tels qu'ils étaient au calcul, non-partants compris
+            "scores_tous": {p["numero"]: float(p["score"]) for p in c["tous"]},
+            "p_registre": {p["numero"]: ar._nombre(p.get("p_victoire")) for p in c["tous"]},
+            "non_partants": set(c["non_partants"]),
             "cotes": cotes, "sources": sources, "gagnant": gagnant["numero"], "placés": placés,
             "rg": rg, "rp": rp,
         })
+    ecartees["statut non relevé"] = len(sans_statut)
     return courses, ecartees
 
 
@@ -275,9 +280,17 @@ def _cle_course(c):
     return (int(c["cle"][1]), int(c["cle"][2]))
 
 
+def _affiche_retenu(c, ordre):
+    """Ce qui était affiché, sans les non-partants : ils ne courent pas, donc le pronostic ne les a pas en jeu."""
+    return [n for n in ordre if n in c["scores"]]
+
+
 def _evaluer_affiche(c, ordre):
     """Ce qui était affiché : le n° 1 publié, sans probabilité. Renvoie (None, top 1, top 3, gain du gagnant, gain du
-    placé), comme evaluer."""
+    placé), comme evaluer. Les non-partants affichés sont retirés avant."""
+    ordre = _affiche_retenu(c, ordre)
+    if not ordre:
+        return (None, 0.0, 0.0, 0.0, 0.0)
     pick = ordre[0]
     gagnant = c["gagnant"]
     gain_g = c["rg"] if pick == gagnant else 0.0
@@ -290,8 +303,11 @@ def _ordre_de(p):
     return sorted(p, key=lambda k: (-p[k], int(k)))
 
 
-def _top(ordre, n=3):
-    return "–".join(ordre[:n]) if ordre else "—"
+def _top(ordre, n=3, non_partants=frozenset()):
+    """Les n premiers numéros ; un non-partant est marqué (NP)."""
+    if not ordre:
+        return "—"
+    return "–".join(x + (" (NP)" if x in non_partants else "") for x in ordre[:n])
 
 
 def _rang(ordre, numero):
@@ -299,7 +315,12 @@ def _rang(ordre, numero):
 
 
 def _analyse_affichee(c):
-    """Notre analyse telle qu'elle aurait été calculée : tous les partants analysés, sans les cotes."""
+    """Notre analyse, recalculée sur les seuls partants qui ont couru, sans les cotes."""
+    return _ordre_de(_proba_modele(c["scores"], 4.0))
+
+
+def _analyse_au_calcul(c):
+    """Notre analyse telle qu'elle était au calcul, avec les non-partants déclarés ensuite : contrôle seulement."""
     return _ordre_de(_proba_modele(c["scores_tous"], 4.0))
 
 
@@ -324,13 +345,18 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
     }
     tous = [_evaluer_affiche(c, affiche[_cle_course(c)]) for c in avec_affiche]
     autre_que_affiche = sum(1 for c in commun
-                            if _ordre_de(PROBABILITES["analyse"](c))[0] != affiche[_cle_course(c)][0])
+                            if _ordre_de(PROBABILITES["analyse"](c))[:1]
+                            != _affiche_retenu(c, affiche[_cle_course(c)])[:1])
     autre_que_favori = sum(1 for c in commun
                            if _ordre_de(PROBABILITES["analyse"](c))[0] != _ordre_de(PROBABILITES["favori"](c))[0])
     raisons = ", ".join("%s %d" % (motif, n) for motif, n in ecartees.items()) or "aucune"
     L = ["# Bilan des courses du %s : ce qui était affiché, et notre analyse" % date, ""]
     L.append("Courses terminées exploitables : %d, dont %d avec un pronostic affiché et les cotes de tous les partants. "
              "Écartées : %s." % (len(courses), len(commun), raisons))
+    np_courses = [c for c in avec_affiche if set(affiche[_cle_course(c)][:5]) & c["non_partants"]]
+    np_top3 = sum(1 for c in avec_affiche for n in affiche[_cle_course(c)][:3] if n in c["non_partants"])
+    L.append("Pronostics affichés contenant un non-partant (déclaré après le calcul) : %d course(s) sur %d ; "
+             "%d non-partant(s) parmi les trois premiers affichés." % (len(np_courses), len(avec_affiche), np_top3))
     L += ["", "## 1. Sur les %d courses avec pronostic affiché et cotes" % len(commun), "",
           "| Variante | Perte du vainqueur | Top 1 | Top 3 | Gagnant : bénéfice pour 1 € | Placé : bénéfice pour 1 € |",
           "|---|---:|---:|---:|---:|---:|"]
@@ -352,10 +378,11 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
     else:
         arrivee = sorted(course_q["places"], key=lambda n: course_q["places"][n])
         aff = affiche.get(cq, [])
+        retenu = _affiche_retenu(course_q, aff)
         analyse = _analyse_affichee(course_q)
         L.append("R%dC%d · %s · arrivée %s" % (cq[0], cq[1], course_q["hippodrome"], _top(arrivee, 5)))
-        L.append("Affiché : %s (dans les 5 premiers : %d sur 5)." % (
-            _top(aff, 5), len(set(aff[:5]) & set(arrivee[:5]))))
+        L.append("Affiché : %s. Parmi les partants affichés, dans les 5 premiers d'arrivée : %d sur %d." % (
+            _top(aff, 5, course_q["non_partants"]), len(set(retenu[:5]) & set(arrivee[:5])), len(retenu[:5])))
         L.append("Notre analyse : %s (dans les 5 premiers : %d sur 5)." % (
             _top(analyse, 5), len(set(analyse[:5]) & set(arrivee[:5]))))
     L += ["", "## 3. Course par course", "",
@@ -368,11 +395,11 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
         analyse = _analyse_affichee(c)
         nom = "R%dC%d%s · %s %s" % (cle[0], cle[1], " (quinté)" if cle == cq else "", c["hippodrome"], c["heure"])
         L.append("| %s | %s | %s | %s | %s / %s |" % (
-            nom, _top(arrivee), _top(aff) if aff else "—", _top(analyse),
-            _rang(aff, c["gagnant"]) if aff else "—", _rang(analyse, c["gagnant"])))
+            nom, _top(arrivee), _top(aff, 3, c["non_partants"]) if aff else "—", _top(analyse),
+            _rang(_affiche_retenu(c, aff), c["gagnant"]) if aff else "—", _rang(analyse, c["gagnant"])))
     L += ["", "## Contrôle", ""]
     hors_quinte = [c for c in avec_affiche if _cle_course(c) != cq]
-    reproduites = sum(1 for c in hors_quinte if _analyse_affichee(c)[:5] == affiche[_cle_course(c)][:5])
+    reproduites = sum(1 for c in hors_quinte if _analyse_au_calcul(c)[:5] == affiche[_cle_course(c)][:5])
     L.append("Notre analyse, recalculée à partir des notes enregistrées, reproduit le pronostic affiché sur %d course(s) "
              "sur %d (hors quinté, dont le pronostic final peut avoir été figé avec les cotes)."
              % (reproduites, len(hors_quinte)))
@@ -381,7 +408,8 @@ def bilan_jour(date, entrees=None, quinte=None, lignes=None):
           "pronostic en direct.",
           "- Les cotes sont celles relevées avant le départ ou relues après la course. Elles ne sont pas forcément celles "
           "d'un relevé à l'heure fixée.",
-          "- Les chevaux qui n'ont pas fini sont écartés des calculs, sauf dans le pronostic affiché, tel qu'il était.",
+          "- Les non-partants sont retirés des calculs et de l'ordre affiché. Un cheval disqualifié ou arrêté a couru : "
+          "il reste dans les calculs, sans rang.",
           "- Une seule journée ne suffit pas à conclure : le constat global reste sur plusieurs jours."]
     return "\n".join(L) + "\n"
 

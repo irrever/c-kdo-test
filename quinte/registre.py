@@ -3,9 +3,10 @@
 
 Chaque course qui n'est pas encore partie au moment du calcul de la journée reçoit une ligne par partant :
 les données de la course (poids, corde, distance, discipline, nombre de partants), les sept notes du modèle,
-la note finale, les probabilités, et la cote si elle existe déjà. Quand la course est terminée, la place de
-chaque cheval est ajoutée. Le registre sert aux analyses (quinte/analyse_registre.py) : le modèle et ses
-réglages peuvent être vérifiés sur des centaines de courses, et non plus sur un seul quinté par jour.
+la note finale, les probabilités, et la cote si elle existe déjà. Quand la course est terminée, la place et le
+statut officiel de chaque cheval sont ajoutés (NP : non-partant). Le registre sert aux analyses
+(quinte/analyse_registre.py) : le modèle et ses réglages peuvent être vérifiés sur des centaines de courses, et non
+plus sur un seul quinté par jour.
 
 Fichier : quinte/journal/registre.csv (séparateur ;). Une course n'y entre qu'une fois.
 """
@@ -15,12 +16,13 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 CHEMIN = os.path.join(HERE, "journal", "registre.csv")
 SEP = ";"
+NON_PARTANT = "NP"  # statut officiel d'un partant qui ne prend pas le départ ; les autres statuts ont couru
 NOTES = ["musique", "aptitudes", "forme_cheval", "chronos", "tandem", "conditions", "bruits_ecuries"]
 CHAMPS = (["date", "calcule_le", "r", "c", "hippodrome", "heure", "discipline", "distance", "partants",
            "numero", "nom", "monte", "poids", "corde", "musique_texte"]
           + ["n_" + n for n in NOTES]
           + ["score", "rang", "p_victoire", "p_top3", "cote", "arrivee", "cote_depart", "heure_cote", "sans_donnees",
-           "rapport_gagnant", "rapport_place"])
+           "rapport_gagnant", "rapport_place", "statut"])
 
 
 def _lire(chemin):
@@ -175,6 +177,36 @@ def inscrire_rapports(date, r, c, rapports, chemin=CHEMIN):
             if x.get(champ, "") != texte:
                 x[champ] = texte
                 modifiees += 1
+    if modifiees:
+        _ecrire(lignes, chemin)
+    return modifiees
+
+
+def coureurs(lignes):
+    """Les lignes des chevaux qui ont couru : tout sauf les non-partants. Un disqualifié (AI) ou un cheval arrêté
+    (AR, TB, DX, RP) a couru : il reste dans la course, sans rang."""
+    return [x for x in lignes if x.get("statut") != NON_PARTANT]
+
+
+def statut_connu(lignes):
+    """Vrai si le statut officiel de chaque partant de la course est relevé dans le registre."""
+    return all(x.get("statut") for x in lignes)
+
+
+def inscrire_statuts(date, statuts, chemin=CHEMIN):
+    """Inscrit le statut officiel de chaque partant des courses terminées d'une journée.
+    statuts : {(r, c): {numero: statut}}, non-partants compris. Une seule lecture et une seule écriture.
+    Renvoie le nombre de lignes modifiées."""
+    lignes = _lire(chemin)
+    modifiees = 0
+    for x in lignes:
+        if x["date"] != str(date):
+            continue
+        par_numero = statuts.get((int(x["r"]), int(x["c"])), {})
+        numero = int(x["numero"])
+        if numero in par_numero and x.get("statut", "") != par_numero[numero]:
+            x["statut"] = par_numero[numero]
+            modifiees += 1
     if modifiees:
         _ecrire(lignes, chemin)
     return modifiees

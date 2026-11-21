@@ -66,7 +66,9 @@ def score(ligne, variante):
 
 
 def evaluer_course(lignes, variante):
-    """Perte du vainqueur, top 1 et top 3 d'une course selon la variante. None si la course n'a pas de vainqueur."""
+    """Perte du vainqueur, top 1 et top 3 d'une course selon la variante. None si la course n'a pas de vainqueur.
+    Les non-partants ne sont pas dans la course : ils ne prennent aucune probabilité."""
+    lignes = registre.coureurs(lignes)
     gagnants = [l["numero"] for l in lignes if l["arrivee"] == "1"]
     if len(gagnants) != 1:
         return None
@@ -87,6 +89,8 @@ def resultats_du_jour(date, lignes):
             par_course.setdefault((l["r"], l["c"]), []).append(l)
     out = {v: [0, 0.0, 0.0, 0.0] for v in VARIANTES}
     for course in par_course.values():
+        if not registre.statut_connu(course):
+            continue  # statut d'un partant non relevé : course hors mesure
         for v in VARIANTES:
             r = evaluer_course(course, v)
             if r is None:

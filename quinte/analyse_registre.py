@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Analyses du registre des pronostics (quinte/journal/registre.csv).
 
-Mesures faites sur les courses dont l'arrivée est connue (au moins trois partants classés) :
+Mesures faites sur les courses dont l'arrivée et le statut des partants sont connus (au moins trois partants classés ;
+les non-partants sont retirés) :
 1. Le modèle face au hasard : perte du vainqueur (plus bas = mieux), top 3 retrouvé, favori gagnant.
 2. Les notes : pour chacune, le lien moyen avec la place d'arrivée. Négatif = une meilleure note va avec une
    meilleure place. Proche de zéro = la note ne départage pas les chevaux.
@@ -55,33 +56,48 @@ def moyenne(xs):
     return sum(xs) / len(xs) if xs else None
 
 
-def courses_arrivees(lignes):
-    """Regroupe les lignes par course ; ne garde que les courses où trois partants au moins sont classés."""
+def courses_arrivees(lignes, sans_statut=None):
+    """Regroupe les lignes par course ; ne garde que les courses où trois partants au moins sont classés et où le
+    statut de chaque partant est relevé. Par course : partants = ceux qui ont couru (les non-partants sont retirés),
+    tous = toutes les lignes du registre, non_partants = les numéros retirés. Une course sans statut relevé est
+    écartée, et sa clé ajoutée à sans_statut si une liste est donnée."""
     par_course = defaultdict(list)
     for x in lignes:
         par_course[(x["date"], x["r"], x["c"])].append(x)
     courses = []
-    for cle, partants in sorted(par_course.items()):
-        if any(p.get("sans_donnees") == "1" for p in partants):
+    for cle, tous in sorted(par_course.items()):
+        if any(p.get("sans_donnees") == "1" for p in tous):
             continue  # le modèle n'avait rien à départager : hors comparaison
-        classes = [p for p in partants if _nombre(p["arrivee"]) is not None]
+        classes = [p for p in tous if _nombre(p["arrivee"]) is not None]
         if len(classes) < 3:
             continue
-        courses.append({"cle": cle, "partants": partants, "distance": _nombre(partants[0]["distance"])})
+        if not registre.statut_connu(tous):
+            if sans_statut is not None:
+                sans_statut.append(cle)
+            continue
+        partants = registre.coureurs(tous)
+        courses.append({
+            "cle": cle, "partants": partants, "tous": tous,
+            "non_partants": [p["numero"] for p in tous if p.get("statut") == registre.NON_PARTANT],
+            "distance": _nombre(partants[0]["distance"]),
+        })
     return courses
 
 
 def modele(courses):
-    """Par course : perte du vainqueur pour le modèle et pour le hasard, top 3 retrouvé, favori gagnant."""
+    """Par course : perte du vainqueur pour le modèle et pour le hasard, top 3 retrouvé, favori gagnant.
+    La probabilité du vainqueur est ramenée aux seuls partants : un non-partant ne prend pas le départ, et sa part,
+    comptée au calcul dans le registre, se répartit entre les autres. Le top 3 ne change pas avec cette division."""
     out = []
     for c in courses:
         partants = c["partants"]
         gagnants = [p for p in partants if _nombre(p["arrivee"]) == 1]
         if not gagnants:
             continue
-        p_gagnant = _nombre(gagnants[0]["p_victoire"])
-        if p_gagnant is None:
+        probas = [_nombre(p["p_victoire"]) for p in partants]
+        if None in probas or sum(probas) <= 0:
             continue
+        p_gagnant = _nombre(gagnants[0]["p_victoire"]) / sum(probas)
         reels = {p["numero"] for p in partants if _nombre(p["arrivee"]) in (1.0, 2.0, 3.0)}
         predits = {p["numero"] for p in sorted(partants, key=lambda p: -(_nombre(p["p_top3"]) or 0))[:3]}
         favori = min(partants, key=lambda p: _nombre(p["rang"]) or 99)
@@ -190,7 +206,8 @@ def section_corde(courses):
 
 
 def rapport(lignes):
-    courses = courses_arrivees(lignes)
+    sans_statut = []
+    courses = courses_arrivees(lignes, sans_statut=sans_statut)
     exclues = len({(x["date"], x["r"], x["c"]) for x in lignes if x.get("sans_donnees") == "1"})
     texte = ["# Analyse du registre des pronostics", ""]
     if not courses:
@@ -201,6 +218,9 @@ def rapport(lignes):
         len(courses), chevaux, jours[0], jours[-1]))
     if exclues:
         texte.append("Courses sans donnée (aucune musique ni note) exclues : %d." % exclues)
+    if sans_statut:
+        texte.append("Courses terminées sans statut relevé, exclues : %d (journee.py AAAA-MM-JJ --statuts)."
+                     % len(sans_statut))
     if len(courses) < SEUIL_FIABLE:
         texte += ["", "**Échantillon trop petit (moins de %d courses) : ces chiffres servent à suivre, "
                       "pas à conclure.**" % SEUIL_FIABLE]

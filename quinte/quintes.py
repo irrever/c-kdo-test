@@ -35,19 +35,21 @@ def _cote(ligne):
 
 
 def mesure_course(lignes):
-    """Mesure d'une course à partir de ses lignes du registre (tous les partants analysés)."""
-    arrivants = sorted((l for l in lignes if l["arrivee"]), key=lambda l: int(float(l["arrivee"])))
+    """Mesure d'une course à partir de ses lignes du registre. Seuls comptent les partants qui ont couru : un
+    non-partant ne classe pas le quinté et n'a pas sa place dans notre classement."""
+    coureurs = registre.coureurs(lignes)
+    arrivants = sorted((l for l in coureurs if l["arrivee"]), key=lambda l: int(float(l["arrivee"])))
     cinq = [l["numero"] for l in arrivants[:5]]
-    notre = [l["numero"] for l in sorted(lignes, key=lambda l: (-float(l["score"]), int(l["numero"])))]
+    notre = [l["numero"] for l in sorted(coureurs, key=lambda l: (-float(l["score"]), int(l["numero"])))]
     rang_notre = {n: i + 1 for i, n in enumerate(notre)}
     rang_marche = {}
-    if all(_cote(l) for l in lignes):
-        marche = [l["numero"] for l in sorted(lignes, key=lambda l: (_cote(l), int(l["numero"])))]
+    if all(_cote(l) for l in coureurs):
+        marche = [l["numero"] for l in sorted(coureurs, key=lambda l: (_cote(l), int(l["numero"])))]
         rang_marche = {n: i + 1 for i, n in enumerate(marche)}
     couv = {k: sum(1 for n in cinq if n in notre[:k]) for k in KS}
     return {
         "arrivee": "-".join(cinq),
-        "partants": len(lignes),
+        "partants": len(coureurs),
         "rang_median_notre": statistics.median([rang_notre[n] for n in cinq]) if len(cinq) == 5 else "",
         "rang_median_marche": (statistics.median([rang_marche[n] for n in cinq])
                                if len(cinq) == 5 and rang_marche else ""),
@@ -81,8 +83,8 @@ def enregistrer(date, lignes=None):
         r, c = [int(x) for x in json.load(f)["course"].replace("R", "").split("C")]
     lignes = registre.lire() if lignes is None else lignes
     rows = [l for l in lignes if l["date"] == date and l["r"] == str(r) and l["c"] == str(c)]
-    if not rows or not any(l["arrivee"] for l in rows):
-        return None
+    if not rows or not any(l["arrivee"] for l in rows) or not registre.statut_connu(rows):
+        return None  # pas encore d'arrivée, ou statut d'un partant non relevé
     m = mesure_course(rows)
     ligne = {"date": date, "course": "R%dC%d" % (r, c), "hippodrome": rows[0]["hippodrome"],
              "partants": m["partants"], "arrivee": m["arrivee"],
@@ -103,7 +105,7 @@ def _virgule(x):
     """Nombre en français, comme 3,5 ; « — » si absent."""
     if x is None or x == "":
         return "—"
-    return ("%g" % float(x)).replace(".", ",")
+    return ("%g" % round(float(x), 2)).replace(".", ",")
 
 
 def bloc_bilan(date, lignes=None):
@@ -111,7 +113,7 @@ def bloc_bilan(date, lignes=None):
     ligne = enregistrer(date, lignes)
     L = ["", "## 4. Le quinté : rangs et couvertures", ""]
     if ligne is None:
-        L.append("Pas de quinté mesuré pour cette journée.")
+        L.append("Pas de quinté mesuré pour cette journée (arrivée ou statut des partants non relevés).")
     else:
         L.append("%s · %s · %s partants · arrivée %s." % (ligne["course"], ligne["hippodrome"], ligne["partants"],
                                                          ligne["arrivee"]))
