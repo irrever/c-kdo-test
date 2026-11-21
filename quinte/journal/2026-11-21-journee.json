@@ -1644,7 +1644,7 @@
    "heure": "16:42",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MABROUCK DE THEZAN",
@@ -1663,7 +1663,13 @@
     "14": "MIRACULOUS DANOVER",
     "15": "MATRIX SAUTREUIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    6,
+    9,
+    7,
+    13
+   ],
    "ordre": [
     9,
     11,
@@ -4296,7 +4302,7 @@
    "heure": "16:35",
    "distance": 5140,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "O'CONNELL",
@@ -4308,7 +4314,13 @@
     "7": "DEXPERTS OPINION",
     "8": "JACCOURS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    7,
+    3,
+    4
+   ],
    "ordre": [
     7,
     3,
@@ -6516,7 +6528,7 @@
    "heure": "16:40",
    "distance": 2725,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MISS SCARLET",
@@ -6533,7 +6545,13 @@
     "12": "MUSICIENNE",
     "13": "MISS LOVE BERRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    10,
+    9,
+    11,
+    2
+   ],
    "ordre": [
     7,
     2,
