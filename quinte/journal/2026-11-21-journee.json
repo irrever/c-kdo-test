@@ -5117,7 +5117,7 @@
    "heure": "21:51",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MANSOUR",
@@ -5129,7 +5129,13 @@
     "7": "FLOOD PLAN",
     "8": "GOLDEN PEAK"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    6,
+    5,
+    3
+   ],
    "ordre": [
     3,
     4,
@@ -5552,7 +5558,7 @@
    "heure": "21:45",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "FRUIT HUNTER",
@@ -5562,7 +5568,13 @@
     "5": "VIEJO VARIETE",
     "6": "COOL FRANCIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    6,
+    4,
+    2
+   ],
    "ordre": [
     6,
     2,
@@ -5623,7 +5635,7 @@
    "heure": "22:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "COQUET HIT",
