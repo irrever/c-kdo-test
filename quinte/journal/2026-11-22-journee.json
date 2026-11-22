@@ -3540,7 +3540,7 @@
    "heure": "22:20",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "CALOCHITA",
@@ -3555,7 +3555,13 @@
     "10": "LANCELOT",
     "11": "MODELO DEL SALTO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    8,
+    3,
+    6
+   ],
    "ordre": [
     11,
     5,
