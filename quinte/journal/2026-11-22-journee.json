@@ -308,7 +308,7 @@
    "heure": "15:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "KUIPER",
@@ -330,7 +330,13 @@
     "17": "HOKKAIDO JIEL",
     "18": "HOOKER BERRY"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    10,
+    8,
+    1,
+    16
+   ],
    "ordre": [
     16,
     15,
@@ -2064,7 +2070,7 @@
    "heure": "15:32",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "AGILE",
@@ -4065,7 +4071,7 @@
    "heure": "15:10",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LE CHAT BOTTE",
@@ -4078,7 +4084,13 @@
     "8": "LADY ACE",
     "9": "EMPRESS STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    1,
+    4,
+    3
+   ],
    "ordre": [
     1,
     8,
@@ -4153,7 +4165,7 @@
    "heure": "15:40",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 10,
    "noms": {
     "1": "JOEY UP",
@@ -4704,7 +4716,7 @@
    "heure": "15:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "JOKER DE L'ETRE",
@@ -4717,7 +4729,13 @@
     "8": "HARMONIA THE BEST",
     "9": "GAETAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    2,
+    7,
+    8
+   ],
    "ordre": [
     6,
     3,
@@ -4792,7 +4810,7 @@
    "heure": "15:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 14,
    "noms": {
     "1": "JOKERO BELLO",
@@ -5363,7 +5381,7 @@
    "heure": "15:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "JUNIOR DU GADE",
@@ -5378,7 +5396,13 @@
     "10": "JACOBSON",
     "11": "JET DU CAIEU"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    11,
+    4,
+    9
+   ],
    "ordre": [
     11,
     8,
@@ -5453,7 +5477,7 @@
    "heure": "15:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "MELODY DU CEBE",
@@ -6313,7 +6337,7 @@
    "heure": "15:25",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "MARTIN SOMOLLI",
