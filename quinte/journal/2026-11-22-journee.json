@@ -3732,7 +3732,7 @@
    "heure": "23:20",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "CATENACCIO",
@@ -3749,7 +3749,13 @@
     "12": "SIKELIA",
     "13": "DALE LIKE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    5,
+    10,
+    3
+   ],
    "ordre": [
     5,
     13,
