@@ -109,7 +109,7 @@
    "heure": "13:58",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAMOUNIA SEVEN",
@@ -127,7 +127,13 @@
     "13": "MARVELOUS PIYA",
     "14": "MULANE DU BOCAGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    2,
+    10,
+    8
+   ],
    "ordre": [
     9,
     10,
@@ -1381,7 +1387,7 @@
    "heure": "13:51",
    "distance": 4100,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "JEANNE DE GUYE",
@@ -1390,7 +1396,11 @@
     "5": "IZINO D'AIRY",
     "6": "LUIGI DE LAFAYETTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    5
+   ],
    "ordre": [
     3,
     5,
@@ -1748,7 +1758,7 @@
    "heure": "13:40",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "VICTORY CALL",
@@ -1763,7 +1773,13 @@
     "10": "BIRDCALL",
     "11": "JEUDIXX"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    3,
+    6,
+    4,
+    1
+   ],
    "ordre": [
     6,
     4,
@@ -1838,7 +1854,7 @@
    "heure": "14:15",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "CRYSTAL FLYER",
@@ -3745,7 +3761,7 @@
    "heure": "13:40",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "NAUGHTY BOY",
@@ -3757,7 +3773,13 @@
     "7": "AMERICA'S CUP",
     "8": "NIKITA DU TOMONT"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    2,
+    7,
+    6
+   ],
    "ordre": [
     3,
     4,
@@ -4354,7 +4376,7 @@
    "heure": "13:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MAJOR CHANTEREINE",
@@ -4372,7 +4394,13 @@
     "13": "MENHIR",
     "14": "MISTER DES LOYAUX"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    14,
+    11,
+    2
+   ],
    "ordre": [
     13,
     14,
@@ -4991,7 +5019,7 @@
    "heure": "13:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NASTY MAN",
@@ -5010,7 +5038,13 @@
     "14": "NOLGA BECO",
     "15": "NOSY SMART"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    9,
+    5,
+    6,
+    4
+   ],
    "ordre": [
     8,
     3,
@@ -5085,7 +5119,7 @@
    "heure": "14:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "L'AVENTURE D'ANSY",
@@ -5930,7 +5964,7 @@
    "heure": "13:50",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NEXT VENESI",
@@ -5948,7 +5982,13 @@
     "13": "NICE DE CHOISEL",
     "14": "NARA"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    8,
+    4,
+    10,
+    1
+   ],
    "ordre": [
     13,
     6,
