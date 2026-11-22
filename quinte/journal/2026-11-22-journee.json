@@ -1212,7 +1212,7 @@
    "heure": "12:47",
    "distance": 4100,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MY GEMME",
@@ -1226,7 +1226,12 @@
     "9": "SERIAL WINNER",
     "10": "MADGIC DE LAFAYETE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    9,
+    7,
+    4
+   ],
    "ordre": [
     1,
     5,
@@ -1646,7 +1651,7 @@
    "heure": "13:03",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "LOUISA BANBOU",
@@ -1657,7 +1662,13 @@
     "6": "LILI BALL",
     "7": "MY SAGA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    2,
+    3,
+    7
+   ],
    "ordre": [
     1,
     4,
@@ -4228,7 +4239,7 @@
    "heure": "13:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "NAGELE DE L'ETOILE",
@@ -4865,7 +4876,7 @@
    "heure": "13:00",
    "distance": 2650,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "NALA LA MONNERIE",
@@ -4877,7 +4888,11 @@
     "7": "NICOS DE JANEIRO",
     "8": "NECTAR DU LEARD"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    8
+   ],
    "ordre": [
     8,
     7,
@@ -5694,7 +5709,7 @@
    "heure": "12:50",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NEVERS GALBE",
@@ -5711,7 +5726,13 @@
     "12": "NANCY DIDJEAP",
     "13": "NICOLETTA DU CLOS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    13,
+    11,
+    9,
+    3
+   ],
    "ordre": [
     6,
     7,
