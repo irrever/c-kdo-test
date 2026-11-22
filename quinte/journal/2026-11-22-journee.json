@@ -3636,7 +3636,7 @@
    "heure": "22:50",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "BLUE LABEL",
@@ -3651,7 +3651,13 @@
     "10": "FAFIFO",
     "11": "GRAN CAFRUNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    4,
+    7,
+    9
+   ],
    "ordre": [
     9,
     11,
