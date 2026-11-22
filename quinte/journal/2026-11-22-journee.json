@@ -607,7 +607,7 @@
    "heure": "17:00",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "EDIBEAR",
@@ -625,7 +625,13 @@
     "13": "PANTOCRATOR",
     "14": "JOLLY CHIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    9,
+    4,
+    1,
+    5
+   ],
    "ordre": [
     8,
     5,
@@ -2278,7 +2284,7 @@
    "heure": "16:42",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BELLE DE CLHOE",
@@ -2295,7 +2301,13 @@
     "12": "KARMAA",
     "13": "AGAMEMNON"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    10,
+    13,
+    7
+   ],
    "ordre": [
     10,
     7,
@@ -5720,7 +5732,7 @@
    "heure": "16:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "IQUITO DU LEARD",
@@ -5740,7 +5752,13 @@
     "15": "JINNOVE DAB",
     "16": "HICOKO DU SOLEIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    4,
+    1,
+    12
+   ],
    "ordre": [
     2,
     4,
