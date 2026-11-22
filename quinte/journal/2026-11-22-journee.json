@@ -2681,7 +2681,7 @@
    "heure": "19:02",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "ROMAN LADY",
@@ -2692,7 +2692,13 @@
     "6": "BAYOUQUEEN",
     "7": "ORYA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    7,
+    6,
+    4
+   ],
    "ordre": [
     2,
     3,
@@ -2851,7 +2857,7 @@
    "heure": "18:44",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "BAPKIZA",
@@ -2870,7 +2876,13 @@
     "14": "JUSTINSITO CRACK",
     "15": "PELUKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    6,
+    5,
+    12
+   ],
    "ordre": [
     1,
     5,
