@@ -3349,7 +3349,7 @@
    "heure": "21:20",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "ABRAZO OLVIDADO",
@@ -3362,7 +3362,13 @@
     "8": "KARAKOY",
     "9": "MIYAGI"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    5,
+    7,
+    2
+   ],
    "ordre": [
     3,
     9,
