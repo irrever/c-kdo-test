@@ -2766,7 +2766,7 @@
    "heure": "19:34",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MISS PARANO",
@@ -2782,7 +2782,13 @@
     "11": "LISA",
     "12": "RISKY LIGHT"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    9,
+    11,
+    4,
+    3
+   ],
    "ordre": [
     1,
     10,
@@ -3056,7 +3062,7 @@
    "heure": "19:50",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "BISMARK",
@@ -3070,7 +3076,13 @@
     "9": "THE WIND",
     "10": "HOOTEROAD"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    4,
+    3,
+    7,
+    2
+   ],
    "ordre": [
     10,
     7,
