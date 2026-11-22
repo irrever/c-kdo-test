@@ -1,0 +1,225 @@
+{
+  "box": [
+    11,
+    3,
+    2,
+    6,
+    5,
+    1
+  ],
+  "top5": [
+    11,
+    13,
+    3,
+    2,
+    14
+  ],
+  "a_jouer": [
+    2,
+    6,
+    5
+  ],
+  "a_eviter": [
+    13,
+    14,
+    17,
+    16,
+    15
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 11,
+      "nom": "JET EXPRESS",
+      "rang": 1,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5446,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "HOMARD LAND",
+      "rang": 2,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5117,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "CHITCHAT",
+      "rang": 3,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5045,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "FREEDOM (NOR)",
+      "rang": 4,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4881,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "KARAMBAR",
+      "rang": 5,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3768,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 17,
+      "nom": "IDYLLE EXPRESS",
+      "rang": 6,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3547,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 16,
+      "nom": "IBIZA BELLA",
+      "rang": 7,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3316,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "ELEGANCE KRONOS",
+      "rang": 8,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2872,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 1,
+      "nom": "KELMEC",
+      "rang": 9,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2468,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "JE REVE DU BOIS",
+      "rang": 10,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.1986,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "JONGLEUSE DE LUNE",
+      "rang": 11,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1895,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 5,
+      "nom": "NINEPOINTS LASSE",
+      "rang": 12,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.1899,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "IN RED",
+      "rang": 13,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1871,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 8,
+      "nom": "HEADSCOTT",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1588,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "RIKITA JP",
+      "rang": 15,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1584,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "KAMEHAMEHA",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1568,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "INDY ROCK",
+      "rang": 17,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.115,
+      "categorie": "belle",
+      "retenu": true
+    }
+  ],
+  "date": "2026-11-23",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-22T22:03:01+00:00"
+}

@@ -1,0 +1,352 @@
+{
+ "date": "2026-11-23",
+ "retroactif": false,
+ "fige_le": "2026-11-22T22:03:03",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C1",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 11,
+   "nom": "JET EXPRESS",
+   "score": 0.8500767124624371,
+   "p_victoire": 0.12277,
+   "p_top3": 0.348735,
+   "p_top5": 0.544635
+  },
+  {
+   "numero": 13,
+   "nom": "HOMARD LAND",
+   "score": 0.8289085173201104,
+   "p_victoire": 0.111625,
+   "p_top3": 0.32193,
+   "p_top5": 0.511745
+  },
+  {
+   "numero": 3,
+   "nom": "CHITCHAT",
+   "score": 0.8234723173988354,
+   "p_victoire": 0.11086,
+   "p_top3": 0.31694,
+   "p_top5": 0.504545
+  },
+  {
+   "numero": 2,
+   "nom": "FREEDOM (NOR)",
+   "score": 0.8116294131504157,
+   "p_victoire": 0.105385,
+   "p_top3": 0.30552,
+   "p_top5": 0.48814
+  },
+  {
+   "numero": 14,
+   "nom": "KARAMBAR",
+   "score": 0.7257843996353457,
+   "p_victoire": 0.073915,
+   "p_top3": 0.225595,
+   "p_top5": 0.37676
+  },
+  {
+   "numero": 17,
+   "nom": "IDYLLE EXPRESS",
+   "score": 0.7083523956457942,
+   "p_victoire": 0.0691,
+   "p_top3": 0.21053,
+   "p_top5": 0.354655
+  },
+  {
+   "numero": 16,
+   "nom": "IBIZA BELLA",
+   "score": 0.6899092072762507,
+   "p_victoire": 0.064945,
+   "p_top3": 0.19648,
+   "p_top5": 0.33155
+  },
+  {
+   "numero": 6,
+   "nom": "ELEGANCE KRONOS",
+   "score": 0.6455599182867701,
+   "p_victoire": 0.054575,
+   "p_top3": 0.16822,
+   "p_top5": 0.287175
+  },
+  {
+   "numero": 1,
+   "nom": "KELMEC",
+   "score": 0.6015560992666945,
+   "p_victoire": 0.045345,
+   "p_top3": 0.141665,
+   "p_top5": 0.246765
+  },
+  {
+   "numero": 12,
+   "nom": "JE REVE DU BOIS",
+   "score": 0.5419914550681584,
+   "p_victoire": 0.03607,
+   "p_top3": 0.11325,
+   "p_top5": 0.19862
+  },
+  {
+   "numero": 9,
+   "nom": "JONGLEUSE DE LUNE",
+   "score": 0.5286552516636087,
+   "p_victoire": 0.03431,
+   "p_top3": 0.107205,
+   "p_top5": 0.18949
+  },
+  {
+   "numero": 5,
+   "nom": "NINEPOINTS LASSE",
+   "score": 0.527966306344203,
+   "p_victoire": 0.03434,
+   "p_top3": 0.108815,
+   "p_top5": 0.189895
+  },
+  {
+   "numero": 7,
+   "nom": "IN RED",
+   "score": 0.524883678205364,
+   "p_victoire": 0.03372,
+   "p_top3": 0.106115,
+   "p_top5": 0.18709
+  },
+  {
+   "numero": 8,
+   "nom": "HEADSCOTT",
+   "score": 0.4826382869377949,
+   "p_victoire": 0.028035,
+   "p_top3": 0.08934,
+   "p_top5": 0.158805
+  },
+  {
+   "numero": 10,
+   "nom": "RIKITA JP",
+   "score": 0.481747953065053,
+   "p_victoire": 0.02767,
+   "p_top3": 0.088305,
+   "p_top5": 0.15837
+  },
+  {
+   "numero": 4,
+   "nom": "KAMEHAMEHA",
+   "score": 0.47934358014468914,
+   "p_victoire": 0.027205,
+   "p_top3": 0.0874,
+   "p_top5": 0.156755
+  },
+  {
+   "numero": 15,
+   "nom": "INDY ROCK",
+   "score": 0.39449221313546035,
+   "p_victoire": 0.02013,
+   "p_top3": 0.063955,
+   "p_top5": 0.115005
+  }
+ ],
+ "ordre_predit": [
+  11,
+  13,
+  3,
+  2,
+  14
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     11,
+     13,
+     3
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.013315,
+    "par_combinaison": 0.013315
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.049745,
+    "par_combinaison": 0.01243625
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.097735,
+    "par_combinaison": 0.009773500000000001
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.159615,
+    "par_combinaison": 0.00798075
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.008615,
+    "par_combinaison": 0.008615
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.029405,
+    "par_combinaison": 0.005881
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.066265,
+    "par_combinaison": 0.004417666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17,
+     16
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.12139,
+    "par_combinaison": 0.003468285714285714
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.005175,
+    "par_combinaison": 0.005175
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.021105,
+    "par_combinaison": 0.0035175
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17,
+     16
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.05302,
+    "par_combinaison": 0.0025247619047619047
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17,
+     16,
+     6
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.101045,
+    "par_combinaison": 0.001804375
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     11,
+     13,
+     3,
+     2,
+     14,
+     17,
+     16,
+     6,
+     1
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.16261,
+    "par_combinaison": 0.0012905555555555556
+   }
+  ]
+ }
+}

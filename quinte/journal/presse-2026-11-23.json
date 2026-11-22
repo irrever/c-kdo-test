@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-23",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-23/R1/C1",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-22T22:03:00+00:00",
+  "presse": {
+    "parier": [
+      14,
+      11,
+      17,
+      3,
+      13,
+      16,
+      12,
+      15
+    ],
+    "cinq": null,
+    "bases": [
+      14,
+      11,
+      17
+    ],
+    "outsiders": [
+      6,
+      5,
+      10,
+      9,
+      7,
+      4
+    ],
+    "belles": [
+      3,
+      13,
+      16,
+      12,
+      15
+    ],
+    "delaisses": [
+      8,
+      2,
+      1
+    ]
+  },
+  "notre": [
+    {
+      "numero": 11,
+      "nom": "JET EXPRESS",
+      "score": 0.8501,
+      "rang": 1,
+      "p_victoire": 0.1228,
+      "p_top5": 0.5446
+    },
+    {
+      "numero": 13,
+      "nom": "HOMARD LAND",
+      "score": 0.8289,
+      "rang": 2,
+      "p_victoire": 0.1116,
+      "p_top5": 0.5117
+    },
+    {
+      "numero": 3,
+      "nom": "CHITCHAT",
+      "score": 0.8235,
+      "rang": 3,
+      "p_victoire": 0.1109,
+      "p_top5": 0.5045
+    },
+    {
+      "numero": 2,
+      "nom": "FREEDOM (NOR)",
+      "score": 0.8116,
+      "rang": 4,
+      "p_victoire": 0.1054,
+      "p_top5": 0.4881
+    },
+    {
+      "numero": 14,
+      "nom": "KARAMBAR",
+      "score": 0.7258,
+      "rang": 5,
+      "p_victoire": 0.0739,
+      "p_top5": 0.3768
+    },
+    {
+      "numero": 17,
+      "nom": "IDYLLE EXPRESS",
+      "score": 0.7084,
+      "rang": 6,
+      "p_victoire": 0.0691,
+      "p_top5": 0.3547
+    },
+    {
+      "numero": 16,
+      "nom": "IBIZA BELLA",
+      "score": 0.6899,
+      "rang": 7,
+      "p_victoire": 0.0649,
+      "p_top5": 0.3316
+    },
+    {
+      "numero": 6,
+      "nom": "ELEGANCE KRONOS",
+      "score": 0.6456,
+      "rang": 8,
+      "p_victoire": 0.0546,
+      "p_top5": 0.2872
+    },
+    {
+      "numero": 1,
+      "nom": "KELMEC",
+      "score": 0.6016,
+      "rang": 9,
+      "p_victoire": 0.0453,
+      "p_top5": 0.2468
+    },
+    {
+      "numero": 12,
+      "nom": "JE REVE DU BOIS",
+      "score": 0.542,
+      "rang": 10,
+      "p_victoire": 0.0361,
+      "p_top5": 0.1986
+    },
+    {
+      "numero": 9,
+      "nom": "JONGLEUSE DE LUNE",
+      "score": 0.5287,
+      "rang": 11,
+      "p_victoire": 0.0343,
+      "p_top5": 0.1895
+    },
+    {
+      "numero": 5,
+      "nom": "NINEPOINTS LASSE",
+      "score": 0.528,
+      "rang": 12,
+      "p_victoire": 0.0343,
+      "p_top5": 0.1899
+    },
+    {
+      "numero": 7,
+      "nom": "IN RED",
+      "score": 0.5249,
+      "rang": 13,
+      "p_victoire": 0.0337,
+      "p_top5": 0.1871
+    },
+    {
+      "numero": 8,
+      "nom": "HEADSCOTT",
+      "score": 0.4826,
+      "rang": 14,
+      "p_victoire": 0.028,
+      "p_top5": 0.1588
+    },
+    {
+      "numero": 10,
+      "nom": "RIKITA JP",
+      "score": 0.4817,
+      "rang": 15,
+      "p_victoire": 0.0277,
+      "p_top5": 0.1584
+    },
+    {
+      "numero": 4,
+      "nom": "KAMEHAMEHA",
+      "score": 0.4793,
+      "rang": 16,
+      "p_victoire": 0.0272,
+      "p_top5": 0.1568
+    },
+    {
+      "numero": 15,
+      "nom": "INDY ROCK",
+      "score": 0.3945,
+      "rang": 17,
+      "p_victoire": 0.0201,
+      "p_top5": 0.115
+    }
+  ]
+}
