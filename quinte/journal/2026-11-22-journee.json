@@ -411,7 +411,7 @@
    "heure": "15:50",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "FAR WEST BI",
@@ -429,7 +429,13 @@
     "13": "LIZZANO D'ALOUETTE",
     "14": "LUTIN VENESI"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    4,
+    8,
+    6
+   ],
    "ordre": [
     2,
     5,
@@ -2070,7 +2076,7 @@
    "heure": "15:32",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "AGILE",
@@ -2087,7 +2093,13 @@
     "12": "ANDOUINS",
     "14": "KING KARA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    10,
+    5,
+    12
+   ],
    "ordre": [
     2,
     4,
@@ -2162,7 +2174,7 @@
    "heure": "16:07",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "MUNGASHA",
@@ -4165,7 +4177,7 @@
    "heure": "15:40",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "JOEY UP",
@@ -4179,7 +4191,13 @@
     "9": "SUCCESS STORY",
     "10": "JUPITER DES ROCS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    9,
+    2,
+    5
+   ],
    "ordre": [
     3,
     9,
@@ -4254,7 +4272,7 @@
    "heure": "16:10",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 6,
    "noms": {
     "1": "NABAB DE SIVOLA",
@@ -4810,7 +4828,7 @@
    "heure": "15:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JOKERO BELLO",
@@ -4828,7 +4846,13 @@
     "13": "JEEK D'ACADIE",
     "14": "INDIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    12,
+    7,
+    8,
+    1
+   ],
    "ordre": [
     12,
     4,
@@ -4903,7 +4927,7 @@
    "heure": "16:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "JALENCIO FLAC",
@@ -5477,7 +5501,7 @@
    "heure": "15:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MELODY DU CEBE",
@@ -5494,7 +5518,13 @@
     "12": "MUSE DES PLAINES",
     "13": "MAMOUNIA D'ECHAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    12,
+    5,
+    4,
+    2
+   ],
    "ordre": [
     10,
     13,
@@ -5569,7 +5599,7 @@
    "heure": "16:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "MONA LISA BOND",
@@ -6337,7 +6367,7 @@
    "heure": "15:25",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MARTIN SOMOLLI",
@@ -6354,7 +6384,13 @@
     "12": "MOKA VRIE",
     "13": "MAKAO DAIRPET"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    8,
+    6,
+    7,
+    1
+   ],
    "ordre": [
     8,
     6,
@@ -6429,7 +6465,7 @@
    "heure": "15:55",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "KAID BOURGEOIS",
@@ -6449,7 +6485,13 @@
     "15": "JANA D'ARMOR",
     "16": "JOHN ANGOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    12,
+    15,
+    8
+   ],
    "ordre": [
     11,
     6,
