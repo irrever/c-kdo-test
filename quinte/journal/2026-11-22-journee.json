@@ -10,7 +10,7 @@
    "heure": "13:23",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KARINA JOSSELYN",
@@ -28,7 +28,13 @@
     "13": "ILLINOIS",
     "14": "JAB KISS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    5,
+    8,
+    1
+   ],
    "ordre": [
     11,
     13,
@@ -1306,7 +1312,7 @@
    "heure": "13:19",
    "distance": 3400,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "DON DINO",
@@ -1315,7 +1321,13 @@
     "4": "LES YEUX REVOLVER",
     "5": "AVAYA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    2,
+    3,
+    4
+   ],
    "ordre": [
     5,
     2,
@@ -1736,7 +1748,7 @@
    "heure": "13:40",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "VICTORY CALL",
@@ -3636,7 +3648,7 @@
    "heure": "13:10",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "TOPINAMBUR",
@@ -3652,7 +3664,13 @@
     "11": "TIME TO GALI",
     "12": "WHIZALIO"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    9,
+    8,
+    5
+   ],
    "ordre": [
     11,
     4,
@@ -3727,7 +3745,7 @@
    "heure": "13:40",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 8,
    "noms": {
     "1": "NAUGHTY BOY",
@@ -4239,7 +4257,7 @@
    "heure": "13:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NAGELE DE L'ETOILE",
@@ -4255,7 +4273,13 @@
     "11": "NOEMIE RIDGEHEAD",
     "12": "NAMTSO DU VALO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    12,
+    9,
+    10,
+    7
+   ],
    "ordre": [
     7,
     8,
@@ -4330,7 +4354,7 @@
    "heure": "13:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "MAJOR CHANTEREINE",
@@ -4967,7 +4991,7 @@
    "heure": "13:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "NASTY MAN",
@@ -5807,7 +5831,7 @@
    "heure": "13:20",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "NELSON DES VES",
@@ -5825,7 +5849,13 @@
     "13": "NINO DE BOMO",
     "14": "NORPHEA D'ESPOIR"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    9,
+    5,
+    11,
+    14
+   ],
    "ordre": [
     9,
     1,
