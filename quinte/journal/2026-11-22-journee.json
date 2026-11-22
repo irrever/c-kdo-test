@@ -931,7 +931,7 @@
    "heure": "11:10",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "BATHY DIAMOND",
@@ -944,7 +944,13 @@
     "8": "NASDAQ DU SEUIL",
     "9": "NESSBLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    3,
+    1,
+    2
+   ],
    "ordre": [
     5,
     8,
@@ -1019,7 +1025,7 @@
    "heure": "11:43",
    "distance": 3800,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "L'AU REVOIR",
@@ -1472,7 +1478,7 @@
    "heure": "11:27",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PLACE MORNY",
@@ -1485,7 +1491,13 @@
     "8": "SOGNA POETICA",
     "9": "CHARLOTTE SMOOTHIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    5,
+    9,
+    4
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
