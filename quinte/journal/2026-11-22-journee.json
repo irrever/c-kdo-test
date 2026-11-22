@@ -510,7 +510,7 @@
    "heure": "16:25",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ISMAELE",
@@ -526,7 +526,13 @@
     "11": "NOBEL DU RIB",
     "12": "NEO DE JOUDES"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    11,
+    9,
+    12,
+    7
+   ],
    "ordre": [
     10,
     6,
@@ -2174,7 +2180,7 @@
    "heure": "16:07",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MUNGASHA",
@@ -2191,7 +2197,13 @@
     "12": "KRUNGTHEPMAHANAKON",
     "13": "PEYRASSOL"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    13,
+    8,
+    4,
+    11
+   ],
    "ordre": [
     2,
     9,
@@ -2266,7 +2278,7 @@
    "heure": "16:42",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 13,
    "noms": {
     "1": "BELLE DE CLHOE",
@@ -4272,7 +4284,7 @@
    "heure": "16:10",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "NABAB DE SIVOLA",
@@ -4282,7 +4294,13 @@
     "5": "MADAME TEMPLAR",
     "6": "PEURDERIEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    2,
+    5,
+    1
+   ],
    "ordre": [
     1,
     2,
@@ -4927,7 +4945,7 @@
    "heure": "16:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "JALENCIO FLAC",
@@ -4941,7 +4959,13 @@
     "9": "IMPRESARIO",
     "10": "JAPON DAIRPET"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    1,
+    2,
+    7,
+    10
+   ],
    "ordre": [
     9,
     1,
@@ -5599,7 +5623,7 @@
    "heure": "16:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MONA LISA BOND",
@@ -5615,7 +5639,13 @@
     "11": "MARCO DES GACHERES",
     "12": "MALICIEUX SAMCOF"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    2,
+    6,
+    7
+   ],
    "ordre": [
     6,
     7,
@@ -5690,7 +5720,7 @@
    "heure": "16:30",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "IQUITO DU LEARD",
@@ -6566,7 +6596,7 @@
    "heure": "16:25",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MY WINNER RUSH",
@@ -6583,7 +6613,13 @@
     "12": "MISS LUDOISE",
     "13": "MAIA BOURGEOISE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    2,
+    1,
+    5
+   ],
    "ordre": [
     8,
     13,
