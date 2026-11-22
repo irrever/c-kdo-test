@@ -208,7 +208,7 @@
    "heure": "14:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "LOVE GLYCINES",
@@ -1454,7 +1454,7 @@
    "heure": "14:23",
    "distance": 5200,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "IRUNDO",
@@ -1463,7 +1463,11 @@
     "4": "ETONNANT",
     "5": "MASTER NONANTAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    3
+   ],
    "ordre": [
     2,
     1,
@@ -1854,7 +1858,7 @@
    "heure": "14:15",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "CRYSTAL FLYER",
@@ -1874,7 +1878,13 @@
     "15": "FAST ANGEL",
     "16": "LAND OF LIBERTY"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    4,
+    8,
+    16
+   ],
    "ordre": [
     10,
     13,
@@ -3854,7 +3864,7 @@
    "heure": "14:10",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "VIVRE LIBRE",
@@ -3867,7 +3877,13 @@
     "8": "STORM STAR",
     "9": "JOYCE GALESTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    1,
+    3,
+    2
+   ],
    "ordre": [
     2,
     6,
@@ -3942,7 +3958,7 @@
    "heure": "14:40",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "MAITRE D'OEUVRE",
@@ -4475,7 +4491,7 @@
    "heure": "14:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KOOL ANGOT",
@@ -4490,7 +4506,13 @@
     "10": "KACY AND GEPE",
     "11": "KYRIELLE D'ALBRET"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    10,
+    8,
+    11,
+    5
+   ],
    "ordre": [
     8,
     9,
@@ -4565,7 +4587,7 @@
    "heure": "14:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "LASCO DE BERTRANGE",
@@ -5119,7 +5141,7 @@
    "heure": "14:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "L'AVENTURE D'ANSY",
@@ -5139,7 +5161,13 @@
     "15": "LITTLE QUEENIE",
     "16": "LORD OF WOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    5,
+    8,
+    16,
+    14
+   ],
    "ordre": [
     11,
     9,
@@ -5214,7 +5242,7 @@
    "heure": "14:30",
    "distance": 2675,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "JAGUAR BLEU",
@@ -6063,7 +6091,7 @@
    "heure": "14:20",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "canceled",
    "partants": 14,
    "noms": {
     "1": "LUMIERE MIKA",
