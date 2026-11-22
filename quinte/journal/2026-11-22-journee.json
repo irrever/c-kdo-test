@@ -208,7 +208,7 @@
    "heure": "14:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LOVE GLYCINES",
@@ -227,7 +227,13 @@
     "14": "LAGNU MAG",
     "15": "LIBERATOR PHEDO"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    7,
+    5,
+    9
+   ],
    "ordre": [
     6,
     10,
@@ -302,7 +308,7 @@
    "heure": "15:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 18,
    "noms": {
     "1": "KUIPER",
@@ -1959,7 +1965,7 @@
    "heure": "14:50",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "BOUSSANT",
@@ -1977,7 +1983,13 @@
     "13": "D'ALLURE",
     "14": "KENPIC"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    1,
+    8,
+    9
+   ],
    "ordre": [
     7,
     5,
@@ -3958,7 +3970,7 @@
    "heure": "14:40",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MAITRE D'OEUVRE",
@@ -3972,7 +3984,13 @@
     "9": "SHADOW OF SHADOW",
     "10": "MIRAGE DES PINS"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    4,
+    3,
+    5
+   ],
    "ordre": [
     9,
     10,
@@ -4047,7 +4065,7 @@
    "heure": "15:10",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "LE CHAT BOTTE",
@@ -4587,7 +4605,7 @@
    "heure": "14:45",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LASCO DE BERTRANGE",
@@ -4605,7 +4623,13 @@
     "13": "LAVINIA DES ILES",
     "14": "LOLA DU CHERISAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    10,
+    13,
+    7,
+    2
+   ],
    "ordre": [
     2,
     13,
@@ -4680,7 +4704,7 @@
    "heure": "15:15",
    "distance": 3000,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "JOKER DE L'ETRE",
@@ -5242,7 +5266,7 @@
    "heure": "14:30",
    "distance": 2675,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "JAGUAR BLEU",
@@ -5258,7 +5282,13 @@
     "11": "KODIAK DU NORD",
     "12": "KOLORADO"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    9,
+    4,
+    8
+   ],
    "ordre": [
     2,
     4,
@@ -5333,7 +5363,7 @@
    "heure": "15:00",
    "distance": 2550,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "JUNIOR DU GADE",
@@ -6184,7 +6214,7 @@
    "heure": "14:50",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "WITHOUT A DOUBT",
@@ -6202,7 +6232,13 @@
     "13": "JAG ROYAL",
     "14": "DAMISELA"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    5,
+    14,
+    4
+   ],
    "ordre": [
     7,
     8,
