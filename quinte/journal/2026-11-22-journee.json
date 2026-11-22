@@ -1118,7 +1118,7 @@
    "heure": "12:15",
    "distance": 4000,
    "discipline": "Haies",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MOHICAN",
@@ -1131,7 +1131,13 @@
     "8": "UN CHIC CHEVAL",
     "9": "LADY LADY LAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    3,
+    4,
+    7
+   ],
    "ordre": [
     6,
     8,
@@ -1563,7 +1569,7 @@
    "heure": "12:31",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "NECTAR VERGOIGNAN",
@@ -1573,7 +1579,13 @@
     "5": "NITRO FOREZ",
     "6": "NIAGARA DU SEUIL"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    6,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     3,
     6,
@@ -5588,7 +5600,7 @@
    "heure": "12:20",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "OLISCO DES EPINES",
@@ -5601,7 +5613,13 @@
     "8": "OURASI CONTRELLE",
     "9": "ODACE DESBOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    2,
+    5,
+    9
+   ],
    "ordre": [
     1,
     2,
