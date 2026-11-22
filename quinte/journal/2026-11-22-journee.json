@@ -2766,7 +2766,7 @@
    "heure": "19:34",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MISS PARANO",
@@ -2957,7 +2957,7 @@
    "heure": "19:18",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "APADRINADOR",
@@ -2975,7 +2975,13 @@
     "13": "CHEVALIER NOIRE",
     "14": "BIG MATEO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    14,
+    1,
+    9
+   ],
    "ordre": [
     9,
     2,
