@@ -706,7 +706,7 @@
    "heure": "17:35",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NAFI DE REVE D'OR",
@@ -721,7 +721,13 @@
     "10": "NORMANDIE NIEMEN",
     "11": "NOCIVE DU CHOQUEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    3,
+    8,
+    1
+   ],
    "ordre": [
     9,
     4,
@@ -796,7 +802,7 @@
    "heure": "18:10",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "LOVELY DES BROUETS",
@@ -2475,7 +2481,7 @@
    "heure": "17:52",
    "distance": 3000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "READY TO GO",
@@ -2495,7 +2501,13 @@
     "15": "PINTXOPOTE",
     "16": "LIANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    13,
+    12,
+    4,
+    9
+   ],
    "ordre": [
     3,
     7,
