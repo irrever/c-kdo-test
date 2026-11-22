@@ -3443,7 +3443,7 @@
    "heure": "21:50",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AFRICAN SPIRIT",
@@ -3459,7 +3459,13 @@
     "11": "EL RODO",
     "12": "PRESUMIDA FLAME"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    8,
+    1,
+    7,
+    6
+   ],
    "ordre": [
     5,
     11,
