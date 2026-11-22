@@ -846,7 +846,7 @@
    "heure": "10:35",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "WOLVERINE",
@@ -857,7 +857,13 @@
     "6": "PERFECT SONG",
     "7": "GOODNESS GRACIOUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    4,
+    1,
+    3
+   ],
    "ordre": [
     3,
     4,
@@ -925,7 +931,7 @@
    "heure": "11:10",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 9,
    "noms": {
     "1": "BATHY DIAMOND",
