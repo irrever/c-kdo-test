@@ -3253,7 +3253,7 @@
    "heure": "20:50",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "MARINO SIN VACILAR",
@@ -3268,7 +3268,13 @@
     "10": "LYNGOTE",
     "11": "ROJO BURGUES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    2,
+    10,
+    8
+   ],
    "ordre": [
     3,
     11,
