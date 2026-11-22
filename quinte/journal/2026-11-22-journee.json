@@ -3157,7 +3157,7 @@
    "heure": "20:22",
    "distance": 1100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "CARIBEAN PASSION",
@@ -3172,7 +3172,13 @@
     "10": "PAZZELLE",
     "11": "PRIMO JULERO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    6,
+    7,
+    4
+   ],
    "ordre": [
     7,
     3,
