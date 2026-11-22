@@ -846,7 +846,7 @@
    "heure": "10:35",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 7,
    "noms": {
     "1": "WOLVERINE",
