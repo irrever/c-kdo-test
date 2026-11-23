@@ -112,7 +112,7 @@
    "heure": "14:30",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LUNE DE L'EMION",
@@ -126,7 +126,13 @@
     "9": "LUNA DOMA",
     "10": "LEDORIKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    7,
+    10,
+    9
+   ],
    "ordre": [
     4,
     6,
@@ -1320,7 +1326,7 @@
    "heure": "14:19",
    "distance": 4300,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "GINO DU MATHAN",
@@ -1329,7 +1335,13 @@
     "4": "MAGIC THEYSS",
     "5": "DENHAM RISK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    5,
+    1,
+    4
+   ],
    "ordre": [
     4,
     3,
@@ -1673,7 +1685,7 @@
    "heure": "14:12",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CHAMPAGNE SUNSET",
@@ -1689,7 +1701,13 @@
     "11": "MAJESTIC PEARL",
     "12": "ARWOOD"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    2,
+    11,
+    7
+   ],
    "ordre": [
     8,
     5,
@@ -3627,7 +3645,7 @@
    "heure": "14:15",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PROLIXE",
@@ -3640,7 +3658,13 @@
     "8": "BELLA JOSEPHINE",
     "9": "ELFE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    1,
+    6,
+    2
+   ],
    "ordre": [
     9,
     7,
