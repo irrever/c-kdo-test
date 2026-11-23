@@ -746,7 +746,7 @@
    "heure": "10:54",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "RITANO GUAPO",
@@ -759,7 +759,13 @@
     "8": "BALLYEDWARD",
     "9": "PARCEKE C'EST TOI"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    2,
+    1,
+    8
+   ],
    "ordre": [
     5,
     1,
