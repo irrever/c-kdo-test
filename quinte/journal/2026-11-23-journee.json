@@ -840,7 +840,7 @@
    "heure": "11:24",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "2": "NANJAYA",
@@ -852,7 +852,13 @@
     "8": "NO LIMIT STAR",
     "9": "LABELLEGNAC"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    7,
+    4,
+    3
+   ],
    "ordre": [
     2,
     4,
