@@ -2679,7 +2679,7 @@
    "heure": "19:45",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "IT'S PISTACHIO",
@@ -2692,7 +2692,13 @@
     "8": "POSSENHOFEN",
     "9": "SHY FEELING"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    6,
+    4,
+    8
+   ],
    "ordre": [
     4,
     8,
@@ -2767,7 +2773,7 @@
    "heure": "20:15",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 7,
    "noms": {
     "1": "HUGO CABRET",
@@ -3311,7 +3317,7 @@
    "heure": "20:00",
    "distance": 1450,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "GIORGIO M",
@@ -3327,7 +3333,13 @@
     "11": "ON KEY",
     "12": "MONTPELLIER GREEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    7,
+    5,
+    12
+   ],
    "ordre": [
     9,
     7,
