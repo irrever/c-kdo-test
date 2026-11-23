@@ -399,7 +399,7 @@
    "heure": "16:15",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KEITHOS DU RHIN",
@@ -414,7 +414,13 @@
     "10": "KEIGHT BLESS",
     "11": "KALISCO PLANCHETTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    3,
+    7,
+    6,
+    1
+   ],
    "ordre": [
     7,
     6,
@@ -2081,7 +2087,7 @@
    "heure": "16:32",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "ALBATH'OR",
@@ -3950,7 +3956,7 @@
    "heure": "15:45",
    "distance": 4200,
    "discipline": "Cross",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "FOLKORIKO",
@@ -3964,7 +3970,13 @@
     "9": "KOUMBALA",
     "10": "LA GAZELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    7,
+    4,
+    1
+   ],
    "ordre": [
     5,
     9,
@@ -4039,7 +4051,7 @@
    "heure": "16:15",
    "distance": 4900,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "CAPTAIN DU BERLAIS",
