@@ -3517,7 +3517,7 @@
    "heure": "21:00",
    "distance": 1450,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SHAH",
@@ -3532,7 +3532,13 @@
     "10": "KING'S VANITY",
     "11": "FOLLOW YOUR HEART"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    2,
+    6,
+    8
+   ],
    "ordre": [
     2,
     1,
