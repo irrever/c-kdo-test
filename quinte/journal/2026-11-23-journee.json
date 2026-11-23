@@ -1124,7 +1124,7 @@
    "heure": "13:09",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "BAR TENDER",
@@ -1140,7 +1140,13 @@
     "11": "LA BELLE STAR",
     "13": "KRISE D'HUMOUR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    7,
+    3,
+    10
+   ],
    "ordre": [
     9,
     1,
@@ -1558,7 +1564,7 @@
    "heure": "13:27",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "LUCKY VOWS",
@@ -3510,7 +3516,7 @@
    "heure": "13:45",
    "distance": 1850,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 8,
    "noms": {
     "1": "WISH YOU JOY",
