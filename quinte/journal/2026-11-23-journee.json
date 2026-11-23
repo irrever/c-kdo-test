@@ -694,7 +694,7 @@
    "heure": "18:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NO LIMIT DELO",
@@ -713,7 +713,13 @@
     "14": "NOSTRA COSA",
     "15": "NEVALE VET"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    6,
+    8,
+    5
+   ],
    "ordre": [
     10,
     4,
@@ -2389,7 +2395,7 @@
    "heure": "18:15",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "RED SCOTCH",
@@ -2405,7 +2411,13 @@
     "11": "MERI SIVA",
     "12": "YODA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    6,
+    4,
+    8
+   ],
    "ordre": [
     5,
     2,
@@ -2480,7 +2492,7 @@
    "heure": "18:45",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 9,
    "noms": {
     "1": "STARSHIP",
@@ -2997,7 +3009,7 @@
    "heure": "18:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "DESHAIES",
@@ -3013,7 +3025,13 @@
     "11": "PURIST",
     "12": "QUEEN OF CHRISTMAS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    12,
+    3,
+    8,
+    9
+   ],
    "ordre": [
     5,
     1,
