@@ -933,7 +933,7 @@
    "heure": "11:59",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "KIMFLY",
