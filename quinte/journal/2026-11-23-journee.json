@@ -3613,7 +3613,7 @@
    "heure": "21:30",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "GALBA",
@@ -3627,7 +3627,13 @@
     "9": "CLATFORD",
     "10": "PIPILY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    3,
+    6,
+    7
+   ],
    "ordre": [
     1,
     10,
