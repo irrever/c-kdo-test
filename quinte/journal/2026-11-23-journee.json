@@ -303,7 +303,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NOUBA DU SAPHIR",
@@ -318,7 +318,13 @@
     "10": "NIKITA JIEL",
     "11": "NOEMIE D'AVEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    11,
+    4,
+    8
+   ],
    "ordre": [
     9,
     7,
@@ -393,7 +399,7 @@
    "heure": "16:15",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 11,
    "noms": {
     "1": "KEITHOS DU RHIN",
@@ -1980,7 +1986,7 @@
    "heure": "15:57",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "2": "ASTON CLINTON",
@@ -1994,7 +2000,13 @@
     "10": "SIGNOR GALLI",
     "11": "HARRISON POINT"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    3,
+    7,
+    5,
+    9
+   ],
    "ordre": [
     8,
     5,
@@ -3842,7 +3854,7 @@
    "heure": "15:15",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NAPOU VALLIS",
@@ -3857,7 +3869,13 @@
     "10": "NIRVANA DES MOTTES",
     "11": "GLWA'DOCH"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    1,
+    11,
+    10
+   ],
    "ordre": [
     7,
     1,
@@ -3932,7 +3950,7 @@
    "heure": "15:45",
    "distance": 4200,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "FOLKORIKO",
