@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "1": "KELMEC",
@@ -31,7 +31,13 @@
     "16": "IBIZA BELLA",
     "17": "IDYLLE EXPRESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    13,
+    3,
+    16,
+    9
+   ],
    "ordre": [
     11,
     13,
@@ -1221,7 +1227,7 @@
    "heure": "13:44",
    "distance": 4300,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SHEZALA",
@@ -1233,7 +1239,13 @@
     "7": "MAIRYGARDE DE MEE",
     "8": "MERLIN DU LARGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    2,
+    7,
+    6
+   ],
    "ordre": [
     3,
     5,
@@ -1308,7 +1320,7 @@
    "heure": "14:19",
    "distance": 4300,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 5,
    "noms": {
     "1": "GINO DU MATHAN",
@@ -1564,7 +1576,7 @@
    "heure": "13:27",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LUCKY VOWS",
@@ -1580,7 +1592,13 @@
     "11": "REGAL CHOP",
     "12": "OROPENDOLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    8,
+    3,
+    12
+   ],
    "ordre": [
     7,
     5,
@@ -1655,7 +1673,7 @@
    "heure": "14:12",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "CHAMPAGNE SUNSET",
@@ -3516,7 +3534,7 @@
    "heure": "13:45",
    "distance": 1850,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "WISH YOU JOY",
@@ -3528,7 +3546,13 @@
     "7": "FILLE D ARTISTE",
     "8": "KANCHANA"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    4,
+    7,
+    6
+   ],
    "ordre": [
     2,
     6,
