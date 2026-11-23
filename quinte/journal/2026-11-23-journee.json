@@ -495,7 +495,7 @@
    "heure": "16:50",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MALOUINES QUESNOT",
@@ -511,7 +511,13 @@
     "11": "MAHIZ DE GUEZ",
     "12": "MINERVE DE VANDEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    11,
+    7,
+    12,
+    3
+   ],
    "ordre": [
     9,
     8,
@@ -2087,7 +2093,7 @@
    "heure": "16:32",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ALBATH'OR",
@@ -2105,7 +2111,13 @@
     "13": "BIRDY SUN",
     "14": "DREAMFORFUTURE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    14,
+    2,
+    8
+   ],
    "ordre": [
     4,
     14,
@@ -2180,7 +2192,7 @@
    "heure": "17:07",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "WELCOME CHARLY",
@@ -2195,7 +2207,13 @@
     "10": "GOOD QUESTION",
     "11": "ALROMY"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    4,
+    7,
+    1
+   ],
    "ordre": [
     1,
     9,
@@ -4051,7 +4069,7 @@
    "heure": "16:15",
    "distance": 4900,
    "discipline": "Cross",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CAPTAIN DU BERLAIS",
@@ -4064,7 +4082,13 @@
     "9": "FRAGA HAS",
     "10": "ELLIE'STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    4,
+    6,
+    3,
+    1
+   ],
    "ordre": [
     3,
     10,
