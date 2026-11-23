@@ -592,7 +592,7 @@
    "heure": "17:25",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "2": "MBAPE DES CHARRONS",
@@ -613,7 +613,13 @@
     "17": "MAESTRO JAMINI",
     "18": "MY DREAM MESLOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    18,
+    15,
+    12,
+    16,
+    5
+   ],
    "ordre": [
     13,
     10,
@@ -2288,7 +2294,7 @@
    "heure": "17:42",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "LAGOONE CHOPE",
@@ -2810,7 +2816,7 @@
    "heure": "17:30",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "SYMPHONY OF JOY",
@@ -2827,7 +2833,13 @@
     "12": "CEINTURE D'ORION",
     "13": "CREATE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    10,
+    7,
+    11
+   ],
    "ordre": [
     10,
     9,
