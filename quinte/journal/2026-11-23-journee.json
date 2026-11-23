@@ -1029,7 +1029,7 @@
    "heure": "12:34",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "DIZAVRIL PELEM",
@@ -1043,7 +1043,13 @@
     "10": "MOLOTOF COCKTAIL",
     "11": "DIMITRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    2,
+    1,
+    9
+   ],
    "ordre": [
     3,
     10,
@@ -1118,7 +1124,7 @@
    "heure": "13:09",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "BAR TENDER",
@@ -1454,7 +1460,7 @@
    "heure": "12:52",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LIGHT OF THUNDER",
@@ -1471,7 +1477,13 @@
     "12": "WAYKIKI",
     "13": "ZARALADY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    12,
+    10,
+    9,
+    2
+   ],
    "ordre": [
     4,
     2,
