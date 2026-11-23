@@ -694,7 +694,7 @@
    "heure": "18:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "NO LIMIT DELO",
@@ -2294,7 +2294,7 @@
    "heure": "17:42",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LAGOONE CHOPE",
@@ -2308,7 +2308,13 @@
     "9": "CAPABLE",
     "10": "ZELICA"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    1,
+    9,
+    5,
+    8
+   ],
    "ordre": [
     5,
     10,
@@ -2914,7 +2920,7 @@
    "heure": "18:00",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "CAPRICIOUS STAR",
@@ -2924,7 +2930,13 @@
     "5": "HELLO YOU TEN",
     "6": "DISTANT SUN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    3,
+    5,
+    6
+   ],
    "ordre": [
     1,
     2,
