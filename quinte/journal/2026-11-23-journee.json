@@ -933,7 +933,7 @@
    "heure": "11:59",
    "distance": 3900,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "KIMFLY",
@@ -948,7 +948,13 @@
     "10": "YEMASKA",
     "11": "CHASUBLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    10,
+    2,
+    6
+   ],
    "ordre": [
     5,
     10,
@@ -1023,7 +1029,7 @@
    "heure": "12:34",
    "distance": 3500,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 10,
    "noms": {
     "1": "DIZAVRIL PELEM",
@@ -1353,7 +1359,7 @@
    "heure": "12:17",
    "distance": 2700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NEPALAIS",
@@ -1367,7 +1373,13 @@
     "9": "ANTAIOS",
     "10": "BATURHAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    1,
+    4,
+    3,
+    2
+   ],
    "ordre": [
     4,
     6,
