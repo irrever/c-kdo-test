@@ -1,0 +1,176 @@
+{
+  "date": "2026-11-24",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-24/R1/C1",
+  "hippodrome": "DEAUVILLE",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-23T22:03:14+00:00",
+  "presse": {
+    "parier": [
+      3,
+      12,
+      1,
+      16,
+      10,
+      5,
+      8,
+      11
+    ],
+    "cinq": null,
+    "bases": [
+      3,
+      12,
+      1
+    ],
+    "outsiders": [
+      2,
+      13,
+      14,
+      4,
+      9,
+      15,
+      6,
+      7
+    ],
+    "belles": [
+      16,
+      10,
+      5,
+      8,
+      11
+    ],
+    "delaisses": []
+  },
+  "notre": [
+    {
+      "numero": 13,
+      "nom": "ROULETTE",
+      "score": 0.7518,
+      "rang": 1,
+      "p_victoire": 0.1216,
+      "p_top5": 0.5362
+    },
+    {
+      "numero": 14,
+      "nom": "NATORSPEED ESSEF",
+      "score": 0.7292,
+      "rang": 2,
+      "p_victoire": 0.1102,
+      "p_top5": 0.5026
+    },
+    {
+      "numero": 16,
+      "nom": "STARAC",
+      "score": 0.7128,
+      "rang": 3,
+      "p_victoire": 0.1043,
+      "p_top5": 0.4792
+    },
+    {
+      "numero": 10,
+      "nom": "STEP MORNING",
+      "score": 0.6372,
+      "rang": 4,
+      "p_victoire": 0.0775,
+      "p_top5": 0.3806
+    },
+    {
+      "numero": 12,
+      "nom": "HASAPIKO",
+      "score": 0.6222,
+      "rang": 5,
+      "p_victoire": 0.0721,
+      "p_top5": 0.3635
+    },
+    {
+      "numero": 8,
+      "nom": "TAMYZ",
+      "score": 0.5745,
+      "rang": 6,
+      "p_victoire": 0.0587,
+      "p_top5": 0.3088
+    },
+    {
+      "numero": 1,
+      "nom": "CASSIUS",
+      "score": 0.5675,
+      "rang": 7,
+      "p_victoire": 0.0584,
+      "p_top5": 0.301
+    },
+    {
+      "numero": 3,
+      "nom": "COLGAN SENORA",
+      "score": 0.5566,
+      "rang": 8,
+      "p_victoire": 0.0556,
+      "p_top5": 0.2897
+    },
+    {
+      "numero": 6,
+      "nom": "MISTERWINNER",
+      "score": 0.5435,
+      "rang": 9,
+      "p_victoire": 0.0531,
+      "p_top5": 0.2773
+    },
+    {
+      "numero": 2,
+      "nom": "CHESS",
+      "score": 0.5119,
+      "rang": 10,
+      "p_victoire": 0.0466,
+      "p_top5": 0.2494
+    },
+    {
+      "numero": 9,
+      "nom": "MONONOF",
+      "score": 0.5037,
+      "rang": 11,
+      "p_victoire": 0.0456,
+      "p_top5": 0.2425
+    },
+    {
+      "numero": 7,
+      "nom": "PRETTY QUEEN",
+      "score": 0.4978,
+      "rang": 12,
+      "p_victoire": 0.0442,
+      "p_top5": 0.2374
+    },
+    {
+      "numero": 4,
+      "nom": "RAM SEA",
+      "score": 0.4814,
+      "rang": 13,
+      "p_victoire": 0.0417,
+      "p_top5": 0.2248
+    },
+    {
+      "numero": 15,
+      "nom": "SAPRISTI",
+      "score": 0.4762,
+      "rang": 14,
+      "p_victoire": 0.0403,
+      "p_top5": 0.2183
+    },
+    {
+      "numero": 11,
+      "nom": "FEARLESS CHEETAH",
+      "score": 0.4565,
+      "rang": 15,
+      "p_victoire": 0.0371,
+      "p_top5": 0.2051
+    },
+    {
+      "numero": 5,
+      "nom": "FERDINAND PREMIER",
+      "score": 0.4298,
+      "rang": 16,
+      "p_victoire": 0.0331,
+      "p_top5": 0.1835
+    }
+  ]
+}

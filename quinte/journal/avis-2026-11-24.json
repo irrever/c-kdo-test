@@ -1,0 +1,212 @@
+{
+  "box": [
+    13,
+    14,
+    16,
+    12,
+    3,
+    6
+  ],
+  "top5": [
+    13,
+    14,
+    16,
+    10,
+    12
+  ],
+  "a_jouer": [
+    13
+  ],
+  "a_eviter": [
+    10,
+    8,
+    1,
+    11,
+    5
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 13,
+      "nom": "ROULETTE",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5362,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "NATORSPEED ESSEF",
+      "rang": 2,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5026,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "STARAC",
+      "rang": 3,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4792,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 10,
+      "nom": "STEP MORNING",
+      "rang": 4,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3806,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "HASAPIKO",
+      "rang": 5,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3635,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "TAMYZ",
+      "rang": 6,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3088,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "CASSIUS",
+      "rang": 7,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.301,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "COLGAN SENORA",
+      "rang": 8,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2897,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "MISTERWINNER",
+      "rang": 9,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2773,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "CHESS",
+      "rang": 10,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2494,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "MONONOF",
+      "rang": 11,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2425,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 7,
+      "nom": "PRETTY QUEEN",
+      "rang": 12,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2374,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "RAM SEA",
+      "rang": 13,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2248,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "SAPRISTI",
+      "rang": 14,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2183,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "FEARLESS CHEETAH",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2051,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "FERDINAND PREMIER",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1835,
+      "categorie": "belle",
+      "retenu": true
+    }
+  ],
+  "date": "2026-11-24",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "DEAUVILLE",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-23T22:03:15+00:00"
+}
