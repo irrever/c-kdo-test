@@ -2586,7 +2586,7 @@
    "heure": "19:15",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "WAZIERS",
@@ -2598,7 +2598,13 @@
     "7": "STUNNING HERO",
     "8": "RESOLUTION"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    8,
+    3,
+    2
+   ],
    "ordre": [
     5,
     8,
@@ -3208,7 +3214,7 @@
    "heure": "19:30",
    "distance": 2450,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SPIRIT OF JURA",
@@ -3224,7 +3230,13 @@
     "11": "THREE DONS",
     "12": "MAGICIAN OF RIGA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    2,
+    3,
+    9
+   ],
    "ordre": [
     4,
     2,
