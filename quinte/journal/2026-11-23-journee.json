@@ -303,7 +303,7 @@
    "heure": "15:40",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "NOUBA DU SAPHIR",
@@ -1884,7 +1884,7 @@
    "heure": "15:22",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ROMANCE MARINE",
@@ -1899,7 +1899,13 @@
     "10": "ANTICO",
     "11": "SI CAPO SI"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    8,
+    1,
+    3
+   ],
    "ordre": [
     3,
     9,
@@ -3836,7 +3842,7 @@
    "heure": "15:15",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "NAPOU VALLIS",
