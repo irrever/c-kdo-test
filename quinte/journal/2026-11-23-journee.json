@@ -207,7 +207,7 @@
    "heure": "15:05",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NASH DE VANDEL",
@@ -222,7 +222,13 @@
     "10": "NEW HAUFOR",
     "11": "NOTHING COMPARES"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    3,
+    11,
+    4
+   ],
    "ordre": [
     10,
     11,
@@ -1782,7 +1788,7 @@
    "heure": "14:47",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "WHATAHERO",
@@ -1797,7 +1803,13 @@
     "10": "ILLOIS",
     "11": "GRACEHILL"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    6,
+    1,
+    4
+   ],
    "ordre": [
     10,
     3,
@@ -3739,7 +3751,7 @@
    "heure": "14:45",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "VOIX DE CRISTAL AA",
@@ -3750,7 +3762,13 @@
     "6": "DIEGO DE LENZAC AA",
     "7": "NEVA PONTADOUR AA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    6,
+    7,
+    3
+   ],
    "ordre": [
     1,
     3,
