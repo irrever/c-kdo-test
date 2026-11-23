@@ -2773,7 +2773,7 @@
    "heure": "20:15",
    "distance": 2600,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "HUGO CABRET",
@@ -2784,7 +2784,13 @@
     "6": "EX ANIMO",
     "7": "DISSEMBLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    6,
+    7,
+    3
+   ],
    "ordre": [
     1,
     7,
@@ -3414,7 +3420,7 @@
    "heure": "20:30",
    "distance": 1450,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "YEHUDI",
@@ -3430,7 +3436,13 @@
     "11": "ROMANOVICH",
     "12": "LHEBAYEB"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    5,
+    7,
+    1,
+    2
+   ],
    "ordre": [
     7,
     1,
