@@ -2307,7 +2307,7 @@
    "heure": "18:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MARBELLA TEJY",
@@ -2325,7 +2325,13 @@
     "13": "MISS STORY",
     "14": "MUSANIA DE WARNOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    14,
+    1,
+    10,
+    8
+   ],
    "ordre": [
     12,
     1,
@@ -2400,7 +2406,7 @@
    "heure": "19:15",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "KEL BAMBOIS",
@@ -3052,7 +3058,7 @@
    "heure": "19:00",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "CARLETTO",
@@ -3064,7 +3070,13 @@
     "7": "TOP SCHOLAR",
     "8": "TRUE KNIGHT"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    7,
+    3,
+    1
+   ],
    "ordre": [
     2,
     7,
