@@ -696,7 +696,7 @@
    "heure": "18:00",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LADY ACHILLIA",
@@ -715,7 +715,13 @@
     "14": "ZILCOVER",
     "15": "ARGYRON"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    3,
+    13,
+    9
+   ],
    "ordre": [
     6,
     15,
@@ -2202,7 +2208,7 @@
    "heure": "18:15",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MIKONOS DU ROSAY",
@@ -2220,7 +2226,13 @@
     "13": "MARIO DU CAIEU",
     "14": "MAESTRO DES NOES"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    10,
+    1,
+    3,
+    4
+   ],
    "ordre": [
     14,
     3,
@@ -2295,7 +2307,7 @@
    "heure": "18:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "MARBELLA TEJY",
@@ -2946,7 +2958,7 @@
    "heure": "18:30",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "FINAL CONQUEST",
@@ -2959,7 +2971,13 @@
     "8": "THE GREAT KAROO",
     "9": "ZAJAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    9,
+    5,
+    8,
+    3
+   ],
    "ordre": [
     9,
     8,
