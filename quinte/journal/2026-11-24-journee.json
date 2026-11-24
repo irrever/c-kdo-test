@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "CASSIUS",
@@ -30,7 +30,13 @@
     "15": "SAPRISTI",
     "16": "STARAC"
    },
-   "arrivee": [],
+   "arrivee": [
+    16,
+    8,
+    3,
+    2,
+    1
+   ],
    "ordre": [
     13,
     14,
@@ -1474,7 +1480,7 @@
    "heure": "14:12",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "ORION DU PONT",
