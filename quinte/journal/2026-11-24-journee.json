@@ -2505,7 +2505,7 @@
    "heure": "19:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NAUSICAA",
@@ -2520,7 +2520,13 @@
     "10": "NUANCE DU HOULET",
     "11": "NOUR STARDUST"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    6,
+    3,
+    9,
+    8
+   ],
    "ordre": [
     7,
     3,
@@ -2595,7 +2601,7 @@
    "heure": "20:15",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "OCALA",
@@ -3215,7 +3221,7 @@
    "heure": "20:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "DESERT FALCON",
@@ -3229,7 +3235,13 @@
     "9": "YES I'M MALI",
     "10": "ONE AND GONE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    1,
+    5,
+    7
+   ],
    "ordre": [
     3,
     7,
