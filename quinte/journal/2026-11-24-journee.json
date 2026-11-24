@@ -596,7 +596,7 @@
    "heure": "17:25",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "GOT MAN",
@@ -615,7 +615,13 @@
     "14": "HOT COLD",
     "15": "VIANETA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    14,
+    8,
+    7,
+    4
+   ],
    "ordre": [
     2,
     14,
@@ -1998,7 +2004,7 @@
    "heure": "17:07",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LA VERITE",
@@ -2016,7 +2022,13 @@
     "13": "LINKA D'ADELE",
     "14": "LADY VICTORY"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    12,
+    9,
+    4,
+    14
+   ],
    "ordre": [
     12,
     13,
@@ -2091,7 +2103,7 @@
    "heure": "17:42",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "KING MOKO",
@@ -2734,7 +2746,7 @@
    "heure": "17:30",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BLACK MISSILE",
@@ -2751,7 +2763,13 @@
     "12": "DILIGENT HENRY",
     "13": "MEGAPHONE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    8,
+    13,
+    6,
+    2
+   ],
    "ordre": [
     6,
     1,
