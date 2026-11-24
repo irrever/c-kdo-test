@@ -910,7 +910,7 @@
    "heure": "11:59",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "GORKI BRIO",
@@ -921,7 +921,13 @@
     "6": "ESPADA",
     "7": "RONIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    3,
+    4,
+    5
+   ],
    "ordre": [
     2,
     6,
