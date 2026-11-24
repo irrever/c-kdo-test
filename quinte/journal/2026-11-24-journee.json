@@ -397,7 +397,7 @@
    "heure": "16:15",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "SANDON",
@@ -415,7 +415,13 @@
     "13": "SEMEUR",
     "14": "TUNDRA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    12,
+    8,
+    11
+   ],
    "ordre": [
     2,
     11,
@@ -1888,7 +1894,7 @@
    "heure": "16:32",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "MONZON DU CHATELET",
