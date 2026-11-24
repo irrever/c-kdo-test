@@ -2406,7 +2406,7 @@
    "heure": "19:15",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KEL BAMBOIS",
@@ -2424,7 +2424,13 @@
     "13": "KRONOS DE TROIS",
     "14": "KENAVO TUILERIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    4,
+    11,
+    7,
+    5
+   ],
    "ordre": [
     7,
     12,
@@ -2499,7 +2505,7 @@
    "heure": "19:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "NAUSICAA",
@@ -3151,7 +3157,7 @@
    "heure": "19:30",
    "distance": 1750,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 4,
    "noms": {
     "1": "HAPPY LOVE",
@@ -3159,7 +3165,11 @@
     "3": "HIGH CALIBRE",
     "4": "CAPRICIOUS STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    3
+   ],
    "ordre": [
     1,
     3,
