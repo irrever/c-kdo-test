@@ -496,7 +496,7 @@
    "heure": "16:50",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "CHERRY PIE",
@@ -515,7 +515,13 @@
     "14": "SUPERCLASS",
     "15": "EASY ON ME"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    14,
+    1,
+    10,
+    11
+   ],
    "ordre": [
     14,
     2,
@@ -1894,7 +1900,7 @@
    "heure": "16:32",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "MONZON DU CHATELET",
@@ -1911,7 +1917,13 @@
     "12": "MATADOR DU PONT",
     "13": "MONEY DU CORTA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    9,
+    13,
+    11,
+    7
+   ],
    "ordre": [
     10,
     9,
@@ -1986,7 +1998,7 @@
    "heure": "17:07",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "LA VERITE",
