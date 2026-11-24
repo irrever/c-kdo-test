@@ -995,7 +995,7 @@
    "heure": "12:34",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LILY JAC",
@@ -1009,7 +1009,13 @@
     "9": "MAMMA PAULO",
     "10": "LET'S TWIST"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    4,
+    9,
+    2,
+    5
+   ],
    "ordre": [
     8,
     4,
@@ -1084,7 +1090,7 @@
    "heure": "13:09",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "INEXES DU MARTZA",
@@ -1269,7 +1275,7 @@
    "heure": "12:52",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LATINOS DU NOYER",
@@ -1287,7 +1293,13 @@
     "13": "LORD DE LA FUTAIE",
     "14": "LIKE A BIRD STAR"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    5,
+    4,
+    6,
+    3
+   ],
    "ordre": [
     9,
     5,
