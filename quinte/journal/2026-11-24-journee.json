@@ -817,7 +817,7 @@
    "heure": "11:30",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MATTJASTO",
@@ -829,7 +829,13 @@
     "7": "IMAGINE DU MARTZA",
     "8": "LYS ROYAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    6,
+    7,
+    3
+   ],
    "ordre": [
     1,
     3,
