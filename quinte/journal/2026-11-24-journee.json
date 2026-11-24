@@ -111,7 +111,7 @@
    "heure": "14:30",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CENTRAL PARK WEST",
@@ -124,7 +124,13 @@
     "8": "LUCIOLE ROQUE",
     "9": "VENTOSILLA"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    7,
+    9,
+    2
+   ],
    "ordre": [
     1,
     4,
@@ -1480,7 +1486,7 @@
    "heure": "14:12",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ORION DU PONT",
@@ -1496,7 +1502,13 @@
     "11": "OPERA WOOD",
     "12": "OLERON SEVEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    4,
+    10,
+    9
+   ],
    "ordre": [
     9,
     10,
