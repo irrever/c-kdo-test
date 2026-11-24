@@ -696,7 +696,7 @@
    "heure": "18:00",
    "distance": 2500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "LADY ACHILLIA",
@@ -2103,7 +2103,7 @@
    "heure": "17:42",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KING MOKO",
@@ -2121,7 +2121,13 @@
     "13": "JUST DE LA MORTRIE",
     "14": "JEALOUS GIRL"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    1,
+    6,
+    5,
+    13
+   ],
    "ordre": [
     1,
     8,
@@ -2844,7 +2850,7 @@
    "heure": "18:00",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "PROSEWRITER",
@@ -2859,7 +2865,13 @@
     "11": "LIBLEX DREAM",
     "13": "TWO STEPS TWICE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    5,
+    9,
+    2
+   ],
    "ordre": [
     1,
     7,
