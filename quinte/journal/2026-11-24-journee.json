@@ -748,7 +748,7 @@
    "heure": "11:01",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 5,
    "noms": {
     "1": "GITANO",
@@ -757,7 +757,13 @@
     "4": "KALATTINE",
     "5": "IATTIX"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    1,
+    2,
+    5
+   ],
    "ordre": [
     3,
     5,
