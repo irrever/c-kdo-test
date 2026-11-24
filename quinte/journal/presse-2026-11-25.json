@@ -1,0 +1,176 @@
+{
+  "date": "2026-11-25",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-25/R1/C1",
+  "hippodrome": "DEAUVILLE",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-24T22:03:21+00:00",
+  "presse": {
+    "parier": [
+      6,
+      10,
+      7,
+      13,
+      16,
+      12,
+      11,
+      15
+    ],
+    "cinq": null,
+    "bases": [
+      6,
+      10,
+      7
+    ],
+    "outsiders": [
+      9,
+      8,
+      4,
+      5,
+      3,
+      1,
+      2,
+      14
+    ],
+    "belles": [
+      13,
+      16,
+      12,
+      11,
+      15
+    ],
+    "delaisses": []
+  },
+  "notre": [
+    {
+      "numero": 1,
+      "nom": "WEEKEN",
+      "score": 0.7128,
+      "rang": 1,
+      "p_victoire": 0.1119,
+      "p_top5": 0.5069
+    },
+    {
+      "numero": 8,
+      "nom": "AWAITING CHRISTMAS",
+      "score": 0.705,
+      "rang": 2,
+      "p_victoire": 0.1069,
+      "p_top5": 0.4935
+    },
+    {
+      "numero": 11,
+      "nom": "TANQUES",
+      "score": 0.6815,
+      "rang": 3,
+      "p_victoire": 0.0989,
+      "p_top5": 0.461
+    },
+    {
+      "numero": 7,
+      "nom": "SAINT SAENS",
+      "score": 0.6504,
+      "rang": 4,
+      "p_victoire": 0.0871,
+      "p_top5": 0.4199
+    },
+    {
+      "numero": 6,
+      "nom": "BOURGOIN",
+      "score": 0.634,
+      "rang": 5,
+      "p_victoire": 0.0814,
+      "p_top5": 0.4001
+    },
+    {
+      "numero": 12,
+      "nom": "SALALAH",
+      "score": 0.6175,
+      "rang": 6,
+      "p_victoire": 0.0755,
+      "p_top5": 0.3791
+    },
+    {
+      "numero": 5,
+      "nom": "GRAND SCOOP",
+      "score": 0.5871,
+      "rang": 7,
+      "p_victoire": 0.0669,
+      "p_top5": 0.3401
+    },
+    {
+      "numero": 16,
+      "nom": "PAINTELLO",
+      "score": 0.5426,
+      "rang": 8,
+      "p_victoire": 0.0571,
+      "p_top5": 0.2945
+    },
+    {
+      "numero": 2,
+      "nom": "TISSIMO",
+      "score": 0.5253,
+      "rang": 9,
+      "p_victoire": 0.0526,
+      "p_top5": 0.2786
+    },
+    {
+      "numero": 13,
+      "nom": "SPIRITO",
+      "score": 0.4936,
+      "rang": 10,
+      "p_victoire": 0.0469,
+      "p_top5": 0.2492
+    },
+    {
+      "numero": 9,
+      "nom": "OMICRONE",
+      "score": 0.4862,
+      "rang": 11,
+      "p_victoire": 0.0452,
+      "p_top5": 0.2432
+    },
+    {
+      "numero": 10,
+      "nom": "FIRE REBEL",
+      "score": 0.4794,
+      "rang": 12,
+      "p_victoire": 0.0446,
+      "p_top5": 0.2374
+    },
+    {
+      "numero": 3,
+      "nom": "FELIX AUX ORMES",
+      "score": 0.4677,
+      "rang": 13,
+      "p_victoire": 0.0422,
+      "p_top5": 0.2272
+    },
+    {
+      "numero": 4,
+      "nom": "OZAN",
+      "score": 0.3824,
+      "rang": 14,
+      "p_victoire": 0.029,
+      "p_top5": 0.1647
+    },
+    {
+      "numero": 14,
+      "nom": "ROYALWOOD",
+      "score": 0.3809,
+      "rang": 15,
+      "p_victoire": 0.0292,
+      "p_top5": 0.1657
+    },
+    {
+      "numero": 15,
+      "nom": "APOGEO",
+      "score": 0.3362,
+      "rang": 16,
+      "p_victoire": 0.0248,
+      "p_top5": 0.139
+    }
+  ]
+}

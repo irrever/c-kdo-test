@@ -1,0 +1,344 @@
+{
+ "date": "2026-11-25",
+ "retroactif": false,
+ "fige_le": "2026-11-24T22:03:25",
+ "hippodrome": "DEAUVILLE",
+ "course": "R1C1",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 1,
+   "nom": "WEEKEN",
+   "score": 0.7128226182572579,
+   "p_victoire": 0.1119,
+   "p_top3": 0.320435,
+   "p_top5": 0.50686
+  },
+  {
+   "numero": 8,
+   "nom": "AWAITING CHRISTMAS",
+   "score": 0.705024059690397,
+   "p_victoire": 0.106905,
+   "p_top3": 0.309555,
+   "p_top5": 0.49346
+  },
+  {
+   "numero": 11,
+   "nom": "TANQUES",
+   "score": 0.6814776355463219,
+   "p_victoire": 0.09888,
+   "p_top3": 0.285965,
+   "p_top5": 0.460995
+  },
+  {
+   "numero": 7,
+   "nom": "SAINT SAENS",
+   "score": 0.6504450114323354,
+   "p_victoire": 0.08709,
+   "p_top3": 0.25773,
+   "p_top5": 0.41991
+  },
+  {
+   "numero": 6,
+   "nom": "BOURGOIN",
+   "score": 0.6339822975429946,
+   "p_victoire": 0.08135,
+   "p_top3": 0.242185,
+   "p_top5": 0.400075
+  },
+  {
+   "numero": 12,
+   "nom": "SALALAH",
+   "score": 0.6175400052924451,
+   "p_victoire": 0.075475,
+   "p_top3": 0.227265,
+   "p_top5": 0.3791
+  },
+  {
+   "numero": 5,
+   "nom": "GRAND SCOOP",
+   "score": 0.5870689925121251,
+   "p_victoire": 0.066885,
+   "p_top3": 0.20304,
+   "p_top5": 0.34013
+  },
+  {
+   "numero": 16,
+   "nom": "PAINTELLO",
+   "score": 0.5426157379010496,
+   "p_victoire": 0.057135,
+   "p_top3": 0.173735,
+   "p_top5": 0.29449
+  },
+  {
+   "numero": 2,
+   "nom": "TISSIMO",
+   "score": 0.5253281634050615,
+   "p_victoire": 0.052615,
+   "p_top3": 0.162755,
+   "p_top5": 0.27856
+  },
+  {
+   "numero": 13,
+   "nom": "SPIRITO",
+   "score": 0.49364124175489643,
+   "p_victoire": 0.04691,
+   "p_top3": 0.1446,
+   "p_top5": 0.24924
+  },
+  {
+   "numero": 9,
+   "nom": "OMICRONE",
+   "score": 0.4862321896487793,
+   "p_victoire": 0.04518,
+   "p_top3": 0.140335,
+   "p_top5": 0.24324
+  },
+  {
+   "numero": 10,
+   "nom": "FIRE REBEL",
+   "score": 0.4793968857909265,
+   "p_victoire": 0.044565,
+   "p_top3": 0.13813,
+   "p_top5": 0.237395
+  },
+  {
+   "numero": 3,
+   "nom": "FELIX AUX ORMES",
+   "score": 0.46769255960595146,
+   "p_victoire": 0.042155,
+   "p_top3": 0.130805,
+   "p_top5": 0.227175
+  },
+  {
+   "numero": 4,
+   "nom": "OZAN",
+   "score": 0.3823721241508483,
+   "p_victoire": 0.028975,
+   "p_top3": 0.092485,
+   "p_top5": 0.164695
+  },
+  {
+   "numero": 14,
+   "nom": "ROYALWOOD",
+   "score": 0.3809007048858893,
+   "p_victoire": 0.029195,
+   "p_top3": 0.092925,
+   "p_top5": 0.16567
+  },
+  {
+   "numero": 15,
+   "nom": "APOGEO",
+   "score": 0.3361885405321487,
+   "p_victoire": 0.024785,
+   "p_top3": 0.078055,
+   "p_top5": 0.139005
+  }
+ ],
+ "ordre_predit": [
+  1,
+  8,
+  11,
+  7,
+  6
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     1,
+     8,
+     11
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.01003,
+    "par_combinaison": 0.01003
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.034645,
+    "par_combinaison": 0.00866125
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.075675,
+    "par_combinaison": 0.0075675000000000004
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.13325,
+    "par_combinaison": 0.0066625
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00513,
+    "par_combinaison": 0.00513
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.020525,
+    "par_combinaison": 0.004105
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.051415,
+    "par_combinaison": 0.003427666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12,
+     5
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.09925,
+    "par_combinaison": 0.002835714285714286
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00325,
+    "par_combinaison": 0.00325
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.01518,
+    "par_combinaison": 0.00253
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12,
+     5
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.04069,
+    "par_combinaison": 0.0019376190476190474
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12,
+     5,
+     16
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.080815,
+    "par_combinaison": 0.001443125
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     1,
+     8,
+     11,
+     7,
+     6,
+     12,
+     5,
+     16,
+     2
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.14061,
+    "par_combinaison": 0.001115952380952381
+   }
+  ]
+ }
+}

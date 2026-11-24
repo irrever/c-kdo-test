@@ -1,0 +1,211 @@
+{
+  "box": [
+    1,
+    8,
+    7,
+    6,
+    5,
+    16
+  ],
+  "top5": [
+    1,
+    8,
+    11,
+    7,
+    6
+  ],
+  "a_jouer": [
+    1
+  ],
+  "a_eviter": [
+    11,
+    12,
+    13,
+    15
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 1,
+      "nom": "WEEKEN",
+      "rang": 1,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5069,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 8,
+      "nom": "AWAITING CHRISTMAS",
+      "rang": 2,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.4935,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "TANQUES",
+      "rang": 3,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.461,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "SAINT SAENS",
+      "rang": 4,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4199,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "BOURGOIN",
+      "rang": 5,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4001,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 12,
+      "nom": "SALALAH",
+      "rang": 6,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3791,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "GRAND SCOOP",
+      "rang": 7,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3401,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "PAINTELLO",
+      "rang": 8,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2945,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "TISSIMO",
+      "rang": 9,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2786,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 13,
+      "nom": "SPIRITO",
+      "rang": 10,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2492,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 9,
+      "nom": "OMICRONE",
+      "rang": 11,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2432,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 10,
+      "nom": "FIRE REBEL",
+      "rang": 12,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.2374,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "FELIX AUX ORMES",
+      "rang": 13,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2272,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "OZAN",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1647,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "ROYALWOOD",
+      "rang": 15,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1657,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 15,
+      "nom": "APOGEO",
+      "rang": 16,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.139,
+      "categorie": "belle",
+      "retenu": true
+    }
+  ],
+  "date": "2026-11-25",
+  "r": 1,
+  "c": 1,
+  "hippodrome": "DEAUVILLE",
+  "heure_depart": "13:55",
+  "fige_le_utc": "2026-11-24T22:03:23+00:00"
+}
