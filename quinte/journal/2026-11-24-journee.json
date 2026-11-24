@@ -1090,7 +1090,7 @@
    "heure": "13:09",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "INEXES DU MARTZA",
@@ -1105,7 +1105,13 @@
     "10": "NOBLE RUSH FLEVO",
     "11": "KOLD D'ECHAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    3,
+    1,
+    6,
+    9
+   ],
    "ordre": [
     6,
     10,
@@ -1374,7 +1380,7 @@
    "heure": "13:27",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NICO ARCTIC",
@@ -1387,7 +1393,13 @@
     "8": "NEW YORK D'OYSE",
     "9": "NOBI BAROSSO"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    6,
+    3,
+    2
+   ],
    "ordre": [
     5,
     1,
