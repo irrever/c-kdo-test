@@ -2698,7 +2698,7 @@
    "heure": "20:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "INDY FOUTEAU",
@@ -2713,7 +2713,13 @@
     "10": "INDIANO JIM",
     "11": "JOKER MADRIK"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    1,
+    6,
+    5
+   ],
    "ordre": [
     1,
     6,
@@ -3418,7 +3424,7 @@
    "heure": "21:00",
    "distance": 2800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "CODIAK",
@@ -3431,7 +3437,13 @@
     "8": "FLAGBEARER",
     "9": "MIDNIGHT RUMBLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    2,
+    6,
+    4
+   ],
    "ordre": [
     1,
     7,
