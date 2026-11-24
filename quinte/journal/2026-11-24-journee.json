@@ -300,7 +300,7 @@
    "heure": "15:40",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "DUTCHMAN",
@@ -316,7 +316,13 @@
     "11": "ASSET",
     "12": "PORTO URBINO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    12,
+    4,
+    2,
+    10
+   ],
    "ordre": [
     8,
     12,
@@ -1785,7 +1791,7 @@
    "heure": "15:57",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NOBLESSE DU CHENE",
@@ -1801,7 +1807,13 @@
     "11": "NEW EPATANTE",
     "12": "NEPTUNE DE BLARY"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    5,
+    4,
+    3,
+    9
+   ],
    "ordre": [
     9,
     4,
