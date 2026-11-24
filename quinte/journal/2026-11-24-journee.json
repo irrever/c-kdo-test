@@ -2601,7 +2601,7 @@
    "heure": "20:15",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "OCALA",
@@ -2617,7 +2617,13 @@
     "11": "OBAMI",
     "12": "OMARICK DIESCHOOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    10,
+    12,
+    5,
+    1
+   ],
    "ordre": [
     12,
     10,
@@ -2692,7 +2698,7 @@
    "heure": "20:45",
    "distance": 2400,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 11,
    "noms": {
     "1": "INDY FOUTEAU",
@@ -3316,7 +3322,7 @@
    "heure": "20:30",
    "distance": 1450,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "ICE SOVEREIGNS",
@@ -3331,7 +3337,13 @@
     "10": "QUEUE DOS",
     "11": "ENOLA GREY"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    10,
+    11,
+    9
+   ],
    "ordre": [
     2,
     5,
