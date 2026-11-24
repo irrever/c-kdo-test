@@ -205,7 +205,7 @@
    "heure": "15:05",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "ROSA AUREA",
@@ -1583,7 +1583,7 @@
    "heure": "14:47",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LIKE THE WIND",
@@ -1601,7 +1601,13 @@
     "13": "LOVI CADENCE",
     "14": "LORD SUN DRALIAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    4,
+    14,
+    10
+   ],
    "ordre": [
     8,
     3,
