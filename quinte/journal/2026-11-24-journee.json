@@ -3518,7 +3518,7 @@
    "heure": "21:30",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MOE'S LEGACY",
@@ -3532,7 +3532,13 @@
     "9": "RYE",
     "10": "SHOWTIME MAHOMES"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    9,
+    10,
+    2,
+    8
+   ],
    "ordre": [
     7,
     3,
