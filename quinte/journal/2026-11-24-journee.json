@@ -205,7 +205,7 @@
    "heure": "15:05",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ROSA AUREA",
@@ -219,7 +219,13 @@
     "10": "MIRYACALE",
     "11": "UPMANIA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    11,
+    1,
+    7,
+    10
+   ],
    "ordre": [
     1,
     5,
@@ -294,7 +300,7 @@
    "heure": "15:40",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 12,
    "noms": {
     "1": "DUTCHMAN",
@@ -1682,7 +1688,7 @@
    "heure": "15:22",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NECTAR VRIE",
@@ -1698,7 +1704,13 @@
     "11": "NOBLE SUPREME",
     "12": "NOMADE PIYA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    11,
+    2,
+    1,
+    12
+   ],
    "ordre": [
     12,
     5,
