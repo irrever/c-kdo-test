@@ -995,7 +995,7 @@
    "heure": "12:34",
    "distance": 2350,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "LILY JAC",
@@ -1174,7 +1174,7 @@
    "heure": "12:17",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MILORD DES ARRIS",
@@ -1188,7 +1188,13 @@
     "9": "MANDELA SEVEN",
     "10": "MEANDRE DE VANDEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    10,
+    5,
+    8
+   ],
    "ordre": [
     10,
     7,
