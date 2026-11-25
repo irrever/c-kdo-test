@@ -3037,7 +3037,7 @@
    "heure": "18:20",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "MYRTO DU MINON",
@@ -3055,7 +3055,13 @@
     "13": "MELLYNGA",
     "14": "MONIA VERDERIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    5,
+    11,
+    1,
+    6
+   ],
    "ordre": [
     3,
     9,
@@ -3227,7 +3233,7 @@
    "heure": "18:39",
    "distance": 2140,
    "discipline": "Monté",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LETS BE LAWLESS",
@@ -3241,7 +3247,13 @@
     "9": "KIT SILVIO",
     "10": "ROYALTY AMORE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    6,
+    5,
+    9
+   ],
    "ordre": [
     6,
     3,
@@ -3316,7 +3328,7 @@
    "heure": "19:03",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ORCABESSA",
@@ -3332,7 +3344,13 @@
     "11": "FALADA",
     "12": "IMBERBIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    12,
+    6,
+    4,
+    5
+   ],
    "ordre": [
     7,
     5,
@@ -4131,7 +4149,7 @@
    "heure": "18:51",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "LICORICE",
@@ -4147,7 +4165,13 @@
     "11": "FORTHELOVEOFMONEY",
     "12": "RIKENS BOKO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    2,
+    9,
+    10
+   ],
    "ordre": [
     11,
     4,
@@ -4222,7 +4246,7 @@
    "heure": "19:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 9,
    "noms": {
     "1": "RED MADONNA",
