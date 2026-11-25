@@ -950,7 +950,7 @@
    "heure": "12:25",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MA JOLIE PRINCESS",
@@ -966,7 +966,13 @@
     "11": "MAJESTIC LADY",
     "12": "MIBORA BUISSONAY"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    8,
+    3,
+    12
+   ],
    "ordre": [
     11,
     6,
@@ -1604,7 +1610,7 @@
    "heure": "12:40",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "SUGAR GOODSON",
@@ -1620,7 +1626,13 @@
     "11": "AUTOMATED",
     "12": "FAMILY FORTUNE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    2,
+    10,
+    4,
+    11
+   ],
    "ordre": [
     8,
     2,
@@ -1695,7 +1707,7 @@
    "heure": "13:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "THUNDER ACTION",
