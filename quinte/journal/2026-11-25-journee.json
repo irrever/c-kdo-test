@@ -111,7 +111,7 @@
    "heure": "14:30",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "DRIBBLE",
@@ -129,7 +129,13 @@
     "13": "PARTIE ROCKET",
     "14": "ALGARADE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    1,
+    7,
+    4
+   ],
    "ordre": [
     4,
     3,
@@ -204,7 +210,7 @@
    "heure": "15:05",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 10,
    "noms": {
     "1": "CICCIO BOY",
@@ -1349,7 +1355,7 @@
    "heure": "14:22",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "JUSTE APRES",
@@ -1365,7 +1371,13 @@
     "11": "IRIS RENARDIER",
     "12": "IGOR DE BOITRON"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    4,
+    7,
+    8,
+    5
+   ],
    "ordre": [
     7,
     12,
@@ -2022,7 +2034,7 @@
    "heure": "14:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "INCREDIBLE MOMENT",
@@ -2038,7 +2050,13 @@
     "11": "ORIGIN OF FORM",
     "12": "CALL ME SUCCESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    8,
+    1,
+    2,
+    12
+   ],
    "ordre": [
     8,
     1,
@@ -2295,7 +2313,7 @@
    "heure": "14:12",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "KELMONDO BOY",
@@ -2309,7 +2327,13 @@
     "9": "KEPHYR D'ESTE",
     "10": "KHEOPS TURGOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    6,
+    1,
+    5
+   ],
    "ordre": [
     8,
     9,
