@@ -111,7 +111,7 @@
    "heure": "14:30",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "DRIBBLE",
@@ -1252,7 +1252,7 @@
    "heure": "13:57",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ONOLULU BAY",
@@ -1268,7 +1268,13 @@
     "11": "ONE TWELVE",
     "12": "OPERA DU PERCHE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    5,
+    11,
+    12,
+    6
+   ],
    "ordre": [
     5,
     10,
@@ -1919,7 +1925,7 @@
    "heure": "14:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "ACE",
@@ -1935,7 +1941,13 @@
     "11": "PRESTIGE EMPEROR",
     "12": "AMAZING AWARD"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    1,
+    8,
+    12
+   ],
    "ordre": [
     9,
     6,
@@ -2010,7 +2022,7 @@
    "heure": "14:45",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 12,
    "noms": {
     "1": "INCREDIBLE MOMENT",
