@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-26",
+  "r": 1,
+  "c": 1,
+  "url": "https://www.equidia.fr/courses/2026-11-26/R1/C1",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "13:55",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-25T22:03:30+00:00",
+  "presse": {
+    "parier": [
+      8,
+      2,
+      11,
+      9,
+      7,
+      5,
+      1,
+      3
+    ],
+    "cinq": null,
+    "bases": [
+      8,
+      2
+    ],
+    "outsiders": [
+      4,
+      14,
+      15,
+      12,
+      10,
+      16,
+      13
+    ],
+    "belles": [
+      11,
+      9,
+      7,
+      5,
+      1,
+      3
+    ],
+    "delaisses": [
+      6
+    ]
+  },
+  "notre": [
+    {
+      "numero": 8,
+      "nom": "READY STAR",
+      "score": 0.8756,
+      "rang": 1,
+      "p_victoire": 0.163,
+      "p_top5": 0.6585
+    },
+    {
+      "numero": 3,
+      "nom": "RUGER",
+      "score": 0.7784,
+      "rang": 2,
+      "p_victoire": 0.1108,
+      "p_top5": 0.5154
+    },
+    {
+      "numero": 14,
+      "nom": "IRISH NICE ELGE",
+      "score": 0.7773,
+      "rang": 3,
+      "p_victoire": 0.1105,
+      "p_top5": 0.5138
+    },
+    {
+      "numero": 2,
+      "nom": "HARPY",
+      "score": 0.7312,
+      "rang": 4,
+      "p_victoire": 0.0916,
+      "p_top5": 0.4495
+    },
+    {
+      "numero": 12,
+      "nom": "IBIS PETTEVINIERE",
+      "score": 0.6555,
+      "rang": 5,
+      "p_victoire": 0.0665,
+      "p_top5": 0.3539
+    },
+    {
+      "numero": 1,
+      "nom": "OSCAR VAN HALBEEK",
+      "score": 0.6285,
+      "rang": 6,
+      "p_victoire": 0.061,
+      "p_top5": 0.3245
+    },
+    {
+      "numero": 16,
+      "nom": "GREG DE NIRO",
+      "score": 0.6252,
+      "rang": 7,
+      "p_victoire": 0.0599,
+      "p_top5": 0.3178
+    },
+    {
+      "numero": 11,
+      "nom": "JACK DES ASS",
+      "score": 0.6193,
+      "rang": 8,
+      "p_victoire": 0.0588,
+      "p_top5": 0.3128
+    },
+    {
+      "numero": 9,
+      "nom": "DIABEL",
+      "score": 0.6136,
+      "rang": 9,
+      "p_victoire": 0.0576,
+      "p_top5": 0.309
+    },
+    {
+      "numero": 4,
+      "nom": "JUSSEO",
+      "score": 0.5974,
+      "rang": 10,
+      "p_victoire": 0.0542,
+      "p_top5": 0.2921
+    },
+    {
+      "numero": 15,
+      "nom": "COOL KRONOS",
+      "score": 0.5711,
+      "rang": 11,
+      "p_victoire": 0.0488,
+      "p_top5": 0.2672
+    },
+    {
+      "numero": 7,
+      "nom": "LAREDO BOKO",
+      "score": 0.4685,
+      "rang": 12,
+      "p_victoire": 0.0326,
+      "p_top5": 0.1832
+    },
+    {
+      "numero": 5,
+      "nom": "MATEO DI QUATTRO",
+      "score": 0.3919,
+      "rang": 13,
+      "p_victoire": 0.0227,
+      "p_top5": 0.1364
+    },
+    {
+      "numero": 13,
+      "nom": "HONEY KING",
+      "score": 0.3781,
+      "rang": 14,
+      "p_victoire": 0.0224,
+      "p_top5": 0.1315
+    },
+    {
+      "numero": 10,
+      "nom": "HALL BLACK MESS",
+      "score": 0.3767,
+      "rang": 15,
+      "p_victoire": 0.0217,
+      "p_top5": 0.129
+    },
+    {
+      "numero": 6,
+      "nom": "DIVA DEL RONCO",
+      "score": 0.3198,
+      "rang": 16,
+      "p_victoire": 0.0178,
+      "p_top5": 0.1055
+    }
+  ]
+}

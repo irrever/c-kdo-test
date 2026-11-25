@@ -1,0 +1,344 @@
+{
+ "date": "2026-11-26",
+ "retroactif": false,
+ "fige_le": "2026-11-25T22:03:33",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C1",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 8,
+   "nom": "READY STAR",
+   "score": 0.8755503269845349,
+   "p_victoire": 0.162975,
+   "p_top3": 0.44241,
+   "p_top5": 0.65851
+  },
+  {
+   "numero": 3,
+   "nom": "RUGER",
+   "score": 0.7783675326316891,
+   "p_victoire": 0.11077,
+   "p_top3": 0.32093,
+   "p_top5": 0.51536
+  },
+  {
+   "numero": 14,
+   "nom": "IRISH NICE ELGE",
+   "score": 0.7772599891421498,
+   "p_victoire": 0.11054,
+   "p_top3": 0.32126,
+   "p_top5": 0.51376
+  },
+  {
+   "numero": 2,
+   "nom": "HARPY",
+   "score": 0.7311636934227298,
+   "p_victoire": 0.09161,
+   "p_top3": 0.272555,
+   "p_top5": 0.4495
+  },
+  {
+   "numero": 12,
+   "nom": "IBIS PETTEVINIERE",
+   "score": 0.6554967015896396,
+   "p_victoire": 0.06652,
+   "p_top3": 0.207685,
+   "p_top5": 0.35389
+  },
+  {
+   "numero": 1,
+   "nom": "OSCAR VAN HALBEEK",
+   "score": 0.6285099029311038,
+   "p_victoire": 0.06104,
+   "p_top3": 0.188185,
+   "p_top5": 0.324465
+  },
+  {
+   "numero": 16,
+   "nom": "GREG DE NIRO",
+   "score": 0.6252124172431623,
+   "p_victoire": 0.059925,
+   "p_top3": 0.18586,
+   "p_top5": 0.317845
+  },
+  {
+   "numero": 11,
+   "nom": "JACK DES ASS",
+   "score": 0.619319649856511,
+   "p_victoire": 0.05885,
+   "p_top3": 0.182505,
+   "p_top5": 0.312805
+  },
+  {
+   "numero": 9,
+   "nom": "DIABEL",
+   "score": 0.6136240303307497,
+   "p_victoire": 0.057585,
+   "p_top3": 0.17847,
+   "p_top5": 0.309
+  },
+  {
+   "numero": 4,
+   "nom": "JUSSEO",
+   "score": 0.5974458345280336,
+   "p_victoire": 0.054175,
+   "p_top3": 0.16838,
+   "p_top5": 0.29207
+  },
+  {
+   "numero": 15,
+   "nom": "COOL KRONOS",
+   "score": 0.5711310105231571,
+   "p_victoire": 0.04877,
+   "p_top3": 0.15381,
+   "p_top5": 0.267225
+  },
+  {
+   "numero": 7,
+   "nom": "LAREDO BOKO",
+   "score": 0.4684665389614255,
+   "p_victoire": 0.0326,
+   "p_top3": 0.102805,
+   "p_top5": 0.183185
+  },
+  {
+   "numero": 5,
+   "nom": "MATEO DI QUATTRO",
+   "score": 0.3918667313686869,
+   "p_victoire": 0.02272,
+   "p_top3": 0.074665,
+   "p_top5": 0.13639
+  },
+  {
+   "numero": 13,
+   "nom": "HONEY KING",
+   "score": 0.3781479041186988,
+   "p_victoire": 0.022425,
+   "p_top3": 0.071945,
+   "p_top5": 0.131525
+  },
+  {
+   "numero": 10,
+   "nom": "HALL BLACK MESS",
+   "score": 0.37665600380805286,
+   "p_victoire": 0.0217,
+   "p_top3": 0.07099,
+   "p_top5": 0.12901
+  },
+  {
+   "numero": 6,
+   "nom": "DIVA DEL RONCO",
+   "score": 0.3198315495436246,
+   "p_victoire": 0.017795,
+   "p_top3": 0.057545,
+   "p_top5": 0.10546
+  }
+ ],
+ "ordre_predit": [
+  8,
+  3,
+  14,
+  2,
+  12
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     8,
+     3,
+     14
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.01827,
+    "par_combinaison": 0.01827
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.057745,
+    "par_combinaison": 0.01443625
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.106025,
+    "par_combinaison": 0.010602499999999999
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.16414,
+    "par_combinaison": 0.008207
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.0103,
+    "par_combinaison": 0.0103
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.03251,
+    "par_combinaison": 0.006501999999999999
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.06793,
+    "par_combinaison": 0.004528666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1,
+     16
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.12099,
+    "par_combinaison": 0.003456857142857143
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00576,
+    "par_combinaison": 0.00576
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.02122,
+    "par_combinaison": 0.0035366666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1,
+     16
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.05169,
+    "par_combinaison": 0.0024614285714285714
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1,
+     16,
+     11
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.105155,
+    "par_combinaison": 0.0018777678571428571
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     8,
+     3,
+     14,
+     2,
+     12,
+     1,
+     16,
+     11,
+     9
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.188725,
+    "par_combinaison": 0.0014978174603174604
+   }
+  ]
+ }
+}
