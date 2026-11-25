@@ -305,7 +305,7 @@
    "heure": "15:40",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LIBECCIO WIND",
@@ -323,7 +323,13 @@
     "13": "SANCHUELO",
     "14": "PETIT PONT"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    2,
+    4,
+    10
+   ],
    "ordre": [
     1,
     2,
@@ -2234,7 +2240,7 @@
    "heure": "15:50",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "BRAVE STAR",
@@ -2250,7 +2256,12 @@
     "11": "YOUNG ARROW",
     "12": "TOGETHER WE VALUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    12,
+    5
+   ],
    "ordre": [
     2,
     7,
@@ -2521,7 +2532,7 @@
    "heure": "15:22",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JACK SPARCK",
@@ -2541,7 +2552,13 @@
     "15": "JACADI BROUETS",
     "16": "KOQUERY DU BUISSON"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    7,
+    6,
+    13,
+    16
+   ],
    "ordre": [
     13,
     14,
