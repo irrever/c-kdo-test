@@ -756,7 +756,7 @@
    "heure": "11:25",
    "distance": 2825,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LA VITA VEETA",
@@ -773,7 +773,13 @@
     "12": "MAGYC BERRY",
     "13": "MARLEY DE BAILLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    10,
+    7,
+    6
+   ],
    "ordre": [
     6,
     8,
@@ -1398,7 +1404,7 @@
    "heure": "11:40",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "WORD OF KINDNESS",
@@ -1414,7 +1420,13 @@
     "11": "TO INFINITY",
     "12": "PRINCE ALEX"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    10,
+    5,
+    8,
+    2
+   ],
    "ordre": [
     8,
     9,
@@ -1489,7 +1501,7 @@
    "heure": "12:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "FORZA LEADER",
