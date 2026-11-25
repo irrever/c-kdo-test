@@ -606,7 +606,7 @@
    "heure": "17:25",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CELESTIAL",
@@ -622,7 +622,13 @@
     "11": "FRANKISH",
     "12": "YMEEELIH"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    5,
+    1,
+    6,
+    2
+   ],
    "ordre": [
     11,
     3,
@@ -2741,7 +2747,7 @@
    "heure": "16:32",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "NOSTALGIE D'OLMEN",
@@ -2754,7 +2760,13 @@
     "8": "NAYAMA BERRY",
     "9": "NASHIRA RUSCINO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    6,
+    9,
+    3
+   ],
    "ordre": [
     4,
     5,
@@ -2829,7 +2841,7 @@
    "heure": "17:07",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "NORA D'OLMEN",
