@@ -1047,7 +1047,7 @@
    "heure": "12:55",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LOLA DU MESNIL",
@@ -1064,7 +1064,13 @@
     "12": "LOVE PROFUSION",
     "13": "LE BIBI DAIRPET"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    6,
+    9,
+    3
+   ],
    "ordre": [
     11,
     5,
@@ -1707,7 +1713,7 @@
    "heure": "13:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "THUNDER ACTION",
@@ -1723,7 +1729,13 @@
     "11": "ULTRA BOLT",
     "12": "LIGHTNESS OF BEING"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    4,
+    1,
+    6,
+    2
+   ],
    "ordre": [
     6,
     2,
@@ -1798,7 +1810,7 @@
    "heure": "13:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "CAVAMAZING",
