@@ -3711,7 +3711,7 @@
    "heure": "20:41",
    "distance": 2640,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "PACEFULL",
@@ -3727,7 +3727,13 @@
     "11": "ELECTRIC GRACE",
     "12": "DICKS MONEY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    11,
+    9,
+    10,
+    6
+   ],
    "ordre": [
     2,
     1,
@@ -3802,7 +3808,7 @@
    "heure": "21:03",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "DENARO DIABOLIK",
@@ -3817,7 +3823,13 @@
     "10": "SUPERSTITIOUS",
     "11": "VIDAR BURGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    8,
+    4,
+    11
+   ],
    "ordre": [
     7,
     11,
@@ -4646,7 +4658,7 @@
    "heure": "20:52",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MORAG",
@@ -4660,7 +4672,13 @@
     "9": "VALENCIUS B.B.",
     "10": "STRAUSS"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    3,
+    6,
+    10,
+    7
+   ],
    "ordre": [
     10,
     1,
@@ -4735,7 +4753,7 @@
    "heure": "21:15",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "3min",
    "partants": 11,
    "noms": {
     "1": "CRIZZY",
