@@ -3904,7 +3904,7 @@
    "heure": "21:26",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MARYLIN SISU",
@@ -3920,7 +3920,13 @@
     "11": "MATADOR SISU",
     "12": "NUNCHITA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    11,
+    10,
+    7
+   ],
    "ordre": [
     12,
     4,
@@ -4753,7 +4759,7 @@
    "heure": "21:15",
    "distance": 1640,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "CRIZZY",
@@ -4768,7 +4774,13 @@
     "10": "GUDRID FACE",
     "11": "VINCI NICE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    11,
+    4,
+    2
+   ],
    "ordre": [
     7,
     6,
@@ -4843,7 +4855,7 @@
    "heure": "21:40",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "NYRAS DAENKER",
