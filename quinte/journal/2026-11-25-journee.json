@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 1300,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "WEEKEN",
@@ -30,7 +30,13 @@
     "15": "APOGEO",
     "16": "PAINTELLO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    7,
+    1,
+    10,
+    5
+   ],
    "ordre": [
     1,
     8,
@@ -1145,7 +1151,7 @@
    "heure": "13:27",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "ISIS PASSION",
@@ -1165,7 +1171,13 @@
     "15": "IENISSE DE BARBRAY",
     "16": "INSTANT D'HAUFOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    6,
+    15,
+    13
+   ],
    "ordre": [
     3,
     15,
@@ -1810,7 +1822,7 @@
    "heure": "13:40",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "CAVAMAZING",
@@ -1826,7 +1838,13 @@
     "11": "QUICK CONTRIBUTION",
     "12": "NOBLE FANS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    9,
+    2,
+    7,
+    1
+   ],
    "ordre": [
     2,
     8,
@@ -1901,7 +1919,7 @@
    "heure": "14:10",
    "distance": 1650,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "ACE",
