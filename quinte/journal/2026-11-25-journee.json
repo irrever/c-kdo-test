@@ -4001,7 +4001,7 @@
    "heure": "21:51",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SIGHNI BURGE",
@@ -4016,7 +4016,13 @@
     "10": "MIDAS MANA",
     "11": "VASTERBO CARRETERA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    3,
+    9,
+    8,
+    1
+   ],
    "ordre": [
     1,
     4,
@@ -4855,7 +4861,7 @@
    "heure": "21:40",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NYRAS DAENKER",
@@ -4871,7 +4877,13 @@
     "11": "MASTERS DUNDERBEDA",
     "12": "B.T.'S VENCOR"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    9,
+    3,
+    6,
+    11
+   ],
    "ordre": [
     9,
     8,
