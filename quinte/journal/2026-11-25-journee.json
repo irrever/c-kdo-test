@@ -3522,7 +3522,7 @@
    "heure": "19:51",
    "distance": 3140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PETER TOOMA",
@@ -3535,7 +3535,13 @@
     "8": "J.J.ANOTHER VINN",
     "9": "POWER DOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    5,
+    7,
+    1
+   ],
    "ordre": [
     9,
     3,
@@ -4346,7 +4352,7 @@
    "heure": "19:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "HANKYPANKY SLANDER",
@@ -4361,7 +4367,13 @@
     "10": "ECRAM",
     "11": "FIRST CLASS FLIGHT"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    5,
+    10,
+    3
+   ],
    "ordre": [
     10,
     9,
@@ -4436,7 +4448,7 @@
    "heure": "20:02",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "PEREZ MORA BOKO",
@@ -4450,7 +4462,13 @@
     "9": "MIDNIGHT RHYME",
     "10": "CORNELIA PALEMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    6,
+    2,
+    8,
+    5
+   ],
    "ordre": [
     9,
     6,
