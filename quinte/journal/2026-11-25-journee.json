@@ -854,7 +854,7 @@
    "heure": "11:55",
    "distance": 2800,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NIGHT ERCA",
@@ -869,7 +869,13 @@
     "11": "NOGERO",
     "12": "NELLY DES CHARMES"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    8,
+    5,
+    7,
+    6
+   ],
    "ordre": [
     7,
     11,
@@ -1501,7 +1507,7 @@
    "heure": "12:10",
    "distance": 1200,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "FORZA LEADER",
@@ -1517,7 +1523,13 @@
     "11": "RISING ELITE",
     "12": "SOLAR RIVER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    3,
+    4,
+    2,
+    11
+   ],
    "ordre": [
     5,
     1,
@@ -1592,7 +1604,7 @@
    "heure": "12:40",
    "distance": 1800,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "SUGAR GOODSON",
