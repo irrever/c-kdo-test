@@ -3425,7 +3425,7 @@
    "heure": "19:27",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "TARANTINO D.E.",
@@ -3441,7 +3441,13 @@
     "11": "MANDRAGORA",
     "12": "CABRILLION C.F."
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    2,
+    8,
+    3,
+    7
+   ],
    "ordre": [
     3,
     2,
@@ -4246,7 +4252,7 @@
    "heure": "19:15",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "RED MADONNA",
@@ -4259,7 +4265,13 @@
     "8": "DYNAMITE BORE",
     "9": "KING OF RATZEPUTZ"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    3,
+    7,
+    8
+   ],
    "ordre": [
     5,
     4,
@@ -4334,7 +4346,7 @@
    "heure": "19:39",
    "distance": 2140,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "HANKYPANKY SLANDER",
