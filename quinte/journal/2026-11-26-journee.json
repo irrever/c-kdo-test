@@ -2821,7 +2821,7 @@
    "heure": "19:59",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NEWBELL DE HOUELLE",
@@ -2838,7 +2838,13 @@
     "12": "NUMBER ONE D'ARBAZ",
     "13": "NOUGAYORQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    13,
+    7,
+    10,
+    12
+   ],
    "ordre": [
     12,
     7,
@@ -3291,7 +3297,7 @@
    "heure": "19:43",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "TEXAS DU CALVAIRE",
@@ -3309,7 +3315,13 @@
     "13": "RIGOLETTE",
     "14": "SECOND PATAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    8,
+    11,
+    10
+   ],
    "ordre": [
     10,
     8,
@@ -4263,7 +4275,7 @@
    "heure": "19:43",
    "distance": 1670,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "DREAM DANCER",
@@ -4274,7 +4286,13 @@
     "6": "OUR SOUPER HERO",
     "7": "WALLEY WORLD"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    4,
+    7,
+    6
+   ],
    "ordre": [
     1,
     4,
@@ -4342,7 +4360,7 @@
    "heure": "20:12",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "INHERENT PROMISE",
