@@ -1036,7 +1036,7 @@
    "heure": "12:35",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "COEUR DE ROUME",
@@ -1056,7 +1056,13 @@
     "15": "BAHIA WARANA",
     "16": "CASH RULER"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    11,
+    5,
+    9,
+    14
+   ],
    "ordre": [
     11,
     9,
@@ -1131,7 +1137,7 @@
    "heure": "13:10",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "LAMIRAL DARHAAN",
@@ -1617,7 +1623,7 @@
    "heure": "12:52",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "SHABAZI",
@@ -1632,7 +1638,13 @@
     "10": "MACHA'S DREAM",
     "11": "REGAL CHOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    6,
+    4,
+    8,
+    11
+   ],
    "ordre": [
     1,
     9,
