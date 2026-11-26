@@ -208,7 +208,7 @@
    "heure": "15:05",
    "distance": 2175,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NUAGE DE JAFRAN",
@@ -224,7 +224,13 @@
     "11": "NOTORIOUS JIEL",
     "12": "NECTAR DE MONTCEAU"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    6,
+    5,
+    8,
+    4
+   ],
    "ordre": [
     10,
     11,
@@ -1442,7 +1448,7 @@
    "heure": "14:55",
    "distance": 3600,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "LIBELLIA ANTIQUE",
@@ -1454,7 +1460,13 @@
     "7": "PRINCESS DAUBRELLE",
     "8": "LADY DU BRIZAIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    8,
+    3,
+    2
+   ],
    "ordre": [
     4,
     3,
@@ -1882,7 +1894,7 @@
    "heure": "14:47",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ACCORD PARFAIT",
@@ -1900,7 +1912,13 @@
     "13": "NOT SO SILLY",
     "14": "TEPITO"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    10,
+    1,
+    12,
+    7
+   ],
    "ordre": [
     3,
     1,
