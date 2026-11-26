@@ -3788,7 +3788,7 @@
    "heure": "22:20",
    "distance": 2275,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SUSKE VANHALBEEK",
@@ -3799,7 +3799,13 @@
     "6": "JULIOSCA MANNETOT",
     "7": "JAKVAL DES BORDES"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    4,
+    3,
+    7
+   ],
    "ordre": [
     2,
     4,
