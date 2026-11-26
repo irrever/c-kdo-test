@@ -10,7 +10,7 @@
    "heure": "13:55",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "OSCAR VAN HALBEEK",
@@ -30,7 +30,13 @@
     "15": "COOL KRONOS",
     "16": "GREG DE NIRO"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    7,
+    15,
+    16
+   ],
    "ordre": [
     8,
     3,
@@ -1238,7 +1244,7 @@
    "heure": "13:45",
    "distance": 3200,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LITTLE LULU",
@@ -1256,7 +1262,13 @@
     "13": "MAZEKING AA",
     "14": "MILASBIE DE PAIX"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    14,
+    1,
+    8,
+    4
+   ],
    "ordre": [
     7,
     4,
@@ -1763,7 +1775,7 @@
    "heure": "14:12",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 10,
    "noms": {
     "1": "CAUDRY",
