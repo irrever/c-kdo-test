@@ -838,7 +838,7 @@
    "heure": "11:30",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "ALYSTAIR",
@@ -857,7 +857,13 @@
     "14": "QUEEN MERCURY",
     "15": "GIN TA DE BELLEVUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    3,
+    11,
+    12
+   ],
    "ordre": [
     6,
     8,
