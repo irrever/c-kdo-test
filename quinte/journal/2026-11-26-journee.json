@@ -2524,7 +2524,7 @@
    "heure": "18:20",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAX DU CAMPDOS",
@@ -2540,7 +2540,13 @@
     "11": "MAXIMUS DU DOME",
     "12": "MY MILLION ATOUT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    6,
+    2,
+    10,
+    8
+   ],
    "ordre": [
     11,
     12,
@@ -3080,7 +3086,7 @@
    "heure": "18:37",
    "distance": 2840,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "JACO LE GRAND",
@@ -3969,7 +3975,7 @@
    "heure": "18:16",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "EXPERT WITNESS",
@@ -3981,7 +3987,13 @@
     "7": "TOO BAD",
     "8": "EL SANTIAGUERO"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    4,
+    2,
+    7
+   ],
    "ordre": [
     3,
     7,
@@ -4056,7 +4068,7 @@
    "heure": "18:45",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 6,
    "noms": {
     "1": "GARUDA",
