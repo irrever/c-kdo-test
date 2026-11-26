@@ -695,7 +695,7 @@
    "heure": "18:00",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "KENYAN BLUES",
@@ -711,7 +711,13 @@
     "11": "INSHORE",
     "12": "INDIGO DE FONTAINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    12,
+    3,
+    8,
+    10
+   ],
    "ordre": [
     1,
     4,
@@ -2417,7 +2423,7 @@
    "heure": "17:42",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "HAVANA MOST",
@@ -2437,7 +2443,13 @@
     "15": "JAGUAR D'OBRET",
     "16": "JANNIG D'EREVAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    16,
+    10,
+    2,
+    9
+   ],
    "ordre": [
     16,
     13,
@@ -3872,7 +3884,7 @@
    "heure": "17:47",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "DADDY'S LOVE",
@@ -3883,7 +3895,13 @@
     "6": "TRILL",
     "7": "MINE STRIKE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    4,
+    2,
+    6
+   ],
    "ordre": [
     3,
     6,
