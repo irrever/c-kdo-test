@@ -744,7 +744,7 @@
    "heure": "11:00",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "VIKTOR RAPIDE",
@@ -757,7 +757,13 @@
     "8": "PUNTA ROJA",
     "9": "OTONA BLUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    2,
+    7,
+    1,
+    8
+   ],
    "ordre": [
     9,
     7,
