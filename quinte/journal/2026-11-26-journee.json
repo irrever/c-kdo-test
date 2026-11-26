@@ -499,7 +499,7 @@
    "heure": "16:50",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BARKLEY",
@@ -516,7 +516,13 @@
     "12": "MELLOW SPEED",
     "13": "MADEMOISELLE JANE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    9,
+    7,
+    11
+   ],
    "ordre": [
     9,
     4,
@@ -2306,7 +2312,7 @@
    "heure": "17:07",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 14,
    "noms": {
     "1": "LABORANTIN",
