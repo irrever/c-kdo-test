@@ -305,7 +305,7 @@
    "heure": "15:40",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "NOVA ISTORIA CHOC",
@@ -1541,7 +1541,7 @@
    "heure": "15:30",
    "distance": 4800,
    "discipline": "Cross",
-   "statut": "before",
+   "statut": "live",
    "partants": 12,
    "noms": {
     "1": "PARAY",
@@ -1993,7 +1993,7 @@
    "heure": "15:22",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LEOPARDUCCIO",
@@ -2007,7 +2007,13 @@
     "9": "CHEVALDOR",
     "10": "BLUE HUNT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    9,
+    1,
+    5
+   ],
    "ordre": [
     3,
     5,
