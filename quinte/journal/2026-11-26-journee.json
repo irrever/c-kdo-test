@@ -401,7 +401,7 @@
    "heure": "16:15",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LADIVINA",
@@ -418,7 +418,13 @@
     "12": "L'HAVANA D'ELMA",
     "13": "LASSIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    13,
+    9,
+    4
+   ],
    "ordre": [
     10,
     1,
@@ -2200,7 +2206,7 @@
    "heure": "16:32",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "KALAFA",
@@ -2219,7 +2225,13 @@
     "14": "WICKBURY",
     "15": "NEUSCHWANSTEIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    7,
+    15,
+    14
+   ],
    "ordre": [
     4,
     7,
