@@ -3693,7 +3693,7 @@
    "heure": "21:51",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "NOEMIE D'ERPION",
@@ -3707,7 +3707,13 @@
     "9": "NANADOU SALICE",
     "10": "NELLY CROWN"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    10,
+    5,
+    9,
+    7
+   ],
    "ordre": [
     2,
     9,
