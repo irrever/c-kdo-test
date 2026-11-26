@@ -597,7 +597,7 @@
    "heure": "17:25",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "I CAN WIN GARDENIA",
@@ -614,7 +614,13 @@
     "12": "EXPRESS D'ARC",
     "13": "KEROSEN DU GERS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    9,
+    6,
+    3
+   ],
    "ordre": [
     2,
     7,
@@ -2312,7 +2318,7 @@
    "heure": "17:07",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LABORANTIN",
@@ -2330,7 +2336,13 @@
     "13": "L'INCORRUPTIBLE",
     "14": "LE BALIGHAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    14,
+    8,
+    3,
+    11
+   ],
    "ordre": [
     11,
     8,
@@ -2405,7 +2417,7 @@
    "heure": "17:42",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "HAVANA MOST",
@@ -3765,7 +3777,7 @@
    "heure": "17:18",
    "distance": 1000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "BAMA JAMMA",
@@ -3779,7 +3791,13 @@
     "9": "GIN GINS FIREWORK",
     "10": "PAN HANDLE MICK"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    9,
+    1,
+    7,
+    3
+   ],
    "ordre": [
     3,
     6,
