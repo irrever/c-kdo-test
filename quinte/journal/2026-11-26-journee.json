@@ -111,7 +111,7 @@
    "heure": "14:30",
    "distance": 2200,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MY SHOT JOSSELYN",
@@ -127,7 +127,13 @@
     "11": "MATHUSALEM PIYA",
     "12": "MALO RENKA"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    9,
+    11,
+    8,
+    7
+   ],
    "ordre": [
     5,
     3,
@@ -1343,7 +1349,7 @@
    "heure": "14:20",
    "distance": 4500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "2": "ANGE DE JUILLEY",
@@ -1355,7 +1361,13 @@
     "8": "KOSSOVO",
     "9": "ILESTBO DE HOUELLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    4,
+    6,
+    5
+   ],
    "ordre": [
     6,
     3,
@@ -1775,7 +1787,7 @@
    "heure": "14:12",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "CAUDRY",
@@ -1789,7 +1801,13 @@
     "9": "HONEYBLISS",
     "10": "TARQUINI"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    6,
+    7,
+    10
+   ],
    "ordre": [
     10,
     8,
