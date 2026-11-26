@@ -1,0 +1,190 @@
+{
+  "box": [
+    10,
+    8,
+    2,
+    4,
+    3,
+    7
+  ],
+  "top5": [
+    5,
+    10,
+    8,
+    2,
+    4
+  ],
+  "a_jouer": [
+    2,
+    3
+  ],
+  "a_eviter": [
+    5,
+    12,
+    14,
+    11
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 5,
+      "nom": "KALIAKIE PHEDO",
+      "rang": 1,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.6693,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 10,
+      "nom": "JACINTHE DU BOIRON",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.5999,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 8,
+      "nom": "KISS ME DU LIVET",
+      "rang": 3,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4975,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 2,
+      "nom": "KISS ME DE NAVARY",
+      "rang": 4,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4803,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "KUNAMATATA",
+      "rang": 5,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.4109,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "KARA D'OR",
+      "rang": 6,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3618,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "JUNE D'ERABLE",
+      "rang": 7,
+      "pos": 5,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3322,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "KYNTE FLUSH",
+      "rang": 8,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3127,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "KALINKA DU GRENAT",
+      "rang": 9,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3055,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 14,
+      "nom": "KIPHYLE DESBOIS",
+      "rang": 10,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2445,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "KELLY GEDE",
+      "rang": 11,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2364,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "KELLY JANE",
+      "rang": 12,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2216,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "JONGLEUSE DE BRY",
+      "rang": 13,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.186,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "JADE DE NAVARY",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1414,
+      "categorie": "outsider",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-27",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "fige_le_utc": "2026-11-26T22:03:23+00:00"
+}

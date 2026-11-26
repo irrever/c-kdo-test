@@ -1,0 +1,159 @@
+{
+  "date": "2026-11-27",
+  "r": 1,
+  "c": 4,
+  "url": "https://www.equidia.fr/courses/2026-11-27/R1/C4",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "20:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-26T22:03:21+00:00",
+  "presse": {
+    "parier": [
+      5,
+      4,
+      11,
+      8,
+      10,
+      14,
+      12,
+      7
+    ],
+    "cinq": null,
+    "bases": [
+      5,
+      4
+    ],
+    "outsiders": [
+      13,
+      6,
+      3,
+      2,
+      9
+    ],
+    "belles": [
+      11,
+      8,
+      10,
+      14,
+      12,
+      7
+    ],
+    "delaisses": [
+      1
+    ]
+  },
+  "notre": [
+    {
+      "numero": 5,
+      "nom": "KALIAKIE PHEDO",
+      "score": 0.8045,
+      "rang": 1,
+      "p_victoire": 0.1635,
+      "p_top5": 0.6693
+    },
+    {
+      "numero": 10,
+      "nom": "JACINTHE DU BOIRON",
+      "score": 0.758,
+      "rang": 2,
+      "p_victoire": 0.136,
+      "p_top5": 0.5999
+    },
+    {
+      "numero": 8,
+      "nom": "KISS ME DU LIVET",
+      "score": 0.688,
+      "rang": 3,
+      "p_victoire": 0.1031,
+      "p_top5": 0.4975
+    },
+    {
+      "numero": 2,
+      "nom": "KISS ME DE NAVARY",
+      "score": 0.6759,
+      "rang": 4,
+      "p_victoire": 0.0975,
+      "p_top5": 0.4803
+    },
+    {
+      "numero": 4,
+      "nom": "KUNAMATATA",
+      "score": 0.6236,
+      "rang": 5,
+      "p_victoire": 0.0787,
+      "p_top5": 0.4109
+    },
+    {
+      "numero": 3,
+      "nom": "KARA D'OR",
+      "score": 0.5863,
+      "rang": 6,
+      "p_victoire": 0.0681,
+      "p_top5": 0.3618
+    },
+    {
+      "numero": 12,
+      "nom": "JUNE D'ERABLE",
+      "score": 0.5587,
+      "rang": 7,
+      "p_victoire": 0.0619,
+      "p_top5": 0.3322
+    },
+    {
+      "numero": 7,
+      "nom": "KYNTE FLUSH",
+      "score": 0.5407,
+      "rang": 8,
+      "p_victoire": 0.0573,
+      "p_top5": 0.3127
+    },
+    {
+      "numero": 13,
+      "nom": "KALINKA DU GRENAT",
+      "score": 0.5334,
+      "rang": 9,
+      "p_victoire": 0.0556,
+      "p_top5": 0.3055
+    },
+    {
+      "numero": 14,
+      "nom": "KIPHYLE DESBOIS",
+      "score": 0.4682,
+      "rang": 10,
+      "p_victoire": 0.0434,
+      "p_top5": 0.2445
+    },
+    {
+      "numero": 6,
+      "nom": "KELLY GEDE",
+      "score": 0.4604,
+      "rang": 11,
+      "p_victoire": 0.0419,
+      "p_top5": 0.2364
+    },
+    {
+      "numero": 11,
+      "nom": "KELLY JANE",
+      "score": 0.4442,
+      "rang": 12,
+      "p_victoire": 0.0379,
+      "p_top5": 0.2216
+    },
+    {
+      "numero": 1,
+      "nom": "JONGLEUSE DE BRY",
+      "score": 0.3931,
+      "rang": 13,
+      "p_victoire": 0.0313,
+      "p_top5": 0.186
+    },
+    {
+      "numero": 9,
+      "nom": "JADE DE NAVARY",
+      "score": 0.3226,
+      "rang": 14,
+      "p_victoire": 0.0238,
+      "p_top5": 0.1414
+    }
+  ]
+}

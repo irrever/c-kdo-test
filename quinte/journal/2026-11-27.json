@@ -1,0 +1,328 @@
+{
+ "date": "2026-11-27",
+ "retroactif": false,
+ "fige_le": "2026-11-26T22:03:25",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 5,
+   "nom": "KALIAKIE PHEDO",
+   "score": 0.8044667695632616,
+   "p_victoire": 0.16347,
+   "p_top3": 0.447405,
+   "p_top5": 0.669295
+  },
+  {
+   "numero": 10,
+   "nom": "JACINTHE DU BOIRON",
+   "score": 0.7579844113724821,
+   "p_victoire": 0.136035,
+   "p_top3": 0.383755,
+   "p_top5": 0.5999
+  },
+  {
+   "numero": 8,
+   "nom": "KISS ME DU LIVET",
+   "score": 0.6880309504818939,
+   "p_victoire": 0.103105,
+   "p_top3": 0.30523,
+   "p_top5": 0.49753
+  },
+  {
+   "numero": 2,
+   "nom": "KISS ME DE NAVARY",
+   "score": 0.6758971939322349,
+   "p_victoire": 0.097505,
+   "p_top3": 0.29178,
+   "p_top5": 0.480315
+  },
+  {
+   "numero": 4,
+   "nom": "KUNAMATATA",
+   "score": 0.6235908600283661,
+   "p_victoire": 0.078655,
+   "p_top3": 0.24244,
+   "p_top5": 0.41087
+  },
+  {
+   "numero": 3,
+   "nom": "KARA D'OR",
+   "score": 0.5862713946120613,
+   "p_victoire": 0.068105,
+   "p_top3": 0.21099,
+   "p_top5": 0.36179
+  },
+  {
+   "numero": 12,
+   "nom": "JUNE D'ERABLE",
+   "score": 0.55866112298289,
+   "p_victoire": 0.06194,
+   "p_top3": 0.19283,
+   "p_top5": 0.33224
+  },
+  {
+   "numero": 7,
+   "nom": "KYNTE FLUSH",
+   "score": 0.5407010568525906,
+   "p_victoire": 0.057255,
+   "p_top3": 0.178565,
+   "p_top5": 0.31273
+  },
+  {
+   "numero": 13,
+   "nom": "KALINKA DU GRENAT",
+   "score": 0.5334307278177108,
+   "p_victoire": 0.055605,
+   "p_top3": 0.17481,
+   "p_top5": 0.30553
+  },
+  {
+   "numero": 14,
+   "nom": "KIPHYLE DESBOIS",
+   "score": 0.4682259983690503,
+   "p_victoire": 0.043415,
+   "p_top3": 0.137725,
+   "p_top5": 0.24446
+  },
+  {
+   "numero": 6,
+   "nom": "KELLY GEDE",
+   "score": 0.4603802499017085,
+   "p_victoire": 0.041905,
+   "p_top3": 0.133025,
+   "p_top5": 0.236435
+  },
+  {
+   "numero": 11,
+   "nom": "KELLY JANE",
+   "score": 0.4441763932363477,
+   "p_victoire": 0.037895,
+   "p_top3": 0.12258,
+   "p_top5": 0.22158
+  },
+  {
+   "numero": 1,
+   "nom": "JONGLEUSE DE BRY",
+   "score": 0.3930937136523765,
+   "p_victoire": 0.03126,
+   "p_top3": 0.1019,
+   "p_top5": 0.185965
+  },
+  {
+   "numero": 9,
+   "nom": "JADE DE NAVARY",
+   "score": 0.3226142444155625,
+   "p_victoire": 0.02385,
+   "p_top3": 0.076965,
+   "p_top5": 0.14136
+  }
+ ],
+ "ordre_predit": [
+  5,
+  10,
+  8,
+  2,
+  4
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     5,
+     10,
+     8
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.02165,
+    "par_combinaison": 0.02165
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.06928,
+    "par_combinaison": 0.01732
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.133445,
+    "par_combinaison": 0.0133445
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.209525,
+    "par_combinaison": 0.01047625
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.013295,
+    "par_combinaison": 0.013295
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.045455,
+    "par_combinaison": 0.009091
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.09692,
+    "par_combinaison": 0.006461333333333334
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3,
+     12
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.16836,
+    "par_combinaison": 0.004810285714285715
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.009245,
+    "par_combinaison": 0.009245
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.03454,
+    "par_combinaison": 0.005756666666666667
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3,
+     12
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.080995,
+    "par_combinaison": 0.003856904761904762
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3,
+     12,
+     7
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.155235,
+    "par_combinaison": 0.0027720535714285716
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     5,
+     10,
+     8,
+     2,
+     4,
+     3,
+     12,
+     7,
+     13
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.26361,
+    "par_combinaison": 0.002092142857142857
+   }
+  ]
+ }
+}
