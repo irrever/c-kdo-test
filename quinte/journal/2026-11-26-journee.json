@@ -2919,7 +2919,7 @@
    "heure": "20:31",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "LEWIS D'ESPOIR",
@@ -2934,7 +2934,13 @@
     "10": "LOVELY BRUYERE",
     "11": "LEO DES PIECES"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    10,
+    9,
+    5,
+    11
+   ],
    "ordre": [
     6,
     5,
@@ -3009,7 +3015,7 @@
    "heure": "21:03",
    "distance": 2850,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "INZAGHY",
@@ -3491,7 +3497,7 @@
    "heure": "20:47",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NOLLE TER BLEKTE",
@@ -3507,7 +3513,13 @@
     "11": "NERO DU CHIFFRE",
     "12": "NO LO SE DIESCHOOT"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    11,
+    6,
+    2,
+    1
+   ],
    "ordre": [
     11,
     12,
@@ -4459,7 +4471,7 @@
    "heure": "20:41",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "WOODSTER",
@@ -4470,7 +4482,13 @@
     "6": "RADICAL RHETORIC",
     "7": "ALL TO WIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    2,
+    1,
+    7
+   ],
    "ordre": [
     1,
     4,
@@ -4538,7 +4556,7 @@
    "heure": "21:10",
    "distance": 1500,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 11,
    "noms": {
     "1": "TOUCH OF HONOR",
