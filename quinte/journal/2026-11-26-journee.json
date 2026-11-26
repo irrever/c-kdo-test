@@ -2919,7 +2919,7 @@
    "heure": "20:31",
    "distance": 2850,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 11,
    "noms": {
     "1": "LEWIS D'ESPOIR",
@@ -3396,7 +3396,7 @@
    "heure": "20:15",
    "distance": 2300,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "ESPOIR MARY JANES",
@@ -3410,7 +3410,13 @@
     "9": "TITANIUM HANOVER",
     "10": "PIPJEIRRO"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    8,
+    9,
+    6,
+    1
+   ],
    "ordre": [
     9,
     2,
@@ -4360,7 +4366,7 @@
    "heure": "20:12",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "INHERENT PROMISE",
@@ -4372,7 +4378,13 @@
     "7": "PROJECT",
     "8": "ONE BID"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    8,
+    6,
+    2,
+    7
+   ],
    "ordre": [
     2,
     3,
@@ -4447,7 +4459,7 @@
    "heure": "20:41",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "WOODSTER",
