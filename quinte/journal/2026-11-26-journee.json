@@ -938,7 +938,7 @@
    "heure": "12:00",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NAPPLE'S",
@@ -955,7 +955,13 @@
     "12": "NE LACHE PAS",
     "13": "NUSHABA"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    7,
+    8,
+    9,
+    3
+   ],
    "ordre": [
     2,
     4,
@@ -1030,7 +1036,7 @@
    "heure": "12:35",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "COEUR DE ROUME",
@@ -1578,7 +1584,7 @@
    "heure": "12:17",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "TISSLAM",
@@ -1589,7 +1595,13 @@
     "6": "PITCHOU",
     "7": "PIANISTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    4,
+    1,
+    6
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
