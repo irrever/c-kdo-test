@@ -2817,7 +2817,7 @@
    "heure": "17:13",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "SHALOHA",
@@ -2837,7 +2837,13 @@
     "15": "SABOR DAZ",
     "16": "PLUIE D'ARAIZE"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    3,
+    6,
+    4,
+    7
+   ],
    "ordre": [
     2,
     9,
@@ -3007,7 +3013,7 @@
    "heure": "16:55",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NOBEL DE FAEL",
@@ -3023,7 +3029,13 @@
     "11": "NOVA DE VISAIS",
     "12": "NILDA LAND"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    11,
+    12,
+    5
+   ],
    "ordre": [
     10,
     9,
@@ -3098,7 +3110,7 @@
    "heure": "17:30",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "KARLITO SCOTT",
