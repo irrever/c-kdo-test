@@ -1428,7 +1428,7 @@
    "heure": "11:40",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MAYLO",
@@ -1441,7 +1441,13 @@
     "8": "NIAGARA RIVER",
     "9": "FLOREAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    2,
+    7,
+    9,
+    6
+   ],
    "ordre": [
     3,
     5,
@@ -1516,7 +1522,7 @@
    "heure": "12:07",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "NOTA BENE POURPRE",
