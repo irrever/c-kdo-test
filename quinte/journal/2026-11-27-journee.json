@@ -109,7 +109,7 @@
    "heure": "18:58",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "NEMO DE BEYLEV",
@@ -124,7 +124,13 @@
     "10": "NOBEL VENESI",
     "11": "NARCO DU CHATELET"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    9,
+    10,
+    2
+   ],
    "ordre": [
     11,
     4,
@@ -3318,7 +3324,7 @@
    "heure": "18:40",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JOJO DE BOURGOGNE",
@@ -3335,7 +3341,13 @@
     "12": "HOUSTON D'ARIANE",
     "13": "HERMES SCOTT"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    4,
+    10,
+    8,
+    9
+   ],
    "ordre": [
     6,
     13,
@@ -3410,7 +3422,7 @@
    "heure": "19:15",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "LE GRAND FLAC",
@@ -3684,7 +3696,7 @@
    "heure": "18:30",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LOS ALAMOS",
@@ -3704,7 +3716,13 @@
     "15": "LOBSTER CLUB",
     "16": "LETY BOY DE CHOC"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    11,
+    5,
+    10,
+    12
+   ],
    "ordre": [
     9,
     4,
@@ -3779,7 +3797,7 @@
    "heure": "19:00",
    "distance": 2950,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MALIN GERSOIS",
