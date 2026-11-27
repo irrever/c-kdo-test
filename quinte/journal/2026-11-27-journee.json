@@ -1002,7 +1002,7 @@
    "heure": "14:35",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "SOPRANO DE TEILLEE",
@@ -1014,7 +1014,13 @@
     "7": "NOPAL DU BREUIL",
     "8": "EDGE OF PARADISE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    8,
+    6,
+    2
+   ],
    "ordre": [
     1,
     4,
@@ -1089,7 +1095,7 @@
    "heure": "15:10",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "INLANDSIS",
@@ -2007,7 +2013,7 @@
    "heure": "14:38",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "PURPLE HAZE",
@@ -2020,7 +2026,12 @@
     "8": "OCCIDENT BOKO",
     "9": "PAYCHECK H"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    4,
+    1,
+    8
+   ],
    "ordre": [
     5,
     2,
@@ -2394,7 +2405,7 @@
    "heure": "14:53",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "WALLABY",
@@ -2409,7 +2420,13 @@
     "10": "LADY PATRICK",
     "11": "MISSYS DIAMS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    4,
+    10,
+    8
+   ],
    "ordre": [
     9,
     10,
