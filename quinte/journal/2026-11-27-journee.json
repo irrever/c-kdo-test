@@ -1281,7 +1281,7 @@
    "heure": "16:20",
    "distance": 3900,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "HARLEM SCHUFFLE",
@@ -1294,7 +1294,13 @@
     "8": "ZAOCHEN ENKI",
     "9": "LE COEUR SAUVAGE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    9,
+    4,
+    1,
+    5
+   ],
    "ordre": [
     5,
     7,
@@ -2609,7 +2615,7 @@
    "heure": "16:03",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "BELLE VICTORIA",
@@ -2629,7 +2635,13 @@
     "15": "MONT STEELE",
     "16": "BALINA GARY"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    9,
+    15,
+    13,
+    7
+   ],
    "ordre": [
     4,
     7,
@@ -2704,7 +2716,7 @@
    "heure": "16:38",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "CAZADERO",
