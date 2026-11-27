@@ -695,7 +695,7 @@
    "heure": "22:13",
    "distance": 2175,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NIJNI NOVGOROD TEK",
@@ -714,7 +714,13 @@
     "14": "NUANCE DE STAR",
     "15": "NATHALINA D'ARGENT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    9,
+    15,
+    1,
+    13
+   ],
    "ordre": [
     7,
     15,
