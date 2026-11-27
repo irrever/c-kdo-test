@@ -2716,7 +2716,7 @@
    "heure": "16:38",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "CAZADERO",
@@ -2736,7 +2736,13 @@
     "15": "MINO PICO",
     "16": "RECOLEROS"
    },
-   "arrivee": [],
+   "arrivee": [
+    15,
+    3,
+    8,
+    6,
+    1
+   ],
    "ordre": [
     15,
     1,
@@ -3001,7 +3007,7 @@
    "heure": "16:55",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "NOBEL DE FAEL",
