@@ -840,7 +840,7 @@
    "heure": "13:25",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "NORTHMAN",
@@ -851,7 +851,13 @@
     "6": "NEXTOBE HAS",
     "7": "ALBERTINE"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    2,
+    1,
+    5,
+    4
+   ],
    "ordre": [
     7,
     5,
@@ -919,7 +925,7 @@
    "heure": "14:00",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 6,
    "noms": {
     "1": "KING DALEE",
@@ -1816,7 +1822,7 @@
    "heure": "13:42",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "REGINA",
@@ -1829,7 +1835,13 @@
     "8": "ROSIE BALDWIN",
     "9": "RONJA"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    5,
+    9,
+    8,
+    1
+   ],
    "ordre": [
     6,
     5,
@@ -1904,7 +1916,7 @@
    "heure": "14:10",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "MCENROE LASER",
@@ -2172,7 +2184,7 @@
    "heure": "13:43",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LA SALUTE",
@@ -2190,7 +2202,13 @@
     "13": "IMPERIAL CHOPE",
     "14": "CIRCION CHOP"
    },
-   "arrivee": [],
+   "arrivee": [
+    14,
+    3,
+    9,
+    1,
+    11
+   ],
    "ordre": [
     4,
     11,
