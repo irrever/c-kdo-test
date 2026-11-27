@@ -10,7 +10,7 @@
    "heure": "18:23",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "KALAMITY DE CHENU",
@@ -28,7 +28,13 @@
     "13": "KOTKITA GIRL",
     "14": "KATYLAND"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    13,
+    12,
+    10,
+    4
+   ],
    "ordre": [
     9,
     14,
@@ -3214,7 +3220,7 @@
    "heure": "18:05",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "HOLLYWOOD TRICK",
@@ -3231,7 +3237,13 @@
     "12": "JASON GINYU",
     "13": "GRAND TRIO LUDOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    3,
+    8,
+    4,
+    6
+   ],
    "ordre": [
     6,
     4,
@@ -3306,7 +3318,7 @@
    "heure": "18:40",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "JOJO DE BOURGOGNE",
@@ -3672,7 +3684,7 @@
    "heure": "18:30",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "LOS ALAMOS",
