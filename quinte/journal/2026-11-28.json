@@ -1,0 +1,344 @@
+{
+ "date": "2026-11-28",
+ "retroactif": false,
+ "fige_le": "2026-11-27T22:03:46",
+ "hippodrome": "PARIS-VINCENNES",
+ "course": "R1C4",
+ "modele": {
+  "sensibilite_K": 4.0,
+  "poids": {
+   "musique": 0.25,
+   "aptitudes": 0.1875,
+   "forme_cheval": 0.1875,
+   "chronos": 0.15,
+   "tandem": 0.075,
+   "conditions": 0.075,
+   "bruits_ecuries": 0.075
+  },
+  "simulations": 200000
+ },
+ "chevaux": [
+  {
+   "numero": 10,
+   "nom": "MARTIN DOL",
+   "score": 0.8048181996403553,
+   "p_victoire": 0.116375,
+   "p_top3": 0.3307,
+   "p_top5": 0.518865
+  },
+  {
+   "numero": 1,
+   "nom": "MASTER PIT",
+   "score": 0.7515572601395605,
+   "p_victoire": 0.092725,
+   "p_top3": 0.272555,
+   "p_top5": 0.443075
+  },
+  {
+   "numero": 3,
+   "nom": "MUSTANG HAUFOR",
+   "score": 0.7379934012303448,
+   "p_victoire": 0.089365,
+   "p_top3": 0.26079,
+   "p_top5": 0.42484
+  },
+  {
+   "numero": 9,
+   "nom": "MOSCATO SHOW",
+   "score": 0.7148592852582818,
+   "p_victoire": 0.08121,
+   "p_top3": 0.241485,
+   "p_top5": 0.39646
+  },
+  {
+   "numero": 6,
+   "nom": "MIRABILIS VRIE",
+   "score": 0.7134878162902949,
+   "p_victoire": 0.080215,
+   "p_top3": 0.237805,
+   "p_top5": 0.39288
+  },
+  {
+   "numero": 8,
+   "nom": "MERGINIO",
+   "score": 0.6900389750122102,
+   "p_victoire": 0.07253,
+   "p_top3": 0.220365,
+   "p_top5": 0.36659
+  },
+  {
+   "numero": 12,
+   "nom": "MAESTRO DE BRION",
+   "score": 0.6789666568439785,
+   "p_victoire": 0.07003,
+   "p_top3": 0.21028,
+   "p_top5": 0.35121
+  },
+  {
+   "numero": 13,
+   "nom": "MEDELLIN ELLIS",
+   "score": 0.6760006982971315,
+   "p_victoire": 0.06954,
+   "p_top3": 0.20879,
+   "p_top5": 0.34763
+  },
+  {
+   "numero": 4,
+   "nom": "MEC DE MUTRECY",
+   "score": 0.6370434121488832,
+   "p_victoire": 0.05941,
+   "p_top3": 0.181785,
+   "p_top5": 0.306525
+  },
+  {
+   "numero": 7,
+   "nom": "MOJI DE VANDEL",
+   "score": 0.6121846358394389,
+   "p_victoire": 0.054125,
+   "p_top3": 0.16513,
+   "p_top5": 0.281515
+  },
+  {
+   "numero": 15,
+   "nom": "MADMAX JEF",
+   "score": 0.581284428832227,
+   "p_victoire": 0.047585,
+   "p_top3": 0.14711,
+   "p_top5": 0.253685
+  },
+  {
+   "numero": 5,
+   "nom": "MONEY DI MALAVITA",
+   "score": 0.5545181138211888,
+   "p_victoire": 0.043205,
+   "p_top3": 0.134235,
+   "p_top5": 0.23062
+  },
+  {
+   "numero": 14,
+   "nom": "MURPHY DU PONCELET",
+   "score": 0.5261072207521406,
+   "p_victoire": 0.0385,
+   "p_top3": 0.119165,
+   "p_top5": 0.207415
+  },
+  {
+   "numero": 16,
+   "nom": "MAJOR MESLOIS",
+   "score": 0.4836181319667603,
+   "p_victoire": 0.031255,
+   "p_top3": 0.09931,
+   "p_top5": 0.17574
+  },
+  {
+   "numero": 11,
+   "nom": "MYSTERE DES MARES",
+   "score": 0.4643441277963727,
+   "p_victoire": 0.029365,
+   "p_top3": 0.093355,
+   "p_top5": 0.165835
+  },
+  {
+   "numero": 2,
+   "nom": "MEXICAIN",
+   "score": 0.41607271807561713,
+   "p_victoire": 0.024565,
+   "p_top3": 0.07714,
+   "p_top5": 0.137115
+  }
+ ],
+ "ordre_predit": [
+  10,
+  1,
+  3,
+  9,
+  6
+ ],
+ "combinaisons": {
+  "Tiercé": [
+   {
+    "box": 3,
+    "chevaux": [
+     10,
+     1,
+     3
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.007985,
+    "par_combinaison": 0.007985
+   },
+   {
+    "box": 4,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9
+    ],
+    "combinaisons": 4,
+    "probabilite": 0.02735,
+    "par_combinaison": 0.0068375
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6
+    ],
+    "combinaisons": 10,
+    "probabilite": 0.062335,
+    "par_combinaison": 0.0062335
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8
+    ],
+    "combinaisons": 20,
+    "probabilite": 0.11207,
+    "par_combinaison": 0.0056035
+   }
+  ],
+  "Quarté": [
+   {
+    "box": 4,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.0036,
+    "par_combinaison": 0.0036
+   },
+   {
+    "box": 5,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6
+    ],
+    "combinaisons": 5,
+    "probabilite": 0.015765,
+    "par_combinaison": 0.0031530000000000004
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8
+    ],
+    "combinaisons": 15,
+    "probabilite": 0.04013,
+    "par_combinaison": 0.0026753333333333334
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8,
+     12
+    ],
+    "combinaisons": 35,
+    "probabilite": 0.08139,
+    "par_combinaison": 0.0023254285714285716
+   }
+  ],
+  "Quinté": [
+   {
+    "box": 5,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6
+    ],
+    "combinaisons": 1,
+    "probabilite": 0.00241,
+    "par_combinaison": 0.00241
+   },
+   {
+    "box": 6,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8
+    ],
+    "combinaisons": 6,
+    "probabilite": 0.010955,
+    "par_combinaison": 0.0018258333333333332
+   },
+   {
+    "box": 7,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8,
+     12
+    ],
+    "combinaisons": 21,
+    "probabilite": 0.03129,
+    "par_combinaison": 0.00149
+   },
+   {
+    "box": 8,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8,
+     12,
+     13
+    ],
+    "combinaisons": 56,
+    "probabilite": 0.07236,
+    "par_combinaison": 0.001292142857142857
+   },
+   {
+    "box": 9,
+    "chevaux": [
+     10,
+     1,
+     3,
+     9,
+     6,
+     8,
+     12,
+     13,
+     4
+    ],
+    "combinaisons": 126,
+    "probabilite": 0.134205,
+    "par_combinaison": 0.0010651190476190476
+   }
+  ]
+ }
+}

@@ -1,0 +1,212 @@
+{
+  "box": [
+    1,
+    3,
+    9,
+    6,
+    8,
+    12
+  ],
+  "top5": [
+    10,
+    1,
+    3,
+    9,
+    6
+  ],
+  "a_jouer": [
+    3,
+    6,
+    8
+  ],
+  "a_eviter": [
+    10,
+    15,
+    5
+  ],
+  "presse_disponible": true,
+  "lignes": [
+    {
+      "numero": 10,
+      "nom": "MARTIN DOL",
+      "rang": 1,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.5189,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 1,
+      "nom": "MASTER PIT",
+      "rang": 2,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4431,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 3,
+      "nom": "MUSTANG HAUFOR",
+      "rang": 3,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.4248,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 9,
+      "nom": "MOSCATO SHOW",
+      "rang": 4,
+      "pos": 1,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3965,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 6,
+      "nom": "MIRABILIS VRIE",
+      "rang": 5,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3929,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 8,
+      "nom": "MERGINIO",
+      "rang": 6,
+      "pos": 2,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3666,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 12,
+      "nom": "MAESTRO DE BRION",
+      "rang": 7,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.3512,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 13,
+      "nom": "MEDELLIN ELLIS",
+      "rang": 8,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.3476,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 4,
+      "nom": "MEC DE MUTRECY",
+      "rang": 9,
+      "pos": 3,
+      "excusee": false,
+      "forte": true,
+      "top5": 0.3065,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 7,
+      "nom": "MOJI DE VANDEL",
+      "rang": 10,
+      "pos": null,
+      "excusee": true,
+      "forte": false,
+      "top5": 0.2815,
+      "categorie": "base",
+      "retenu": true
+    },
+    {
+      "numero": 15,
+      "nom": "MADMAX JEF",
+      "rang": 11,
+      "pos": 7,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2537,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 5,
+      "nom": "MONEY DI MALAVITA",
+      "rang": 12,
+      "pos": 4,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2306,
+      "categorie": "belle",
+      "retenu": true
+    },
+    {
+      "numero": 14,
+      "nom": "MURPHY DU PONCELET",
+      "rang": 13,
+      "pos": 8,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.2074,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 16,
+      "nom": "MAJOR MESLOIS",
+      "rang": 14,
+      "pos": 0,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1757,
+      "categorie": "délaissé",
+      "retenu": false
+    },
+    {
+      "numero": 11,
+      "nom": "MYSTERE DES MARES",
+      "rang": 15,
+      "pos": 6,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1658,
+      "categorie": "outsider",
+      "retenu": false
+    },
+    {
+      "numero": 2,
+      "nom": "MEXICAIN",
+      "rang": 16,
+      "pos": 9,
+      "excusee": false,
+      "forte": false,
+      "top5": 0.1371,
+      "categorie": "délaissé",
+      "retenu": false
+    }
+  ],
+  "date": "2026-11-28",
+  "r": 1,
+  "c": 4,
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "15:15",
+  "fige_le_utc": "2026-11-27T22:03:43+00:00"
+}

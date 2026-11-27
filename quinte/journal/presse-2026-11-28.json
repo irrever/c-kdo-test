@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-28",
+  "r": 1,
+  "c": 4,
+  "url": "https://www.equidia.fr/courses/2026-11-28/R1/C4",
+  "hippodrome": "PARIS-VINCENNES",
+  "heure_depart": "15:15",
+  "retroactif": false,
+  "capture_le_utc": "2026-11-27T22:03:42+00:00",
+  "presse": {
+    "parier": [
+      7,
+      10,
+      12,
+      9,
+      1,
+      15,
+      4,
+      5
+    ],
+    "cinq": null,
+    "bases": [
+      7,
+      10,
+      12
+    ],
+    "outsiders": [
+      3,
+      8,
+      6,
+      11,
+      13,
+      14
+    ],
+    "belles": [
+      9,
+      1,
+      15,
+      4,
+      5
+    ],
+    "delaisses": [
+      16,
+      2
+    ]
+  },
+  "notre": [
+    {
+      "numero": 10,
+      "nom": "MARTIN DOL",
+      "score": 0.8048,
+      "rang": 1,
+      "p_victoire": 0.1164,
+      "p_top5": 0.5189
+    },
+    {
+      "numero": 1,
+      "nom": "MASTER PIT",
+      "score": 0.7516,
+      "rang": 2,
+      "p_victoire": 0.0927,
+      "p_top5": 0.4431
+    },
+    {
+      "numero": 3,
+      "nom": "MUSTANG HAUFOR",
+      "score": 0.738,
+      "rang": 3,
+      "p_victoire": 0.0894,
+      "p_top5": 0.4248
+    },
+    {
+      "numero": 9,
+      "nom": "MOSCATO SHOW",
+      "score": 0.7149,
+      "rang": 4,
+      "p_victoire": 0.0812,
+      "p_top5": 0.3965
+    },
+    {
+      "numero": 6,
+      "nom": "MIRABILIS VRIE",
+      "score": 0.7135,
+      "rang": 5,
+      "p_victoire": 0.0802,
+      "p_top5": 0.3929
+    },
+    {
+      "numero": 8,
+      "nom": "MERGINIO",
+      "score": 0.69,
+      "rang": 6,
+      "p_victoire": 0.0725,
+      "p_top5": 0.3666
+    },
+    {
+      "numero": 12,
+      "nom": "MAESTRO DE BRION",
+      "score": 0.679,
+      "rang": 7,
+      "p_victoire": 0.07,
+      "p_top5": 0.3512
+    },
+    {
+      "numero": 13,
+      "nom": "MEDELLIN ELLIS",
+      "score": 0.676,
+      "rang": 8,
+      "p_victoire": 0.0695,
+      "p_top5": 0.3476
+    },
+    {
+      "numero": 4,
+      "nom": "MEC DE MUTRECY",
+      "score": 0.637,
+      "rang": 9,
+      "p_victoire": 0.0594,
+      "p_top5": 0.3065
+    },
+    {
+      "numero": 7,
+      "nom": "MOJI DE VANDEL",
+      "score": 0.6122,
+      "rang": 10,
+      "p_victoire": 0.0541,
+      "p_top5": 0.2815
+    },
+    {
+      "numero": 15,
+      "nom": "MADMAX JEF",
+      "score": 0.5813,
+      "rang": 11,
+      "p_victoire": 0.0476,
+      "p_top5": 0.2537
+    },
+    {
+      "numero": 5,
+      "nom": "MONEY DI MALAVITA",
+      "score": 0.5545,
+      "rang": 12,
+      "p_victoire": 0.0432,
+      "p_top5": 0.2306
+    },
+    {
+      "numero": 14,
+      "nom": "MURPHY DU PONCELET",
+      "score": 0.5261,
+      "rang": 13,
+      "p_victoire": 0.0385,
+      "p_top5": 0.2074
+    },
+    {
+      "numero": 16,
+      "nom": "MAJOR MESLOIS",
+      "score": 0.4836,
+      "rang": 14,
+      "p_victoire": 0.0313,
+      "p_top5": 0.1757
+    },
+    {
+      "numero": 11,
+      "nom": "MYSTERE DES MARES",
+      "score": 0.4643,
+      "rang": 15,
+      "p_victoire": 0.0294,
+      "p_top5": 0.1658
+    },
+    {
+      "numero": 2,
+      "nom": "MEXICAIN",
+      "score": 0.4161,
+      "rang": 16,
+      "p_victoire": 0.0246,
+      "p_top5": 0.1371
+    }
+  ]
+}
