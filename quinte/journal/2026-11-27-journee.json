@@ -747,7 +747,7 @@
    "heure": "12:50",
    "distance": 3800,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "STYLE DE WAY",
@@ -759,7 +759,13 @@
     "7": "FLEURIEU",
     "8": "LIDOCAINE DE COTTE"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    1,
+    6,
+    3,
+    4
+   ],
    "ordre": [
     1,
     3,
@@ -1717,7 +1723,7 @@
    "heure": "13:08",
    "distance": 3100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 8,
    "noms": {
     "1": "LITTEE MAMS",
@@ -2059,7 +2065,7 @@
    "heure": "13:08",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 16,
    "noms": {
     "1": "NESTORDELABARRIERE",
