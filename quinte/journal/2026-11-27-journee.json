@@ -1522,7 +1522,7 @@
    "heure": "12:07",
    "distance": 2600,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "NOTA BENE POURPRE",
@@ -1539,7 +1539,13 @@
     "12": "KEZIRA DE LINE",
     "13": "KENTUCKY ROYAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    4,
+    3,
+    6,
+    5
+   ],
    "ordre": [
     8,
     9,
@@ -1614,7 +1620,7 @@
    "heure": "12:34",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "AMORE BAROSSO",
@@ -1630,7 +1636,13 @@
     "11": "SARATOGA BOKO",
     "12": "SUUS BALDWIN"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    3,
+    10,
+    7,
+    4
+   ],
    "ordre": [
     2,
     5,
