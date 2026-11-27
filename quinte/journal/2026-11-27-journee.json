@@ -205,7 +205,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 15,
    "noms": {
     "1": "LOVING STAR",
@@ -3422,7 +3422,7 @@
    "heure": "19:15",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LE GRAND FLAC",
@@ -3439,7 +3439,13 @@
     "12": "LAKARA",
     "13": "LORKY RED"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    3,
+    11,
+    2,
+    6
+   ],
    "ordre": [
     7,
     13,
@@ -3797,7 +3803,7 @@
    "heure": "19:00",
    "distance": 2950,
    "discipline": "Monté",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MALIN GERSOIS",
@@ -3813,7 +3819,13 @@
     "11": "MENTION GRAVE",
     "12": "MICKEY MICHETTUDE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    11,
+    9,
+    2,
+    5
+   ],
    "ordre": [
     3,
     12,
@@ -3888,7 +3900,7 @@
    "heure": "19:30",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LOUVE D'ENFER",
@@ -3907,7 +3919,13 @@
     "14": "LINSKAYA D'ART",
     "15": "LEILA DU CHATELET"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    8,
+    1,
+    11
+   ],
    "ordre": [
     9,
     2,
