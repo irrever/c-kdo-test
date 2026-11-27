@@ -925,7 +925,7 @@
    "heure": "14:00",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "KING DALEE",
@@ -935,7 +935,13 @@
     "5": "FLONIS",
     "6": "DEDEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    6,
+    4,
+    3
+   ],
    "ordre": [
     6,
     2,
@@ -996,7 +1002,7 @@
    "heure": "14:35",
    "distance": 3400,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "SOPRANO DE TEILLEE",
@@ -1916,7 +1922,7 @@
    "heure": "14:10",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "MCENROE LASER",
@@ -1927,7 +1933,13 @@
     "6": "ROYALTY LOBELL",
     "7": "RODGERS FLEVO"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    1,
+    7,
+    2,
+    5
+   ],
    "ordre": [
     1,
     3,
@@ -1995,7 +2007,7 @@
    "heure": "14:38",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "PURPLE HAZE",
@@ -2283,7 +2295,7 @@
    "heure": "14:18",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "LA BELLE HELENE",
@@ -2301,7 +2313,13 @@
     "14": "WHAKA",
     "15": "LIGHTNING BONNIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    14,
+    4,
+    11,
+    6
+   ],
    "ordre": [
     14,
     11,
