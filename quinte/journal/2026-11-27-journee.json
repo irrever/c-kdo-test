@@ -1188,7 +1188,7 @@
    "heure": "15:45",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "GAME OF STORM",
@@ -1200,7 +1200,13 @@
     "7": "AL FONCE",
     "8": "MADISON ROQUE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    1,
+    5,
+    7,
+    2
+   ],
    "ordre": [
     8,
     4,
@@ -2603,7 +2609,7 @@
    "heure": "16:03",
    "distance": 3100,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "BELLE VICTORIA",
