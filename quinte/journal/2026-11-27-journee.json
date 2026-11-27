@@ -2918,7 +2918,7 @@
    "heure": "17:48",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MY QUEEN",
@@ -2938,7 +2938,13 @@
     "15": "LAKES DANCER",
     "16": "JORDAN BAKER"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    8,
+    9,
+    6,
+    1
+   ],
    "ordre": [
     8,
     3,
@@ -3110,7 +3116,7 @@
    "heure": "17:30",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KARLITO SCOTT",
@@ -3127,7 +3133,13 @@
     "12": "KALGARY",
     "13": "KING CRIMSON"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    13,
+    10,
+    8,
+    6
+   ],
    "ordre": [
     9,
     13,
@@ -3202,7 +3214,7 @@
    "heure": "18:05",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "live",
    "partants": 13,
    "noms": {
     "1": "HOLLYWOOD TRICK",
