@@ -1095,7 +1095,7 @@
    "heure": "15:10",
    "distance": 3450,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "INLANDSIS",
@@ -1107,7 +1107,13 @@
     "7": "GEMMA DODVILLE",
     "8": "CHOEUR DE GRIVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    5,
+    2,
+    6
+   ],
    "ordre": [
     3,
     7,
@@ -1182,7 +1188,7 @@
    "heure": "15:45",
    "distance": 3600,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 8,
    "noms": {
     "1": "GAME OF STORM",
@@ -2501,7 +2507,7 @@
    "heure": "15:28",
    "distance": 1700,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 11,
    "noms": {
     "1": "AEDION",
@@ -2516,7 +2522,13 @@
     "11": "MOON BE STILL",
     "12": "BAIETA"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    1,
+    6,
+    11
+   ],
    "ordre": [
     6,
     7,
