@@ -205,7 +205,7 @@
    "heure": "19:33",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "LOVING STAR",
@@ -224,7 +224,13 @@
     "14": "LATINO BELLO",
     "15": "LACKING SPIRIT"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    11,
+    14,
+    13,
+    8
+   ],
    "ordre": [
     10,
     1,
@@ -299,7 +305,7 @@
    "heure": "20:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 14,
    "noms": {
     "1": "JONGLEUSE DE BRY",
@@ -3520,7 +3526,7 @@
    "heure": "19:50",
    "distance": 2650,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MISS FLEUR",
@@ -3540,7 +3546,13 @@
     "15": "MAM'ZELLE LARZIZ",
     "16": "MISSION ROYALE"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    16,
+    6,
+    13,
+    14
+   ],
    "ordre": [
     16,
     10,
@@ -4000,7 +4012,7 @@
    "heure": "20:00",
    "distance": 2150,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "NUIT D'ORTUGE",
@@ -4020,7 +4032,13 @@
     "15": "NIKITA DE BLARY",
     "16": "NEO KNIGHT"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    11,
+    8,
+    15
+   ],
    "ordre": [
     12,
     5,
