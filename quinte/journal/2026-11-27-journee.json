@@ -305,7 +305,7 @@
    "heure": "20:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "JONGLEUSE DE BRY",
@@ -323,7 +323,13 @@
     "13": "KALINKA DU GRENAT",
     "14": "KIPHYLE DESBOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    8,
+    10,
+    3,
+    14
+   ],
    "ordre": [
     5,
     10,
@@ -3627,7 +3633,7 @@
    "heure": "20:32",
    "distance": 2650,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "JO DE CAZOULENE",
@@ -3639,7 +3645,13 @@
     "7": "JOIE DE LA COTE",
     "8": "INSTANT GRAVE"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    1,
+    7,
+    8
+   ],
    "ordre": [
     8,
     5,
@@ -4113,7 +4125,7 @@
    "heure": "20:30",
    "distance": 2750,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "MALVERN DE GUEZ",
