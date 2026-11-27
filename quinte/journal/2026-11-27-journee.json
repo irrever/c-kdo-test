@@ -1333,7 +1333,7 @@
    "heure": "11:13",
    "distance": 1609,
    "discipline": "Attelé",
-   "statut": "live",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "SHIRLEY EFFECT",
@@ -1347,7 +1347,13 @@
     "9": "SUPERIOR STEEL",
     "10": "SHERGAR BOKO"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    5,
+    1,
+    7,
+    3
+   ],
    "ordre": [
     7,
     5,
@@ -1422,7 +1428,7 @@
    "heure": "11:40",
    "distance": 2100,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "MAYLO",
