@@ -684,7 +684,7 @@
    "heure": "17:35",
    "distance": 2700,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 8,
    "noms": {
     "1": "KOOGOO GAAGAA",
@@ -2599,7 +2599,7 @@
    "heure": "17:17",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LADIES DAY",
@@ -2619,7 +2619,13 @@
     "15": "PULP FICTION",
     "16": "BROMUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    11,
+    6,
+    12,
+    1,
+    10
+   ],
    "ordre": [
     5,
     16,
@@ -4533,7 +4539,7 @@
    "heure": "17:00",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MAMZELLE DU VAL",
@@ -4549,7 +4555,13 @@
     "11": "MYRTILLE DES ECUS",
     "12": "MOON KUKY"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    1,
+    9,
+    6,
+    11
+   ],
    "ordre": [
     6,
     11,
@@ -4624,7 +4636,7 @@
    "heure": "17:30",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "KISS ME DU RABUTIN",
