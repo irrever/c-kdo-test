@@ -1191,7 +1191,7 @@
    "heure": "12:47",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "JOH SPIRIT",
@@ -1208,7 +1208,13 @@
     "12": "GLORY WOOD",
     "13": "CANET DE SALARS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    7,
+    9,
+    1,
+    8
+   ],
    "ordre": [
     2,
     9,
@@ -1846,7 +1852,7 @@
    "heure": "13:03",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "AU DELA DES MERS",
@@ -4668,7 +4674,7 @@
    "heure": "13:00",
    "distance": 4100,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "TERRANO",
@@ -4685,7 +4691,12 @@
     "12": "MISTER COKO",
     "13": "WELL ACHIEVED"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    9,
+    4
+   ],
    "ordre": [
     1,
     10,
