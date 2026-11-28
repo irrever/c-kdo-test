@@ -1000,7 +1000,7 @@
    "heure": "11:43",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "GRISY APRIL",
@@ -1012,7 +1012,13 @@
     "7": "LADUBARRY",
     "8": "ESPRIT"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    6,
+    3,
+    8,
+    1
+   ],
    "ordre": [
     4,
     5,
@@ -1087,7 +1093,7 @@
    "heure": "12:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "imminent",
    "partants": 13,
    "noms": {
     "1": "KENZAL",
@@ -1639,7 +1645,7 @@
    "heure": "11:59",
    "distance": 1400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "MIKEY",
@@ -1653,7 +1659,13 @@
     "9": "HEMEVEZ",
     "10": "VARZUGA"
    },
-   "arrivee": [],
+   "arrivee": [
+    5,
+    7,
+    4,
+    9,
+    3
+   ],
    "ordre": [
     3,
     5,
