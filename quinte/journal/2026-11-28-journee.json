@@ -198,7 +198,7 @@
    "heure": "14:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 15,
    "noms": {
     "1": "NEW SPIRIT",
@@ -1480,7 +1480,7 @@
    "heure": "14:24",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 6,
    "noms": {
     "1": "MARIE LA CROIX",
@@ -1490,7 +1490,13 @@
     "5": "ABRONZAL",
     "6": "KRISTAL"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    6,
+    3,
+    2,
+    5
+   ],
    "ordre": [
     4,
     3,
@@ -2069,7 +2075,7 @@
    "heure": "14:15",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "3min",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "BEL ARISTO",
@@ -2087,7 +2093,13 @@
     "13": "JUREER",
     "14": "NEROKAS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    1,
+    13,
+    14
+   ],
    "ordre": [
     5,
     12,
@@ -3974,7 +3986,7 @@
    "heure": "14:30",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NASSAN",
@@ -3990,7 +4002,13 @@
     "11": "NALA DU COIGNET",
     "12": "NYMPHE D'ERABLE"
    },
-   "arrivee": [],
+   "arrivee": [
+    8,
+    12,
+    4,
+    7,
+    9
+   ],
    "ordre": [
     1,
     2,
@@ -4910,7 +4928,7 @@
    "heure": "14:10",
    "distance": 4500,
    "discipline": "Steeple Chase",
-   "statut": "live",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "DOWN MEMORY LANE",
@@ -4932,7 +4950,13 @@
     "17": "EYED",
     "18": "HOLETOWN"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    18,
+    2,
+    14
+   ],
    "ordre": [
     8,
     3,
@@ -5007,7 +5031,7 @@
    "heure": "14:40",
    "distance": 4100,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "live",
    "partants": 18,
    "noms": {
     "1": "TOO BOSSY FOR US",
