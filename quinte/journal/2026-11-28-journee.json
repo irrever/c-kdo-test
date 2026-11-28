@@ -198,7 +198,7 @@
    "heure": "14:33",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "NEW SPIRIT",
@@ -217,7 +217,13 @@
     "14": "NARCO CONNECTION",
     "15": "NOURKIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    13,
+    9,
+    10,
+    11,
+    2
+   ],
    "ordre": [
     6,
     8,
@@ -2174,7 +2180,7 @@
    "heure": "14:50",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "SHARP RISE",
@@ -2192,7 +2198,13 @@
     "13": "EYE OF THE TIGER",
     "14": "MORANDI FIRST"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    4,
+    6,
+    3,
+    8
+   ],
    "ordre": [
     9,
     8,
@@ -4083,7 +4095,7 @@
    "heure": "15:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "LORD DU TRIEUX",
@@ -5031,7 +5043,7 @@
    "heure": "14:40",
    "distance": 4100,
    "discipline": "Haies",
-   "statut": "live",
+   "statut": "finished",
    "partants": 18,
    "noms": {
     "1": "TOO BOSSY FOR US",
@@ -5053,7 +5065,13 @@
     "17": "FIRESTREAM",
     "18": "WALK ON HIGH"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    8,
+    11,
+    14,
+    16
+   ],
    "ordre": [
     11,
     14,
