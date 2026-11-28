@@ -399,7 +399,7 @@
    "heure": "15:50",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "LADY DES ARRIS",
@@ -416,7 +416,13 @@
     "12": "LOVELY DU VALLON",
     "13": "LOU DU DONJON"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    4,
+    7,
+    8
+   ],
    "ordre": [
     6,
     9,
@@ -2285,7 +2291,7 @@
    "heure": "15:32",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MELIORA",
@@ -2305,7 +2311,13 @@
     "15": "COUNTRY CLUB",
     "16": "ZOLIA D'OROUX"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    3,
+    7,
+    15,
+    1
+   ],
    "ordre": [
     16,
     1,
@@ -2380,7 +2392,7 @@
    "heure": "16:07",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 9,
    "noms": {
     "1": "OUEST DONC DENUO",
@@ -4202,7 +4214,7 @@
    "heure": "15:30",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "JOSY EXPRESS",
@@ -4222,7 +4234,13 @@
     "15": "JAVELOT DE HOUELLE",
     "16": "JOY EASTER"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    16,
+    14,
+    8,
+    15
+   ],
    "ordre": [
     16,
     14,
@@ -4297,7 +4315,7 @@
    "heure": "16:00",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MOOREA DE BANVILLE",
@@ -4313,7 +4331,13 @@
     "11": "MALINEJETTE",
     "12": "MAMZELLE D'EMI"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    9,
+    8,
+    11,
+    3
+   ],
    "ordre": [
     6,
     10,
@@ -5252,7 +5276,7 @@
    "heure": "16:00",
    "distance": 5200,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 17,
    "noms": {
     "1": "REGENT'S STROLL",
