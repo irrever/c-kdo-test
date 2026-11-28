@@ -10,7 +10,7 @@
    "heure": "13:23",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "OURAGANE JENILOU",
@@ -23,7 +23,13 @@
     "8": "OASIS DU CHOQUEL",
     "9": "OLDHAM"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    5,
+    6,
+    7,
+    2
+   ],
    "ordre": [
     9,
     5,
@@ -1289,7 +1295,7 @@
    "heure": "13:20",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "LITERARY SONG",
@@ -1300,7 +1306,13 @@
     "6": "CAPTAIN AMERICWAN",
     "7": "MORNING VIEW"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    1,
+    2,
+    5,
+    3
+   ],
    "ordre": [
     2,
     3,
@@ -1852,7 +1864,7 @@
    "heure": "13:03",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "AU DELA DES MERS",
@@ -1865,7 +1877,13 @@
     "8": "GOLD STANDARD",
     "9": "FOLIE MEME"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    5,
+    7,
+    8,
+    3
+   ],
    "ordre": [
     7,
     2,
@@ -1940,7 +1958,7 @@
    "heure": "13:40",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 14,
    "noms": {
     "1": "ROXANA DU MAZET",
@@ -4771,7 +4789,7 @@
    "heure": "13:35",
    "distance": 3250,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "BOOMBOX",
