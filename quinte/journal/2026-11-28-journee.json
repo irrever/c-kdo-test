@@ -298,7 +298,7 @@
    "heure": "15:15",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "MASTER PIT",
@@ -318,7 +318,13 @@
     "15": "MADMAX JEF",
     "16": "MAJOR MESLOIS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    10,
+    5,
+    12,
+    4
+   ],
    "ordre": [
     10,
     1,
@@ -2279,7 +2285,7 @@
    "heure": "15:32",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "MELIORA",
@@ -4095,7 +4101,7 @@
    "heure": "15:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "LORD DU TRIEUX",
@@ -4115,7 +4121,13 @@
     "15": "LORD OF SPAIN",
     "16": "LOUP D'ERPION"
    },
-   "arrivee": [],
+   "arrivee": [
+    1,
+    13,
+    5,
+    3,
+    2
+   ],
    "ordre": [
     13,
     4,
@@ -4190,7 +4202,7 @@
    "heure": "15:30",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 16,
    "noms": {
     "1": "JOSY EXPRESS",
@@ -5146,7 +5158,7 @@
    "heure": "15:20",
    "distance": 3250,
    "discipline": "Haies",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "IDAHO SUN",
@@ -5159,7 +5171,13 @@
     "8": "KLYCOT",
     "9": "OUR BOY STAN"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    2,
+    5,
+    9,
+    8
+   ],
    "ordre": [
     1,
     3,
