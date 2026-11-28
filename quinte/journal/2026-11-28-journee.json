@@ -104,7 +104,7 @@
    "heure": "13:58",
    "distance": 2200,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "OPIUM D'AMOUR",
@@ -117,7 +117,13 @@
     "8": "ONYX D'AVRIL",
     "9": "OSSAU DU PRE"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    7,
+    6,
+    2,
+    3
+   ],
    "ordre": [
     9,
     6,
@@ -1380,7 +1386,7 @@
    "heure": "13:52",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "SENTOSA",
@@ -1393,7 +1399,13 @@
     "8": "MUHAARIA",
     "9": "VALDERRAMA"
    },
-   "arrivee": [],
+   "arrivee": [
+    6,
+    7,
+    8,
+    5,
+    9
+   ],
    "ordre": [
     6,
     2,
@@ -1958,7 +1970,7 @@
    "heure": "13:40",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 14,
    "noms": {
     "1": "ROXANA DU MAZET",
@@ -1976,7 +1988,13 @@
     "13": "PINTXOPOTE",
     "14": "FIVE DAYS"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    12,
+    5,
+    7,
+    9
+   ],
    "ordre": [
     2,
     3,
@@ -2051,7 +2069,7 @@
    "heure": "14:15",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 14,
    "noms": {
     "1": "BEL ARISTO",
@@ -3859,7 +3877,7 @@
    "heure": "14:00",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "NAPOLEON DARLING",
@@ -3875,7 +3893,13 @@
     "11": "NEPTUNE DE PUCH",
     "12": "NABAB DES RACQUES"
    },
-   "arrivee": [],
+   "arrivee": [
+    10,
+    6,
+    12,
+    11,
+    8
+   ],
    "ordre": [
     10,
     9,
@@ -4789,7 +4813,7 @@
    "heure": "13:35",
    "distance": 3250,
    "discipline": "Haies",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "BOOMBOX",
@@ -4805,7 +4829,13 @@
     "11": "THE FLAGGY SHORE",
     "12": "TI'MAMZEL"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    2,
+    1,
+    10,
+    12
+   ],
    "ordre": [
     1,
     4,
@@ -4880,7 +4910,7 @@
    "heure": "14:10",
    "distance": 4500,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "live",
    "partants": 18,
    "noms": {
     "1": "DOWN MEMORY LANE",
