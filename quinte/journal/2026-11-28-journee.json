@@ -821,7 +821,7 @@
    "heure": "10:39",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "LAZZAR",
@@ -834,7 +834,13 @@
     "8": "HEAVEN CAN WAIT",
     "9": "KENCARLO"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    7,
+    1,
+    2,
+    5
+   ],
    "ordre": [
     3,
     1,
@@ -909,7 +915,7 @@
    "heure": "11:11",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 7,
    "noms": {
     "1": "SAINT MARTIN",
@@ -1497,7 +1503,7 @@
    "heure": "10:55",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 10,
    "noms": {
     "1": "LIQUID GOLD",
@@ -1511,7 +1517,13 @@
     "9": "SAVADI",
     "10": "WITTY CEN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    2,
+    9,
+    5,
+    6
+   ],
    "ordre": [],
    "top": [],
    "sans_donnees": true,
