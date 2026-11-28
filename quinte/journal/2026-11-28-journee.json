@@ -497,7 +497,7 @@
    "heure": "16:25",
    "distance": 2175,
    "discipline": "Monté",
-   "statut": "before",
+   "statut": "finished",
    "partants": 8,
    "noms": {
     "1": "MONEY MONEY PIYA",
@@ -509,7 +509,13 @@
     "7": "MUNHOA VEDAQUAISE",
     "8": "MISS DES BESACES"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    5,
+    8,
+    6,
+    4
+   ],
    "ordre": [
     7,
     8,
@@ -2392,7 +2398,7 @@
    "heure": "16:07",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "OUEST DONC DENUO",
@@ -2405,7 +2411,13 @@
     "8": "IT'S ONLY LOVE",
     "9": "STRONG CROWN"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    5,
+    2,
+    8
+   ],
    "ordre": [
     1,
     2,
@@ -2480,7 +2492,7 @@
    "heure": "16:42",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "live",
    "partants": 16,
    "noms": {
     "1": "INVENTER",
@@ -4412,7 +4424,7 @@
    "heure": "16:30",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 12,
    "noms": {
     "1": "MILADY DE WALD",
@@ -4428,7 +4440,13 @@
     "11": "MELOPEE",
     "12": "MASTER CHEF"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    4,
+    5,
+    3,
+    2
+   ],
    "ordre": [
     9,
     10,
@@ -5276,7 +5294,7 @@
    "heure": "16:00",
    "distance": 5200,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 17,
    "noms": {
     "1": "REGENT'S STROLL",
@@ -5297,7 +5315,13 @@
     "16": "MR HOPE STREET",
     "17": "HERE COMES GEORGIE"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    1,
+    13,
+    9,
+    14
+   ],
    "ordre": [
     3,
     11,
@@ -5372,7 +5396,7 @@
    "heure": "16:38",
    "distance": 3300,
    "discipline": "Steeple Chase",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 13,
    "noms": {
     "1": "BREAKING COVER",
