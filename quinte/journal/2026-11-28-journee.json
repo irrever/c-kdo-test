@@ -590,7 +590,7 @@
    "heure": "17:00",
    "distance": 2700,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "MANHATTAN EMGE",
@@ -603,7 +603,13 @@
     "8": "LORD DU BASSIN",
     "9": "PHANTOM EXPRESS"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    8,
+    9,
+    3,
+    1
+   ],
    "ordre": [
     8,
     1,
@@ -2492,7 +2498,7 @@
    "heure": "16:42",
    "distance": 1900,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 16,
    "noms": {
     "1": "INVENTER",
@@ -2512,7 +2518,13 @@
     "15": "LIGHTASS FAL",
     "16": "BIG RED SOLO"
    },
-   "arrivee": [],
+   "arrivee": [
+    9,
+    1,
+    4,
+    14,
+    12
+   ],
    "ordre": [
     2,
     1,
@@ -4521,7 +4533,7 @@
    "heure": "17:00",
    "distance": 2825,
    "discipline": "Attelé",
-   "statut": "before",
+   "statut": "finished_prov",
    "partants": 12,
    "noms": {
     "1": "MAMZELLE DU VAL",
@@ -5396,7 +5408,7 @@
    "heure": "16:38",
    "distance": 3300,
    "discipline": "Steeple Chase",
-   "statut": "finished_prov",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "BREAKING COVER",
@@ -5413,7 +5425,13 @@
     "12": "THE FOUR SIXES",
     "13": "PURE CARBON"
    },
-   "arrivee": [],
+   "arrivee": [
+    7,
+    11,
+    6,
+    8,
+    2
+   ],
    "ordre": [
     3,
     5,
