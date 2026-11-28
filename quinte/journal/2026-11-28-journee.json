@@ -915,7 +915,7 @@
    "heure": "11:11",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "live",
+   "statut": "finished",
    "partants": 7,
    "noms": {
     "1": "SAINT MARTIN",
@@ -926,7 +926,13 @@
     "6": "MARTAGNY",
     "7": "ALTOSTRATUS"
    },
-   "arrivee": [],
+   "arrivee": [
+    4,
+    5,
+    6,
+    2,
+    3
+   ],
    "ordre": [
     7,
     6,
@@ -994,7 +1000,7 @@
    "heure": "11:43",
    "distance": 2000,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "3min",
    "partants": 8,
    "noms": {
     "1": "GRISY APRIL",
@@ -1539,7 +1545,7 @@
    "heure": "11:27",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 9,
    "noms": {
     "1": "WOOD ROSE",
@@ -1552,7 +1558,13 @@
     "8": "BELLE GRISE",
     "9": "GRITTI"
    },
-   "arrivee": [],
+   "arrivee": [
+    2,
+    3,
+    9,
+    1,
+    6
+   ],
    "ordre": [
     9,
     6,
