@@ -1093,7 +1093,7 @@
    "heure": "12:15",
    "distance": 1600,
    "discipline": "Plat",
-   "statut": "imminent",
+   "statut": "finished",
    "partants": 13,
    "noms": {
     "1": "KENZAL",
@@ -1110,7 +1110,13 @@
     "12": "MAPLE GIRL",
     "13": "BAWE ISLAND"
    },
-   "arrivee": [],
+   "arrivee": [
+    3,
+    6,
+    13,
+    11,
+    8
+   ],
    "ordre": [
     5,
     10,
@@ -1740,7 +1746,7 @@
    "heure": "12:31",
    "distance": 2400,
    "discipline": "Plat",
-   "statut": "before",
+   "statut": "finished",
    "partants": 15,
    "noms": {
     "1": "MALOULO",
@@ -1759,7 +1765,13 @@
     "14": "ROSA DEI VENTI",
     "15": "LIGHT MARC"
    },
-   "arrivee": [],
+   "arrivee": [
+    12,
+    14,
+    4,
+    13,
+    5
+   ],
    "ordre": [
     5,
     4,
